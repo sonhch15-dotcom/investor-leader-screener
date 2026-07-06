@@ -1,5 +1,7 @@
 const statusLabel = {
   buyable: "매수 가능",
+  review: "매수 검토",
+  strong_watch: "강한 감시",
   watch: "감시",
   excluded: "제외"
 };
@@ -25,6 +27,38 @@ function tag(text, className = "") {
 function percent(value) {
   if (value === null || value === undefined) return "-";
   return `${(value * 100).toFixed(1)}%`;
+}
+
+function tradingViewUrl(symbol) {
+  return `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(symbol)}`;
+}
+
+function yahooUrl(symbol) {
+  return `https://finance.yahoo.com/quote/${encodeURIComponent(symbol)}`;
+}
+
+function miniChart(row) {
+  const chart = row.chart ?? [];
+  if (chart.length < 2) return `<div class="mini-chart small">차트 데이터 없음</div>`;
+  const width = 320;
+  const height = 96;
+  const pad = 8;
+  const closes = chart.map((item) => item.close).filter(Number.isFinite);
+  const min = Math.min(...closes);
+  const max = Math.max(...closes);
+  const span = max - min || 1;
+  const points = chart.map((item, index) => {
+    const x = pad + (index / (chart.length - 1)) * (width - pad * 2);
+    const y = height - pad - ((item.close - min) / span) * (height - pad * 2);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  });
+  const area = `${pad},${height - pad} ${points.join(" ")} ${width - pad},${height - pad}`;
+  return `
+    <svg class="mini-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${row.symbol} price chart">
+      <polygon class="chart-fill" points="${area}"></polygon>
+      <polyline class="chart-line" points="${points.join(" ")}"></polyline>
+    </svg>
+  `;
 }
 
 function renderMarket(data) {
@@ -68,11 +102,16 @@ function card(row) {
       <div class="reasons">
         ${reasons.map((item) => `<div>${item}</div>`).join("")}
       </div>
+      ${miniChart(row)}
       <div class="tags">
         ${tag(statusLabel[row.status], row.status)}
         ${tag(setupLabel[row.setup.type])}
         ${(row.tags ?? []).slice(0, 4).map((item) => tag(item)).join("")}
         ${(row.warnings ?? []).slice(0, 3).map((item) => tag(item, "warn")).join("")}
+      </div>
+      <div class="links">
+        <a href="${tradingViewUrl(row.symbol)}" target="_blank" rel="noreferrer">TradingView</a>
+        <a href="${yahooUrl(row.symbol)}" target="_blank" rel="noreferrer">Yahoo</a>
       </div>
     </article>
   `;
@@ -80,11 +119,14 @@ function card(row) {
 
 function renderCards(data) {
   const buyable = data.rows.filter((row) => row.status === "buyable").slice(0, 10);
-  const watch = data.rows.filter((row) => row.status === "watch").slice(0, 10);
+  const review = data.rows.filter((row) => row.status === "review").slice(0, 10);
+  const strongWatch = data.rows.filter((row) => row.status === "strong_watch").slice(0, 10);
   document.getElementById("buyable-count").textContent = buyable.length;
-  document.getElementById("watch-count").textContent = watch.length;
+  document.getElementById("review-count").textContent = review.length;
+  document.getElementById("strong-watch-count").textContent = strongWatch.length;
   document.getElementById("buyable").innerHTML = buyable.length ? buyable.map(card).join("") : `<div class="card small">현재 매수 가능 후보가 없습니다.</div>`;
-  document.getElementById("watch").innerHTML = watch.length ? watch.map(card).join("") : `<div class="card small">현재 감시 후보가 없습니다.</div>`;
+  document.getElementById("review").innerHTML = review.length ? review.map(card).join("") : `<div class="card small">현재 매수 검토 후보가 없습니다.</div>`;
+  document.getElementById("strong-watch").innerHTML = strongWatch.length ? strongWatch.map(card).join("") : `<div class="card small">현재 강한 감시 후보가 없습니다.</div>`;
 }
 
 function rowHtml(row, index) {
@@ -92,7 +134,7 @@ function rowHtml(row, index) {
   return `
     <tr>
       <td class="num">${index + 1}</td>
-      <td><strong>${row.symbol}</strong><div class="small">${row.name}</div></td>
+      <td><strong>${row.symbol}</strong><div class="small">${row.name}</div><div class="small"><a href="${tradingViewUrl(row.symbol)}" target="_blank" rel="noreferrer">TradingView</a></div></td>
       <td>${tag(statusLabel[row.status], row.status)}</td>
       <td class="num">${row.score}</td>
       <td class="num">${row.scores.relative.total}</td>

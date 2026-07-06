@@ -384,5 +384,12 @@ function classify(row, market) {
     && row.setup.stopDistance <= 0.15) {
     return "buyable";
   }
+  if (row.score >= 80
+    && market.regime !== "매우 약함"
+    && row.setup.type !== "none"
+    && row.setup.stopDistance <= 0.15) {
+    return "review";
+  }
+  if (row.score >= 80) return "strong_watch";
   return "watch";
 }

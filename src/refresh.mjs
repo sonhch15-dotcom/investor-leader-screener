@@ -26,18 +26,41 @@ async function collectPrices(instruments) {
   return { priceMap, errors };
 }
 
+function compactChart(rows, days = 126) {
+  return rows.slice(-days).map((row) => ({
+    date: row.date,
+    close: Number(row.close?.toFixed?.(2) ?? row.close),
+    high: Number(row.high?.toFixed?.(2) ?? row.high),
+    low: Number(row.low?.toFixed?.(2) ?? row.low),
+    volume: row.volume
+  }));
+}
+
 async function main() {
   console.log(sample ? "Running with synthetic sample data." : "Running with live Yahoo Finance data.");
   const instruments = await buildUniverse({ sample });
   console.log(`Universe size: ${instruments.length}`);
   const { priceMap, errors } = await collectPrices(instruments);
   const results = scoreUniverse(instruments, priceMap);
+  const chartSymbols = new Set(
+    results.rows
+      .filter((row) => row.status !== "excluded")
+      .slice(0, 120)
+      .map((row) => row.symbol)
+  );
+  for (const row of results.rows) {
+    if (chartSymbols.has(row.symbol)) {
+      row.chart = compactChart(priceMap.get(row.symbol) ?? []);
+    }
+  }
   results.mode = sample ? "sample" : "live";
   results.universeSize = instruments.length;
   results.priceSeriesCount = priceMap.size;
   results.errors = errors;
   results.summary = {
     buyable: results.rows.filter((row) => row.status === "buyable").length,
+    review: results.rows.filter((row) => row.status === "review").length,
+    strongWatch: results.rows.filter((row) => row.status === "strong_watch").length,
     watch: results.rows.filter((row) => row.status === "watch").length,
     excluded: results.rows.filter((row) => row.status === "excluded").length
   };
