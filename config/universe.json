@@ -1,0 +1,61 @@
+{
+  "marketEtfs": [
+    { "symbol": "SPY", "name": "SPDR S&P 500 ETF", "group": "market", "tags": ["market"] },
+    { "symbol": "QQQ", "name": "Invesco QQQ Trust", "group": "market", "tags": ["growth", "technology"] },
+    { "symbol": "DIA", "name": "SPDR Dow Jones Industrial Average ETF", "group": "market", "tags": ["market"] },
+    { "symbol": "IWM", "name": "iShares Russell 2000 ETF", "group": "market", "tags": ["small-cap"] }
+  ],
+  "sectorEtfs": [
+    { "symbol": "XLK", "name": "Technology Select Sector SPDR", "sector": "Technology", "group": "sector", "tags": ["technology"] },
+    { "symbol": "XLC", "name": "Communication Services Select Sector SPDR", "sector": "Communication Services", "group": "sector", "tags": ["communication"] },
+    { "symbol": "XLY", "name": "Consumer Discretionary Select Sector SPDR", "sector": "Consumer Discretionary", "group": "sector", "tags": ["consumer"] },
+    { "symbol": "XLP", "name": "Consumer Staples Select Sector SPDR", "sector": "Consumer Staples", "group": "sector", "tags": ["defensive"] },
+    { "symbol": "XLE", "name": "Energy Select Sector SPDR", "sector": "Energy", "group": "sector", "tags": ["energy"] },
+    { "symbol": "XLF", "name": "Financial Select Sector SPDR", "sector": "Financials", "group": "sector", "tags": ["financials"] },
+    { "symbol": "XLV", "name": "Health Care Select Sector SPDR", "sector": "Health Care", "group": "sector", "tags": ["healthcare"] },
+    { "symbol": "XLI", "name": "Industrial Select Sector SPDR", "sector": "Industrials", "group": "sector", "tags": ["industrials"] },
+    { "symbol": "XLB", "name": "Materials Select Sector SPDR", "sector": "Materials", "group": "sector", "tags": ["materials"] },
+    { "symbol": "XLRE", "name": "Real Estate Select Sector SPDR", "sector": "Real Estate", "group": "sector", "tags": ["real-estate"] },
+    { "symbol": "XLU", "name": "Utilities Select Sector SPDR", "sector": "Utilities", "group": "sector", "tags": ["utilities"] }
+  ],
+  "themeEtfs": [
+    { "symbol": "SMH", "name": "VanEck Semiconductor ETF", "group": "theme", "tags": ["semiconductor"] },
+    { "symbol": "SOXX", "name": "iShares Semiconductor ETF", "group": "theme", "tags": ["semiconductor"] },
+    { "symbol": "AIQ", "name": "Global X Artificial Intelligence & Technology ETF", "group": "theme", "tags": ["ai"] },
+    { "symbol": "BOTZ", "name": "Global X Robotics & Artificial Intelligence ETF", "group": "theme", "tags": ["ai", "robotics"] },
+    { "symbol": "ITA", "name": "iShares U.S. Aerospace & Defense ETF", "group": "theme", "tags": ["defense"] },
+    { "symbol": "PPA", "name": "Invesco Aerospace & Defense ETF", "group": "theme", "tags": ["defense"] },
+    { "symbol": "GRID", "name": "First Trust Nasdaq Clean Edge Smart Grid Infrastructure ETF", "group": "theme", "tags": ["power", "infrastructure"] },
+    { "symbol": "PAVE", "name": "Global X U.S. Infrastructure Development ETF", "group": "theme", "tags": ["infrastructure"] },
+    { "symbol": "XBI", "name": "SPDR S&P Biotech ETF", "group": "theme", "tags": ["biotech"] },
+    { "symbol": "IBB", "name": "iShares Biotechnology ETF", "group": "theme", "tags": ["biotech"] },
+    { "symbol": "GLD", "name": "SPDR Gold Shares", "group": "theme", "tags": ["gold"] },
+    { "symbol": "IBIT", "name": "iShares Bitcoin Trust ETF", "group": "theme", "tags": ["bitcoin"] },
+    { "symbol": "BITO", "name": "ProShares Bitcoin Strategy ETF", "group": "theme", "tags": ["bitcoin"] }
+  ],
+  "leveragedEtfs": [
+    { "symbol": "TQQQ", "name": "ProShares UltraPro QQQ", "group": "leveraged", "underlying": "QQQ", "tags": ["growth", "technology"], "leveraged": true },
+    { "symbol": "QLD", "name": "ProShares Ultra QQQ", "group": "leveraged", "underlying": "QQQ", "tags": ["growth", "technology"], "leveraged": true },
+    { "symbol": "SOXL", "name": "Direxion Daily Semiconductor Bull 3X Shares", "group": "leveraged", "underlying": "SOXX", "tags": ["semiconductor"], "leveraged": true },
+    { "symbol": "USD", "name": "ProShares Ultra Semiconductors", "group": "leveraged", "underlying": "SOXX", "tags": ["semiconductor"], "leveraged": true },
+    { "symbol": "TECL", "name": "Direxion Daily Technology Bull 3X Shares", "group": "leveraged", "underlying": "XLK", "tags": ["technology"], "leveraged": true },
+    { "symbol": "UPRO", "name": "ProShares UltraPro S&P500", "group": "leveraged", "underlying": "SPY", "tags": ["market"], "leveraged": true }
+  ],
+  "seedStocks": [
+    { "symbol": "AAPL", "name": "Apple", "sector": "Technology", "tags": ["technology"] },
+    { "symbol": "MSFT", "name": "Microsoft", "sector": "Technology", "tags": ["technology", "ai"] },
+    { "symbol": "NVDA", "name": "NVIDIA", "sector": "Technology", "tags": ["semiconductor", "ai"] },
+    { "symbol": "AVGO", "name": "Broadcom", "sector": "Technology", "tags": ["semiconductor"] },
+    { "symbol": "AMD", "name": "Advanced Micro Devices", "sector": "Technology", "tags": ["semiconductor", "ai"] },
+    { "symbol": "AMZN", "name": "Amazon", "sector": "Consumer Discretionary", "tags": ["consumer", "cloud", "ai"] },
+    { "symbol": "META", "name": "Meta Platforms", "sector": "Communication Services", "tags": ["communication", "ai"] },
+    { "symbol": "GOOGL", "name": "Alphabet Class A", "sector": "Communication Services", "tags": ["communication", "ai"] },
+    { "symbol": "TSLA", "name": "Tesla", "sector": "Consumer Discretionary", "tags": ["ev"] },
+    { "symbol": "LLY", "name": "Eli Lilly", "sector": "Health Care", "tags": ["healthcare"] },
+    { "symbol": "JPM", "name": "JPMorgan Chase", "sector": "Financials", "tags": ["financials"] },
+    { "symbol": "XOM", "name": "Exxon Mobil", "sector": "Energy", "tags": ["energy"] },
+    { "symbol": "GE", "name": "GE Aerospace", "sector": "Industrials", "tags": ["industrials", "defense"] },
+    { "symbol": "PLTR", "name": "Palantir", "sector": "Technology", "tags": ["ai", "defense"] },
+    { "symbol": "ARM", "name": "Arm Holdings", "sector": "Technology", "tags": ["semiconductor", "ai"] }
+  ]
+}
