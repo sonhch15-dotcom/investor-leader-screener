@@ -40,7 +40,8 @@ function statusLabel(status) {
   return {
     new: "신규",
     hold: "보유",
-    sell_due: "50% 매도 점검"
+    extended: "50% 연장 보유",
+    sell_due: "잔여 매도 점검"
   }[status] ?? status;
 }
 
@@ -103,9 +104,9 @@ function renderSummary() {
       <small>6개월 + 주봉 연장 관리</small>
     </article>
     <article class="kpi">
-      <span>50% 매도 점검</span>
-      <strong>${s.sellDueCount}개</strong>
-      <small>6개월 도달 묶음</small>
+      <span>연장/매도 점검</span>
+      <strong>${s.extendedCount ?? 0}/${s.sellDueCount}개</strong>
+      <small>연장 보유 / 매도 필요</small>
     </article>
     <article class="kpi">
       <span>보유 평균 수익률</span>

@@ -29,6 +29,12 @@ function addMonths(dateString, months) {
   return date.toISOString().slice(0, 10);
 }
 
+function addDays(dateString, days) {
+  const date = new Date(`${dateString}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
+}
+
 function completedMonths(startDate, endDate) {
   const start = new Date(`${startDate}T00:00:00Z`);
   const end = new Date(`${endDate}T00:00:00Z`);
@@ -97,6 +103,78 @@ function weeklyTrend(priceRows) {
     ma10: round(latest?.ma10, 2),
     rsi14: round(latest?.rsi14, 1),
     alive: Boolean(alive)
+  };
+}
+
+function weeklyOnOrBefore(rows, date) {
+  return rows.filter((row) => row.date <= date).at(-1) ?? null;
+}
+
+function weeklyIndexAfter(rows, date) {
+  const index = rows.findIndex((row) => row.date > date);
+  return index === -1 ? rows.length : index;
+}
+
+function aliveWeekly(row) {
+  return row
+    && Number.isFinite(row.ma10)
+    && Number.isFinite(row.rsi14)
+    && row.close >= row.ma10
+    && row.rsi14 >= 50;
+}
+
+function consecutiveBelow10w(rows, index) {
+  return index > 0
+    && Number.isFinite(rows[index].ma10)
+    && Number.isFinite(rows[index - 1].ma10)
+    && rows[index].close < rows[index].ma10
+    && rows[index - 1].close < rows[index - 1].ma10;
+}
+
+function extensionDecision(priceRows, halfSellDate, maxExitDate, currentAsOf) {
+  if (currentAsOf < halfSellDate) {
+    return { phase: "pre_half", remainingWeight: 1, stopDate: null, stopReason: null };
+  }
+
+  const weekly = weeklyRows(priceRows);
+  const halfWeek = weeklyOnOrBefore(weekly, halfSellDate);
+  if (!aliveWeekly(halfWeek)) {
+    return {
+      phase: "exit_at_half",
+      remainingWeight: 0,
+      stopDate: halfSellDate,
+      stopReason: "6개월 시점 주봉 10주선+RSI 조건 미충족"
+    };
+  }
+
+  const startIndex = weeklyIndexAfter(weekly, halfSellDate);
+  for (let index = startIndex; index < weekly.length; index += 1) {
+    const row = weekly[index];
+    if (row.date > currentAsOf || row.date > maxExitDate) break;
+    if (consecutiveBelow10w(weekly, index)) {
+      return {
+        phase: "trend_exit",
+        remainingWeight: 0,
+        stopDate: row.date,
+        stopReason: "10주선 2주 연속 이탈"
+      };
+    }
+  }
+
+  if (currentAsOf >= maxExitDate) {
+    return {
+      phase: "max_exit",
+      remainingWeight: 0,
+      stopDate: maxExitDate,
+      stopReason: "최대 12개월 도달"
+    };
+  }
+
+  return {
+    phase: "extended",
+    remainingWeight: 0.5,
+    stopDate: null,
+    stopReason: null
   };
 }
 
@@ -238,6 +316,19 @@ function latestSelectionCohorts(strategy, currentAsOf, currentBuys) {
   return [...prior, currentCohort(currentAsOf, currentBuys)].filter((cohort) => cohort.rows?.length);
 }
 
+function portfolioCohorts(strategy, currentAsOf, currentBuys) {
+  const currentMonth = monthKey(currentAsOf);
+  const timeline = strategy?.selectionTimeline ?? [];
+  const activeOrActionable = timeline.filter((cohort) => (
+    cohort?.rows?.length
+    && cohort.entryDate
+    && monthKey(cohort.asOf) !== currentMonth
+    && cohort.entryDate <= currentAsOf
+    && addMonths(cohort.entryDate, 12) >= addDays(currentAsOf, -21)
+  ));
+  return [...activeOrActionable, currentCohort(currentAsOf, currentBuys)].filter((cohort) => cohort.rows?.length);
+}
+
 function latestSelectionCohortsFromExisting(existingDashboard, currentAsOf, currentBuys) {
   const currentMonth = monthKey(currentAsOf);
   const prior = (existingDashboard?.portfolio?.cohorts ?? [])
@@ -260,7 +351,7 @@ async function fetchPrices(symbols) {
   return { priceMap, errors };
 }
 
-function holdingAction({ status, weekly, halfSellDate, maxExitDate }) {
+function holdingAction({ status, weekly, halfSellDate, maxExitDate, extension }) {
   if (status === "new") {
     return {
       actionLabel: "월간 후보 고정",
@@ -273,6 +364,20 @@ function holdingAction({ status, weekly, halfSellDate, maxExitDate }) {
       actionLabel: "보유",
       nextAction: `${halfSellDate} 50% 매도 점검`,
       remainingSellRule: "6개월 도달 전까지는 주간 탈락만으로 매도하지 않음"
+    };
+  }
+  if (status === "extended") {
+    return {
+      actionLabel: "잔여 50% 연장 보유",
+      nextAction: "주봉 추세 유지 여부 점검",
+      remainingSellRule: `남은 50%는 10주선 2주 연속 이탈 또는 ${maxExitDate} 도달 시 매도`
+    };
+  }
+  if (extension?.stopReason) {
+    return {
+      actionLabel: "잔여 50% 매도",
+      nextAction: `${extension.stopDate} 기준 잔여분 매도`,
+      remainingSellRule: extension.stopReason
     };
   }
   if (weekly.alive) {
@@ -303,15 +408,26 @@ function buildHoldings(cohorts, priceMap, screener, currentAsOf) {
       const halfSellDate = addMonths(cohort.entryDate, 6);
       const maxExitDate = addMonths(cohort.entryDate, 12);
       const ageMonths = completedMonths(cohort.entryDate, currentAsOf);
-      const status = cohort.current ? "new" : currentAsOf >= halfSellDate ? "sell_due" : "hold";
       const weekly = weeklyTrend(priceRows);
-      const action = holdingAction({ status, weekly, halfSellDate, maxExitDate });
+      const extension = extensionDecision(priceRows, halfSellDate, maxExitDate, currentAsOf);
+      const status = cohort.current
+        ? "new"
+        : extension.phase === "pre_half"
+          ? "hold"
+          : extension.phase === "extended"
+            ? "extended"
+            : "sell_due";
+      const action = holdingAction({ status, weekly, halfSellDate, maxExitDate, extension });
       rows.push({
         cohort: monthKey(cohort.asOf),
         asOf: cohort.asOf,
         entryDate: cohort.entryDate,
         halfSellDate,
         maxExitDate,
+        remainingWeight: extension.remainingWeight,
+        extensionPhase: extension.phase,
+        stopDate: extension.stopDate,
+        stopReason: extension.stopReason,
         symbol: item.symbol,
         name: currentRow?.name ?? item.name ?? item.symbol,
         sector: currentRow?.sector ?? item.sector,
@@ -339,6 +455,7 @@ function portfolioSummary(holdings) {
   return {
     holdingCount: holdings.length,
     newCount: holdings.filter((row) => row.status === "new").length,
+    extendedCount: holdings.filter((row) => row.status === "extended").length,
     sellDueCount: holdings.filter((row) => row.status === "sell_due").length,
     averageReturn: round(
       invested.reduce((sum, row) => sum + row.currentReturn, 0) / Math.max(1, invested.length),
@@ -636,7 +753,7 @@ async function main() {
   const leaders = currentLeaders(screener);
   const currentBuys = monthlyLockedBuyCandidates(screener, existingDashboard, currentAsOf);
   const cohorts = strategy5y?.selectionTimeline?.length
-    ? latestSelectionCohorts(strategy5y, currentAsOf, currentBuys)
+    ? portfolioCohorts(strategy5y, currentAsOf, currentBuys)
     : latestSelectionCohortsFromExisting(existingDashboard, currentAsOf, currentBuys);
   if (!cohorts.length) {
     throw new Error("No strategy cohorts available. Run monthly-buy-rule-test.mjs --years 5 once or keep data/strategy-dashboard.json.");

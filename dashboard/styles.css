@@ -350,6 +350,11 @@ tr:last-child td {
   background: var(--green);
 }
 
+.tag.extended {
+  color: #fff;
+  background: var(--blue);
+}
+
 .tag.sell_due {
   color: #fff;
   background: var(--amber);

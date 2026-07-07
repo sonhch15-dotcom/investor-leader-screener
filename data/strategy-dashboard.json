@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T22:53:02.856Z",
+  "generatedAt": "2026-07-07T23:18:30.632Z",
   "asOf": "2026-07-06",
   "sourceGeneratedAt": "2026-07-07T08:27:40.378Z",
   "strategy": {
@@ -1909,6 +1909,286 @@
   "portfolio": {
     "cohorts": [
       {
+        "asOf": "2025-06-27",
+        "entryDate": "2025-06-30",
+        "leadingGroups": [
+          "Electronic Components",
+          "Industrials",
+          "Semiconductors",
+          "Communication Services",
+          "Financials"
+        ],
+        "symbols": [
+          "HWM",
+          "STX"
+        ],
+        "groups": [
+          "Industrials",
+          "Electronic Components"
+        ],
+        "rows": [
+          {
+            "symbol": "HWM",
+            "name": "Howmet Aerospace",
+            "sector": "Industrials",
+            "score": 88.02,
+            "rank": 1
+          },
+          {
+            "symbol": "STX",
+            "name": "Seagate Technology",
+            "sector": "Electronic Components",
+            "score": 75.93,
+            "rank": 29
+          }
+        ]
+      },
+      {
+        "asOf": "2025-07-25",
+        "entryDate": "2025-07-28",
+        "leadingGroups": [
+          "Industrials",
+          "Consumer Discretionary",
+          "Electronic Components",
+          "Financials",
+          "Software"
+        ],
+        "symbols": [
+          "GE",
+          "TPR"
+        ],
+        "groups": [
+          "Industrials",
+          "Consumer Discretionary"
+        ],
+        "rows": [
+          {
+            "symbol": "GE",
+            "name": "GE Aerospace",
+            "sector": "Industrials",
+            "score": 85.72,
+            "rank": 1
+          },
+          {
+            "symbol": "TPR",
+            "name": "Tapestry, Inc.",
+            "sector": "Consumer Discretionary",
+            "score": 82.73,
+            "rank": 6
+          }
+        ]
+      },
+      {
+        "asOf": "2025-08-29",
+        "entryDate": "2025-09-02",
+        "leadingGroups": [
+          "Consumer Discretionary",
+          "Electronic Components",
+          "Communication Services",
+          "Materials",
+          "Semiconductors"
+        ],
+        "symbols": [
+          "WYNN",
+          "WDC"
+        ],
+        "groups": [
+          "Consumer Discretionary",
+          "Electronic Components"
+        ],
+        "rows": [
+          {
+            "symbol": "WYNN",
+            "name": "Wynn Resorts",
+            "sector": "Consumer Discretionary",
+            "score": 86.62,
+            "rank": 2
+          },
+          {
+            "symbol": "WDC",
+            "name": "Western Digital",
+            "sector": "Electronic Components",
+            "score": 75.93,
+            "rank": 24
+          }
+        ]
+      },
+      {
+        "asOf": "2025-09-26",
+        "entryDate": "2025-09-29",
+        "leadingGroups": [
+          "Electronic Components",
+          "Semiconductors",
+          "Software",
+          "Communication Services",
+          "Consumer Discretionary"
+        ],
+        "symbols": [
+          "WDC",
+          "INTC"
+        ],
+        "groups": [
+          "Electronic Components",
+          "Semiconductors"
+        ],
+        "rows": [
+          {
+            "symbol": "WDC",
+            "name": "Western Digital",
+            "sector": "Electronic Components",
+            "score": 80.23,
+            "rank": 7
+          },
+          {
+            "symbol": "INTC",
+            "name": "Intel",
+            "sector": "Semiconductors",
+            "score": 78.09,
+            "rank": 17
+          }
+        ]
+      },
+      {
+        "asOf": "2025-10-31",
+        "entryDate": "2025-11-03",
+        "leadingGroups": [
+          "Electronic Components",
+          "Semiconductors",
+          "Industrials",
+          "Health Care",
+          "Software"
+        ],
+        "symbols": [
+          "AMD",
+          "WDC"
+        ],
+        "groups": [
+          "Semiconductors",
+          "Electronic Components"
+        ],
+        "rows": [
+          {
+            "symbol": "AMD",
+            "name": "Advanced Micro Devices",
+            "sector": "Semiconductors",
+            "score": 79.94,
+            "rank": 6
+          },
+          {
+            "symbol": "WDC",
+            "name": "Western Digital",
+            "sector": "Electronic Components",
+            "score": 78.39,
+            "rank": 8
+          }
+        ]
+      },
+      {
+        "asOf": "2025-11-28",
+        "entryDate": "2025-12-01",
+        "leadingGroups": [
+          "Health Care",
+          "Electronic Components",
+          "Biotechnology",
+          "Energy",
+          "Semiconductors"
+        ],
+        "symbols": [
+          "LLY",
+          "SNDK"
+        ],
+        "groups": [
+          "Health Care",
+          "Electronic Components"
+        ],
+        "rows": [
+          {
+            "symbol": "LLY",
+            "name": "Lilly (Eli)",
+            "sector": "Health Care",
+            "score": 89.18,
+            "rank": 1
+          },
+          {
+            "symbol": "SNDK",
+            "name": "Sandisk",
+            "sector": "Electronic Components",
+            "score": 73.64,
+            "rank": 49
+          }
+        ]
+      },
+      {
+        "asOf": "2025-12-26",
+        "entryDate": "2025-12-29",
+        "leadingGroups": [
+          "Electronic Components",
+          "Health Care",
+          "Financials",
+          "Industrials",
+          "Materials"
+        ],
+        "symbols": [
+          "BIIB",
+          "STX"
+        ],
+        "groups": [
+          "Health Care",
+          "Electronic Components"
+        ],
+        "rows": [
+          {
+            "symbol": "BIIB",
+            "name": "Biogen",
+            "sector": "Health Care",
+            "score": 84.37,
+            "rank": 2
+          },
+          {
+            "symbol": "STX",
+            "name": "Seagate Technology",
+            "sector": "Electronic Components",
+            "score": 79.56,
+            "rank": 21
+          }
+        ]
+      },
+      {
+        "asOf": "2026-01-30",
+        "entryDate": "2026-02-02",
+        "leadingGroups": [
+          "Energy",
+          "Electronic Components",
+          "Materials",
+          "Industrials",
+          "Consumer Staples"
+        ],
+        "symbols": [
+          "XOM",
+          "STX"
+        ],
+        "groups": [
+          "Energy",
+          "Electronic Components"
+        ],
+        "rows": [
+          {
+            "symbol": "XOM",
+            "name": "ExxonMobil",
+            "sector": "Energy",
+            "score": 86.32,
+            "rank": 1
+          },
+          {
+            "symbol": "STX",
+            "name": "Seagate Technology",
+            "sector": "Electronic Components",
+            "score": 78.05,
+            "rank": 31
+          }
+        ]
+      },
+      {
         "asOf": "2026-02-27",
         "entryDate": "2026-03-02",
         "leadingGroups": [
@@ -2119,11 +2399,527 @@
     ],
     "holdings": [
       {
+        "cohort": "2025-06",
+        "asOf": "2025-06-27",
+        "entryDate": "2025-06-30",
+        "halfSellDate": "2025-12-30",
+        "maxExitDate": "2026-06-30",
+        "remainingWeight": 0,
+        "extensionPhase": "trend_exit",
+        "stopDate": "2026-03-27",
+        "stopReason": "10주선 2주 연속 이탈",
+        "symbol": "HWM",
+        "name": "Howmet Aerospace",
+        "sector": "Industrials",
+        "score": 78.39,
+        "entryPrice": 185.71,
+        "currentPrice": 277.91,
+        "currentReturn": 0.4965,
+        "ageMonths": 12,
+        "status": "sell_due",
+        "weeklyTrend": {
+          "date": "2026-07-07",
+          "close": 275.43,
+          "ma10": 265.46,
+          "rsi14": 66,
+          "alive": true
+        },
+        "actionLabel": "잔여 50% 매도",
+        "nextAction": "2026-03-27 기준 잔여분 매도",
+        "remainingSellRule": "10주선 2주 연속 이탈",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=HWM",
+        "yahooUrl": "https://finance.yahoo.com/quote/HWM"
+      },
+      {
+        "cohort": "2025-06",
+        "asOf": "2025-06-27",
+        "entryDate": "2025-06-30",
+        "halfSellDate": "2025-12-30",
+        "maxExitDate": "2026-06-30",
+        "remainingWeight": 0,
+        "extensionPhase": "max_exit",
+        "stopDate": "2026-06-30",
+        "stopReason": "최대 12개월 도달",
+        "symbol": "STX",
+        "name": "Seagate Technology",
+        "sector": "Electronic Components",
+        "score": 73.86,
+        "entryPrice": 143.15,
+        "currentPrice": 868.26,
+        "currentReturn": 5.0655,
+        "ageMonths": 12,
+        "status": "sell_due",
+        "weeklyTrend": {
+          "date": "2026-07-07",
+          "close": 827.64,
+          "ma10": 866.27,
+          "rsi14": 70.7,
+          "alive": false
+        },
+        "actionLabel": "잔여 50% 매도",
+        "nextAction": "2026-06-30 기준 잔여분 매도",
+        "remainingSellRule": "최대 12개월 도달",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=STX",
+        "yahooUrl": "https://finance.yahoo.com/quote/STX"
+      },
+      {
+        "cohort": "2025-07",
+        "asOf": "2025-07-25",
+        "entryDate": "2025-07-28",
+        "halfSellDate": "2026-01-28",
+        "maxExitDate": "2026-07-28",
+        "remainingWeight": 0,
+        "extensionPhase": "exit_at_half",
+        "stopDate": "2026-01-28",
+        "stopReason": "6개월 시점 주봉 10주선+RSI 조건 미충족",
+        "symbol": "GE",
+        "name": "GE Aerospace",
+        "sector": "Industrials",
+        "score": 80.47,
+        "entryPrice": 269.24,
+        "currentPrice": 378.68,
+        "currentReturn": 0.4065,
+        "ageMonths": 11,
+        "status": "sell_due",
+        "weeklyTrend": {
+          "date": "2026-07-07",
+          "close": 366.98,
+          "ma10": 333.6,
+          "rsi14": 73.3,
+          "alive": true
+        },
+        "actionLabel": "잔여 50% 매도",
+        "nextAction": "2026-01-28 기준 잔여분 매도",
+        "remainingSellRule": "6개월 시점 주봉 10주선+RSI 조건 미충족",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=GE",
+        "yahooUrl": "https://finance.yahoo.com/quote/GE"
+      },
+      {
+        "cohort": "2025-07",
+        "asOf": "2025-07-25",
+        "entryDate": "2025-07-28",
+        "halfSellDate": "2026-01-28",
+        "maxExitDate": "2026-07-28",
+        "remainingWeight": 0,
+        "extensionPhase": "trend_exit",
+        "stopDate": "2026-03-20",
+        "stopReason": "10주선 2주 연속 이탈",
+        "symbol": "TPR",
+        "name": "Tapestry, Inc.",
+        "sector": "Consumer Discretionary",
+        "score": 46.26,
+        "entryPrice": 109.02,
+        "currentPrice": 145.49,
+        "currentReturn": 0.3346,
+        "ageMonths": 11,
+        "status": "sell_due",
+        "weeklyTrend": {
+          "date": "2026-07-07",
+          "close": 146.3,
+          "ma10": 141.27,
+          "rsi14": 53.5,
+          "alive": true
+        },
+        "actionLabel": "잔여 50% 매도",
+        "nextAction": "2026-03-20 기준 잔여분 매도",
+        "remainingSellRule": "10주선 2주 연속 이탈",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=TPR",
+        "yahooUrl": "https://finance.yahoo.com/quote/TPR"
+      },
+      {
+        "cohort": "2025-08",
+        "asOf": "2025-08-29",
+        "entryDate": "2025-09-02",
+        "halfSellDate": "2026-03-02",
+        "maxExitDate": "2026-09-02",
+        "remainingWeight": 0,
+        "extensionPhase": "exit_at_half",
+        "stopDate": "2026-03-02",
+        "stopReason": "6개월 시점 주봉 10주선+RSI 조건 미충족",
+        "symbol": "WYNN",
+        "name": "Wynn Resorts",
+        "sector": "Consumer Discretionary",
+        "score": 21.5,
+        "entryPrice": 124.61,
+        "currentPrice": 95.89,
+        "currentReturn": -0.2305,
+        "ageMonths": 10,
+        "status": "sell_due",
+        "weeklyTrend": {
+          "date": "2026-07-07",
+          "close": 96.35,
+          "ma10": 100.58,
+          "rsi14": 44,
+          "alive": false
+        },
+        "actionLabel": "잔여 50% 매도",
+        "nextAction": "2026-03-02 기준 잔여분 매도",
+        "remainingSellRule": "6개월 시점 주봉 10주선+RSI 조건 미충족",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=WYNN",
+        "yahooUrl": "https://finance.yahoo.com/quote/WYNN"
+      },
+      {
+        "cohort": "2025-08",
+        "asOf": "2025-08-29",
+        "entryDate": "2025-09-02",
+        "halfSellDate": "2026-03-02",
+        "maxExitDate": "2026-09-02",
+        "remainingWeight": 0.5,
+        "extensionPhase": "extended",
+        "stopDate": null,
+        "stopReason": null,
+        "symbol": "WDC",
+        "name": "Western Digital",
+        "sector": "Electronic Components",
+        "score": 71.03,
+        "entryPrice": 81.69,
+        "currentPrice": 577.46,
+        "currentReturn": 6.069,
+        "ageMonths": 10,
+        "status": "extended",
+        "weeklyTrend": {
+          "date": "2026-07-07",
+          "close": 532.1,
+          "ma10": 545.54,
+          "rsi14": 66.8,
+          "alive": false
+        },
+        "actionLabel": "잔여 50% 연장 보유",
+        "nextAction": "주봉 추세 유지 여부 점검",
+        "remainingSellRule": "남은 50%는 10주선 2주 연속 이탈 또는 2026-09-02 도달 시 매도",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=WDC",
+        "yahooUrl": "https://finance.yahoo.com/quote/WDC"
+      },
+      {
+        "cohort": "2025-09",
+        "asOf": "2025-09-26",
+        "entryDate": "2025-09-29",
+        "halfSellDate": "2026-03-29",
+        "maxExitDate": "2026-09-29",
+        "remainingWeight": 0.5,
+        "extensionPhase": "extended",
+        "stopDate": null,
+        "stopReason": null,
+        "symbol": "WDC",
+        "name": "Western Digital",
+        "sector": "Electronic Components",
+        "score": 71.03,
+        "entryPrice": 116.56,
+        "currentPrice": 577.46,
+        "currentReturn": 3.9542,
+        "ageMonths": 9,
+        "status": "extended",
+        "weeklyTrend": {
+          "date": "2026-07-07",
+          "close": 532.1,
+          "ma10": 545.54,
+          "rsi14": 66.8,
+          "alive": false
+        },
+        "actionLabel": "잔여 50% 연장 보유",
+        "nextAction": "주봉 추세 유지 여부 점검",
+        "remainingSellRule": "남은 50%는 10주선 2주 연속 이탈 또는 2026-09-29 도달 시 매도",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=WDC",
+        "yahooUrl": "https://finance.yahoo.com/quote/WDC"
+      },
+      {
+        "cohort": "2025-09",
+        "asOf": "2025-09-26",
+        "entryDate": "2025-09-29",
+        "halfSellDate": "2026-03-29",
+        "maxExitDate": "2026-09-29",
+        "remainingWeight": 0,
+        "extensionPhase": "exit_at_half",
+        "stopDate": "2026-03-29",
+        "stopReason": "6개월 시점 주봉 10주선+RSI 조건 미충족",
+        "symbol": "INTC",
+        "name": "Intel",
+        "sector": "Semiconductors",
+        "score": 71.79,
+        "entryPrice": 34.48,
+        "currentPrice": 122.2,
+        "currentReturn": 2.5441,
+        "ageMonths": 9,
+        "status": "sell_due",
+        "weeklyTrend": {
+          "date": "2026-07-07",
+          "close": 110.39,
+          "ma10": 118.5,
+          "rsi14": 66.6,
+          "alive": false
+        },
+        "actionLabel": "잔여 50% 매도",
+        "nextAction": "2026-03-29 기준 잔여분 매도",
+        "remainingSellRule": "6개월 시점 주봉 10주선+RSI 조건 미충족",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=INTC",
+        "yahooUrl": "https://finance.yahoo.com/quote/INTC"
+      },
+      {
+        "cohort": "2025-10",
+        "asOf": "2025-10-31",
+        "entryDate": "2025-11-03",
+        "halfSellDate": "2026-05-03",
+        "maxExitDate": "2026-11-03",
+        "remainingWeight": 0.5,
+        "extensionPhase": "extended",
+        "stopDate": null,
+        "stopReason": null,
+        "symbol": "AMD",
+        "name": "Advanced Micro Devices",
+        "sector": "Semiconductors",
+        "score": 75.53,
+        "entryPrice": 259.65,
+        "currentPrice": 552.05,
+        "currentReturn": 1.1261,
+        "ageMonths": 8,
+        "status": "extended",
+        "weeklyTrend": {
+          "date": "2026-07-07",
+          "close": 516.11,
+          "ma10": 493.37,
+          "rsi14": 79.7,
+          "alive": true
+        },
+        "actionLabel": "잔여 50% 연장 보유",
+        "nextAction": "주봉 추세 유지 여부 점검",
+        "remainingSellRule": "남은 50%는 10주선 2주 연속 이탈 또는 2026-11-03 도달 시 매도",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=AMD",
+        "yahooUrl": "https://finance.yahoo.com/quote/AMD"
+      },
+      {
+        "cohort": "2025-10",
+        "asOf": "2025-10-31",
+        "entryDate": "2025-11-03",
+        "halfSellDate": "2026-05-03",
+        "maxExitDate": "2026-11-03",
+        "remainingWeight": 0.5,
+        "extensionPhase": "extended",
+        "stopDate": null,
+        "stopReason": null,
+        "symbol": "WDC",
+        "name": "Western Digital",
+        "sector": "Electronic Components",
+        "score": 71.03,
+        "entryPrice": 157.78,
+        "currentPrice": 577.46,
+        "currentReturn": 2.66,
+        "ageMonths": 8,
+        "status": "extended",
+        "weeklyTrend": {
+          "date": "2026-07-07",
+          "close": 532.1,
+          "ma10": 545.54,
+          "rsi14": 66.8,
+          "alive": false
+        },
+        "actionLabel": "잔여 50% 연장 보유",
+        "nextAction": "주봉 추세 유지 여부 점검",
+        "remainingSellRule": "남은 50%는 10주선 2주 연속 이탈 또는 2026-11-03 도달 시 매도",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=WDC",
+        "yahooUrl": "https://finance.yahoo.com/quote/WDC"
+      },
+      {
+        "cohort": "2025-11",
+        "asOf": "2025-11-28",
+        "entryDate": "2025-12-01",
+        "halfSellDate": "2026-06-01",
+        "maxExitDate": "2026-12-01",
+        "remainingWeight": 0.5,
+        "extensionPhase": "extended",
+        "stopDate": null,
+        "stopReason": null,
+        "symbol": "LLY",
+        "name": "Lilly (Eli)",
+        "sector": "Health Care",
+        "score": 75.87,
+        "entryPrice": 1054.31,
+        "currentPrice": 1200.06,
+        "currentReturn": 0.1382,
+        "ageMonths": 7,
+        "status": "extended",
+        "weeklyTrend": {
+          "date": "2026-07-07",
+          "close": 1235.56,
+          "ma10": 1114.23,
+          "rsi14": 79.5,
+          "alive": true
+        },
+        "actionLabel": "잔여 50% 연장 보유",
+        "nextAction": "주봉 추세 유지 여부 점검",
+        "remainingSellRule": "남은 50%는 10주선 2주 연속 이탈 또는 2026-12-01 도달 시 매도",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=LLY",
+        "yahooUrl": "https://finance.yahoo.com/quote/LLY"
+      },
+      {
+        "cohort": "2025-11",
+        "asOf": "2025-11-28",
+        "entryDate": "2025-12-01",
+        "halfSellDate": "2026-06-01",
+        "maxExitDate": "2026-12-01",
+        "remainingWeight": 0.5,
+        "extensionPhase": "extended",
+        "stopDate": null,
+        "stopReason": null,
+        "symbol": "SNDK",
+        "name": "Sandisk",
+        "sector": "Electronic Components",
+        "score": 71.76,
+        "entryPrice": 210.17,
+        "currentPrice": 1744.43,
+        "currentReturn": 7.3001,
+        "ageMonths": 7,
+        "status": "extended",
+        "weeklyTrend": {
+          "date": "2026-07-07",
+          "close": 1617.7,
+          "ma10": 1732.12,
+          "rsi14": 67.4,
+          "alive": false
+        },
+        "actionLabel": "잔여 50% 연장 보유",
+        "nextAction": "주봉 추세 유지 여부 점검",
+        "remainingSellRule": "남은 50%는 10주선 2주 연속 이탈 또는 2026-12-01 도달 시 매도",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=SNDK",
+        "yahooUrl": "https://finance.yahoo.com/quote/SNDK"
+      },
+      {
+        "cohort": "2025-12",
+        "asOf": "2025-12-26",
+        "entryDate": "2025-12-29",
+        "halfSellDate": "2026-06-29",
+        "maxExitDate": "2026-12-29",
+        "remainingWeight": 0.5,
+        "extensionPhase": "extended",
+        "stopDate": null,
+        "stopReason": null,
+        "symbol": "BIIB",
+        "name": "Biogen",
+        "sector": "Health Care",
+        "score": 68.87,
+        "entryPrice": 176.83,
+        "currentPrice": 208.46,
+        "currentReturn": 0.1789,
+        "ageMonths": 6,
+        "status": "extended",
+        "weeklyTrend": {
+          "date": "2026-07-07",
+          "close": 205.7,
+          "ma10": 200.6,
+          "rsi14": 71.1,
+          "alive": true
+        },
+        "actionLabel": "잔여 50% 연장 보유",
+        "nextAction": "주봉 추세 유지 여부 점검",
+        "remainingSellRule": "남은 50%는 10주선 2주 연속 이탈 또는 2026-12-29 도달 시 매도",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=BIIB",
+        "yahooUrl": "https://finance.yahoo.com/quote/BIIB"
+      },
+      {
+        "cohort": "2025-12",
+        "asOf": "2025-12-26",
+        "entryDate": "2025-12-29",
+        "halfSellDate": "2026-06-29",
+        "maxExitDate": "2026-12-29",
+        "remainingWeight": 0.5,
+        "extensionPhase": "extended",
+        "stopDate": null,
+        "stopReason": null,
+        "symbol": "STX",
+        "name": "Seagate Technology",
+        "sector": "Electronic Components",
+        "score": 73.86,
+        "entryPrice": 280.61,
+        "currentPrice": 868.26,
+        "currentReturn": 2.0942,
+        "ageMonths": 6,
+        "status": "extended",
+        "weeklyTrend": {
+          "date": "2026-07-07",
+          "close": 827.64,
+          "ma10": 866.27,
+          "rsi14": 70.7,
+          "alive": false
+        },
+        "actionLabel": "잔여 50% 연장 보유",
+        "nextAction": "주봉 추세 유지 여부 점검",
+        "remainingSellRule": "남은 50%는 10주선 2주 연속 이탈 또는 2026-12-29 도달 시 매도",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=STX",
+        "yahooUrl": "https://finance.yahoo.com/quote/STX"
+      },
+      {
+        "cohort": "2026-01",
+        "asOf": "2026-01-30",
+        "entryDate": "2026-02-02",
+        "halfSellDate": "2026-08-02",
+        "maxExitDate": "2027-02-02",
+        "remainingWeight": 1,
+        "extensionPhase": "pre_half",
+        "stopDate": null,
+        "stopReason": null,
+        "symbol": "XOM",
+        "name": "ExxonMobil",
+        "sector": "Energy",
+        "score": 24.26,
+        "entryPrice": 136.56,
+        "currentPrice": 136.44,
+        "currentReturn": -0.0009,
+        "ageMonths": 5,
+        "status": "hold",
+        "weeklyTrend": {
+          "date": "2026-07-07",
+          "close": 141.69,
+          "ma10": 145.18,
+          "rsi14": 38.6,
+          "alive": false
+        },
+        "actionLabel": "보유",
+        "nextAction": "2026-08-02 50% 매도 점검",
+        "remainingSellRule": "6개월 도달 전까지는 주간 탈락만으로 매도하지 않음",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=XOM",
+        "yahooUrl": "https://finance.yahoo.com/quote/XOM"
+      },
+      {
+        "cohort": "2026-01",
+        "asOf": "2026-01-30",
+        "entryDate": "2026-02-02",
+        "halfSellDate": "2026-08-02",
+        "maxExitDate": "2027-02-02",
+        "remainingWeight": 1,
+        "extensionPhase": "pre_half",
+        "stopDate": null,
+        "stopReason": null,
+        "symbol": "STX",
+        "name": "Seagate Technology",
+        "sector": "Electronic Components",
+        "score": 73.86,
+        "entryPrice": 431.89,
+        "currentPrice": 868.26,
+        "currentReturn": 1.0104,
+        "ageMonths": 5,
+        "status": "hold",
+        "weeklyTrend": {
+          "date": "2026-07-07",
+          "close": 827.64,
+          "ma10": 866.27,
+          "rsi14": 70.7,
+          "alive": false
+        },
+        "actionLabel": "보유",
+        "nextAction": "2026-08-02 50% 매도 점검",
+        "remainingSellRule": "6개월 도달 전까지는 주간 탈락만으로 매도하지 않음",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=STX",
+        "yahooUrl": "https://finance.yahoo.com/quote/STX"
+      },
+      {
         "cohort": "2026-02",
         "asOf": "2026-02-27",
         "entryDate": "2026-03-02",
         "halfSellDate": "2026-09-02",
         "maxExitDate": "2027-03-02",
+        "remainingWeight": 1,
+        "extensionPhase": "pre_half",
+        "stopDate": null,
+        "stopReason": null,
         "symbol": "TPL",
         "name": "Texas Pacific Land Corporation",
         "sector": "Energy",
@@ -2152,6 +2948,10 @@
         "entryDate": "2026-03-02",
         "halfSellDate": "2026-09-02",
         "maxExitDate": "2027-03-02",
+        "remainingWeight": 1,
+        "extensionPhase": "pre_half",
+        "stopDate": null,
+        "stopReason": null,
         "symbol": "GNRC",
         "name": "Generac",
         "sector": "Industrials",
@@ -2180,6 +2980,10 @@
         "entryDate": "2026-03-30",
         "halfSellDate": "2026-09-30",
         "maxExitDate": "2027-03-30",
+        "remainingWeight": 1,
+        "extensionPhase": "pre_half",
+        "stopDate": null,
+        "stopReason": null,
         "symbol": "XOM",
         "name": "ExxonMobil",
         "sector": "Energy",
@@ -2208,6 +3012,10 @@
         "entryDate": "2026-03-30",
         "halfSellDate": "2026-09-30",
         "maxExitDate": "2027-03-30",
+        "remainingWeight": 1,
+        "extensionPhase": "pre_half",
+        "stopDate": null,
+        "stopReason": null,
         "symbol": "ETR",
         "name": "Entergy",
         "sector": "Utilities",
@@ -2236,6 +3044,10 @@
         "entryDate": "2026-04-27",
         "halfSellDate": "2026-10-27",
         "maxExitDate": "2027-04-27",
+        "remainingWeight": 1,
+        "extensionPhase": "pre_half",
+        "stopDate": null,
+        "stopReason": null,
         "symbol": "ARM",
         "name": "Arm Holdings",
         "sector": "Semiconductors",
@@ -2264,6 +3076,10 @@
         "entryDate": "2026-04-27",
         "halfSellDate": "2026-10-27",
         "maxExitDate": "2027-04-27",
+        "remainingWeight": 1,
+        "extensionPhase": "pre_half",
+        "stopDate": null,
+        "stopReason": null,
         "symbol": "STX",
         "name": "Seagate Technology",
         "sector": "Electronic Components",
@@ -2292,6 +3108,10 @@
         "entryDate": "2026-06-01",
         "halfSellDate": "2026-12-01",
         "maxExitDate": "2027-06-01",
+        "remainingWeight": 1,
+        "extensionPhase": "pre_half",
+        "stopDate": null,
+        "stopReason": null,
         "symbol": "ARM",
         "name": "Arm Holdings",
         "sector": "Semiconductors",
@@ -2320,6 +3140,10 @@
         "entryDate": "2026-06-01",
         "halfSellDate": "2026-12-01",
         "maxExitDate": "2027-06-01",
+        "remainingWeight": 1,
+        "extensionPhase": "pre_half",
+        "stopDate": null,
+        "stopReason": null,
         "symbol": "STX",
         "name": "Seagate Technology",
         "sector": "Electronic Components",
@@ -2348,6 +3172,10 @@
         "entryDate": "2026-06-29",
         "halfSellDate": "2026-12-29",
         "maxExitDate": "2027-06-29",
+        "remainingWeight": 1,
+        "extensionPhase": "pre_half",
+        "stopDate": null,
+        "stopReason": null,
         "symbol": "INTC",
         "name": "Intel",
         "sector": "Semiconductors",
@@ -2376,6 +3204,10 @@
         "entryDate": "2026-06-29",
         "halfSellDate": "2026-12-29",
         "maxExitDate": "2027-06-29",
+        "remainingWeight": 1,
+        "extensionPhase": "pre_half",
+        "stopDate": null,
+        "stopReason": null,
         "symbol": "KLAC",
         "name": "KLA Corporation",
         "sector": "Electronic Components",
@@ -2404,6 +3236,10 @@
         "entryDate": "2026-07-06",
         "halfSellDate": "2027-01-06",
         "maxExitDate": "2027-07-06",
+        "remainingWeight": 1,
+        "extensionPhase": "pre_half",
+        "stopDate": null,
+        "stopReason": null,
         "symbol": "TECH",
         "name": "Bio-Techne",
         "sector": "Health Care",
@@ -2432,6 +3268,10 @@
         "entryDate": "2026-07-06",
         "halfSellDate": "2027-01-06",
         "maxExitDate": "2027-07-06",
+        "remainingWeight": 1,
+        "extensionPhase": "pre_half",
+        "stopDate": null,
+        "stopReason": null,
         "symbol": "STX",
         "name": "Seagate Technology",
         "sector": "Electronic Components",
@@ -2456,37 +3296,42 @@
       }
     ],
     "summary": {
-      "holdingCount": 12,
+      "holdingCount": 28,
       "newCount": 2,
-      "sellDueCount": 0,
-      "averageReturn": 0.0157,
+      "extendedCount": 8,
+      "sellDueCount": 6,
+      "averageReturn": 1.2809,
       "best": {
-        "cohort": "2026-04",
-        "asOf": "2026-04-24",
-        "entryDate": "2026-04-27",
-        "halfSellDate": "2026-10-27",
-        "maxExitDate": "2027-04-27",
-        "symbol": "ARM",
-        "name": "Arm Holdings",
-        "sector": "Semiconductors",
-        "score": 73.16,
-        "entryPrice": 215.88,
-        "currentPrice": 322.24,
-        "currentReturn": 0.4927,
-        "ageMonths": 2,
-        "status": "hold",
+        "cohort": "2025-11",
+        "asOf": "2025-11-28",
+        "entryDate": "2025-12-01",
+        "halfSellDate": "2026-06-01",
+        "maxExitDate": "2026-12-01",
+        "remainingWeight": 0.5,
+        "extensionPhase": "extended",
+        "stopDate": null,
+        "stopReason": null,
+        "symbol": "SNDK",
+        "name": "Sandisk",
+        "sector": "Electronic Components",
+        "score": 71.76,
+        "entryPrice": 210.17,
+        "currentPrice": 1744.43,
+        "currentReturn": 7.3001,
+        "ageMonths": 7,
+        "status": "extended",
         "weeklyTrend": {
           "date": "2026-07-07",
-          "close": 300.43,
-          "ma10": 319.54,
-          "rsi14": 65,
+          "close": 1617.7,
+          "ma10": 1732.12,
+          "rsi14": 67.4,
           "alive": false
         },
-        "actionLabel": "보유",
-        "nextAction": "2026-10-27 50% 매도 점검",
-        "remainingSellRule": "6개월 도달 전까지는 주간 탈락만으로 매도하지 않음",
-        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=ARM",
-        "yahooUrl": "https://finance.yahoo.com/quote/ARM"
+        "actionLabel": "잔여 50% 연장 보유",
+        "nextAction": "주봉 추세 유지 여부 점검",
+        "remainingSellRule": "남은 50%는 10주선 2주 연속 이탈 또는 2026-12-01 도달 시 매도",
+        "tradingViewUrl": "https://www.tradingview.com/chart/?symbol=SNDK",
+        "yahooUrl": "https://finance.yahoo.com/quote/SNDK"
       },
       "worst": {
         "cohort": "2026-02",
@@ -2494,6 +3339,10 @@
         "entryDate": "2026-03-02",
         "halfSellDate": "2026-09-02",
         "maxExitDate": "2027-03-02",
+        "remainingWeight": 1,
+        "extensionPhase": "pre_half",
+        "stopDate": null,
+        "stopReason": null,
         "symbol": "TPL",
         "name": "Texas Pacific Land Corporation",
         "sector": "Energy",
