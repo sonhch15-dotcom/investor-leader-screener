@@ -13,6 +13,7 @@ data/holding-period-test.json
 data/monthly-buy-rule-test*.json
 data/portfolio-simulation-test.json
 data/position-cap-test.json
+data/scale-execution-test.json
 data/sector-diversification-test.json
 data/sleeve-size-test.json
 data/stop-rule-test.json

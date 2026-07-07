@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T16:16:09.193Z",
+  "generatedAt": "2026-07-07T16:33:27.018Z",
   "asOf": "2026-07-06",
   "sourceGeneratedAt": "2026-07-07T08:27:40.378Z",
   "strategy": {
@@ -6178,6 +6178,10 @@
       {
         "label": "주봉 매도 연장 검증",
         "href": "weekly_exit_rule_test.md"
+      },
+      {
+        "label": "분할 매수/매도 검증",
+        "href": "scale_execution_test.md"
       },
       {
         "label": "5년 월 2개 규칙 검증",
