@@ -3,159 +3,194 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Leader Screener</title>
+  <title>Leader2 Strategy Dashboard</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="topbar">
     <div>
-      <p class="eyebrow">US Leader Screener</p>
-      <h1>전략별 주도주 대시보드</h1>
+      <p class="eyebrow">Leader2 One Each</p>
+      <h1>월간 주도주 운용 대시보드</h1>
     </div>
     <div class="meta" id="meta">Loading...</div>
   </header>
 
   <main>
     <nav class="tabs" aria-label="Dashboard sections">
-      <button class="tab-button active" data-tab="selection" type="button">종목 선정</button>
+      <button class="tab-button active" data-tab="ops" type="button">운용 현황</button>
       <button class="tab-button" data-tab="backtest" type="button">백테스트</button>
+      <button class="tab-button" data-tab="rules" type="button">전략 규칙</button>
     </nav>
 
-    <section class="tab-panel active" id="selection-panel">
-      <section class="market" id="market"></section>
+    <section class="tab-panel active" id="ops-panel">
+      <section class="summary-grid" id="action-summary"></section>
 
-      <section class="panel-block">
+      <section class="panel">
         <div class="section-title">
           <div>
-            <h2>현재 주도 섹터</h2>
-            <p class="small">전체 유니버스 breadth, 상대 모멘텀, Top50 집중도를 기준으로 계산합니다.</p>
+            <h2>이번 달 주도 섹터</h2>
+            <p>상위 2개 섹터에서 각각 1등 종목을 신규 매수 후보로 봅니다.</p>
           </div>
-          <span id="leader-sector-meta"></span>
+          <span id="leader-meta"></span>
         </div>
-        <div class="cards leader-grid" id="leader-sectors"></div>
+        <div class="leader-layout" id="leader-sectors"></div>
       </section>
 
-      <section class="panel-block">
+      <section class="panel">
         <div class="section-title">
           <div>
-            <h2>전략별 현재 선택 종목</h2>
-            <p class="small">백테스트에서 검증한 전략 정의와 같은 방식으로 현재 Top20 후보에서 선택합니다.</p>
+            <h2>이번 달 신규 매수 후보 2개</h2>
+            <p>전략 기준 후보입니다. 실제 진입은 차트 확인 후 진행합니다.</p>
           </div>
-          <span id="strategy-pick-meta"></span>
+          <span>차트 확인 후 진입</span>
         </div>
-        <div class="strategy-stack" id="strategy-picks"></div>
+        <div class="buy-grid" id="current-buys"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>전략 기준 현재 보유 목록</h2>
+            <p>추천가와 현재가는 전략 기준입니다. 실제 계좌 체결가와 다를 수 있습니다.</p>
+          </div>
+          <span id="holdings-meta"></span>
+        </div>
+        <div class="table-wrap holdings-table">
+          <table>
+            <thead>
+              <tr>
+                <th>추천월</th>
+                <th>종목</th>
+                <th>섹터</th>
+                <th>추천가</th>
+                <th>현재가</th>
+                <th>수익률</th>
+                <th>보유</th>
+                <th>상태</th>
+                <th>링크</th>
+              </tr>
+            </thead>
+            <tbody id="holdings-body"></tbody>
+          </table>
+        </div>
+        <div class="mobile-card-list" id="holdings-cards"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>이번 리밸런싱 매도 예정</h2>
+            <p>6개월 보유 기간에 도달한 월별 매수 묶음입니다.</p>
+          </div>
+        </div>
+        <div class="compact-list" id="sell-due"></div>
       </section>
     </section>
 
     <section class="tab-panel" id="backtest-panel">
-      <div class="section-title">
-        <h2>전략 검증</h2>
-        <span id="monthly-meta">Loading...</span>
-      </div>
-      <div class="explain">
-        미완료 기간의 3M/6M/12M 수익률은 집계에서 제외합니다. `QQQ 초과`는 같은 기간에 전략 수익률이 QQQ보다 높았던 비율입니다.
-      </div>
+      <section class="summary-grid" id="backtest-kpis"></section>
 
-      <section class="panel-block">
-        <div class="section-title compact">
+      <section class="panel">
+        <div class="section-title">
           <div>
-            <h2>전체 유니버스 주도 그룹 전략</h2>
-            <p class="small">미래 수익률이나 사후 테마 라벨 없이, 당시 전체 유니버스 데이터로 주도 그룹을 고른 결과입니다.</p>
+            <h2>전략 비교</h2>
+            <p>월 2개 매수, 6개월 보유 규칙들의 5년 검증 결과입니다.</p>
           </div>
-          <span id="full-group-meta"></span>
         </div>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
                 <th>전략</th>
-                <th>기간</th>
-                <th>평균</th>
-                <th>중앙값</th>
-                <th>상승률</th>
-                <th>SPY 초과</th>
+                <th>누적</th>
+                <th>CAGR</th>
+                <th>MDD</th>
                 <th>QQQ 초과</th>
-                <th>평균 QQQ 초과</th>
+                <th>QQQ 이긴 월</th>
+                <th>평균 보유</th>
               </tr>
             </thead>
-            <tbody id="full-group-summary"></tbody>
+            <tbody id="comparison-body"></tbody>
           </table>
         </div>
       </section>
 
-      <section class="panel-block">
-        <div class="section-title compact">
+      <section class="panel two-col">
+        <div>
+          <div class="section-title compact">
+            <h2>연도별 성과</h2>
+          </div>
+          <div class="table-wrap">
+            <table class="compact-table">
+              <thead>
+                <tr>
+                  <th>연도</th>
+                  <th>전략</th>
+                  <th>QQQ</th>
+                  <th>초과</th>
+                  <th>승률</th>
+                </tr>
+              </thead>
+              <tbody id="yearly-body"></tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div class="section-title compact">
+            <h2>상세 리포트</h2>
+          </div>
+          <div class="report-links" id="report-links"></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="tab-panel" id="rules-panel">
+      <section class="panel rules-panel">
+        <div class="section-title">
           <div>
-            <h2>전략별 월간 선택 종목</h2>
-            <p class="small">선택한 전략이 과거 각 기준월에 실제로 담았던 종목과 이후 성과입니다.</p>
-          </div>
-          <div class="control-row">
-            <select id="strategy-select" aria-label="전략 선택"></select>
-            <select id="strategy-period-select" aria-label="기준월 선택"></select>
+            <h2>전략 규칙</h2>
+            <p>현재 확정된 1차 운용 규칙입니다.</p>
           </div>
         </div>
-        <div id="strategy-period-meta" class="explain compact-explain"></div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>순위</th>
-                <th>티커</th>
-                <th>섹터</th>
-                <th>상태</th>
-                <th>점수</th>
-                <th>1M</th>
-                <th>3M</th>
-                <th>6M</th>
-                <th>12M</th>
-              </tr>
-            </thead>
-            <tbody id="strategy-period-detail"></tbody>
-          </table>
+        <div class="rules-grid">
+          <article>
+            <h3>매월 실행 체크리스트</h3>
+            <ol>
+              <li>월말 기준 주도 섹터 상위 2개 확인</li>
+              <li>각 섹터 1등 종목 1개씩 확인</li>
+              <li>일봉, 4시간봉, 1시간봉 차트로 진입 타이밍 확인</li>
+              <li>신규 후보 2개를 동일 비중으로 매수</li>
+              <li>6개월 지난 매수 묶음은 매도</li>
+            </ol>
+          </article>
+          <article>
+            <h3>매수 규칙</h3>
+            <ul>
+              <li>전략명: Leader2 One Each</li>
+              <li>월 신규 매수: 2개</li>
+              <li>선정 방식: 주도 섹터 상위 2개에서 각각 1등 종목</li>
+              <li>표시 상태: 매수 후보, 차트 확인 후 진입</li>
+            </ul>
+          </article>
+          <article>
+            <h3>보유와 매도</h3>
+            <ul>
+              <li>보유 기간: 6개월</li>
+              <li>기본 손절: 없음</li>
+              <li>매도 기준: 6개월 보유 기간 도달</li>
+              <li>실제 악재나 급락장은 별도 수동 검토</li>
+            </ul>
+          </article>
+          <article>
+            <h3>주의점</h3>
+            <ul>
+              <li>백테스트는 현재 지수 구성 기준이라 생존자 편향이 남아 있습니다.</li>
+              <li>수수료, 세금, 환율, 실제 체결가는 완전히 반영되지 않습니다.</li>
+              <li>대시보드 수익률은 전략 기준이며 실제 계좌 수익률이 아닙니다.</li>
+            </ul>
+          </article>
         </div>
       </section>
-
-      <div class="chart-panel">
-        <div class="section-title compact">
-          <h2>기존 점수 Top10 비교</h2>
-          <span>기존 점수 기준 Top10 vs SPY vs QQQ</span>
-        </div>
-        <div id="benchmark-chart"></div>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Top N</th>
-              <th>기간</th>
-              <th>평균</th>
-              <th>중앙값</th>
-              <th>상승률</th>
-              <th>SPY 초과</th>
-              <th>QQQ 초과</th>
-              <th>평균 SPY 초과</th>
-              <th>평균 QQQ 초과</th>
-            </tr>
-          </thead>
-          <tbody id="monthly-summary"></tbody>
-        </table>
-      </div>
-
-      <div class="split-lower">
-        <div>
-          <div class="section-title compact">
-            <h2>최악 구간</h2>
-          </div>
-          <div class="cards" id="monthly-worst"></div>
-        </div>
-        <div>
-          <div class="section-title compact">
-            <h2>자주 선정된 종목</h2>
-          </div>
-          <div class="cards" id="monthly-contributors"></div>
-        </div>
-      </div>
     </section>
   </main>
 

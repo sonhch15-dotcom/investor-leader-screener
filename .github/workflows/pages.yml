@@ -36,6 +36,15 @@ jobs:
       - name: Run full universe group test
         run: node src/full-universe-group-test.mjs
 
+      - name: Run monthly buy rule test 3Y
+        run: node src/monthly-buy-rule-test.mjs
+
+      - name: Run monthly buy rule test 5Y
+        run: node src/monthly-buy-rule-test.mjs --years 5 --output-suffix -5y
+
+      - name: Build strategy dashboard data
+        run: node src/strategy-dashboard-data.mjs
+
       - name: Build static site
         run: node scripts/build-pages.mjs
 

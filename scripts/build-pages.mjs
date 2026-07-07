@@ -36,18 +36,33 @@ async function main() {
   await fs.rm(dist, { recursive: true, force: true });
   await fs.mkdir(dist, { recursive: true });
 
+  const optionalFiles = [
+    "backtest_report.md",
+    "monthly_selection_test_plan.md",
+    "monthly_selection_report.md",
+    "strategy_summary.md",
+    "monthly_buy_rule_test-5y.md",
+    "monthly_buy_rule_test.md",
+    "holding_period_test.md",
+    "stop_rule_test.md",
+    "position_cap_test.md",
+    "sleeve_size_test.md",
+    "portfolio_simulation_test.md",
+    "full_candidate_diversification_test.md",
+    "sector_diversification_test.md",
+  ];
+
   await copyDir(path.join(root, "dashboard"), dist);
   await copyDir(path.join(root, "data"), path.join(dist, "data"));
   await copyFile(path.join(root, "chart_review.md"), path.join(dist, "chart_review.md"));
-  if (await exists(path.join(root, "backtest_report.md"))) {
-    await copyFile(path.join(root, "backtest_report.md"), path.join(dist, "backtest_report.md"));
+
+  for (const file of optionalFiles) {
+    const source = path.join(root, file);
+    if (await exists(source)) {
+      await copyFile(source, path.join(dist, file));
+    }
   }
-  if (await exists(path.join(root, "monthly_selection_test_plan.md"))) {
-    await copyFile(path.join(root, "monthly_selection_test_plan.md"), path.join(dist, "monthly_selection_test_plan.md"));
-  }
-  if (await exists(path.join(root, "monthly_selection_report.md"))) {
-    await copyFile(path.join(root, "monthly_selection_report.md"), path.join(dist, "monthly_selection_report.md"));
-  }
+
   await copyFile(path.join(root, "stock_selection_system.md"), path.join(dist, "stock_selection_system.md"));
   await fs.writeFile(path.join(dist, ".nojekyll"), "", "utf8");
 
