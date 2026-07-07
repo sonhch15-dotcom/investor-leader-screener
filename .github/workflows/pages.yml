@@ -30,6 +30,9 @@ jobs:
       - name: Refresh screener data
         run: node src/refresh.mjs
 
+      - name: Run monthly selection test
+        run: node src/monthly-selection-test.mjs
+
       - name: Build static site
         run: node scripts/build-pages.mjs
 

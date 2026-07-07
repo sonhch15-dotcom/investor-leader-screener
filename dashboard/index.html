@@ -67,6 +67,45 @@
         </table>
       </div>
     </section>
+
+    <section class="backtest-section">
+      <div class="section-title">
+        <h2>월간 선정력 검증</h2>
+        <span id="monthly-meta">Loading...</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Top N</th>
+              <th>기간</th>
+              <th>평균</th>
+              <th>중앙값</th>
+              <th>플러스</th>
+              <th>SPY 초과</th>
+              <th>QQQ 초과</th>
+              <th>평균 SPY 초과</th>
+              <th>평균 QQQ 초과</th>
+            </tr>
+          </thead>
+          <tbody id="monthly-summary"></tbody>
+        </table>
+      </div>
+      <div class="split-lower">
+        <div>
+          <div class="section-title compact">
+            <h2>최악 구간</h2>
+          </div>
+          <div class="cards" id="monthly-worst"></div>
+        </div>
+        <div>
+          <div class="section-title compact">
+            <h2>자주 선정된 종목</h2>
+          </div>
+          <div class="cards" id="monthly-contributors"></div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script src="app.js"></script>

@@ -13,10 +13,17 @@ const setupLabel = {
 };
 
 let allRows = [];
+let monthlyResult = null;
 
 async function loadData() {
   const response = await fetch("data/screener-results.json", { cache: "no-store" });
   if (!response.ok) throw new Error("data/screener-results.json 파일이 없습니다. 먼저 refresh를 실행하세요.");
+  return response.json();
+}
+
+async function loadMonthlyData() {
+  const response = await fetch("data/monthly-selection-test.json", { cache: "no-store" });
+  if (!response.ok) return null;
   return response.json();
 }
 
@@ -151,6 +158,73 @@ function renderTable(rows) {
   document.getElementById("ranking").innerHTML = rows.map(rowHtml).join("");
 }
 
+function renderMonthlySummary(data) {
+  const meta = document.getElementById("monthly-meta");
+  const summary = document.getElementById("monthly-summary");
+  const worst = document.getElementById("monthly-worst");
+  const contributors = document.getElementById("monthly-contributors");
+  if (!data) {
+    meta.textContent = "데이터 없음";
+    summary.innerHTML = `<tr><td colspan="9">monthly-selection-test.json 파일이 없습니다.</td></tr>`;
+    return;
+  }
+
+  meta.textContent = `${data.startDate} ~ ${data.endDate} | ${data.asOfCount}개 기준일`;
+  summary.innerHTML = data.summary.map((row) => `
+    <tr>
+      <td class="num">Top ${row.topN}</td>
+      <td>${row.horizon}</td>
+      <td class="num">${percent(row.averageReturn)}</td>
+      <td class="num">${percent(row.medianReturn)}</td>
+      <td class="num">${percent(row.positiveRate)}</td>
+      <td class="num">${percent(row.beatSpyRate)}</td>
+      <td class="num">${percent(row.beatQqqRate)}</td>
+      <td class="num">${percent(row.averageExcessSpy)}</td>
+      <td class="num">${percent(row.averageExcessQqq)}</td>
+    </tr>
+  `).join("");
+
+  worst.innerHTML = data.worstPeriods.slice(0, 5).map((period) => {
+    const names = period.selected
+      .slice()
+      .sort((a, b) => (a.r3m ?? 0) - (b.r3m ?? 0))
+      .slice(0, 3)
+      .map((row) => `${row.symbol} ${percent(row.r3m)}`)
+      .join(", ");
+    return `
+      <article class="card">
+        <div class="card-head">
+          <div>
+            <div class="symbol">${period.asOf}</div>
+            <div class="name">${period.regime}</div>
+          </div>
+          <div class="score">${percent(period.top10_3m)}</div>
+        </div>
+        <div class="reasons">
+          <div>Top10 12M: ${percent(period.top10_12m)}</div>
+          <div>손실 기여: ${names}</div>
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  contributors.innerHTML = data.contributions.mostSelected.slice(0, 8).map((row) => `
+    <article class="card">
+      <div class="card-head">
+        <div>
+          <div class="symbol">${row.symbol}</div>
+          <div class="name">${row.name}</div>
+        </div>
+        <div class="score">${row.count}회</div>
+      </div>
+      <div class="reasons">
+        <div>평균 3M: ${percent(row.average3m)}</div>
+        <div>평균 12M: ${percent(row.average12m)}</div>
+      </div>
+    </article>
+  `).join("");
+}
+
 function applyFilter() {
   const q = document.getElementById("filter").value.trim().toLowerCase();
   if (!q) {
@@ -169,11 +243,13 @@ function applyFilter() {
 async function main() {
   try {
     const data = await loadData();
+    monthlyResult = await loadMonthlyData();
     allRows = data.rows;
     document.getElementById("meta").textContent = `${data.mode} | ${new Date(data.generatedAt).toLocaleString()} | universe ${data.universeSize}, priced ${data.priceSeriesCount}`;
     renderMarket(data);
     renderCards(data);
     renderTable(allRows);
+    renderMonthlySummary(monthlyResult);
     document.getElementById("filter").addEventListener("input", applyFilter);
   } catch (error) {
     document.getElementById("meta").textContent = error.message;

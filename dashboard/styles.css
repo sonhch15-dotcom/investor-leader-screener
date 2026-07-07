@@ -243,6 +243,21 @@ input {
   overflow-x: auto;
 }
 
+.backtest-section {
+  margin-top: 28px;
+}
+
+.split-lower {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 18px;
+}
+
+.compact {
+  margin-top: 0;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -286,6 +301,7 @@ tr:last-child td {
 
   .topbar,
   .triple,
+  .split-lower,
   .market {
     grid-template-columns: 1fr;
     display: grid;

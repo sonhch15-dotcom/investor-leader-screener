@@ -45,6 +45,9 @@ async function main() {
   if (await exists(path.join(root, "monthly_selection_test_plan.md"))) {
     await copyFile(path.join(root, "monthly_selection_test_plan.md"), path.join(dist, "monthly_selection_test_plan.md"));
   }
+  if (await exists(path.join(root, "monthly_selection_report.md"))) {
+    await copyFile(path.join(root, "monthly_selection_report.md"), path.join(dist, "monthly_selection_report.md"));
+  }
   await copyFile(path.join(root, "stock_selection_system.md"), path.join(dist, "stock_selection_system.md"));
   await fs.writeFile(path.join(dist, ".nojekyll"), "", "utf8");
 
