@@ -287,6 +287,40 @@ function renderSemiconductorSection(data) {
   `).join("");
 }
 
+function renderPeriodOptions(data) {
+  const select = document.getElementById("period-select");
+  if (!select || !data?.periods?.length) return;
+  select.innerHTML = data.periods
+    .slice()
+    .reverse()
+    .map((period) => {
+      const top10 = period.summaries.find((item) => item.topN === 10 && item.horizon === "12m");
+      return `<option value="${period.asOf}">${period.asOf} | ${period.market.regime} | Top10 12M ${percent(top10?.portfolioReturn)}</option>`;
+    })
+    .join("");
+  select.addEventListener("change", () => renderPeriodDetail(data, select.value));
+  renderPeriodDetail(data, select.value);
+}
+
+function renderPeriodDetail(data, asOf) {
+  const body = document.getElementById("period-detail");
+  const period = data?.periods?.find((item) => item.asOf === asOf);
+  if (!body || !period) return;
+  body.innerHTML = period.selections.slice(0, 20).map((row, index) => `
+    <tr>
+      <td class="num">${index + 1}</td>
+      <td><strong>${row.symbol}</strong><div class="small">${row.name}</div></td>
+      <td>${tag(statusLabel[row.status], row.status)}</td>
+      <td class="num">${row.score}</td>
+      <td>${setupLabel[row.setup] ?? row.setup}</td>
+      <td class="num">${percent(row.returns["1m"])}</td>
+      <td class="num">${percent(row.returns["3m"])}</td>
+      <td class="num">${percent(row.returns["6m"])}</td>
+      <td class="num">${percent(row.returns["12m"])}</td>
+    </tr>
+  `).join("");
+}
+
 function renderMonthlySummary(data) {
   const meta = document.getElementById("monthly-meta");
   const summary = document.getElementById("monthly-summary");
@@ -353,6 +387,7 @@ function renderMonthlySummary(data) {
       </div>
     </article>
   `).join("");
+  renderPeriodOptions(data);
   renderSemiconductorSection(data);
 }
 

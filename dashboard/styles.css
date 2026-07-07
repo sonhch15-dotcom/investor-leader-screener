@@ -272,6 +272,15 @@ input {
   font-size: 14px;
 }
 
+select {
+  width: min(260px, 100%);
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fff;
+  font-size: 14px;
+}
+
 .table-wrap {
   overflow-x: auto;
 }
