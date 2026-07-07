@@ -51,6 +51,7 @@ npm run refresh
 - `data/screener-results.json`: 점수 계산 결과와 대시보드 데이터
 - `data/backtest-results.json`: 과거 기준일 종목 선정력 검증 결과
 - `backtest_report.md`: 백테스트 요약 리포트
+- `monthly_selection_test_plan.md`: 월간 반복 선정력 검증 설계와 개발 단계
 - `stock_selection_system.md`: 투자 기준 문서
 
 ## 1년 전 기준 검증
