@@ -16,6 +16,7 @@ data/position-cap-test.json
 data/sector-diversification-test.json
 data/sleeve-size-test.json
 data/stop-rule-test.json
+data/weekly-exit-rule-test.json
 
 .DS_Store
 Thumbs.db

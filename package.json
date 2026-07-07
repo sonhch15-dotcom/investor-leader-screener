@@ -21,6 +21,7 @@
     "test:sleeves": "node src/sleeve-size-test.mjs",
     "test:buy-rules": "node src/monthly-buy-rule-test.mjs",
     "test:daily-entry": "node src/daily-entry-filter-test.mjs",
+    "test:weekly-exit": "node src/weekly-exit-rule-test.mjs",
     "build:strategy-data": "node src/strategy-dashboard-data.mjs",
     "build:pages": "node scripts/build-pages.mjs",
     "serve": "node src/server.mjs",

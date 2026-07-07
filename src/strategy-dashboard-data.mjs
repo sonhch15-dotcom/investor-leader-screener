@@ -413,6 +413,7 @@ async function main() {
         : existingDashboard?.backtest?.yearly ?? [],
       reports: [
         { label: "일봉 진입 필터 검증", href: "daily_entry_filter_test.md" },
+        { label: "주봉 매도 연장 검증", href: "weekly_exit_rule_test.md" },
         { label: "5년 월 2개 규칙 검증", href: "monthly_buy_rule_test-5y.md" },
         { label: "3년 월 2개 규칙 검증", href: "monthly_buy_rule_test.md" },
         { label: "보유기간 검증", href: "holding_period_test.md" },
