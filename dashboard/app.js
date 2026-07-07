@@ -61,6 +61,23 @@ function weeklyTrendText(row) {
   return `${state} | 10W ${money(trend.ma10)} | RSI ${number(trend.rsi14, 1)}`;
 }
 
+function sortByRecentCohort(rows) {
+  return [...rows].sort((a, b) => {
+    const cohortCompare = String(b.cohort).localeCompare(String(a.cohort));
+    if (cohortCompare !== 0) return cohortCompare;
+    return String(a.symbol).localeCompare(String(b.symbol));
+  });
+}
+
+function sortActionRows(rows) {
+  const priority = { sell_due: 0, extended: 1, hold: 2, new: 3 };
+  return [...rows].sort((a, b) => {
+    const priorityCompare = (priority[a.status] ?? 99) - (priority[b.status] ?? 99);
+    if (priorityCompare !== 0) return priorityCompare;
+    return String(b.cohort).localeCompare(String(a.cohort));
+  });
+}
+
 function tag(text, className = "") {
   return `<span class="tag ${className}">${text}</span>`;
 }
@@ -167,8 +184,8 @@ function renderBuys() {
 }
 
 function renderHoldings() {
-  const holdings = dashboard.portfolio.holdings ?? [];
-  document.getElementById("holdings-meta").textContent = `전략 기준 ${holdings.length}개`;
+  const holdings = sortByRecentCohort(dashboard.portfolio.holdings ?? []);
+  document.getElementById("holdings-meta").textContent = `전략 기준 ${holdings.length}개 | 최신 추천월 먼저`;
   document.getElementById("holdings-body").innerHTML = holdings.map((row) => `
     <tr>
       <td>${row.cohort}</td>
@@ -207,7 +224,9 @@ function renderHoldings() {
 }
 
 function renderSellDue() {
-  const rows = (dashboard.portfolio.holdings ?? []).filter((row) => row.status === "sell_due");
+  const rows = sortActionRows((dashboard.portfolio.holdings ?? []).filter((row) => (
+    row.status === "sell_due" || row.status === "extended"
+  )));
   document.getElementById("sell-due").innerHTML = rows.length
     ? rows.map((row) => `
       <article class="due-item">
