@@ -39,6 +39,9 @@ async function main() {
   await copyDir(path.join(root, "dashboard"), dist);
   await copyDir(path.join(root, "data"), path.join(dist, "data"));
   await copyFile(path.join(root, "chart_review.md"), path.join(dist, "chart_review.md"));
+  if (await exists(path.join(root, "backtest_report.md"))) {
+    await copyFile(path.join(root, "backtest_report.md"), path.join(dist, "backtest_report.md"));
+  }
   await copyFile(path.join(root, "stock_selection_system.md"), path.join(dist, "stock_selection_system.md"));
   await fs.writeFile(path.join(dist, ".nojekyll"), "", "utf8");
 

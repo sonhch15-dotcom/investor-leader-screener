@@ -6,6 +6,7 @@
   "scripts": {
     "refresh": "node src/refresh.mjs",
     "refresh:sample": "node src/refresh.mjs --sample",
+    "backtest": "node src/backtest.mjs",
     "build:pages": "node scripts/build-pages.mjs",
     "serve": "node src/server.mjs",
     "check": "node --check src/refresh.mjs && node --check src/server.mjs"

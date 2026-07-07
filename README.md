@@ -49,7 +49,27 @@ npm run refresh
 
 - `data/universe.json`: 이번 실행에서 사용한 종목 유니버스
 - `data/screener-results.json`: 점수 계산 결과와 대시보드 데이터
+- `data/backtest-results.json`: 과거 기준일 종목 선정력 검증 결과
+- `backtest_report.md`: 백테스트 요약 리포트
 - `stock_selection_system.md`: 투자 기준 문서
+
+## 1년 전 기준 검증
+
+현재 기준을 과거 특정 날짜에 적용했을 때의 결과를 확인할 수 있습니다.
+
+예시:
+
+```powershell
+npm run backtest -- --top 10
+```
+
+특정 날짜를 지정하려면:
+
+```powershell
+node src/backtest.mjs --as-of 2025-07-06 --top 10
+```
+
+현재 백테스트는 전체 매매 전략 검증이 아니라, 과거 시점에서 상위 후보를 골랐을 때 이후 수익률이 어땠는지 확인하는 `종목 선정력 검증`입니다.
 
 ## GitHub Pages 배포
 

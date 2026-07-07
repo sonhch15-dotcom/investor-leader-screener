@@ -1,0 +1,305 @@
+{
+  "generatedAt": "2026-07-07T05:42:33.849Z",
+  "mode": "live",
+  "asOf": "2025-07-06",
+  "latestDate": "2026-07-06",
+  "topN": 10,
+  "universeSize": 551,
+  "scoredRows": 548,
+  "asOfMarket": {
+    "score": 66.48,
+    "regime": "보통",
+    "components": {
+      "indexTrend": 37.33,
+      "breadth": 16.42,
+      "sectorFlow": 12.73,
+      "eventRisk": 0
+    },
+    "suggestedRiskPerTrade": "1.0%-1.5%"
+  },
+  "benchmarks": {
+    "SPY": {
+      "symbol": "SPY",
+      "entryDate": "2025-07-07",
+      "entryPrice": 613.88,
+      "exitDate": "2026-07-06",
+      "exitPrice": 751.28,
+      "return": 0.2238
+    },
+    "QQQ": {
+      "symbol": "QQQ",
+      "entryDate": "2025-07-07",
+      "entryPrice": 549.38,
+      "exitDate": "2026-07-06",
+      "exitPrice": 722.82,
+      "return": 0.3157
+    }
+  },
+  "summary": {
+    "averageReturnToLatest": 0.3318,
+    "horizonAverages": {
+      "1m": 0.0219,
+      "3m": 0.1295,
+      "6m": 0.1239,
+      "12m": 0.3318
+    }
+  },
+  "selected": [
+    {
+      "symbol": "HWM",
+      "name": "Howmet Aerospace",
+      "statusAtAsOf": "review",
+      "scoreAtAsOf": 85.65,
+      "sector": "Industrials",
+      "setupAtAsOf": "pullback_reacceleration",
+      "warningsAtAsOf": [
+        "2R 수동 확인 필요"
+      ],
+      "reasonsAtAsOf": [
+        "시장 대비 상대강도 우수",
+        "가격 모멘텀 강함",
+        "거래량/수급 양호"
+      ],
+      "entryDate": "2025-07-07",
+      "entryPrice": 179.84,
+      "exitDate": "2026-07-06",
+      "exitPrice": 277.91,
+      "returnToLatest": 0.5453,
+      "horizonReturns": {
+        "1m": 0.01,
+        "3m": 0.0575,
+        "6m": 0.1926,
+        "12m": 0.5453
+      }
+    },
+    {
+      "symbol": "NTRS",
+      "name": "Northern Trust",
+      "statusAtAsOf": "strong_watch",
+      "scoreAtAsOf": 84.72,
+      "sector": "Financials",
+      "setupAtAsOf": "none",
+      "warningsAtAsOf": [],
+      "reasonsAtAsOf": [
+        "시장 대비 상대강도 우수",
+        "가격 모멘텀 강함",
+        "거래량/수급 양호"
+      ],
+      "entryDate": "2025-07-07",
+      "entryPrice": 125.65,
+      "exitDate": "2026-07-06",
+      "exitPrice": 181.14,
+      "returnToLatest": 0.4416,
+      "horizonReturns": {
+        "1m": -0.022,
+        "3m": 0.0353,
+        "6m": 0.1353,
+        "12m": 0.4416
+      }
+    },
+    {
+      "symbol": "RCL",
+      "name": "Royal Caribbean Group",
+      "statusAtAsOf": "strong_watch",
+      "scoreAtAsOf": 84.48,
+      "sector": "Consumer Discretionary",
+      "setupAtAsOf": "none",
+      "warningsAtAsOf": [],
+      "reasonsAtAsOf": [
+        "시장 대비 상대강도 우수",
+        "가격 모멘텀 강함",
+        "거래량/수급 양호"
+      ],
+      "entryDate": "2025-07-07",
+      "entryPrice": 325,
+      "exitDate": "2026-07-06",
+      "exitPrice": 287.78,
+      "returnToLatest": -0.1145,
+      "horizonReturns": {
+        "1m": -0.0451,
+        "3m": -0.0322,
+        "6m": -0.0887,
+        "12m": -0.1145
+      }
+    },
+    {
+      "symbol": "COIN",
+      "name": "Coinbase",
+      "statusAtAsOf": "strong_watch",
+      "scoreAtAsOf": 84.38,
+      "sector": "Financials",
+      "setupAtAsOf": "none",
+      "warningsAtAsOf": [],
+      "reasonsAtAsOf": [
+        "시장 대비 상대강도 우수",
+        "거래량/수급 양호"
+      ],
+      "entryDate": "2025-07-07",
+      "entryPrice": 357.1,
+      "exitDate": "2026-07-06",
+      "exitPrice": 168.87,
+      "returnToLatest": -0.5271,
+      "horizonReturns": {
+        "1m": -0.1499,
+        "3m": 0.0811,
+        "6m": -0.2983,
+        "12m": -0.5271
+      }
+    },
+    {
+      "symbol": "HOOD",
+      "name": "Robinhood Markets",
+      "statusAtAsOf": "strong_watch",
+      "scoreAtAsOf": 82.65,
+      "sector": "Financials",
+      "setupAtAsOf": "none",
+      "warningsAtAsOf": [],
+      "reasonsAtAsOf": [
+        "시장 대비 상대강도 우수",
+        "가격 모멘텀 강함",
+        "거래량/수급 양호"
+      ],
+      "entryDate": "2025-07-07",
+      "entryPrice": 93.46,
+      "exitDate": "2026-07-06",
+      "exitPrice": 117.55,
+      "returnToLatest": 0.2578,
+      "horizonReturns": {
+        "1m": 0.1304,
+        "3m": 0.5435,
+        "6m": 0.3022,
+        "12m": 0.2578
+      }
+    },
+    {
+      "symbol": "UBER",
+      "name": "Uber",
+      "statusAtAsOf": "review",
+      "scoreAtAsOf": 82.08,
+      "sector": "Industrials",
+      "setupAtAsOf": "pullback_reacceleration",
+      "warningsAtAsOf": [
+        "2R 수동 확인 필요"
+      ],
+      "reasonsAtAsOf": [
+        "시장 대비 상대강도 우수",
+        "가격 모멘텀 강함"
+      ],
+      "entryDate": "2025-07-07",
+      "entryPrice": 96.68,
+      "exitDate": "2026-07-06",
+      "exitPrice": 72.42,
+      "returnToLatest": -0.2509,
+      "horizonReturns": {
+        "1m": -0.0772,
+        "3m": 0.0354,
+        "6m": -0.1152,
+        "12m": -0.2509
+      }
+    },
+    {
+      "symbol": "GS",
+      "name": "Goldman Sachs",
+      "statusAtAsOf": "review",
+      "scoreAtAsOf": 81.82,
+      "sector": "Financials",
+      "setupAtAsOf": "pullback_reacceleration",
+      "warningsAtAsOf": [
+        "2R 수동 확인 필요"
+      ],
+      "reasonsAtAsOf": [
+        "시장 대비 상대강도 우수",
+        "가격 모멘텀 강함",
+        "거래량/수급 양호"
+      ],
+      "entryDate": "2025-07-07",
+      "entryPrice": 699.97,
+      "exitDate": "2026-07-06",
+      "exitPrice": 1055.29,
+      "returnToLatest": 0.5076,
+      "horizonReturns": {
+        "1m": 0.0194,
+        "3m": 0.1268,
+        "6m": 0.3579,
+        "12m": 0.5076
+      }
+    },
+    {
+      "symbol": "GE",
+      "name": "GE Aerospace",
+      "statusAtAsOf": "strong_watch",
+      "scoreAtAsOf": 81.81,
+      "sector": "Industrials",
+      "setupAtAsOf": "none",
+      "warningsAtAsOf": [],
+      "reasonsAtAsOf": [
+        "시장 대비 상대강도 우수",
+        "거래량/수급 양호"
+      ],
+      "entryDate": "2025-07-07",
+      "entryPrice": 247.39,
+      "exitDate": "2026-07-06",
+      "exitPrice": 378.68,
+      "returnToLatest": 0.5307,
+      "horizonReturns": {
+        "1m": 0.095,
+        "3m": 0.2008,
+        "6m": 0.3204,
+        "12m": 0.5307
+      }
+    },
+    {
+      "symbol": "GEV",
+      "name": "GE Vernova",
+      "statusAtAsOf": "review",
+      "scoreAtAsOf": 81.81,
+      "sector": "Industrials",
+      "setupAtAsOf": "pullback_reacceleration",
+      "warningsAtAsOf": [
+        "2R 수동 확인 필요"
+      ],
+      "reasonsAtAsOf": [
+        "시장 대비 상대강도 우수",
+        "가격 모멘텀 강함"
+      ],
+      "entryDate": "2025-07-07",
+      "entryPrice": 528.85,
+      "exitDate": "2026-07-06",
+      "exitPrice": 1152.04,
+      "returnToLatest": 1.1784,
+      "horizonReturns": {
+        "1m": 0.2538,
+        "3m": 0.138,
+        "6m": 0.2963,
+        "12m": 1.1784
+      }
+    },
+    {
+      "symbol": "PWR",
+      "name": "Quanta Services",
+      "statusAtAsOf": "review",
+      "scoreAtAsOf": 81.28,
+      "sector": "Industrials",
+      "setupAtAsOf": "pullback_reacceleration",
+      "warningsAtAsOf": [
+        "2R 수동 확인 필요"
+      ],
+      "reasonsAtAsOf": [
+        "시장 대비 상대강도 우수",
+        "가격 모멘텀 강함"
+      ],
+      "entryDate": "2025-07-07",
+      "entryPrice": 385.47,
+      "exitDate": "2026-07-06",
+      "exitPrice": 674.04,
+      "returnToLatest": 0.7486,
+      "horizonReturns": {
+        "1m": 0.0044,
+        "3m": 0.1091,
+        "6m": 0.1364,
+        "12m": 0.7486
+      }
+    }
+  ],
+  "errors": []
+}
