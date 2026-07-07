@@ -98,7 +98,8 @@ main {
 
 .market,
 .card,
-.table-wrap {
+.table-wrap,
+.panel-block {
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -132,6 +133,11 @@ main {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
   margin-bottom: 26px;
+}
+
+.panel-block {
+  padding: 16px;
+  margin-bottom: 22px;
 }
 
 .section-title {
@@ -373,6 +379,18 @@ select {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.leader-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.picks-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.leader-card .score {
+  color: var(--blue);
+}
+
 .compact {
   margin-top: 0;
 }
@@ -421,7 +439,10 @@ tr:last-child td {
   .topbar,
   .triple,
   .split-lower,
-  .market {
+  .market,
+  .leader-grid,
+  .picks-grid,
+  .compact-grid {
     grid-template-columns: 1fr;
     display: grid;
   }

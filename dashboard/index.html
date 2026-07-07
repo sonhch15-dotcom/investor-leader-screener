@@ -24,6 +24,28 @@
     <section class="tab-panel active" id="selection-panel">
       <section class="market" id="market"></section>
 
+      <section class="panel-block">
+        <div class="section-title">
+          <div>
+            <h2>현재 주도 섹터</h2>
+            <p class="small">전체 유니버스의 상대 모멘텀, 이동평균 breadth, Top50 집중도로 계산합니다.</p>
+          </div>
+          <span id="leader-sector-meta"></span>
+        </div>
+        <div class="cards leader-grid" id="leader-sectors"></div>
+      </section>
+
+      <section class="panel-block">
+        <div class="section-title">
+          <div>
+            <h2>주도 섹터 기반 추천 후보</h2>
+            <p class="small">매수 추천이 아니라 차트 확인 우선순위입니다. TradingView에서 일봉/4시간봉 진입 조건을 확인하세요.</p>
+          </div>
+          <span id="leader-pick-meta"></span>
+        </div>
+        <div class="cards picks-grid" id="leader-picks"></div>
+      </section>
+
       <section class="triple">
         <div>
           <div class="section-title">
@@ -50,7 +72,7 @@
 
       <section>
         <div class="section-title">
-          <h2>전체 순위표</h2>
+          <h2>전체 순위</h2>
           <input id="filter" type="search" placeholder="티커, 섹터, 태그 검색">
         </div>
         <div class="table-wrap">
@@ -61,7 +83,7 @@
                 <th>티커</th>
                 <th>상태</th>
                 <th>총점</th>
-                <th>상대</th>
+                <th>상대강도</th>
                 <th>모멘텀</th>
                 <th>섹터</th>
                 <th>수급</th>
@@ -81,8 +103,38 @@
         <span id="monthly-meta">Loading...</span>
       </div>
       <div class="explain">
-        `SPY 초과`와 `QQQ 초과`는 같은 기간에 선정 포트폴리오 수익률이 각각 SPY, QQQ보다 높았던 비율입니다.
+        `SPY 초과`와 `QQQ 초과`는 같은 기간의 선정 포트폴리오 수익률이 각각 SPY, QQQ보다 높았던 비율입니다.
+        미완료 기간의 3M/6M/12M 수익률은 집계에서 제외합니다.
       </div>
+
+      <section class="panel-block">
+        <div class="section-title compact">
+          <div>
+            <h2>전체 유니버스 주도 그룹 검증</h2>
+            <p class="small">미래 수익률이나 AI/반도체 라벨 없이, 당시 전체 유니버스 breadth와 상대강도로 주도 그룹을 고른 결과입니다.</p>
+          </div>
+          <span id="full-group-meta"></span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>전략</th>
+                <th>기간</th>
+                <th>평균</th>
+                <th>중앙값</th>
+                <th>상승률</th>
+                <th>SPY 초과</th>
+                <th>QQQ 초과</th>
+                <th>평균 QQQ 초과</th>
+              </tr>
+            </thead>
+            <tbody id="full-group-summary"></tbody>
+          </table>
+        </div>
+        <div class="cards compact-grid" id="recent-group-leaders"></div>
+      </section>
+
       <div class="chart-panel">
         <div class="section-title compact">
           <h2>Top 10 평균 수익률 비교</h2>
@@ -98,7 +150,7 @@
               <th>기간</th>
               <th>평균</th>
               <th>중앙값</th>
-              <th>플러스</th>
+              <th>상승률</th>
               <th>SPY 초과</th>
               <th>QQQ 초과</th>
               <th>평균 SPY 초과</th>
@@ -124,7 +176,7 @@
       </div>
       <div class="section-title compact">
         <h2>월별 상세</h2>
-        <select id="period-select" aria-label="기준월 선택"></select>
+        <select id="period-select" aria-label="기준일 선택"></select>
       </div>
       <div class="table-wrap">
         <table>

@@ -57,6 +57,12 @@ function rowOnOrAfter(rows, date) {
   return rows.find((row) => row.date >= date && Number.isFinite(row.close)) ?? rows.at(-1) ?? null;
 }
 
+function exitRowOnOrAfter(rows, date) {
+  const lastAvailable = rows.at(-1);
+  if (!lastAvailable || lastAvailable.date < date) return null;
+  return rows.find((row) => row.date >= date && Number.isFinite(row.close)) ?? null;
+}
+
 function pct(entry, exit) {
   if (!entry || !exit || !Number.isFinite(entry.close) || !Number.isFinite(exit.close) || entry.close === 0) return null;
   return exit.close / entry.close - 1;
@@ -119,7 +125,7 @@ function benchmarkReturns(priceMap, asOf, entryDate) {
     result[symbol] = {};
     for (const horizon of horizons) {
       const exitDate = isoDate(addMonths(parseDate(entryDate), horizon.calendarMonths));
-      const exit = rowOnOrAfter(rows, exitDate);
+      const exit = exitRowOnOrAfter(rows, exitDate);
       result[symbol][horizon.key] = round(pct(entry, exit), 4);
     }
   }
@@ -132,15 +138,19 @@ function evaluateRow(row, priceMap, asOf, entryDate, benchmarks) {
   const returns = {};
   for (const horizon of horizons) {
     const targetDate = isoDate(addMonths(parseDate(entryDate), horizon.calendarMonths));
-    const exit = rowOnOrAfter(rows, targetDate);
+    const exit = exitRowOnOrAfter(rows, targetDate);
     returns[horizon.key] = round(pct(entry, exit), 4);
   }
   return {
     symbol: row.symbol,
     name: row.name,
+    type: row.type,
     sector: row.sector,
+    tags: row.tags ?? [],
     status: row.status,
     score: row.score,
+    scores: row.scores,
+    metrics: row.metrics,
     setup: row.setup.type,
     entryDate: entry?.date ?? null,
     entryPrice: round(entry?.close, 2),
@@ -153,6 +163,78 @@ function evaluateRow(row, priceMap, asOf, entryDate, benchmarks) {
       }
     ]))
   };
+}
+
+function weightedMomentum(metrics) {
+  const parts = [
+    [metrics?.r1m, 0.4],
+    [metrics?.r3m, 0.35],
+    [metrics?.r6m, 0.25]
+  ];
+  const valid = parts.filter(([value]) => Number.isFinite(value));
+  if (!valid.length) return null;
+  const weight = valid.reduce((sum, [, itemWeight]) => sum + itemWeight, 0);
+  return valid.reduce((sum, [value, itemWeight]) => sum + value * itemWeight, 0) / weight;
+}
+
+function rate(rows, predicate) {
+  if (!rows.length) return null;
+  return rows.filter(predicate).length / rows.length;
+}
+
+function buildGroupStats(rows) {
+  const stocks = rows.filter((row) => row.type === "stock" && row.sector);
+  const eligible = rows.filter((row) => row.type === "stock" && row.sector && row.status !== "excluded");
+  const top20 = eligible.slice(0, 20);
+  const top50 = eligible.slice(0, 50);
+  const top100 = eligible.slice(0, 100);
+  const spy = rows.find((row) => row.symbol === "SPY");
+  const qqq = rows.find((row) => row.symbol === "QQQ");
+  const groups = new Map();
+
+  for (const row of stocks) {
+    const current = groups.get(row.sector) ?? [];
+    current.push(row);
+    groups.set(row.sector, current);
+  }
+
+  return Array.from(groups, ([group, groupRows]) => {
+    const groupEligible = groupRows.filter((row) => row.status !== "excluded");
+    const groupTop20 = top20.filter((row) => row.sector === group);
+    const groupTop50 = top50.filter((row) => row.sector === group);
+    const groupTop100 = top100.filter((row) => row.sector === group);
+    const groupMomentum = groupRows.map((row) => weightedMomentum(row.metrics));
+    const qqqMomentum = weightedMomentum(qqq?.metrics);
+    const spyMomentum = weightedMomentum(spy?.metrics);
+    return {
+      group,
+      universeCount: groupRows.length,
+      eligibleCount: groupEligible.length,
+      top20Count: groupTop20.length,
+      top50Count: groupTop50.length,
+      top100Count: groupTop100.length,
+      eligibleRate: round(groupEligible.length / groupRows.length, 4),
+      top50Concentration: round(groupTop50.length / Math.max(1, groupRows.length), 4),
+      top100Concentration: round(groupTop100.length / Math.max(1, groupRows.length), 4),
+      averageScore: round(mean(groupRows.map((row) => row.score)), 2),
+      eligibleAverageScore: round(mean(groupEligible.map((row) => row.score)), 2),
+      averageMomentum: round(mean(groupMomentum), 4),
+      averageSpyExcessMomentum: round(mean(groupMomentum.map((value) => value - spyMomentum)), 4),
+      averageQqqExcessMomentum: round(mean(groupMomentum.map((value) => value - qqqMomentum)), 4),
+      averageR1m: round(mean(groupRows.map((row) => row.metrics?.r1m)), 4),
+      averageR3m: round(mean(groupRows.map((row) => row.metrics?.r3m)), 4),
+      averageR6m: round(mean(groupRows.map((row) => row.metrics?.r6m)), 4),
+      above20Rate: round(rate(groupRows, (row) => row.metrics?.above20), 4),
+      above50Rate: round(rate(groupRows, (row) => row.metrics?.above50), 4),
+      above200Rate: round(rate(groupRows, (row) => row.metrics?.above200), 4),
+      nearHighRate: round(rate(groupRows, (row) => row.metrics?.high52wDistance >= -0.1), 4),
+      score75Rate: round(rate(groupRows, (row) => row.score >= 75), 4),
+      score80Rate: round(rate(groupRows, (row) => row.score >= 80), 4),
+      setupRate: round(rate(groupEligible, (row) => row.setup?.type !== "none"), 4),
+      averageDollar20: round(mean(groupRows.map((row) => row.metrics?.avgDollar20)), 0)
+    };
+  }).filter((row) => row.universeCount >= 3)
+    .sort((a, b) => b.top50Count - a.top50Count || b.averageMomentum - a.averageMomentum);
 }
 
 function summarizeSelections(selections, benchmarks, topN, horizonKey) {
@@ -360,6 +442,7 @@ async function main() {
       entryDate,
       market: scored.market,
       benchmarks,
+      groupStats: buildGroupStats(scored.rows),
       selections,
       summaries
     });

@@ -33,6 +33,9 @@ jobs:
       - name: Run monthly selection test
         run: node src/monthly-selection-test.mjs
 
+      - name: Run full universe group test
+        run: node src/full-universe-group-test.mjs
+
       - name: Build static site
         run: node scripts/build-pages.mjs
 

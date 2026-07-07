@@ -8,6 +8,10 @@
     "refresh:sample": "node src/refresh.mjs --sample",
     "backtest": "node src/backtest.mjs",
     "test:monthly": "node src/monthly-selection-test.mjs",
+    "analyze:winners": "node src/winner-loser-analysis.mjs",
+    "test:rules": "node src/strategy-rule-test.mjs",
+    "test:groups": "node src/group-leadership-test.mjs",
+    "test:groups:full": "node src/full-universe-group-test.mjs",
     "build:pages": "node scripts/build-pages.mjs",
     "serve": "node src/server.mjs",
     "check": "node --check src/refresh.mjs && node --check src/server.mjs"

@@ -20,26 +20,35 @@ const semiconductorSymbols = new Set([
 
 let allRows = [];
 let monthlyResult = null;
+let fullGroupResult = null;
 
-async function loadData() {
-  const response = await fetch("data/screener-results.json", { cache: "no-store" });
-  if (!response.ok) throw new Error("data/screener-results.json 파일이 없습니다. 먼저 refresh를 실행하세요.");
-  return response.json();
-}
-
-async function loadMonthlyData() {
-  const response = await fetch("data/monthly-selection-test.json", { cache: "no-store" });
-  if (!response.ok) return null;
+async function fetchJson(path, required = true) {
+  const response = await fetch(path, { cache: "no-store" });
+  if (!response.ok) {
+    if (!required) return null;
+    throw new Error(`${path} 파일을 찾을 수 없습니다. refresh/build를 먼저 실행하세요.`);
+  }
   return response.json();
 }
 
 function tag(text, className = "") {
-  return `<span class="tag ${className}">${text}</span>`;
+  return `<span class="tag ${className}">${text ?? "-"}</span>`;
 }
 
 function percent(value) {
-  if (value === null || value === undefined) return "-";
+  if (!Number.isFinite(value)) return "-";
   return `${(value * 100).toFixed(1)}%`;
+}
+
+function number(value, digits = 1) {
+  if (!Number.isFinite(value)) return "-";
+  return value.toFixed(digits);
+}
+
+function average(values) {
+  const clean = values.filter(Number.isFinite);
+  if (!clean.length) return null;
+  return clean.reduce((sum, value) => sum + value, 0) / clean.length;
 }
 
 function tradingViewUrl(symbol) {
@@ -48,6 +57,12 @@ function tradingViewUrl(symbol) {
 
 function yahooUrl(symbol) {
   return `https://finance.yahoo.com/quote/${encodeURIComponent(symbol)}`;
+}
+
+function compactReason(row) {
+  const reasons = row.reasons?.length ? row.reasons : ["차트 확인 필요"];
+  const warnings = (row.warnings ?? []).slice(0, 2).map((item) => `경고: ${item}`);
+  return [...reasons, ...warnings].join(" / ");
 }
 
 function miniChart(row) {
@@ -75,34 +90,33 @@ function miniChart(row) {
 }
 
 function renderMarket(data) {
-  const m = data.market;
+  const market = data.market;
   document.getElementById("market").innerHTML = `
     <div class="metric">
       <div class="label">시장 상태</div>
-      <div class="value">${m.regime}</div>
-      <div class="small">권장 1회 리스크 ${m.suggestedRiskPerTrade}</div>
+      <div class="value">${market.regime}</div>
+      <div class="small">권장 1회 리스크 ${market.suggestedRiskPerTrade}</div>
     </div>
     <div class="metric">
       <div class="label">시장 점수</div>
-      <div class="value">${m.score}</div>
+      <div class="value">${market.score}</div>
     </div>
     <div class="metric">
       <div class="label">지수 추세</div>
-      <div class="value">${m.components.indexTrend}</div>
+      <div class="value">${market.components.indexTrend}</div>
     </div>
     <div class="metric">
       <div class="label">시장 폭</div>
-      <div class="value">${m.components.breadth}</div>
+      <div class="value">${market.components.breadth}</div>
     </div>
     <div class="metric">
       <div class="label">섹터 흐름</div>
-      <div class="value">${m.components.sectorFlow}</div>
+      <div class="value">${market.components.sectorFlow}</div>
     </div>
   `;
 }
 
 function card(row) {
-  const reasons = row.reasons.length ? row.reasons : ["수동 검토 필요"];
   return `
     <article class="card">
       <div class="card-head">
@@ -113,14 +127,14 @@ function card(row) {
         <div class="score">${row.score}</div>
       </div>
       <div class="reasons">
-        ${reasons.map((item) => `<div>${item}</div>`).join("")}
+        <div>${compactReason(row)}</div>
       </div>
       ${miniChart(row)}
       <div class="tags">
         ${tag(statusLabel[row.status], row.status)}
-        ${tag(setupLabel[row.setup.type])}
-        ${(row.tags ?? []).slice(0, 4).map((item) => tag(item)).join("")}
-        ${(row.warnings ?? []).slice(0, 3).map((item) => tag(item, "warn")).join("")}
+        ${tag(setupLabel[row.setup?.type] ?? row.setup?.type)}
+        ${tag(row.sector)}
+        ${(row.tags ?? []).slice(0, 3).map((item) => tag(item)).join("")}
       </div>
       <div class="links">
         <a href="${tradingViewUrl(row.symbol)}" target="_blank" rel="noreferrer">TradingView</a>
@@ -142,20 +156,86 @@ function renderCards(data) {
   document.getElementById("strong-watch").innerHTML = strongWatch.length ? strongWatch.map(card).join("") : `<div class="card small">현재 강한 감시 후보가 없습니다.</div>`;
 }
 
+function buildFallbackGroupStats(rows) {
+  const groups = new Map();
+  for (const row of rows.filter((item) => item.type === "stock" && item.sector)) {
+    const current = groups.get(row.sector) ?? [];
+    current.push(row);
+    groups.set(row.sector, current);
+  }
+  return Array.from(groups, ([group, groupRows]) => ({
+    group,
+    universeCount: groupRows.length,
+    eligibleCount: groupRows.filter((row) => row.status !== "excluded").length,
+    top20Count: allRows.filter((row) => row.status !== "excluded").slice(0, 20).filter((row) => row.sector === group).length,
+    top50Count: allRows.filter((row) => row.status !== "excluded").slice(0, 50).filter((row) => row.sector === group).length,
+    averageQqqExcessMomentum: average(groupRows.map((row) => row.returns?.excessQqq?.r3m)),
+    above50Rate: average(groupRows.map((row) => row.metrics?.above50 ? 1 : 0)),
+    above200Rate: average(groupRows.map((row) => row.metrics?.above200 ? 1 : 0)),
+    score75Rate: average(groupRows.map((row) => row.score >= 75 ? 1 : 0)),
+    leadershipScore: average(groupRows.map((row) => row.score)) ?? 0
+  })).sort((a, b) => b.leadershipScore - a.leadershipScore);
+}
+
+function currentGroupStats(data) {
+  return (data.currentGroupStats?.length ? data.currentGroupStats : buildFallbackGroupStats(data.rows)).slice(0, 8);
+}
+
+function renderCurrentLeaders(data) {
+  const groups = currentGroupStats(data);
+  const topGroups = new Set(groups.slice(0, 3).map((item) => item.group));
+  const picks = data.rows
+    .filter((row) => row.status !== "excluded")
+    .filter((row) => topGroups.has(row.sector))
+    .filter((row) => row.score >= 75)
+    .sort((a, b) => {
+      const groupDiff = [...topGroups].indexOf(a.sector) - [...topGroups].indexOf(b.sector);
+      return groupDiff || b.score - a.score;
+    })
+    .slice(0, 10);
+
+  document.getElementById("leader-sector-meta").textContent = `상위 ${Math.min(groups.length, 5)}개 그룹`;
+  document.getElementById("leader-sectors").innerHTML = groups.slice(0, 5).map((group, index) => `
+    <article class="card leader-card">
+      <div class="card-head">
+        <div>
+          <div class="symbol">${index + 1}. ${group.group}</div>
+          <div class="name">리더십 점수 ${number(group.leadershipScore)}</div>
+        </div>
+        <div class="score">${group.top50Count ?? 0}</div>
+      </div>
+      <div class="reasons">
+        <div>QQQ 대비 모멘텀: ${percent(group.averageQqqExcessMomentum)}</div>
+        <div>50일선 위 비율: ${percent(group.above50Rate)} / 200일선 위 비율: ${percent(group.above200Rate)}</div>
+        <div>75점 이상 비율: ${percent(group.score75Rate)} / Top20 포함: ${group.top20Count ?? 0}개</div>
+      </div>
+    </article>
+  `).join("");
+
+  document.getElementById("leader-pick-meta").textContent = `${picks.length}개 후보`;
+  document.getElementById("leader-picks").innerHTML = picks.length
+    ? picks.map(card).join("")
+    : `<div class="card small">현재 주도 섹터 안에서 75점 이상 후보가 없습니다.</div>`;
+}
+
 function rowHtml(row, index) {
-  const reasonText = [...(row.reasons ?? []), ...(row.warnings ?? []).map((item) => `경고: ${item}`)].join(" / ");
+  const setup = row.setup?.type ?? row.setup;
   return `
     <tr>
       <td class="num">${index + 1}</td>
-      <td><strong>${row.symbol}</strong><div class="small">${row.name}</div><div class="small"><a href="${tradingViewUrl(row.symbol)}" target="_blank" rel="noreferrer">TradingView</a></div></td>
+      <td>
+        <strong>${row.symbol}</strong>
+        <div class="small">${row.name}</div>
+        <div class="small"><a href="${tradingViewUrl(row.symbol)}" target="_blank" rel="noreferrer">TradingView</a></div>
+      </td>
       <td>${tag(statusLabel[row.status], row.status)}</td>
       <td class="num">${row.score}</td>
-      <td class="num">${row.scores.relative.total}</td>
-      <td class="num">${row.scores.momentum.total}</td>
-      <td class="num">${row.scores.sectorTheme.total}</td>
-      <td class="num">${row.scores.volume.total}</td>
-      <td>${setupLabel[row.setup.type]}<div class="small">RR ${row.setup.rewardRisk ?? "-"} / 손절 ${percent(row.setup.stopDistance)}</div></td>
-      <td>${reasonText || "수동 검토 필요"}<div class="small">${row.sector || row.group} ${(row.tags ?? []).join(", ")}</div></td>
+      <td class="num">${row.scores?.relative?.total ?? "-"}</td>
+      <td class="num">${row.scores?.momentum?.total ?? "-"}</td>
+      <td class="num">${row.scores?.sectorTheme?.total ?? "-"}</td>
+      <td class="num">${row.scores?.volume?.total ?? "-"}</td>
+      <td>${setupLabel[setup] ?? setup}<div class="small">RR ${row.setup?.rewardRisk ?? "-"} / 손절 ${percent(row.setup?.stopDistance)}</div></td>
+      <td>${compactReason(row)}<div class="small">${row.sector || row.group} ${(row.tags ?? []).join(", ")}</div></td>
     </tr>
   `;
 }
@@ -164,17 +244,12 @@ function renderTable(rows) {
   document.getElementById("ranking").innerHTML = rows.map(rowHtml).join("");
 }
 
-function average(values) {
-  const clean = values.filter(Number.isFinite);
-  if (!clean.length) return null;
-  return clean.reduce((sum, value) => sum + value, 0) / clean.length;
-}
-
 function top10BenchmarkRows(data) {
   return ["1m", "3m", "6m", "12m"].map((horizon) => {
     const summaries = data.periods
       .map((period) => period.summaries.find((item) => item.topN === 10 && item.horizon === horizon))
-      .filter(Boolean);
+      .filter(Boolean)
+      .filter((item) => Number.isFinite(item.portfolioReturn));
     return {
       horizon,
       top10: average(summaries.map((item) => item.portfolioReturn)),
@@ -207,8 +282,9 @@ function renderBenchmarkChart(data) {
       ["spy", row.spy, "bar-spy"],
       ["qqq", row.qqq, "bar-qqq"]
     ].forEach(([key, value, className], barIndex) => {
+      const safeValue = Math.max(0, value ?? 0);
       const x = start + barIndex * barWidth * 1.2;
-      const y = scaleY(Math.max(0, value));
+      const y = scaleY(safeValue);
       const h = height - pad.bottom - y;
       bars.push(`<rect class="${className}" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barWidth}" height="${h.toFixed(1)}"></rect>`);
       bars.push(`<text class="chart-label" x="${(x + barWidth / 2).toFixed(1)}" y="${(y - 5).toFixed(1)}" text-anchor="middle">${percent(value)}</text>`);
@@ -232,6 +308,48 @@ function renderBenchmarkChart(data) {
   `;
 }
 
+function renderFullGroupBacktest(data) {
+  const meta = document.getElementById("full-group-meta");
+  const body = document.getElementById("full-group-summary");
+  const recent = document.getElementById("recent-group-leaders");
+  if (!data) {
+    meta.textContent = "데이터 없음";
+    body.innerHTML = `<tr><td colspan="8">full-universe-group-test.json 파일이 없습니다.</td></tr>`;
+    return;
+  }
+  meta.textContent = `${data.periodCount}개 월별 기준`;
+  const interesting = ["full_quality_leader_top10", "full_leader_top5", "full_leader_top10", "baseline_top10", "baseline_top20"];
+  const rows = data.splits.all.results
+    .filter((row) => interesting.includes(row.key))
+    .map((row) => ({ ...row, horizon: "12m", stats: row.horizons["12m"] }));
+  body.innerHTML = rows.map((row) => `
+    <tr>
+      <td>${row.label}</td>
+      <td>${row.horizon}</td>
+      <td class="num">${percent(row.stats.averageReturn)}</td>
+      <td class="num">${percent(row.stats.medianReturn)}</td>
+      <td class="num">${percent(row.stats.positiveRate)}</td>
+      <td class="num">${percent(row.stats.beatSpyRate)}</td>
+      <td class="num">${percent(row.stats.beatQqqRate)}</td>
+      <td class="num">${percent(row.stats.averageExcessQqq)}</td>
+    </tr>
+  `).join("");
+
+  recent.innerHTML = data.recentLeadingGroups.slice(-6).map((row) => `
+    <article class="card">
+      <div class="card-head">
+        <div>
+          <div class="symbol">${row.asOf}</div>
+          <div class="name">최근 주도 그룹</div>
+        </div>
+      </div>
+      <div class="reasons">
+        ${row.leadingGroups.slice(0, 3).map((group, index) => `<div>${index + 1}. ${group.group} (${number(group.leadershipScore)})</div>`).join("")}
+      </div>
+    </article>
+  `).join("");
+}
+
 function semiconductorStats(data) {
   const map = new Map();
   let periodsWithSemis = 0;
@@ -239,13 +357,7 @@ function semiconductorStats(data) {
     const semis = period.selections.filter((row) => semiconductorSymbols.has(row.symbol));
     if (semis.length) periodsWithSemis += 1;
     for (const row of semis) {
-      const current = map.get(row.symbol) ?? {
-        symbol: row.symbol,
-        name: row.name,
-        count: 0,
-        r3m: [],
-        r12m: []
-      };
+      const current = map.get(row.symbol) ?? { symbol: row.symbol, name: row.name, count: 0, r3m: [], r12m: [] };
       current.count += 1;
       if (Number.isFinite(row.returns?.["3m"])) current.r3m.push(row.returns["3m"]);
       if (Number.isFinite(row.returns?.["12m"])) current.r12m.push(row.returns["12m"]);
@@ -255,22 +367,16 @@ function semiconductorStats(data) {
   return {
     periodsWithSemis,
     names: Array.from(map.values())
-      .map((row) => ({
-        ...row,
-        average3m: average(row.r3m),
-        average12m: average(row.r12m)
-      }))
+      .map((row) => ({ ...row, average3m: average(row.r3m), average12m: average(row.r12m) }))
       .sort((a, b) => b.count - a.count)
   };
 }
 
 function renderSemiconductorSection(data) {
-  const meta = document.getElementById("semiconductor-meta");
-  const cards = document.getElementById("semiconductor-cards");
   if (!data) return;
   const stats = semiconductorStats(data);
-  meta.textContent = `${stats.periodsWithSemis}/${data.asOfCount}개 기준일에서 Top20 포함`;
-  cards.innerHTML = stats.names.slice(0, 8).map((row) => `
+  document.getElementById("semiconductor-meta").textContent = `${stats.periodsWithSemis}/${data.asOfCount}개 기준일에서 Top20 포함`;
+  document.getElementById("semiconductor-cards").innerHTML = stats.names.slice(0, 8).map((row) => `
     <article class="card">
       <div class="card-head">
         <div>
@@ -418,13 +524,16 @@ function applyFilter() {
 
 async function main() {
   try {
-    const data = await loadData();
-    monthlyResult = await loadMonthlyData();
+    const data = await fetchJson("data/screener-results.json");
+    monthlyResult = await fetchJson("data/monthly-selection-test.json", false);
+    fullGroupResult = await fetchJson("data/full-universe-group-test.json", false);
     allRows = data.rows;
     document.getElementById("meta").textContent = `${data.mode} | ${new Date(data.generatedAt).toLocaleString()} | universe ${data.universeSize}, priced ${data.priceSeriesCount}`;
     renderMarket(data);
+    renderCurrentLeaders(data);
     renderCards(data);
     renderTable(allRows);
+    renderFullGroupBacktest(fullGroupResult);
     renderMonthlySummary(monthlyResult);
     setupTabs();
     document.getElementById("filter").addEventListener("input", applyFilter);
