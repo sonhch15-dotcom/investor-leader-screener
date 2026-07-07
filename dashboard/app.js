@@ -12,6 +12,12 @@ const setupLabel = {
   volume_breakout: "거래량 돌파"
 };
 
+const semiconductorSymbols = new Set([
+  "NVDA", "AVGO", "AMD", "ARM", "MRVL", "MU", "QCOM", "AMAT", "LRCX", "KLAC",
+  "ASML", "TSM", "INTC", "ON", "MCHP", "MPWR", "ADI", "TXN", "NXPI", "TER",
+  "SWKS", "QRVO", "SMCI", "DELL", "WDC", "STX", "SOXX", "SMH", "SOXL", "USD"
+]);
+
 let allRows = [];
 let monthlyResult = null;
 
@@ -158,6 +164,129 @@ function renderTable(rows) {
   document.getElementById("ranking").innerHTML = rows.map(rowHtml).join("");
 }
 
+function average(values) {
+  const clean = values.filter(Number.isFinite);
+  if (!clean.length) return null;
+  return clean.reduce((sum, value) => sum + value, 0) / clean.length;
+}
+
+function top10BenchmarkRows(data) {
+  return ["1m", "3m", "6m", "12m"].map((horizon) => {
+    const summaries = data.periods
+      .map((period) => period.summaries.find((item) => item.topN === 10 && item.horizon === horizon))
+      .filter(Boolean);
+    return {
+      horizon,
+      top10: average(summaries.map((item) => item.portfolioReturn)),
+      spy: average(summaries.map((item) => item.spyReturn)),
+      qqq: average(summaries.map((item) => item.qqqReturn))
+    };
+  });
+}
+
+function renderBenchmarkChart(data) {
+  const target = document.getElementById("benchmark-chart");
+  if (!data) {
+    target.innerHTML = `<div class="small">월간 검증 데이터가 없습니다.</div>`;
+    return;
+  }
+  const rows = top10BenchmarkRows(data);
+  const width = 760;
+  const height = 300;
+  const pad = { top: 22, right: 20, bottom: 42, left: 48 };
+  const maxValue = Math.max(...rows.flatMap((row) => [row.top10, row.spy, row.qqq]).filter(Number.isFinite), 0.01);
+  const yMax = Math.max(0.1, maxValue * 1.15);
+  const groupWidth = (width - pad.left - pad.right) / rows.length;
+  const barWidth = Math.min(42, groupWidth / 5);
+  const scaleY = (value) => height - pad.bottom - (value / yMax) * (height - pad.top - pad.bottom);
+  const bars = [];
+  rows.forEach((row, index) => {
+    const start = pad.left + index * groupWidth + groupWidth / 2 - barWidth * 1.7;
+    [
+      ["top10", row.top10, "bar-top"],
+      ["spy", row.spy, "bar-spy"],
+      ["qqq", row.qqq, "bar-qqq"]
+    ].forEach(([key, value, className], barIndex) => {
+      const x = start + barIndex * barWidth * 1.2;
+      const y = scaleY(Math.max(0, value));
+      const h = height - pad.bottom - y;
+      bars.push(`<rect class="${className}" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barWidth}" height="${h.toFixed(1)}"></rect>`);
+      bars.push(`<text class="chart-label" x="${(x + barWidth / 2).toFixed(1)}" y="${(y - 5).toFixed(1)}" text-anchor="middle">${percent(value)}</text>`);
+    });
+    bars.push(`<text class="chart-axis" x="${(pad.left + index * groupWidth + groupWidth / 2).toFixed(1)}" y="${height - 14}" text-anchor="middle">${row.horizon.toUpperCase()}</text>`);
+  });
+
+  target.innerHTML = `
+    <svg class="bar-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Top 10 benchmark comparison">
+      <line x1="${pad.left}" y1="${height - pad.bottom}" x2="${width - pad.right}" y2="${height - pad.bottom}" stroke="#dde3ea"></line>
+      <line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${height - pad.bottom}" stroke="#dde3ea"></line>
+      <text class="chart-axis" x="6" y="${scaleY(yMax).toFixed(1)}">${percent(yMax)}</text>
+      <text class="chart-axis" x="18" y="${height - pad.bottom + 4}">0%</text>
+      ${bars.join("")}
+    </svg>
+    <div class="legend">
+      <span class="top">Top 10</span>
+      <span class="spy">SPY</span>
+      <span class="qqq">QQQ</span>
+    </div>
+  `;
+}
+
+function semiconductorStats(data) {
+  const map = new Map();
+  let periodsWithSemis = 0;
+  for (const period of data.periods ?? []) {
+    const semis = period.selections.filter((row) => semiconductorSymbols.has(row.symbol));
+    if (semis.length) periodsWithSemis += 1;
+    for (const row of semis) {
+      const current = map.get(row.symbol) ?? {
+        symbol: row.symbol,
+        name: row.name,
+        count: 0,
+        r3m: [],
+        r12m: []
+      };
+      current.count += 1;
+      if (Number.isFinite(row.returns?.["3m"])) current.r3m.push(row.returns["3m"]);
+      if (Number.isFinite(row.returns?.["12m"])) current.r12m.push(row.returns["12m"]);
+      map.set(row.symbol, current);
+    }
+  }
+  return {
+    periodsWithSemis,
+    names: Array.from(map.values())
+      .map((row) => ({
+        ...row,
+        average3m: average(row.r3m),
+        average12m: average(row.r12m)
+      }))
+      .sort((a, b) => b.count - a.count)
+  };
+}
+
+function renderSemiconductorSection(data) {
+  const meta = document.getElementById("semiconductor-meta");
+  const cards = document.getElementById("semiconductor-cards");
+  if (!data) return;
+  const stats = semiconductorStats(data);
+  meta.textContent = `${stats.periodsWithSemis}/${data.asOfCount}개 기준일에서 Top20 포함`;
+  cards.innerHTML = stats.names.slice(0, 8).map((row) => `
+    <article class="card">
+      <div class="card-head">
+        <div>
+          <div class="symbol">${row.symbol}</div>
+          <div class="name">${row.name}</div>
+        </div>
+        <div class="score">${row.count}회</div>
+      </div>
+      <div class="reasons">
+        <div>평균 3M: ${percent(row.average3m)}</div>
+        <div>평균 12M: ${percent(row.average12m)}</div>
+      </div>
+    </article>
+  `).join("");
+}
+
 function renderMonthlySummary(data) {
   const meta = document.getElementById("monthly-meta");
   const summary = document.getElementById("monthly-summary");
@@ -170,6 +299,7 @@ function renderMonthlySummary(data) {
   }
 
   meta.textContent = `${data.startDate} ~ ${data.endDate} | ${data.asOfCount}개 기준일`;
+  renderBenchmarkChart(data);
   summary.innerHTML = data.summary.map((row) => `
     <tr>
       <td class="num">Top ${row.topN}</td>
@@ -223,6 +353,17 @@ function renderMonthlySummary(data) {
       </div>
     </article>
   `).join("");
+  renderSemiconductorSection(data);
+}
+
+function setupTabs() {
+  document.querySelectorAll(".tab-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const tab = button.dataset.tab;
+      document.querySelectorAll(".tab-button").forEach((item) => item.classList.toggle("active", item === button));
+      document.querySelectorAll(".tab-panel").forEach((panel) => panel.classList.toggle("active", panel.id === `${tab}-panel`));
+    });
+  });
 }
 
 function applyFilter() {
@@ -250,6 +391,7 @@ async function main() {
     renderCards(data);
     renderTable(allRows);
     renderMonthlySummary(monthlyResult);
+    setupTabs();
     document.getElementById("filter").addEventListener("input", applyFilter);
   } catch (error) {
     document.getElementById("meta").textContent = error.message;

@@ -16,62 +16,79 @@
   </header>
 
   <main>
-    <section class="market" id="market"></section>
+    <nav class="tabs" aria-label="Dashboard sections">
+      <button class="tab-button active" data-tab="selection" type="button">종목 선정</button>
+      <button class="tab-button" data-tab="backtest" type="button">백테스트</button>
+    </nav>
 
-    <section class="triple">
-      <div>
-        <div class="section-title">
-          <h2>매수 가능 후보</h2>
-          <span id="buyable-count">0</span>
+    <section class="tab-panel active" id="selection-panel">
+      <section class="market" id="market"></section>
+
+      <section class="triple">
+        <div>
+          <div class="section-title">
+            <h2>매수 가능 후보</h2>
+            <span id="buyable-count">0</span>
+          </div>
+          <div class="cards" id="buyable"></div>
         </div>
-        <div class="cards" id="buyable"></div>
-      </div>
-      <div>
-        <div class="section-title">
-          <h2>매수 검토</h2>
-          <span id="review-count">0</span>
+        <div>
+          <div class="section-title">
+            <h2>매수 검토</h2>
+            <span id="review-count">0</span>
+          </div>
+          <div class="cards" id="review"></div>
         </div>
-        <div class="cards" id="review"></div>
-      </div>
-      <div>
-        <div class="section-title">
-          <h2>강한 감시</h2>
-          <span id="strong-watch-count">0</span>
+        <div>
+          <div class="section-title">
+            <h2>강한 감시</h2>
+            <span id="strong-watch-count">0</span>
+          </div>
+          <div class="cards" id="strong-watch"></div>
         </div>
-        <div class="cards" id="strong-watch"></div>
-      </div>
+      </section>
+
+      <section>
+        <div class="section-title">
+          <h2>전체 순위표</h2>
+          <input id="filter" type="search" placeholder="티커, 섹터, 태그 검색">
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>순위</th>
+                <th>티커</th>
+                <th>상태</th>
+                <th>총점</th>
+                <th>상대</th>
+                <th>모멘텀</th>
+                <th>섹터</th>
+                <th>수급</th>
+                <th>셋업</th>
+                <th>이유/경고</th>
+              </tr>
+            </thead>
+            <tbody id="ranking"></tbody>
+          </table>
+        </div>
+      </section>
     </section>
 
-    <section>
-      <div class="section-title">
-        <h2>전체 순위표</h2>
-        <input id="filter" type="search" placeholder="티커, 섹터, 태그 검색">
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>순위</th>
-              <th>티커</th>
-              <th>상태</th>
-              <th>총점</th>
-              <th>상대</th>
-              <th>모멘텀</th>
-              <th>섹터</th>
-              <th>수급</th>
-              <th>셋업</th>
-              <th>이유/경고</th>
-            </tr>
-          </thead>
-          <tbody id="ranking"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="backtest-section">
+    <section class="tab-panel" id="backtest-panel">
       <div class="section-title">
         <h2>월간 선정력 검증</h2>
         <span id="monthly-meta">Loading...</span>
+      </div>
+      <div class="explain">
+        `SPY 초과`와 `QQQ 초과`는 같은 기간에 선정 포트폴리오 수익률이 각각 SPY, QQQ보다 높았던 비율입니다.
+      </div>
+      <div class="chart-panel">
+        <div class="section-title compact">
+          <h2>Top 10 평균 수익률 비교</h2>
+          <span>선정 종목 vs SPY vs QQQ</span>
+        </div>
+        <div id="benchmark-chart"></div>
       </div>
       <div class="table-wrap">
         <table>
@@ -105,6 +122,11 @@
           <div class="cards" id="monthly-contributors"></div>
         </div>
       </div>
+      <div class="section-title compact">
+        <h2>반도체/AI 하드웨어 반영 여부</h2>
+        <span id="semiconductor-meta"></span>
+      </div>
+      <div class="cards compact-grid" id="semiconductor-cards"></div>
     </section>
   </main>
 
