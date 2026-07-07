@@ -5,6 +5,10 @@ on:
     branches:
       - main
   workflow_dispatch:
+  schedule:
+    # Weekly refresh after the US market week has fully closed.
+    # Runs Monday 07:00 KST / Sunday 22:00 UTC.
+    - cron: "0 22 * * 0"
 
 permissions:
   contents: read

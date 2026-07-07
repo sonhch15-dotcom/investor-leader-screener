@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-07-07T22:24:14.420Z",
+  "generatedAt": "2026-07-07T22:42:38.898Z",
   "asOf": "2026-07-06",
   "sourceGeneratedAt": "2026-07-07T08:27:40.378Z",
   "strategy": {
     "name": "Leader2 One Each",
     "shortName": "월 2개 주도주",
-    "summary": "상위 주도 섹터 2개에서 각각 1등 종목 1개씩 매수하고, 각 월별 매수 묶음을 6개월 보유합니다.",
+    "summary": "상위 주도 섹터 2개에서 각각 1등 종목 1개씩 매수하고, 6개월 후 50%를 매도합니다. 나머지 50%는 주봉 10주선+RSI 추세가 살아 있으면 최대 12개월까지 연장합니다.",
     "monthlyBuys": 2,
-    "holdingMonths": 6,
+    "holdingMonths": "6개월 + 주봉 연장",
     "stopRule": "기본 손절 없음",
-    "executionNote": "신규 후보는 차트 확인 후 진입"
+    "executionNote": "신규 후보는 차트 확인 후 진입, 주간 업데이트는 관찰과 보유 관리용"
   },
   "market": {
     "score": 65.64,
@@ -2365,16 +2365,16 @@
       "averageNewBuys": 2
     },
     "fiveYear": {
-      "label": "Leader2 One Each",
+      "label": "50% Sell / 50% Weekly Extend",
       "months": 58,
-      "totalReturn": 5.3518,
-      "cagr": 0.4659,
+      "totalReturn": 8.3249,
+      "cagr": 0.5871,
       "qqqTotalReturn": 0.9621,
-      "excessQqqTotal": 4.3898,
-      "maxDrawdown": -0.1798,
+      "excessQqqTotal": 7.3628,
+      "maxDrawdown": -0.1689,
       "positiveMonthRate": 0.6379,
       "beatQqqMonthRate": 0.6379,
-      "averageHeldCount": 10,
+      "averageHeldCount": 13.6,
       "averageNewBuys": 2
     },
     "equityCurve": [
@@ -2382,1098 +2382,930 @@
         "asOf": "2021-08-27",
         "entryDate": "2021-08-30",
         "exitDate": "2021-09-27",
-        "netReturn": 0.0204,
+        "netReturn": 0.0206,
         "qqqReturn": -0.025,
-        "excessQqq": 0.0454,
-        "equity": 1.0204,
+        "excessQqq": 0.0456,
+        "equity": 1.0206,
         "qqqEquity": 0.975,
-        "strategyTotalReturn": 0.0204,
+        "strategyTotalReturn": 0.0206,
         "qqqTotalReturn": -0.025,
         "uniqueHeldCount": 2,
-        "newestSymbols": [
-          "CB",
-          "PLTR"
-        ]
+        "newestSymbols": []
       },
       {
         "asOf": "2021-09-24",
         "entryDate": "2021-09-27",
         "exitDate": "2021-11-01",
-        "netReturn": 0.0501,
+        "netReturn": 0.0503,
         "qqqReturn": 0.0461,
-        "excessQqq": 0.004,
-        "equity": 1.0716,
+        "excessQqq": 0.0042,
+        "equity": 1.0719,
         "qqqEquity": 1.02,
-        "strategyTotalReturn": 0.0716,
+        "strategyTotalReturn": 0.0719,
         "qqqTotalReturn": 0.02,
         "uniqueHeldCount": 4,
-        "newestSymbols": [
-          "APA",
-          "EXPE"
-        ]
+        "newestSymbols": []
       },
       {
         "asOf": "2021-10-29",
         "entryDate": "2021-11-01",
         "exitDate": "2021-11-29",
-        "netReturn": -0.0517,
+        "netReturn": -0.0515,
         "qqqReturn": 0.0316,
-        "excessQqq": -0.0833,
-        "equity": 1.0162,
+        "excessQqq": -0.0831,
+        "equity": 1.0167,
         "qqqEquity": 1.0523,
-        "strategyTotalReturn": 0.0162,
+        "strategyTotalReturn": 0.0167,
         "qqqTotalReturn": 0.0523,
-        "uniqueHeldCount": 5,
-        "newestSymbols": [
-          "COIN",
-          "APA"
-        ]
+        "uniqueHeldCount": 6,
+        "newestSymbols": []
       },
       {
         "asOf": "2021-11-26",
         "entryDate": "2021-11-29",
         "exitDate": "2022-01-03",
-        "netReturn": -0.0197,
+        "netReturn": -0.0196,
         "qqqReturn": 0.0063,
-        "excessQqq": -0.026,
-        "equity": 0.9962,
+        "excessQqq": -0.0258,
+        "equity": 0.9968,
         "qqqEquity": 1.0589,
-        "strategyTotalReturn": -0.0038,
+        "strategyTotalReturn": -0.0032,
         "qqqTotalReturn": 0.0589,
-        "uniqueHeldCount": 7,
-        "newestSymbols": [
-          "HD",
-          "AMD"
-        ]
+        "uniqueHeldCount": 8,
+        "newestSymbols": []
       },
       {
         "asOf": "2021-12-31",
         "entryDate": "2022-01-03",
         "exitDate": "2022-01-31",
-        "netReturn": -0.0613,
+        "netReturn": -0.0611,
         "qqqReturn": -0.0962,
-        "excessQqq": 0.0349,
-        "equity": 0.9351,
+        "excessQqq": 0.0351,
+        "equity": 0.9359,
         "qqqEquity": 0.957,
-        "strategyTotalReturn": -0.0649,
+        "strategyTotalReturn": -0.0641,
         "qqqTotalReturn": -0.043,
-        "uniqueHeldCount": 9,
-        "newestSymbols": [
-          "CNC",
-          "IRM"
-        ]
+        "uniqueHeldCount": 10,
+        "newestSymbols": []
       },
       {
         "asOf": "2022-01-28",
         "entryDate": "2022-01-31",
         "exitDate": "2022-02-28",
-        "netReturn": 0.0273,
+        "netReturn": 0.0276,
         "qqqReturn": -0.0448,
-        "excessQqq": 0.0721,
-        "equity": 0.9607,
+        "excessQqq": 0.0724,
+        "equity": 0.9618,
         "qqqEquity": 0.9142,
-        "strategyTotalReturn": -0.0393,
+        "strategyTotalReturn": -0.0382,
         "qqqTotalReturn": -0.0858,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "HAL",
-          "ADM"
-        ]
+        "uniqueHeldCount": 12,
+        "newestSymbols": []
       },
       {
         "asOf": "2022-02-25",
         "entryDate": "2022-02-28",
         "exitDate": "2022-03-28",
-        "netReturn": 0.076,
+        "netReturn": 0.0761,
         "qqqReturn": 0.0535,
-        "excessQqq": 0.0225,
-        "equity": 1.0337,
+        "excessQqq": 0.0226,
+        "equity": 1.035,
         "qqqEquity": 0.9631,
-        "strategyTotalReturn": 0.0337,
+        "strategyTotalReturn": 0.035,
         "qqqTotalReturn": -0.0369,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "TRGP",
-          "BG"
-        ]
+        "uniqueHeldCount": 13,
+        "newestSymbols": []
       },
       {
         "asOf": "2022-03-25",
         "entryDate": "2022-03-28",
         "exitDate": "2022-05-02",
-        "netReturn": -0.0746,
+        "netReturn": -0.0707,
         "qqqReturn": -0.1272,
-        "excessQqq": 0.0527,
-        "equity": 0.9566,
+        "excessQqq": 0.0565,
+        "equity": 0.9618,
         "qqqEquity": 0.8406,
-        "strategyTotalReturn": -0.0434,
+        "strategyTotalReturn": -0.0382,
         "qqqTotalReturn": -0.1594,
-        "uniqueHeldCount": 12,
-        "newestSymbols": [
-          "OXY",
-          "MOS"
-        ]
+        "uniqueHeldCount": 15,
+        "newestSymbols": []
       },
       {
         "asOf": "2022-04-29",
         "entryDate": "2022-05-02",
         "exitDate": "2022-05-31",
-        "netReturn": 0.0544,
+        "netReturn": 0.0626,
         "qqqReturn": -0.032,
-        "excessQqq": 0.0864,
-        "equity": 1.0087,
+        "excessQqq": 0.0947,
+        "equity": 1.022,
         "qqqEquity": 0.8136,
-        "strategyTotalReturn": 0.0087,
+        "strategyTotalReturn": 0.022,
         "qqqTotalReturn": -0.1864,
-        "uniqueHeldCount": 12,
-        "newestSymbols": [
-          "VLO",
-          "HSY"
-        ]
+        "uniqueHeldCount": 14,
+        "newestSymbols": []
       },
       {
         "asOf": "2022-05-27",
         "entryDate": "2022-05-31",
         "exitDate": "2022-06-27",
-        "netReturn": -0.1287,
+        "netReturn": -0.1283,
         "qqqReturn": -0.0495,
-        "excessQqq": -0.0791,
-        "equity": 0.8789,
+        "excessQqq": -0.0788,
+        "equity": 0.8909,
         "qqqEquity": 0.7734,
-        "strategyTotalReturn": -0.1211,
+        "strategyTotalReturn": -0.1091,
         "qqqTotalReturn": -0.2266,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "OXY",
-          "NRG"
-        ]
+        "uniqueHeldCount": 12,
+        "newestSymbols": []
       },
       {
         "asOf": "2022-06-24",
         "entryDate": "2022-06-27",
         "exitDate": "2022-08-01",
-        "netReturn": 0.0363,
+        "netReturn": 0.0367,
         "qqqReturn": 0.078,
-        "excessQqq": -0.0417,
-        "equity": 0.9108,
+        "excessQqq": -0.0414,
+        "equity": 0.9235,
         "qqqEquity": 0.8337,
-        "strategyTotalReturn": -0.0892,
+        "strategyTotalReturn": -0.0765,
         "qqqTotalReturn": -0.1663,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "LLY",
-          "DG"
-        ]
+        "uniqueHeldCount": 12,
+        "newestSymbols": []
       },
       {
         "asOf": "2022-07-29",
         "entryDate": "2022-08-01",
         "exitDate": "2022-08-29",
-        "netReturn": 0.0669,
+        "netReturn": 0.0672,
         "qqqReturn": -0.0344,
-        "excessQqq": 0.1013,
-        "equity": 0.9717,
+        "excessQqq": 0.1017,
+        "equity": 0.9856,
         "qqqEquity": 0.805,
-        "strategyTotalReturn": -0.0283,
+        "strategyTotalReturn": -0.0144,
         "qqqTotalReturn": -0.195,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "TPL",
-          "NOC"
-        ]
+        "uniqueHeldCount": 12,
+        "newestSymbols": []
       },
       {
         "asOf": "2022-08-26",
         "entryDate": "2022-08-29",
         "exitDate": "2022-10-03",
-        "netReturn": -0.066,
+        "netReturn": -0.0677,
         "qqqReturn": -0.0998,
-        "excessQqq": 0.0338,
-        "equity": 0.9075,
+        "excessQqq": 0.0322,
+        "equity": 0.9189,
         "qqqEquity": 0.7246,
-        "strategyTotalReturn": -0.0925,
+        "strategyTotalReturn": -0.0811,
         "qqqTotalReturn": -0.2754,
-        "uniqueHeldCount": 10,
-        "newestSymbols": [
-          "OXY",
-          "DE"
-        ]
+        "uniqueHeldCount": 13,
+        "newestSymbols": []
       },
       {
         "asOf": "2022-09-30",
         "entryDate": "2022-10-03",
         "exitDate": "2022-10-31",
-        "netReturn": 0.1151,
+        "netReturn": 0.1155,
         "qqqReturn": 0.0162,
-        "excessQqq": 0.099,
-        "equity": 1.012,
+        "excessQqq": 0.0993,
+        "equity": 1.025,
         "qqqEquity": 0.7363,
-        "strategyTotalReturn": 0.012,
+        "strategyTotalReturn": 0.025,
         "qqqTotalReturn": -0.2637,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "MPC",
-          "REGN"
-        ]
+        "uniqueHeldCount": 12,
+        "newestSymbols": []
       },
       {
         "asOf": "2022-10-28",
         "entryDate": "2022-10-31",
         "exitDate": "2022-11-28",
-        "netReturn": 0.0011,
+        "netReturn": 0.0036,
         "qqqReturn": 0.0171,
-        "excessQqq": -0.0161,
-        "equity": 1.0131,
+        "excessQqq": -0.0135,
+        "equity": 1.0287,
         "qqqEquity": 0.7489,
-        "strategyTotalReturn": 0.0131,
+        "strategyTotalReturn": 0.0287,
         "qqqTotalReturn": -0.2511,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "SLB",
-          "ACGL"
-        ]
+        "uniqueHeldCount": 14,
+        "newestSymbols": []
       },
       {
         "asOf": "2022-11-25",
         "entryDate": "2022-11-28",
         "exitDate": "2023-01-03",
-        "netReturn": -0.0214,
+        "netReturn": -0.0246,
         "qqqReturn": -0.0622,
-        "excessQqq": 0.0408,
-        "equity": 0.9914,
+        "excessQqq": 0.0376,
+        "equity": 1.0034,
         "qqqEquity": 0.7023,
-        "strategyTotalReturn": -0.0086,
+        "strategyTotalReturn": 0.0034,
         "qqqTotalReturn": -0.2977,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "EME",
-          "ACGL"
-        ]
+        "uniqueHeldCount": 14,
+        "newestSymbols": []
       },
       {
         "asOf": "2022-12-30",
         "entryDate": "2023-01-03",
         "exitDate": "2023-01-30",
-        "netReturn": 0.0251,
+        "netReturn": 0.0203,
         "qqqReturn": 0.0975,
-        "excessQqq": -0.0724,
-        "equity": 1.0163,
+        "excessQqq": -0.0773,
+        "equity": 1.0237,
         "qqqEquity": 0.7708,
-        "strategyTotalReturn": 0.0163,
+        "strategyTotalReturn": 0.0237,
         "qqqTotalReturn": -0.2292,
-        "uniqueHeldCount": 10,
-        "newestSymbols": [
-          "CAT",
-          "SLB"
-        ]
+        "uniqueHeldCount": 14,
+        "newestSymbols": []
       },
       {
         "asOf": "2023-01-27",
         "entryDate": "2023-01-30",
         "exitDate": "2023-02-27",
-        "netReturn": 0.004,
+        "netReturn": 0.0044,
         "qqqReturn": 0.0126,
-        "excessQqq": -0.0086,
-        "equity": 1.0204,
+        "excessQqq": -0.0083,
+        "equity": 1.0282,
         "qqqEquity": 0.7806,
-        "strategyTotalReturn": 0.0204,
+        "strategyTotalReturn": 0.0282,
         "qqqTotalReturn": -0.2194,
-        "uniqueHeldCount": 10,
-        "newestSymbols": [
-          "LVS",
-          "STT"
-        ]
+        "uniqueHeldCount": 12,
+        "newestSymbols": []
       },
       {
         "asOf": "2023-02-24",
         "entryDate": "2023-02-27",
         "exitDate": "2023-04-03",
-        "netReturn": 0.0056,
+        "netReturn": 0.0059,
         "qqqReturn": 0.0909,
-        "excessQqq": -0.0853,
-        "equity": 1.026,
+        "excessQqq": -0.085,
+        "equity": 1.0342,
         "qqqEquity": 0.8515,
-        "strategyTotalReturn": 0.026,
+        "strategyTotalReturn": 0.0342,
         "qqqTotalReturn": -0.1485,
-        "uniqueHeldCount": 9,
-        "newestSymbols": [
-          "GE",
-          "ACGL"
-        ]
+        "uniqueHeldCount": 12,
+        "newestSymbols": []
       },
       {
         "asOf": "2023-03-31",
         "entryDate": "2023-04-03",
         "exitDate": "2023-05-01",
-        "netReturn": 0.0285,
+        "netReturn": 0.0219,
         "qqqReturn": 0.0064,
-        "excessQqq": 0.0221,
-        "equity": 1.0552,
+        "excessQqq": 0.0156,
+        "equity": 1.0569,
         "qqqEquity": 0.8569,
-        "strategyTotalReturn": 0.0552,
+        "strategyTotalReturn": 0.0569,
         "qqqTotalReturn": -0.1431,
-        "uniqueHeldCount": 9,
-        "newestSymbols": [
-          "NVDA",
-          "LULU"
-        ]
+        "uniqueHeldCount": 14,
+        "newestSymbols": []
       },
       {
         "asOf": "2023-04-28",
         "entryDate": "2023-05-01",
         "exitDate": "2023-05-30",
-        "netReturn": -0.0222,
+        "netReturn": -0.0263,
         "qqqReturn": 0.0863,
-        "excessQqq": -0.1085,
-        "equity": 1.0318,
+        "excessQqq": -0.1126,
+        "equity": 1.0291,
         "qqqEquity": 0.9308,
-        "strategyTotalReturn": 0.0318,
+        "strategyTotalReturn": 0.0291,
         "qqqTotalReturn": -0.0692,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "HCA",
-          "CHD"
-        ]
+        "uniqueHeldCount": 14,
+        "newestSymbols": []
       },
       {
         "asOf": "2023-05-26",
         "entryDate": "2023-05-30",
         "exitDate": "2023-07-03",
-        "netReturn": 0.0882,
+        "netReturn": 0.0862,
         "qqqReturn": 0.0595,
-        "excessQqq": 0.0287,
-        "equity": 1.1228,
+        "excessQqq": 0.0267,
+        "equity": 1.1178,
         "qqqEquity": 0.9862,
-        "strategyTotalReturn": 0.1228,
+        "strategyTotalReturn": 0.1178,
         "qqqTotalReturn": -0.0138,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "PLTR",
-          "NVDA"
-        ]
+        "uniqueHeldCount": 14,
+        "newestSymbols": []
       },
       {
         "asOf": "2023-06-30",
         "entryDate": "2023-07-03",
         "exitDate": "2023-07-31",
-        "netReturn": 0.0415,
+        "netReturn": 0.0529,
         "qqqReturn": 0.0362,
-        "excessQqq": 0.0053,
-        "equity": 1.1693,
+        "excessQqq": 0.0167,
+        "equity": 1.1769,
         "qqqEquity": 1.0218,
-        "strategyTotalReturn": 0.1693,
+        "strategyTotalReturn": 0.1769,
         "qqqTotalReturn": 0.0218,
-        "uniqueHeldCount": 10,
-        "newestSymbols": [
-          "CCL",
-          "GE"
-        ]
+        "uniqueHeldCount": 15,
+        "newestSymbols": []
       },
       {
         "asOf": "2023-07-28",
         "entryDate": "2023-07-31",
         "exitDate": "2023-08-28",
-        "netReturn": -0.0583,
+        "netReturn": -0.0493,
         "qqqReturn": -0.0441,
-        "excessQqq": -0.0142,
-        "equity": 1.1011,
+        "excessQqq": -0.0052,
+        "equity": 1.119,
         "qqqEquity": 0.9768,
-        "strategyTotalReturn": 0.1011,
+        "strategyTotalReturn": 0.119,
         "qqqTotalReturn": -0.0232,
-        "uniqueHeldCount": 10,
-        "newestSymbols": [
-          "META",
-          "UBER"
-        ]
+        "uniqueHeldCount": 15,
+        "newestSymbols": []
       },
       {
         "asOf": "2023-08-25",
         "entryDate": "2023-08-28",
         "exitDate": "2023-10-02",
-        "netReturn": -0.0106,
+        "netReturn": -0.013,
         "qqqReturn": -0.0136,
-        "excessQqq": 0.003,
-        "equity": 1.0895,
+        "excessQqq": 0.0005,
+        "equity": 1.1044,
         "qqqEquity": 0.9635,
-        "strategyTotalReturn": 0.0895,
+        "strategyTotalReturn": 0.1044,
         "qqqTotalReturn": -0.0365,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "VRT",
-          "MPC"
-        ]
+        "uniqueHeldCount": 16,
+        "newestSymbols": []
       },
       {
         "asOf": "2023-09-29",
         "entryDate": "2023-10-02",
         "exitDate": "2023-10-30",
-        "netReturn": -0.0471,
+        "netReturn": -0.0433,
         "qqqReturn": -0.0334,
-        "excessQqq": -0.0137,
-        "equity": 1.0382,
+        "excessQqq": -0.0099,
+        "equity": 1.0566,
         "qqqEquity": 0.9314,
-        "strategyTotalReturn": 0.0382,
+        "strategyTotalReturn": 0.0566,
         "qqqTotalReturn": -0.0686,
-        "uniqueHeldCount": 12,
-        "newestSymbols": [
-          "XOM",
-          "CBOE"
-        ]
+        "uniqueHeldCount": 14,
+        "newestSymbols": []
       },
       {
         "asOf": "2023-10-27",
         "entryDate": "2023-10-30",
         "exitDate": "2023-11-27",
-        "netReturn": 0.1507,
+        "netReturn": 0.1511,
         "qqqReturn": 0.1145,
-        "excessQqq": 0.0363,
-        "equity": 1.1947,
+        "excessQqq": 0.0366,
+        "equity": 1.2162,
         "qqqEquity": 1.038,
-        "strategyTotalReturn": 0.1947,
+        "strategyTotalReturn": 0.2162,
         "qqqTotalReturn": 0.038,
         "uniqueHeldCount": 12,
-        "newestSymbols": [
-          "MSTR",
-          "STX"
-        ]
+        "newestSymbols": []
       },
       {
         "asOf": "2023-11-24",
         "entryDate": "2023-11-27",
         "exitDate": "2024-01-02",
-        "netReturn": 0.0656,
+        "netReturn": 0.0558,
         "qqqReturn": 0.0371,
-        "excessQqq": 0.0285,
-        "equity": 1.2731,
+        "excessQqq": 0.0187,
+        "equity": 1.284,
         "qqqEquity": 1.0765,
-        "strategyTotalReturn": 0.2731,
+        "strategyTotalReturn": 0.284,
         "qqqTotalReturn": 0.0765,
-        "uniqueHeldCount": 12,
-        "newestSymbols": [
-          "EXPE",
-          "PLTR"
-        ]
+        "uniqueHeldCount": 14,
+        "newestSymbols": []
       },
       {
         "asOf": "2023-12-29",
         "entryDate": "2024-01-02",
         "exitDate": "2024-01-29",
-        "netReturn": 0.0565,
+        "netReturn": 0.0614,
         "qqqReturn": 0.0635,
-        "excessQqq": -0.007,
-        "equity": 1.345,
+        "excessQqq": -0.0021,
+        "equity": 1.3629,
         "qqqEquity": 1.1448,
-        "strategyTotalReturn": 0.345,
+        "strategyTotalReturn": 0.3629,
         "qqqTotalReturn": 0.1448,
-        "uniqueHeldCount": 12,
-        "newestSymbols": [
-          "HOOD",
-          "AMD"
-        ]
+        "uniqueHeldCount": 15,
+        "newestSymbols": []
       },
       {
         "asOf": "2024-01-26",
         "entryDate": "2024-01-29",
         "exitDate": "2024-02-26",
-        "netReturn": 0.1235,
+        "netReturn": 0.127,
         "qqqReturn": 0.0196,
-        "excessQqq": 0.1039,
-        "equity": 1.5111,
+        "excessQqq": 0.1074,
+        "equity": 1.536,
         "qqqEquity": 1.1673,
-        "strategyTotalReturn": 0.5111,
+        "strategyTotalReturn": 0.536,
         "qqqTotalReturn": 0.1673,
-        "uniqueHeldCount": 12,
-        "newestSymbols": [
-          "COF",
-          "WDC"
-        ]
+        "uniqueHeldCount": 17,
+        "newestSymbols": []
       },
       {
         "asOf": "2024-02-23",
         "entryDate": "2024-02-26",
         "exitDate": "2024-04-01",
-        "netReturn": 0.174,
+        "netReturn": 0.1618,
         "qqqReturn": 0.0206,
-        "excessQqq": 0.1534,
-        "equity": 1.7741,
+        "excessQqq": 0.1412,
+        "equity": 1.7846,
         "qqqEquity": 1.1913,
-        "strategyTotalReturn": 0.7741,
+        "strategyTotalReturn": 0.7846,
         "qqqTotalReturn": 0.1913,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "HOOD",
-          "GE"
-        ]
+        "uniqueHeldCount": 18,
+        "newestSymbols": []
       },
       {
         "asOf": "2024-03-29",
         "entryDate": "2024-04-01",
         "exitDate": "2024-04-29",
-        "netReturn": -0.0296,
+        "netReturn": -0.0196,
         "qqqReturn": -0.0274,
-        "excessQqq": -0.0022,
-        "equity": 1.7215,
+        "excessQqq": 0.0078,
+        "equity": 1.7495,
         "qqqEquity": 1.1586,
-        "strategyTotalReturn": 0.7215,
+        "strategyTotalReturn": 0.7495,
         "qqqTotalReturn": 0.1586,
-        "uniqueHeldCount": 9,
-        "newestSymbols": [
-          "HOOD",
-          "GE"
-        ]
+        "uniqueHeldCount": 19,
+        "newestSymbols": []
       },
       {
         "asOf": "2024-04-26",
         "entryDate": "2024-04-29",
         "exitDate": "2024-06-03",
-        "netReturn": 0.0448,
+        "netReturn": 0.0423,
         "qqqReturn": 0.0471,
-        "excessQqq": -0.0023,
-        "equity": 1.7985,
+        "excessQqq": -0.0048,
+        "equity": 1.8236,
         "qqqEquity": 1.2132,
-        "strategyTotalReturn": 0.7985,
+        "strategyTotalReturn": 0.8236,
         "qqqTotalReturn": 0.2132,
-        "uniqueHeldCount": 8,
-        "newestSymbols": [
-          "VRT",
-          "WDC"
-        ]
+        "uniqueHeldCount": 17,
+        "newestSymbols": []
       },
       {
         "asOf": "2024-05-31",
         "entryDate": "2024-06-03",
         "exitDate": "2024-07-01",
-        "netReturn": -0.0005,
+        "netReturn": -0.0045,
         "qqqReturn": 0.0652,
-        "excessQqq": -0.0657,
-        "equity": 1.7977,
+        "excessQqq": -0.0697,
+        "equity": 1.8153,
         "qqqEquity": 1.2923,
-        "strategyTotalReturn": 0.7977,
+        "strategyTotalReturn": 0.8153,
         "qqqTotalReturn": 0.2923,
-        "uniqueHeldCount": 8,
-        "newestSymbols": [
-          "NEE",
-          "TKO"
-        ]
+        "uniqueHeldCount": 14,
+        "newestSymbols": []
       },
       {
         "asOf": "2024-06-28",
         "entryDate": "2024-07-01",
         "exitDate": "2024-07-29",
-        "netReturn": -0.0342,
+        "netReturn": -0.0354,
         "qqqReturn": -0.0374,
-        "excessQqq": 0.0031,
-        "equity": 1.7361,
+        "excessQqq": 0.002,
+        "equity": 1.7511,
         "qqqEquity": 1.244,
-        "strategyTotalReturn": 0.7361,
+        "strategyTotalReturn": 0.7511,
         "qqqTotalReturn": 0.244,
-        "uniqueHeldCount": 9,
-        "newestSymbols": [
-          "ARM",
-          "GOOGL"
-        ]
+        "uniqueHeldCount": 13,
+        "newestSymbols": []
       },
       {
         "asOf": "2024-07-26",
         "entryDate": "2024-07-29",
         "exitDate": "2024-09-03",
-        "netReturn": -0.0254,
+        "netReturn": -0.0271,
         "qqqReturn": -0.0045,
-        "excessQqq": -0.0209,
-        "equity": 1.692,
+        "excessQqq": -0.0226,
+        "equity": 1.7036,
         "qqqEquity": 1.2384,
-        "strategyTotalReturn": 0.692,
+        "strategyTotalReturn": 0.7036,
         "qqqTotalReturn": 0.2384,
-        "uniqueHeldCount": 10,
-        "newestSymbols": [
-          "CFG",
-          "CBRE"
-        ]
+        "uniqueHeldCount": 14,
+        "newestSymbols": []
       },
       {
         "asOf": "2024-08-30",
         "entryDate": "2024-09-03",
         "exitDate": "2024-09-30",
-        "netReturn": 0.1033,
+        "netReturn": 0.1055,
         "qqqReturn": 0.0583,
-        "excessQqq": 0.045,
-        "equity": 1.8669,
+        "excessQqq": 0.0472,
+        "equity": 1.8834,
         "qqqEquity": 1.3107,
-        "strategyTotalReturn": 0.8669,
+        "strategyTotalReturn": 0.8834,
         "qqqTotalReturn": 0.3107,
-        "uniqueHeldCount": 12,
-        "newestSymbols": [
-          "ERIE",
-          "VTR"
-        ]
+        "uniqueHeldCount": 13,
+        "newestSymbols": []
       },
       {
         "asOf": "2024-09-27",
         "entryDate": "2024-09-30",
         "exitDate": "2024-10-28",
-        "netReturn": 0.0037,
+        "netReturn": 0.0055,
         "qqqReturn": 0.015,
-        "excessQqq": -0.0113,
-        "equity": 1.8738,
+        "excessQqq": -0.0095,
+        "equity": 1.8937,
         "qqqEquity": 1.3303,
-        "strategyTotalReturn": 0.8738,
+        "strategyTotalReturn": 0.8937,
         "qqqTotalReturn": 0.3303,
-        "uniqueHeldCount": 12,
-        "newestSymbols": [
-          "NRG",
-          "CHRW"
-        ]
+        "uniqueHeldCount": 15,
+        "newestSymbols": []
       },
       {
         "asOf": "2024-10-25",
         "entryDate": "2024-10-28",
         "exitDate": "2024-12-02",
-        "netReturn": 0.0546,
+        "netReturn": 0.0658,
         "qqqReturn": 0.0401,
-        "excessQqq": 0.0144,
-        "equity": 1.9761,
+        "excessQqq": 0.0257,
+        "equity": 2.0184,
         "qqqEquity": 1.3838,
-        "strategyTotalReturn": 0.9761,
+        "strategyTotalReturn": 1.0184,
         "qqqTotalReturn": 0.3838,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "HOOD",
-          "CBRE"
-        ]
+        "uniqueHeldCount": 16,
+        "newestSymbols": []
       },
       {
         "asOf": "2024-11-29",
         "entryDate": "2024-12-02",
         "exitDate": "2024-12-30",
-        "netReturn": -0.0279,
+        "netReturn": -0.0247,
         "qqqReturn": 0.0022,
-        "excessQqq": -0.0301,
-        "equity": 1.921,
+        "excessQqq": -0.0269,
+        "equity": 1.9685,
         "qqqEquity": 1.3868,
-        "strategyTotalReturn": 0.921,
+        "strategyTotalReturn": 0.9685,
         "qqqTotalReturn": 0.3868,
-        "uniqueHeldCount": 10,
-        "newestSymbols": [
-          "TPR",
-          "HOOD"
-        ]
+        "uniqueHeldCount": 15,
+        "newestSymbols": []
       },
       {
         "asOf": "2024-12-27",
         "entryDate": "2024-12-30",
         "exitDate": "2025-02-03",
-        "netReturn": 0.1059,
+        "netReturn": 0.1131,
         "qqqReturn": 0.0048,
-        "excessQqq": 0.1011,
-        "equity": 2.1245,
+        "excessQqq": 0.1083,
+        "equity": 2.1912,
         "qqqEquity": 1.3936,
-        "strategyTotalReturn": 1.1245,
+        "strategyTotalReturn": 1.1912,
         "qqqTotalReturn": 0.3936,
-        "uniqueHeldCount": 10,
-        "newestSymbols": [
-          "DRI",
-          "APO"
-        ]
+        "uniqueHeldCount": 15,
+        "newestSymbols": []
       },
       {
         "asOf": "2025-01-31",
         "entryDate": "2025-02-03",
         "exitDate": "2025-03-03",
-        "netReturn": -0.0073,
+        "netReturn": -0.0185,
         "qqqReturn": -0.0406,
-        "excessQqq": 0.0333,
-        "equity": 2.109,
+        "excessQqq": 0.0222,
+        "equity": 2.1508,
         "qqqEquity": 1.3369,
-        "strategyTotalReturn": 1.109,
+        "strategyTotalReturn": 1.1508,
         "qqqTotalReturn": 0.3369,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "RCL",
-          "TKO"
-        ]
+        "uniqueHeldCount": 17,
+        "newestSymbols": []
       },
       {
         "asOf": "2025-02-28",
         "entryDate": "2025-03-03",
         "exitDate": "2025-03-31",
-        "netReturn": -0.0527,
+        "netReturn": -0.0526,
         "qqqReturn": -0.0552,
-        "excessQqq": 0.0024,
-        "equity": 1.9978,
+        "excessQqq": 0.0026,
+        "equity": 2.0376,
         "qqqEquity": 1.2631,
-        "strategyTotalReturn": 0.9978,
+        "strategyTotalReturn": 1.0376,
         "qqqTotalReturn": 0.2631,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "FOXA",
-          "BNY"
-        ]
+        "uniqueHeldCount": 18,
+        "newestSymbols": []
       },
       {
         "asOf": "2025-03-28",
         "entryDate": "2025-03-31",
         "exitDate": "2025-04-28",
-        "netReturn": 0.0078,
+        "netReturn": 0.0009,
         "qqqReturn": 0.0074,
-        "excessQqq": 0.0004,
-        "equity": 2.0134,
+        "excessQqq": -0.0065,
+        "equity": 2.0395,
         "qqqEquity": 1.2725,
-        "strategyTotalReturn": 1.0134,
+        "strategyTotalReturn": 1.0395,
         "qqqTotalReturn": 0.2725,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "EXE",
-          "DTE"
-        ]
+        "uniqueHeldCount": 14,
+        "newestSymbols": []
       },
       {
         "asOf": "2025-04-25",
         "entryDate": "2025-04-28",
         "exitDate": "2025-06-02",
-        "netReturn": 0.0997,
+        "netReturn": 0.1023,
         "qqqReturn": 0.1075,
-        "excessQqq": -0.0078,
-        "equity": 2.2141,
+        "excessQqq": -0.0053,
+        "equity": 2.248,
         "qqqEquity": 1.4094,
-        "strategyTotalReturn": 1.2141,
+        "strategyTotalReturn": 1.248,
         "qqqTotalReturn": 0.4094,
-        "uniqueHeldCount": 12,
-        "newestSymbols": [
-          "PM",
-          "CNP"
-        ]
+        "uniqueHeldCount": 15,
+        "newestSymbols": []
       },
       {
         "asOf": "2025-05-30",
         "entryDate": "2025-06-02",
         "exitDate": "2025-06-30",
-        "netReturn": 0.0563,
+        "netReturn": 0.0813,
         "qqqReturn": 0.0555,
-        "excessQqq": 0.0008,
-        "equity": 2.3387,
+        "excessQqq": 0.0258,
+        "equity": 2.4308,
         "qqqEquity": 1.4876,
-        "strategyTotalReturn": 1.3387,
+        "strategyTotalReturn": 1.4308,
         "qqqTotalReturn": 0.4876,
-        "uniqueHeldCount": 12,
-        "newestSymbols": [
-          "GE",
-          "STX"
-        ]
+        "uniqueHeldCount": 14,
+        "newestSymbols": []
       },
       {
         "asOf": "2025-06-27",
         "entryDate": "2025-06-30",
         "exitDate": "2025-07-28",
-        "netReturn": 0.0068,
+        "netReturn": 0.0157,
         "qqqReturn": 0.0299,
-        "excessQqq": -0.0231,
-        "equity": 2.3547,
+        "excessQqq": -0.0143,
+        "equity": 2.4689,
         "qqqEquity": 1.5321,
-        "strategyTotalReturn": 1.3547,
+        "strategyTotalReturn": 1.4689,
         "qqqTotalReturn": 0.5321,
-        "uniqueHeldCount": 11,
-        "newestSymbols": [
-          "HWM",
-          "STX"
-        ]
+        "uniqueHeldCount": 16,
+        "newestSymbols": []
       },
       {
         "asOf": "2025-07-25",
         "entryDate": "2025-07-28",
         "exitDate": "2025-09-02",
-        "netReturn": 0.03,
+        "netReturn": 0.0216,
         "qqqReturn": -0.0044,
-        "excessQqq": 0.0345,
-        "equity": 2.4254,
+        "excessQqq": 0.026,
+        "equity": 2.5222,
         "qqqEquity": 1.5253,
-        "strategyTotalReturn": 1.4254,
+        "strategyTotalReturn": 1.5222,
         "qqqTotalReturn": 0.5253,
-        "uniqueHeldCount": 10,
-        "newestSymbols": [
-          "GE",
-          "TPR"
-        ]
+        "uniqueHeldCount": 17,
+        "newestSymbols": []
       },
       {
         "asOf": "2025-08-29",
         "entryDate": "2025-09-02",
         "exitDate": "2025-09-29",
-        "netReturn": 0.1364,
+        "netReturn": 0.1456,
         "qqqReturn": 0.0598,
-        "excessQqq": 0.0767,
-        "equity": 2.7563,
+        "excessQqq": 0.0858,
+        "equity": 2.8894,
         "qqqEquity": 1.6165,
-        "strategyTotalReturn": 1.7563,
+        "strategyTotalReturn": 1.8894,
         "qqqTotalReturn": 0.6165,
-        "uniqueHeldCount": 10,
-        "newestSymbols": [
-          "WYNN",
-          "WDC"
-        ]
+        "uniqueHeldCount": 16,
+        "newestSymbols": []
       },
       {
         "asOf": "2025-09-26",
         "entryDate": "2025-09-29",
         "exitDate": "2025-11-03",
-        "netReturn": 0.0945,
+        "netReturn": 0.082,
         "qqqReturn": 0.0557,
-        "excessQqq": 0.0388,
-        "equity": 3.0168,
+        "excessQqq": 0.0263,
+        "equity": 3.1265,
         "qqqEquity": 1.7065,
-        "strategyTotalReturn": 2.0168,
+        "strategyTotalReturn": 2.1265,
         "qqqTotalReturn": 0.7065,
-        "uniqueHeldCount": 9,
-        "newestSymbols": [
-          "WDC",
-          "INTC"
-        ]
+        "uniqueHeldCount": 17,
+        "newestSymbols": []
       },
       {
         "asOf": "2025-10-31",
         "entryDate": "2025-11-03",
         "exitDate": "2025-12-01",
-        "netReturn": -0.0052,
+        "netReturn": -0.0092,
         "qqqReturn": -0.0236,
-        "excessQqq": 0.0184,
-        "equity": 3.0012,
+        "excessQqq": 0.0144,
+        "equity": 3.0977,
         "qqqEquity": 1.6663,
-        "strategyTotalReturn": 2.0012,
+        "strategyTotalReturn": 2.0977,
         "qqqTotalReturn": 0.6663,
-        "uniqueHeldCount": 8,
-        "newestSymbols": [
-          "AMD",
-          "WDC"
-        ]
+        "uniqueHeldCount": 15,
+        "newestSymbols": []
       },
       {
         "asOf": "2025-11-28",
         "entryDate": "2025-12-01",
         "exitDate": "2025-12-29",
-        "netReturn": 0.0535,
+        "netReturn": 0.0533,
         "qqqReturn": 0.0073,
-        "excessQqq": 0.0462,
-        "equity": 3.1617,
+        "excessQqq": 0.046,
+        "equity": 3.2629,
         "qqqEquity": 1.6784,
-        "strategyTotalReturn": 2.1617,
+        "strategyTotalReturn": 2.2629,
         "qqqTotalReturn": 0.6784,
-        "uniqueHeldCount": 10,
-        "newestSymbols": [
-          "LLY",
-          "SNDK"
-        ]
+        "uniqueHeldCount": 14,
+        "newestSymbols": []
       },
       {
         "asOf": "2025-12-26",
         "entryDate": "2025-12-29",
         "exitDate": "2026-02-02",
-        "netReturn": 0.3419,
+        "netReturn": 0.3329,
         "qqqReturn": 0.0085,
-        "excessQqq": 0.3334,
-        "equity": 4.2427,
+        "excessQqq": 0.3244,
+        "equity": 4.3491,
         "qqqEquity": 1.6927,
-        "strategyTotalReturn": 3.2427,
+        "strategyTotalReturn": 3.3491,
         "qqqTotalReturn": 0.6927,
-        "uniqueHeldCount": 10,
-        "newestSymbols": [
-          "BIIB",
-          "STX"
-        ]
+        "uniqueHeldCount": 16,
+        "newestSymbols": []
       },
       {
         "asOf": "2026-01-30",
         "entryDate": "2026-02-02",
         "exitDate": "2026-03-02",
-        "netReturn": -0.0404,
+        "netReturn": -0.0295,
         "qqqReturn": -0.0288,
-        "excessQqq": -0.0116,
-        "equity": 4.0711,
+        "excessQqq": -0.0007,
+        "equity": 4.2209,
         "qqqEquity": 1.6439,
-        "strategyTotalReturn": 3.0711,
+        "strategyTotalReturn": 3.2209,
         "qqqTotalReturn": 0.6439,
-        "uniqueHeldCount": 9,
-        "newestSymbols": [
-          "XOM",
-          "STX"
-        ]
+        "uniqueHeldCount": 15,
+        "newestSymbols": []
       },
       {
         "asOf": "2026-02-27",
         "entryDate": "2026-03-02",
         "exitDate": "2026-03-30",
-        "netReturn": -0.062,
+        "netReturn": -0.0677,
         "qqqReturn": -0.0808,
-        "excessQqq": 0.0188,
-        "equity": 3.8188,
+        "excessQqq": 0.013,
+        "equity": 3.935,
         "qqqEquity": 1.5111,
-        "strategyTotalReturn": 2.8188,
+        "strategyTotalReturn": 2.935,
         "qqqTotalReturn": 0.5111,
-        "uniqueHeldCount": 10,
-        "newestSymbols": [
-          "TPL",
-          "GNRC"
-        ]
+        "uniqueHeldCount": 13,
+        "newestSymbols": []
       },
       {
         "asOf": "2026-03-27",
         "entryDate": "2026-03-30",
         "exitDate": "2026-04-27",
-        "netReturn": 0.2723,
+        "netReturn": 0.4989,
         "qqqReturn": 0.1898,
-        "excessQqq": 0.0825,
-        "equity": 4.8586,
+        "excessQqq": 0.3092,
+        "equity": 5.8983,
         "qqqEquity": 1.7979,
-        "strategyTotalReturn": 3.8586,
+        "strategyTotalReturn": 4.8983,
         "qqqTotalReturn": 0.7979,
         "uniqueHeldCount": 10,
-        "newestSymbols": [
-          "XOM",
-          "ETR"
-        ]
+        "newestSymbols": []
       },
       {
         "asOf": "2026-04-24",
         "entryDate": "2026-04-27",
         "exitDate": "2026-06-01",
-        "netReturn": 0.2926,
+        "netReturn": 0.4082,
         "qqqReturn": 0.1182,
-        "excessQqq": 0.1745,
-        "equity": 6.2805,
+        "excessQqq": 0.29,
+        "equity": 8.3059,
         "qqqEquity": 2.0104,
-        "strategyTotalReturn": 5.2805,
+        "strategyTotalReturn": 7.3059,
         "qqqTotalReturn": 1.0104,
-        "uniqueHeldCount": 9,
-        "newestSymbols": [
-          "ARM",
-          "STX"
-        ]
+        "uniqueHeldCount": 10,
+        "newestSymbols": []
       },
       {
         "asOf": "2026-05-29",
         "entryDate": "2026-06-01",
         "exitDate": "2026-06-29",
-        "netReturn": 0.0114,
+        "netReturn": 0.1227,
         "qqqReturn": -0.0241,
-        "excessQqq": 0.0354,
-        "equity": 6.3518,
+        "excessQqq": 0.1467,
+        "equity": 9.3249,
         "qqqEquity": 1.9621,
-        "strategyTotalReturn": 5.3518,
+        "strategyTotalReturn": 8.3249,
         "qqqTotalReturn": 0.9621,
-        "uniqueHeldCount": 7,
-        "newestSymbols": [
-          "ARM",
-          "STX"
-        ]
+        "uniqueHeldCount": 9,
+        "newestSymbols": []
       }
     ],
     "realizedSummary": {
       "count": 106,
-      "winRate": 0.7547,
-      "averageReturn": 0.2833,
-      "averageQqqReturn": 0.0759,
-      "averageExcessQqq": 0.2074,
+      "winRate": 0.7642,
+      "averageReturn": 0.4206,
+      "averageQqqReturn": 0.0907,
+      "averageExcessQqq": 0.3299,
       "best": {
         "cohort": "2025-11",
         "entryDate": "2025-12-01",
-        "exitMonth": "2026-05",
-        "exitAsOf": "2026-05-29",
-        "exitDate": "2026-06-01",
+        "exitMonth": "2026-06",
+        "exitDate": "2026-06-29",
         "symbol": "SNDK",
         "name": "Sandisk",
         "sector": "Electronic Components",
         "score": 73.64,
         "rank": 49,
-        "entryPrice": 210.17,
-        "exitPrice": 1761.43,
-        "return": 7.381,
-        "qqqReturn": 0.2065,
-        "excessQqq": 7.1744
+        "entryPrice": 210.38,
+        "exitPrice": 1905.91,
+        "return": 8.0503,
+        "qqqReturn": 0.1775,
+        "excessQqq": 7.8728,
+        "buyDates": [
+          "2025-12-01"
+        ],
+        "sellDates": [
+          "2026-06-01",
+          "2026-06-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_max_12m"
+        ]
       },
       "worst": {
         "cohort": "2021-10",
         "entryDate": "2021-11-01",
-        "exitMonth": "2022-04",
-        "exitAsOf": "2022-04-29",
+        "exitMonth": "2022-05",
         "exitDate": "2022-05-02",
         "symbol": "COIN",
         "name": "Coinbase",
         "sector": "Financials",
         "score": 89.36,
         "rank": 1,
-        "entryPrice": 330.99,
+        "entryPrice": 331.32,
         "exitPrice": 121.34,
-        "return": -0.6334,
+        "return": -0.6341,
         "qqqReturn": -0.1759,
-        "excessQqq": -0.4575
+        "excessQqq": -0.4582,
+        "buyDates": [
+          "2021-11-01"
+        ],
+        "sellDates": [
+          "2022-05-02",
+          "2022-05-02"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       }
     },
     "monthlyExits": [
       {
         "exitMonth": "2022-02",
         "exitDate": "2022-02-28",
-        "count": 2,
+        "count": 1,
         "symbols": [
-          "CB",
           "PLTR"
         ],
         "sectors": [
-          "Financials",
           "Software"
         ],
-        "averageReturn": -0.2115,
+        "averageReturn": -0.5409,
         "qqqReturn": -0.0858,
-        "excessQqq": -0.1257,
-        "winRate": 0.5
-      },
-      {
-        "exitMonth": "2022-03",
-        "exitDate": "2022-03-28",
-        "count": 2,
-        "symbols": [
-          "APA",
-          "EXPE"
-        ],
-        "sectors": [
-          "Energy",
-          "Consumer Discretionary"
-        ],
-        "averageReturn": 0.4313,
-        "qqqReturn": -0.0122,
-        "excessQqq": 0.4435,
-        "winRate": 1
+        "excessQqq": -0.4551,
+        "winRate": 0
       },
       {
         "exitMonth": "2022-04",
-        "exitDate": "2022-05-02",
+        "exitDate": "2022-04-29",
         "count": 2,
         "symbols": [
-          "COIN",
-          "APA"
+          "CB",
+          "EXPE"
         ],
         "sectors": [
           "Financials",
-          "Energy"
+          "Consumer Discretionary"
         ],
-        "averageReturn": -0.0643,
-        "qqqReturn": -0.1759,
-        "excessQqq": 0.1116,
-        "winRate": 0.5
+        "averageReturn": 0.1035,
+        "qqqReturn": -0.1627,
+        "excessQqq": 0.2661,
+        "winRate": 1
       },
       {
         "exitMonth": "2022-05",
-        "exitDate": "2022-05-31",
-        "count": 2,
+        "exitDate": "2022-05-02",
+        "count": 5,
         "symbols": [
+          "COIN",
+          "APA",
+          "APA",
           "HD",
           "AMD"
         ],
         "sectors": [
+          "Financials",
+          "Energy",
           "Consumer Discretionary",
           "Semiconductors"
         ],
-        "averageReturn": -0.3095,
-        "qqqReturn": -0.2268,
-        "excessQqq": -0.0827,
-        "winRate": 0
+        "averageReturn": 0.0054,
+        "qqqReturn": -0.2202,
+        "excessQqq": 0.2257,
+        "winRate": 0.4
       },
       {
         "exitMonth": "2022-06",
@@ -3487,47 +3319,46 @@
           "Health Care",
           "Real Estate"
         ],
-        "averageReturn": 0.0143,
+        "averageReturn": 0.0123,
         "qqqReturn": -0.2696,
-        "excessQqq": 0.2839,
+        "excessQqq": 0.2819,
         "winRate": 1
       },
       {
-        "exitMonth": "2022-07",
+        "exitMonth": "2022-08",
         "exitDate": "2022-08-01",
-        "count": 2,
+        "count": 3,
         "symbols": [
           "HAL",
-          "ADM"
-        ],
-        "sectors": [
-          "Energy",
-          "Consumer Staples"
-        ],
-        "averageReturn": 0.0288,
-        "qqqReturn": -0.1289,
-        "excessQqq": 0.1577,
-        "winRate": 0.5
-      },
-      {
-        "exitMonth": "2022-08",
-        "exitDate": "2022-08-29",
-        "count": 2,
-        "symbols": [
-          "TRGP",
+          "ADM",
           "BG"
         ],
         "sectors": [
           "Energy",
           "Consumer Staples"
         ],
-        "averageReturn": 0.0512,
-        "qqqReturn": -0.1195,
-        "excessQqq": 0.1707,
-        "winRate": 1
+        "averageReturn": 0.0184,
+        "qqqReturn": -0.1258,
+        "excessQqq": 0.1442,
+        "winRate": 0.6667
       },
       {
         "exitMonth": "2022-09",
+        "exitDate": "2022-09-30",
+        "count": 1,
+        "symbols": [
+          "TRGP"
+        ],
+        "sectors": [
+          "Energy"
+        ],
+        "averageReturn": 0.0134,
+        "qqqReturn": -0.2255,
+        "excessQqq": 0.2389,
+        "winRate": 1
+      },
+      {
+        "exitMonth": "2022-10",
         "exitDate": "2022-10-03",
         "count": 2,
         "symbols": [
@@ -3538,27 +3369,10 @@
           "Energy",
           "Materials"
         ],
-        "averageReturn": -0.0668,
+        "averageReturn": -0.0686,
         "qqqReturn": -0.2476,
-        "excessQqq": 0.1808,
+        "excessQqq": 0.179,
         "winRate": 0.5
-      },
-      {
-        "exitMonth": "2022-10",
-        "exitDate": "2022-10-31",
-        "count": 2,
-        "symbols": [
-          "VLO",
-          "HSY"
-        ],
-        "sectors": [
-          "Energy",
-          "Consumer Staples"
-        ],
-        "averageReturn": 0.1013,
-        "qqqReturn": -0.124,
-        "excessQqq": 0.2253,
-        "winRate": 1
       },
       {
         "exitMonth": "2022-11",
@@ -3572,44 +3386,47 @@
           "Energy",
           "Utilities"
         ],
-        "averageReturn": -0.0481,
+        "averageReturn": -0.05,
         "qqqReturn": -0.0795,
-        "excessQqq": 0.0314,
+        "excessQqq": 0.0295,
         "winRate": 0
       },
       {
         "exitMonth": "2022-12",
-        "exitDate": "2023-01-03",
-        "count": 2,
+        "exitDate": "2022-12-16",
+        "count": 1,
         "symbols": [
-          "LLY",
-          "DG"
+          "VLO"
         ],
         "sectors": [
-          "Health Care",
-          "Consumer Staples"
+          "Energy"
         ],
-        "averageReturn": 0.0643,
-        "qqqReturn": -0.0918,
-        "excessQqq": 0.1561,
+        "averageReturn": 0.0696,
+        "qqqReturn": -0.1357,
+        "excessQqq": 0.2053,
         "winRate": 1
       },
       {
         "exitMonth": "2023-01",
-        "exitDate": "2023-01-30",
-        "count": 2,
+        "exitDate": "2023-01-03",
+        "count": 5,
         "symbols": [
+          "DG",
+          "HSY",
+          "LLY",
           "TPL",
           "NOC"
         ],
         "sectors": [
+          "Consumer Staples",
+          "Health Care",
           "Energy",
           "Industrials"
         ],
-        "averageReturn": 0.012,
-        "qqqReturn": -0.0754,
-        "excessQqq": 0.0874,
-        "winRate": 0.5
+        "averageReturn": 0.0385,
+        "qqqReturn": -0.0846,
+        "excessQqq": 0.1231,
+        "winRate": 0.8
       },
       {
         "exitMonth": "2023-02",
@@ -3623,78 +3440,59 @@
           "Energy",
           "Industrials"
         ],
-        "averageReturn": -0.0494,
+        "averageReturn": -0.0513,
         "qqqReturn": -0.0303,
-        "excessQqq": -0.0191,
+        "excessQqq": -0.021,
         "winRate": 0.5
-      },
-      {
-        "exitMonth": "2023-03",
-        "exitDate": "2023-04-03",
-        "count": 2,
-        "symbols": [
-          "MPC",
-          "REGN"
-        ],
-        "sectors": [
-          "Energy",
-          "Biotechnology"
-        ],
-        "averageReturn": 0.2298,
-        "qqqReturn": 0.1751,
-        "excessQqq": 0.0547,
-        "winRate": 1
       },
       {
         "exitMonth": "2023-04",
+        "exitDate": "2023-04-28",
+        "count": 1,
+        "symbols": [
+          "MPC"
+        ],
+        "sectors": [
+          "Energy"
+        ],
+        "averageReturn": 0.2659,
+        "qqqReturn": 0.1839,
+        "excessQqq": 0.082,
+        "winRate": 1
+      },
+      {
+        "exitMonth": "2023-05",
         "exitDate": "2023-05-01",
-        "count": 2,
+        "count": 3,
         "symbols": [
           "SLB",
+          "REGN",
           "ACGL"
         ],
         "sectors": [
           "Energy",
+          "Biotechnology",
           "Financials"
         ],
-        "averageReturn": 0.1362,
-        "qqqReturn": 0.1637,
-        "excessQqq": -0.0275,
-        "winRate": 0.5
-      },
-      {
-        "exitMonth": "2023-05",
-        "exitDate": "2023-05-30",
-        "count": 2,
-        "symbols": [
-          "EME",
-          "ACGL"
-        ],
-        "sectors": [
-          "Industrials",
-          "Financials"
-        ],
-        "averageReturn": 0.1744,
-        "qqqReturn": 0.2428,
-        "excessQqq": -0.0684,
-        "winRate": 1
+        "averageReturn": 0.0804,
+        "qqqReturn": 0.1998,
+        "excessQqq": -0.1194,
+        "winRate": 0.6667
       },
       {
         "exitMonth": "2023-06",
-        "exitDate": "2023-07-03",
-        "count": 2,
+        "exitDate": "2023-06-02",
+        "count": 1,
         "symbols": [
-          "CAT",
-          "SLB"
+          "ACGL"
         ],
         "sectors": [
-          "Industrials",
-          "Energy"
+          "Financials"
         ],
-        "averageReturn": 0.0082,
-        "qqqReturn": 0.4042,
-        "excessQqq": -0.396,
-        "winRate": 0.5
+        "averageReturn": 0.274,
+        "qqqReturn": 0.281,
+        "excessQqq": -0.007,
+        "winRate": 1
       },
       {
         "exitMonth": "2023-07",
@@ -3708,320 +3506,312 @@
           "Consumer Discretionary",
           "Financials"
         ],
-        "averageReturn": -0.0747,
+        "averageReturn": -0.0764,
         "qqqReturn": 0.3257,
-        "excessQqq": -0.4003,
+        "excessQqq": -0.4021,
         "winRate": 0.5
       },
       {
         "exitMonth": "2023-08",
         "exitDate": "2023-08-28",
-        "count": 2,
+        "count": 1,
         "symbols": [
-          "GE",
           "ACGL"
         ],
         "sectors": [
-          "Industrials",
           "Financials"
         ],
-        "averageReturn": 0.2168,
+        "averageReturn": 0.0698,
         "qqqReturn": 0.2514,
-        "excessQqq": -0.0347,
+        "excessQqq": -0.1816,
         "winRate": 1
       },
       {
         "exitMonth": "2023-09",
-        "exitDate": "2023-10-02",
-        "count": 2,
+        "exitDate": "2023-09-29",
+        "count": 3,
         "symbols": [
-          "NVDA",
-          "LULU"
+          "EME",
+          "CAT",
+          "GE"
         ],
         "sectors": [
-          "Semiconductors",
-          "Consumer Discretionary"
+          "Industrials"
         ],
-        "averageReturn": 0.3219,
-        "qqqReturn": 0.1316,
-        "excessQqq": 0.1903,
+        "averageReturn": 0.2295,
+        "qqqReturn": 0.2869,
+        "excessQqq": -0.0573,
         "winRate": 1
       },
       {
         "exitMonth": "2023-10",
-        "exitDate": "2023-10-30",
-        "count": 2,
+        "exitDate": "2023-10-02",
+        "count": 5,
         "symbols": [
+          "NVDA",
+          "SLB",
+          "LULU",
           "HCA",
           "CHD"
         ],
         "sectors": [
+          "Semiconductors",
+          "Energy",
+          "Consumer Discretionary",
           "Health Care",
           "Consumer Staples"
         ],
-        "averageReturn": -0.1329,
-        "qqqReturn": 0.0869,
-        "excessQqq": -0.2198,
-        "winRate": 0
-      },
-      {
-        "exitMonth": "2023-11",
-        "exitDate": "2023-11-27",
-        "count": 2,
-        "symbols": [
-          "PLTR",
-          "NVDA"
-        ],
-        "sectors": [
-          "Software",
-          "Semiconductors"
-        ],
-        "averageReturn": 0.25,
-        "qqqReturn": 0.1151,
-        "excessQqq": 0.1349,
-        "winRate": 1
+        "averageReturn": 0.0788,
+        "qqqReturn": 0.1669,
+        "excessQqq": -0.0881,
+        "winRate": 0.6
       },
       {
         "exitMonth": "2023-12",
-        "exitDate": "2024-01-02",
-        "count": 2,
+        "exitDate": "2023-12-15",
+        "count": 1,
         "symbols": [
-          "CCL",
-          "GE"
+          "PLTR"
         ],
         "sectors": [
-          "Consumer Discretionary",
-          "Industrials"
+          "Software"
         ],
-        "averageReturn": 0.0388,
-        "qqqReturn": 0.0916,
-        "excessQqq": -0.0528,
-        "winRate": 0.5
-      },
-      {
-        "exitMonth": "2024-01",
-        "exitDate": "2024-01-29",
-        "count": 2,
-        "symbols": [
-          "META",
-          "UBER"
-        ],
-        "sectors": [
-          "Software",
-          "Industrials"
-        ],
-        "averageReturn": 0.3065,
-        "qqqReturn": 0.1203,
-        "excessQqq": 0.1861,
+        "averageReturn": 0.2646,
+        "qqqReturn": 0.1614,
+        "excessQqq": 0.1032,
         "winRate": 1
       },
       {
         "exitMonth": "2024-02",
-        "exitDate": "2024-02-26",
-        "count": 2,
+        "exitDate": "2024-02-02",
+        "count": 1,
         "symbols": [
-          "VRT",
-          "MPC"
+          "CCL"
         ],
         "sectors": [
-          "Industrials",
-          "Energy"
+          "Consumer Discretionary"
         ],
-        "averageReturn": 0.4782,
-        "qqqReturn": 0.195,
-        "excessQqq": 0.2832,
-        "winRate": 1
-      },
-      {
-        "exitMonth": "2024-03",
-        "exitDate": "2024-04-01",
-        "count": 2,
-        "symbols": [
-          "XOM",
-          "CBOE"
-        ],
-        "sectors": [
-          "Energy",
-          "Financials"
-        ],
-        "averageReturn": 0.0986,
-        "qqqReturn": 0.2364,
-        "excessQqq": -0.1378,
-        "winRate": 1
+        "averageReturn": -0.1123,
+        "qqqReturn": 0.1632,
+        "excessQqq": -0.2755,
+        "winRate": 0
       },
       {
         "exitMonth": "2024-04",
-        "exitDate": "2024-04-29",
-        "count": 2,
+        "exitDate": "2024-04-01",
+        "count": 5,
         "symbols": [
+          "CBOE",
+          "UBER",
+          "META",
           "MSTR",
           "STX"
         ],
         "sectors": [
+          "Financials",
+          "Industrials",
           "Software",
           "Electronic Components"
         ],
-        "averageReturn": 1.178,
-        "qqqReturn": 0.244,
-        "excessQqq": 0.934,
+        "averageReturn": 0.6417,
+        "qqqReturn": 0.188,
+        "excessQqq": 0.4537,
         "winRate": 1
       },
       {
         "exitMonth": "2024-05",
-        "exitDate": "2024-06-03",
+        "exitDate": "2024-05-10",
         "count": 2,
         "symbols": [
-          "EXPE",
-          "PLTR"
+          "MPC",
+          "XOM"
         ],
         "sectors": [
-          "Consumer Discretionary",
-          "Software"
+          "Energy"
         ],
-        "averageReturn": -0.0217,
-        "qqqReturn": 0.1688,
-        "excessQqq": -0.1904,
-        "winRate": 0.5
-      },
-      {
-        "exitMonth": "2024-06",
-        "exitDate": "2024-07-01",
-        "count": 2,
-        "symbols": [
-          "HOOD",
-          "AMD"
-        ],
-        "sectors": [
-          "Financials",
-          "Semiconductors"
-        ],
-        "averageReturn": 0.4902,
-        "qqqReturn": 0.2005,
-        "excessQqq": 0.2897,
+        "averageReturn": 0.1373,
+        "qqqReturn": 0.2321,
+        "excessQqq": -0.0948,
         "winRate": 1
       },
       {
-        "exitMonth": "2024-07",
-        "exitDate": "2024-07-29",
-        "count": 2,
+        "exitMonth": "2024-06",
+        "exitDate": "2024-06-03",
+        "count": 4,
         "symbols": [
-          "COF",
+          "NVDA",
+          "EXPE",
+          "PLTR",
+          "VRT"
+        ],
+        "sectors": [
+          "Semiconductors",
+          "Consumer Discretionary",
+          "Software",
+          "Industrials"
+        ],
+        "averageReturn": 0.5122,
+        "qqqReturn": 0.2386,
+        "excessQqq": 0.2735,
+        "winRate": 0.75
+      },
+      {
+        "exitMonth": "2024-07",
+        "exitDate": "2024-07-01",
+        "count": 3,
+        "symbols": [
+          "GE",
+          "AMD",
           "WDC"
         ],
         "sectors": [
-          "Financials",
+          "Industrials",
+          "Semiconductors",
           "Electronic Components"
         ],
-        "averageReturn": 0.0988,
-        "qqqReturn": 0.0867,
-        "excessQqq": 0.0121,
+        "averageReturn": 0.2494,
+        "qqqReturn": 0.1992,
+        "excessQqq": 0.0502,
         "winRate": 1
       },
       {
         "exitMonth": "2024-08",
-        "exitDate": "2024-09-03",
+        "exitDate": "2024-08-02",
         "count": 2,
         "symbols": [
           "HOOD",
-          "GE"
+          "COF"
         ],
         "sectors": [
-          "Financials",
-          "Industrials"
+          "Financials"
         ],
-        "averageReturn": 0.2883,
-        "qqqReturn": 0.0609,
-        "excessQqq": 0.2274,
+        "averageReturn": 0.3362,
+        "qqqReturn": 0.0865,
+        "excessQqq": 0.2497,
         "winRate": 1
       },
       {
         "exitMonth": "2024-09",
-        "exitDate": "2024-09-30",
-        "count": 2,
+        "exitDate": "2024-09-03",
+        "count": 1,
         "symbols": [
-          "HOOD",
-          "GE"
+          "HOOD"
         ],
         "sectors": [
-          "Financials",
-          "Industrials"
+          "Financials"
         ],
-        "averageReturn": 0.2804,
-        "qqqReturn": 0.1002,
-        "excessQqq": 0.1801,
+        "averageReturn": 0.24,
+        "qqqReturn": 0.0609,
+        "excessQqq": 0.1791,
         "winRate": 1
       },
       {
         "exitMonth": "2024-10",
         "exitDate": "2024-10-28",
-        "count": 2,
+        "count": 1,
         "symbols": [
-          "VRT",
           "WDC"
         ],
         "sectors": [
-          "Industrials",
           "Electronic Components"
         ],
-        "averageReturn": 0.0985,
+        "averageReturn": -0.0041,
         "qqqReturn": 0.1482,
-        "excessQqq": -0.0497,
-        "winRate": 0.5
+        "excessQqq": -0.1523,
+        "winRate": 0
       },
       {
         "exitMonth": "2024-11",
-        "exitDate": "2024-12-02",
+        "exitDate": "2024-11-01",
         "count": 2,
         "symbols": [
-          "NEE",
-          "TKO"
+          "GE",
+          "GE"
         ],
         "sectors": [
-          "Utilities",
-          "Communication Services"
+          "Industrials"
         ],
-        "averageReturn": 0.1262,
-        "qqqReturn": 0.1406,
-        "excessQqq": -0.0144,
+        "averageReturn": 0.3269,
+        "qqqReturn": 0.1101,
+        "excessQqq": 0.2168,
         "winRate": 1
       },
       {
         "exitMonth": "2024-12",
-        "exitDate": "2024-12-30",
-        "count": 2,
+        "exitDate": "2024-12-02",
+        "count": 3,
         "symbols": [
-          "ARM",
-          "GOOGL"
+          "NEE",
+          "VRT",
+          "ARM"
         ],
         "sectors": [
-          "Semiconductors",
-          "Software"
+          "Utilities",
+          "Industrials",
+          "Semiconductors"
         ],
-        "averageReturn": -0.0798,
-        "qqqReturn": 0.0731,
-        "excessQqq": -0.1529,
-        "winRate": 0.5
-      },
-      {
-        "exitMonth": "2025-01",
-        "exitDate": "2025-02-03",
-        "count": 2,
-        "symbols": [
-          "CFG",
-          "CBRE"
-        ],
-        "sectors": [
-          "Financials",
-          "Real Estate"
-        ],
-        "averageReturn": 0.1997,
-        "qqqReturn": 0.1202,
-        "excessQqq": 0.0794,
-        "winRate": 1
+        "averageReturn": -0.0004,
+        "qqqReturn": 0.1423,
+        "excessQqq": -0.1427,
+        "winRate": 0.6667
       },
       {
         "exitMonth": "2025-02",
-        "exitDate": "2025-03-03",
+        "exitDate": "2025-02-14",
+        "count": 1,
+        "symbols": [
+          "GOOGL"
+        ],
+        "sectors": [
+          "Software"
+        ],
+        "averageReturn": 0.0291,
+        "qqqReturn": 0.1201,
+        "excessQqq": -0.091,
+        "winRate": 1
+      },
+      {
+        "exitMonth": "2025-03",
+        "exitDate": "2025-03-07",
+        "count": 6,
+        "symbols": [
+          "TKO",
+          "HOOD",
+          "CFG",
+          "CBRE",
+          "NRG",
+          "CHRW"
+        ],
+        "sectors": [
+          "Communication Services",
+          "Financials",
+          "Real Estate",
+          "Utilities",
+          "Industrials"
+        ],
+        "averageReturn": 0.1898,
+        "qqqReturn": 0.0292,
+        "excessQqq": 0.1606,
+        "winRate": 0.8333
+      },
+      {
+        "exitMonth": "2025-04",
+        "exitDate": "2025-04-28",
+        "count": 1,
+        "symbols": [
+          "CBRE"
+        ],
+        "sectors": [
+          "Real Estate"
+        ],
+        "averageReturn": -0.0796,
+        "qqqReturn": -0.0434,
+        "excessQqq": -0.0362,
+        "winRate": 0
+      },
+      {
+        "exitMonth": "2025-05",
+        "exitDate": "2025-05-02",
         "count": 2,
         "symbols": [
           "ERIE",
@@ -4031,281 +3821,187 @@
           "Financials",
           "Real Estate"
         ],
-        "averageReturn": 0.0309,
-        "qqqReturn": 0.0796,
-        "excessQqq": -0.0487,
+        "averageReturn": -0.0298,
+        "qqqReturn": 0.0624,
+        "excessQqq": -0.0922,
         "winRate": 0.5
-      },
-      {
-        "exitMonth": "2025-03",
-        "exitDate": "2025-03-31",
-        "count": 2,
-        "symbols": [
-          "NRG",
-          "CHRW"
-        ],
-        "sectors": [
-          "Utilities",
-          "Industrials"
-        ],
-        "averageReturn": -0.0018,
-        "qqqReturn": -0.0363,
-        "excessQqq": 0.0345,
-        "winRate": 0.5
-      },
-      {
-        "exitMonth": "2025-04",
-        "exitDate": "2025-04-28",
-        "count": 2,
-        "symbols": [
-          "HOOD",
-          "CBRE"
-        ],
-        "sectors": [
-          "Financials",
-          "Real Estate"
-        ],
-        "averageReturn": 0.3387,
-        "qqqReturn": -0.0434,
-        "excessQqq": 0.3821,
-        "winRate": 0.5
-      },
-      {
-        "exitMonth": "2025-05",
-        "exitDate": "2025-06-02",
-        "count": 2,
-        "symbols": [
-          "TPR",
-          "HOOD"
-        ],
-        "sectors": [
-          "Consumer Discretionary",
-          "Financials"
-        ],
-        "averageReturn": 0.5178,
-        "qqqReturn": 0.0185,
-        "excessQqq": 0.4993,
-        "winRate": 1
       },
       {
         "exitMonth": "2025-06",
-        "exitDate": "2025-06-30",
-        "count": 2,
+        "exitDate": "2025-06-02",
+        "count": 1,
         "symbols": [
-          "DRI",
-          "APO"
+          "TPR"
         ],
         "sectors": [
-          "Consumer Discretionary",
-          "Financials"
+          "Consumer Discretionary"
         ],
-        "averageReturn": 0.021,
-        "qqqReturn": 0.0727,
-        "excessQqq": -0.0517,
-        "winRate": 0.5
+        "averageReturn": 0.226,
+        "qqqReturn": 0.0185,
+        "excessQqq": 0.2075,
+        "winRate": 1
       },
       {
         "exitMonth": "2025-07",
-        "exitDate": "2025-07-28",
-        "count": 2,
+        "exitDate": "2025-07-18",
+        "count": 1,
         "symbols": [
-          "RCL",
-          "TKO"
+          "DRI"
         ],
         "sectors": [
-          "Consumer Discretionary",
-          "Communication Services"
+          "Consumer Discretionary"
         ],
-        "averageReturn": 0.2253,
-        "qqqReturn": 0.0994,
-        "excessQqq": 0.1259,
+        "averageReturn": 0.1632,
+        "qqqReturn": 0.0914,
+        "excessQqq": 0.0718,
         "winRate": 1
       },
       {
         "exitMonth": "2025-08",
-        "exitDate": "2025-09-02",
-        "count": 2,
+        "exitDate": "2025-08-08",
+        "count": 3,
         "symbols": [
-          "FOXA",
-          "BNY"
+          "TKO",
+          "RCL",
+          "APO"
         ],
         "sectors": [
           "Communication Services",
+          "Consumer Discretionary",
           "Financials"
         ],
-        "averageReturn": 0.1373,
-        "qqqReturn": 0.1409,
-        "excessQqq": -0.0036,
-        "winRate": 1
+        "averageReturn": 0.0609,
+        "qqqReturn": 0.1137,
+        "excessQqq": -0.0528,
+        "winRate": 0.6667
       },
       {
         "exitMonth": "2025-09",
         "exitDate": "2025-09-29",
-        "count": 2,
+        "count": 1,
         "symbols": [
-          "EXE",
-          "DTE"
+          "EXE"
         ],
         "sectors": [
-          "Energy",
-          "Utilities"
+          "Energy"
         ],
-        "averageReturn": 0.0073,
+        "averageReturn": -0.0227,
         "qqqReturn": 0.2797,
-        "excessQqq": -0.2724,
-        "winRate": 0.5
+        "excessQqq": -0.3024,
+        "winRate": 0
       },
       {
         "exitMonth": "2025-10",
-        "exitDate": "2025-11-03",
-        "count": 2,
+        "exitDate": "2025-10-17",
+        "count": 1,
         "symbols": [
-          "PM",
-          "CNP"
+          "FOXA"
         ],
         "sectors": [
-          "Consumer Staples",
-          "Utilities"
+          "Communication Services"
         ],
-        "averageReturn": -0.057,
-        "qqqReturn": 0.341,
-        "excessQqq": -0.398,
-        "winRate": 0.5
+        "averageReturn": 0.0497,
+        "qqqReturn": 0.2196,
+        "excessQqq": -0.1699,
+        "winRate": 1
       },
       {
         "exitMonth": "2025-11",
-        "exitDate": "2025-12-01",
-        "count": 2,
+        "exitDate": "2025-11-03",
+        "count": 5,
         "symbols": [
-          "GE",
-          "STX"
+          "HOOD",
+          "PM",
+          "CNP",
+          "DTE",
+          "HOOD"
         ],
         "sectors": [
-          "Industrials",
-          "Electronic Components"
+          "Financials",
+          "Consumer Staples",
+          "Utilities"
         ],
-        "averageReturn": 0.7274,
-        "qqqReturn": 0.1823,
-        "excessQqq": 0.5451,
-        "winRate": 1
+        "averageReturn": 0.7467,
+        "qqqReturn": 0.2839,
+        "excessQqq": 0.4628,
+        "winRate": 0.8
       },
       {
         "exitMonth": "2025-12",
-        "exitDate": "2025-12-29",
-        "count": 2,
+        "exitDate": "2025-12-01",
+        "count": 1,
         "symbols": [
-          "HWM",
-          "STX"
+          "GE"
         ],
         "sectors": [
-          "Industrials",
-          "Electronic Components"
+          "Industrials"
         ],
-        "averageReturn": 0.5436,
-        "qqqReturn": 0.1283,
-        "excessQqq": 0.4153,
-        "winRate": 1
-      },
-      {
-        "exitMonth": "2026-01",
-        "exitDate": "2026-02-02",
-        "count": 2,
-        "symbols": [
-          "GE",
-          "TPR"
-        ],
-        "sectors": [
-          "Industrials",
-          "Consumer Discretionary"
-        ],
-        "averageReturn": 0.1632,
-        "qqqReturn": 0.1048,
-        "excessQqq": 0.0584,
+        "averageReturn": 0.1663,
+        "qqqReturn": 0.1823,
+        "excessQqq": -0.016,
         "winRate": 1
       },
       {
         "exitMonth": "2026-02",
-        "exitDate": "2026-03-02",
+        "exitDate": "2026-02-02",
         "count": 2,
         "symbols": [
-          "WYNN",
-          "WDC"
+          "GE",
+          "BNY"
         ],
         "sectors": [
-          "Consumer Discretionary",
-          "Electronic Components"
+          "Industrials",
+          "Financials"
         ],
-        "averageReturn": 1.0659,
-        "qqqReturn": 0.0777,
-        "excessQqq": 0.9882,
-        "winRate": 0.5
+        "averageReturn": 0.2105,
+        "qqqReturn": 0.1679,
+        "excessQqq": 0.0426,
+        "winRate": 1
       },
       {
         "exitMonth": "2026-03",
-        "exitDate": "2026-03-30",
-        "count": 2,
+        "exitDate": "2026-03-02",
+        "count": 4,
         "symbols": [
-          "WDC",
+          "WYNN",
+          "TPR",
+          "HWM",
           "INTC"
         ],
         "sectors": [
-          "Electronic Components",
+          "Consumer Discretionary",
+          "Industrials",
           "Semiconductors"
         ],
-        "averageReturn": 0.6766,
-        "qqqReturn": -0.0652,
-        "excessQqq": 0.7418,
-        "winRate": 1
-      },
-      {
-        "exitMonth": "2026-04",
-        "exitDate": "2026-04-27",
-        "count": 2,
-        "symbols": [
-          "AMD",
-          "WDC"
-        ],
-        "sectors": [
-          "Semiconductors",
-          "Electronic Components"
-        ],
-        "averageReturn": 0.914,
-        "qqqReturn": 0.0535,
-        "excessQqq": 0.8605,
-        "winRate": 1
-      },
-      {
-        "exitMonth": "2026-05",
-        "exitDate": "2026-06-01",
-        "count": 2,
-        "symbols": [
-          "LLY",
-          "SNDK"
-        ],
-        "sectors": [
-          "Health Care",
-          "Electronic Components"
-        ],
-        "averageReturn": 3.7038,
-        "qqqReturn": 0.2065,
-        "excessQqq": 3.4973,
-        "winRate": 1
+        "averageReturn": 0.1066,
+        "qqqReturn": 0.0158,
+        "excessQqq": 0.0908,
+        "winRate": 0.75
       },
       {
         "exitMonth": "2026-06",
-        "exitDate": "2026-06-29",
-        "count": 2,
+        "exitDate": "2026-06-01",
+        "count": 10,
         "symbols": [
+          "STX",
+          "STX",
+          "WDC",
+          "WDC",
+          "AMD",
+          "WDC",
+          "LLY",
+          "SNDK",
           "BIIB",
           "STX"
         ],
         "sectors": [
-          "Health Care",
-          "Electronic Components"
+          "Electronic Components",
+          "Semiconductors",
+          "Health Care"
         ],
-        "averageReturn": 1.3383,
-        "qqqReturn": 0.169,
-        "excessQqq": 1.1693,
+        "averageReturn": 2.8722,
+        "qqqReturn": 0.2238,
+        "excessQqq": 2.6484,
         "winRate": 1
       }
     ],
@@ -4314,1803 +4010,2863 @@
         "cohort": "2021-08",
         "entryDate": "2021-08-30",
         "exitMonth": "2022-02",
-        "exitAsOf": "2022-02-25",
-        "exitDate": "2022-02-28",
-        "symbol": "CB",
-        "name": "Chubb Limited",
-        "sector": "Financials",
-        "score": 83.26,
-        "rank": 1,
-        "entryPrice": 171.87,
-        "exitPrice": 192,
-        "return": 0.1171,
-        "qqqReturn": -0.0858,
-        "excessQqq": 0.2029
-      },
-      {
-        "cohort": "2021-08",
-        "entryDate": "2021-08-30",
-        "exitMonth": "2022-02",
-        "exitAsOf": "2022-02-25",
         "exitDate": "2022-02-28",
         "symbol": "PLTR",
         "name": "Palantir Technologies",
         "sector": "Software",
         "score": 83.2,
         "rank": 2,
-        "entryPrice": 25.76,
+        "entryPrice": 25.79,
         "exitPrice": 11.85,
-        "return": -0.54,
+        "return": -0.5409,
         "qqqReturn": -0.0858,
-        "excessQqq": -0.4542
+        "excessQqq": -0.4551,
+        "buyDates": [
+          "2021-08-30"
+        ],
+        "sellDates": [
+          "2022-02-28",
+          "2022-02-28"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
-        "cohort": "2021-09",
-        "entryDate": "2021-09-27",
-        "exitMonth": "2022-03",
-        "exitAsOf": "2022-03-25",
-        "exitDate": "2022-03-28",
-        "symbol": "APA",
-        "name": "APA Corporation",
-        "sector": "Energy",
-        "score": 86.15,
+        "cohort": "2021-08",
+        "entryDate": "2021-08-30",
+        "exitMonth": "2022-04",
+        "exitDate": "2022-04-29",
+        "symbol": "CB",
+        "name": "Chubb Limited",
+        "sector": "Financials",
+        "score": 83.26,
         "rank": 1,
-        "entryPrice": 20.13,
-        "exitPrice": 34.71,
-        "return": 0.7238,
-        "qqqReturn": -0.0122,
-        "excessQqq": 0.736
+        "entryPrice": 172.04,
+        "exitPrice": 193.7,
+        "return": 0.1247,
+        "qqqReturn": -0.1732,
+        "excessQqq": 0.298,
+        "buyDates": [
+          "2021-08-30"
+        ],
+        "sellDates": [
+          "2022-02-28",
+          "2022-04-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2021-09",
         "entryDate": "2021-09-27",
-        "exitMonth": "2022-03",
-        "exitAsOf": "2022-03-25",
-        "exitDate": "2022-03-28",
+        "exitMonth": "2022-04",
+        "exitDate": "2022-04-29",
         "symbol": "EXPE",
         "name": "Expedia Group",
         "sector": "Consumer Discretionary",
         "score": 85.65,
         "rank": 2,
-        "entryPrice": 167.57,
-        "exitPrice": 190.82,
-        "return": 0.1388,
-        "qqqReturn": -0.0122,
-        "excessQqq": 0.151
+        "entryPrice": 167.74,
+        "exitPrice": 181.72,
+        "return": 0.0822,
+        "qqqReturn": -0.1521,
+        "excessQqq": 0.2343,
+        "buyDates": [
+          "2021-09-27"
+        ],
+        "sellDates": [
+          "2022-03-28",
+          "2022-04-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2021-10",
         "entryDate": "2021-11-01",
-        "exitMonth": "2022-04",
-        "exitAsOf": "2022-04-29",
+        "exitMonth": "2022-05",
         "exitDate": "2022-05-02",
         "symbol": "COIN",
         "name": "Coinbase",
         "sector": "Financials",
         "score": 89.36,
         "rank": 1,
-        "entryPrice": 330.99,
+        "entryPrice": 331.32,
         "exitPrice": 121.34,
-        "return": -0.6334,
+        "return": -0.6341,
         "qqqReturn": -0.1759,
-        "excessQqq": -0.4575
+        "excessQqq": -0.4582,
+        "buyDates": [
+          "2021-11-01"
+        ],
+        "sellDates": [
+          "2022-05-02",
+          "2022-05-02"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
+      },
+      {
+        "cohort": "2021-09",
+        "entryDate": "2021-09-27",
+        "exitMonth": "2022-05",
+        "exitDate": "2022-05-20",
+        "symbol": "APA",
+        "name": "APA Corporation",
+        "sector": "Energy",
+        "score": 86.15,
+        "rank": 1,
+        "entryPrice": 20.15,
+        "exitPrice": 35.55,
+        "return": 0.762,
+        "qqqReturn": -0.2186,
+        "excessQqq": 0.9806,
+        "buyDates": [
+          "2021-09-27"
+        ],
+        "sellDates": [
+          "2022-03-28",
+          "2022-05-20"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2021-10",
         "entryDate": "2021-11-01",
-        "exitMonth": "2022-04",
-        "exitAsOf": "2022-04-29",
-        "exitDate": "2022-05-02",
+        "exitMonth": "2022-05",
+        "exitDate": "2022-05-20",
         "symbol": "APA",
         "name": "APA Corporation",
         "sector": "Energy",
         "score": 86.16,
         "rank": 2,
-        "entryPrice": 23.57,
-        "exitPrice": 35.47,
-        "return": 0.5047,
-        "qqqReturn": -0.1759,
-        "excessQqq": 0.6806
+        "entryPrice": 23.59,
+        "exitPrice": 35.93,
+        "return": 0.5211,
+        "qqqReturn": -0.253,
+        "excessQqq": 0.7741,
+        "buyDates": [
+          "2021-11-01"
+        ],
+        "sellDates": [
+          "2022-05-02",
+          "2022-05-20"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2021-11",
         "entryDate": "2021-11-29",
         "exitMonth": "2022-05",
-        "exitAsOf": "2022-05-27",
         "exitDate": "2022-05-31",
         "symbol": "HD",
         "name": "Home Depot (The)",
         "sector": "Consumer Discretionary",
         "score": 84.03,
         "rank": 1,
-        "entryPrice": 363.75,
+        "entryPrice": 364.11,
         "exitPrice": 273.46,
-        "return": -0.2482,
+        "return": -0.2497,
         "qqqReturn": -0.2268,
-        "excessQqq": -0.0215
+        "excessQqq": -0.023,
+        "buyDates": [
+          "2021-11-29"
+        ],
+        "sellDates": [
+          "2022-05-31",
+          "2022-05-31"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2021-11",
         "entryDate": "2021-11-29",
         "exitMonth": "2022-05",
-        "exitAsOf": "2022-05-27",
         "exitDate": "2022-05-31",
         "symbol": "AMD",
         "name": "Advanced Micro Devices",
         "sector": "Semiconductors",
         "score": 80.15,
         "rank": 5,
-        "entryPrice": 161.91,
+        "entryPrice": 162.07,
         "exitPrice": 101.86,
-        "return": -0.3709,
+        "return": -0.3721,
         "qqqReturn": -0.2268,
-        "excessQqq": -0.1441
+        "excessQqq": -0.1454,
+        "buyDates": [
+          "2021-11-29"
+        ],
+        "sellDates": [
+          "2022-05-31",
+          "2022-05-31"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2021-12",
         "entryDate": "2022-01-03",
         "exitMonth": "2022-06",
-        "exitAsOf": "2022-06-24",
         "exitDate": "2022-06-27",
         "symbol": "CNC",
         "name": "Centene Corporation",
         "sector": "Health Care",
         "score": 81.04,
         "rank": 1,
-        "entryPrice": 82.65,
+        "entryPrice": 82.73,
         "exitPrice": 84.57,
-        "return": 0.0232,
+        "return": 0.0212,
         "qqqReturn": -0.2696,
-        "excessQqq": 0.2929
+        "excessQqq": 0.2908,
+        "buyDates": [
+          "2022-01-03"
+        ],
+        "sellDates": [
+          "2022-06-27",
+          "2022-06-27"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2021-12",
         "entryDate": "2022-01-03",
         "exitMonth": "2022-06",
-        "exitAsOf": "2022-06-24",
         "exitDate": "2022-06-27",
         "symbol": "IRM",
         "name": "Iron Mountain",
         "sector": "Real Estate",
         "score": 80.75,
         "rank": 2,
-        "entryPrice": 43.34,
+        "entryPrice": 43.38,
         "exitPrice": 43.57,
-        "return": 0.0053,
+        "return": 0.0033,
         "qqqReturn": -0.2696,
-        "excessQqq": 0.275
+        "excessQqq": 0.273,
+        "buyDates": [
+          "2022-01-03"
+        ],
+        "sellDates": [
+          "2022-06-27",
+          "2022-06-27"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2022-01",
         "entryDate": "2022-01-31",
-        "exitMonth": "2022-07",
-        "exitAsOf": "2022-07-29",
+        "exitMonth": "2022-08",
         "exitDate": "2022-08-01",
         "symbol": "HAL",
         "name": "Halliburton",
         "sector": "Energy",
         "score": 89.28,
         "rank": 1,
-        "entryPrice": 28.18,
+        "entryPrice": 28.21,
         "exitPrice": 26.01,
-        "return": -0.077,
+        "return": -0.0788,
         "qqqReturn": -0.1289,
-        "excessQqq": 0.0519
+        "excessQqq": 0.05,
+        "buyDates": [
+          "2022-01-31"
+        ],
+        "sellDates": [
+          "2022-08-01",
+          "2022-08-01"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2022-01",
         "entryDate": "2022-01-31",
-        "exitMonth": "2022-07",
-        "exitAsOf": "2022-07-29",
+        "exitMonth": "2022-08",
         "exitDate": "2022-08-01",
         "symbol": "ADM",
         "name": "Archer Daniels Midland",
         "sector": "Consumer Staples",
         "score": 86.64,
         "rank": 8,
-        "entryPrice": 65.89,
+        "entryPrice": 65.96,
         "exitPrice": 74.76,
-        "return": 0.1346,
+        "return": 0.1324,
         "qqqReturn": -0.1289,
-        "excessQqq": 0.2635
+        "excessQqq": 0.2612,
+        "buyDates": [
+          "2022-01-31"
+        ],
+        "sellDates": [
+          "2022-08-01",
+          "2022-08-01"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2022-02",
         "entryDate": "2022-02-28",
         "exitMonth": "2022-08",
-        "exitAsOf": "2022-08-26",
-        "exitDate": "2022-08-29",
-        "symbol": "TRGP",
-        "name": "Targa Resources",
-        "sector": "Energy",
-        "score": 86.1,
-        "rank": 1,
-        "entryPrice": 59.57,
-        "exitPrice": 65.45,
-        "return": 0.0987,
-        "qqqReturn": -0.1195,
-        "excessQqq": 0.2181
-      },
-      {
-        "cohort": "2022-02",
-        "entryDate": "2022-02-28",
-        "exitMonth": "2022-08",
-        "exitAsOf": "2022-08-26",
         "exitDate": "2022-08-29",
         "symbol": "BG",
         "name": "Bunge Global",
         "sector": "Consumer Staples",
         "score": 83.24,
         "rank": 9,
-        "entryPrice": 92.99,
+        "entryPrice": 93.08,
         "exitPrice": 93.32,
-        "return": 0.0036,
+        "return": 0.0016,
         "qqqReturn": -0.1195,
-        "excessQqq": 0.123
+        "excessQqq": 0.121,
+        "buyDates": [
+          "2022-02-28"
+        ],
+        "sellDates": [
+          "2022-08-29",
+          "2022-08-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
+      },
+      {
+        "cohort": "2022-02",
+        "entryDate": "2022-02-28",
+        "exitMonth": "2022-09",
+        "exitDate": "2022-09-30",
+        "symbol": "TRGP",
+        "name": "Targa Resources",
+        "sector": "Energy",
+        "score": 86.1,
+        "rank": 1,
+        "entryPrice": 59.63,
+        "exitPrice": 60.49,
+        "return": 0.0134,
+        "qqqReturn": -0.2255,
+        "excessQqq": 0.239,
+        "buyDates": [
+          "2022-02-28"
+        ],
+        "sellDates": [
+          "2022-08-29",
+          "2022-09-30"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2022-03",
         "entryDate": "2022-03-28",
-        "exitMonth": "2022-09",
-        "exitAsOf": "2022-09-30",
+        "exitMonth": "2022-10",
         "exitDate": "2022-10-03",
         "symbol": "OXY",
         "name": "Occidental Petroleum",
         "sector": "Energy",
         "score": 89.75,
         "rank": 1,
-        "entryPrice": 53.08,
+        "entryPrice": 53.13,
         "exitPrice": 60.26,
-        "return": 0.1354,
+        "return": 0.1332,
         "qqqReturn": -0.2476,
-        "excessQqq": 0.383
+        "excessQqq": 0.3808,
+        "buyDates": [
+          "2022-03-28"
+        ],
+        "sellDates": [
+          "2022-10-03",
+          "2022-10-03"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2022-03",
         "entryDate": "2022-03-28",
-        "exitMonth": "2022-09",
-        "exitAsOf": "2022-09-30",
+        "exitMonth": "2022-10",
         "exitDate": "2022-10-03",
         "symbol": "MOS",
         "name": "Mosaic Company (The)",
         "sector": "Materials",
         "score": 82.71,
         "rank": 12,
-        "entryPrice": 60.71,
+        "entryPrice": 60.77,
         "exitPrice": 44.38,
-        "return": -0.269,
+        "return": -0.2704,
         "qqqReturn": -0.2476,
-        "excessQqq": -0.0213
-      },
-      {
-        "cohort": "2022-04",
-        "entryDate": "2022-05-02",
-        "exitMonth": "2022-10",
-        "exitAsOf": "2022-10-28",
-        "exitDate": "2022-10-31",
-        "symbol": "VLO",
-        "name": "Valero Energy",
-        "sector": "Energy",
-        "score": 86.26,
-        "rank": 1,
-        "entryPrice": 102.71,
-        "exitPrice": 112.47,
-        "return": 0.0951,
-        "qqqReturn": -0.124,
-        "excessQqq": 0.2191
-      },
-      {
-        "cohort": "2022-04",
-        "entryDate": "2022-05-02",
-        "exitMonth": "2022-10",
-        "exitAsOf": "2022-10-28",
-        "exitDate": "2022-10-31",
-        "symbol": "HSY",
-        "name": "Hershey Company (The)",
-        "sector": "Consumer Staples",
-        "score": 83.07,
-        "rank": 3,
-        "entryPrice": 195.13,
-        "exitPrice": 216.09,
-        "return": 0.1074,
-        "qqqReturn": -0.124,
-        "excessQqq": 0.2314
+        "excessQqq": -0.0228,
+        "buyDates": [
+          "2022-03-28"
+        ],
+        "sellDates": [
+          "2022-10-03",
+          "2022-10-03"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2022-05",
         "entryDate": "2022-05-31",
         "exitMonth": "2022-11",
-        "exitAsOf": "2022-11-25",
         "exitDate": "2022-11-28",
         "symbol": "OXY",
         "name": "Occidental Petroleum",
         "sector": "Energy",
         "score": 85.78,
         "rank": 1,
-        "entryPrice": 64.95,
+        "entryPrice": 65.01,
         "exitPrice": 64.19,
-        "return": -0.0117,
+        "return": -0.0137,
         "qqqReturn": -0.0795,
-        "excessQqq": 0.0678
+        "excessQqq": 0.0658,
+        "buyDates": [
+          "2022-05-31"
+        ],
+        "sellDates": [
+          "2022-11-28",
+          "2022-11-28"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2022-05",
         "entryDate": "2022-05-31",
         "exitMonth": "2022-11",
-        "exitAsOf": "2022-11-25",
         "exitDate": "2022-11-28",
         "symbol": "NRG",
         "name": "NRG Energy",
         "sector": "Utilities",
         "score": 85.65,
         "rank": 2,
-        "entryPrice": 41.59,
+        "entryPrice": 41.64,
         "exitPrice": 38.08,
-        "return": -0.0845,
+        "return": -0.0863,
         "qqqReturn": -0.0795,
-        "excessQqq": -0.005
+        "excessQqq": -0.0068,
+        "buyDates": [
+          "2022-05-31"
+        ],
+        "sellDates": [
+          "2022-11-28",
+          "2022-11-28"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
-        "cohort": "2022-06",
-        "entryDate": "2022-06-27",
+        "cohort": "2022-04",
+        "entryDate": "2022-05-02",
         "exitMonth": "2022-12",
-        "exitAsOf": "2022-12-30",
-        "exitDate": "2023-01-03",
-        "symbol": "LLY",
-        "name": "Lilly (Eli)",
-        "sector": "Health Care",
-        "score": 86.28,
+        "exitDate": "2022-12-16",
+        "symbol": "VLO",
+        "name": "Valero Energy",
+        "sector": "Energy",
+        "score": 86.26,
         "rank": 1,
-        "entryPrice": 316.59,
-        "exitPrice": 355.22,
-        "return": 0.122,
-        "qqqReturn": -0.0918,
-        "excessQqq": 0.2139
+        "entryPrice": 102.81,
+        "exitPrice": 110.08,
+        "return": 0.0696,
+        "qqqReturn": -0.1357,
+        "excessQqq": 0.2053,
+        "buyDates": [
+          "2022-05-02"
+        ],
+        "sellDates": [
+          "2022-10-31",
+          "2022-12-16"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2022-06",
         "entryDate": "2022-06-27",
-        "exitMonth": "2022-12",
-        "exitAsOf": "2022-12-30",
+        "exitMonth": "2023-01",
         "exitDate": "2023-01-03",
         "symbol": "DG",
         "name": "Dollar General",
         "sector": "Consumer Staples",
         "score": 85.02,
         "rank": 2,
-        "entryPrice": 229.49,
+        "entryPrice": 229.72,
         "exitPrice": 231.01,
-        "return": 0.0066,
+        "return": 0.0046,
         "qqqReturn": -0.0918,
-        "excessQqq": 0.0985
+        "excessQqq": 0.0965,
+        "buyDates": [
+          "2022-06-27"
+        ],
+        "sellDates": [
+          "2023-01-03",
+          "2023-01-03"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
+      },
+      {
+        "cohort": "2022-04",
+        "entryDate": "2022-05-02",
+        "exitMonth": "2023-01",
+        "exitDate": "2023-01-06",
+        "symbol": "HSY",
+        "name": "Hershey Company (The)",
+        "sector": "Consumer Staples",
+        "score": 83.07,
+        "rank": 3,
+        "entryPrice": 195.33,
+        "exitPrice": 210.63,
+        "return": 0.0773,
+        "qqqReturn": -0.1508,
+        "excessQqq": 0.2281,
+        "buyDates": [
+          "2022-05-02"
+        ],
+        "sellDates": [
+          "2022-10-31",
+          "2023-01-06"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
+      },
+      {
+        "cohort": "2022-06",
+        "entryDate": "2022-06-27",
+        "exitMonth": "2023-01",
+        "exitDate": "2023-01-20",
+        "symbol": "LLY",
+        "name": "Lilly (Eli)",
+        "sector": "Health Care",
+        "score": 86.28,
+        "rank": 1,
+        "entryPrice": 316.9,
+        "exitPrice": 346.01,
+        "return": 0.0908,
+        "qqqReturn": -0.0294,
+        "excessQqq": 0.1201,
+        "buyDates": [
+          "2022-06-27"
+        ],
+        "sellDates": [
+          "2023-01-03",
+          "2023-01-20"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2022-07",
         "entryDate": "2022-08-01",
         "exitMonth": "2023-01",
-        "exitAsOf": "2023-01-27",
         "exitDate": "2023-01-30",
         "symbol": "TPL",
         "name": "Texas Pacific Land Corporation",
         "sector": "Energy",
         "score": 80.38,
         "rank": 1,
-        "entryPrice": 194.86,
+        "entryPrice": 195.06,
         "exitPrice": 213.2,
-        "return": 0.0941,
+        "return": 0.0919,
         "qqqReturn": -0.0754,
-        "excessQqq": 0.1696
+        "excessQqq": 0.1674,
+        "buyDates": [
+          "2022-08-01"
+        ],
+        "sellDates": [
+          "2023-01-30",
+          "2023-01-30"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2022-07",
         "entryDate": "2022-08-01",
         "exitMonth": "2023-01",
-        "exitAsOf": "2023-01-27",
         "exitDate": "2023-01-30",
         "symbol": "NOC",
         "name": "Northrop Grumman",
         "sector": "Industrials",
         "score": 78.59,
         "rank": 7,
-        "entryPrice": 447.85,
+        "entryPrice": 448.3,
         "exitPrice": 416.45,
-        "return": -0.0701,
+        "return": -0.072,
         "qqqReturn": -0.0754,
-        "excessQqq": 0.0053
+        "excessQqq": 0.0035,
+        "buyDates": [
+          "2022-08-01"
+        ],
+        "sellDates": [
+          "2023-01-30",
+          "2023-01-30"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2022-08",
         "entryDate": "2022-08-29",
         "exitMonth": "2023-02",
-        "exitAsOf": "2023-02-24",
         "exitDate": "2023-02-27",
         "symbol": "OXY",
         "name": "Occidental Petroleum",
         "sector": "Energy",
         "score": 89.16,
         "rank": 1,
-        "entryPrice": 70.66,
+        "entryPrice": 70.73,
         "exitPrice": 55.58,
-        "return": -0.2134,
+        "return": -0.215,
         "qqqReturn": -0.0303,
-        "excessQqq": -0.1831
+        "excessQqq": -0.1846,
+        "buyDates": [
+          "2022-08-29"
+        ],
+        "sellDates": [
+          "2023-02-27",
+          "2023-02-27"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2022-08",
         "entryDate": "2022-08-29",
         "exitMonth": "2023-02",
-        "exitAsOf": "2023-02-24",
         "exitDate": "2023-02-27",
         "symbol": "DE",
         "name": "Deere & Company",
         "sector": "Industrials",
         "score": 77.52,
         "rank": 12,
-        "entryPrice": 360.78,
+        "entryPrice": 361.14,
         "exitPrice": 402.09,
-        "return": 0.1145,
+        "return": 0.1123,
         "qqqReturn": -0.0303,
-        "excessQqq": 0.1449
+        "excessQqq": 0.1426,
+        "buyDates": [
+          "2022-08-29"
+        ],
+        "sellDates": [
+          "2023-02-27",
+          "2023-02-27"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2022-09",
         "entryDate": "2022-10-03",
-        "exitMonth": "2023-03",
-        "exitAsOf": "2023-03-31",
-        "exitDate": "2023-04-03",
+        "exitMonth": "2023-04",
+        "exitDate": "2023-04-28",
         "symbol": "MPC",
         "name": "Marathon Petroleum",
         "sector": "Energy",
         "score": 80.25,
         "rank": 5,
-        "entryPrice": 94.85,
-        "exitPrice": 126.69,
-        "return": 0.3356,
-        "qqqReturn": 0.1751,
-        "excessQqq": 0.1606
-      },
-      {
-        "cohort": "2022-09",
-        "entryDate": "2022-10-03",
-        "exitMonth": "2023-03",
-        "exitAsOf": "2023-03-31",
-        "exitDate": "2023-04-03",
-        "symbol": "REGN",
-        "name": "Regeneron Pharmaceuticals",
-        "sector": "Biotechnology",
-        "score": 78.3,
-        "rank": 9,
-        "entryPrice": 729.11,
-        "exitPrice": 819.42,
-        "return": 0.1239,
-        "qqqReturn": 0.1751,
-        "excessQqq": -0.0512
+        "entryPrice": 94.95,
+        "exitPrice": 120.32,
+        "return": 0.2659,
+        "qqqReturn": 0.1839,
+        "excessQqq": 0.082,
+        "buyDates": [
+          "2022-10-03"
+        ],
+        "sellDates": [
+          "2023-04-03",
+          "2023-04-28"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2022-10",
         "entryDate": "2022-10-31",
-        "exitMonth": "2023-04",
-        "exitAsOf": "2023-04-28",
+        "exitMonth": "2023-05",
         "exitDate": "2023-05-01",
         "symbol": "SLB",
         "name": "Schlumberger",
         "sector": "Energy",
         "score": 88.8,
         "rank": 1,
-        "entryPrice": 47.82,
+        "entryPrice": 47.86,
         "exitPrice": 45.54,
-        "return": -0.0476,
+        "return": -0.0495,
         "qqqReturn": 0.1637,
-        "excessQqq": -0.2114
+        "excessQqq": -0.2133,
+        "buyDates": [
+          "2022-10-31"
+        ],
+        "sellDates": [
+          "2023-05-01",
+          "2023-05-01"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
-        "cohort": "2022-10",
-        "entryDate": "2022-10-31",
-        "exitMonth": "2023-04",
-        "exitAsOf": "2023-04-28",
-        "exitDate": "2023-05-01",
-        "symbol": "ACGL",
-        "name": "Arch Capital Group",
-        "sector": "Financials",
-        "score": 85.97,
-        "rank": 3,
-        "entryPrice": 54.68,
-        "exitPrice": 72.17,
-        "return": 0.32,
-        "qqqReturn": 0.1637,
-        "excessQqq": 0.1563
+        "cohort": "2022-09",
+        "entryDate": "2022-10-03",
+        "exitMonth": "2023-05",
+        "exitDate": "2023-05-12",
+        "symbol": "REGN",
+        "name": "Regeneron Pharmaceuticals",
+        "sector": "Biotechnology",
+        "score": 78.3,
+        "rank": 9,
+        "entryPrice": 729.84,
+        "exitPrice": 778.84,
+        "return": 0.0661,
+        "qqqReturn": 0.193,
+        "excessQqq": -0.1269,
+        "buyDates": [
+          "2022-10-03"
+        ],
+        "sellDates": [
+          "2023-04-03",
+          "2023-05-12"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2022-11",
         "entryDate": "2022-11-28",
         "exitMonth": "2023-05",
-        "exitAsOf": "2023-05-26",
-        "exitDate": "2023-05-30",
-        "symbol": "EME",
-        "name": "Emcor",
-        "sector": "Industrials",
-        "score": 85.27,
-        "rank": 1,
-        "entryPrice": 151.32,
-        "exitPrice": 169.72,
-        "return": 0.1216,
-        "qqqReturn": 0.2428,
-        "excessQqq": -0.1213
-      },
-      {
-        "cohort": "2022-11",
-        "entryDate": "2022-11-28",
-        "exitMonth": "2023-05",
-        "exitAsOf": "2023-05-26",
         "exitDate": "2023-05-30",
         "symbol": "ACGL",
         "name": "Arch Capital Group",
         "sector": "Financials",
         "score": 81.61,
         "rank": 5,
-        "entryPrice": 55.17,
+        "entryPrice": 55.23,
         "exitPrice": 67.7,
-        "return": 0.2272,
+        "return": 0.2247,
         "qqqReturn": 0.2428,
-        "excessQqq": -0.0157
+        "excessQqq": -0.0181,
+        "buyDates": [
+          "2022-11-28"
+        ],
+        "sellDates": [
+          "2023-05-30",
+          "2023-05-30"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
-        "cohort": "2022-12",
-        "entryDate": "2023-01-03",
+        "cohort": "2022-10",
+        "entryDate": "2022-10-31",
         "exitMonth": "2023-06",
-        "exitAsOf": "2023-06-30",
-        "exitDate": "2023-07-03",
-        "symbol": "CAT",
-        "name": "Caterpillar Inc.",
-        "sector": "Industrials",
-        "score": 84.6,
-        "rank": 1,
-        "entryPrice": 226.01,
-        "exitPrice": 236.39,
-        "return": 0.046,
-        "qqqReturn": 0.4042,
-        "excessQqq": -0.3582
-      },
-      {
-        "cohort": "2022-12",
-        "entryDate": "2023-01-03",
-        "exitMonth": "2023-06",
-        "exitAsOf": "2023-06-30",
-        "exitDate": "2023-07-03",
-        "symbol": "SLB",
-        "name": "Schlumberger",
-        "sector": "Energy",
-        "score": 79.01,
-        "rank": 6,
-        "entryPrice": 47.49,
-        "exitPrice": 46.08,
-        "return": -0.0296,
-        "qqqReturn": 0.4042,
-        "excessQqq": -0.4338
+        "exitDate": "2023-06-02",
+        "symbol": "ACGL",
+        "name": "Arch Capital Group",
+        "sector": "Financials",
+        "score": 85.97,
+        "rank": 3,
+        "entryPrice": 54.73,
+        "exitPrice": 69.8,
+        "return": 0.274,
+        "qqqReturn": 0.281,
+        "excessQqq": -0.007,
+        "buyDates": [
+          "2022-10-31"
+        ],
+        "sellDates": [
+          "2023-05-01",
+          "2023-06-02"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2023-01",
         "entryDate": "2023-01-30",
         "exitMonth": "2023-07",
-        "exitAsOf": "2023-07-28",
         "exitDate": "2023-07-31",
         "symbol": "LVS",
         "name": "Las Vegas Sands",
         "sector": "Consumer Discretionary",
         "score": 81.84,
         "rank": 4,
-        "entryPrice": 54.66,
+        "entryPrice": 54.72,
         "exitPrice": 56.48,
-        "return": 0.0333,
+        "return": 0.0313,
         "qqqReturn": 0.3257,
-        "excessQqq": -0.2923
+        "excessQqq": -0.2944,
+        "buyDates": [
+          "2023-01-30"
+        ],
+        "sellDates": [
+          "2023-07-31",
+          "2023-07-31"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2023-01",
         "entryDate": "2023-01-30",
         "exitMonth": "2023-07",
-        "exitAsOf": "2023-07-28",
         "exitDate": "2023-07-31",
         "symbol": "STT",
         "name": "State Street Corporation",
         "sector": "Financials",
         "score": 81.36,
         "rank": 5,
-        "entryPrice": 80.59,
+        "entryPrice": 80.67,
         "exitPrice": 65.87,
-        "return": -0.1826,
+        "return": -0.1842,
         "qqqReturn": 0.3257,
-        "excessQqq": -0.5083
+        "excessQqq": -0.5099,
+        "buyDates": [
+          "2023-01-30"
+        ],
+        "sellDates": [
+          "2023-07-31",
+          "2023-07-31"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2023-02",
         "entryDate": "2023-02-27",
         "exitMonth": "2023-08",
-        "exitAsOf": "2023-08-25",
-        "exitDate": "2023-08-28",
-        "symbol": "GE",
-        "name": "GE Aerospace",
-        "sector": "Industrials",
-        "score": 85.9,
-        "rank": 1,
-        "entryPrice": 65.72,
-        "exitPrice": 89.48,
-        "return": 0.3615,
-        "qqqReturn": 0.2514,
-        "excessQqq": 0.1101
-      },
-      {
-        "cohort": "2023-02",
-        "entryDate": "2023-02-27",
-        "exitMonth": "2023-08",
-        "exitAsOf": "2023-08-25",
         "exitDate": "2023-08-28",
         "symbol": "ACGL",
         "name": "Arch Capital Group",
         "sector": "Financials",
         "score": 85.84,
         "rank": 2,
-        "entryPrice": 65.81,
+        "entryPrice": 65.88,
         "exitPrice": 70.55,
-        "return": 0.072,
+        "return": 0.0698,
         "qqqReturn": 0.2514,
-        "excessQqq": -0.1794
+        "excessQqq": -0.1816,
+        "buyDates": [
+          "2023-02-27"
+        ],
+        "sellDates": [
+          "2023-08-28",
+          "2023-08-28"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
+      },
+      {
+        "cohort": "2022-11",
+        "entryDate": "2022-11-28",
+        "exitMonth": "2023-09",
+        "exitDate": "2023-09-29",
+        "symbol": "EME",
+        "name": "Emcor",
+        "sector": "Industrials",
+        "score": 85.27,
+        "rank": 1,
+        "entryPrice": 151.48,
+        "exitPrice": 189.36,
+        "return": 0.2488,
+        "qqqReturn": 0.2759,
+        "excessQqq": -0.027,
+        "buyDates": [
+          "2022-11-28"
+        ],
+        "sellDates": [
+          "2023-05-30",
+          "2023-09-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
+      },
+      {
+        "cohort": "2022-12",
+        "entryDate": "2023-01-03",
+        "exitMonth": "2023-09",
+        "exitDate": "2023-09-29",
+        "symbol": "CAT",
+        "name": "Caterpillar Inc.",
+        "sector": "Industrials",
+        "score": 84.6,
+        "rank": 1,
+        "entryPrice": 226.23,
+        "exitPrice": 249.31,
+        "return": 0.1009,
+        "qqqReturn": 0.3605,
+        "excessQqq": -0.2597,
+        "buyDates": [
+          "2023-01-03"
+        ],
+        "sellDates": [
+          "2023-07-03",
+          "2023-09-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
+      },
+      {
+        "cohort": "2023-02",
+        "entryDate": "2023-02-27",
+        "exitMonth": "2023-09",
+        "exitDate": "2023-09-29",
+        "symbol": "GE",
+        "name": "GE Aerospace",
+        "sector": "Industrials",
+        "score": 85.9,
+        "rank": 1,
+        "entryPrice": 65.79,
+        "exitPrice": 88.17,
+        "return": 0.3389,
+        "qqqReturn": 0.2242,
+        "excessQqq": 0.1148,
+        "buyDates": [
+          "2023-02-27"
+        ],
+        "sellDates": [
+          "2023-08-28",
+          "2023-09-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2023-03",
         "entryDate": "2023-04-03",
-        "exitMonth": "2023-09",
-        "exitAsOf": "2023-09-29",
+        "exitMonth": "2023-10",
         "exitDate": "2023-10-02",
         "symbol": "NVDA",
         "name": "Nvidia",
         "sector": "Semiconductors",
         "score": 81.77,
         "rank": 1,
-        "entryPrice": 27.94,
+        "entryPrice": 27.97,
         "exitPrice": 44.75,
-        "return": 0.6017,
+        "return": 0.5985,
         "qqqReturn": 0.1316,
-        "excessQqq": 0.4701
+        "excessQqq": 0.4669,
+        "buyDates": [
+          "2023-04-03"
+        ],
+        "sellDates": [
+          "2023-10-02",
+          "2023-10-02"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
+      },
+      {
+        "cohort": "2022-12",
+        "entryDate": "2023-01-03",
+        "exitMonth": "2023-10",
+        "exitDate": "2023-10-06",
+        "symbol": "SLB",
+        "name": "Schlumberger",
+        "sector": "Energy",
+        "score": 79.01,
+        "rank": 6,
+        "entryPrice": 47.54,
+        "exitPrice": 49.09,
+        "return": 0.0317,
+        "qqqReturn": 0.385,
+        "excessQqq": -0.3533,
+        "buyDates": [
+          "2023-01-03"
+        ],
+        "sellDates": [
+          "2023-07-03",
+          "2023-10-06"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2023-03",
         "entryDate": "2023-04-03",
-        "exitMonth": "2023-09",
-        "exitAsOf": "2023-09-29",
-        "exitDate": "2023-10-02",
+        "exitMonth": "2023-10",
+        "exitDate": "2023-10-13",
         "symbol": "LULU",
         "name": "Lululemon Athletica",
         "sector": "Consumer Discretionary",
         "score": 77.68,
         "rank": 6,
-        "entryPrice": 367.4,
-        "exitPrice": 382.86,
-        "return": 0.0421,
-        "qqqReturn": 0.1316,
-        "excessQqq": -0.0895
+        "entryPrice": 367.77,
+        "exitPrice": 380.27,
+        "return": 0.033,
+        "qqqReturn": 0.1442,
+        "excessQqq": -0.1112,
+        "buyDates": [
+          "2023-04-03"
+        ],
+        "sellDates": [
+          "2023-10-02",
+          "2023-10-13"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2023-04",
         "entryDate": "2023-05-01",
         "exitMonth": "2023-10",
-        "exitAsOf": "2023-10-27",
         "exitDate": "2023-10-30",
         "symbol": "HCA",
         "name": "HCA Healthcare",
         "sector": "Health Care",
         "score": 80.11,
         "rank": 5,
-        "entryPrice": 276.88,
+        "entryPrice": 277.16,
         "exitPrice": 218.69,
-        "return": -0.2101,
+        "return": -0.2117,
         "qqqReturn": 0.0869,
-        "excessQqq": -0.297
+        "excessQqq": -0.2986,
+        "buyDates": [
+          "2023-05-01"
+        ],
+        "sellDates": [
+          "2023-10-30",
+          "2023-10-30"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2023-04",
         "entryDate": "2023-05-01",
         "exitMonth": "2023-10",
-        "exitAsOf": "2023-10-27",
         "exitDate": "2023-10-30",
         "symbol": "CHD",
         "name": "Church & Dwight",
         "sector": "Consumer Staples",
         "score": 79.34,
         "rank": 11,
-        "entryPrice": 93,
+        "entryPrice": 93.09,
         "exitPrice": 87.82,
-        "return": -0.0557,
+        "return": -0.0576,
         "qqqReturn": 0.0869,
-        "excessQqq": -0.1426
+        "excessQqq": -0.1445,
+        "buyDates": [
+          "2023-05-01"
+        ],
+        "sellDates": [
+          "2023-10-30",
+          "2023-10-30"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2023-05",
         "entryDate": "2023-05-30",
-        "exitMonth": "2023-11",
-        "exitAsOf": "2023-11-24",
-        "exitDate": "2023-11-27",
+        "exitMonth": "2023-12",
+        "exitDate": "2023-12-15",
         "symbol": "PLTR",
         "name": "Palantir Technologies",
         "sector": "Software",
         "score": 82.92,
         "rank": 1,
-        "entryPrice": 14.71,
-        "exitPrice": 19.08,
-        "return": 0.2971,
-        "qqqReturn": 0.1151,
-        "excessQqq": 0.182
-      },
-      {
-        "cohort": "2023-05",
-        "entryDate": "2023-05-30",
-        "exitMonth": "2023-11",
-        "exitAsOf": "2023-11-24",
-        "exitDate": "2023-11-27",
-        "symbol": "NVDA",
-        "name": "Nvidia",
-        "sector": "Semiconductors",
-        "score": 81.08,
-        "rank": 3,
-        "entryPrice": 40.08,
-        "exitPrice": 48.21,
-        "return": 0.2029,
-        "qqqReturn": 0.1151,
-        "excessQqq": 0.0878
+        "entryPrice": 14.72,
+        "exitPrice": 18.64,
+        "return": 0.2646,
+        "qqqReturn": 0.1614,
+        "excessQqq": 0.1032,
+        "buyDates": [
+          "2023-05-30"
+        ],
+        "sellDates": [
+          "2023-11-27",
+          "2023-12-15"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2023-06",
         "entryDate": "2023-07-03",
-        "exitMonth": "2023-12",
-        "exitAsOf": "2023-12-29",
-        "exitDate": "2024-01-02",
+        "exitMonth": "2024-02",
+        "exitDate": "2024-02-02",
         "symbol": "CCL",
         "name": "Carnival Corporation",
         "sector": "Consumer Discretionary",
         "score": 87.1,
         "rank": 1,
-        "entryPrice": 18.76,
-        "exitPrice": 17.11,
-        "return": -0.0881,
-        "qqqReturn": 0.0916,
-        "excessQqq": -0.1796
-      },
-      {
-        "cohort": "2023-06",
-        "entryDate": "2023-07-03",
-        "exitMonth": "2023-12",
-        "exitAsOf": "2023-12-29",
-        "exitDate": "2024-01-02",
-        "symbol": "GE",
-        "name": "GE Aerospace",
-        "sector": "Industrials",
-        "score": 82.62,
-        "rank": 6,
-        "entryPrice": 84.96,
-        "exitPrice": 99.03,
-        "return": 0.1656,
-        "qqqReturn": 0.0916,
-        "excessQqq": 0.0741
-      },
-      {
-        "cohort": "2023-07",
-        "entryDate": "2023-07-31",
-        "exitMonth": "2024-01",
-        "exitAsOf": "2024-01-26",
-        "exitDate": "2024-01-29",
-        "symbol": "META",
-        "name": "Meta Platforms",
-        "sector": "Software",
-        "score": 82.67,
-        "rank": 2,
-        "entryPrice": 315.83,
-        "exitPrice": 397.53,
-        "return": 0.2587,
-        "qqqReturn": 0.1203,
-        "excessQqq": 0.1384
-      },
-      {
-        "cohort": "2023-07",
-        "entryDate": "2023-07-31",
-        "exitMonth": "2024-01",
-        "exitAsOf": "2024-01-26",
-        "exitDate": "2024-01-29",
-        "symbol": "UBER",
-        "name": "Uber",
-        "sector": "Industrials",
-        "score": 82.55,
-        "rank": 3,
-        "entryPrice": 49.46,
-        "exitPrice": 66.98,
-        "return": 0.3542,
-        "qqqReturn": 0.1203,
-        "excessQqq": 0.2339
-      },
-      {
-        "cohort": "2023-08",
-        "entryDate": "2023-08-28",
-        "exitMonth": "2024-02",
-        "exitAsOf": "2024-02-23",
-        "exitDate": "2024-02-26",
-        "symbol": "VRT",
-        "name": "Vertiv",
-        "sector": "Industrials",
-        "score": 84.19,
-        "rank": 1,
-        "entryPrice": 38.03,
-        "exitPrice": 66.11,
-        "return": 0.7382,
-        "qqqReturn": 0.195,
-        "excessQqq": 0.5432
-      },
-      {
-        "cohort": "2023-08",
-        "entryDate": "2023-08-28",
-        "exitMonth": "2024-02",
-        "exitAsOf": "2024-02-23",
-        "exitDate": "2024-02-26",
-        "symbol": "MPC",
-        "name": "Marathon Petroleum",
-        "sector": "Energy",
-        "score": 79.66,
-        "rank": 4,
-        "entryPrice": 135.18,
-        "exitPrice": 164.68,
-        "return": 0.2182,
-        "qqqReturn": 0.195,
-        "excessQqq": 0.0232
+        "entryPrice": 18.78,
+        "exitPrice": 16.69,
+        "return": -0.1123,
+        "qqqReturn": 0.1632,
+        "excessQqq": -0.2755,
+        "buyDates": [
+          "2023-07-03"
+        ],
+        "sellDates": [
+          "2024-01-02",
+          "2024-02-02"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2023-09",
         "entryDate": "2023-10-02",
-        "exitMonth": "2024-03",
-        "exitAsOf": "2024-03-29",
-        "exitDate": "2024-04-01",
-        "symbol": "XOM",
-        "name": "ExxonMobil",
-        "sector": "Energy",
-        "score": 81.41,
-        "rank": 2,
-        "entryPrice": 105.46,
-        "exitPrice": 108.67,
-        "return": 0.0305,
-        "qqqReturn": 0.2364,
-        "excessQqq": -0.2059
-      },
-      {
-        "cohort": "2023-09",
-        "entryDate": "2023-10-02",
-        "exitMonth": "2024-03",
-        "exitAsOf": "2024-03-29",
+        "exitMonth": "2024-04",
         "exitDate": "2024-04-01",
         "symbol": "CBOE",
         "name": "Cboe Global Markets",
         "sector": "Financials",
         "score": 80.33,
         "rank": 5,
-        "entryPrice": 152.88,
+        "entryPrice": 153.03,
         "exitPrice": 178.36,
-        "return": 0.1667,
+        "return": 0.1644,
         "qqqReturn": 0.2364,
-        "excessQqq": -0.0697
+        "excessQqq": -0.072,
+        "buyDates": [
+          "2023-10-02"
+        ],
+        "sellDates": [
+          "2024-04-01",
+          "2024-04-01"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
+      },
+      {
+        "cohort": "2023-07",
+        "entryDate": "2023-07-31",
+        "exitMonth": "2024-04",
+        "exitDate": "2024-04-19",
+        "symbol": "UBER",
+        "name": "Uber",
+        "sector": "Industrials",
+        "score": 82.55,
+        "rank": 3,
+        "entryPrice": 49.51,
+        "exitPrice": 68.09,
+        "return": 0.3739,
+        "qqqReturn": 0.0864,
+        "excessQqq": 0.2875,
+        "buyDates": [
+          "2023-07-31"
+        ],
+        "sellDates": [
+          "2024-01-29",
+          "2024-04-19"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
+      },
+      {
+        "cohort": "2023-07",
+        "entryDate": "2023-07-31",
+        "exitMonth": "2024-04",
+        "exitDate": "2024-04-26",
+        "symbol": "META",
+        "name": "Meta Platforms",
+        "sector": "Software",
+        "score": 82.67,
+        "rank": 2,
+        "entryPrice": 316.14,
+        "exitPrice": 418.71,
+        "return": 0.3231,
+        "qqqReturn": 0.1293,
+        "excessQqq": 0.1938,
+        "buyDates": [
+          "2023-07-31"
+        ],
+        "sellDates": [
+          "2024-01-29",
+          "2024-04-26"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2023-10",
         "entryDate": "2023-10-30",
         "exitMonth": "2024-04",
-        "exitAsOf": "2024-04-26",
         "exitDate": "2024-04-29",
         "symbol": "MSTR",
         "name": "MicroStrategy",
         "sector": "Software",
         "score": 76.59,
         "rank": 7,
-        "entryPrice": 42.02,
+        "entryPrice": 42.06,
         "exitPrice": 129.3,
-        "return": 2.0769,
+        "return": 2.0707,
         "qqqReturn": 0.244,
-        "excessQqq": 1.8329
+        "excessQqq": 1.8267,
+        "buyDates": [
+          "2023-10-30"
+        ],
+        "sellDates": [
+          "2024-04-29",
+          "2024-04-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2023-10",
         "entryDate": "2023-10-30",
         "exitMonth": "2024-04",
-        "exitAsOf": "2024-04-26",
         "exitDate": "2024-04-29",
         "symbol": "STX",
         "name": "Seagate Technology",
         "sector": "Electronic Components",
         "score": 70.25,
         "rank": 35,
-        "entryPrice": 64.51,
+        "entryPrice": 64.57,
         "exitPrice": 82.51,
-        "return": 0.279,
+        "return": 0.2765,
         "qqqReturn": 0.244,
-        "excessQqq": 0.035
+        "excessQqq": 0.0324,
+        "buyDates": [
+          "2023-10-30"
+        ],
+        "sellDates": [
+          "2024-04-29",
+          "2024-04-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
+      },
+      {
+        "cohort": "2023-08",
+        "entryDate": "2023-08-28",
+        "exitMonth": "2024-05",
+        "exitDate": "2024-05-10",
+        "symbol": "MPC",
+        "name": "Marathon Petroleum",
+        "sector": "Energy",
+        "score": 79.66,
+        "rank": 4,
+        "entryPrice": 135.32,
+        "exitPrice": 168.07,
+        "return": 0.2408,
+        "qqqReturn": 0.2117,
+        "excessQqq": 0.0291,
+        "buyDates": [
+          "2023-08-28"
+        ],
+        "sellDates": [
+          "2024-02-26",
+          "2024-05-10"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
+      },
+      {
+        "cohort": "2023-09",
+        "entryDate": "2023-10-02",
+        "exitMonth": "2024-05",
+        "exitDate": "2024-05-31",
+        "symbol": "XOM",
+        "name": "ExxonMobil",
+        "sector": "Energy",
+        "score": 81.41,
+        "rank": 2,
+        "entryPrice": 105.56,
+        "exitPrice": 109.24,
+        "return": 0.0338,
+        "qqqReturn": 0.2524,
+        "excessQqq": -0.2186,
+        "buyDates": [
+          "2023-10-02"
+        ],
+        "sellDates": [
+          "2024-04-01",
+          "2024-05-31"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
+      },
+      {
+        "cohort": "2023-05",
+        "entryDate": "2023-05-30",
+        "exitMonth": "2024-06",
+        "exitDate": "2024-06-03",
+        "symbol": "NVDA",
+        "name": "Nvidia",
+        "sector": "Semiconductors",
+        "score": 81.08,
+        "rank": 3,
+        "entryPrice": 40.12,
+        "exitPrice": 81.57,
+        "return": 1.0314,
+        "qqqReturn": 0.3034,
+        "excessQqq": 0.728,
+        "buyDates": [
+          "2023-05-30"
+        ],
+        "sellDates": [
+          "2023-11-27",
+          "2024-06-03"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_max_12m"
+        ]
       },
       {
         "cohort": "2023-11",
         "entryDate": "2023-11-27",
-        "exitMonth": "2024-05",
-        "exitAsOf": "2024-05-31",
+        "exitMonth": "2024-06",
         "exitDate": "2024-06-03",
         "symbol": "EXPE",
         "name": "Expedia Group",
         "sector": "Consumer Discretionary",
         "score": 84.56,
         "rank": 1,
-        "entryPrice": 134.23,
+        "entryPrice": 134.37,
         "exitPrice": 112.66,
-        "return": -0.1607,
+        "return": -0.1624,
         "qqqReturn": 0.1688,
-        "excessQqq": -0.3295
+        "excessQqq": -0.3312,
+        "buyDates": [
+          "2023-11-27"
+        ],
+        "sellDates": [
+          "2024-06-03",
+          "2024-06-03"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2023-11",
         "entryDate": "2023-11-27",
-        "exitMonth": "2024-05",
-        "exitAsOf": "2024-05-31",
+        "exitMonth": "2024-06",
         "exitDate": "2024-06-03",
         "symbol": "PLTR",
         "name": "Palantir Technologies",
         "sector": "Software",
         "score": 80.94,
         "rank": 4,
-        "entryPrice": 19.08,
+        "entryPrice": 19.1,
         "exitPrice": 21.32,
-        "return": 0.1174,
+        "return": 0.1152,
         "qqqReturn": 0.1688,
-        "excessQqq": -0.0514
+        "excessQqq": -0.0537,
+        "buyDates": [
+          "2023-11-27"
+        ],
+        "sellDates": [
+          "2024-06-03",
+          "2024-06-03"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
-        "cohort": "2023-12",
-        "entryDate": "2024-01-02",
+        "cohort": "2023-08",
+        "entryDate": "2023-08-28",
         "exitMonth": "2024-06",
-        "exitAsOf": "2024-06-28",
-        "exitDate": "2024-07-01",
-        "symbol": "HOOD",
-        "name": "Robinhood Markets",
-        "sector": "Financials",
-        "score": 85.75,
+        "exitDate": "2024-06-14",
+        "symbol": "VRT",
+        "name": "Vertiv",
+        "sector": "Industrials",
+        "score": 84.19,
         "rank": 1,
-        "entryPrice": 12.37,
-        "exitPrice": 22.79,
-        "return": 0.8424,
-        "qqqReturn": 0.2005,
-        "excessQqq": 0.6418
+        "entryPrice": 38.07,
+        "exitPrice": 78.67,
+        "return": 1.0644,
+        "qqqReturn": 0.3135,
+        "excessQqq": 0.7509,
+        "buyDates": [
+          "2023-08-28"
+        ],
+        "sellDates": [
+          "2024-02-26",
+          "2024-06-14"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
+      },
+      {
+        "cohort": "2023-06",
+        "entryDate": "2023-07-03",
+        "exitMonth": "2024-07",
+        "exitDate": "2024-07-01",
+        "symbol": "GE",
+        "name": "GE Aerospace",
+        "sector": "Industrials",
+        "score": 82.62,
+        "rank": 6,
+        "entryPrice": 85.04,
+        "exitPrice": 127.96,
+        "return": 0.5031,
+        "qqqReturn": 0.3104,
+        "excessQqq": 0.1927,
+        "buyDates": [
+          "2023-07-03"
+        ],
+        "sellDates": [
+          "2024-01-02",
+          "2024-07-01"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_max_12m"
+        ]
       },
       {
         "cohort": "2023-12",
         "entryDate": "2024-01-02",
-        "exitMonth": "2024-06",
-        "exitAsOf": "2024-06-28",
+        "exitMonth": "2024-07",
         "exitDate": "2024-07-01",
         "symbol": "AMD",
         "name": "Advanced Micro Devices",
         "sector": "Semiconductors",
         "score": 81.47,
         "rank": 5,
-        "entryPrice": 138.58,
+        "entryPrice": 138.72,
         "exitPrice": 157.69,
-        "return": 0.1379,
+        "return": 0.1356,
         "qqqReturn": 0.2005,
-        "excessQqq": -0.0626
+        "excessQqq": -0.0649,
+        "buyDates": [
+          "2024-01-02"
+        ],
+        "sellDates": [
+          "2024-07-01",
+          "2024-07-01"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2024-01",
         "entryDate": "2024-01-29",
         "exitMonth": "2024-07",
-        "exitAsOf": "2024-07-26",
-        "exitDate": "2024-07-29",
-        "symbol": "COF",
-        "name": "Capital One",
-        "sector": "Financials",
-        "score": 84.35,
-        "rank": 2,
-        "entryPrice": 133.43,
-        "exitPrice": 144.88,
-        "return": 0.0858,
-        "qqqReturn": 0.0867,
-        "excessQqq": -0.0009
-      },
-      {
-        "cohort": "2024-01",
-        "entryDate": "2024-01-29",
-        "exitMonth": "2024-07",
-        "exitAsOf": "2024-07-26",
         "exitDate": "2024-07-29",
         "symbol": "WDC",
         "name": "Western Digital",
         "sector": "Electronic Components",
         "score": 80.11,
         "rank": 11,
-        "entryPrice": 44.96,
+        "entryPrice": 45,
         "exitPrice": 49.98,
-        "return": 0.1118,
+        "return": 0.1096,
         "qqqReturn": 0.0867,
-        "excessQqq": 0.0251
+        "excessQqq": 0.0229,
+        "buyDates": [
+          "2024-01-29"
+        ],
+        "sellDates": [
+          "2024-07-29",
+          "2024-07-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
+      },
+      {
+        "cohort": "2023-12",
+        "entryDate": "2024-01-02",
+        "exitMonth": "2024-08",
+        "exitDate": "2024-08-02",
+        "symbol": "HOOD",
+        "name": "Robinhood Markets",
+        "sector": "Financials",
+        "score": 85.75,
+        "rank": 1,
+        "entryPrice": 12.38,
+        "exitPrice": 20.34,
+        "return": 0.6406,
+        "qqqReturn": 0.1179,
+        "excessQqq": 0.5227,
+        "buyDates": [
+          "2024-01-02"
+        ],
+        "sellDates": [
+          "2024-07-01",
+          "2024-08-02"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
+      },
+      {
+        "cohort": "2024-01",
+        "entryDate": "2024-01-29",
+        "exitMonth": "2024-08",
+        "exitDate": "2024-08-09",
+        "symbol": "COF",
+        "name": "Capital One",
+        "sector": "Financials",
+        "score": 84.35,
+        "rank": 2,
+        "entryPrice": 133.57,
+        "exitPrice": 137.95,
+        "return": 0.0318,
+        "qqqReturn": 0.0551,
+        "excessQqq": -0.0233,
+        "buyDates": [
+          "2024-01-29"
+        ],
+        "sellDates": [
+          "2024-07-29",
+          "2024-08-09"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2024-02",
         "entryDate": "2024-02-26",
-        "exitMonth": "2024-08",
-        "exitAsOf": "2024-08-30",
+        "exitMonth": "2024-09",
         "exitDate": "2024-09-03",
         "symbol": "HOOD",
         "name": "Robinhood Markets",
         "sector": "Financials",
         "score": 87.97,
         "rank": 1,
-        "entryPrice": 15.59,
+        "entryPrice": 15.61,
         "exitPrice": 19.37,
-        "return": 0.2425,
+        "return": 0.24,
         "qqqReturn": 0.0609,
-        "excessQqq": 0.1815
-      },
-      {
-        "cohort": "2024-02",
-        "entryDate": "2024-02-26",
-        "exitMonth": "2024-08",
-        "exitAsOf": "2024-08-30",
-        "exitDate": "2024-09-03",
-        "symbol": "GE",
-        "name": "GE Aerospace",
-        "sector": "Industrials",
-        "score": 83.94,
-        "rank": 5,
-        "entryPrice": 121.69,
-        "exitPrice": 162.33,
-        "return": 0.334,
-        "qqqReturn": 0.0609,
-        "excessQqq": 0.2731
-      },
-      {
-        "cohort": "2024-03",
-        "entryDate": "2024-04-01",
-        "exitMonth": "2024-09",
-        "exitAsOf": "2024-09-27",
-        "exitDate": "2024-09-30",
-        "symbol": "HOOD",
-        "name": "Robinhood Markets",
-        "sector": "Financials",
-        "score": 88.16,
-        "rank": 1,
-        "entryPrice": 19.41,
-        "exitPrice": 23.42,
-        "return": 0.2066,
-        "qqqReturn": 0.1002,
-        "excessQqq": 0.1064
-      },
-      {
-        "cohort": "2024-03",
-        "entryDate": "2024-04-01",
-        "exitMonth": "2024-09",
-        "exitAsOf": "2024-09-27",
-        "exitDate": "2024-09-30",
-        "symbol": "GE",
-        "name": "GE Aerospace",
-        "sector": "Industrials",
-        "score": 84.77,
-        "rank": 3,
-        "entryPrice": 137.87,
-        "exitPrice": 186.7,
-        "return": 0.3541,
-        "qqqReturn": 0.1002,
-        "excessQqq": 0.2539
+        "excessQqq": 0.179,
+        "buyDates": [
+          "2024-02-26"
+        ],
+        "sellDates": [
+          "2024-09-03",
+          "2024-09-03"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2024-04",
         "entryDate": "2024-04-29",
         "exitMonth": "2024-10",
-        "exitAsOf": "2024-10-25",
-        "exitDate": "2024-10-28",
-        "symbol": "VRT",
-        "name": "Vertiv",
-        "sector": "Industrials",
-        "score": 90.37,
-        "rank": 1,
-        "entryPrice": 94.54,
-        "exitPrice": 113.36,
-        "return": 0.1991,
-        "qqqReturn": 0.1482,
-        "excessQqq": 0.0509
-      },
-      {
-        "cohort": "2024-04",
-        "entryDate": "2024-04-29",
-        "exitMonth": "2024-10",
-        "exitAsOf": "2024-10-25",
         "exitDate": "2024-10-28",
         "symbol": "WDC",
         "name": "Western Digital",
         "sector": "Electronic Components",
         "score": 76.09,
         "rank": 39,
-        "entryPrice": 52.56,
+        "entryPrice": 52.62,
         "exitPrice": 52.45,
-        "return": -0.0021,
+        "return": -0.0041,
         "qqqReturn": 0.1482,
-        "excessQqq": -0.1503
+        "excessQqq": -0.1523,
+        "buyDates": [
+          "2024-04-29"
+        ],
+        "sellDates": [
+          "2024-10-28",
+          "2024-10-28"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
+      },
+      {
+        "cohort": "2024-02",
+        "entryDate": "2024-02-26",
+        "exitMonth": "2024-11",
+        "exitDate": "2024-11-01",
+        "symbol": "GE",
+        "name": "GE Aerospace",
+        "sector": "Industrials",
+        "score": 83.94,
+        "rank": 5,
+        "entryPrice": 121.81,
+        "exitPrice": 166.16,
+        "return": 0.3628,
+        "qqqReturn": 0.1214,
+        "excessQqq": 0.2414,
+        "buyDates": [
+          "2024-02-26"
+        ],
+        "sellDates": [
+          "2024-09-03",
+          "2024-11-01"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
+      },
+      {
+        "cohort": "2024-03",
+        "entryDate": "2024-04-01",
+        "exitMonth": "2024-11",
+        "exitDate": "2024-11-01",
+        "symbol": "GE",
+        "name": "GE Aerospace",
+        "sector": "Industrials",
+        "score": 84.77,
+        "rank": 3,
+        "entryPrice": 138.01,
+        "exitPrice": 178.35,
+        "return": 0.291,
+        "qqqReturn": 0.0988,
+        "excessQqq": 0.1922,
+        "buyDates": [
+          "2024-04-01"
+        ],
+        "sellDates": [
+          "2024-09-30",
+          "2024-11-01"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2024-05",
         "entryDate": "2024-06-03",
-        "exitMonth": "2024-11",
-        "exitAsOf": "2024-11-29",
+        "exitMonth": "2024-12",
         "exitDate": "2024-12-02",
         "symbol": "NEE",
         "name": "NextEra Energy",
         "sector": "Utilities",
         "score": 86.43,
         "rank": 1,
-        "entryPrice": 73.34,
+        "entryPrice": 73.41,
         "exitPrice": 73.69,
-        "return": 0.0049,
+        "return": 0.0029,
         "qqqReturn": 0.1406,
-        "excessQqq": -0.1357
+        "excessQqq": -0.1377,
+        "buyDates": [
+          "2024-06-03"
+        ],
+        "sellDates": [
+          "2024-12-02",
+          "2024-12-02"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
-        "cohort": "2024-05",
-        "entryDate": "2024-06-03",
-        "exitMonth": "2024-11",
-        "exitAsOf": "2024-11-29",
-        "exitDate": "2024-12-02",
-        "symbol": "TKO",
-        "name": "TKO Group Holdings",
-        "sector": "Communication Services",
-        "score": 78.48,
-        "rank": 11,
-        "entryPrice": 105.99,
-        "exitPrice": 132.22,
-        "return": 0.2475,
-        "qqqReturn": 0.1406,
-        "excessQqq": 0.1069
+        "cohort": "2024-04",
+        "entryDate": "2024-04-29",
+        "exitMonth": "2024-12",
+        "exitDate": "2024-12-27",
+        "symbol": "VRT",
+        "name": "Vertiv",
+        "sector": "Industrials",
+        "score": 90.37,
+        "rank": 1,
+        "entryPrice": 94.64,
+        "exitPrice": 114.13,
+        "return": 0.2048,
+        "qqqReturn": 0.2131,
+        "excessQqq": -0.0083,
+        "buyDates": [
+          "2024-04-29"
+        ],
+        "sellDates": [
+          "2024-10-28",
+          "2024-12-27"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2024-06",
         "entryDate": "2024-07-01",
         "exitMonth": "2024-12",
-        "exitAsOf": "2024-12-27",
         "exitDate": "2024-12-30",
         "symbol": "ARM",
         "name": "Arm Holdings",
         "sector": "Semiconductors",
         "score": 78.59,
         "rank": 3,
-        "entryPrice": 158.83,
+        "entryPrice": 158.99,
         "exitPrice": 125.91,
-        "return": -0.2073,
+        "return": -0.2089,
         "qqqReturn": 0.0731,
-        "excessQqq": -0.2804
+        "excessQqq": -0.282,
+        "buyDates": [
+          "2024-07-01"
+        ],
+        "sellDates": [
+          "2024-12-30",
+          "2024-12-30"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2024-06",
         "entryDate": "2024-07-01",
-        "exitMonth": "2024-12",
-        "exitAsOf": "2024-12-27",
-        "exitDate": "2024-12-30",
+        "exitMonth": "2025-02",
+        "exitDate": "2025-02-14",
         "symbol": "GOOGL",
         "name": "Alphabet Inc. (Class A)",
         "sector": "Software",
         "score": 77.29,
         "rank": 10,
-        "entryPrice": 181.59,
-        "exitPrice": 190.25,
-        "return": 0.0477,
-        "qqqReturn": 0.0731,
-        "excessQqq": -0.0255
+        "entryPrice": 181.77,
+        "exitPrice": 187.26,
+        "return": 0.0291,
+        "qqqReturn": 0.1201,
+        "excessQqq": -0.0909,
+        "buyDates": [
+          "2024-07-01"
+        ],
+        "sellDates": [
+          "2024-12-30",
+          "2025-02-14"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
+      },
+      {
+        "cohort": "2024-05",
+        "entryDate": "2024-06-03",
+        "exitMonth": "2025-03",
+        "exitDate": "2025-03-07",
+        "symbol": "TKO",
+        "name": "TKO Group Holdings",
+        "sector": "Communication Services",
+        "score": 78.48,
+        "rank": 11,
+        "entryPrice": 106.1,
+        "exitPrice": 136.52,
+        "return": 0.2855,
+        "qqqReturn": 0.0903,
+        "excessQqq": 0.1951,
+        "buyDates": [
+          "2024-06-03"
+        ],
+        "sellDates": [
+          "2024-12-02",
+          "2025-03-07"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
+      },
+      {
+        "cohort": "2024-03",
+        "entryDate": "2024-04-01",
+        "exitMonth": "2025-03",
+        "exitDate": "2025-03-14",
+        "symbol": "HOOD",
+        "name": "Robinhood Markets",
+        "sector": "Financials",
+        "score": 88.16,
+        "rank": 1,
+        "entryPrice": 19.43,
+        "exitPrice": 31.33,
+        "return": 0.6109,
+        "qqqReturn": 0.083,
+        "excessQqq": 0.5279,
+        "buyDates": [
+          "2024-04-01"
+        ],
+        "sellDates": [
+          "2024-09-30",
+          "2025-03-14"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2024-07",
         "entryDate": "2024-07-29",
-        "exitMonth": "2025-01",
-        "exitAsOf": "2025-01-31",
-        "exitDate": "2025-02-03",
+        "exitMonth": "2025-03",
+        "exitDate": "2025-03-14",
         "symbol": "CFG",
         "name": "Citizens Financial Group",
         "sector": "Financials",
         "score": 86.65,
         "rank": 1,
-        "entryPrice": 40.03,
-        "exitPrice": 44.41,
-        "return": 0.1095,
-        "qqqReturn": 0.1202,
-        "excessQqq": -0.0107
+        "entryPrice": 40.07,
+        "exitPrice": 41.7,
+        "return": 0.0396,
+        "qqqReturn": 0.0371,
+        "excessQqq": 0.0025,
+        "buyDates": [
+          "2024-07-29"
+        ],
+        "sellDates": [
+          "2025-02-03",
+          "2025-03-14"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2024-07",
         "entryDate": "2024-07-29",
-        "exitMonth": "2025-01",
-        "exitAsOf": "2025-01-31",
-        "exitDate": "2025-02-03",
+        "exitMonth": "2025-03",
+        "exitDate": "2025-03-14",
         "symbol": "CBRE",
         "name": "CBRE Group",
         "sector": "Real Estate",
         "score": 85.45,
         "rank": 5,
-        "entryPrice": 110.54,
-        "exitPrice": 142.57,
-        "return": 0.2898,
-        "qqqReturn": 0.1202,
-        "excessQqq": 0.1695
-      },
-      {
-        "cohort": "2024-08",
-        "entryDate": "2024-09-03",
-        "exitMonth": "2025-02",
-        "exitAsOf": "2025-02-28",
-        "exitDate": "2025-03-03",
-        "symbol": "ERIE",
-        "name": "Erie Indemnity",
-        "sector": "Financials",
-        "score": 84.62,
-        "rank": 1,
-        "entryPrice": 478.79,
-        "exitPrice": 439.59,
-        "return": -0.0819,
-        "qqqReturn": 0.0796,
-        "excessQqq": -0.1614
-      },
-      {
-        "cohort": "2024-08",
-        "entryDate": "2024-09-03",
-        "exitMonth": "2025-02",
-        "exitAsOf": "2025-02-28",
-        "exitDate": "2025-03-03",
-        "symbol": "VTR",
-        "name": "Ventas",
-        "sector": "Real Estate",
-        "score": 83.35,
-        "rank": 2,
-        "entryPrice": 59.11,
-        "exitPrice": 67.6,
-        "return": 0.1436,
-        "qqqReturn": 0.0796,
-        "excessQqq": 0.064
+        "entryPrice": 110.65,
+        "exitPrice": 134.08,
+        "return": 0.2105,
+        "qqqReturn": 0.0371,
+        "excessQqq": 0.1734,
+        "buyDates": [
+          "2024-07-29"
+        ],
+        "sellDates": [
+          "2025-02-03",
+          "2025-03-14"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2024-09",
         "entryDate": "2024-09-30",
         "exitMonth": "2025-03",
-        "exitAsOf": "2025-03-28",
         "exitDate": "2025-03-31",
         "symbol": "NRG",
         "name": "NRG Energy",
         "sector": "Utilities",
         "score": 88.11,
         "rank": 1,
-        "entryPrice": 88.92,
+        "entryPrice": 89.01,
         "exitPrice": 94,
-        "return": 0.0572,
+        "return": 0.055,
         "qqqReturn": -0.0363,
-        "excessQqq": 0.0934
+        "excessQqq": 0.0913,
+        "buyDates": [
+          "2024-09-30"
+        ],
+        "sellDates": [
+          "2025-03-31",
+          "2025-03-31"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2024-09",
         "entryDate": "2024-09-30",
         "exitMonth": "2025-03",
-        "exitAsOf": "2025-03-28",
         "exitDate": "2025-03-31",
         "symbol": "CHRW",
         "name": "C.H. Robinson",
         "sector": "Industrials",
         "score": 84.17,
         "rank": 6,
-        "entryPrice": 106.64,
+        "entryPrice": 106.74,
         "exitPrice": 100.15,
-        "return": -0.0608,
+        "return": -0.0627,
         "qqqReturn": -0.0363,
-        "excessQqq": -0.0246
+        "excessQqq": -0.0265,
+        "buyDates": [
+          "2024-09-30"
+        ],
+        "sellDates": [
+          "2025-03-31",
+          "2025-03-31"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2024-10",
         "entryDate": "2024-10-28",
         "exitMonth": "2025-04",
-        "exitAsOf": "2025-04-25",
-        "exitDate": "2025-04-28",
-        "symbol": "HOOD",
-        "name": "Robinhood Markets",
-        "sector": "Financials",
-        "score": 85.42,
-        "rank": 1,
-        "entryPrice": 27.88,
-        "exitPrice": 48.93,
-        "return": 0.755,
-        "qqqReturn": -0.0434,
-        "excessQqq": 0.7985
-      },
-      {
-        "cohort": "2024-10",
-        "entryDate": "2024-10-28",
-        "exitMonth": "2025-04",
-        "exitAsOf": "2025-04-25",
         "exitDate": "2025-04-28",
         "symbol": "CBRE",
         "name": "CBRE Group",
         "sector": "Real Estate",
         "score": 84.16,
         "rank": 3,
-        "entryPrice": 131.59,
+        "entryPrice": 131.72,
         "exitPrice": 121.36,
-        "return": -0.0777,
+        "return": -0.0796,
         "qqqReturn": -0.0434,
-        "excessQqq": -0.0343
+        "excessQqq": -0.0361,
+        "buyDates": [
+          "2024-10-28"
+        ],
+        "sellDates": [
+          "2025-04-28",
+          "2025-04-28"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
+      },
+      {
+        "cohort": "2024-08",
+        "entryDate": "2024-09-03",
+        "exitMonth": "2025-05",
+        "exitDate": "2025-05-02",
+        "symbol": "ERIE",
+        "name": "Erie Indemnity",
+        "sector": "Financials",
+        "score": 84.62,
+        "rank": 1,
+        "entryPrice": 479.27,
+        "exitPrice": 398.48,
+        "return": -0.1694,
+        "qqqReturn": 0.0633,
+        "excessQqq": -0.2327,
+        "buyDates": [
+          "2024-09-03"
+        ],
+        "sellDates": [
+          "2025-03-03",
+          "2025-05-02"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
+      },
+      {
+        "cohort": "2024-08",
+        "entryDate": "2024-09-03",
+        "exitMonth": "2025-05",
+        "exitDate": "2025-05-09",
+        "symbol": "VTR",
+        "name": "Ventas",
+        "sector": "Real Estate",
+        "score": 83.35,
+        "rank": 2,
+        "entryPrice": 59.17,
+        "exitPrice": 65.74,
+        "return": 0.1098,
+        "qqqReturn": 0.0614,
+        "excessQqq": 0.0484,
+        "buyDates": [
+          "2024-09-03"
+        ],
+        "sellDates": [
+          "2025-03-03",
+          "2025-05-09"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2024-11",
         "entryDate": "2024-12-02",
-        "exitMonth": "2025-05",
-        "exitAsOf": "2025-05-30",
+        "exitMonth": "2025-06",
         "exitDate": "2025-06-02",
         "symbol": "TPR",
         "name": "Tapestry, Inc.",
         "sector": "Consumer Discretionary",
         "score": 87.55,
         "rank": 1,
-        "entryPrice": 62.86,
+        "entryPrice": 62.92,
         "exitPrice": 77.22,
-        "return": 0.2285,
+        "return": 0.226,
         "qqqReturn": 0.0185,
-        "excessQqq": 0.21
-      },
-      {
-        "cohort": "2024-11",
-        "entryDate": "2024-12-02",
-        "exitMonth": "2025-05",
-        "exitAsOf": "2025-05-30",
-        "exitDate": "2025-06-02",
-        "symbol": "HOOD",
-        "name": "Robinhood Markets",
-        "sector": "Financials",
-        "score": 85.48,
-        "rank": 2,
-        "entryPrice": 37.62,
-        "exitPrice": 67.98,
-        "return": 0.807,
-        "qqqReturn": 0.0185,
-        "excessQqq": 0.7885
+        "excessQqq": 0.2075,
+        "buyDates": [
+          "2024-12-02"
+        ],
+        "sellDates": [
+          "2025-06-02",
+          "2025-06-02"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2024-12",
         "entryDate": "2024-12-30",
-        "exitMonth": "2025-06",
-        "exitAsOf": "2025-06-27",
-        "exitDate": "2025-06-30",
+        "exitMonth": "2025-07",
+        "exitDate": "2025-07-18",
         "symbol": "DRI",
         "name": "Darden Restaurants",
         "sector": "Consumer Discretionary",
         "score": 84.45,
         "rank": 1,
-        "entryPrice": 178.56,
-        "exitPrice": 211.5,
-        "return": 0.1845,
-        "qqqReturn": 0.0727,
-        "excessQqq": 0.1118
-      },
-      {
-        "cohort": "2024-12",
-        "entryDate": "2024-12-30",
-        "exitMonth": "2025-06",
-        "exitAsOf": "2025-06-27",
-        "exitDate": "2025-06-30",
-        "symbol": "APO",
-        "name": "Apollo Global Management",
-        "sector": "Financials",
-        "score": 83.56,
-        "rank": 4,
-        "entryPrice": 162.84,
-        "exitPrice": 139.64,
-        "return": -0.1425,
-        "qqqReturn": 0.0727,
-        "excessQqq": -0.2152
+        "entryPrice": 178.74,
+        "exitPrice": 208.12,
+        "return": 0.1632,
+        "qqqReturn": 0.0914,
+        "excessQqq": 0.0718,
+        "buyDates": [
+          "2024-12-30"
+        ],
+        "sellDates": [
+          "2025-06-30",
+          "2025-07-18"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2025-01",
         "entryDate": "2025-02-03",
-        "exitMonth": "2025-07",
-        "exitAsOf": "2025-07-25",
-        "exitDate": "2025-07-28",
-        "symbol": "RCL",
-        "name": "Royal Caribbean Group",
-        "sector": "Consumer Discretionary",
-        "score": 84.57,
-        "rank": 3,
-        "entryPrice": 256.19,
-        "exitPrice": 347.88,
-        "return": 0.3579,
-        "qqqReturn": 0.0994,
-        "excessQqq": 0.2585
-      },
-      {
-        "cohort": "2025-01",
-        "entryDate": "2025-02-03",
-        "exitMonth": "2025-07",
-        "exitAsOf": "2025-07-25",
-        "exitDate": "2025-07-28",
+        "exitMonth": "2025-08",
+        "exitDate": "2025-08-08",
         "symbol": "TKO",
         "name": "TKO Group Holdings",
         "sector": "Communication Services",
         "score": 81.25,
         "rank": 10,
-        "entryPrice": 153.87,
-        "exitPrice": 168.13,
-        "return": 0.0926,
-        "qqqReturn": 0.0994,
-        "excessQqq": -0.0068
+        "entryPrice": 154.03,
+        "exitPrice": 164.46,
+        "return": 0.0667,
+        "qqqReturn": 0.1118,
+        "excessQqq": -0.0452,
+        "buyDates": [
+          "2025-02-03"
+        ],
+        "sellDates": [
+          "2025-07-28",
+          "2025-08-08"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
-        "cohort": "2025-02",
-        "entryDate": "2025-03-03",
+        "cohort": "2025-01",
+        "entryDate": "2025-02-03",
         "exitMonth": "2025-08",
-        "exitAsOf": "2025-08-29",
-        "exitDate": "2025-09-02",
-        "symbol": "FOXA",
-        "name": "Fox Corporation (Class A)",
-        "sector": "Communication Services",
-        "score": 89.1,
-        "rank": 1,
-        "entryPrice": 56.22,
-        "exitPrice": 60.47,
-        "return": 0.0757,
-        "qqqReturn": 0.1409,
-        "excessQqq": -0.0653
+        "exitDate": "2025-08-15",
+        "symbol": "RCL",
+        "name": "Royal Caribbean Group",
+        "sector": "Consumer Discretionary",
+        "score": 84.57,
+        "rank": 3,
+        "entryPrice": 256.44,
+        "exitPrice": 329.08,
+        "return": 0.282,
+        "qqqReturn": 0.1172,
+        "excessQqq": 0.1647,
+        "buyDates": [
+          "2025-02-03"
+        ],
+        "sellDates": [
+          "2025-07-28",
+          "2025-08-15"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
-        "cohort": "2025-02",
-        "entryDate": "2025-03-03",
+        "cohort": "2024-12",
+        "entryDate": "2024-12-30",
         "exitMonth": "2025-08",
-        "exitAsOf": "2025-08-29",
-        "exitDate": "2025-09-02",
-        "symbol": "BNY",
-        "name": "BNY Mellon",
+        "exitDate": "2025-08-22",
+        "symbol": "APO",
+        "name": "Apollo Global Management",
         "sector": "Financials",
-        "score": 83.26,
-        "rank": 6,
-        "entryPrice": 86.19,
-        "exitPrice": 103.32,
-        "return": 0.1988,
-        "qqqReturn": 0.1409,
-        "excessQqq": 0.0578
+        "score": 83.56,
+        "rank": 4,
+        "entryPrice": 163.01,
+        "exitPrice": 136.11,
+        "return": -0.1659,
+        "qqqReturn": 0.1122,
+        "excessQqq": -0.2781,
+        "buyDates": [
+          "2024-12-30"
+        ],
+        "sellDates": [
+          "2025-06-30",
+          "2025-08-22"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2025-03",
         "entryDate": "2025-03-31",
         "exitMonth": "2025-09",
-        "exitAsOf": "2025-09-26",
         "exitDate": "2025-09-29",
         "symbol": "EXE",
         "name": "Expand Energy",
         "sector": "Energy",
         "score": 87.3,
         "rank": 1,
-        "entryPrice": 107.31,
+        "entryPrice": 107.42,
         "exitPrice": 105.08,
-        "return": -0.0207,
+        "return": -0.0227,
         "qqqReturn": 0.2797,
-        "excessQqq": -0.3005
+        "excessQqq": -0.3024,
+        "buyDates": [
+          "2025-03-31"
+        ],
+        "sellDates": [
+          "2025-09-29",
+          "2025-09-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
-        "cohort": "2025-03",
-        "entryDate": "2025-03-31",
-        "exitMonth": "2025-09",
-        "exitAsOf": "2025-09-26",
-        "exitDate": "2025-09-29",
-        "symbol": "DTE",
-        "name": "DTE Energy",
-        "sector": "Utilities",
-        "score": 83.78,
-        "rank": 2,
-        "entryPrice": 132.74,
-        "exitPrice": 137.42,
-        "return": 0.0353,
-        "qqqReturn": 0.2797,
-        "excessQqq": -0.2444
+        "cohort": "2025-02",
+        "entryDate": "2025-03-03",
+        "exitMonth": "2025-10",
+        "exitDate": "2025-10-17",
+        "symbol": "FOXA",
+        "name": "Fox Corporation (Class A)",
+        "sector": "Communication Services",
+        "score": 89.1,
+        "rank": 1,
+        "entryPrice": 56.28,
+        "exitPrice": 59.13,
+        "return": 0.0497,
+        "qqqReturn": 0.2196,
+        "excessQqq": -0.17,
+        "buyDates": [
+          "2025-03-03"
+        ],
+        "sellDates": [
+          "2025-09-02",
+          "2025-10-17"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
+      },
+      {
+        "cohort": "2024-10",
+        "entryDate": "2024-10-28",
+        "exitMonth": "2025-11",
+        "exitDate": "2025-11-03",
+        "symbol": "HOOD",
+        "name": "Robinhood Markets",
+        "sector": "Financials",
+        "score": 85.42,
+        "rank": 1,
+        "entryPrice": 27.91,
+        "exitPrice": 98.01,
+        "return": 2.5082,
+        "qqqReturn": 0.2828,
+        "excessQqq": 2.2254,
+        "buyDates": [
+          "2024-10-28"
+        ],
+        "sellDates": [
+          "2025-04-28",
+          "2025-11-03"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_max_12m"
+        ]
       },
       {
         "cohort": "2025-04",
         "entryDate": "2025-04-28",
-        "exitMonth": "2025-10",
-        "exitAsOf": "2025-10-31",
+        "exitMonth": "2025-11",
         "exitDate": "2025-11-03",
         "symbol": "PM",
         "name": "Philip Morris International",
         "sector": "Consumer Staples",
         "score": 86.66,
         "rank": 1,
-        "entryPrice": 162.04,
+        "entryPrice": 162.2,
         "exitPrice": 140.86,
-        "return": -0.1307,
+        "return": -0.1324,
         "qqqReturn": 0.341,
-        "excessQqq": -0.4718
+        "excessQqq": -0.4735,
+        "buyDates": [
+          "2025-04-28"
+        ],
+        "sellDates": [
+          "2025-11-03",
+          "2025-11-03"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2025-04",
         "entryDate": "2025-04-28",
-        "exitMonth": "2025-10",
-        "exitAsOf": "2025-10-31",
+        "exitMonth": "2025-11",
         "exitDate": "2025-11-03",
         "symbol": "CNP",
         "name": "CenterPoint Energy",
         "sector": "Utilities",
         "score": 83.52,
         "rank": 2,
-        "entryPrice": 37.17,
+        "entryPrice": 37.21,
         "exitPrice": 37.79,
-        "return": 0.0166,
+        "return": 0.0146,
         "qqqReturn": 0.341,
-        "excessQqq": -0.3244
+        "excessQqq": -0.3265,
+        "buyDates": [
+          "2025-04-28"
+        ],
+        "sellDates": [
+          "2025-11-03",
+          "2025-11-03"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
+      },
+      {
+        "cohort": "2025-03",
+        "entryDate": "2025-03-31",
+        "exitMonth": "2025-11",
+        "exitDate": "2025-11-07",
+        "symbol": "DTE",
+        "name": "DTE Energy",
+        "sector": "Utilities",
+        "score": 83.78,
+        "rank": 2,
+        "entryPrice": 132.87,
+        "exitPrice": 135.42,
+        "return": 0.0182,
+        "qqqReturn": 0.3033,
+        "excessQqq": -0.2851,
+        "buyDates": [
+          "2025-03-31"
+        ],
+        "sellDates": [
+          "2025-09-29",
+          "2025-11-07"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
+      },
+      {
+        "cohort": "2024-11",
+        "entryDate": "2024-12-02",
+        "exitMonth": "2025-11",
+        "exitDate": "2025-11-21",
+        "symbol": "HOOD",
+        "name": "Robinhood Markets",
+        "sector": "Financials",
+        "score": 85.48,
+        "rank": 2,
+        "entryPrice": 37.66,
+        "exitPrice": 87.64,
+        "return": 1.325,
+        "qqqReturn": 0.1513,
+        "excessQqq": 1.1737,
+        "buyDates": [
+          "2024-12-02"
+        ],
+        "sellDates": [
+          "2025-06-02",
+          "2025-11-21"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2025-05",
         "entryDate": "2025-06-02",
-        "exitMonth": "2025-11",
-        "exitAsOf": "2025-11-28",
+        "exitMonth": "2025-12",
         "exitDate": "2025-12-01",
         "symbol": "GE",
         "name": "GE Aerospace",
         "sector": "Industrials",
         "score": 88.61,
         "rank": 1,
-        "entryPrice": 245.87,
+        "entryPrice": 246.12,
         "exitPrice": 287.34,
-        "return": 0.1687,
+        "return": 0.1663,
         "qqqReturn": 0.1823,
-        "excessQqq": -0.0136
-      },
-      {
-        "cohort": "2025-05",
-        "entryDate": "2025-06-02",
-        "exitMonth": "2025-11",
-        "exitAsOf": "2025-11-28",
-        "exitDate": "2025-12-01",
-        "symbol": "STX",
-        "name": "Seagate Technology",
-        "sector": "Electronic Components",
-        "score": 75.7,
-        "rank": 28,
-        "entryPrice": 117.55,
-        "exitPrice": 268.73,
-        "return": 1.2861,
-        "qqqReturn": 0.1823,
-        "excessQqq": 1.1038
-      },
-      {
-        "cohort": "2025-06",
-        "entryDate": "2025-06-30",
-        "exitMonth": "2025-12",
-        "exitAsOf": "2025-12-26",
-        "exitDate": "2025-12-29",
-        "symbol": "HWM",
-        "name": "Howmet Aerospace",
-        "sector": "Industrials",
-        "score": 88.02,
-        "rank": 1,
-        "entryPrice": 185.71,
-        "exitPrice": 209.28,
-        "return": 0.1269,
-        "qqqReturn": 0.1283,
-        "excessQqq": -0.0013
-      },
-      {
-        "cohort": "2025-06",
-        "entryDate": "2025-06-30",
-        "exitMonth": "2025-12",
-        "exitAsOf": "2025-12-26",
-        "exitDate": "2025-12-29",
-        "symbol": "STX",
-        "name": "Seagate Technology",
-        "sector": "Electronic Components",
-        "score": 75.93,
-        "rank": 29,
-        "entryPrice": 143.15,
-        "exitPrice": 280.61,
-        "return": 0.9603,
-        "qqqReturn": 0.1283,
-        "excessQqq": 0.832
+        "excessQqq": -0.0159,
+        "buyDates": [
+          "2025-06-02"
+        ],
+        "sellDates": [
+          "2025-12-01",
+          "2025-12-01"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
         "cohort": "2025-07",
         "entryDate": "2025-07-28",
-        "exitMonth": "2026-01",
-        "exitAsOf": "2026-01-30",
+        "exitMonth": "2026-02",
         "exitDate": "2026-02-02",
         "symbol": "GE",
         "name": "GE Aerospace",
         "sector": "Industrials",
         "score": 85.72,
         "rank": 1,
-        "entryPrice": 269.24,
+        "entryPrice": 269.51,
         "exitPrice": 307.88,
-        "return": 0.1435,
+        "return": 0.1412,
         "qqqReturn": 0.1048,
-        "excessQqq": 0.0387
+        "excessQqq": 0.0364,
+        "buyDates": [
+          "2025-07-28"
+        ],
+        "sellDates": [
+          "2026-02-02",
+          "2026-02-02"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
-        "cohort": "2025-07",
-        "entryDate": "2025-07-28",
-        "exitMonth": "2026-01",
-        "exitAsOf": "2026-01-30",
-        "exitDate": "2026-02-02",
-        "symbol": "TPR",
-        "name": "Tapestry, Inc.",
-        "sector": "Consumer Discretionary",
-        "score": 82.73,
+        "cohort": "2025-02",
+        "entryDate": "2025-03-03",
+        "exitMonth": "2026-02",
+        "exitDate": "2026-02-20",
+        "symbol": "BNY",
+        "name": "BNY Mellon",
+        "sector": "Financials",
+        "score": 83.26,
         "rank": 6,
-        "entryPrice": 109.02,
-        "exitPrice": 128.96,
-        "return": 0.1829,
-        "qqqReturn": 0.1048,
-        "excessQqq": 0.0781
+        "entryPrice": 86.27,
+        "exitPrice": 110.52,
+        "return": 0.2798,
+        "qqqReturn": 0.2311,
+        "excessQqq": 0.0487,
+        "buyDates": [
+          "2025-03-03"
+        ],
+        "sellDates": [
+          "2025-09-02",
+          "2026-02-20"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2025-08",
         "entryDate": "2025-09-02",
-        "exitMonth": "2026-02",
-        "exitAsOf": "2026-02-27",
+        "exitMonth": "2026-03",
         "exitDate": "2026-03-02",
         "symbol": "WYNN",
         "name": "Wynn Resorts",
         "sector": "Consumer Discretionary",
         "score": 86.62,
         "rank": 2,
-        "entryPrice": 124.61,
+        "entryPrice": 124.74,
         "exitPrice": 103.17,
-        "return": -0.1721,
+        "return": -0.1737,
         "qqqReturn": 0.0777,
-        "excessQqq": -0.2498
+        "excessQqq": -0.2514,
+        "buyDates": [
+          "2025-09-02"
+        ],
+        "sellDates": [
+          "2026-03-02",
+          "2026-03-02"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
       },
       {
-        "cohort": "2025-08",
-        "entryDate": "2025-09-02",
-        "exitMonth": "2026-02",
-        "exitAsOf": "2026-02-27",
-        "exitDate": "2026-03-02",
-        "symbol": "WDC",
-        "name": "Western Digital",
-        "sector": "Electronic Components",
-        "score": 75.93,
-        "rank": 24,
-        "entryPrice": 81.69,
-        "exitPrice": 269.88,
-        "return": 2.3038,
-        "qqqReturn": 0.0777,
-        "excessQqq": 2.2261
+        "cohort": "2025-07",
+        "entryDate": "2025-07-28",
+        "exitMonth": "2026-03",
+        "exitDate": "2026-03-20",
+        "symbol": "TPR",
+        "name": "Tapestry, Inc.",
+        "sector": "Consumer Discretionary",
+        "score": 82.73,
+        "rank": 6,
+        "entryPrice": 109.12,
+        "exitPrice": 134.72,
+        "return": 0.2333,
+        "qqqReturn": 0.027,
+        "excessQqq": 0.2063,
+        "buyDates": [
+          "2025-07-28"
+        ],
+        "sellDates": [
+          "2026-02-02",
+          "2026-03-20"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
+      },
+      {
+        "cohort": "2025-06",
+        "entryDate": "2025-06-30",
+        "exitMonth": "2026-03",
+        "exitDate": "2026-03-27",
+        "symbol": "HWM",
+        "name": "Howmet Aerospace",
+        "sector": "Industrials",
+        "score": 88.02,
+        "rank": 1,
+        "entryPrice": 185.9,
+        "exitPrice": 218.54,
+        "return": 0.1744,
+        "qqqReturn": 0.0236,
+        "excessQqq": 0.1508,
+        "buyDates": [
+          "2025-06-30"
+        ],
+        "sellDates": [
+          "2025-12-29",
+          "2026-03-27"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_two_week_10w_break"
+        ]
       },
       {
         "cohort": "2025-09",
         "entryDate": "2025-09-29",
         "exitMonth": "2026-03",
-        "exitAsOf": "2026-03-27",
-        "exitDate": "2026-03-30",
-        "symbol": "WDC",
-        "name": "Western Digital",
-        "sector": "Electronic Components",
-        "score": 80.23,
-        "rank": 7,
-        "entryPrice": 116.56,
-        "exitPrice": 251.6,
-        "return": 1.1586,
-        "qqqReturn": -0.0652,
-        "excessQqq": 1.2238
-      },
-      {
-        "cohort": "2025-09",
-        "entryDate": "2025-09-29",
-        "exitMonth": "2026-03",
-        "exitAsOf": "2026-03-27",
         "exitDate": "2026-03-30",
         "symbol": "INTC",
         "name": "Intel",
         "sector": "Semiconductors",
         "score": 78.09,
         "rank": 17,
-        "entryPrice": 34.48,
+        "entryPrice": 34.51,
         "exitPrice": 41.19,
-        "return": 0.1946,
+        "return": 0.1922,
         "qqqReturn": -0.0652,
-        "excessQqq": 0.2598
+        "excessQqq": 0.2574,
+        "buyDates": [
+          "2025-09-29"
+        ],
+        "sellDates": [
+          "2026-03-30",
+          "2026-03-30"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_trend_not_alive_at_6m"
+        ]
+      },
+      {
+        "cohort": "2025-05",
+        "entryDate": "2025-06-02",
+        "exitMonth": "2026-06",
+        "exitDate": "2026-06-01",
+        "symbol": "STX",
+        "name": "Seagate Technology",
+        "sector": "Electronic Components",
+        "score": 75.7,
+        "rank": 28,
+        "entryPrice": 117.67,
+        "exitPrice": 594.67,
+        "return": 4.0487,
+        "qqqReturn": 0.4265,
+        "excessQqq": 3.6223,
+        "buyDates": [
+          "2025-06-02"
+        ],
+        "sellDates": [
+          "2025-12-01",
+          "2026-06-01"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_max_12m"
+        ]
+      },
+      {
+        "cohort": "2025-06",
+        "entryDate": "2025-06-30",
+        "exitMonth": "2026-06",
+        "exitDate": "2026-06-29",
+        "symbol": "STX",
+        "name": "Seagate Technology",
+        "sector": "Electronic Components",
+        "score": 75.93,
+        "rank": 29,
+        "entryPrice": 143.29,
+        "exitPrice": 624.57,
+        "return": 3.3544,
+        "qqqReturn": 0.3189,
+        "excessQqq": 3.0355,
+        "buyDates": [
+          "2025-06-30"
+        ],
+        "sellDates": [
+          "2025-12-29",
+          "2026-06-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_max_12m"
+        ]
+      },
+      {
+        "cohort": "2025-08",
+        "entryDate": "2025-09-02",
+        "exitMonth": "2026-06",
+        "exitDate": "2026-06-29",
+        "symbol": "WDC",
+        "name": "Western Digital",
+        "sector": "Electronic Components",
+        "score": 75.93,
+        "rank": 24,
+        "entryPrice": 81.77,
+        "exitPrice": 460.88,
+        "return": 4.6306,
+        "qqqReturn": 0.2863,
+        "excessQqq": 4.3443,
+        "buyDates": [
+          "2025-09-02"
+        ],
+        "sellDates": [
+          "2026-03-02",
+          "2026-06-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_max_12m"
+        ]
+      },
+      {
+        "cohort": "2025-09",
+        "entryDate": "2025-09-29",
+        "exitMonth": "2026-06",
+        "exitDate": "2026-06-29",
+        "symbol": "WDC",
+        "name": "Western Digital",
+        "sector": "Electronic Components",
+        "score": 80.23,
+        "rank": 7,
+        "entryPrice": 116.68,
+        "exitPrice": 451.74,
+        "return": 2.8679,
+        "qqqReturn": 0.2138,
+        "excessQqq": 2.6541,
+        "buyDates": [
+          "2025-09-29"
+        ],
+        "sellDates": [
+          "2026-03-30",
+          "2026-06-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_max_12m"
+        ]
       },
       {
         "cohort": "2025-10",
         "entryDate": "2025-11-03",
-        "exitMonth": "2026-04",
-        "exitAsOf": "2026-04-24",
-        "exitDate": "2026-04-27",
+        "exitMonth": "2026-06",
+        "exitDate": "2026-06-29",
         "symbol": "AMD",
         "name": "Advanced Micro Devices",
         "sector": "Semiconductors",
         "score": 79.94,
         "rank": 6,
-        "entryPrice": 259.65,
-        "exitPrice": 334.63,
-        "return": 0.2888,
-        "qqqReturn": 0.0535,
-        "excessQqq": 0.2352
+        "entryPrice": 259.91,
+        "exitPrice": 437.06,
+        "return": 0.6799,
+        "qqqReturn": 0.1497,
+        "excessQqq": 0.5302,
+        "buyDates": [
+          "2025-11-03"
+        ],
+        "sellDates": [
+          "2026-04-27",
+          "2026-06-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_max_12m"
+        ]
       },
       {
         "cohort": "2025-10",
         "entryDate": "2025-11-03",
-        "exitMonth": "2026-04",
-        "exitAsOf": "2026-04-24",
-        "exitDate": "2026-04-27",
+        "exitMonth": "2026-06",
+        "exitDate": "2026-06-29",
         "symbol": "WDC",
         "name": "Western Digital",
         "sector": "Electronic Components",
         "score": 78.39,
         "rank": 8,
-        "entryPrice": 157.78,
-        "exitPrice": 400.63,
-        "return": 1.5392,
-        "qqqReturn": 0.0535,
-        "excessQqq": 1.4857
+        "entryPrice": 157.93,
+        "exitPrice": 526.25,
+        "return": 2.3288,
+        "qqqReturn": 0.1497,
+        "excessQqq": 2.179,
+        "buyDates": [
+          "2025-11-03"
+        ],
+        "sellDates": [
+          "2026-04-27",
+          "2026-06-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_max_12m"
+        ]
       },
       {
         "cohort": "2025-11",
         "entryDate": "2025-12-01",
-        "exitMonth": "2026-05",
-        "exitAsOf": "2026-05-29",
-        "exitDate": "2026-06-01",
+        "exitMonth": "2026-06",
+        "exitDate": "2026-06-29",
         "symbol": "LLY",
         "name": "Lilly (Eli)",
         "sector": "Health Care",
         "score": 89.18,
         "rank": 1,
-        "entryPrice": 1054.31,
-        "exitPrice": 1082.2,
-        "return": 0.0265,
-        "qqqReturn": 0.2065,
-        "excessQqq": -0.1801
+        "entryPrice": 1055.37,
+        "exitPrice": 1156.07,
+        "return": 0.0943,
+        "qqqReturn": 0.1775,
+        "excessQqq": -0.0832,
+        "buyDates": [
+          "2025-12-01"
+        ],
+        "sellDates": [
+          "2026-06-01",
+          "2026-06-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_max_12m"
+        ]
       },
       {
         "cohort": "2025-11",
         "entryDate": "2025-12-01",
-        "exitMonth": "2026-05",
-        "exitAsOf": "2026-05-29",
-        "exitDate": "2026-06-01",
+        "exitMonth": "2026-06",
+        "exitDate": "2026-06-29",
         "symbol": "SNDK",
         "name": "Sandisk",
         "sector": "Electronic Components",
         "score": 73.64,
         "rank": 49,
-        "entryPrice": 210.17,
-        "exitPrice": 1761.43,
-        "return": 7.381,
-        "qqqReturn": 0.2065,
-        "excessQqq": 7.1744
+        "entryPrice": 210.38,
+        "exitPrice": 1905.91,
+        "return": 8.0503,
+        "qqqReturn": 0.1775,
+        "excessQqq": 7.8728,
+        "buyDates": [
+          "2025-12-01"
+        ],
+        "sellDates": [
+          "2026-06-01",
+          "2026-06-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_max_12m"
+        ]
       },
       {
         "cohort": "2025-12",
         "entryDate": "2025-12-29",
         "exitMonth": "2026-06",
-        "exitAsOf": "2026-06-26",
         "exitDate": "2026-06-29",
         "symbol": "BIIB",
         "name": "Biogen",
         "sector": "Health Care",
         "score": 84.37,
         "rank": 2,
-        "entryPrice": 176.83,
+        "entryPrice": 177.01,
         "exitPrice": 216.63,
-        "return": 0.2251,
+        "return": 0.2226,
         "qqqReturn": 0.169,
-        "excessQqq": 0.0561
+        "excessQqq": 0.0536,
+        "buyDates": [
+          "2025-12-29"
+        ],
+        "sellDates": [
+          "2026-06-29",
+          "2026-06-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_max_12m"
+        ]
       },
       {
         "cohort": "2025-12",
         "entryDate": "2025-12-29",
         "exitMonth": "2026-06",
-        "exitAsOf": "2026-06-26",
         "exitDate": "2026-06-29",
         "symbol": "STX",
         "name": "Seagate Technology",
         "sector": "Electronic Components",
         "score": 79.56,
         "rank": 21,
-        "entryPrice": 280.61,
+        "entryPrice": 280.89,
         "exitPrice": 968.53,
-        "return": 2.4515,
+        "return": 2.4446,
         "qqqReturn": 0.169,
-        "excessQqq": 2.2825
+        "excessQqq": 2.2756,
+        "buyDates": [
+          "2025-12-29"
+        ],
+        "sellDates": [
+          "2026-06-29",
+          "2026-06-29"
+        ],
+        "sellReasons": [
+          "half_fixed_6m",
+          "half_max_12m"
+        ]
       }
     ],
     "comparison": [],
@@ -6118,55 +6874,55 @@
       {
         "year": "2021",
         "months": 5,
-        "return": -0.065,
-        "spyReturn": 0.0015,
+        "return": -0.0641,
+        "spyReturn": null,
         "qqqReturn": -0.0431,
-        "excessQqq": -0.0219,
+        "excessQqq": -0.0211,
         "beatQqqRate": 0.6
       },
       {
         "year": "2022",
         "months": 12,
-        "return": 0.0868,
-        "spyReturn": -0.0951,
+        "return": 0.0939,
+        "spyReturn": null,
         "qqqReturn": -0.1945,
-        "excessQqq": 0.2812,
+        "excessQqq": 0.2883,
         "beatQqqRate": 0.6667
       },
       {
         "year": "2023",
         "months": 12,
-        "return": 0.3235,
-        "spyReturn": 0.2451,
+        "return": 0.3314,
+        "spyReturn": null,
         "qqqReturn": 0.4854,
-        "excessQqq": -0.1618,
+        "excessQqq": -0.154,
         "beatQqqRate": 0.5
       },
       {
         "year": "2024",
         "months": 12,
-        "return": 0.5796,
-        "spyReturn": 0.2325,
+        "return": 0.6077,
+        "spyReturn": null,
         "qqqReturn": 0.2171,
-        "excessQqq": 0.3625,
-        "beatQqqRate": 0.5
+        "excessQqq": 0.3906,
+        "beatQqqRate": 0.5833
       },
       {
         "year": "2025",
         "months": 12,
-        "return": 0.9969,
-        "spyReturn": 0.1768,
+        "return": 0.9847,
+        "spyReturn": null,
         "qqqReturn": 0.2146,
-        "excessQqq": 0.7823,
-        "beatQqqRate": 0.8333
+        "excessQqq": 0.7701,
+        "beatQqqRate": 0.75
       },
       {
         "year": "2026",
         "months": 5,
-        "return": 0.4972,
-        "spyReturn": 0.0712,
+        "return": 1.1441,
+        "spyReturn": null,
         "qqqReturn": 0.1591,
-        "excessQqq": 0.3381,
+        "excessQqq": 0.985,
         "beatQqqRate": 0.8
       }
     ],

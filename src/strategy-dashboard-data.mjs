@@ -7,8 +7,10 @@ const sample = process.argv.includes("--sample");
 const screenerPath = path.join("data", "screener-results.json");
 const buyRule5yPath = path.join("data", "monthly-buy-rule-test-5y.json");
 const buyRule3yPath = path.join("data", "monthly-buy-rule-test.json");
+const scaleExecutionPath = path.join("data", "scale-execution-test.json");
 const outputPath = path.join("data", "strategy-dashboard.json");
 const strategyLabel = "Leader2 One Each";
+const currentExecutionRule = "half_sell_half_weekly_extend";
 
 function percentReturn(entryPrice, currentPrice) {
   if (!Number.isFinite(entryPrice) || !Number.isFinite(currentPrice) || entryPrice === 0) return null;
@@ -21,6 +23,14 @@ function monthKey(date) {
 
 function rowOnOrAfter(rows, date) {
   return rows.find((row) => row.date >= date && Number.isFinite(row.close)) ?? rows.at(-1) ?? null;
+}
+
+function periodReturn(priceMap, symbol, startDate, endDate) {
+  const rows = priceMap.get(symbol) ?? [];
+  const entry = rowOnOrAfter(rows, startDate);
+  const exit = rowOnOrAfter(rows, endDate);
+  if (!entry || !exit || !entry.close) return null;
+  return exit.close / entry.close - 1;
 }
 
 function sortByDate(rows, key = "date") {
@@ -229,6 +239,36 @@ function buildRealizedTrades(strategy, priceMap, holdMonths) {
   return sortByDate(trades, "exitDate");
 }
 
+function executionRows(scaleExecution) {
+  return scaleExecution?.evaluations
+    ?.find((entry) => entry.rule === currentExecutionRule)
+    ?.rows
+    ?.filter((row) => row.entered) ?? null;
+}
+
+function realizedTradesFromExecution(rows) {
+  if (!rows?.length) return [];
+  return sortByDate(rows.map((row) => ({
+    cohort: row.cohort,
+    entryDate: row.firstBuyDate ?? row.entryDate,
+    exitMonth: monthKey(row.lastSellDate),
+    exitDate: row.lastSellDate,
+    symbol: row.symbol,
+    name: row.name ?? row.symbol,
+    sector: row.sector,
+    score: row.score,
+    rank: row.rank,
+    entryPrice: row.averageBuyPrice,
+    exitPrice: row.averageSellPrice,
+    return: row.return,
+    qqqReturn: row.qqqReturn,
+    excessQqq: row.excessQqq,
+    buyDates: row.buyDates ?? [row.firstBuyDate].filter(Boolean),
+    sellDates: row.sellDates ?? [row.firstSellDate, row.lastSellDate].filter(Boolean),
+    sellReasons: row.sellReasons ?? []
+  })), "exitDate");
+}
+
 function realizedSummary(trades) {
   const valid = trades.filter((row) => Number.isFinite(row.return));
   const best = [...valid].sort((a, b) => b.return - a.return)[0] ?? null;
@@ -286,9 +326,93 @@ function monthlyExits(trades) {
   }));
 }
 
+function activeWeight(trade, startDate) {
+  const sellDates = trade.sellDates ?? [];
+  if (!sellDates.length || trade.exitDate <= startDate) return 0;
+  if (sellDates.length >= 2 && sellDates[0] <= startDate && sellDates.at(-1) > startDate) return 0.5;
+  return trade.entryDate <= startDate && trade.exitDate > startDate ? 1 : 0;
+}
+
+function currentExecutionCurve(trades, timeline, priceMap) {
+  let equity = 1;
+  let qqqEquity = 1;
+  const curve = [];
+  const intervals = (timeline ?? [])
+    .filter((row) => row.entryDate)
+    .slice(0, -1)
+    .map((row, index) => ({
+      asOf: row.asOf,
+      entryDate: row.entryDate,
+      exitDate: timeline[index + 1].entryDate
+    }));
+
+  for (const interval of intervals) {
+    const weightedReturns = trades.map((trade) => {
+      const weight = activeWeight(trade, interval.entryDate);
+      const value = weight ? periodReturn(priceMap, trade.symbol, interval.entryDate, interval.exitDate) : null;
+      return Number.isFinite(value) ? { value, weight } : null;
+    }).filter(Boolean);
+    const totalWeight = weightedReturns.reduce((sum, row) => sum + row.weight, 0);
+    const qqqReturn = periodReturn(priceMap, "QQQ", interval.entryDate, interval.exitDate);
+    if (!totalWeight || !Number.isFinite(qqqReturn)) continue;
+    const netReturn = weightedReturns.reduce((sum, row) => sum + row.value * row.weight, 0) / totalWeight;
+    equity *= 1 + netReturn;
+    qqqEquity *= 1 + qqqReturn;
+    curve.push({
+      asOf: interval.asOf,
+      entryDate: interval.entryDate,
+      exitDate: interval.exitDate,
+      netReturn: round(netReturn, 4),
+      qqqReturn: round(qqqReturn, 4),
+      excessQqq: round(netReturn - qqqReturn, 4),
+      equity: round(equity, 4),
+      qqqEquity: round(qqqEquity, 4),
+      strategyTotalReturn: round(equity - 1, 4),
+      qqqTotalReturn: round(qqqEquity - 1, 4),
+      uniqueHeldCount: weightedReturns.length,
+      newestSymbols: []
+    });
+  }
+  return curve;
+}
+
+function maxDrawdown(curve) {
+  let peak = 1;
+  let worst = 0;
+  for (const row of curve) {
+    peak = Math.max(peak, row.equity);
+    worst = Math.min(worst, row.equity / peak - 1);
+  }
+  return round(worst, 4);
+}
+
+function annualizedReturn(totalReturn, months) {
+  if (!Number.isFinite(totalReturn) || months <= 0) return null;
+  return round((1 + totalReturn) ** (12 / months) - 1, 4);
+}
+
+function compactExecutionResult(curve) {
+  if (!curve?.length) return null;
+  const last = curve.at(-1);
+  return {
+    label: "50% Sell / 50% Weekly Extend",
+    months: curve.length,
+    totalReturn: last.strategyTotalReturn,
+    cagr: annualizedReturn(last.strategyTotalReturn, curve.length),
+    qqqTotalReturn: last.qqqTotalReturn,
+    excessQqqTotal: round(last.strategyTotalReturn - last.qqqTotalReturn, 4),
+    maxDrawdown: maxDrawdown(curve),
+    positiveMonthRate: round(curve.filter((row) => row.netReturn > 0).length / curve.length, 4),
+    beatQqqMonthRate: round(curve.filter((row) => row.excessQqq > 0).length / curve.length, 4),
+    averageHeldCount: round(curve.reduce((sum, row) => sum + row.uniqueHeldCount, 0) / curve.length, 1),
+    averageNewBuys: 2
+  };
+}
+
 function yearlyPerformance(strategy) {
+  const curve = Array.isArray(strategy) ? strategy : strategy?.curve ?? [];
   const years = new Map();
-  for (const point of strategy?.curve ?? []) {
+  for (const point of curve) {
     const year = point.asOf.slice(0, 4);
     const current = years.get(year) ?? { year, months: 0, value: 1, spy: 1, qqq: 1, beatQqq: 0 };
     current.months += 1;
@@ -351,8 +475,10 @@ async function main() {
   const existingDashboard = await optionalJson(outputPath);
   const buyRule5y = await optionalJson(buyRule5yPath);
   const buyRule3y = await optionalJson(buyRule3yPath);
+  const scaleExecution = await optionalJson(scaleExecutionPath);
   const strategy5y = pickStrategy(buyRule5y);
   const strategy3y = pickStrategy(buyRule3y);
+  const currentExecutionRows = executionRows(scaleExecution);
 
   const currentAsOf = screener.rows?.find((row) => row.metrics?.lastDate)?.metrics?.lastDate
     ?? screener.generatedAt.slice(0, 10);
@@ -375,9 +501,20 @@ async function main() {
   ]));
   const { priceMap, errors } = await fetchPrices(symbols);
   const holdings = buildHoldings(cohorts, priceMap, screener);
-  const realizedTrades = strategy5y?.selectionTimeline?.length
-    ? buildRealizedTrades(strategy5y, priceMap, strategy5y.holdMonths ?? 6)
-    : existingDashboard?.backtest?.realizedTrades ?? [];
+  const realizedTrades = currentExecutionRows?.length
+    ? realizedTradesFromExecution(currentExecutionRows)
+    : strategy5y?.selectionTimeline?.length
+      ? buildRealizedTrades(strategy5y, priceMap, strategy5y.holdMonths ?? 6)
+      : existingDashboard?.backtest?.realizedTrades ?? [];
+  const executionCurve = currentExecutionRows?.length && strategy5y?.selectionTimeline?.length
+    ? currentExecutionCurve(realizedTrades, strategy5y.selectionTimeline, priceMap)
+    : null;
+  const currentCurve = executionCurve?.length
+    ? executionCurve
+    : compactCurve(strategy5y, existingDashboard);
+  const currentFiveYear = executionCurve?.length
+    ? compactExecutionResult(executionCurve)
+    : compactBacktestResult(strategy5y) ?? existingDashboard?.backtest?.fiveYear ?? null;
 
   const result = {
     generatedAt: new Date().toISOString(),
@@ -386,11 +523,11 @@ async function main() {
     strategy: {
       name: "Leader2 One Each",
       shortName: "월 2개 주도주",
-      summary: "상위 주도 섹터 2개에서 각각 1등 종목 1개씩 매수하고, 각 월별 매수 묶음을 6개월 보유합니다.",
+      summary: "상위 주도 섹터 2개에서 각각 1등 종목 1개씩 매수하고, 6개월 후 50%를 매도합니다. 나머지 50%는 주봉 10주선+RSI 추세가 살아 있으면 최대 12개월까지 연장합니다.",
       monthlyBuys: 2,
-      holdingMonths: 6,
+      holdingMonths: "6개월 + 주봉 연장",
       stopRule: "기본 손절 없음",
-      executionNote: "신규 후보는 차트 확인 후 진입"
+      executionNote: "신규 후보는 차트 확인 후 진입, 주간 업데이트는 관찰과 보유 관리용"
     },
     market: screener.market,
     leaders,
@@ -402,14 +539,14 @@ async function main() {
     },
     backtest: {
       threeYear: compactBacktestResult(strategy3y) ?? existingDashboard?.backtest?.threeYear ?? null,
-      fiveYear: compactBacktestResult(strategy5y) ?? existingDashboard?.backtest?.fiveYear ?? null,
-      equityCurve: compactCurve(strategy5y, existingDashboard),
+      fiveYear: currentFiveYear,
+      equityCurve: currentCurve,
       realizedSummary: realizedSummary(realizedTrades),
       monthlyExits: monthlyExits(realizedTrades),
       realizedTrades,
       comparison: [],
-      yearly: strategy5y?.curve?.length
-        ? yearlyPerformance(strategy5y)
+      yearly: currentCurve?.length
+        ? yearlyPerformance(currentCurve)
         : existingDashboard?.backtest?.yearly ?? [],
       reports: [
         { label: "일봉 진입 필터 검증", href: "daily_entry_filter_test.md" },

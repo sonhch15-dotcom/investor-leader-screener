@@ -40,8 +40,17 @@ function statusLabel(status) {
   return {
     new: "신규",
     hold: "보유",
-    sell_due: "매도 예정"
+    sell_due: "50% 매도 점검"
   }[status] ?? status;
+}
+
+function sellReasonLabel(reason) {
+  return {
+    half_fixed_6m: "6개월 50% 매도",
+    half_trend_not_alive_at_6m: "주봉 약화로 연장 없음",
+    half_two_week_10w_break: "10주선 2주 이탈",
+    half_max_12m: "최대 12개월 도달"
+  }[reason] ?? reason;
 }
 
 function tag(text, className = "") {
@@ -84,12 +93,12 @@ function renderSummary() {
     <article class="kpi">
       <span>전략 기준 보유</span>
       <strong>${s.holdingCount}개</strong>
-      <small>최근 6개월 묶음</small>
+      <small>6개월 + 주봉 연장 관리</small>
     </article>
     <article class="kpi">
-      <span>매도 예정</span>
+      <span>50% 매도 점검</span>
       <strong>${s.sellDueCount}개</strong>
-      <small>6개월 보유 도달</small>
+      <small>6개월 도달 묶음</small>
     </article>
     <article class="kpi">
       <span>보유 평균 수익률</span>
@@ -193,11 +202,11 @@ function renderSellDue() {
     ? rows.map((row) => `
       <article class="due-item">
         <strong>${row.symbol}</strong>
-        <span>${row.cohort} 추천 | ${row.sector}</span>
+        <span>${row.cohort} 추천 | ${row.sector} | 50% 매도 후 주봉 연장 확인</span>
         <b class="${signedClass(row.currentReturn)}">${percent(row.currentReturn)}</b>
       </article>
     `).join("")
-    : `<p class="empty-state">이번 리밸런싱 매도 예정 종목이 없습니다.</p>`;
+    : `<p class="empty-state">이번 리밸런싱에서 50% 매도/연장 점검할 종목이 없습니다.</p>`;
 }
 
 function linePath(rows, valueKey, xFor, yFor) {
@@ -315,6 +324,7 @@ function renderRealizedTrades() {
       <td>${row.sector}</td>
       <td class="num">${money(row.entryPrice)}</td>
       <td class="num">${money(row.exitPrice)}</td>
+      <td>${(row.sellReasons ?? []).map(sellReasonLabel).join(" / ") || "-"}</td>
       <td class="num ${signedClass(row.return)}">${percent(row.return)}</td>
       <td class="num ${signedClass(row.qqqReturn)}">${percent(row.qqqReturn)}</td>
       <td class="num ${signedClass(row.excessQqq)}">${percent(row.excessQqq)}</td>
@@ -338,6 +348,7 @@ function renderRealizedTrades() {
         <span>${row.sector}</span>
         <span>QQQ ${percent(row.qqqReturn)}</span>
       </div>
+      <p class="reason">${(row.sellReasons ?? []).map(sellReasonLabel).join(" / ") || "-"}</p>
     </article>
   `).join("");
 
