@@ -1,4 +1,9 @@
 let dashboard = null;
+let showAllMonthlyExits = false;
+let showAllRealizedTrades = false;
+
+const RECENT_MONTHLY_EXIT_LIMIT = 12;
+const RECENT_REALIZED_TRADE_LIMIT = 24;
 
 async function fetchJson(path) {
   const response = await fetch(path, { cache: "no-store" });
@@ -245,6 +250,106 @@ function renderPerformanceChart() {
   `;
 }
 
+function showMoreLabel(showAll, visibleCount, totalCount) {
+  return showAll
+    ? `최근만 보기 (${visibleCount}/${totalCount})`
+    : `전체 보기 (${totalCount}개)`;
+}
+
+function renderMonthlyExits() {
+  const allRows = [...(dashboard.backtest.monthlyExits ?? [])].reverse();
+  const rows = showAllMonthlyExits ? allRows : allRows.slice(0, RECENT_MONTHLY_EXIT_LIMIT);
+  document.getElementById("monthly-exit-meta").textContent = showAllMonthlyExits
+    ? `전체 ${allRows.length}개월`
+    : `최근 ${rows.length}개월 / 전체 ${allRows.length}개월`;
+  document.getElementById("monthly-exits-body").innerHTML = rows.map((row) => `
+    <tr>
+      <td>${row.exitMonth}</td>
+      <td><strong>${row.symbols.join(", ")}</strong></td>
+      <td>${row.sectors.join(", ")}</td>
+      <td class="num ${signedClass(row.averageReturn)}">${percent(row.averageReturn)}</td>
+      <td class="num ${signedClass(row.qqqReturn)}">${percent(row.qqqReturn)}</td>
+      <td class="num ${signedClass(row.excessQqq)}">${percent(row.excessQqq)}</td>
+      <td class="num">${plainPercent(row.winRate)}</td>
+    </tr>
+  `).join("");
+
+  document.getElementById("monthly-exits-cards").innerHTML = rows.map((row) => `
+    <article class="result-card">
+      <div class="card-head">
+        <div>
+          <h3>${row.exitMonth} 매도</h3>
+          <p>${row.symbols.join(", ")}</p>
+        </div>
+        <strong class="${signedClass(row.averageReturn)}">${percent(row.averageReturn)}</strong>
+      </div>
+      <div class="metric-line">
+        <span>QQQ ${percent(row.qqqReturn)}</span>
+        <span>초과 ${percent(row.excessQqq)}</span>
+        <span>승률 ${plainPercent(row.winRate)}</span>
+      </div>
+      <p class="reason">${row.sectors.join(", ")}</p>
+    </article>
+  `).join("");
+
+  const button = document.getElementById("toggle-monthly-exits");
+  button.hidden = allRows.length <= RECENT_MONTHLY_EXIT_LIMIT;
+  button.textContent = showMoreLabel(showAllMonthlyExits, rows.length, allRows.length);
+  button.onclick = () => {
+    showAllMonthlyExits = !showAllMonthlyExits;
+    renderMonthlyExits();
+  };
+}
+
+function renderRealizedTrades() {
+  const allRows = [...(dashboard.backtest.realizedTrades ?? [])].reverse();
+  const rows = showAllRealizedTrades ? allRows : allRows.slice(0, RECENT_REALIZED_TRADE_LIMIT);
+  document.getElementById("realized-trade-meta").textContent = showAllRealizedTrades
+    ? `전체 ${allRows.length}개 청산 완료`
+    : `최근 ${rows.length}개 / 전체 ${allRows.length}개`;
+  document.getElementById("realized-trades-body").innerHTML = rows.map((row) => `
+    <tr>
+      <td>${row.cohort}</td>
+      <td>${row.exitMonth}</td>
+      <td><strong>${row.symbol}</strong><div class="sub">${row.name}</div></td>
+      <td>${row.sector}</td>
+      <td class="num">${money(row.entryPrice)}</td>
+      <td class="num">${money(row.exitPrice)}</td>
+      <td class="num ${signedClass(row.return)}">${percent(row.return)}</td>
+      <td class="num ${signedClass(row.qqqReturn)}">${percent(row.qqqReturn)}</td>
+      <td class="num ${signedClass(row.excessQqq)}">${percent(row.excessQqq)}</td>
+    </tr>
+  `).join("");
+
+  document.getElementById("realized-trades-cards").innerHTML = rows.map((row) => `
+    <article class="result-card">
+      <div class="card-head">
+        <div>
+          <h3>${row.symbol}</h3>
+          <p>${row.cohort} 추천 → ${row.exitMonth} 매도</p>
+        </div>
+        <strong class="${signedClass(row.return)}">${percent(row.return)}</strong>
+      </div>
+      <div class="mobile-price">
+        <span>${money(row.entryPrice)} → ${money(row.exitPrice)}</span>
+        <span class="${signedClass(row.excessQqq)}">QQQ 대비 ${percent(row.excessQqq)}</span>
+      </div>
+      <div class="metric-line">
+        <span>${row.sector}</span>
+        <span>QQQ ${percent(row.qqqReturn)}</span>
+      </div>
+    </article>
+  `).join("");
+
+  const button = document.getElementById("toggle-realized-trades");
+  button.hidden = allRows.length <= RECENT_REALIZED_TRADE_LIMIT;
+  button.textContent = showMoreLabel(showAllRealizedTrades, rows.length, allRows.length);
+  button.onclick = () => {
+    showAllRealizedTrades = !showAllRealizedTrades;
+    renderRealizedTrades();
+  };
+}
+
 function renderBacktest() {
   const five = dashboard.backtest.fiveYear;
   const three = dashboard.backtest.threeYear;
@@ -259,35 +364,8 @@ function renderBacktest() {
 
   renderPerformanceChart();
 
-  const monthlyRows = [...(dashboard.backtest.monthlyExits ?? [])].reverse();
-  document.getElementById("monthly-exit-meta").textContent = `${monthlyRows.length}개월`;
-  document.getElementById("monthly-exits-body").innerHTML = monthlyRows.map((row) => `
-    <tr>
-      <td>${row.exitMonth}</td>
-      <td><strong>${row.symbols.join(", ")}</strong></td>
-      <td>${row.sectors.join(", ")}</td>
-      <td class="num ${signedClass(row.averageReturn)}">${percent(row.averageReturn)}</td>
-      <td class="num ${signedClass(row.qqqReturn)}">${percent(row.qqqReturn)}</td>
-      <td class="num ${signedClass(row.excessQqq)}">${percent(row.excessQqq)}</td>
-      <td class="num">${plainPercent(row.winRate)}</td>
-    </tr>
-  `).join("");
-
-  const trades = [...(dashboard.backtest.realizedTrades ?? [])].reverse();
-  document.getElementById("realized-trade-meta").textContent = `${trades.length}개 청산 완료`;
-  document.getElementById("realized-trades-body").innerHTML = trades.map((row) => `
-    <tr>
-      <td>${row.cohort}</td>
-      <td>${row.exitMonth}</td>
-      <td><strong>${row.symbol}</strong><div class="sub">${row.name}</div></td>
-      <td>${row.sector}</td>
-      <td class="num">${money(row.entryPrice)}</td>
-      <td class="num">${money(row.exitPrice)}</td>
-      <td class="num ${signedClass(row.return)}">${percent(row.return)}</td>
-      <td class="num ${signedClass(row.qqqReturn)}">${percent(row.qqqReturn)}</td>
-      <td class="num ${signedClass(row.excessQqq)}">${percent(row.excessQqq)}</td>
-    </tr>
-  `).join("");
+  renderMonthlyExits();
+  renderRealizedTrades();
 
   document.getElementById("yearly-body").innerHTML = (dashboard.backtest.yearly ?? []).map((row) => `
     <tr>
