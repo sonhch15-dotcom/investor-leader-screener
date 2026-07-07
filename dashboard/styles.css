@@ -391,6 +391,55 @@ select {
   color: var(--blue);
 }
 
+.strategy-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.strategy-panel {
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+
+.strategy-panel:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.strategy-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.strategy-header h3 {
+  margin: 0 0 4px;
+  font-size: 17px;
+}
+
+.strategy-count {
+  min-width: 42px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: #eef2f7;
+  color: var(--blue);
+  font-weight: 800;
+  text-align: center;
+}
+
+.control-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.compact-explain {
+  margin-bottom: 12px;
+}
+
 .compact {
   margin-top: 0;
 }

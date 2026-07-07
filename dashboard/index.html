@@ -10,7 +10,7 @@
   <header class="topbar">
     <div>
       <p class="eyebrow">US Leader Screener</p>
-      <h1>주도주 후보 대시보드</h1>
+      <h1>전략별 주도주 대시보드</h1>
     </div>
     <div class="meta" id="meta">Loading...</div>
   </header>
@@ -28,7 +28,7 @@
         <div class="section-title">
           <div>
             <h2>현재 주도 섹터</h2>
-            <p class="small">전체 유니버스의 상대 모멘텀, 이동평균 breadth, Top50 집중도로 계산합니다.</p>
+            <p class="small">전체 유니버스 breadth, 상대 모멘텀, Top50 집중도를 기준으로 계산합니다.</p>
           </div>
           <span id="leader-sector-meta"></span>
         </div>
@@ -38,80 +38,29 @@
       <section class="panel-block">
         <div class="section-title">
           <div>
-            <h2>주도 섹터 기반 추천 후보</h2>
-            <p class="small">매수 추천이 아니라 차트 확인 우선순위입니다. TradingView에서 일봉/4시간봉 진입 조건을 확인하세요.</p>
+            <h2>전략별 현재 선택 종목</h2>
+            <p class="small">백테스트에서 검증한 전략 정의와 같은 방식으로 현재 Top20 후보에서 선택합니다.</p>
           </div>
-          <span id="leader-pick-meta"></span>
+          <span id="strategy-pick-meta"></span>
         </div>
-        <div class="cards picks-grid" id="leader-picks"></div>
-      </section>
-
-      <section class="triple">
-        <div>
-          <div class="section-title">
-            <h2>매수 가능 후보</h2>
-            <span id="buyable-count">0</span>
-          </div>
-          <div class="cards" id="buyable"></div>
-        </div>
-        <div>
-          <div class="section-title">
-            <h2>매수 검토</h2>
-            <span id="review-count">0</span>
-          </div>
-          <div class="cards" id="review"></div>
-        </div>
-        <div>
-          <div class="section-title">
-            <h2>강한 감시</h2>
-            <span id="strong-watch-count">0</span>
-          </div>
-          <div class="cards" id="strong-watch"></div>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-title">
-          <h2>전체 순위</h2>
-          <input id="filter" type="search" placeholder="티커, 섹터, 태그 검색">
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>순위</th>
-                <th>티커</th>
-                <th>상태</th>
-                <th>총점</th>
-                <th>상대강도</th>
-                <th>모멘텀</th>
-                <th>섹터</th>
-                <th>수급</th>
-                <th>셋업</th>
-                <th>이유/경고</th>
-              </tr>
-            </thead>
-            <tbody id="ranking"></tbody>
-          </table>
-        </div>
+        <div class="strategy-stack" id="strategy-picks"></div>
       </section>
     </section>
 
     <section class="tab-panel" id="backtest-panel">
       <div class="section-title">
-        <h2>월간 선정력 검증</h2>
+        <h2>전략 검증</h2>
         <span id="monthly-meta">Loading...</span>
       </div>
       <div class="explain">
-        `SPY 초과`와 `QQQ 초과`는 같은 기간의 선정 포트폴리오 수익률이 각각 SPY, QQQ보다 높았던 비율입니다.
-        미완료 기간의 3M/6M/12M 수익률은 집계에서 제외합니다.
+        미완료 기간의 3M/6M/12M 수익률은 집계에서 제외합니다. `QQQ 초과`는 같은 기간에 전략 수익률이 QQQ보다 높았던 비율입니다.
       </div>
 
       <section class="panel-block">
         <div class="section-title compact">
           <div>
-            <h2>전체 유니버스 주도 그룹 검증</h2>
-            <p class="small">미래 수익률이나 AI/반도체 라벨 없이, 당시 전체 유니버스 breadth와 상대강도로 주도 그룹을 고른 결과입니다.</p>
+            <h2>전체 유니버스 주도 그룹 전략</h2>
+            <p class="small">미래 수익률이나 사후 테마 라벨 없이, 당시 전체 유니버스 데이터로 주도 그룹을 고른 결과입니다.</p>
           </div>
           <span id="full-group-meta"></span>
         </div>
@@ -132,16 +81,48 @@
             <tbody id="full-group-summary"></tbody>
           </table>
         </div>
-        <div class="cards compact-grid" id="recent-group-leaders"></div>
+      </section>
+
+      <section class="panel-block">
+        <div class="section-title compact">
+          <div>
+            <h2>전략별 월간 선택 종목</h2>
+            <p class="small">선택한 전략이 과거 각 기준월에 실제로 담았던 종목과 이후 성과입니다.</p>
+          </div>
+          <div class="control-row">
+            <select id="strategy-select" aria-label="전략 선택"></select>
+            <select id="strategy-period-select" aria-label="기준월 선택"></select>
+          </div>
+        </div>
+        <div id="strategy-period-meta" class="explain compact-explain"></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>순위</th>
+                <th>티커</th>
+                <th>섹터</th>
+                <th>상태</th>
+                <th>점수</th>
+                <th>1M</th>
+                <th>3M</th>
+                <th>6M</th>
+                <th>12M</th>
+              </tr>
+            </thead>
+            <tbody id="strategy-period-detail"></tbody>
+          </table>
+        </div>
       </section>
 
       <div class="chart-panel">
         <div class="section-title compact">
-          <h2>Top 10 평균 수익률 비교</h2>
-          <span>선정 종목 vs SPY vs QQQ</span>
+          <h2>기존 점수 Top10 비교</h2>
+          <span>기존 점수 기준 Top10 vs SPY vs QQQ</span>
         </div>
         <div id="benchmark-chart"></div>
       </div>
+
       <div class="table-wrap">
         <table>
           <thead>
@@ -160,6 +141,7 @@
           <tbody id="monthly-summary"></tbody>
         </table>
       </div>
+
       <div class="split-lower">
         <div>
           <div class="section-title compact">
@@ -174,33 +156,6 @@
           <div class="cards" id="monthly-contributors"></div>
         </div>
       </div>
-      <div class="section-title compact">
-        <h2>월별 상세</h2>
-        <select id="period-select" aria-label="기준일 선택"></select>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>순위</th>
-              <th>티커</th>
-              <th>상태</th>
-              <th>점수</th>
-              <th>셋업</th>
-              <th>1M</th>
-              <th>3M</th>
-              <th>6M</th>
-              <th>12M</th>
-            </tr>
-          </thead>
-          <tbody id="period-detail"></tbody>
-        </table>
-      </div>
-      <div class="section-title compact">
-        <h2>반도체/AI 하드웨어 반영 여부</h2>
-        <span id="semiconductor-meta"></span>
-      </div>
-      <div class="cards compact-grid" id="semiconductor-cards"></div>
     </section>
   </main>
 

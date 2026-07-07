@@ -12,15 +12,37 @@ const setupLabel = {
   volume_breakout: "거래량 돌파"
 };
 
-const semiconductorSymbols = new Set([
-  "NVDA", "AVGO", "AMD", "ARM", "MRVL", "MU", "QCOM", "AMAT", "LRCX", "KLAC",
-  "ASML", "TSM", "INTC", "ON", "MCHP", "MPWR", "ADI", "TXN", "NXPI", "TER",
-  "SWKS", "QRVO", "SMCI", "DELL", "WDC", "STX", "SOXX", "SMH", "SOXL", "USD"
-]);
+const strategyCatalog = [
+  {
+    key: "full_leader_top5",
+    label: "Full Universe Leaders Top5",
+    shortLabel: "Full Top5",
+    description: "전체 유니버스 기준 상위 2개 주도 그룹 안에서 현재 Top20 중 상위 5개를 선택합니다.",
+    groupMode: "leaderTop2",
+    limit: 5
+  },
+  {
+    key: "full_leader_top10",
+    label: "Full Universe Leaders Top10",
+    shortLabel: "Full Top10",
+    description: "전체 유니버스 기준 상위 2개 주도 그룹 안에서 현재 Top20 중 상위 10개를 선택합니다.",
+    groupMode: "leaderTop2",
+    limit: 10
+  },
+  {
+    key: "full_quality_leader_top10",
+    label: "Full Quality Leaders Top10",
+    shortLabel: "Quality Top10",
+    description: "QQQ 상대강도, 50일선 breadth, 75점 이상 비율, Top50 포함 수를 통과한 주도 그룹에서 선택합니다.",
+    groupMode: "qualityTop3",
+    limit: 10
+  }
+];
 
 let allRows = [];
 let monthlyResult = null;
 let fullGroupResult = null;
+let screenerData = null;
 
 async function fetchJson(path, required = true) {
   const response = await fetch(path, { cache: "no-store" });
@@ -116,7 +138,48 @@ function renderMarket(data) {
   `;
 }
 
-function card(row) {
+function currentTop20(data) {
+  return data.rows.filter((row) => row.status !== "excluded").slice(0, 20);
+}
+
+function currentGroupStats(data) {
+  return data.currentGroupStats ?? [];
+}
+
+function qualityGroups(data) {
+  return currentGroupStats(data)
+    .filter((group) => (
+      group.averageQqqExcessMomentum > 0
+      && group.above50Rate >= 0.55
+      && group.score75Rate >= 0.15
+      && group.top50Count >= 2
+    ))
+    .slice(0, 3)
+    .map((group) => group.group);
+}
+
+function groupsForStrategy(data, strategy) {
+  const groups = currentGroupStats(data);
+  if (strategy.groupMode === "qualityTop3") return qualityGroups(data);
+  return groups.slice(0, 2).map((group) => group.group);
+}
+
+function rowsForStrategy(data, strategy) {
+  const groups = new Set(groupsForStrategy(data, strategy));
+  return currentTop20(data)
+    .filter((row) => groups.has(row.sector))
+    .slice(0, strategy.limit);
+}
+
+function strategyBacktest(strategyKey) {
+  return fullGroupResult?.splits?.all?.results?.find((row) => row.key === strategyKey) ?? null;
+}
+
+function groupBacktest(groupName) {
+  return fullGroupResult?.groupContribution?.find((row) => row.group === groupName) ?? null;
+}
+
+function candidateCard(row, strategy) {
   return `
     <article class="card">
       <div class="card-head">
@@ -132,9 +195,8 @@ function card(row) {
       ${miniChart(row)}
       <div class="tags">
         ${tag(statusLabel[row.status], row.status)}
-        ${tag(setupLabel[row.setup?.type] ?? row.setup?.type)}
         ${tag(row.sector)}
-        ${(row.tags ?? []).slice(0, 3).map((item) => tag(item)).join("")}
+        ${tag(strategy.shortLabel)}
       </div>
       <div class="links">
         <a href="${tradingViewUrl(row.symbol)}" target="_blank" rel="noreferrer">TradingView</a>
@@ -144,104 +206,62 @@ function card(row) {
   `;
 }
 
-function renderCards(data) {
-  const buyable = data.rows.filter((row) => row.status === "buyable").slice(0, 10);
-  const review = data.rows.filter((row) => row.status === "review").slice(0, 10);
-  const strongWatch = data.rows.filter((row) => row.status === "strong_watch").slice(0, 10);
-  document.getElementById("buyable-count").textContent = buyable.length;
-  document.getElementById("review-count").textContent = review.length;
-  document.getElementById("strong-watch-count").textContent = strongWatch.length;
-  document.getElementById("buyable").innerHTML = buyable.length ? buyable.map(card).join("") : `<div class="card small">현재 매수 가능 후보가 없습니다.</div>`;
-  document.getElementById("review").innerHTML = review.length ? review.map(card).join("") : `<div class="card small">현재 매수 검토 후보가 없습니다.</div>`;
-  document.getElementById("strong-watch").innerHTML = strongWatch.length ? strongWatch.map(card).join("") : `<div class="card small">현재 강한 감시 후보가 없습니다.</div>`;
-}
-
-function buildFallbackGroupStats(rows) {
-  const groups = new Map();
-  for (const row of rows.filter((item) => item.type === "stock" && item.sector)) {
-    const current = groups.get(row.sector) ?? [];
-    current.push(row);
-    groups.set(row.sector, current);
-  }
-  return Array.from(groups, ([group, groupRows]) => ({
-    group,
-    universeCount: groupRows.length,
-    eligibleCount: groupRows.filter((row) => row.status !== "excluded").length,
-    top20Count: allRows.filter((row) => row.status !== "excluded").slice(0, 20).filter((row) => row.sector === group).length,
-    top50Count: allRows.filter((row) => row.status !== "excluded").slice(0, 50).filter((row) => row.sector === group).length,
-    averageQqqExcessMomentum: average(groupRows.map((row) => row.returns?.excessQqq?.r3m)),
-    above50Rate: average(groupRows.map((row) => row.metrics?.above50 ? 1 : 0)),
-    above200Rate: average(groupRows.map((row) => row.metrics?.above200 ? 1 : 0)),
-    score75Rate: average(groupRows.map((row) => row.score >= 75 ? 1 : 0)),
-    leadershipScore: average(groupRows.map((row) => row.score)) ?? 0
-  })).sort((a, b) => b.leadershipScore - a.leadershipScore);
-}
-
-function currentGroupStats(data) {
-  return (data.currentGroupStats?.length ? data.currentGroupStats : buildFallbackGroupStats(data.rows)).slice(0, 8);
-}
-
 function renderCurrentLeaders(data) {
-  const groups = currentGroupStats(data);
-  const topGroups = new Set(groups.slice(0, 3).map((item) => item.group));
-  const picks = data.rows
-    .filter((row) => row.status !== "excluded")
-    .filter((row) => topGroups.has(row.sector))
-    .filter((row) => row.score >= 75)
-    .sort((a, b) => {
-      const groupDiff = [...topGroups].indexOf(a.sector) - [...topGroups].indexOf(b.sector);
-      return groupDiff || b.score - a.score;
-    })
-    .slice(0, 10);
-
-  document.getElementById("leader-sector-meta").textContent = `상위 ${Math.min(groups.length, 5)}개 그룹`;
-  document.getElementById("leader-sectors").innerHTML = groups.slice(0, 5).map((group, index) => `
-    <article class="card leader-card">
-      <div class="card-head">
-        <div>
-          <div class="symbol">${index + 1}. ${group.group}</div>
-          <div class="name">리더십 점수 ${number(group.leadershipScore)}</div>
+  const groups = currentGroupStats(data).slice(0, 6);
+  document.getElementById("leader-sector-meta").textContent = `상위 ${groups.length}개 그룹`;
+  document.getElementById("leader-sectors").innerHTML = groups.map((group, index) => {
+    const history = groupBacktest(group.group);
+    const warning = history && Number.isFinite(history.averageExcessQqq12m) && history.averageExcessQqq12m < 0
+      ? tag("과거 QQQ 초과 약함", "warn")
+      : "";
+    return `
+      <article class="card leader-card">
+        <div class="card-head">
+          <div>
+            <div class="symbol">${index + 1}. ${group.group}</div>
+            <div class="name">리더십 점수 ${number(group.leadershipScore)}</div>
+          </div>
+          <div class="score">${group.top50Count ?? 0}</div>
         </div>
-        <div class="score">${group.top50Count ?? 0}</div>
-      </div>
-      <div class="reasons">
-        <div>QQQ 대비 모멘텀: ${percent(group.averageQqqExcessMomentum)}</div>
-        <div>50일선 위 비율: ${percent(group.above50Rate)} / 200일선 위 비율: ${percent(group.above200Rate)}</div>
-        <div>75점 이상 비율: ${percent(group.score75Rate)} / Top20 포함: ${group.top20Count ?? 0}개</div>
-      </div>
-    </article>
-  `).join("");
-
-  document.getElementById("leader-pick-meta").textContent = `${picks.length}개 후보`;
-  document.getElementById("leader-picks").innerHTML = picks.length
-    ? picks.map(card).join("")
-    : `<div class="card small">현재 주도 섹터 안에서 75점 이상 후보가 없습니다.</div>`;
+        <div class="reasons">
+          <div>QQQ 대비 현재 모멘텀: ${percent(group.averageQqqExcessMomentum)}</div>
+          <div>50일선 위: ${percent(group.above50Rate)} / 200일선 위: ${percent(group.above200Rate)}</div>
+          <div>과거 12M 평균 QQQ 초과: ${percent(history?.averageExcessQqq12m)}</div>
+        </div>
+        <div class="tags">${warning}${tag(`Top20 ${group.top20Count ?? 0}개`)}</div>
+      </article>
+    `;
+  }).join("");
 }
 
-function rowHtml(row, index) {
-  const setup = row.setup?.type ?? row.setup;
-  return `
-    <tr>
-      <td class="num">${index + 1}</td>
-      <td>
-        <strong>${row.symbol}</strong>
-        <div class="small">${row.name}</div>
-        <div class="small"><a href="${tradingViewUrl(row.symbol)}" target="_blank" rel="noreferrer">TradingView</a></div>
-      </td>
-      <td>${tag(statusLabel[row.status], row.status)}</td>
-      <td class="num">${row.score}</td>
-      <td class="num">${row.scores?.relative?.total ?? "-"}</td>
-      <td class="num">${row.scores?.momentum?.total ?? "-"}</td>
-      <td class="num">${row.scores?.sectorTheme?.total ?? "-"}</td>
-      <td class="num">${row.scores?.volume?.total ?? "-"}</td>
-      <td>${setupLabel[setup] ?? setup}<div class="small">RR ${row.setup?.rewardRisk ?? "-"} / 손절 ${percent(row.setup?.stopDistance)}</div></td>
-      <td>${compactReason(row)}<div class="small">${row.sector || row.group} ${(row.tags ?? []).join(", ")}</div></td>
-    </tr>
-  `;
-}
-
-function renderTable(rows) {
-  document.getElementById("ranking").innerHTML = rows.map(rowHtml).join("");
+function renderStrategyPicks(data) {
+  const total = strategyCatalog.reduce((sum, strategy) => sum + rowsForStrategy(data, strategy).length, 0);
+  document.getElementById("strategy-pick-meta").textContent = `${total}개 전략 후보`;
+  document.getElementById("strategy-picks").innerHTML = strategyCatalog.map((strategy) => {
+    const rows = rowsForStrategy(data, strategy);
+    const groups = groupsForStrategy(data, strategy);
+    const backtest = strategyBacktest(strategy.key);
+    const stats12m = backtest?.horizons?.["12m"];
+    return `
+      <section class="strategy-panel">
+        <div class="strategy-header">
+          <div>
+            <h3>${strategy.label}</h3>
+            <p class="small">${strategy.description}</p>
+            <div class="tags">
+              ${groups.map((group) => tag(group)).join("")}
+              ${tag(`12M 평균 ${percent(stats12m?.averageReturn)}`)}
+              ${tag(`QQQ 초과 ${percent(stats12m?.averageExcessQqq)}`)}
+            </div>
+          </div>
+          <div class="strategy-count">${rows.length}</div>
+        </div>
+        <div class="cards picks-grid">
+          ${rows.length ? rows.map((row) => candidateCard(row, strategy)).join("") : `<div class="card small">현재 이 전략이 선택한 후보가 없습니다.</div>`}
+        </div>
+      </section>
+    `;
+  }).join("");
 }
 
 function top10BenchmarkRows(data) {
@@ -278,10 +298,10 @@ function renderBenchmarkChart(data) {
   rows.forEach((row, index) => {
     const start = pad.left + index * groupWidth + groupWidth / 2 - barWidth * 1.7;
     [
-      ["top10", row.top10, "bar-top"],
-      ["spy", row.spy, "bar-spy"],
-      ["qqq", row.qqq, "bar-qqq"]
-    ].forEach(([key, value, className], barIndex) => {
+      [row.top10, "bar-top"],
+      [row.spy, "bar-spy"],
+      [row.qqq, "bar-qqq"]
+    ].forEach(([value, className], barIndex) => {
       const safeValue = Math.max(0, value ?? 0);
       const x = start + barIndex * barWidth * 1.2;
       const y = scaleY(safeValue);
@@ -311,7 +331,6 @@ function renderBenchmarkChart(data) {
 function renderFullGroupBacktest(data) {
   const meta = document.getElementById("full-group-meta");
   const body = document.getElementById("full-group-summary");
-  const recent = document.getElementById("recent-group-leaders");
   if (!data) {
     meta.textContent = "데이터 없음";
     body.innerHTML = `<tr><td colspan="8">full-universe-group-test.json 파일이 없습니다.</td></tr>`;
@@ -334,97 +353,83 @@ function renderFullGroupBacktest(data) {
       <td class="num">${percent(row.stats.averageExcessQqq)}</td>
     </tr>
   `).join("");
-
-  recent.innerHTML = data.recentLeadingGroups.slice(-6).map((row) => `
-    <article class="card">
-      <div class="card-head">
-        <div>
-          <div class="symbol">${row.asOf}</div>
-          <div class="name">최근 주도 그룹</div>
-        </div>
-      </div>
-      <div class="reasons">
-        ${row.leadingGroups.slice(0, 3).map((group, index) => `<div>${index + 1}. ${group.group} (${number(group.leadershipScore)})</div>`).join("")}
-      </div>
-    </article>
-  `).join("");
 }
 
-function semiconductorStats(data) {
-  const map = new Map();
-  let periodsWithSemis = 0;
-  for (const period of data.periods ?? []) {
-    const semis = period.selections.filter((row) => semiconductorSymbols.has(row.symbol));
-    if (semis.length) periodsWithSemis += 1;
-    for (const row of semis) {
-      const current = map.get(row.symbol) ?? { symbol: row.symbol, name: row.name, count: 0, r3m: [], r12m: [] };
-      current.count += 1;
-      if (Number.isFinite(row.returns?.["3m"])) current.r3m.push(row.returns["3m"]);
-      if (Number.isFinite(row.returns?.["12m"])) current.r12m.push(row.returns["12m"]);
-      map.set(row.symbol, current);
-    }
-  }
-  return {
-    periodsWithSemis,
-    names: Array.from(map.values())
-      .map((row) => ({ ...row, average3m: average(row.r3m), average12m: average(row.r12m) }))
-      .sort((a, b) => b.count - a.count)
-  };
+function strategyOptions() {
+  const existing = new Set(fullGroupResult?.splits?.all?.results?.map((row) => row.key) ?? []);
+  return strategyCatalog.filter((strategy) => existing.has(strategy.key));
 }
 
-function renderSemiconductorSection(data) {
-  if (!data) return;
-  const stats = semiconductorStats(data);
-  document.getElementById("semiconductor-meta").textContent = `${stats.periodsWithSemis}/${data.asOfCount}개 기준일에서 Top20 포함`;
-  document.getElementById("semiconductor-cards").innerHTML = stats.names.slice(0, 8).map((row) => `
-    <article class="card">
-      <div class="card-head">
-        <div>
-          <div class="symbol">${row.symbol}</div>
-          <div class="name">${row.name}</div>
-        </div>
-        <div class="score">${row.count}회</div>
-      </div>
-      <div class="reasons">
-        <div>평균 3M: ${percent(row.average3m)}</div>
-        <div>평균 12M: ${percent(row.average12m)}</div>
-      </div>
-    </article>
-  `).join("");
-}
-
-function renderPeriodOptions(data) {
-  const select = document.getElementById("period-select");
-  if (!select || !data?.periods?.length) return;
-  select.innerHTML = data.periods
+function renderStrategyDetailControls() {
+  const strategySelect = document.getElementById("strategy-select");
+  const periodSelect = document.getElementById("strategy-period-select");
+  const options = strategyOptions();
+  strategySelect.innerHTML = options.map((strategy) => `<option value="${strategy.key}">${strategy.label}</option>`).join("");
+  const selectedStrategy = fullGroupResult?.splits?.all?.results?.find((row) => row.key === strategySelect.value) ?? fullGroupResult?.splits?.all?.results?.find((row) => row.key === options[0]?.key);
+  periodSelect.innerHTML = (selectedStrategy?.periodsDetail ?? [])
     .slice()
     .reverse()
-    .map((period) => {
-      const top10 = period.summaries.find((item) => item.topN === 10 && item.horizon === "12m");
-      return `<option value="${period.asOf}">${period.asOf} | ${period.market.regime} | Top10 12M ${percent(top10?.portfolioReturn)}</option>`;
-    })
+    .map((period) => `<option value="${period.asOf}">${period.asOf} | ${period.symbols.length}개 | 12M ${percent(period["12m"]?.portfolioReturn)}</option>`)
     .join("");
-  select.addEventListener("change", () => renderPeriodDetail(data, select.value));
-  renderPeriodDetail(data, select.value);
+
+  strategySelect.addEventListener("change", () => {
+    renderStrategyPeriodOptions();
+    renderStrategyPeriodDetail();
+  });
+  periodSelect.addEventListener("change", renderStrategyPeriodDetail);
+  renderStrategyPeriodDetail();
 }
 
-function renderPeriodDetail(data, asOf) {
-  const body = document.getElementById("period-detail");
-  const period = data?.periods?.find((item) => item.asOf === asOf);
-  if (!body || !period) return;
-  body.innerHTML = period.selections.slice(0, 20).map((row, index) => `
-    <tr>
-      <td class="num">${index + 1}</td>
-      <td><strong>${row.symbol}</strong><div class="small">${row.name}</div></td>
-      <td>${tag(statusLabel[row.status], row.status)}</td>
-      <td class="num">${row.score}</td>
-      <td>${setupLabel[row.setup] ?? row.setup}</td>
-      <td class="num">${percent(row.returns["1m"])}</td>
-      <td class="num">${percent(row.returns["3m"])}</td>
-      <td class="num">${percent(row.returns["6m"])}</td>
-      <td class="num">${percent(row.returns["12m"])}</td>
-    </tr>
-  `).join("");
+function renderStrategyPeriodOptions() {
+  const strategyKey = document.getElementById("strategy-select").value;
+  const strategy = fullGroupResult?.splits?.all?.results?.find((row) => row.key === strategyKey);
+  const periodSelect = document.getElementById("strategy-period-select");
+  periodSelect.innerHTML = (strategy?.periodsDetail ?? [])
+    .slice()
+    .reverse()
+    .map((period) => `<option value="${period.asOf}">${period.asOf} | ${period.symbols.length}개 | 12M ${percent(period["12m"]?.portfolioReturn)}</option>`)
+    .join("");
+}
+
+function monthlyPeriod(asOf) {
+  return monthlyResult?.periods?.find((period) => period.asOf === asOf);
+}
+
+function renderStrategyPeriodDetail() {
+  const strategyKey = document.getElementById("strategy-select").value;
+  const asOf = document.getElementById("strategy-period-select").value;
+  const strategy = fullGroupResult?.splits?.all?.results?.find((row) => row.key === strategyKey);
+  const detail = strategy?.periodsDetail?.find((period) => period.asOf === asOf);
+  const monthly = monthlyPeriod(asOf);
+  const body = document.getElementById("strategy-period-detail");
+  const meta = document.getElementById("strategy-period-meta");
+  if (!strategy || !detail) {
+    body.innerHTML = `<tr><td colspan="9">선택 데이터가 없습니다.</td></tr>`;
+    meta.textContent = "";
+    return;
+  }
+
+  meta.innerHTML = `
+    <strong>${strategy.label}</strong> | 선택 그룹: ${detail.selectedGroups.join(", ") || "-"} |
+    3M ${percent(detail["3m"]?.portfolioReturn)} / 6M ${percent(detail["6m"]?.portfolioReturn)} / 12M ${percent(detail["12m"]?.portfolioReturn)}
+  `;
+
+  body.innerHTML = detail.symbols.map((symbol, index) => {
+    const row = monthly?.selections?.find((item) => item.symbol === symbol);
+    return `
+      <tr>
+        <td class="num">${index + 1}</td>
+        <td><strong>${symbol}</strong><div class="small">${row?.name ?? ""}</div></td>
+        <td>${row?.sector ?? "-"}</td>
+        <td>${tag(statusLabel[row?.status], row?.status)}</td>
+        <td class="num">${row?.score ?? "-"}</td>
+        <td class="num">${percent(row?.returns?.["1m"])}</td>
+        <td class="num">${percent(row?.returns?.["3m"])}</td>
+        <td class="num">${percent(row?.returns?.["6m"])}</td>
+        <td class="num">${percent(row?.returns?.["12m"])}</td>
+      </tr>
+    `;
+  }).join("");
 }
 
 function renderMonthlySummary(data) {
@@ -493,8 +498,6 @@ function renderMonthlySummary(data) {
       </div>
     </article>
   `).join("");
-  renderPeriodOptions(data);
-  renderSemiconductorSection(data);
 }
 
 function setupTabs() {
@@ -507,36 +510,20 @@ function setupTabs() {
   });
 }
 
-function applyFilter() {
-  const q = document.getElementById("filter").value.trim().toLowerCase();
-  if (!q) {
-    renderTable(allRows);
-    return;
-  }
-  renderTable(allRows.filter((row) => [
-    row.symbol,
-    row.name,
-    row.sector,
-    row.group,
-    ...(row.tags ?? [])
-  ].join(" ").toLowerCase().includes(q)));
-}
-
 async function main() {
   try {
-    const data = await fetchJson("data/screener-results.json");
+    screenerData = await fetchJson("data/screener-results.json");
     monthlyResult = await fetchJson("data/monthly-selection-test.json", false);
     fullGroupResult = await fetchJson("data/full-universe-group-test.json", false);
-    allRows = data.rows;
-    document.getElementById("meta").textContent = `${data.mode} | ${new Date(data.generatedAt).toLocaleString()} | universe ${data.universeSize}, priced ${data.priceSeriesCount}`;
-    renderMarket(data);
-    renderCurrentLeaders(data);
-    renderCards(data);
-    renderTable(allRows);
+    allRows = screenerData.rows;
+    document.getElementById("meta").textContent = `${screenerData.mode} | ${new Date(screenerData.generatedAt).toLocaleString()} | universe ${screenerData.universeSize}, priced ${screenerData.priceSeriesCount}`;
+    renderMarket(screenerData);
+    renderCurrentLeaders(screenerData);
+    renderStrategyPicks(screenerData);
     renderFullGroupBacktest(fullGroupResult);
     renderMonthlySummary(monthlyResult);
+    renderStrategyDetailControls();
     setupTabs();
-    document.getElementById("filter").addEventListener("input", applyFilter);
   } catch (error) {
     document.getElementById("meta").textContent = error.message;
     document.getElementById("market").innerHTML = `<div class="metric"><div class="value">데이터 없음</div><div class="small">${error.message}</div></div>`;
