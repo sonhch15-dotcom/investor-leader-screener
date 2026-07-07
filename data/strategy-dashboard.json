@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T14:39:57.849Z",
+  "generatedAt": "2026-07-07T15:45:40.918Z",
   "asOf": "2026-07-06",
   "sourceGeneratedAt": "2026-07-07T08:27:40.378Z",
   "strategy": {
@@ -5158,7 +5158,7 @@
         "exitPrice": 164.68,
         "return": 0.2182,
         "qqqReturn": 0.195,
-        "excessQqq": 0.0232
+        "excessQqq": 0.0231
       },
       {
         "cohort": "2023-09",
@@ -6171,6 +6171,10 @@
       }
     ],
     "reports": [
+      {
+        "label": "일봉 진입 필터 검증",
+        "href": "daily_entry_filter_test.md"
+      },
       {
         "label": "5년 월 2개 규칙 검증",
         "href": "monthly_buy_rule_test-5y.md"

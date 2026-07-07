@@ -20,6 +20,7 @@
     "test:position-caps": "node src/position-cap-test.mjs",
     "test:sleeves": "node src/sleeve-size-test.mjs",
     "test:buy-rules": "node src/monthly-buy-rule-test.mjs",
+    "test:daily-entry": "node src/daily-entry-filter-test.mjs",
     "build:strategy-data": "node src/strategy-dashboard-data.mjs",
     "build:pages": "node scripts/build-pages.mjs",
     "serve": "node src/server.mjs",

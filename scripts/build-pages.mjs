@@ -41,6 +41,7 @@ async function main() {
     "monthly_selection_test_plan.md",
     "monthly_selection_report.md",
     "strategy_summary.md",
+    "daily_entry_filter_test.md",
     "monthly_buy_rule_test-5y.md",
     "monthly_buy_rule_test.md",
     "holding_period_test.md",
