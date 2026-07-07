@@ -329,11 +329,17 @@ function portfolioCohorts(strategy, currentAsOf, currentBuys) {
   return [...activeOrActionable, currentCohort(currentAsOf, currentBuys)].filter((cohort) => cohort.rows?.length);
 }
 
-function latestSelectionCohortsFromExisting(existingDashboard, currentAsOf, currentBuys) {
+function portfolioCohortsFromExisting(existingDashboard, currentAsOf, currentBuys) {
   const currentMonth = monthKey(currentAsOf);
   const prior = (existingDashboard?.portfolio?.cohorts ?? [])
-    .filter((cohort) => !cohort.current && monthKey(cohort.asOf) !== currentMonth)
-    .slice(-5);
+    .filter((cohort) => (
+      !cohort.current
+      && cohort?.rows?.length
+      && cohort.entryDate
+      && monthKey(cohort.asOf) !== currentMonth
+      && cohort.entryDate <= currentAsOf
+      && addMonths(cohort.entryDate, 12) >= addDays(currentAsOf, -21)
+    ));
   return [...prior, currentCohort(currentAsOf, currentBuys)].filter((cohort) => cohort.rows?.length);
 }
 
@@ -754,7 +760,7 @@ async function main() {
   const currentBuys = monthlyLockedBuyCandidates(screener, existingDashboard, currentAsOf);
   const cohorts = strategy5y?.selectionTimeline?.length
     ? portfolioCohorts(strategy5y, currentAsOf, currentBuys)
-    : latestSelectionCohortsFromExisting(existingDashboard, currentAsOf, currentBuys);
+    : portfolioCohortsFromExisting(existingDashboard, currentAsOf, currentBuys);
   if (!cohorts.length) {
     throw new Error("No strategy cohorts available. Run monthly-buy-rule-test.mjs --years 5 once or keep data/strategy-dashboard.json.");
   }
