@@ -53,6 +53,13 @@ function sellReasonLabel(reason) {
   }[reason] ?? reason;
 }
 
+function weeklyTrendText(row) {
+  const trend = row.weeklyTrend ?? {};
+  if (!trend.date) return "주봉 데이터 없음";
+  const state = trend.alive ? "주봉 연장 가능" : "주봉 연장 불가";
+  return `${state} | 10W ${money(trend.ma10)} | RSI ${number(trend.rsi14, 1)}`;
+}
+
 function tag(text, className = "") {
   return `<span class="tag ${className}">${text}</span>`;
 }
@@ -171,6 +178,7 @@ function renderHoldings() {
       <td class="num ${signedClass(row.currentReturn)}">${percent(row.currentReturn)}</td>
       <td class="num">${row.ageMonths}개월</td>
       <td>${tag(statusLabel(row.status), row.status)}</td>
+      <td><strong>${row.actionLabel ?? "-"}</strong><div class="sub">${row.remainingSellRule ?? weeklyTrendText(row)}</div></td>
       <td><a href="${row.tradingViewUrl}" target="_blank" rel="noreferrer">차트</a></td>
     </tr>
   `).join("");
@@ -188,6 +196,7 @@ function renderHoldings() {
         <span>${money(row.entryPrice)} → ${money(row.currentPrice)}</span>
         <strong class="${signedClass(row.currentReturn)}">${percent(row.currentReturn)}</strong>
       </div>
+      <p class="reason"><strong>${row.actionLabel ?? "-"}</strong> | ${row.remainingSellRule ?? weeklyTrendText(row)}</p>
       <div class="links">
         <a href="${row.tradingViewUrl}" target="_blank" rel="noreferrer">TradingView</a>
         <a href="${row.yahooUrl}" target="_blank" rel="noreferrer">Yahoo</a>
@@ -202,7 +211,7 @@ function renderSellDue() {
     ? rows.map((row) => `
       <article class="due-item">
         <strong>${row.symbol}</strong>
-        <span>${row.cohort} 추천 | ${row.sector} | 50% 매도 후 주봉 연장 확인</span>
+        <span>${row.cohort} 추천 | ${row.sector} | ${row.actionLabel} | ${row.remainingSellRule}</span>
         <b class="${signedClass(row.currentReturn)}">${percent(row.currentReturn)}</b>
       </article>
     `).join("")

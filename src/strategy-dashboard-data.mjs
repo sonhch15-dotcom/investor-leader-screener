@@ -21,8 +21,83 @@ function monthKey(date) {
   return String(date ?? "").slice(0, 7);
 }
 
+function addMonths(dateString, months) {
+  const date = new Date(`${dateString}T00:00:00Z`);
+  const day = date.getUTCDate();
+  date.setUTCMonth(date.getUTCMonth() + months);
+  if (date.getUTCDate() < day) date.setUTCDate(0);
+  return date.toISOString().slice(0, 10);
+}
+
+function completedMonths(startDate, endDate) {
+  const start = new Date(`${startDate}T00:00:00Z`);
+  const end = new Date(`${endDate}T00:00:00Z`);
+  let months = (end.getUTCFullYear() - start.getUTCFullYear()) * 12 + end.getUTCMonth() - start.getUTCMonth();
+  if (end.getUTCDate() < start.getUTCDate()) months -= 1;
+  return Math.max(0, months);
+}
+
 function rowOnOrAfter(rows, date) {
   return rows.find((row) => row.date >= date && Number.isFinite(row.close)) ?? rows.at(-1) ?? null;
+}
+
+function movingAverage(values, index, length) {
+  if (index < length - 1) return null;
+  const slice = values.slice(index - length + 1, index + 1).filter(Number.isFinite);
+  if (slice.length !== length) return null;
+  return slice.reduce((sum, value) => sum + value, 0) / slice.length;
+}
+
+function rsi(values, index, length = 14) {
+  if (index < length) return null;
+  let gains = 0;
+  let losses = 0;
+  for (let i = index - length + 1; i <= index; i += 1) {
+    const change = values[i] - values[i - 1];
+    if (change > 0) gains += change;
+    else losses += Math.abs(change);
+  }
+  if (losses === 0) return 100;
+  const rs = gains / losses;
+  return 100 - 100 / (1 + rs);
+}
+
+function weekKey(dateString) {
+  const date = new Date(`${dateString}T00:00:00Z`);
+  const day = date.getUTCDay() || 7;
+  date.setUTCDate(date.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+  const week = Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+  return `${date.getUTCFullYear()}-${String(week).padStart(2, "0")}`;
+}
+
+function weeklyRows(dailyRows) {
+  const groups = new Map();
+  for (const row of dailyRows) groups.set(weekKey(row.date), row);
+  const rows = Array.from(groups.values()).sort((a, b) => a.date.localeCompare(b.date));
+  const closes = rows.map((row) => row.close);
+  return rows.map((row, index) => ({
+    date: row.date,
+    close: row.close,
+    ma10: movingAverage(closes, index, 10),
+    rsi14: rsi(closes, index, 14)
+  }));
+}
+
+function weeklyTrend(priceRows) {
+  const latest = weeklyRows(priceRows).at(-1);
+  const alive = latest
+    && Number.isFinite(latest.ma10)
+    && Number.isFinite(latest.rsi14)
+    && latest.close >= latest.ma10
+    && latest.rsi14 >= 50;
+  return {
+    date: latest?.date ?? null,
+    close: round(latest?.close, 2),
+    ma10: round(latest?.ma10, 2),
+    rsi14: round(latest?.rsi14, 1),
+    alive: Boolean(alive)
+  };
 }
 
 function periodReturn(priceMap, symbol, startDate, endDate) {
@@ -97,6 +172,45 @@ function currentBuyCandidates(screener) {
   }).filter(Boolean);
 }
 
+function buyCandidateFromRow(row, leader) {
+  return {
+    symbol: row.symbol,
+    name: row.name,
+    sector: row.sector,
+    score: row.score,
+    status: row.status,
+    close: row.metrics?.close,
+    lastDate: row.metrics?.lastDate,
+    reasons: row.reasons ?? [],
+    warnings: row.warnings ?? [],
+    metrics: {
+      r1m: row.metrics?.r1m,
+      r3m: row.metrics?.r3m,
+      r6m: row.metrics?.r6m,
+      high52wDistance: row.metrics?.high52wDistance,
+      avgDollar20: row.metrics?.avgDollar20
+    },
+    chart: row.chart ?? [],
+    leader
+  };
+}
+
+function monthlyLockedBuyCandidates(screener, existingDashboard, currentAsOf) {
+  const existingBuys = existingDashboard?.currentBuys ?? [];
+  if (monthKey(existingDashboard?.asOf) !== monthKey(currentAsOf) || !existingBuys.length) {
+    return currentBuyCandidates(screener);
+  }
+
+  const currentRows = new Map((screener.rows ?? []).map((row) => [row.symbol, row]));
+  const leaders = currentLeaders(screener);
+  return existingBuys.map((existing) => {
+    const row = currentRows.get(existing.symbol);
+    if (!row) return existing;
+    const leader = leaders.find((item) => item.group === row.sector) ?? existing.leader;
+    return buyCandidateFromRow(row, leader);
+  });
+}
+
 function currentCohort(currentAsOf, currentBuys) {
   return {
     asOf: currentAsOf,
@@ -146,12 +260,39 @@ async function fetchPrices(symbols) {
   return { priceMap, errors };
 }
 
-function buildHoldings(cohorts, priceMap, screener) {
+function holdingAction({ status, weekly, halfSellDate, maxExitDate }) {
+  if (status === "new") {
+    return {
+      actionLabel: "월간 후보 고정",
+      nextAction: "차트 확인 후 진입",
+      remainingSellRule: "매수 후보는 다음 월간 리밸런싱 전까지 교체하지 않음"
+    };
+  }
+  if (status === "hold") {
+    return {
+      actionLabel: "보유",
+      nextAction: `${halfSellDate} 50% 매도 점검`,
+      remainingSellRule: "6개월 도달 전까지는 주간 탈락만으로 매도하지 않음"
+    };
+  }
+  if (weekly.alive) {
+    return {
+      actionLabel: "50% 매도 + 50% 연장",
+      nextAction: `${halfSellDate} 50% 매도`,
+      remainingSellRule: `남은 50%는 10주선 2주 연속 이탈 또는 ${maxExitDate} 도달 시 매도`
+    };
+  }
+  return {
+    actionLabel: "전량 정리",
+    nextAction: `${halfSellDate} 50% 매도 후 잔여분도 정리`,
+    remainingSellRule: "6개월 시점에 주봉 10주선+RSI 조건 미충족"
+  };
+}
+
+function buildHoldings(cohorts, priceMap, screener, currentAsOf) {
   const currentRows = new Map((screener.rows ?? []).map((row) => [row.symbol, row]));
   const rows = [];
-  cohorts.forEach((cohort, cohortIndex) => {
-    const ageMonths = cohorts.length - 1 - cohortIndex;
-    const status = cohort.current ? "new" : ageMonths >= 5 ? "sell_due" : "hold";
+  cohorts.forEach((cohort) => {
     for (const item of cohort.rows ?? []) {
       const priceRows = priceMap.get(item.symbol) ?? [];
       const entry = rowOnOrAfter(priceRows, cohort.entryDate);
@@ -159,10 +300,18 @@ function buildHoldings(cohorts, priceMap, screener) {
       const currentRow = currentRows.get(item.symbol);
       const currentPrice = currentRow?.metrics?.close ?? current?.close;
       const entryPrice = cohort.current ? currentPrice : entry?.close;
+      const halfSellDate = addMonths(cohort.entryDate, 6);
+      const maxExitDate = addMonths(cohort.entryDate, 12);
+      const ageMonths = completedMonths(cohort.entryDate, currentAsOf);
+      const status = cohort.current ? "new" : currentAsOf >= halfSellDate ? "sell_due" : "hold";
+      const weekly = weeklyTrend(priceRows);
+      const action = holdingAction({ status, weekly, halfSellDate, maxExitDate });
       rows.push({
         cohort: monthKey(cohort.asOf),
         asOf: cohort.asOf,
         entryDate: cohort.entryDate,
+        halfSellDate,
+        maxExitDate,
         symbol: item.symbol,
         name: currentRow?.name ?? item.name ?? item.symbol,
         sector: currentRow?.sector ?? item.sector,
@@ -172,6 +321,8 @@ function buildHoldings(cohorts, priceMap, screener) {
         currentReturn: percentReturn(entryPrice, currentPrice),
         ageMonths,
         status,
+        weeklyTrend: weekly,
+        ...action,
         tradingViewUrl: `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(item.symbol)}`,
         yahooUrl: `https://finance.yahoo.com/quote/${encodeURIComponent(item.symbol)}`
       });
@@ -483,7 +634,7 @@ async function main() {
   const currentAsOf = screener.rows?.find((row) => row.metrics?.lastDate)?.metrics?.lastDate
     ?? screener.generatedAt.slice(0, 10);
   const leaders = currentLeaders(screener);
-  const currentBuys = currentBuyCandidates(screener);
+  const currentBuys = monthlyLockedBuyCandidates(screener, existingDashboard, currentAsOf);
   const cohorts = strategy5y?.selectionTimeline?.length
     ? latestSelectionCohorts(strategy5y, currentAsOf, currentBuys)
     : latestSelectionCohortsFromExisting(existingDashboard, currentAsOf, currentBuys);
@@ -500,7 +651,7 @@ async function main() {
     "QQQ"
   ]));
   const { priceMap, errors } = await fetchPrices(symbols);
-  const holdings = buildHoldings(cohorts, priceMap, screener);
+  const holdings = buildHoldings(cohorts, priceMap, screener, currentAsOf);
   const realizedTrades = currentExecutionRows?.length
     ? realizedTradesFromExecution(currentExecutionRows)
     : strategy5y?.selectionTimeline?.length
@@ -527,7 +678,7 @@ async function main() {
       monthlyBuys: 2,
       holdingMonths: "6개월 + 주봉 연장",
       stopRule: "기본 손절 없음",
-      executionNote: "신규 후보는 차트 확인 후 진입, 주간 업데이트는 관찰과 보유 관리용"
+      executionNote: "월말 확정 후보는 해당 월의 매수 기준으로 고정, 주간 업데이트는 관찰과 보유 관리용"
     },
     market: screener.market,
     leaders,
