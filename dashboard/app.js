@@ -15,7 +15,7 @@ const setupLabel = {
 let allRows = [];
 
 async function loadData() {
-  const response = await fetch("/data/screener-results.json", { cache: "no-store" });
+  const response = await fetch("data/screener-results.json", { cache: "no-store" });
   if (!response.ok) throw new Error("data/screener-results.json 파일이 없습니다. 먼저 refresh를 실행하세요.");
   return response.json();
 }

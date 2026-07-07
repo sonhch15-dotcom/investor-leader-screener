@@ -50,3 +50,29 @@ npm run refresh
 - `data/universe.json`: 이번 실행에서 사용한 종목 유니버스
 - `data/screener-results.json`: 점수 계산 결과와 대시보드 데이터
 - `stock_selection_system.md`: 투자 기준 문서
+
+## GitHub Pages 배포
+
+이 프로젝트는 GitHub Actions로 정적 Pages 사이트를 만들 수 있습니다.
+
+빌드 구조:
+
+```text
+dashboard/ + data/
+→ dist/
+→ GitHub Pages artifact
+```
+
+로컬에서 Pages용 파일만 만들려면:
+
+```powershell
+npm run build:pages
+```
+
+GitHub에서 Pages를 보려면 repository의 Settings → Pages에서 Source를 `GitHub Actions`로 설정합니다.
+
+배포 주소 예시:
+
+```text
+https://sonhch15-dotcom.github.io/investor-leader-screener/
+```
