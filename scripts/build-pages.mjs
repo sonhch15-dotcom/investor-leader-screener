@@ -44,6 +44,7 @@ async function main() {
     "daily_entry_filter_test.md",
     "weekly_exit_rule_test.md",
     "scale_execution_test.md",
+    "weekly_dropout_rule_test.md",
     "monthly_buy_rule_test-5y.md",
     "monthly_buy_rule_test.md",
     "holding_period_test.md",

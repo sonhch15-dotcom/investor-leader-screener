@@ -23,6 +23,7 @@
     "test:daily-entry": "node src/daily-entry-filter-test.mjs",
     "test:weekly-exit": "node src/weekly-exit-rule-test.mjs",
     "test:scale-execution": "node src/scale-execution-test.mjs",
+    "test:weekly-dropout": "node src/weekly-dropout-rule-test.mjs",
     "build:strategy-data": "node src/strategy-dashboard-data.mjs",
     "build:pages": "node scripts/build-pages.mjs",
     "serve": "node src/server.mjs",
