@@ -195,26 +195,97 @@ function renderSellDue() {
     : `<p class="empty-state">이번 리밸런싱 매도 예정 종목이 없습니다.</p>`;
 }
 
+function linePath(rows, valueKey, xFor, yFor) {
+  return rows
+    .filter((row) => Number.isFinite(row[valueKey]))
+    .map((row, index) => `${index === 0 ? "M" : "L"} ${xFor(row).toFixed(1)} ${yFor(row[valueKey]).toFixed(1)}`)
+    .join(" ");
+}
+
+function renderPerformanceChart() {
+  const rows = dashboard.backtest.equityCurve ?? [];
+  const target = document.getElementById("performance-chart");
+  document.getElementById("curve-meta").textContent = rows.length
+    ? `${rows[0].asOf} ~ ${rows.at(-1).asOf}`
+    : "데이터 없음";
+  if (rows.length < 2) {
+    target.innerHTML = `<p class="empty-state">성과 곡선 데이터가 없습니다.</p>`;
+    return;
+  }
+
+  const width = 920;
+  const height = 320;
+  const pad = { top: 18, right: 24, bottom: 38, left: 54 };
+  const values = rows.flatMap((row) => [row.strategyTotalReturn, row.qqqTotalReturn]).filter(Number.isFinite);
+  const min = Math.min(0, ...values);
+  const max = Math.max(0.1, ...values);
+  const span = max - min || 1;
+  const xFor = (row) => pad.left + (rows.indexOf(row) / (rows.length - 1)) * (width - pad.left - pad.right);
+  const yFor = (value) => height - pad.bottom - ((value - min) / span) * (height - pad.top - pad.bottom);
+  const zeroY = yFor(0);
+  const strategyPath = linePath(rows, "strategyTotalReturn", xFor, yFor);
+  const qqqPath = linePath(rows, "qqqTotalReturn", xFor, yFor);
+  const last = rows.at(-1);
+
+  target.innerHTML = `
+    <svg class="performance-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Strategy versus QQQ performance chart">
+      <line class="axis" x1="${pad.left}" y1="${zeroY.toFixed(1)}" x2="${width - pad.right}" y2="${zeroY.toFixed(1)}"></line>
+      <line class="axis" x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${height - pad.bottom}"></line>
+      <text class="chart-axis" x="8" y="${(yFor(max) + 4).toFixed(1)}">${percent(max)}</text>
+      <text class="chart-axis" x="8" y="${(yFor(min) + 4).toFixed(1)}">${percent(min)}</text>
+      <path class="strategy-line" d="${strategyPath}"></path>
+      <path class="qqq-line" d="${qqqPath}"></path>
+      <text class="chart-axis" x="${pad.left}" y="${height - 12}">${rows[0].asOf.slice(0, 7)}</text>
+      <text class="chart-axis" x="${width - pad.right - 52}" y="${height - 12}">${last.asOf.slice(0, 7)}</text>
+    </svg>
+    <div class="legend">
+      <span class="strategy">전략 ${percent(last.strategyTotalReturn)}</span>
+      <span class="qqq">QQQ ${percent(last.qqqTotalReturn)}</span>
+    </div>
+  `;
+}
+
 function renderBacktest() {
   const five = dashboard.backtest.fiveYear;
   const three = dashboard.backtest.threeYear;
+  const realized = dashboard.backtest.realizedSummary ?? {};
   document.getElementById("backtest-kpis").innerHTML = `
     <article class="kpi"><span>5년 누적수익</span><strong>${percent(five?.totalReturn)}</strong><small>QQQ ${percent(five?.qqqTotalReturn)}</small></article>
     <article class="kpi"><span>5년 CAGR</span><strong>${percent(five?.cagr)}</strong><small>연복리</small></article>
     <article class="kpi"><span>5년 MDD</span><strong class="negative">${percent(five?.maxDrawdown)}</strong><small>최대낙폭</small></article>
-    <article class="kpi"><span>QQQ 초과</span><strong>${percent(five?.excessQqqTotal)}</strong><small>5년 기준</small></article>
-    <article class="kpi"><span>3년 누적수익</span><strong>${percent(three?.totalReturn)}</strong><small>MDD ${percent(three?.maxDrawdown)}</small></article>
+    <article class="kpi"><span>청산 종목 평균</span><strong class="${signedClass(realized.averageReturn)}">${percent(realized.averageReturn)}</strong><small>${realized.count ?? 0}개 청산</small></article>
+    <article class="kpi"><span>청산 승률</span><strong>${plainPercent(realized.winRate)}</strong><small>3년 누적 ${percent(three?.totalReturn)}</small></article>
   `;
 
-  document.getElementById("comparison-body").innerHTML = (dashboard.backtest.comparison ?? []).map((row) => `
+  renderPerformanceChart();
+
+  const monthlyRows = [...(dashboard.backtest.monthlyExits ?? [])].reverse();
+  document.getElementById("monthly-exit-meta").textContent = `${monthlyRows.length}개월`;
+  document.getElementById("monthly-exits-body").innerHTML = monthlyRows.map((row) => `
     <tr>
-      <td><strong>${row.label}</strong></td>
-      <td class="num">${percent(row.totalReturn)}</td>
-      <td class="num">${percent(row.cagr)}</td>
-      <td class="num negative">${percent(row.maxDrawdown)}</td>
-      <td class="num">${percent(row.excessQqqTotal)}</td>
-      <td class="num">${plainPercent(row.beatQqqMonthRate)}</td>
-      <td class="num">${number(row.averageHeldCount, 1)}</td>
+      <td>${row.exitMonth}</td>
+      <td><strong>${row.symbols.join(", ")}</strong></td>
+      <td>${row.sectors.join(", ")}</td>
+      <td class="num ${signedClass(row.averageReturn)}">${percent(row.averageReturn)}</td>
+      <td class="num ${signedClass(row.qqqReturn)}">${percent(row.qqqReturn)}</td>
+      <td class="num ${signedClass(row.excessQqq)}">${percent(row.excessQqq)}</td>
+      <td class="num">${plainPercent(row.winRate)}</td>
+    </tr>
+  `).join("");
+
+  const trades = [...(dashboard.backtest.realizedTrades ?? [])].reverse();
+  document.getElementById("realized-trade-meta").textContent = `${trades.length}개 청산 완료`;
+  document.getElementById("realized-trades-body").innerHTML = trades.map((row) => `
+    <tr>
+      <td>${row.cohort}</td>
+      <td>${row.exitMonth}</td>
+      <td><strong>${row.symbol}</strong><div class="sub">${row.name}</div></td>
+      <td>${row.sector}</td>
+      <td class="num">${money(row.entryPrice)}</td>
+      <td class="num">${money(row.exitPrice)}</td>
+      <td class="num ${signedClass(row.return)}">${percent(row.return)}</td>
+      <td class="num ${signedClass(row.qqqReturn)}">${percent(row.qqqReturn)}</td>
+      <td class="num ${signedClass(row.excessQqq)}">${percent(row.excessQqq)}</td>
     </tr>
   `).join("");
 

@@ -23,6 +23,10 @@ function rowOnOrAfter(rows, date) {
   return rows.find((row) => row.date >= date && Number.isFinite(row.close)) ?? rows.at(-1) ?? null;
 }
 
+function sortByDate(rows, key = "date") {
+  return [...rows].sort((a, b) => String(a[key]).localeCompare(String(b[key])));
+}
+
 async function optionalJson(filePath) {
   try {
     return JSON.parse(await fs.readFile(filePath, "utf8"));
@@ -83,13 +87,8 @@ function currentBuyCandidates(screener) {
   }).filter(Boolean);
 }
 
-function latestSelectionCohorts(strategy, currentAsOf, currentBuys) {
-  const timeline = strategy?.selectionTimeline ?? [];
-  const currentMonth = monthKey(currentAsOf);
-  const prior = timeline
-    .filter((cohort) => monthKey(cohort.asOf) !== currentMonth)
-    .slice(-5);
-  const current = {
+function currentCohort(currentAsOf, currentBuys) {
+  return {
     asOf: currentAsOf,
     entryDate: currentBuys[0]?.lastDate ?? currentAsOf,
     leadingGroups: currentBuys.map((row) => row.leader?.group).filter(Boolean),
@@ -104,7 +103,23 @@ function latestSelectionCohorts(strategy, currentAsOf, currentBuys) {
     })),
     current: true
   };
-  return [...prior, current].filter((cohort) => cohort.rows?.length);
+}
+
+function latestSelectionCohorts(strategy, currentAsOf, currentBuys) {
+  const timeline = strategy?.selectionTimeline ?? [];
+  const currentMonth = monthKey(currentAsOf);
+  const prior = timeline
+    .filter((cohort) => monthKey(cohort.asOf) !== currentMonth)
+    .slice(-5);
+  return [...prior, currentCohort(currentAsOf, currentBuys)].filter((cohort) => cohort.rows?.length);
+}
+
+function latestSelectionCohortsFromExisting(existingDashboard, currentAsOf, currentBuys) {
+  const currentMonth = monthKey(currentAsOf);
+  const prior = (existingDashboard?.portfolio?.cohorts ?? [])
+    .filter((cohort) => !cohort.current && monthKey(cohort.asOf) !== currentMonth)
+    .slice(-5);
+  return [...prior, currentCohort(currentAsOf, currentBuys)].filter((cohort) => cohort.rows?.length);
 }
 
 async function fetchPrices(symbols) {
@@ -133,9 +148,7 @@ function buildHoldings(cohorts, priceMap, screener) {
       const current = priceRows.at(-1);
       const currentRow = currentRows.get(item.symbol);
       const currentPrice = currentRow?.metrics?.close ?? current?.close;
-      const entryPrice = cohort.current
-        ? currentPrice
-        : entry?.close;
+      const entryPrice = cohort.current ? currentPrice : entry?.close;
       rows.push({
         cohort: monthKey(cohort.asOf),
         asOf: cohort.asOf,
@@ -173,6 +186,104 @@ function portfolioSummary(holdings) {
     best,
     worst
   };
+}
+
+function buildRealizedTrades(strategy, priceMap, holdMonths) {
+  const timeline = strategy?.selectionTimeline ?? [];
+  const trades = [];
+  for (let index = 0; index + holdMonths < timeline.length; index += 1) {
+    const cohort = timeline[index];
+    const exitCohort = timeline[index + holdMonths];
+    if (!cohort?.rows?.length || !cohort.entryDate || !exitCohort?.entryDate) continue;
+    for (const item of cohort.rows) {
+      const rows = priceMap.get(item.symbol) ?? [];
+      const qqqRows = priceMap.get("QQQ") ?? [];
+      const entry = rowOnOrAfter(rows, cohort.entryDate);
+      const exit = rowOnOrAfter(rows, exitCohort.entryDate);
+      const qqqEntry = rowOnOrAfter(qqqRows, cohort.entryDate);
+      const qqqExit = rowOnOrAfter(qqqRows, exitCohort.entryDate);
+      if (!entry || !exit || !entry.close) continue;
+      const returnValue = exit.close / entry.close - 1;
+      const qqqReturn = qqqEntry && qqqExit && qqqEntry.close
+        ? qqqExit.close / qqqEntry.close - 1
+        : null;
+      trades.push({
+        cohort: monthKey(cohort.asOf),
+        entryDate: cohort.entryDate,
+        exitMonth: monthKey(exitCohort.asOf),
+        exitAsOf: exitCohort.asOf,
+        exitDate: exitCohort.entryDate,
+        symbol: item.symbol,
+        name: item.name ?? item.symbol,
+        sector: item.sector,
+        score: item.score,
+        rank: item.rank,
+        entryPrice: round(entry.close, 2),
+        exitPrice: round(exit.close, 2),
+        return: round(returnValue, 4),
+        qqqReturn: round(qqqReturn, 4),
+        excessQqq: round(Number.isFinite(qqqReturn) ? returnValue - qqqReturn : null, 4)
+      });
+    }
+  }
+  return sortByDate(trades, "exitDate");
+}
+
+function realizedSummary(trades) {
+  const valid = trades.filter((row) => Number.isFinite(row.return));
+  const best = [...valid].sort((a, b) => b.return - a.return)[0] ?? null;
+  const worst = [...valid].sort((a, b) => a.return - b.return)[0] ?? null;
+  const averageReturn = valid.reduce((sum, row) => sum + row.return, 0) / Math.max(1, valid.length);
+  const averageQqq = valid
+    .filter((row) => Number.isFinite(row.qqqReturn))
+    .reduce((sum, row) => sum + row.qqqReturn, 0) / Math.max(1, valid.filter((row) => Number.isFinite(row.qqqReturn)).length);
+  return {
+    count: valid.length,
+    winRate: round(valid.filter((row) => row.return > 0).length / Math.max(1, valid.length), 4),
+    averageReturn: round(averageReturn, 4),
+    averageQqqReturn: round(averageQqq, 4),
+    averageExcessQqq: round(averageReturn - averageQqq, 4),
+    best,
+    worst
+  };
+}
+
+function monthlyExits(trades) {
+  const groups = new Map();
+  for (const trade of trades) {
+    const current = groups.get(trade.exitMonth) ?? {
+      exitMonth: trade.exitMonth,
+      exitDate: trade.exitDate,
+      count: 0,
+      symbols: [],
+      sectors: [],
+      returnSum: 0,
+      qqqReturnSum: 0,
+      qqqCount: 0,
+      winners: 0
+    };
+    current.count += 1;
+    current.symbols.push(trade.symbol);
+    if (trade.sector && !current.sectors.includes(trade.sector)) current.sectors.push(trade.sector);
+    current.returnSum += trade.return;
+    if (Number.isFinite(trade.qqqReturn)) {
+      current.qqqReturnSum += trade.qqqReturn;
+      current.qqqCount += 1;
+    }
+    if (trade.return > 0) current.winners += 1;
+    groups.set(trade.exitMonth, current);
+  }
+  return Array.from(groups.values()).map((row) => ({
+    exitMonth: row.exitMonth,
+    exitDate: row.exitDate,
+    count: row.count,
+    symbols: row.symbols,
+    sectors: row.sectors,
+    averageReturn: round(row.returnSum / row.count, 4),
+    qqqReturn: round(row.qqqReturnSum / Math.max(1, row.qqqCount), 4),
+    excessQqq: round(row.returnSum / row.count - row.qqqReturnSum / Math.max(1, row.qqqCount), 4),
+    winRate: round(row.winners / row.count, 4)
+  }));
 }
 
 function yearlyPerformance(strategy) {
@@ -215,24 +326,58 @@ function compactBacktestResult(row) {
   };
 }
 
+function compactCurve(strategy, existingDashboard) {
+  if (strategy?.curve?.length) {
+    return strategy.curve.map((row) => ({
+      asOf: row.asOf,
+      entryDate: row.entryDate,
+      exitDate: row.exitDate,
+      netReturn: row.netReturn,
+      qqqReturn: row.qqqReturn,
+      excessQqq: row.excessQqq,
+      equity: row.equity,
+      qqqEquity: row.qqqEquity,
+      strategyTotalReturn: round(row.equity - 1, 4),
+      qqqTotalReturn: round(row.qqqEquity - 1, 4),
+      uniqueHeldCount: row.uniqueHeldCount,
+      newestSymbols: row.newestSymbols ?? []
+    }));
+  }
+  return existingDashboard?.backtest?.equityCurve ?? [];
+}
+
 async function main() {
   const screener = JSON.parse(await fs.readFile(screenerPath, "utf8"));
+  const existingDashboard = await optionalJson(outputPath);
   const buyRule5y = await optionalJson(buyRule5yPath);
   const buyRule3y = await optionalJson(buyRule3yPath);
   const strategy5y = pickStrategy(buyRule5y);
   const strategy3y = pickStrategy(buyRule3y);
-  if (!strategy5y?.selectionTimeline?.length) {
-    throw new Error("monthly-buy-rule-test-5y.json is missing selectionTimeline. Run monthly-buy-rule-test.mjs --years 5 first.");
-  }
 
   const currentAsOf = screener.rows?.find((row) => row.metrics?.lastDate)?.metrics?.lastDate
     ?? screener.generatedAt.slice(0, 10);
   const leaders = currentLeaders(screener);
   const currentBuys = currentBuyCandidates(screener);
-  const cohorts = latestSelectionCohorts(strategy5y, currentAsOf, currentBuys);
-  const symbols = Array.from(new Set(cohorts.flatMap((cohort) => cohort.rows.map((row) => row.symbol))));
+  const cohorts = strategy5y?.selectionTimeline?.length
+    ? latestSelectionCohorts(strategy5y, currentAsOf, currentBuys)
+    : latestSelectionCohortsFromExisting(existingDashboard, currentAsOf, currentBuys);
+  if (!cohorts.length) {
+    throw new Error("No strategy cohorts available. Run monthly-buy-rule-test.mjs --years 5 once or keep data/strategy-dashboard.json.");
+  }
+
+  const realizedSymbols = strategy5y?.selectionTimeline?.length
+    ? strategy5y.selectionTimeline.flatMap((cohort) => (cohort.rows ?? []).map((row) => row.symbol))
+    : [];
+  const symbols = Array.from(new Set([
+    ...cohorts.flatMap((cohort) => cohort.rows.map((row) => row.symbol)),
+    ...realizedSymbols,
+    "QQQ"
+  ]));
   const { priceMap, errors } = await fetchPrices(symbols);
   const holdings = buildHoldings(cohorts, priceMap, screener);
+  const realizedTrades = strategy5y?.selectionTimeline?.length
+    ? buildRealizedTrades(strategy5y, priceMap, strategy5y.holdMonths ?? 6)
+    : existingDashboard?.backtest?.realizedTrades ?? [];
 
   const result = {
     generatedAt: new Date().toISOString(),
@@ -256,10 +401,16 @@ async function main() {
       summary: portfolioSummary(holdings)
     },
     backtest: {
-      threeYear: compactBacktestResult(strategy3y),
-      fiveYear: compactBacktestResult(strategy5y),
-      comparison: (buyRule5y?.rankedResults ?? []).slice(0, 9).map(compactBacktestResult),
-      yearly: yearlyPerformance(strategy5y),
+      threeYear: compactBacktestResult(strategy3y) ?? existingDashboard?.backtest?.threeYear ?? null,
+      fiveYear: compactBacktestResult(strategy5y) ?? existingDashboard?.backtest?.fiveYear ?? null,
+      equityCurve: compactCurve(strategy5y, existingDashboard),
+      realizedSummary: realizedSummary(realizedTrades),
+      monthlyExits: monthlyExits(realizedTrades),
+      realizedTrades,
+      comparison: [],
+      yearly: strategy5y?.curve?.length
+        ? yearlyPerformance(strategy5y)
+        : existingDashboard?.backtest?.yearly ?? [],
       reports: [
         { label: "5년 월 2개 규칙 검증", href: "monthly_buy_rule_test-5y.md" },
         { label: "3년 월 2개 규칙 검증", href: "monthly_buy_rule_test.md" },

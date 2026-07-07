@@ -383,6 +383,73 @@ tr:last-child td {
   margin-bottom: 8px;
 }
 
+#performance-chart {
+  overflow-x: auto;
+}
+
+.performance-chart {
+  width: 100%;
+  min-width: 720px;
+  height: auto;
+  display: block;
+  background: #fbfdff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.axis {
+  stroke: #d5dde7;
+  stroke-width: 1;
+}
+
+.strategy-line,
+.qqq-line {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.strategy-line {
+  stroke: var(--blue);
+}
+
+.qqq-line {
+  stroke: var(--amber);
+}
+
+.chart-axis {
+  fill: var(--muted);
+  font-size: 12px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.legend span::before {
+  content: "";
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  margin-right: 6px;
+  border-radius: 999px;
+}
+
+.legend .strategy::before {
+  background: var(--blue);
+}
+
+.legend .qqq::before {
+  background: var(--amber);
+}
+
 .report-links {
   display: grid;
   gap: 8px;

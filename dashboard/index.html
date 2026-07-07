@@ -29,7 +29,7 @@
         <div class="section-title">
           <div>
             <h2>이번 달 주도 섹터</h2>
-            <p>상위 2개 섹터에서 각각 1등 종목을 신규 매수 후보로 봅니다.</p>
+            <p>상위 2개 섹터에서 각각 1개 종목을 신규 매수 후보로 봅니다.</p>
           </div>
           <span id="leader-meta"></span>
         </div>
@@ -51,7 +51,7 @@
         <div class="section-title">
           <div>
             <h2>전략 기준 현재 보유 목록</h2>
-            <p>추천가와 현재가는 전략 기준입니다. 실제 계좌 체결가와 다를 수 있습니다.</p>
+            <p>추천가와 현재가의 전략 기준 수익률입니다. 실제 계좌 체결가와는 다를 수 있습니다.</p>
           </div>
           <span id="holdings-meta"></span>
         </div>
@@ -93,24 +93,64 @@
       <section class="panel">
         <div class="section-title">
           <div>
-            <h2>전략 비교</h2>
-            <p>월 2개 매수, 6개월 보유 규칙들의 5년 검증 결과입니다.</p>
+            <h2>전략 누적 성과 vs QQQ</h2>
+            <p>현재 운용 전략 하나만 기준으로 과거 계좌 곡선을 비교합니다.</p>
           </div>
+          <span id="curve-meta"></span>
+        </div>
+        <div id="performance-chart"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>월별 매도 결과</h2>
+            <p>6개월 보유 후 청산된 월별 묶음의 평균 실현 수익률입니다.</p>
+          </div>
+          <span id="monthly-exit-meta"></span>
         </div>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th>전략</th>
-                <th>누적</th>
-                <th>CAGR</th>
-                <th>MDD</th>
-                <th>QQQ 초과</th>
-                <th>QQQ 이긴 월</th>
-                <th>평균 보유</th>
+                <th>매도월</th>
+                <th>매도 종목</th>
+                <th>섹터</th>
+                <th>평균 수익률</th>
+                <th>동기간 QQQ</th>
+                <th>초과</th>
+                <th>승률</th>
               </tr>
             </thead>
-            <tbody id="comparison-body"></tbody>
+            <tbody id="monthly-exits-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>청산 완료 종목별 수익률</h2>
+            <p>과거에 매수 후 6개월 보유가 끝난 종목들의 개별 실현 수익률입니다.</p>
+          </div>
+          <span id="realized-trade-meta"></span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>추천월</th>
+                <th>매도월</th>
+                <th>종목</th>
+                <th>섹터</th>
+                <th>매수가</th>
+                <th>매도가</th>
+                <th>실현 수익률</th>
+                <th>QQQ</th>
+                <th>초과</th>
+              </tr>
+            </thead>
+            <tbody id="realized-trades-body"></tbody>
           </table>
         </div>
       </section>
