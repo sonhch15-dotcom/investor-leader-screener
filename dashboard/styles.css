@@ -857,13 +857,16 @@ tr:last-child td {
   margin-bottom: 8px;
 }
 
-#performance-chart {
-  overflow-x: auto;
+#performance-chart,
+#korea-stock-performance-chart,
+#korea-etf-performance-chart {
+  overflow: hidden;
+  width: 100%;
 }
 
 .performance-chart {
   width: 100%;
-  min-width: 720px;
+  max-width: 100%;
   height: auto;
   display: block;
   background: #fbfdff;
@@ -922,6 +925,101 @@ tr:last-child td {
 
 .legend .qqq::before {
   background: var(--amber);
+}
+
+.backtest-template-card {
+  display: grid;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  padding: 14px;
+}
+
+.backtest-template-card.us {
+  border-top: 4px solid var(--blue);
+}
+
+.backtest-template-card.kr-stock {
+  border-top: 4px solid var(--green);
+}
+
+.backtest-template-card.kr-etf {
+  border-top: 4px solid #0f766e;
+}
+
+.backtest-template-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.backtest-template-head > strong {
+  font-size: 28px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.backtest-template-head p,
+.backtest-verdict p,
+.backtest-template-metrics small,
+.backtest-template-rule span {
+  color: var(--muted);
+}
+
+.backtest-verdict {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.backtest-verdict span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.backtest-verdict strong {
+  font-size: 18px;
+}
+
+.backtest-template-metrics {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.backtest-template-metrics article {
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+  border-radius: 8px;
+  background: var(--soft);
+}
+
+.backtest-template-metrics span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.backtest-template-metrics strong {
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+
+.backtest-template-metrics small {
+  font-size: 11px;
+}
+
+.backtest-template-rule {
+  display: grid;
+  gap: 4px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
 }
 
 .report-links {
@@ -1244,6 +1342,7 @@ tr:last-child td {
   .today-actions,
   .strategy-template-grid,
   .template-principles,
+  .backtest-template-metrics,
   .planner-layout,
   .planner-hero,
   .account-tools,
@@ -1302,8 +1401,13 @@ tr:last-child td {
   }
 
   .template-card-head,
-  .template-foot {
+  .template-foot,
+  .backtest-template-head {
     display: grid;
+  }
+
+  .backtest-template-head > strong {
+    white-space: normal;
   }
 
   .section-title {

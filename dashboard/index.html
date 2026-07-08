@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Leader2 Strategy Dashboard</title>
-  <link rel="stylesheet" href="styles.css?v=20260708-template-dashboard">
+  <link rel="stylesheet" href="styles.css?v=20260708-backtest-template">
 </head>
 <body>
   <header class="topbar">
@@ -307,6 +307,17 @@
       <section class="panel">
         <div class="section-title">
           <div>
+            <h2>백테스트 공통 요약</h2>
+            <p>새 전략을 추가해도 같은 형식으로 전략 성과, 기준 지표, 초과 수익, 위험 지표를 비교합니다.</p>
+          </div>
+          <span>공통 템플릿</span>
+        </div>
+        <div id="backtest-template"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
             <h2>전략 누적 성과 vs QQQ</h2>
             <p>현재 운용 전략인 6개월 50% 매도 + 나머지 주봉 연장 기준으로 과거 계좌 곡선을 비교합니다.</p>
           </div>
@@ -460,6 +471,17 @@
       <section class="panel">
         <div class="section-title">
           <div>
+            <h2>백테스트 공통 요약</h2>
+            <p>새 전략을 추가해도 같은 형식으로 전략 성과, 기준 지표, 초과 수익, 위험 지표를 비교합니다.</p>
+          </div>
+          <span>공통 템플릿</span>
+        </div>
+        <div id="korea-stock-backtest-template"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
             <h2>한국 우량주 전략 검증</h2>
             <p>한국 주식은 우량주 중심으로 월별 선정, 6개월 50% 매도, 잔여 50% 주봉 연장 규칙을 검증합니다.</p>
           </div>
@@ -586,6 +608,17 @@
 
     <section class="tab-panel" id="korea-etf-backtest-panel">
       <section class="summary-grid" id="korea-etf-kpis"></section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>백테스트 공통 요약</h2>
+            <p>새 전략을 추가해도 같은 형식으로 전략 성과, 기준 지표, 초과 수익, 위험 지표를 비교합니다.</p>
+          </div>
+          <span>공통 템플릿</span>
+        </div>
+        <div id="korea-etf-backtest-template"></div>
+      </section>
 
       <section class="panel">
         <div class="section-title">
@@ -779,6 +812,6 @@
     </section>
   </main>
 
-  <script src="app.js?v=20260708-template-dashboard"></script>
+  <script src="app.js?v=20260708-backtest-template"></script>
 </body>
 </html>

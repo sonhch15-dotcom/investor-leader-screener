@@ -1642,6 +1642,62 @@ function renderComparisonPerformanceChart({
   `;
 }
 
+function backtestTemplateMetric(label, value, note = "", className = "") {
+  return `
+    <article>
+      <span>${label}</span>
+      <strong class="${className}">${value}</strong>
+      ${note ? `<small>${note}</small>` : ""}
+    </article>
+  `;
+}
+
+function renderBacktestTemplate(targetId, config) {
+  const target = document.getElementById(targetId);
+  if (!target) return;
+  const excess = Number.isFinite(config.strategyReturn) && Number.isFinite(config.benchmarkReturn)
+    ? config.strategyReturn - config.benchmarkReturn
+    : null;
+  const verdict = Number.isFinite(excess)
+    ? excess > 0
+      ? `${config.benchmarkLabel}보다 ${percent(excess)} 더 좋았습니다.`
+      : `${config.benchmarkLabel}보다 ${percent(Math.abs(excess))} 낮았습니다.`
+    : "비교 지표 데이터가 부족합니다.";
+  target.innerHTML = `
+    <article class="backtest-template-card ${config.tone ?? ""}">
+      <div class="backtest-template-head">
+        <div>
+          <span class="asset-badge">${config.asset}</span>
+          <h3>${config.strategyName}</h3>
+          <p>${config.description}</p>
+        </div>
+        <strong class="${signedClass(config.strategyReturn)}">${percent(config.strategyReturn)}</strong>
+      </div>
+      <div class="backtest-verdict">
+        <span>기준 지표 비교</span>
+        <strong>${verdict}</strong>
+        <p>${config.periodLabel} | 비교 기준 ${config.benchmarkLabel}</p>
+      </div>
+      <div class="backtest-template-metrics">
+        ${backtestTemplateMetric("전략 누적", percent(config.strategyReturn), "전략 규칙대로 운용", signedClass(config.strategyReturn))}
+        ${backtestTemplateMetric(`${config.benchmarkLabel} 누적`, percent(config.benchmarkReturn), "같은 기간 기준 지표", signedClass(config.benchmarkReturn))}
+        ${backtestTemplateMetric("초과 수익", percent(excess), "전략 - 기준 지표", signedClass(excess))}
+        ${backtestTemplateMetric("MDD", percent(config.maxDrawdown), "기간 중 최대 낙폭", "negative")}
+        ${backtestTemplateMetric("매매/리밸런싱", config.tradeCountLabel, config.tradeNote)}
+        ${backtestTemplateMetric("승률", config.winRateLabel, config.winRateNote)}
+      </div>
+      <div class="backtest-template-rule">
+        <strong>운용 규칙</strong>
+        <span>${config.ruleSummary}</span>
+      </div>
+    </article>
+  `;
+}
+
+function lastFiniteReturn(rows, key) {
+  return [...(rows ?? [])].reverse().find((row) => Number.isFinite(row[key]))?.[key] ?? null;
+}
+
 function showMoreLabel(showAll, visibleCount, totalCount) {
   return showAll
     ? `최근만 보기 (${visibleCount}/${totalCount})`
@@ -1874,6 +1930,25 @@ function renderBacktest() {
       <article class="kpi"><span>5년 선정력 검증</span><strong>${percent(five?.totalReturn)}</strong><small>자금 제한 없는 지수형 검증 | QQQ ${percent(five?.qqqTotalReturn)}</small></article>
     `;
   }
+
+  const curveRows = dashboard.backtest.equityCurve ?? [];
+  const lastCurve = curveRows.at(-1) ?? {};
+  renderBacktestTemplate("backtest-template", {
+    asset: "미국 주식",
+    tone: "us",
+    strategyName: dashboard.strategy?.name ?? "Leader2 One Each",
+    description: "월간 주도 섹터에서 2개 종목을 선정하고, 6개월 50% 매도 후 잔여 물량은 주봉 추세로 연장합니다.",
+    benchmarkLabel: "QQQ",
+    periodLabel: curveRows.length ? `${curveRows[0].asOf} ~ ${lastCurve.asOf}` : "기간 데이터 없음",
+    strategyReturn: account?.totalReturn ?? five?.totalReturn,
+    benchmarkReturn: lastCurve.qqqTotalReturn ?? five?.qqqTotalReturn,
+    maxDrawdown: account?.maxDrawdownAtCost ?? five?.maxDrawdown,
+    tradeCountLabel: `${account?.executedBuys ?? realized.count ?? 0}건`,
+    tradeNote: account ? `시도 ${account.attemptedBuys}건 / 스킵 ${account.skippedBuys}` : `${realized.count ?? 0}개 청산`,
+    winRateLabel: plainPercent(realized.winRate),
+    winRateNote: `${realized.count ?? 0}개 청산 기준`,
+    ruleSummary: "월말 신규 후보 2개를 확정하고, 매수 lot마다 6개월 후 50%를 매도합니다. 남은 50%는 주봉 10주선과 RSI 조건이 유지될 때만 연장 보유합니다."
+  });
 
   renderPerformanceChart();
 
@@ -2805,6 +2880,24 @@ function renderKoreaEtfBacktest() {
     <article class="kpi"><span>리밸런싱</span><strong>${summary.tradeCount ?? 0}개월</strong><small>MDD ${percent(account.maxDrawdown)}</small></article>
   `;
 
+  const etfPerformanceRows = koreaEtfPerformanceRows();
+  renderBacktestTemplate("korea-etf-backtest-template", {
+    asset: "한국 ETF",
+    tone: "kr-etf",
+    strategyName: strategy.label,
+    description: "연금/ETF 계좌를 Core 50%, Satellite 40%, Defense 10% 목표 비중으로 월간 리밸런싱합니다.",
+    benchmarkLabel: benchmarkLabel(strategy.benchmarkSymbol),
+    periodLabel: etfPerformanceRows.length ? `${etfPerformanceRows[0].asOf ?? etfPerformanceRows[0].month} ~ ${etfPerformanceRows.at(-1).asOf ?? etfPerformanceRows.at(-1).month}` : "기간 데이터 없음",
+    strategyReturn: account.totalReturn,
+    benchmarkReturn: lastFiniteReturn(etfPerformanceRows, "benchmarkTotalReturn"),
+    maxDrawdown: account.maxDrawdown,
+    tradeCountLabel: `${summary.tradeCount ?? 0}개월`,
+    tradeNote: "월 1회 전체 계좌 리밸런싱",
+    winRateLabel: "-",
+    winRateNote: "ETF 전략은 승률보다 누적/낙폭 중심",
+    ruleSummary: "매월 말 강한 코어/위성/방어 ETF를 확정하고 다음 거래일에 계좌 전체를 50/40/10 목표 비중으로 맞춥니다. 별도 6개월 매도 규칙은 쓰지 않습니다."
+  });
+
   document.getElementById("korea-etf-current-picks").innerHTML = `
     <article class="korea-strategy-card">
       <div class="card-head">
@@ -2908,6 +3001,29 @@ function renderKorea() {
       <small>우량주 / ETF 후보</small>
     </article>
   `;
+
+  const mainStockStrategy = strategies[0];
+  if (mainStockStrategy) {
+    const summary = mainStockStrategy.summary ?? {};
+    const account = mainStockStrategy.capitalAccount ?? {};
+    const stockPerformanceRows = koreaStockPerformanceRows();
+    renderBacktestTemplate("korea-stock-backtest-template", {
+      asset: "한국 주식",
+      tone: "kr-stock",
+      strategyName: mainStockStrategy.label,
+      description: "한국 우량주 유니버스에서 월간 주도 업종 대표 종목을 선정하고, 6개월 50% 매도 후 잔여 물량은 주봉 추세로 관리합니다.",
+      benchmarkLabel: benchmarkLabel(mainStockStrategy.benchmarkSymbol),
+      periodLabel: stockPerformanceRows.length ? `${stockPerformanceRows[0].asOf ?? stockPerformanceRows[0].month} ~ ${stockPerformanceRows.at(-1).asOf ?? stockPerformanceRows.at(-1).month}` : "기간 데이터 없음",
+      strategyReturn: account.totalReturn,
+      benchmarkReturn: lastFiniteReturn(stockPerformanceRows, "benchmarkTotalReturn"),
+      maxDrawdown: account.maxDrawdown,
+      tradeCountLabel: `${summary.tradeCount ?? 0}건`,
+      tradeNote: `청산 ${summary.realizedCount ?? 0}건 / 보유 ${summary.openCount ?? 0}건`,
+      winRateLabel: plainPercent(summary.winRate),
+      winRateNote: "청산 완료 기준",
+      ruleSummary: "월말 주도 업종 상위 2곳에서 각 1개 우량주를 선정합니다. 각 매수 lot은 6개월 후 50%를 매도하고, 남은 50%는 주봉 조건이 유지될 때만 연장 보유합니다."
+    });
+  }
 
   document.getElementById("korea-current-picks").innerHTML = strategies.map((strategy) => `
     <article class="korea-strategy-card">
