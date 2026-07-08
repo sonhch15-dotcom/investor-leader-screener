@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-08T04:36:10.761Z",
+  "generatedAt": "2026-07-08T05:51:40.069Z",
   "asOf": "2026-07-06",
   "sourceGeneratedAt": "2026-07-07T08:27:40.378Z",
   "strategy": {
@@ -4420,16 +4420,16 @@
             "month": "2026-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 1905.91,
+            "return": 8.0594
           },
           {
             "date": "2026-06-29",
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 1905.91,
+            "return": 8.0594
           }
         ]
       },
@@ -4465,16 +4465,16 @@
             "month": "2022-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 121.34,
+            "return": -0.6338
           },
           {
             "date": "2022-05-02",
             "month": "2022-05",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 121.34,
+            "return": -0.6338
           }
         ]
       }
@@ -5242,15 +5242,15 @@
           "PLTR",
           "CB"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": -0.3184,
         "events": [
           {
             "date": "2022-02-28",
             "month": "2022-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 11.85,
+            "return": -0.5405,
             "symbol": "PLTR",
             "name": "Palantir Technologies",
             "sector": "Software",
@@ -5263,8 +5263,8 @@
             "month": "2022-02",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 11.85,
+            "return": -0.5405,
             "symbol": "PLTR",
             "name": "Palantir Technologies",
             "sector": "Software",
@@ -5277,8 +5277,8 @@
             "month": "2022-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 193.7,
+            "return": 0.1259,
             "symbol": "CB",
             "name": "Chubb Limited",
             "sector": "Financials",
@@ -5297,15 +5297,15 @@
           "CB",
           "EXPE"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.1046,
         "events": [
           {
             "date": "2022-04-29",
             "month": "2022-04",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 193.7,
+            "return": 0.1259,
             "symbol": "CB",
             "name": "Chubb Limited",
             "sector": "Financials",
@@ -5318,8 +5318,8 @@
             "month": "2022-04",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 181.72,
+            "return": 0.0833,
             "symbol": "EXPE",
             "name": "Expedia Group",
             "sector": "Consumer Discretionary",
@@ -5338,15 +5338,15 @@
           "EXPE",
           "APA"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.4238,
         "events": [
           {
             "date": "2022-03-28",
             "month": "2022-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 181.72,
+            "return": 0.0833,
             "symbol": "EXPE",
             "name": "Expedia Group",
             "sector": "Consumer Discretionary",
@@ -5359,8 +5359,8 @@
             "month": "2022-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 35.55,
+            "return": 0.7643,
             "symbol": "APA",
             "name": "APA Corporation",
             "sector": "Energy",
@@ -5381,15 +5381,15 @@
           "HD",
           "AMD"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": -0.0776,
         "events": [
           {
             "date": "2022-05-02",
             "month": "2022-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 121.34,
+            "return": -0.6338,
             "symbol": "COIN",
             "name": "Coinbase",
             "sector": "Financials",
@@ -5402,8 +5402,8 @@
             "month": "2022-05",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 121.34,
+            "return": -0.6338,
             "symbol": "COIN",
             "name": "Coinbase",
             "sector": "Financials",
@@ -5416,8 +5416,8 @@
             "month": "2022-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 35.93,
+            "return": 0.5231,
             "symbol": "APA",
             "name": "APA Corporation",
             "sector": "Energy",
@@ -5430,8 +5430,8 @@
             "month": "2022-05",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 35.55,
+            "return": 0.7643,
             "symbol": "APA",
             "name": "APA Corporation",
             "sector": "Energy",
@@ -5444,8 +5444,8 @@
             "month": "2022-05",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 35.93,
+            "return": 0.5231,
             "symbol": "APA",
             "name": "APA Corporation",
             "sector": "Energy",
@@ -5458,8 +5458,8 @@
             "month": "2022-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 273.46,
+            "return": -0.249,
             "symbol": "HD",
             "name": "Home Depot (The)",
             "sector": "Consumer Discretionary",
@@ -5472,8 +5472,8 @@
             "month": "2022-05",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 273.46,
+            "return": -0.249,
             "symbol": "HD",
             "name": "Home Depot (The)",
             "sector": "Consumer Discretionary",
@@ -5486,8 +5486,8 @@
             "month": "2022-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 101.86,
+            "return": -0.3715,
             "symbol": "AMD",
             "name": "Advanced Micro Devices",
             "sector": "Semiconductors",
@@ -5500,8 +5500,8 @@
             "month": "2022-05",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 101.86,
+            "return": -0.3715,
             "symbol": "AMD",
             "name": "Advanced Micro Devices",
             "sector": "Semiconductors",
@@ -5520,15 +5520,15 @@
           "CNC",
           "IRM"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.0133,
         "events": [
           {
             "date": "2022-06-27",
             "month": "2022-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 84.57,
+            "return": 0.0222,
             "symbol": "CNC",
             "name": "Centene Corporation",
             "sector": "Health Care",
@@ -5541,8 +5541,8 @@
             "month": "2022-06",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 84.57,
+            "return": 0.0222,
             "symbol": "CNC",
             "name": "Centene Corporation",
             "sector": "Health Care",
@@ -5555,8 +5555,8 @@
             "month": "2022-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 43.57,
+            "return": 0.0044,
             "symbol": "IRM",
             "name": "Iron Mountain",
             "sector": "Real Estate",
@@ -5569,8 +5569,8 @@
             "month": "2022-06",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 43.57,
+            "return": 0.0044,
             "symbol": "IRM",
             "name": "Iron Mountain",
             "sector": "Real Estate",
@@ -5591,15 +5591,15 @@
           "BG",
           "TRGP"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.0186,
         "events": [
           {
             "date": "2022-08-01",
             "month": "2022-08",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 26.01,
+            "return": -0.078,
             "symbol": "HAL",
             "name": "Halliburton",
             "sector": "Energy",
@@ -5612,8 +5612,8 @@
             "month": "2022-08",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 26.01,
+            "return": -0.078,
             "symbol": "HAL",
             "name": "Halliburton",
             "sector": "Energy",
@@ -5626,8 +5626,8 @@
             "month": "2022-08",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 74.76,
+            "return": 0.1334,
             "symbol": "ADM",
             "name": "Archer Daniels Midland",
             "sector": "Consumer Staples",
@@ -5640,8 +5640,8 @@
             "month": "2022-08",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 74.76,
+            "return": 0.1334,
             "symbol": "ADM",
             "name": "Archer Daniels Midland",
             "sector": "Consumer Staples",
@@ -5654,8 +5654,8 @@
             "month": "2022-08",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 93.32,
+            "return": 0.0026,
             "symbol": "BG",
             "name": "Bunge Global",
             "sector": "Consumer Staples",
@@ -5668,8 +5668,8 @@
             "month": "2022-08",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 93.32,
+            "return": 0.0026,
             "symbol": "BG",
             "name": "Bunge Global",
             "sector": "Consumer Staples",
@@ -5682,8 +5682,8 @@
             "month": "2022-08",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 60.49,
+            "return": 0.0144,
             "symbol": "TRGP",
             "name": "Targa Resources",
             "sector": "Energy",
@@ -5701,15 +5701,15 @@
         "symbols": [
           "TRGP"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.0072,
         "events": [
           {
             "date": "2022-09-30",
             "month": "2022-09",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 60.49,
+            "return": 0.0144,
             "symbol": "TRGP",
             "name": "Targa Resources",
             "sector": "Energy",
@@ -5730,15 +5730,15 @@
           "VLO",
           "HSY"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": -0.0203,
         "events": [
           {
             "date": "2022-10-03",
             "month": "2022-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 60.26,
+            "return": 0.1342,
             "symbol": "OXY",
             "name": "Occidental Petroleum",
             "sector": "Energy",
@@ -5751,8 +5751,8 @@
             "month": "2022-10",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 60.26,
+            "return": 0.1342,
             "symbol": "OXY",
             "name": "Occidental Petroleum",
             "sector": "Energy",
@@ -5765,8 +5765,8 @@
             "month": "2022-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 44.38,
+            "return": -0.2697,
             "symbol": "MOS",
             "name": "Mosaic Company (The)",
             "sector": "Materials",
@@ -5779,8 +5779,8 @@
             "month": "2022-10",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 44.38,
+            "return": -0.2697,
             "symbol": "MOS",
             "name": "Mosaic Company (The)",
             "sector": "Materials",
@@ -5793,8 +5793,8 @@
             "month": "2022-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 110.08,
+            "return": 0.0707,
             "symbol": "VLO",
             "name": "Valero Energy",
             "sector": "Energy",
@@ -5807,8 +5807,8 @@
             "month": "2022-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 210.63,
+            "return": 0.0783,
             "symbol": "HSY",
             "name": "Hershey Company (The)",
             "sector": "Consumer Staples",
@@ -5827,15 +5827,15 @@
           "OXY",
           "NRG"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": -0.0491,
         "events": [
           {
             "date": "2022-11-28",
             "month": "2022-11",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 64.19,
+            "return": -0.0126,
             "symbol": "OXY",
             "name": "Occidental Petroleum",
             "sector": "Energy",
@@ -5848,8 +5848,8 @@
             "month": "2022-11",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 64.19,
+            "return": -0.0126,
             "symbol": "OXY",
             "name": "Occidental Petroleum",
             "sector": "Energy",
@@ -5862,8 +5862,8 @@
             "month": "2022-11",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 38.08,
+            "return": -0.0855,
             "symbol": "NRG",
             "name": "NRG Energy",
             "sector": "Utilities",
@@ -5876,8 +5876,8 @@
             "month": "2022-11",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 38.08,
+            "return": -0.0855,
             "symbol": "NRG",
             "name": "NRG Energy",
             "sector": "Utilities",
@@ -5895,15 +5895,15 @@
         "symbols": [
           "VLO"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.0354,
         "events": [
           {
             "date": "2022-12-16",
             "month": "2022-12",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 110.08,
+            "return": 0.0707,
             "symbol": "VLO",
             "name": "Valero Energy",
             "sector": "Energy",
@@ -5925,15 +5925,15 @@
           "TPL",
           "NOC"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.0353,
         "events": [
           {
             "date": "2023-01-03",
             "month": "2023-01",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 231.01,
+            "return": 0.0056,
             "symbol": "DG",
             "name": "Dollar General",
             "sector": "Consumer Staples",
@@ -5946,8 +5946,8 @@
             "month": "2023-01",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 231.01,
+            "return": 0.0056,
             "symbol": "DG",
             "name": "Dollar General",
             "sector": "Consumer Staples",
@@ -5960,8 +5960,8 @@
             "month": "2023-01",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 346.01,
+            "return": 0.0919,
             "symbol": "LLY",
             "name": "Lilly (Eli)",
             "sector": "Health Care",
@@ -5974,8 +5974,8 @@
             "month": "2023-01",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 210.63,
+            "return": 0.0783,
             "symbol": "HSY",
             "name": "Hershey Company (The)",
             "sector": "Consumer Staples",
@@ -5988,8 +5988,8 @@
             "month": "2023-01",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 346.01,
+            "return": 0.0919,
             "symbol": "LLY",
             "name": "Lilly (Eli)",
             "sector": "Health Care",
@@ -6002,8 +6002,8 @@
             "month": "2023-01",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 213.2,
+            "return": 0.093,
             "symbol": "TPL",
             "name": "Texas Pacific Land Corporation",
             "sector": "Energy",
@@ -6016,8 +6016,8 @@
             "month": "2023-01",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 213.2,
+            "return": 0.093,
             "symbol": "TPL",
             "name": "Texas Pacific Land Corporation",
             "sector": "Energy",
@@ -6030,8 +6030,8 @@
             "month": "2023-01",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 416.45,
+            "return": -0.071,
             "symbol": "NOC",
             "name": "Northrop Grumman",
             "sector": "Industrials",
@@ -6044,8 +6044,8 @@
             "month": "2023-01",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 416.45,
+            "return": -0.071,
             "symbol": "NOC",
             "name": "Northrop Grumman",
             "sector": "Industrials",
@@ -6064,15 +6064,15 @@
           "OXY",
           "DE"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": -0.0504,
         "events": [
           {
             "date": "2023-02-27",
             "month": "2023-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 55.58,
+            "return": -0.2142,
             "symbol": "OXY",
             "name": "Occidental Petroleum",
             "sector": "Energy",
@@ -6085,8 +6085,8 @@
             "month": "2023-02",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 55.58,
+            "return": -0.2142,
             "symbol": "OXY",
             "name": "Occidental Petroleum",
             "sector": "Energy",
@@ -6099,8 +6099,8 @@
             "month": "2023-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 402.09,
+            "return": 0.1134,
             "symbol": "DE",
             "name": "Deere & Company",
             "sector": "Industrials",
@@ -6113,8 +6113,8 @@
             "month": "2023-02",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 402.09,
+            "return": 0.1134,
             "symbol": "DE",
             "name": "Deere & Company",
             "sector": "Industrials",
@@ -6133,15 +6133,15 @@
           "MPC",
           "REGN"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.2005,
         "events": [
           {
             "date": "2023-04-03",
             "month": "2023-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 120.32,
+            "return": 0.2672,
             "symbol": "MPC",
             "name": "Marathon Petroleum",
             "sector": "Energy",
@@ -6154,8 +6154,8 @@
             "month": "2023-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 778.84,
+            "return": 0.0671,
             "symbol": "REGN",
             "name": "Regeneron Pharmaceuticals",
             "sector": "Biotechnology",
@@ -6168,8 +6168,8 @@
             "month": "2023-04",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 120.32,
+            "return": 0.2672,
             "symbol": "MPC",
             "name": "Marathon Petroleum",
             "sector": "Energy",
@@ -6190,15 +6190,15 @@
           "ACGL",
           "EME"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.1353,
         "events": [
           {
             "date": "2023-05-01",
             "month": "2023-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 45.54,
+            "return": -0.0485,
             "symbol": "SLB",
             "name": "Schlumberger",
             "sector": "Energy",
@@ -6211,8 +6211,8 @@
             "month": "2023-05",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 45.54,
+            "return": -0.0485,
             "symbol": "SLB",
             "name": "Schlumberger",
             "sector": "Energy",
@@ -6225,8 +6225,8 @@
             "month": "2023-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 69.8,
+            "return": 0.2754,
             "symbol": "ACGL",
             "name": "Arch Capital Group",
             "sector": "Financials",
@@ -6239,8 +6239,8 @@
             "month": "2023-05",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 778.84,
+            "return": 0.0671,
             "symbol": "REGN",
             "name": "Regeneron Pharmaceuticals",
             "sector": "Biotechnology",
@@ -6253,8 +6253,8 @@
             "month": "2023-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 67.7,
+            "return": 0.2258,
             "symbol": "ACGL",
             "name": "Arch Capital Group",
             "sector": "Financials",
@@ -6267,8 +6267,8 @@
             "month": "2023-05",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 67.7,
+            "return": 0.2258,
             "symbol": "ACGL",
             "name": "Arch Capital Group",
             "sector": "Financials",
@@ -6281,8 +6281,8 @@
             "month": "2023-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 189.36,
+            "return": 0.2501,
             "symbol": "EME",
             "name": "Emcor",
             "sector": "Industrials",
@@ -6300,15 +6300,15 @@
         "symbols": [
           "ACGL"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.1377,
         "events": [
           {
             "date": "2023-06-02",
             "month": "2023-06",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 69.8,
+            "return": 0.2754,
             "symbol": "ACGL",
             "name": "Arch Capital Group",
             "sector": "Financials",
@@ -6329,15 +6329,15 @@
           "CAT",
           "SLB"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": -0.028,
         "events": [
           {
             "date": "2023-07-03",
             "month": "2023-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 249.31,
+            "return": 0.102,
             "symbol": "CAT",
             "name": "Caterpillar Inc.",
             "sector": "Industrials",
@@ -6350,8 +6350,8 @@
             "month": "2023-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 49.09,
+            "return": 0.0326,
             "symbol": "SLB",
             "name": "Schlumberger",
             "sector": "Energy",
@@ -6364,8 +6364,8 @@
             "month": "2023-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 56.48,
+            "return": 0.0322,
             "symbol": "LVS",
             "name": "Las Vegas Sands",
             "sector": "Consumer Discretionary",
@@ -6378,8 +6378,8 @@
             "month": "2023-07",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 56.48,
+            "return": 0.0322,
             "symbol": "LVS",
             "name": "Las Vegas Sands",
             "sector": "Consumer Discretionary",
@@ -6392,8 +6392,8 @@
             "month": "2023-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 65.87,
+            "return": -0.1835,
             "symbol": "STT",
             "name": "State Street Corporation",
             "sector": "Financials",
@@ -6406,8 +6406,8 @@
             "month": "2023-07",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 65.87,
+            "return": -0.1835,
             "symbol": "STT",
             "name": "State Street Corporation",
             "sector": "Financials",
@@ -6426,15 +6426,15 @@
           "ACGL",
           "GE"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.1607,
         "events": [
           {
             "date": "2023-08-28",
             "month": "2023-08",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 70.55,
+            "return": 0.0709,
             "symbol": "ACGL",
             "name": "Arch Capital Group",
             "sector": "Financials",
@@ -6447,8 +6447,8 @@
             "month": "2023-08",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 70.55,
+            "return": 0.0709,
             "symbol": "ACGL",
             "name": "Arch Capital Group",
             "sector": "Financials",
@@ -6461,8 +6461,8 @@
             "month": "2023-08",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 88.17,
+            "return": 0.3402,
             "symbol": "GE",
             "name": "GE Aerospace",
             "sector": "Industrials",
@@ -6482,15 +6482,15 @@
           "CAT",
           "GE"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.2308,
         "events": [
           {
             "date": "2023-09-29",
             "month": "2023-09",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 189.36,
+            "return": 0.2501,
             "symbol": "EME",
             "name": "Emcor",
             "sector": "Industrials",
@@ -6503,8 +6503,8 @@
             "month": "2023-09",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 249.31,
+            "return": 0.102,
             "symbol": "CAT",
             "name": "Caterpillar Inc.",
             "sector": "Industrials",
@@ -6517,8 +6517,8 @@
             "month": "2023-09",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 88.17,
+            "return": 0.3402,
             "symbol": "GE",
             "name": "GE Aerospace",
             "sector": "Industrials",
@@ -6540,15 +6540,15 @@
           "HCA",
           "CHD"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.085,
         "events": [
           {
             "date": "2023-10-02",
             "month": "2023-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 44.75,
+            "return": 0.5999,
             "symbol": "NVDA",
             "name": "Nvidia",
             "sector": "Semiconductors",
@@ -6561,8 +6561,8 @@
             "month": "2023-10",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 44.75,
+            "return": 0.5999,
             "symbol": "NVDA",
             "name": "Nvidia",
             "sector": "Semiconductors",
@@ -6575,8 +6575,8 @@
             "month": "2023-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 380.27,
+            "return": 0.034,
             "symbol": "LULU",
             "name": "Lululemon Athletica",
             "sector": "Consumer Discretionary",
@@ -6589,8 +6589,8 @@
             "month": "2023-10",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 49.09,
+            "return": 0.0326,
             "symbol": "SLB",
             "name": "Schlumberger",
             "sector": "Energy",
@@ -6603,8 +6603,8 @@
             "month": "2023-10",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 380.27,
+            "return": 0.034,
             "symbol": "LULU",
             "name": "Lululemon Athletica",
             "sector": "Consumer Discretionary",
@@ -6617,8 +6617,8 @@
             "month": "2023-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 218.69,
+            "return": -0.211,
             "symbol": "HCA",
             "name": "HCA Healthcare",
             "sector": "Health Care",
@@ -6631,8 +6631,8 @@
             "month": "2023-10",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 218.69,
+            "return": -0.211,
             "symbol": "HCA",
             "name": "HCA Healthcare",
             "sector": "Health Care",
@@ -6645,8 +6645,8 @@
             "month": "2023-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 87.82,
+            "return": -0.0566,
             "symbol": "CHD",
             "name": "Church & Dwight",
             "sector": "Consumer Staples",
@@ -6659,8 +6659,8 @@
             "month": "2023-10",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 87.82,
+            "return": -0.0566,
             "symbol": "CHD",
             "name": "Church & Dwight",
             "sector": "Consumer Staples",
@@ -6679,15 +6679,15 @@
           "PLTR",
           "NVDA"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.6497,
         "events": [
           {
             "date": "2023-11-27",
             "month": "2023-11",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 18.64,
+            "return": 0.2663,
             "symbol": "PLTR",
             "name": "Palantir Technologies",
             "sector": "Software",
@@ -6700,8 +6700,8 @@
             "month": "2023-11",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 81.57,
+            "return": 1.0332,
             "symbol": "NVDA",
             "name": "Nvidia",
             "sector": "Semiconductors",
@@ -6719,15 +6719,15 @@
         "symbols": [
           "PLTR"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.1332,
         "events": [
           {
             "date": "2023-12-15",
             "month": "2023-12",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 18.64,
+            "return": 0.2663,
             "symbol": "PLTR",
             "name": "Palantir Technologies",
             "sector": "Software",
@@ -6748,15 +6748,15 @@
           "META",
           "GE"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.2733,
         "events": [
           {
             "date": "2024-01-02",
             "month": "2024-01",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 16.69,
+            "return": -0.1113,
             "symbol": "CCL",
             "name": "Carnival Corporation",
             "sector": "Consumer Discretionary",
@@ -6769,8 +6769,8 @@
             "month": "2024-01",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 127.96,
+            "return": 0.5047,
             "symbol": "GE",
             "name": "GE Aerospace",
             "sector": "Industrials",
@@ -6783,8 +6783,8 @@
             "month": "2024-01",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 68.09,
+            "return": 0.3753,
             "symbol": "UBER",
             "name": "Uber",
             "sector": "Industrials",
@@ -6797,8 +6797,8 @@
             "month": "2024-01",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 418.71,
+            "return": 0.3244,
             "symbol": "META",
             "name": "Meta Platforms",
             "sector": "Software",
@@ -6818,15 +6818,15 @@
           "MPC",
           "VRT"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.3991,
         "events": [
           {
             "date": "2024-02-02",
             "month": "2024-02",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 16.69,
+            "return": -0.1113,
             "symbol": "CCL",
             "name": "Carnival Corporation",
             "sector": "Consumer Discretionary",
@@ -6839,8 +6839,8 @@
             "month": "2024-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 168.07,
+            "return": 0.242,
             "symbol": "MPC",
             "name": "Marathon Petroleum",
             "sector": "Energy",
@@ -6853,8 +6853,8 @@
             "month": "2024-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 78.67,
+            "return": 1.0665,
             "symbol": "VRT",
             "name": "Vertiv",
             "sector": "Industrials",
@@ -6877,15 +6877,15 @@
           "STX",
           "XOM"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.6411,
         "events": [
           {
             "date": "2024-04-01",
             "month": "2024-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 178.36,
+            "return": 0.1655,
             "symbol": "CBOE",
             "name": "Cboe Global Markets",
             "sector": "Financials",
@@ -6898,8 +6898,8 @@
             "month": "2024-04",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 178.36,
+            "return": 0.1655,
             "symbol": "CBOE",
             "name": "Cboe Global Markets",
             "sector": "Financials",
@@ -6912,8 +6912,8 @@
             "month": "2024-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 109.24,
+            "return": 0.0349,
             "symbol": "XOM",
             "name": "ExxonMobil",
             "sector": "Energy",
@@ -6926,8 +6926,8 @@
             "month": "2024-04",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 68.09,
+            "return": 0.3753,
             "symbol": "UBER",
             "name": "Uber",
             "sector": "Industrials",
@@ -6940,8 +6940,8 @@
             "month": "2024-04",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 418.71,
+            "return": 0.3244,
             "symbol": "META",
             "name": "Meta Platforms",
             "sector": "Software",
@@ -6954,8 +6954,8 @@
             "month": "2024-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 129.3,
+            "return": 2.0742,
             "symbol": "MSTR",
             "name": "MicroStrategy",
             "sector": "Software",
@@ -6968,8 +6968,8 @@
             "month": "2024-04",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 129.3,
+            "return": 2.0742,
             "symbol": "MSTR",
             "name": "MicroStrategy",
             "sector": "Software",
@@ -6982,8 +6982,8 @@
             "month": "2024-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 82.51,
+            "return": 0.2778,
             "symbol": "STX",
             "name": "Seagate Technology",
             "sector": "Electronic Components",
@@ -6996,8 +6996,8 @@
             "month": "2024-04",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 82.51,
+            "return": 0.2778,
             "symbol": "STX",
             "name": "Seagate Technology",
             "sector": "Electronic Components",
@@ -7016,15 +7016,15 @@
           "MPC",
           "XOM"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.1385,
         "events": [
           {
             "date": "2024-05-10",
             "month": "2024-05",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 168.07,
+            "return": 0.242,
             "symbol": "MPC",
             "name": "Marathon Petroleum",
             "sector": "Energy",
@@ -7037,8 +7037,8 @@
             "month": "2024-05",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 109.24,
+            "return": 0.0349,
             "symbol": "XOM",
             "name": "ExxonMobil",
             "sector": "Energy",
@@ -7059,15 +7059,15 @@
           "PLTR",
           "VRT"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.3348,
         "events": [
           {
             "date": "2024-06-03",
             "month": "2024-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 81.57,
+            "return": 1.0332,
             "symbol": "NVDA",
             "name": "Nvidia",
             "sector": "Semiconductors",
@@ -7080,8 +7080,8 @@
             "month": "2024-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 112.66,
+            "return": -0.1616,
             "symbol": "EXPE",
             "name": "Expedia Group",
             "sector": "Consumer Discretionary",
@@ -7094,8 +7094,8 @@
             "month": "2024-06",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 112.66,
+            "return": -0.1616,
             "symbol": "EXPE",
             "name": "Expedia Group",
             "sector": "Consumer Discretionary",
@@ -7108,8 +7108,8 @@
             "month": "2024-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 21.32,
+            "return": 0.1162,
             "symbol": "PLTR",
             "name": "Palantir Technologies",
             "sector": "Software",
@@ -7122,8 +7122,8 @@
             "month": "2024-06",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 21.32,
+            "return": 0.1162,
             "symbol": "PLTR",
             "name": "Palantir Technologies",
             "sector": "Software",
@@ -7136,8 +7136,8 @@
             "month": "2024-06",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 78.67,
+            "return": 1.0665,
             "symbol": "VRT",
             "name": "Vertiv",
             "sector": "Industrials",
@@ -7159,15 +7159,15 @@
           "HOOD",
           "COF"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.2394,
         "events": [
           {
             "date": "2024-07-01",
             "month": "2024-07",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 127.96,
+            "return": 0.5047,
             "symbol": "GE",
             "name": "GE Aerospace",
             "sector": "Industrials",
@@ -7180,8 +7180,8 @@
             "month": "2024-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 157.69,
+            "return": 0.1368,
             "symbol": "AMD",
             "name": "Advanced Micro Devices",
             "sector": "Semiconductors",
@@ -7194,8 +7194,8 @@
             "month": "2024-07",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 157.69,
+            "return": 0.1368,
             "symbol": "AMD",
             "name": "Advanced Micro Devices",
             "sector": "Semiconductors",
@@ -7208,8 +7208,8 @@
             "month": "2024-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 20.34,
+            "return": 0.643,
             "symbol": "HOOD",
             "name": "Robinhood Markets",
             "sector": "Financials",
@@ -7222,8 +7222,8 @@
             "month": "2024-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 49.98,
+            "return": 0.1107,
             "symbol": "WDC",
             "name": "Western Digital",
             "sector": "Electronic Components",
@@ -7236,8 +7236,8 @@
             "month": "2024-07",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 49.98,
+            "return": 0.1107,
             "symbol": "WDC",
             "name": "Western Digital",
             "sector": "Electronic Components",
@@ -7250,8 +7250,8 @@
             "month": "2024-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 137.95,
+            "return": 0.0328,
             "symbol": "COF",
             "name": "Capital One",
             "sector": "Financials",
@@ -7270,15 +7270,15 @@
           "HOOD",
           "COF"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.3379,
         "events": [
           {
             "date": "2024-08-02",
             "month": "2024-08",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 20.34,
+            "return": 0.643,
             "symbol": "HOOD",
             "name": "Robinhood Markets",
             "sector": "Financials",
@@ -7291,8 +7291,8 @@
             "month": "2024-08",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 137.95,
+            "return": 0.0328,
             "symbol": "COF",
             "name": "Capital One",
             "sector": "Financials",
@@ -7311,15 +7311,15 @@
           "HOOD",
           "GE"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.3501,
         "events": [
           {
             "date": "2024-09-03",
             "month": "2024-09",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 19.37,
+            "return": 0.2409,
             "symbol": "HOOD",
             "name": "Robinhood Markets",
             "sector": "Financials",
@@ -7332,8 +7332,8 @@
             "month": "2024-09",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 19.37,
+            "return": 0.2409,
             "symbol": "HOOD",
             "name": "Robinhood Markets",
             "sector": "Financials",
@@ -7346,8 +7346,8 @@
             "month": "2024-09",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 166.16,
+            "return": 0.3641,
             "symbol": "GE",
             "name": "GE Aerospace",
             "sector": "Industrials",
@@ -7360,8 +7360,8 @@
             "month": "2024-09",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 178.35,
+            "return": 0.2923,
             "symbol": "GE",
             "name": "GE Aerospace",
             "sector": "Industrials",
@@ -7374,8 +7374,8 @@
             "month": "2024-09",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 31.33,
+            "return": 0.6125,
             "symbol": "HOOD",
             "name": "Robinhood Markets",
             "sector": "Financials",
@@ -7394,15 +7394,15 @@
           "WDC",
           "VRT"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.0665,
         "events": [
           {
             "date": "2024-10-28",
             "month": "2024-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 52.45,
+            "return": -0.0032,
             "symbol": "WDC",
             "name": "Western Digital",
             "sector": "Electronic Components",
@@ -7415,8 +7415,8 @@
             "month": "2024-10",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 52.45,
+            "return": -0.0032,
             "symbol": "WDC",
             "name": "Western Digital",
             "sector": "Electronic Components",
@@ -7429,8 +7429,8 @@
             "month": "2024-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 114.13,
+            "return": 0.2059,
             "symbol": "VRT",
             "name": "Vertiv",
             "sector": "Industrials",
@@ -7448,15 +7448,15 @@
         "symbols": [
           "GE"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.3282,
         "events": [
           {
             "date": "2024-11-01",
             "month": "2024-11",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 166.16,
+            "return": 0.3641,
             "symbol": "GE",
             "name": "GE Aerospace",
             "sector": "Industrials",
@@ -7469,8 +7469,8 @@
             "month": "2024-11",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 178.35,
+            "return": 0.2923,
             "symbol": "GE",
             "name": "GE Aerospace",
             "sector": "Industrials",
@@ -7492,15 +7492,15 @@
           "GOOGL",
           "TKO"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.0163,
         "events": [
           {
             "date": "2024-12-02",
             "month": "2024-12",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 73.69,
+            "return": 0.0038,
             "symbol": "NEE",
             "name": "NextEra Energy",
             "sector": "Utilities",
@@ -7513,8 +7513,8 @@
             "month": "2024-12",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 73.69,
+            "return": 0.0038,
             "symbol": "NEE",
             "name": "NextEra Energy",
             "sector": "Utilities",
@@ -7527,8 +7527,8 @@
             "month": "2024-12",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 136.52,
+            "return": 0.2867,
             "symbol": "TKO",
             "name": "TKO Group Holdings",
             "sector": "Communication Services",
@@ -7541,8 +7541,8 @@
             "month": "2024-12",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 114.13,
+            "return": 0.2059,
             "symbol": "VRT",
             "name": "Vertiv",
             "sector": "Industrials",
@@ -7555,8 +7555,8 @@
             "month": "2024-12",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 125.91,
+            "return": -0.2081,
             "symbol": "ARM",
             "name": "Arm Holdings",
             "sector": "Semiconductors",
@@ -7569,8 +7569,8 @@
             "month": "2024-12",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 125.91,
+            "return": -0.2081,
             "symbol": "ARM",
             "name": "Arm Holdings",
             "sector": "Semiconductors",
@@ -7583,8 +7583,8 @@
             "month": "2024-12",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 187.26,
+            "return": 0.0302,
             "symbol": "GOOGL",
             "name": "Alphabet Inc. (Class A)",
             "sector": "Software",
@@ -7604,15 +7604,15 @@
           "CFG",
           "CBRE"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.0942,
         "events": [
           {
             "date": "2025-02-03",
             "month": "2025-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 41.7,
+            "return": 0.0407,
             "symbol": "CFG",
             "name": "Citizens Financial Group",
             "sector": "Financials",
@@ -7625,8 +7625,8 @@
             "month": "2025-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 134.08,
+            "return": 0.2117,
             "symbol": "CBRE",
             "name": "CBRE Group",
             "sector": "Real Estate",
@@ -7639,8 +7639,8 @@
             "month": "2025-02",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 187.26,
+            "return": 0.0302,
             "symbol": "GOOGL",
             "name": "Alphabet Inc. (Class A)",
             "sector": "Software",
@@ -7665,15 +7665,15 @@
           "ERIE",
           "VTR"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.1083,
         "events": [
           {
             "date": "2025-03-03",
             "month": "2025-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 398.48,
+            "return": -0.1686,
             "symbol": "ERIE",
             "name": "Erie Indemnity",
             "sector": "Financials",
@@ -7686,8 +7686,8 @@
             "month": "2025-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 65.74,
+            "return": 0.111,
             "symbol": "VTR",
             "name": "Ventas",
             "sector": "Real Estate",
@@ -7700,8 +7700,8 @@
             "month": "2025-03",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 136.52,
+            "return": 0.2867,
             "symbol": "TKO",
             "name": "TKO Group Holdings",
             "sector": "Communication Services",
@@ -7714,8 +7714,8 @@
             "month": "2025-03",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 31.33,
+            "return": 0.6125,
             "symbol": "HOOD",
             "name": "Robinhood Markets",
             "sector": "Financials",
@@ -7728,8 +7728,8 @@
             "month": "2025-03",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 41.7,
+            "return": 0.0407,
             "symbol": "CFG",
             "name": "Citizens Financial Group",
             "sector": "Financials",
@@ -7742,8 +7742,8 @@
             "month": "2025-03",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 134.08,
+            "return": 0.2117,
             "symbol": "CBRE",
             "name": "CBRE Group",
             "sector": "Real Estate",
@@ -7756,8 +7756,8 @@
             "month": "2025-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 94,
+            "return": 0.0561,
             "symbol": "NRG",
             "name": "NRG Energy",
             "sector": "Utilities",
@@ -7770,8 +7770,8 @@
             "month": "2025-03",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 94,
+            "return": 0.0561,
             "symbol": "NRG",
             "name": "NRG Energy",
             "sector": "Utilities",
@@ -7784,8 +7784,8 @@
             "month": "2025-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 100.15,
+            "return": -0.0617,
             "symbol": "CHRW",
             "name": "C.H. Robinson",
             "sector": "Industrials",
@@ -7798,8 +7798,8 @@
             "month": "2025-03",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 100.15,
+            "return": -0.0617,
             "symbol": "CHRW",
             "name": "C.H. Robinson",
             "sector": "Industrials",
@@ -7818,15 +7818,15 @@
           "CBRE",
           "HOOD"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.7847,
         "events": [
           {
             "date": "2025-04-28",
             "month": "2025-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 121.36,
+            "return": -0.0787,
             "symbol": "CBRE",
             "name": "CBRE Group",
             "sector": "Real Estate",
@@ -7839,8 +7839,8 @@
             "month": "2025-04",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 121.36,
+            "return": -0.0787,
             "symbol": "CBRE",
             "name": "CBRE Group",
             "sector": "Real Estate",
@@ -7853,8 +7853,8 @@
             "month": "2025-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 98.01,
+            "return": 2.5116,
             "symbol": "HOOD",
             "name": "Robinhood Markets",
             "sector": "Financials",
@@ -7873,15 +7873,15 @@
           "ERIE",
           "VTR"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": -0.0288,
         "events": [
           {
             "date": "2025-05-02",
             "month": "2025-05",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 398.48,
+            "return": -0.1686,
             "symbol": "ERIE",
             "name": "Erie Indemnity",
             "sector": "Financials",
@@ -7894,8 +7894,8 @@
             "month": "2025-05",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 65.74,
+            "return": 0.111,
             "symbol": "VTR",
             "name": "Ventas",
             "sector": "Real Estate",
@@ -7916,15 +7916,15 @@
           "APO",
           "HOOD"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.3562,
         "events": [
           {
             "date": "2025-06-02",
             "month": "2025-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 77.22,
+            "return": 0.2273,
             "symbol": "TPR",
             "name": "Tapestry, Inc.",
             "sector": "Consumer Discretionary",
@@ -7937,8 +7937,8 @@
             "month": "2025-06",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 77.22,
+            "return": 0.2273,
             "symbol": "TPR",
             "name": "Tapestry, Inc.",
             "sector": "Consumer Discretionary",
@@ -7951,8 +7951,8 @@
             "month": "2025-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 87.64,
+            "return": 1.3271,
             "symbol": "HOOD",
             "name": "Robinhood Markets",
             "sector": "Financials",
@@ -7965,8 +7965,8 @@
             "month": "2025-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 208.12,
+            "return": 0.1644,
             "symbol": "DRI",
             "name": "Darden Restaurants",
             "sector": "Consumer Discretionary",
@@ -7979,8 +7979,8 @@
             "month": "2025-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 136.11,
+            "return": -0.165,
             "symbol": "APO",
             "name": "Apollo Global Management",
             "sector": "Financials",
@@ -8000,15 +8000,15 @@
           "TKO",
           "RCL"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.1718,
         "events": [
           {
             "date": "2025-07-18",
             "month": "2025-07",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 208.12,
+            "return": 0.1644,
             "symbol": "DRI",
             "name": "Darden Restaurants",
             "sector": "Consumer Discretionary",
@@ -8021,8 +8021,8 @@
             "month": "2025-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 164.46,
+            "return": 0.0677,
             "symbol": "TKO",
             "name": "TKO Group Holdings",
             "sector": "Communication Services",
@@ -8035,8 +8035,8 @@
             "month": "2025-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 329.08,
+            "return": 0.2833,
             "symbol": "RCL",
             "name": "Royal Caribbean Group",
             "sector": "Consumer Discretionary",
@@ -8056,15 +8056,15 @@
           "RCL",
           "APO"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.062,
         "events": [
           {
             "date": "2025-08-08",
             "month": "2025-08",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 164.46,
+            "return": 0.0677,
             "symbol": "TKO",
             "name": "TKO Group Holdings",
             "sector": "Communication Services",
@@ -8077,8 +8077,8 @@
             "month": "2025-08",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 329.08,
+            "return": 0.2833,
             "symbol": "RCL",
             "name": "Royal Caribbean Group",
             "sector": "Consumer Discretionary",
@@ -8091,8 +8091,8 @@
             "month": "2025-08",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 136.11,
+            "return": -0.165,
             "symbol": "APO",
             "name": "Apollo Global Management",
             "sector": "Financials",
@@ -8113,15 +8113,15 @@
           "DTE",
           "BNY"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.0615,
         "events": [
           {
             "date": "2025-09-02",
             "month": "2025-09",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 59.13,
+            "return": 0.0506,
             "symbol": "FOXA",
             "name": "Fox Corporation (Class A)",
             "sector": "Communication Services",
@@ -8134,8 +8134,8 @@
             "month": "2025-09",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 110.52,
+            "return": 0.2811,
             "symbol": "BNY",
             "name": "BNY Mellon",
             "sector": "Financials",
@@ -8148,8 +8148,8 @@
             "month": "2025-09",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 105.08,
+            "return": -0.0218,
             "symbol": "EXE",
             "name": "Expand Energy",
             "sector": "Energy",
@@ -8162,8 +8162,8 @@
             "month": "2025-09",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 105.08,
+            "return": -0.0218,
             "symbol": "EXE",
             "name": "Expand Energy",
             "sector": "Energy",
@@ -8176,8 +8176,8 @@
             "month": "2025-09",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 135.42,
+            "return": 0.0192,
             "symbol": "DTE",
             "name": "DTE Energy",
             "sector": "Utilities",
@@ -8195,15 +8195,15 @@
         "symbols": [
           "FOXA"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.0253,
         "events": [
           {
             "date": "2025-10-17",
             "month": "2025-10",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 59.13,
+            "return": 0.0506,
             "symbol": "FOXA",
             "name": "Fox Corporation (Class A)",
             "sector": "Communication Services",
@@ -8224,15 +8224,15 @@
           "CNP",
           "DTE"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.518,
         "events": [
           {
             "date": "2025-11-03",
             "month": "2025-11",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 98.01,
+            "return": 2.5116,
             "symbol": "HOOD",
             "name": "Robinhood Markets",
             "sector": "Financials",
@@ -8245,8 +8245,8 @@
             "month": "2025-11",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 140.86,
+            "return": -0.1316,
             "symbol": "PM",
             "name": "Philip Morris International",
             "sector": "Consumer Staples",
@@ -8259,8 +8259,8 @@
             "month": "2025-11",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 140.86,
+            "return": -0.1316,
             "symbol": "PM",
             "name": "Philip Morris International",
             "sector": "Consumer Staples",
@@ -8273,8 +8273,8 @@
             "month": "2025-11",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 37.79,
+            "return": 0.0156,
             "symbol": "CNP",
             "name": "CenterPoint Energy",
             "sector": "Utilities",
@@ -8287,8 +8287,8 @@
             "month": "2025-11",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 37.79,
+            "return": 0.0156,
             "symbol": "CNP",
             "name": "CenterPoint Energy",
             "sector": "Utilities",
@@ -8301,8 +8301,8 @@
             "month": "2025-11",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 135.42,
+            "return": 0.0192,
             "symbol": "DTE",
             "name": "DTE Energy",
             "sector": "Utilities",
@@ -8315,8 +8315,8 @@
             "month": "2025-11",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 87.64,
+            "return": 1.3271,
             "symbol": "HOOD",
             "name": "Robinhood Markets",
             "sector": "Financials",
@@ -8336,15 +8336,15 @@
           "HWM",
           "STX"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 1.5846,
         "events": [
           {
             "date": "2025-12-01",
             "month": "2025-12",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 287.34,
+            "return": 0.1675,
             "symbol": "GE",
             "name": "GE Aerospace",
             "sector": "Industrials",
@@ -8357,8 +8357,8 @@
             "month": "2025-12",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 287.34,
+            "return": 0.1675,
             "symbol": "GE",
             "name": "GE Aerospace",
             "sector": "Industrials",
@@ -8371,8 +8371,8 @@
             "month": "2025-12",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 594.67,
+            "return": 4.0537,
             "symbol": "STX",
             "name": "Seagate Technology",
             "sector": "Electronic Components",
@@ -8385,8 +8385,8 @@
             "month": "2025-12",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 218.54,
+            "return": 0.1756,
             "symbol": "HWM",
             "name": "Howmet Aerospace",
             "sector": "Industrials",
@@ -8399,8 +8399,8 @@
             "month": "2025-12",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 624.57,
+            "return": 3.3588,
             "symbol": "STX",
             "name": "Seagate Technology",
             "sector": "Electronic Components",
@@ -8420,15 +8420,15 @@
           "BNY",
           "TPR"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.2001,
         "events": [
           {
             "date": "2026-02-02",
             "month": "2026-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 307.88,
+            "return": 0.1424,
             "symbol": "GE",
             "name": "GE Aerospace",
             "sector": "Industrials",
@@ -8441,8 +8441,8 @@
             "month": "2026-02",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 307.88,
+            "return": 0.1424,
             "symbol": "GE",
             "name": "GE Aerospace",
             "sector": "Industrials",
@@ -8455,8 +8455,8 @@
             "month": "2026-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 134.72,
+            "return": 0.2346,
             "symbol": "TPR",
             "name": "Tapestry, Inc.",
             "sector": "Consumer Discretionary",
@@ -8469,8 +8469,8 @@
             "month": "2026-02",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 110.52,
+            "return": 0.2811,
             "symbol": "BNY",
             "name": "BNY Mellon",
             "sector": "Financials",
@@ -8492,15 +8492,15 @@
           "INTC",
           "WDC"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 0.9949,
         "events": [
           {
             "date": "2026-03-02",
             "month": "2026-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 103.17,
+            "return": -0.1729,
             "symbol": "WYNN",
             "name": "Wynn Resorts",
             "sector": "Consumer Discretionary",
@@ -8513,8 +8513,8 @@
             "month": "2026-03",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 103.17,
+            "return": -0.1729,
             "symbol": "WYNN",
             "name": "Wynn Resorts",
             "sector": "Consumer Discretionary",
@@ -8527,8 +8527,8 @@
             "month": "2026-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 460.88,
+            "return": 4.6363,
             "symbol": "WDC",
             "name": "Western Digital",
             "sector": "Electronic Components",
@@ -8541,8 +8541,8 @@
             "month": "2026-03",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 134.72,
+            "return": 0.2346,
             "symbol": "TPR",
             "name": "Tapestry, Inc.",
             "sector": "Consumer Discretionary",
@@ -8555,8 +8555,8 @@
             "month": "2026-03",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 218.54,
+            "return": 0.1756,
             "symbol": "HWM",
             "name": "Howmet Aerospace",
             "sector": "Industrials",
@@ -8569,8 +8569,8 @@
             "month": "2026-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 41.19,
+            "return": 0.1936,
             "symbol": "INTC",
             "name": "Intel",
             "sector": "Semiconductors",
@@ -8583,8 +8583,8 @@
             "month": "2026-03",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 41.19,
+            "return": 0.1936,
             "symbol": "INTC",
             "name": "Intel",
             "sector": "Semiconductors",
@@ -8597,8 +8597,8 @@
             "month": "2026-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 451.74,
+            "return": 2.8716,
             "symbol": "WDC",
             "name": "Western Digital",
             "sector": "Electronic Components",
@@ -8621,15 +8621,15 @@
           "SNDK",
           "BIIB"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 2.8277,
         "events": [
           {
             "date": "2026-06-01",
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 594.67,
+            "return": 4.0537,
             "symbol": "STX",
             "name": "Seagate Technology",
             "sector": "Electronic Components",
@@ -8642,8 +8642,8 @@
             "month": "2026-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 1156.07,
+            "return": 0.0954,
             "symbol": "LLY",
             "name": "Lilly (Eli)",
             "sector": "Health Care",
@@ -8656,8 +8656,8 @@
             "month": "2026-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 1905.91,
+            "return": 8.0594,
             "symbol": "SNDK",
             "name": "Sandisk",
             "sector": "Electronic Components",
@@ -8670,8 +8670,8 @@
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 624.57,
+            "return": 3.3588,
             "symbol": "STX",
             "name": "Seagate Technology",
             "sector": "Electronic Components",
@@ -8684,8 +8684,8 @@
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 460.88,
+            "return": 4.6363,
             "symbol": "WDC",
             "name": "Western Digital",
             "sector": "Electronic Components",
@@ -8698,8 +8698,8 @@
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 451.74,
+            "return": 2.8716,
             "symbol": "WDC",
             "name": "Western Digital",
             "sector": "Electronic Components",
@@ -8712,8 +8712,8 @@
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 437.06,
+            "return": 0.6816,
             "symbol": "AMD",
             "name": "Advanced Micro Devices",
             "sector": "Semiconductors",
@@ -8726,8 +8726,8 @@
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 526.25,
+            "return": 2.3322,
             "symbol": "WDC",
             "name": "Western Digital",
             "sector": "Electronic Components",
@@ -8740,8 +8740,8 @@
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 1156.07,
+            "return": 0.0954,
             "symbol": "LLY",
             "name": "Lilly (Eli)",
             "sector": "Health Care",
@@ -8754,8 +8754,8 @@
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 1905.91,
+            "return": 8.0594,
             "symbol": "SNDK",
             "name": "Sandisk",
             "sector": "Electronic Components",
@@ -8768,8 +8768,8 @@
             "month": "2026-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 216.63,
+            "return": 0.2238,
             "symbol": "BIIB",
             "name": "Biogen",
             "sector": "Health Care",
@@ -8782,8 +8782,8 @@
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 216.63,
+            "return": 0.2238,
             "symbol": "BIIB",
             "name": "Biogen",
             "sector": "Health Care",
@@ -8796,8 +8796,8 @@
             "month": "2026-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 968.53,
+            "return": 2.4481,
             "symbol": "STX",
             "name": "Seagate Technology",
             "sector": "Electronic Components",
@@ -8810,8 +8810,8 @@
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 968.53,
+            "return": 2.4481,
             "symbol": "STX",
             "name": "Seagate Technology",
             "sector": "Electronic Components",
@@ -8830,15 +8830,15 @@
           "AMD",
           "WDC"
         ],
-        "averageEventReturn": 0,
+        "averageEventReturn": 1.5069,
         "events": [
           {
             "date": "2026-04-27",
             "month": "2026-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 437.06,
+            "return": 0.6816,
             "symbol": "AMD",
             "name": "Advanced Micro Devices",
             "sector": "Semiconductors",
@@ -8851,8 +8851,8 @@
             "month": "2026-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null,
+            "price": 526.25,
+            "return": 2.3322,
             "symbol": "WDC",
             "name": "Western Digital",
             "sector": "Electronic Components",
@@ -8896,16 +8896,16 @@
             "month": "2022-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 11.85,
+            "return": -0.5405
           },
           {
             "date": "2022-02-28",
             "month": "2022-02",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 11.85,
+            "return": -0.5405
           }
         ]
       },
@@ -8941,16 +8941,16 @@
             "month": "2022-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 193.7,
+            "return": 0.1259
           },
           {
             "date": "2022-04-29",
             "month": "2022-04",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 193.7,
+            "return": 0.1259
           }
         ]
       },
@@ -8986,16 +8986,16 @@
             "month": "2022-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 181.72,
+            "return": 0.0833
           },
           {
             "date": "2022-04-29",
             "month": "2022-04",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 181.72,
+            "return": 0.0833
           }
         ]
       },
@@ -9031,16 +9031,16 @@
             "month": "2022-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 121.34,
+            "return": -0.6338
           },
           {
             "date": "2022-05-02",
             "month": "2022-05",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 121.34,
+            "return": -0.6338
           }
         ]
       },
@@ -9076,16 +9076,16 @@
             "month": "2022-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 35.55,
+            "return": 0.7643
           },
           {
             "date": "2022-05-20",
             "month": "2022-05",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 35.55,
+            "return": 0.7643
           }
         ]
       },
@@ -9121,16 +9121,16 @@
             "month": "2022-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 35.93,
+            "return": 0.5231
           },
           {
             "date": "2022-05-20",
             "month": "2022-05",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 35.93,
+            "return": 0.5231
           }
         ]
       },
@@ -9166,16 +9166,16 @@
             "month": "2022-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 273.46,
+            "return": -0.249
           },
           {
             "date": "2022-05-31",
             "month": "2022-05",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 273.46,
+            "return": -0.249
           }
         ]
       },
@@ -9211,16 +9211,16 @@
             "month": "2022-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 101.86,
+            "return": -0.3715
           },
           {
             "date": "2022-05-31",
             "month": "2022-05",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 101.86,
+            "return": -0.3715
           }
         ]
       },
@@ -9256,16 +9256,16 @@
             "month": "2022-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 84.57,
+            "return": 0.0222
           },
           {
             "date": "2022-06-27",
             "month": "2022-06",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 84.57,
+            "return": 0.0222
           }
         ]
       },
@@ -9301,16 +9301,16 @@
             "month": "2022-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 43.57,
+            "return": 0.0044
           },
           {
             "date": "2022-06-27",
             "month": "2022-06",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 43.57,
+            "return": 0.0044
           }
         ]
       },
@@ -9346,16 +9346,16 @@
             "month": "2022-08",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 26.01,
+            "return": -0.078
           },
           {
             "date": "2022-08-01",
             "month": "2022-08",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 26.01,
+            "return": -0.078
           }
         ]
       },
@@ -9391,16 +9391,16 @@
             "month": "2022-08",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 74.76,
+            "return": 0.1334
           },
           {
             "date": "2022-08-01",
             "month": "2022-08",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 74.76,
+            "return": 0.1334
           }
         ]
       },
@@ -9436,16 +9436,16 @@
             "month": "2022-08",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 93.32,
+            "return": 0.0026
           },
           {
             "date": "2022-08-29",
             "month": "2022-08",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 93.32,
+            "return": 0.0026
           }
         ]
       },
@@ -9481,16 +9481,16 @@
             "month": "2022-08",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 60.49,
+            "return": 0.0144
           },
           {
             "date": "2022-09-30",
             "month": "2022-09",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 60.49,
+            "return": 0.0144
           }
         ]
       },
@@ -9526,16 +9526,16 @@
             "month": "2022-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 60.26,
+            "return": 0.1342
           },
           {
             "date": "2022-10-03",
             "month": "2022-10",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 60.26,
+            "return": 0.1342
           }
         ]
       },
@@ -9571,16 +9571,16 @@
             "month": "2022-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 44.38,
+            "return": -0.2697
           },
           {
             "date": "2022-10-03",
             "month": "2022-10",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 44.38,
+            "return": -0.2697
           }
         ]
       },
@@ -9616,16 +9616,16 @@
             "month": "2022-11",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 64.19,
+            "return": -0.0126
           },
           {
             "date": "2022-11-28",
             "month": "2022-11",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 64.19,
+            "return": -0.0126
           }
         ]
       },
@@ -9661,16 +9661,16 @@
             "month": "2022-11",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 38.08,
+            "return": -0.0855
           },
           {
             "date": "2022-11-28",
             "month": "2022-11",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 38.08,
+            "return": -0.0855
           }
         ]
       },
@@ -9706,16 +9706,16 @@
             "month": "2022-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 110.08,
+            "return": 0.0707
           },
           {
             "date": "2022-12-16",
             "month": "2022-12",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 110.08,
+            "return": 0.0707
           }
         ]
       },
@@ -9751,16 +9751,16 @@
             "month": "2023-01",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 231.01,
+            "return": 0.0056
           },
           {
             "date": "2023-01-03",
             "month": "2023-01",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 231.01,
+            "return": 0.0056
           }
         ]
       },
@@ -9796,16 +9796,16 @@
             "month": "2022-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 210.63,
+            "return": 0.0783
           },
           {
             "date": "2023-01-06",
             "month": "2023-01",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 210.63,
+            "return": 0.0783
           }
         ]
       },
@@ -9841,16 +9841,16 @@
             "month": "2023-01",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 346.01,
+            "return": 0.0919
           },
           {
             "date": "2023-01-20",
             "month": "2023-01",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 346.01,
+            "return": 0.0919
           }
         ]
       },
@@ -9886,16 +9886,16 @@
             "month": "2023-01",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 213.2,
+            "return": 0.093
           },
           {
             "date": "2023-01-30",
             "month": "2023-01",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 213.2,
+            "return": 0.093
           }
         ]
       },
@@ -9931,16 +9931,16 @@
             "month": "2023-01",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 416.45,
+            "return": -0.071
           },
           {
             "date": "2023-01-30",
             "month": "2023-01",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 416.45,
+            "return": -0.071
           }
         ]
       },
@@ -9976,16 +9976,16 @@
             "month": "2023-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 55.58,
+            "return": -0.2142
           },
           {
             "date": "2023-02-27",
             "month": "2023-02",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 55.58,
+            "return": -0.2142
           }
         ]
       },
@@ -10021,16 +10021,16 @@
             "month": "2023-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 402.09,
+            "return": 0.1134
           },
           {
             "date": "2023-02-27",
             "month": "2023-02",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 402.09,
+            "return": 0.1134
           }
         ]
       },
@@ -10066,16 +10066,16 @@
             "month": "2023-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 120.32,
+            "return": 0.2672
           },
           {
             "date": "2023-04-28",
             "month": "2023-04",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 120.32,
+            "return": 0.2672
           }
         ]
       },
@@ -10111,16 +10111,16 @@
             "month": "2023-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 45.54,
+            "return": -0.0485
           },
           {
             "date": "2023-05-01",
             "month": "2023-05",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 45.54,
+            "return": -0.0485
           }
         ]
       },
@@ -10156,16 +10156,16 @@
             "month": "2023-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 778.84,
+            "return": 0.0671
           },
           {
             "date": "2023-05-12",
             "month": "2023-05",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 778.84,
+            "return": 0.0671
           }
         ]
       },
@@ -10201,16 +10201,16 @@
             "month": "2023-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 67.7,
+            "return": 0.2258
           },
           {
             "date": "2023-05-30",
             "month": "2023-05",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 67.7,
+            "return": 0.2258
           }
         ]
       },
@@ -10246,16 +10246,16 @@
             "month": "2023-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 69.8,
+            "return": 0.2754
           },
           {
             "date": "2023-06-02",
             "month": "2023-06",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 69.8,
+            "return": 0.2754
           }
         ]
       },
@@ -10291,16 +10291,16 @@
             "month": "2023-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 56.48,
+            "return": 0.0322
           },
           {
             "date": "2023-07-31",
             "month": "2023-07",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 56.48,
+            "return": 0.0322
           }
         ]
       },
@@ -10336,16 +10336,16 @@
             "month": "2023-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 65.87,
+            "return": -0.1835
           },
           {
             "date": "2023-07-31",
             "month": "2023-07",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 65.87,
+            "return": -0.1835
           }
         ]
       },
@@ -10381,16 +10381,16 @@
             "month": "2023-08",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 70.55,
+            "return": 0.0709
           },
           {
             "date": "2023-08-28",
             "month": "2023-08",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 70.55,
+            "return": 0.0709
           }
         ]
       },
@@ -10426,16 +10426,16 @@
             "month": "2023-05",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 189.36,
+            "return": 0.2501
           },
           {
             "date": "2023-09-29",
             "month": "2023-09",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 189.36,
+            "return": 0.2501
           }
         ]
       },
@@ -10471,16 +10471,16 @@
             "month": "2023-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 249.31,
+            "return": 0.102
           },
           {
             "date": "2023-09-29",
             "month": "2023-09",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 249.31,
+            "return": 0.102
           }
         ]
       },
@@ -10516,16 +10516,16 @@
             "month": "2023-08",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 88.17,
+            "return": 0.3402
           },
           {
             "date": "2023-09-29",
             "month": "2023-09",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 88.17,
+            "return": 0.3402
           }
         ]
       },
@@ -10561,16 +10561,16 @@
             "month": "2023-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 44.75,
+            "return": 0.5999
           },
           {
             "date": "2023-10-02",
             "month": "2023-10",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 44.75,
+            "return": 0.5999
           }
         ]
       },
@@ -10606,16 +10606,16 @@
             "month": "2023-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 49.09,
+            "return": 0.0326
           },
           {
             "date": "2023-10-06",
             "month": "2023-10",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 49.09,
+            "return": 0.0326
           }
         ]
       },
@@ -10651,16 +10651,16 @@
             "month": "2023-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 380.27,
+            "return": 0.034
           },
           {
             "date": "2023-10-13",
             "month": "2023-10",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 380.27,
+            "return": 0.034
           }
         ]
       },
@@ -10696,16 +10696,16 @@
             "month": "2023-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 218.69,
+            "return": -0.211
           },
           {
             "date": "2023-10-30",
             "month": "2023-10",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 218.69,
+            "return": -0.211
           }
         ]
       },
@@ -10741,16 +10741,16 @@
             "month": "2023-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 87.82,
+            "return": -0.0566
           },
           {
             "date": "2023-10-30",
             "month": "2023-10",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 87.82,
+            "return": -0.0566
           }
         ]
       },
@@ -10786,16 +10786,16 @@
             "month": "2023-11",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 18.64,
+            "return": 0.2663
           },
           {
             "date": "2023-12-15",
             "month": "2023-12",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 18.64,
+            "return": 0.2663
           }
         ]
       },
@@ -10831,16 +10831,16 @@
             "month": "2024-01",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 16.69,
+            "return": -0.1113
           },
           {
             "date": "2024-02-02",
             "month": "2024-02",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 16.69,
+            "return": -0.1113
           }
         ]
       },
@@ -10876,16 +10876,16 @@
             "month": "2024-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 178.36,
+            "return": 0.1655
           },
           {
             "date": "2024-04-01",
             "month": "2024-04",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 178.36,
+            "return": 0.1655
           }
         ]
       },
@@ -10921,16 +10921,16 @@
             "month": "2024-01",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 68.09,
+            "return": 0.3753
           },
           {
             "date": "2024-04-19",
             "month": "2024-04",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 68.09,
+            "return": 0.3753
           }
         ]
       },
@@ -10966,16 +10966,16 @@
             "month": "2024-01",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 418.71,
+            "return": 0.3244
           },
           {
             "date": "2024-04-26",
             "month": "2024-04",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 418.71,
+            "return": 0.3244
           }
         ]
       },
@@ -11011,16 +11011,16 @@
             "month": "2024-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 129.3,
+            "return": 2.0742
           },
           {
             "date": "2024-04-29",
             "month": "2024-04",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 129.3,
+            "return": 2.0742
           }
         ]
       },
@@ -11056,16 +11056,16 @@
             "month": "2024-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 82.51,
+            "return": 0.2778
           },
           {
             "date": "2024-04-29",
             "month": "2024-04",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 82.51,
+            "return": 0.2778
           }
         ]
       },
@@ -11101,16 +11101,16 @@
             "month": "2024-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 168.07,
+            "return": 0.242
           },
           {
             "date": "2024-05-10",
             "month": "2024-05",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 168.07,
+            "return": 0.242
           }
         ]
       },
@@ -11146,16 +11146,16 @@
             "month": "2024-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 109.24,
+            "return": 0.0349
           },
           {
             "date": "2024-05-31",
             "month": "2024-05",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 109.24,
+            "return": 0.0349
           }
         ]
       },
@@ -11191,16 +11191,16 @@
             "month": "2023-11",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 81.57,
+            "return": 1.0332
           },
           {
             "date": "2024-06-03",
             "month": "2024-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 81.57,
+            "return": 1.0332
           }
         ]
       },
@@ -11236,16 +11236,16 @@
             "month": "2024-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 112.66,
+            "return": -0.1616
           },
           {
             "date": "2024-06-03",
             "month": "2024-06",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 112.66,
+            "return": -0.1616
           }
         ]
       },
@@ -11281,16 +11281,16 @@
             "month": "2024-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 21.32,
+            "return": 0.1162
           },
           {
             "date": "2024-06-03",
             "month": "2024-06",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 21.32,
+            "return": 0.1162
           }
         ]
       },
@@ -11326,16 +11326,16 @@
             "month": "2024-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 78.67,
+            "return": 1.0665
           },
           {
             "date": "2024-06-14",
             "month": "2024-06",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 78.67,
+            "return": 1.0665
           }
         ]
       },
@@ -11371,16 +11371,16 @@
             "month": "2024-01",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 127.96,
+            "return": 0.5047
           },
           {
             "date": "2024-07-01",
             "month": "2024-07",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 127.96,
+            "return": 0.5047
           }
         ]
       },
@@ -11416,16 +11416,16 @@
             "month": "2024-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 157.69,
+            "return": 0.1368
           },
           {
             "date": "2024-07-01",
             "month": "2024-07",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 157.69,
+            "return": 0.1368
           }
         ]
       },
@@ -11461,16 +11461,16 @@
             "month": "2024-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 49.98,
+            "return": 0.1107
           },
           {
             "date": "2024-07-29",
             "month": "2024-07",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 49.98,
+            "return": 0.1107
           }
         ]
       },
@@ -11506,16 +11506,16 @@
             "month": "2024-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 20.34,
+            "return": 0.643
           },
           {
             "date": "2024-08-02",
             "month": "2024-08",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 20.34,
+            "return": 0.643
           }
         ]
       },
@@ -11551,16 +11551,16 @@
             "month": "2024-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 137.95,
+            "return": 0.0328
           },
           {
             "date": "2024-08-09",
             "month": "2024-08",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 137.95,
+            "return": 0.0328
           }
         ]
       },
@@ -11596,16 +11596,16 @@
             "month": "2024-09",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 19.37,
+            "return": 0.2409
           },
           {
             "date": "2024-09-03",
             "month": "2024-09",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 19.37,
+            "return": 0.2409
           }
         ]
       },
@@ -11641,16 +11641,16 @@
             "month": "2024-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 52.45,
+            "return": -0.0032
           },
           {
             "date": "2024-10-28",
             "month": "2024-10",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 52.45,
+            "return": -0.0032
           }
         ]
       },
@@ -11686,16 +11686,16 @@
             "month": "2024-09",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 166.16,
+            "return": 0.3641
           },
           {
             "date": "2024-11-01",
             "month": "2024-11",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 166.16,
+            "return": 0.3641
           }
         ]
       },
@@ -11731,16 +11731,16 @@
             "month": "2024-09",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 178.35,
+            "return": 0.2923
           },
           {
             "date": "2024-11-01",
             "month": "2024-11",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 178.35,
+            "return": 0.2923
           }
         ]
       },
@@ -11776,16 +11776,16 @@
             "month": "2024-12",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 73.69,
+            "return": 0.0038
           },
           {
             "date": "2024-12-02",
             "month": "2024-12",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 73.69,
+            "return": 0.0038
           }
         ]
       },
@@ -11821,16 +11821,16 @@
             "month": "2024-10",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 114.13,
+            "return": 0.2059
           },
           {
             "date": "2024-12-27",
             "month": "2024-12",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 114.13,
+            "return": 0.2059
           }
         ]
       },
@@ -11866,16 +11866,16 @@
             "month": "2024-12",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 125.91,
+            "return": -0.2081
           },
           {
             "date": "2024-12-30",
             "month": "2024-12",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 125.91,
+            "return": -0.2081
           }
         ]
       },
@@ -11911,16 +11911,16 @@
             "month": "2024-12",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 187.26,
+            "return": 0.0302
           },
           {
             "date": "2025-02-14",
             "month": "2025-02",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 187.26,
+            "return": 0.0302
           }
         ]
       },
@@ -11956,16 +11956,16 @@
             "month": "2024-12",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 136.52,
+            "return": 0.2867
           },
           {
             "date": "2025-03-07",
             "month": "2025-03",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 136.52,
+            "return": 0.2867
           }
         ]
       },
@@ -12001,16 +12001,16 @@
             "month": "2024-09",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 31.33,
+            "return": 0.6125
           },
           {
             "date": "2025-03-14",
             "month": "2025-03",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 31.33,
+            "return": 0.6125
           }
         ]
       },
@@ -12046,16 +12046,16 @@
             "month": "2025-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 41.7,
+            "return": 0.0407
           },
           {
             "date": "2025-03-14",
             "month": "2025-03",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 41.7,
+            "return": 0.0407
           }
         ]
       },
@@ -12091,16 +12091,16 @@
             "month": "2025-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 134.08,
+            "return": 0.2117
           },
           {
             "date": "2025-03-14",
             "month": "2025-03",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 134.08,
+            "return": 0.2117
           }
         ]
       },
@@ -12136,16 +12136,16 @@
             "month": "2025-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 94,
+            "return": 0.0561
           },
           {
             "date": "2025-03-31",
             "month": "2025-03",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 94,
+            "return": 0.0561
           }
         ]
       },
@@ -12181,16 +12181,16 @@
             "month": "2025-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 100.15,
+            "return": -0.0617
           },
           {
             "date": "2025-03-31",
             "month": "2025-03",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 100.15,
+            "return": -0.0617
           }
         ]
       },
@@ -12226,16 +12226,16 @@
             "month": "2025-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 121.36,
+            "return": -0.0787
           },
           {
             "date": "2025-04-28",
             "month": "2025-04",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 121.36,
+            "return": -0.0787
           }
         ]
       },
@@ -12271,16 +12271,16 @@
             "month": "2025-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 398.48,
+            "return": -0.1686
           },
           {
             "date": "2025-05-02",
             "month": "2025-05",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 398.48,
+            "return": -0.1686
           }
         ]
       },
@@ -12316,16 +12316,16 @@
             "month": "2025-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 65.74,
+            "return": 0.111
           },
           {
             "date": "2025-05-09",
             "month": "2025-05",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 65.74,
+            "return": 0.111
           }
         ]
       },
@@ -12361,16 +12361,16 @@
             "month": "2025-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 77.22,
+            "return": 0.2273
           },
           {
             "date": "2025-06-02",
             "month": "2025-06",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 77.22,
+            "return": 0.2273
           }
         ]
       },
@@ -12406,16 +12406,16 @@
             "month": "2025-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 208.12,
+            "return": 0.1644
           },
           {
             "date": "2025-07-18",
             "month": "2025-07",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 208.12,
+            "return": 0.1644
           }
         ]
       },
@@ -12451,16 +12451,16 @@
             "month": "2025-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 164.46,
+            "return": 0.0677
           },
           {
             "date": "2025-08-08",
             "month": "2025-08",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 164.46,
+            "return": 0.0677
           }
         ]
       },
@@ -12496,16 +12496,16 @@
             "month": "2025-07",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 329.08,
+            "return": 0.2833
           },
           {
             "date": "2025-08-15",
             "month": "2025-08",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 329.08,
+            "return": 0.2833
           }
         ]
       },
@@ -12541,16 +12541,16 @@
             "month": "2025-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 136.11,
+            "return": -0.165
           },
           {
             "date": "2025-08-22",
             "month": "2025-08",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 136.11,
+            "return": -0.165
           }
         ]
       },
@@ -12586,16 +12586,16 @@
             "month": "2025-09",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 105.08,
+            "return": -0.0218
           },
           {
             "date": "2025-09-29",
             "month": "2025-09",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 105.08,
+            "return": -0.0218
           }
         ]
       },
@@ -12631,16 +12631,16 @@
             "month": "2025-09",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 59.13,
+            "return": 0.0506
           },
           {
             "date": "2025-10-17",
             "month": "2025-10",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 59.13,
+            "return": 0.0506
           }
         ]
       },
@@ -12676,16 +12676,16 @@
             "month": "2025-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 98.01,
+            "return": 2.5116
           },
           {
             "date": "2025-11-03",
             "month": "2025-11",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 98.01,
+            "return": 2.5116
           }
         ]
       },
@@ -12721,16 +12721,16 @@
             "month": "2025-11",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 140.86,
+            "return": -0.1316
           },
           {
             "date": "2025-11-03",
             "month": "2025-11",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 140.86,
+            "return": -0.1316
           }
         ]
       },
@@ -12766,16 +12766,16 @@
             "month": "2025-11",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 37.79,
+            "return": 0.0156
           },
           {
             "date": "2025-11-03",
             "month": "2025-11",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 37.79,
+            "return": 0.0156
           }
         ]
       },
@@ -12811,16 +12811,16 @@
             "month": "2025-09",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 135.42,
+            "return": 0.0192
           },
           {
             "date": "2025-11-07",
             "month": "2025-11",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 135.42,
+            "return": 0.0192
           }
         ]
       },
@@ -12856,16 +12856,16 @@
             "month": "2025-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 87.64,
+            "return": 1.3271
           },
           {
             "date": "2025-11-21",
             "month": "2025-11",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 87.64,
+            "return": 1.3271
           }
         ]
       },
@@ -12901,16 +12901,16 @@
             "month": "2025-12",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 287.34,
+            "return": 0.1675
           },
           {
             "date": "2025-12-01",
             "month": "2025-12",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 287.34,
+            "return": 0.1675
           }
         ]
       },
@@ -12946,16 +12946,16 @@
             "month": "2026-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 307.88,
+            "return": 0.1424
           },
           {
             "date": "2026-02-02",
             "month": "2026-02",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 307.88,
+            "return": 0.1424
           }
         ]
       },
@@ -12991,16 +12991,16 @@
             "month": "2025-09",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 110.52,
+            "return": 0.2811
           },
           {
             "date": "2026-02-20",
             "month": "2026-02",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 110.52,
+            "return": 0.2811
           }
         ]
       },
@@ -13036,16 +13036,16 @@
             "month": "2026-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 103.17,
+            "return": -0.1729
           },
           {
             "date": "2026-03-02",
             "month": "2026-03",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 103.17,
+            "return": -0.1729
           }
         ]
       },
@@ -13081,16 +13081,16 @@
             "month": "2026-02",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 134.72,
+            "return": 0.2346
           },
           {
             "date": "2026-03-20",
             "month": "2026-03",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 134.72,
+            "return": 0.2346
           }
         ]
       },
@@ -13126,16 +13126,16 @@
             "month": "2025-12",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 218.54,
+            "return": 0.1756
           },
           {
             "date": "2026-03-27",
             "month": "2026-03",
             "reason": "half_two_week_10w_break",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 218.54,
+            "return": 0.1756
           }
         ]
       },
@@ -13171,16 +13171,16 @@
             "month": "2026-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 41.19,
+            "return": 0.1936
           },
           {
             "date": "2026-03-30",
             "month": "2026-03",
             "reason": "half_trend_not_alive_at_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 41.19,
+            "return": 0.1936
           }
         ]
       },
@@ -13216,16 +13216,16 @@
             "month": "2025-12",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 594.67,
+            "return": 4.0537
           },
           {
             "date": "2026-06-01",
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 594.67,
+            "return": 4.0537
           }
         ]
       },
@@ -13261,16 +13261,16 @@
             "month": "2025-12",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 624.57,
+            "return": 3.3588
           },
           {
             "date": "2026-06-29",
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 624.57,
+            "return": 3.3588
           }
         ]
       },
@@ -13306,16 +13306,16 @@
             "month": "2026-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 460.88,
+            "return": 4.6363
           },
           {
             "date": "2026-06-29",
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 460.88,
+            "return": 4.6363
           }
         ]
       },
@@ -13351,16 +13351,16 @@
             "month": "2026-03",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 451.74,
+            "return": 2.8716
           },
           {
             "date": "2026-06-29",
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 451.74,
+            "return": 2.8716
           }
         ]
       },
@@ -13396,16 +13396,16 @@
             "month": "2026-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 437.06,
+            "return": 0.6816
           },
           {
             "date": "2026-06-29",
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 437.06,
+            "return": 0.6816
           }
         ]
       },
@@ -13441,16 +13441,16 @@
             "month": "2026-04",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 526.25,
+            "return": 2.3322
           },
           {
             "date": "2026-06-29",
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 526.25,
+            "return": 2.3322
           }
         ]
       },
@@ -13486,16 +13486,16 @@
             "month": "2026-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 1156.07,
+            "return": 0.0954
           },
           {
             "date": "2026-06-29",
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 1156.07,
+            "return": 0.0954
           }
         ]
       },
@@ -13531,16 +13531,16 @@
             "month": "2026-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 1905.91,
+            "return": 8.0594
           },
           {
             "date": "2026-06-29",
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 1905.91,
+            "return": 8.0594
           }
         ]
       },
@@ -13576,16 +13576,16 @@
             "month": "2026-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 216.63,
+            "return": 0.2238
           },
           {
             "date": "2026-06-29",
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 216.63,
+            "return": 0.2238
           }
         ]
       },
@@ -13621,16 +13621,16 @@
             "month": "2026-06",
             "reason": "half_fixed_6m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 968.53,
+            "return": 2.4481
           },
           {
             "date": "2026-06-29",
             "month": "2026-06",
             "reason": "half_max_12m",
             "weight": 0.5,
-            "price": null,
-            "return": null
+            "price": 968.53,
+            "return": 2.4481
           }
         ]
       }

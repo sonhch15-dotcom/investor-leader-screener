@@ -527,14 +527,17 @@ function sellEventsForTrade(row, priceMap) {
   const sellReasons = row.sellReasons ?? [];
   const eventWeight = sellDates.length >= 2 ? 0.5 : 1;
   return sellDates.map((date, index) => {
-    const price = rowOnOrAfter(priceRows, date)?.close ?? null;
+    const price = rowOnOrAfter(priceRows, date)?.close ?? row.averageSellPrice ?? row.exitPrice ?? null;
+    const returnValue = Number.isFinite(price)
+      ? percentReturn(row.averageBuyPrice, price)
+      : row.return;
     return {
       date,
       month: monthKey(date),
       reason: sellReasons[index] ?? "sell",
       weight: eventWeight,
       price: round(price, 2),
-      return: round(percentReturn(row.averageBuyPrice, price), 4)
+      return: round(returnValue, 4)
     };
   });
 }
@@ -846,9 +849,13 @@ async function main() {
   const realizedSymbols = strategy5y?.selectionTimeline?.length
     ? strategy5y.selectionTimeline.flatMap((cohort) => (cohort.rows ?? []).map((row) => row.symbol))
     : [];
+  const executionSymbols = currentExecutionRows?.length
+    ? currentExecutionRows.map((row) => row.symbol)
+    : [];
   const symbols = Array.from(new Set([
     ...cohorts.flatMap((cohort) => cohort.rows.map((row) => row.symbol)),
     ...realizedSymbols,
+    ...executionSymbols,
     "QQQ"
   ]));
   const { priceMap, errors } = await fetchPrices(symbols);
