@@ -1,9 +1,11 @@
 let dashboard = null;
 let showAllMonthlyExits = false;
 let showAllRealizedTrades = false;
+let accountState = null;
 
 const RECENT_MONTHLY_EXIT_LIMIT = 12;
 const RECENT_REALIZED_TRADE_LIMIT = 24;
+const ACCOUNT_STORAGE_KEY = "leader2AccountV1";
 
 async function fetchJson(path) {
   const response = await fetch(path, { cache: "no-store" });
@@ -84,6 +86,21 @@ function tag(text, className = "") {
 
 function formatDate(value) {
   return value || "-";
+}
+
+function todayDate() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function addMonthsToDate(dateString, months) {
+  const date = new Date(`${dateString}T00:00:00Z`);
+  if (Number.isNaN(date.getTime())) return dateString;
+  date.setUTCMonth(date.getUTCMonth() + months);
+  return date.toISOString().slice(0, 10);
+}
+
+function id(prefix) {
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
 function actionDate(row) {
@@ -301,6 +318,360 @@ function monthDiff(startMonth, endMonth) {
   return Math.max(0, (endYear - startYear) * 12 + endM - startM);
 }
 
+function defaultAccount() {
+  return {
+    version: 1,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    settings: {
+      startMonth: "",
+      capital: 10_000_000,
+      cash: 10_000_000,
+      fxRate: fallbackFxRate,
+      mode: "ramp",
+      shareMode: "whole"
+    },
+    lots: [],
+    ledger: []
+  };
+}
+
+function loadAccount() {
+  try {
+    const raw = localStorage.getItem(ACCOUNT_STORAGE_KEY);
+    if (!raw) return defaultAccount();
+    const parsed = JSON.parse(raw);
+    return {
+      ...defaultAccount(),
+      ...parsed,
+      settings: { ...defaultAccount().settings, ...(parsed.settings ?? {}) },
+      lots: Array.isArray(parsed.lots) ? parsed.lots : [],
+      ledger: Array.isArray(parsed.ledger) ? parsed.ledger : []
+    };
+  } catch {
+    return defaultAccount();
+  }
+}
+
+function saveAccount() {
+  if (!accountState) return;
+  accountState.updatedAt = new Date().toISOString();
+  localStorage.setItem(ACCOUNT_STORAGE_KEY, JSON.stringify(accountState));
+}
+
+function priceLookup() {
+  const map = new Map();
+  for (const row of dashboard.currentBuys ?? []) {
+    if (Number.isFinite(row.close)) map.set(row.symbol, row.close);
+  }
+  for (const row of dashboard.portfolio?.holdings ?? []) {
+    if (Number.isFinite(row.currentPrice)) map.set(row.symbol, row.currentPrice);
+  }
+  return map;
+}
+
+function lotRemainingShares(lot) {
+  const sold = (lot.sells ?? []).reduce((sum, row) => sum + (Number(row.shares) || 0), 0);
+  return Math.max(0, (Number(lot.shares) || 0) - sold);
+}
+
+function lotStatus(lot) {
+  if (lot.status === "closed" || lotRemainingShares(lot) <= 0) return "closed";
+  const today = todayDate();
+  if (!lot.soldHalf && today >= lot.halfSellDate) return "half_due";
+  if (lot.soldHalf && today >= lot.maxExitDate) return "final_due";
+  if (lot.soldHalf) return "extended";
+  return "hold";
+}
+
+function lotStatusLabel(status) {
+  return {
+    hold: "보유중",
+    half_due: "50% 매도 필요",
+    extended: "잔여 50% 연장중",
+    final_due: "잔여 매도 필요",
+    closed: "매도 완료"
+  }[status] ?? status;
+}
+
+function accountTotals() {
+  const prices = priceLookup();
+  const fxRate = accountState?.settings?.fxRate || fallbackFxRate;
+  const openLots = (accountState?.lots ?? []).filter((lot) => lotStatus(lot) !== "closed");
+  const marketValue = openLots.reduce((sum, lot) => {
+    const currentPrice = prices.get(lot.symbol) ?? lot.buyPriceUsd;
+    return sum + lotRemainingShares(lot) * currentPrice * fxRate;
+  }, 0);
+  const cost = openLots.reduce((sum, lot) => {
+    const remainingRatio = lot.shares ? lotRemainingShares(lot) / lot.shares : 0;
+    return sum + lot.investedKrw * remainingRatio;
+  }, 0);
+  const realized = (accountState?.ledger ?? [])
+    .filter((row) => row.type === "sell")
+    .reduce((sum, row) => sum + (Number(row.realizedKrw) || 0), 0);
+  const cash = Number(accountState?.settings?.cash) || 0;
+  return {
+    cash,
+    openCount: openLots.length,
+    marketValue,
+    cost,
+    equity: cash + marketValue,
+    unrealized: marketValue - cost,
+    realized
+  };
+}
+
+function applyPlannerSettingsToForm() {
+  if (!accountState) return;
+  const settings = accountState.settings;
+  const currentMonth = monthKeyFromDate(dashboard?.asOf);
+  const startMonth = document.getElementById("planner-start-month");
+  const capital = document.getElementById("planner-capital");
+  const cash = document.getElementById("planner-cash");
+  const fx = document.getElementById("planner-fx");
+  const mode = document.getElementById("planner-mode");
+  const shareMode = document.getElementById("planner-share-mode");
+  if (startMonth) startMonth.value = settings.startMonth || currentMonth;
+  if (capital) capital.value = Math.round(settings.capital || 0).toLocaleString("ko-KR");
+  if (cash) cash.value = Math.round(settings.cash || 0).toLocaleString("ko-KR");
+  if (fx) fx.value = Math.round(settings.fxRate || fallbackFxRate).toLocaleString("ko-KR");
+  if (mode) mode.value = settings.mode || "ramp";
+  if (shareMode) shareMode.value = settings.shareMode || "whole";
+}
+
+function persistPlannerSettings() {
+  if (!accountState) return;
+  accountState.settings = {
+    ...accountState.settings,
+    startMonth: document.getElementById("planner-start-month")?.value || accountState.settings.startMonth,
+    capital: Math.max(0, parseAmount(document.getElementById("planner-capital")?.value)),
+    cash: Math.max(0, parseAmount(document.getElementById("planner-cash")?.value)),
+    fxRate: Math.max(0, parseAmount(document.getElementById("planner-fx")?.value) || fallbackFxRate),
+    mode: document.getElementById("planner-mode")?.value || accountState.settings.mode,
+    shareMode: document.getElementById("planner-share-mode")?.value || accountState.settings.shareMode
+  };
+  saveAccount();
+}
+
+function recordPlannedBuy(symbol) {
+  const plan = buildPlannerPlan();
+  const row = plan.buys.find((item) => item.symbol === symbol);
+  if (!row || row.action !== "buy") return;
+  const defaultShares = plan.shareMode === "fractional" ? row.shares.toFixed(4) : String(Math.floor(row.shares));
+  const shares = Number(window.prompt(`${symbol} 매수 수량`, defaultShares));
+  if (!Number.isFinite(shares) || shares <= 0) return;
+  const buyPriceUsd = Number(window.prompt(`${symbol} 실제 매수가($)`, String(row.close)));
+  if (!Number.isFinite(buyPriceUsd) || buyPriceUsd <= 0) return;
+  const fxRate = Number(window.prompt("실제 적용 환율", String(plan.fxRate)));
+  if (!Number.isFinite(fxRate) || fxRate <= 0) return;
+  const buyDate = window.prompt("매수일", todayDate()) || todayDate();
+  const investedUsd = shares * buyPriceUsd;
+  const investedKrw = investedUsd * fxRate;
+  const lot = {
+    id: id("lot"),
+    symbol: row.symbol,
+    name: row.name,
+    sector: row.sector,
+    cohort: plan.currentMonth,
+    signalDate: dashboard.asOf,
+    buyDate,
+    shares,
+    buyPriceUsd,
+    fxRate,
+    investedUsd,
+    investedKrw,
+    soldHalf: false,
+    status: "open",
+    halfSellDate: addMonthsToDate(buyDate, 6),
+    maxExitDate: addMonthsToDate(buyDate, 12),
+    sells: []
+  };
+  accountState.lots.unshift(lot);
+  accountState.settings.cash = Math.max(0, (accountState.settings.cash || 0) - investedKrw);
+  accountState.ledger.unshift({
+    id: id("ledger"),
+    type: "buy",
+    date: buyDate,
+    symbol: row.symbol,
+    amountKrw: investedKrw,
+    amountUsd: investedUsd,
+    note: `${shares}주 @ ${usd(buyPriceUsd)}`
+  });
+  saveAccount();
+  applyPlannerSettingsToForm();
+  renderPlanner();
+  renderAccount();
+}
+
+function recordLotSell(lotId, mode) {
+  const lot = accountState.lots.find((row) => row.id === lotId);
+  if (!lot) return;
+  const remaining = lotRemainingShares(lot);
+  if (remaining <= 0) return;
+  const defaultShares = mode === "half" ? Math.min(remaining, lot.shares / 2) : remaining;
+  const shares = Number(window.prompt(`${lot.symbol} 매도 수량`, String(Number(defaultShares.toFixed(4)))));
+  if (!Number.isFinite(shares) || shares <= 0 || shares > remaining) return;
+  const sellPriceUsd = Number(window.prompt(`${lot.symbol} 실제 매도가($)`, String(lot.buyPriceUsd)));
+  if (!Number.isFinite(sellPriceUsd) || sellPriceUsd <= 0) return;
+  const fxRate = Number(window.prompt("실제 적용 환율", String(accountState.settings.fxRate || fallbackFxRate)));
+  if (!Number.isFinite(fxRate) || fxRate <= 0) return;
+  const sellDate = window.prompt("매도일", todayDate()) || todayDate();
+  const proceedsUsd = shares * sellPriceUsd;
+  const proceedsKrw = proceedsUsd * fxRate;
+  const costBasisKrw = lot.investedKrw * (shares / lot.shares);
+  const realizedKrw = proceedsKrw - costBasisKrw;
+  lot.sells = lot.sells ?? [];
+  lot.sells.push({ date: sellDate, shares, sellPriceUsd, fxRate, proceedsUsd, proceedsKrw, realizedKrw });
+  if (mode === "half") lot.soldHalf = true;
+  if (lotRemainingShares(lot) <= 0.000001) lot.status = "closed";
+  accountState.settings.cash = (accountState.settings.cash || 0) + proceedsKrw;
+  accountState.ledger.unshift({
+    id: id("ledger"),
+    type: "sell",
+    date: sellDate,
+    symbol: lot.symbol,
+    amountKrw: proceedsKrw,
+    amountUsd: proceedsUsd,
+    realizedKrw,
+    note: `${shares}주 @ ${usd(sellPriceUsd)}`
+  });
+  saveAccount();
+  applyPlannerSettingsToForm();
+  renderPlanner();
+  renderAccount();
+}
+
+function renderAccount() {
+  if (!accountState) return;
+  const totals = accountTotals();
+  const summary = document.getElementById("account-summary");
+  if (summary) {
+    summary.innerHTML = `
+      <article class="kpi"><span>총 자산</span><strong>${krw(totals.equity)}</strong><small>현금 + 평가금액</small></article>
+      <article class="kpi"><span>현금</span><strong>${krw(totals.cash)}</strong><small>다음 매수 가능 금액</small></article>
+      <article class="kpi"><span>평가금액</span><strong>${krw(totals.marketValue)}</strong><small>${totals.openCount}개 lot 보유</small></article>
+      <article class="kpi"><span>미실현 손익</span><strong class="${signedClass(totals.unrealized)}">${krw(totals.unrealized)}</strong><small>현재가 기준 추정</small></article>
+      <article class="kpi"><span>실현 손익</span><strong class="${signedClass(totals.realized)}">${krw(totals.realized)}</strong><small>매도 기록 기준</small></article>
+    `;
+  }
+
+  const actions = [];
+  for (const lot of accountState.lots) {
+    const status = lotStatus(lot);
+    if (status === "half_due") actions.push({ lot, text: `${lot.symbol} 50% 매도 필요`, date: lot.halfSellDate, action: "half" });
+    if (status === "final_due") actions.push({ lot, text: `${lot.symbol} 잔여 물량 매도 필요`, date: lot.maxExitDate, action: "full" });
+  }
+  const actionTarget = document.getElementById("account-actions");
+  if (actionTarget) {
+    actionTarget.innerHTML = actions.length ? actions.map(({ lot, text, date, action }) => `
+      <article class="account-card urgent">
+        <div><strong>${text}</strong><span>${date} 예정 | ${lot.cohort} 추천</span></div>
+        <button class="secondary-button" data-sell-lot="${lot.id}" data-sell-mode="${action}" type="button">${action === "half" ? "50% 매도 기록" : "잔여 매도 기록"}</button>
+      </article>
+    `).join("") : `<p class="empty-state">오늘 당장 처리할 매도 알림은 없습니다.</p>`;
+  }
+
+  const prices = priceLookup();
+  const lots = document.getElementById("account-lots");
+  if (lots) {
+    const openLots = accountState.lots.filter((lot) => lotStatus(lot) !== "closed");
+    document.getElementById("account-lots-meta").textContent = `${openLots.length}개 lot`;
+    lots.innerHTML = openLots.length ? openLots.map((lot) => {
+      const status = lotStatus(lot);
+      const currentPrice = prices.get(lot.symbol) ?? lot.buyPriceUsd;
+      const remaining = lotRemainingShares(lot);
+      const currentValue = remaining * currentPrice * (accountState.settings.fxRate || fallbackFxRate);
+      const remainingCost = lot.investedKrw * (remaining / lot.shares);
+      const ret = remainingCost ? currentValue / remainingCost - 1 : 0;
+      return `
+        <article class="account-card">
+          <div>
+            <strong>${lot.symbol} ${remaining.toFixed(4)}주</strong>
+            <span>${lot.name} | ${lot.cohort} 추천 | ${lotStatusLabel(status)}</span>
+          </div>
+          <div class="account-card-metrics">
+            <span>매수 ${formatDate(lot.buyDate)} @ ${usd(lot.buyPriceUsd)}</span>
+            <span class="${signedClass(ret)}">현재 ${percent(ret)} | ${krw(currentValue)}</span>
+            <span>50% 매도 ${lot.halfSellDate} | 최대 ${lot.maxExitDate}</span>
+          </div>
+          <div class="account-card-actions">
+            ${!lot.soldHalf ? `<button class="secondary-button" data-sell-lot="${lot.id}" data-sell-mode="half" type="button">50% 매도 기록</button>` : ""}
+            <button class="secondary-button" data-sell-lot="${lot.id}" data-sell-mode="full" type="button">잔여 매도 기록</button>
+          </div>
+        </article>
+      `;
+    }).join("") : `<p class="empty-state">아직 기록된 보유 lot이 없습니다. 투자 시작 탭에서 매수 기록을 남겨보세요.</p>`;
+  }
+
+  const ledger = document.getElementById("account-ledger");
+  if (ledger) {
+    ledger.innerHTML = accountState.ledger.length ? accountState.ledger.slice(0, 30).map((row) => `
+      <article class="account-card">
+        <div>
+          <strong>${row.date} ${row.type}</strong>
+          <span>${row.symbol ?? ""} ${row.note ?? ""}</span>
+        </div>
+        <b class="${signedClass(row.type === "withdrawal" ? -row.amountKrw : row.amountKrw)}">${krw(row.amountKrw)}</b>
+      </article>
+    `).join("") : `<p class="empty-state">아직 거래 기록이 없습니다.</p>`;
+  }
+}
+
+function setupAccount() {
+  accountState = loadAccount();
+  const cashDate = document.getElementById("cash-flow-date");
+  if (cashDate && !cashDate.value) cashDate.value = todayDate();
+  document.addEventListener("click", (event) => {
+    const buyButton = event.target.closest("[data-record-buy]");
+    if (buyButton) recordPlannedBuy(buyButton.dataset.recordBuy);
+    const sellButton = event.target.closest("[data-sell-lot]");
+    if (sellButton) recordLotSell(sellButton.dataset.sellLot, sellButton.dataset.sellMode);
+  });
+  document.getElementById("cash-flow-save")?.addEventListener("click", () => {
+    const type = document.getElementById("cash-flow-type")?.value ?? "deposit";
+    const amount = Math.max(0, parseAmount(document.getElementById("cash-flow-amount")?.value));
+    if (!amount) return;
+    const date = document.getElementById("cash-flow-date")?.value || todayDate();
+    const note = document.getElementById("cash-flow-note")?.value || "";
+    accountState.settings.cash = type === "deposit"
+      ? (accountState.settings.cash || 0) + amount
+      : Math.max(0, (accountState.settings.cash || 0) - amount);
+    accountState.ledger.unshift({ id: id("ledger"), type, date, amountKrw: amount, note });
+    saveAccount();
+    applyPlannerSettingsToForm();
+    renderPlanner();
+    renderAccount();
+  });
+  document.getElementById("account-export")?.addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify(accountState, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `leader2-account-${todayDate()}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+  });
+  document.getElementById("account-import")?.addEventListener("change", async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const imported = JSON.parse(await file.text());
+    accountState = { ...defaultAccount(), ...imported };
+    saveAccount();
+    applyPlannerSettingsToForm();
+    renderPlanner();
+    renderAccount();
+  });
+  document.getElementById("account-reset")?.addEventListener("click", () => {
+    if (!window.confirm("이 브라우저에 저장된 내 계좌 기록을 초기화할까요?")) return;
+    accountState = defaultAccount();
+    saveAccount();
+    applyPlannerSettingsToForm();
+    renderPlanner();
+    renderAccount();
+  });
+  renderAccount();
+}
+
 function plannedBuyAmount(mode, capital, cash, monthsSinceStart) {
   if (mode === plannerModes.ramp) {
     if (monthsSinceStart < mode.rampMonths && cash >= capital * mode.highCashPct) {
@@ -452,6 +823,7 @@ function renderPlanner() {
       <b>${row.action === "buy" ? `${krw(row.amount)} / ${usd(row.usdUsed)}` : "대기"}</b>
       <p>${row.reason}</p>
       <small>예상 주문: ${plan.shareMode === "fractional" ? row.shares.toFixed(4) : Math.floor(row.shares)}주 @ ${usd(row.close)} | 예산 ${krw(row.budget)} | 종목 한도 ${krw(row.capAmount)}</small>
+      ${row.action === "buy" ? `<button class="secondary-button" data-record-buy="${row.symbol}" type="button">매수 기록</button>` : ""}
     </article>
   `).join("");
 
@@ -486,30 +858,41 @@ async function updateFxRate() {
     const rate = data?.rates?.KRW;
     if (Number.isFinite(rate)) {
       input.value = Math.round(rate).toLocaleString("ko-KR");
+      persistPlannerSettings();
       renderPlanner();
+      renderAccount();
     }
   } catch {
     input.value = Math.round(parseAmount(input.value) || fallbackFxRate).toLocaleString("ko-KR");
+    persistPlannerSettings();
   }
 }
 
 function setupPlanner() {
   const form = document.getElementById("investment-planner-form");
   if (!form) return;
-  const currentMonth = monthKeyFromDate(dashboard?.asOf);
-  const startMonth = document.getElementById("planner-start-month");
-  if (startMonth && !startMonth.value) startMonth.value = currentMonth;
+  applyPlannerSettingsToForm();
   ["planner-capital", "planner-cash", "planner-fx"].forEach((id) => {
     const input = document.getElementById(id);
     if (!input) return;
     formatIntegerInput(input);
     input.addEventListener("blur", () => {
       formatIntegerInput(input);
+      persistPlannerSettings();
       renderPlanner();
+      renderAccount();
     });
   });
-  form.addEventListener("input", renderPlanner);
-  form.addEventListener("change", renderPlanner);
+  form.addEventListener("input", () => {
+    persistPlannerSettings();
+    renderPlanner();
+    renderAccount();
+  });
+  form.addEventListener("change", () => {
+    persistPlannerSettings();
+    renderPlanner();
+    renderAccount();
+  });
   renderPlanner();
   updateFxRate();
 }
@@ -1355,6 +1738,7 @@ async function main() {
     renderSymbolSellDue();
     renderBacktest();
     renderRules();
+    setupAccount();
     setupPlanner();
     setupTabs();
   } catch (error) {

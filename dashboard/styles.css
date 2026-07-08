@@ -829,6 +829,96 @@ tr:last-child td {
   font-weight: 900;
 }
 
+.account-tools,
+.account-entry-form {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.account-tools {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.account-entry-form input,
+.account-entry-form select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  padding: 9px 10px;
+}
+
+.secondary-button,
+.danger-button {
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 8px 10px;
+  text-align: center;
+}
+
+.secondary-button {
+  border-color: #b7c7dc;
+  color: var(--blue);
+}
+
+.danger-button {
+  border-color: #f0b4a2;
+  color: var(--red);
+}
+
+.file-button {
+  display: grid;
+  place-items: center;
+}
+
+.file-button input {
+  display: none;
+}
+
+.account-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.account-card.urgent {
+  border-left: 4px solid var(--amber);
+}
+
+.account-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.account-card-metrics,
+.account-card-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.account-card-metrics span {
+  padding: 5px 7px;
+  border-radius: 6px;
+  background: var(--soft);
+}
+
 .empty-state {
   color: var(--muted);
 }
@@ -842,7 +932,9 @@ tr:last-child td {
   .two-col,
   .rules-grid,
   .planner-layout,
-  .planner-hero {
+  .planner-hero,
+  .account-tools,
+  .account-entry-form {
     grid-template-columns: 1fr;
   }
 

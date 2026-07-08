@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Leader2 Strategy Dashboard</title>
-  <link rel="stylesheet" href="styles.css?v=20260708-rules-v3">
+  <link rel="stylesheet" href="styles.css?v=20260708-account-v1">
 </head>
 <body>
   <header class="topbar">
@@ -19,6 +19,7 @@
     <nav class="tabs" aria-label="Dashboard sections">
       <button class="tab-button active" data-tab="ops" type="button">운용 현황</button>
       <button class="tab-button" data-tab="start" type="button">투자 시작</button>
+      <button class="tab-button" data-tab="account" type="button">내 계좌</button>
       <button class="tab-button" data-tab="backtest" type="button">백테스트</button>
       <button class="tab-button" data-tab="rules" type="button">전략 규칙</button>
     </nav>
@@ -85,6 +86,72 @@
             </div>
           </div>
         </div>
+      </section>
+    </section>
+
+    <section class="tab-panel" id="account-panel">
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>내 계좌</h2>
+            <p>이 브라우저에 저장되는 개인 운용 기록입니다. 매수/매도/입출금 기록은 백업 파일로 내보낼 수 있습니다.</p>
+          </div>
+          <span>localStorage 저장</span>
+        </div>
+        <div class="summary-grid" id="account-summary"></div>
+      </section>
+
+      <section class="two-col">
+        <div class="panel">
+          <div class="section-title compact">
+            <h2>오늘 할 일</h2>
+          </div>
+          <div class="compact-list" id="account-actions"></div>
+        </div>
+        <div class="panel">
+          <div class="section-title compact">
+            <h2>데이터 관리</h2>
+          </div>
+          <div class="account-tools">
+            <button class="secondary-button" id="account-export" type="button">백업 다운로드</button>
+            <label class="secondary-button file-button">
+              백업 불러오기
+              <input id="account-import" type="file" accept="application/json">
+            </label>
+            <button class="danger-button" id="account-reset" type="button">내 기록 초기화</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>보유 lot</h2>
+            <p>매수할 때마다 별도 lot으로 저장합니다. 6개월 50% 매도와 잔여 물량 관리를 여기서 확인합니다.</p>
+          </div>
+          <span id="account-lots-meta"></span>
+        </div>
+        <div class="compact-list" id="account-lots"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>거래 기록</h2>
+            <p>입금, 출금, 매수, 매도 실행 내역입니다.</p>
+          </div>
+        </div>
+        <div class="account-entry-form" id="cash-flow-form">
+          <input id="cash-flow-date" type="date">
+          <select id="cash-flow-type">
+            <option value="deposit">입금</option>
+            <option value="withdrawal">출금</option>
+          </select>
+          <input id="cash-flow-amount" inputmode="numeric" placeholder="금액, 예: 1,000,000">
+          <input id="cash-flow-note" placeholder="메모">
+          <button class="secondary-button" id="cash-flow-save" type="button">저장</button>
+        </div>
+        <div class="compact-list" id="account-ledger"></div>
       </section>
     </section>
 
@@ -320,6 +387,6 @@
     </section>
   </main>
 
-  <script src="app.js?v=20260708-rules-v3"></script>
+  <script src="app.js?v=20260708-account-v1"></script>
 </body>
 </html>
