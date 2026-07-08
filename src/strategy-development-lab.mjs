@@ -49,6 +49,17 @@ const scenarios = [
     }
   },
   {
+    key: "ai_hardware_only_tilt",
+    label: "AI Hardware Only Tilt",
+    description: "AI/반도체 하드웨어만 1.35배로 증액하고 방어/약세 성격 섹터는 0.8배로 축소. 테마 가중 단독 효과를 본다.",
+    symbolCapPct: 0.275,
+    size: ({ baseAmount, trade }) => {
+      let multiplier = isAiHardware(trade) ? 1.35 : 1;
+      if (defensiveOrWeakSectors.has(trade.sector)) multiplier *= 0.8;
+      return baseAmount * multiplier;
+    }
+  },
+  {
     key: "theme_persistence_tilt",
     label: "Theme Persistence Tilt",
     description: "AI/반도체 하드웨어 또는 최근 6개월 반복 섹터는 1.35배로 증액. 단, 방어/약세 성격 섹터는 0.8배로 축소.",
@@ -61,18 +72,39 @@ const scenarios = [
     }
   },
   {
-    key: "repeat_theme_combo",
-    label: "Repeat + Theme Combo",
-    description: "반복 종목과 AI/반도체 하드웨어를 함께 가중한다. 강한 주도주가 반복될 때 공격적으로 싣는 후보 전략.",
-    symbolCapPct: 0.30,
+    key: "no_ai_repeat_sector_combo",
+    label: "No-AI Repeat/Sector Combo",
+    description: "AI/반도체 사후 편향을 제거하고 반복 종목과 최근 6개월 반복 섹터만 가중한다.",
+    symbolCapPct: 0.275,
     size: ({ baseAmount, trade, context }) => {
       let multiplier = 1;
-      if (context.previousSymbolSignals12m >= 2) multiplier *= 1.45;
-      else if (context.previousSymbolSignals12m >= 1) multiplier *= 1.25;
-      if (isAiHardware(trade)) multiplier *= 1.25;
+      if (context.previousSymbolSignals12m >= 2) multiplier *= 1.4;
+      else if (context.previousSymbolSignals12m >= 1) multiplier *= 1.2;
+      if (context.previousSectorSignals6m >= 2) multiplier *= 1.2;
       if (defensiveOrWeakSectors.has(trade.sector)) multiplier *= 0.85;
-      return baseAmount * Math.min(multiplier, 1.85);
+      return baseAmount * Math.min(multiplier, 1.65);
     }
+  },
+  {
+    key: "repeat_theme_combo_cap25",
+    label: "Repeat + Theme Combo Cap25",
+    description: "Repeat + Theme Combo와 같은 가중 규칙을 쓰되 종목당 원금 한도를 25%로 낮춘 보수형 버전.",
+    symbolCapPct: 0.25,
+    size: repeatThemeComboSize
+  },
+  {
+    key: "repeat_theme_combo_cap275",
+    label: "Repeat + Theme Combo Cap27.5",
+    description: "Repeat + Theme Combo와 같은 가중 규칙을 쓰되 종목당 원금 한도를 27.5%로 둔 중간형 버전.",
+    symbolCapPct: 0.275,
+    size: repeatThemeComboSize
+  },
+  {
+    key: "repeat_theme_combo",
+    label: "Repeat + Theme Combo Cap30",
+    description: "반복 종목과 AI/반도체 하드웨어를 함께 가중한다. 강한 주도주가 반복될 때 공격적으로 싣는 후보 전략. 종목당 원금 한도 30%.",
+    symbolCapPct: 0.30,
+    size: repeatThemeComboSize
   },
   {
     key: "rank_score_conviction",
@@ -88,6 +120,36 @@ const scenarios = [
     }
   }
 ];
+
+const splitDefinitions = [
+  {
+    key: "early_2021_2023",
+    label: "초기 구간 2021-2023",
+    start: "2021-01-01",
+    end: "2023-12-31"
+  },
+  {
+    key: "mid_2024",
+    label: "중간 구간 2024",
+    start: "2024-01-01",
+    end: "2024-12-31"
+  },
+  {
+    key: "late_2025_2026",
+    label: "최근 구간 2025-2026",
+    start: "2025-01-01",
+    end: "2026-12-31"
+  }
+];
+
+function repeatThemeComboSize({ baseAmount, trade, context }) {
+  let multiplier = 1;
+  if (context.previousSymbolSignals12m >= 2) multiplier *= 1.45;
+  else if (context.previousSymbolSignals12m >= 1) multiplier *= 1.25;
+  if (isAiHardware(trade)) multiplier *= 1.25;
+  if (defensiveOrWeakSectors.has(trade.sector)) multiplier *= 0.85;
+  return baseAmount * Math.min(multiplier, 1.85);
+}
 
 function valuePct(value) {
   if (!Number.isFinite(value)) return "-";
@@ -357,11 +419,42 @@ function compareToBaseline(rows) {
     .sort((a, b) => b.totalReturn - a.totalReturn);
 }
 
+function filterTradesByDate(trades, start, end) {
+  return trades.filter((trade) => trade.firstBuyDate >= start && trade.firstBuyDate <= end);
+}
+
+function runComparison(trades) {
+  return compareToBaseline(scenarios.map((scenario) => simulateScenario(scenario, trades)));
+}
+
+function pickRows(rows, keys) {
+  const byKey = new Map(rows.map((row) => [row.key, row]));
+  return keys.map((key) => byKey.get(key)).filter(Boolean);
+}
+
 function table(lines, rows) {
   lines.push("| 후보 전략 | 최종 자산 | 누적 수익률 | CAGR | MDD | 기존 대비 | 매수 | 스킵 | 최소 현금 |");
   lines.push("|---|---:|---:|---:|---:|---:|---:|---:|---:|");
   for (const row of rows) {
     lines.push(`| ${row.label} | ${money(row.finalCapital)} | ${valuePct(row.totalReturn)} | ${valuePct(row.cagr)} | ${valuePct(row.maxDrawdownAtCost)} | ${valuePct(row.improvement)} | ${row.executedBuys}/${row.attemptedBuys} | ${row.skippedBuys} | ${money(row.minCash)} |`);
+  }
+}
+
+function compactTable(lines, rows) {
+  lines.push("| 전략 | 누적 수익률 | 기존 대비 | MDD | 매수 | 스킵 |");
+  lines.push("|---|---:|---:|---:|---:|---:|");
+  for (const row of rows) {
+    lines.push(`| ${row.label} | ${valuePct(row.totalReturn)} | ${valuePct(row.improvement)} | ${valuePct(row.maxDrawdownAtCost)} | ${row.executedBuys}/${row.attemptedBuys} | ${row.skippedBuys} |`);
+  }
+}
+
+function splitTable(lines, splitResults) {
+  lines.push("| 구간 | 거래수 | 기존 전략 | 후보 전략 | 개선폭 | 후보 MDD |");
+  lines.push("|---|---:|---:|---:|---:|---:|");
+  for (const split of splitResults) {
+    const baseline = split.results.find((row) => row.key === "active_ramp_aggressive_3m");
+    const candidate = split.results.find((row) => row.key === "repeat_theme_combo");
+    lines.push(`| ${split.label} | ${split.tradeCount} | ${valuePct(baseline?.totalReturn)} | ${valuePct(candidate?.totalReturn)} | ${valuePct(candidate?.improvement)} | ${valuePct(candidate?.maxDrawdownAtCost)} |`);
   }
 }
 
@@ -395,20 +488,53 @@ function markdown(result) {
   lines.push("");
   table(lines, result.robustResults);
   lines.push("");
+  lines.push("## 규칙 분해 검증");
+  lines.push("");
+  lines.push("AI/반도체 가중, 반복 추천 가중, 섹터 반복 가중이 각각 얼마나 기여했는지 분해했다.");
+  lines.push("");
+  compactTable(lines, pickRows(result.results, [
+    "active_ramp_aggressive_3m",
+    "repeat_persistence_tilt",
+    "ai_hardware_only_tilt",
+    "theme_persistence_tilt",
+    "no_ai_repeat_sector_combo",
+    "repeat_theme_combo"
+  ]));
+  lines.push("");
+  lines.push("## 종목당 한도 민감도");
+  lines.push("");
+  lines.push("같은 Repeat + Theme Combo 규칙에서 종목당 원금 한도를 25%, 27.5%, 30%로 바꿔 비교했다.");
+  lines.push("");
+  compactTable(lines, pickRows(result.results, [
+    "active_ramp_aggressive_3m",
+    "repeat_theme_combo_cap25",
+    "repeat_theme_combo_cap275",
+    "repeat_theme_combo"
+  ]));
+  lines.push("");
+  lines.push("## 구간별 안정성 검증");
+  lines.push("");
+  lines.push("각 구간을 독립 계좌처럼 1천만원으로 새로 시작해 비교했다. 장기 누적 효과와 특정 후반 구간 의존도를 분리해서 보기 위한 검증이다.");
+  lines.push("");
+  splitTable(lines, result.splitResults);
+  lines.push("");
   lines.push("## 1차 판정");
   lines.push("");
   const best = result.results[0];
   const robustBest = result.robustResults[0];
+  const noAi = result.results.find((row) => row.key === "no_ai_repeat_sector_combo");
+  const cap275 = result.results.find((row) => row.key === "repeat_theme_combo_cap275");
   lines.push(`- 전체 결과 1위: ${best.label}, 기존 대비 ${valuePct(best.improvement)} 개선.`);
   lines.push(`- Robust 결과 1위: ${robustBest.label}, 기존 대비 ${valuePct(robustBest.improvement)} 개선.`);
-  lines.push("- 전체와 robust 결과가 모두 개선되면 testing 후보로 등록한다.");
-  lines.push("- 전체만 개선되고 robust에서 약하면 특정 대박 종목 의존도가 높은 것으로 보고 보류한다.");
+  lines.push(`- AI/반도체 가중을 제거한 ${noAi.label}도 기존 대비 ${valuePct(noAi.improvement)} 개선되어, 성과가 AI/반도체에만 의존한다고 보기는 어렵다.`);
+  lines.push(`- 한도 27.5% 버전은 기존 대비 ${valuePct(cap275.improvement)} 개선되며 30% 버전보다 조금 보수적인 대안이다.`);
+  lines.push("- 결론: Repeat + Theme Combo는 active 교체 후보지만, 현재 단계에서는 Cap27.5 또는 Cap30을 testing으로 등록해 3~6개월 실전 추적하는 것이 적절하다.");
   lines.push("");
   lines.push("## 다음 단계");
   lines.push("");
-  lines.push("1. 가장 좋은 후보를 `testing` 전략으로 전략 보관함에 추가한다.");
-  lines.push("2. 백테스트 화면에는 active 전략과 분리해서 실험 전략으로 표시한다.");
-  lines.push("3. 종목 선정 자체를 바꾸는 2차 실험은 원본 월별 후보 데이터를 저장하도록 백테스트 엔진을 확장한 뒤 진행한다.");
+  lines.push("1. `Repeat + Theme Combo Cap27.5`를 우선 testing 후보로 대시보드에 등록한다.");
+  lines.push("2. Cap30은 공격형 대안으로 함께 보관하되, 기본 testing 후보는 Cap27.5로 둔다.");
+  lines.push("3. 다음 검증은 종목 선정 자체를 바꾸는 2차 실험으로 진행한다.");
   lines.push("");
   return lines.join("\n");
 }
@@ -417,8 +543,16 @@ async function main() {
   const data = JSON.parse(await fs.readFile(inputPath, "utf8"));
   const trades = loadTrades(data, false);
   const robustTrades = loadTrades(data, true);
-  const results = compareToBaseline(scenarios.map((scenario) => simulateScenario(scenario, trades)));
-  const robustResults = compareToBaseline(scenarios.map((scenario) => simulateScenario(scenario, robustTrades)));
+  const results = runComparison(trades);
+  const robustResults = runComparison(robustTrades);
+  const splitResults = splitDefinitions.map((split) => {
+    const splitTrades = filterTradesByDate(trades, split.start, split.end);
+    return {
+      ...split,
+      tradeCount: splitTrades.length,
+      results: runComparison(splitTrades)
+    };
+  });
   const result = {
     generatedAt: new Date().toISOString(),
     source: inputPath,
@@ -434,7 +568,8 @@ async function main() {
       symbolCapPct
     })),
     results,
-    robustResults
+    robustResults,
+    splitResults
   };
   await fs.writeFile(outputJsonPath, JSON.stringify(result, null, 2), "utf8");
   await fs.writeFile(outputMdPath, markdown(result), "utf8");
