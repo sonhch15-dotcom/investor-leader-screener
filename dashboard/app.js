@@ -16,6 +16,40 @@ const RECENT_KOREA_ETF_RETURN_LIMIT = 12;
 const ACCOUNT_STORAGE_KEY = "leader2AccountV1";
 const KOREA_ACCOUNT_STORAGE_KEY = "leader2KoreaAccountV1";
 const KOREA_LIVE_STRATEGY_KEYS = new Set(["kr_stocks", "kr_etf_core_satellite_50_40_10"]);
+const NAV_GROUPS = {
+  today: [{ tab: "today", label: "오늘" }],
+  start: [
+    { tab: "us-start", label: "미국 주식" },
+    { tab: "korea-stock-start", label: "한국 주식" },
+    { tab: "korea-etf-start", label: "한국 ETF" }
+  ],
+  ops: [
+    { tab: "ops", label: "미국 주식" },
+    { tab: "korea-invest-stock", label: "한국 주식" },
+    { tab: "korea-invest-etf", label: "한국 ETF" }
+  ],
+  backtest: [
+    { tab: "backtest", label: "미국 주식" },
+    { tab: "korea-stock-backtest", label: "한국 주식" },
+    { tab: "korea-etf-backtest", label: "한국 ETF" }
+  ],
+  account: [
+    { tab: "account", label: "미국 계좌" },
+    { tab: "korea-account-stock", label: "한국 주식" },
+    { tab: "korea-account-etf", label: "한국 ETF" }
+  ],
+  rules: [{ tab: "rules", label: "전략 규칙" }]
+};
+const PANEL_ALIASES = {
+  "korea-invest-stock": "korea-invest",
+  "korea-invest-etf": "korea-invest",
+  "korea-account-stock": "korea-account",
+  "korea-account-etf": "korea-account"
+};
+const LEGACY_TAB_MAP = {
+  "korea-invest": "korea-invest-stock",
+  "korea-account": "korea-account-stock"
+};
 
 async function fetchJson(path) {
   const response = await fetch(path, { cache: "no-store" });
@@ -936,6 +970,166 @@ function miniChart(row) {
       <polygon class="chart-fill" points="${area}"></polygon>
       <polyline class="chart-line" points="${points.join(" ")}"></polyline>
     </svg>
+  `;
+}
+
+function simplePickList(rows, type = "stock") {
+  if (!rows?.length) return `<p class="empty-state">현재 표시할 후보가 없습니다.</p>`;
+  return `
+    <div class="template-picks">
+      ${rows.slice(0, 4).map((row) => `
+        <article>
+          <strong>${row.symbol}</strong>
+          <span>${row.name ?? row.sector ?? row.group ?? ""}</span>
+          <small>${row.sector ?? row.group ?? "후보"}${Number.isFinite(row.weight) ? ` | 목표 ${weightText(row.weight)}` : ""}${Number.isFinite(row.score) ? ` | 점수 ${number(row.score, 1)}` : ""}</small>
+        </article>
+      `).join("")}
+    </div>
+  `;
+}
+
+function templateMetric(label, value, className = "") {
+  return `
+    <div>
+      <span>${label}</span>
+      <strong class="${className}">${value}</strong>
+    </div>
+  `;
+}
+
+function strategyTemplateCard(template) {
+  return `
+    <article class="strategy-template-card ${template.tone}">
+      <div class="template-card-head">
+        <div>
+          <span class="asset-badge">${template.asset}</span>
+          <h3>${template.title}</h3>
+          <p>${template.account}</p>
+        </div>
+        <strong class="${signedClass(template.returnValue)}">${template.returnText}</strong>
+      </div>
+      <div class="template-action">
+        <span class="action-badge ${template.statusTone}">${template.statusLabel}</span>
+        <strong>${template.today}</strong>
+        <p>${template.todayDetail}</p>
+      </div>
+      ${simplePickList(template.picks, template.type)}
+      <div class="template-rule-grid">
+        ${templateMetric("매수 기준", template.buyRule)}
+        ${templateMetric("매도 기준", template.sellRule)}
+        ${templateMetric("점검 주기", template.checkCycle)}
+        ${templateMetric("비교 기준", template.benchmark)}
+      </div>
+      <div class="template-foot">
+        <span>MDD ${template.mddText}</span>
+        <button class="secondary-button" data-go-tab="${template.detailTab}" type="button">${template.detailButton}</button>
+      </div>
+    </article>
+  `;
+}
+
+function buildStrategyTemplates() {
+  const usDue = (dashboard?.portfolio?.holdings ?? []).filter((row) => row.status === "sell_due").length;
+  const usExtended = (dashboard?.portfolio?.holdings ?? []).filter((row) => row.status === "extended").length;
+  const usAccount = dashboard?.backtest?.accountSimulation;
+  const usFive = dashboard?.backtest?.fiveYear;
+  const stock = koreaStrategyByKey("kr_stocks");
+  const etf = koreaStrategyByKey("kr_etf_core_satellite_50_40_10");
+  const stockAccount = stock?.capitalAccount ?? {};
+  const etfAccount = etf?.capitalAccount ?? {};
+
+  return [
+    {
+      asset: "미국 주식",
+      title: "Leader2 One Each",
+      account: "공격형 성장 계좌 | 월 2개 후보",
+      type: "stock",
+      tone: "us",
+      statusLabel: usDue > 0 ? "매도 점검" : "매수 후보",
+      statusTone: usDue > 0 ? "warning" : "buy",
+      today: `${dashboard?.currentBuys?.length ?? 0}개 신규 후보`,
+      todayDetail: `매도 점검 ${usDue}건, 연장 보유 ${usExtended}건을 함께 확인합니다.`,
+      picks: dashboard?.currentBuys ?? [],
+      buyRule: "월말 주도 섹터 상위 2곳에서 각 1개",
+      sellRule: "6개월 50% 매도 + 잔여 50% 주봉 연장",
+      checkCycle: "월말 확정, 매주 보유 점검",
+      benchmark: "QQQ",
+      returnValue: usAccount?.totalReturn ?? usFive?.totalReturn,
+      returnText: percent(usAccount?.totalReturn ?? usFive?.totalReturn),
+      mddText: percent(usAccount?.maxDrawdownAtCost ?? usFive?.maxDrawdown),
+      detailTab: "us-start",
+      actionButton: "미국 매수 가이드 보기",
+      detailButton: "미국 전략 자세히 보기"
+    },
+    {
+      asset: "한국 주식",
+      title: "한국 우량주 Leader2",
+      account: "일반 계좌 공격형 | 월 2개 후보",
+      type: "stock",
+      tone: "kr-stock",
+      statusLabel: "매수 후보",
+      statusTone: "buy",
+      today: `${stock?.currentPicks?.length ?? 0}개 신규 후보`,
+      todayDetail: "우량주 유니버스에서 주도 업종별 대표 종목을 확인합니다.",
+      picks: stock?.currentPicks ?? [],
+      buyRule: "월말 주도 업종 상위 2곳에서 각 1개",
+      sellRule: "6개월 50% 매도 + 잔여 50% 주봉 연장",
+      checkCycle: "월말 확정, 매주 보유 점검",
+      benchmark: benchmarkLabel(stock?.benchmarkSymbol),
+      returnValue: stockAccount.totalReturn,
+      returnText: percent(stockAccount.totalReturn),
+      mddText: percent(stockAccount.maxDrawdown),
+      detailTab: "korea-stock-start",
+      actionButton: "한국 주식 후보 보기",
+      detailButton: "한국 주식 전략 보기"
+    },
+    {
+      asset: "한국 ETF",
+      title: "Core Satellite 50/40/10",
+      account: "연금/ETF 계좌 | 월간 리밸런싱",
+      type: "etf",
+      tone: "kr-etf",
+      statusLabel: "리밸런싱",
+      statusTone: "rebalance",
+      today: `${etf?.currentPicks?.length ?? 0}개 목표 ETF`,
+      todayDetail: "계좌 전체를 코어 50%, 위성 40%, 방어 10% 목표 비중으로 맞춥니다.",
+      picks: etf?.currentPicks ?? [],
+      buyRule: "월말 강한 ETF 조합을 목표 비중으로 선정",
+      sellRule: "6개월 매도 없음, 매월 리밸런싱으로 조정",
+      checkCycle: "월 1회 리밸런싱",
+      benchmark: benchmarkLabel(etf?.benchmarkSymbol),
+      returnValue: etfAccount.totalReturn,
+      returnText: percent(etfAccount.totalReturn),
+      mddText: percent(etfAccount.maxDrawdown),
+      detailTab: "korea-etf-start",
+      actionButton: "ETF 리밸런싱 보기",
+      detailButton: "ETF 전략 보기"
+    }
+  ];
+}
+
+function renderTodayDashboard() {
+  const cards = document.getElementById("today-template-cards");
+  if (!cards || !dashboard) return;
+  const templates = buildStrategyTemplates();
+  const meta = document.getElementById("today-meta");
+  if (meta) meta.textContent = `${dashboard.asOf} 기준 | 3개 전략 동일 포맷`;
+
+  document.getElementById("today-action-cards").innerHTML = templates.map((item) => `
+    <article class="today-action-card ${item.tone}">
+      <span>${item.asset}</span>
+      <em class="action-badge ${item.statusTone}">${item.statusLabel}</em>
+      <strong>${item.today}</strong>
+      <p>${item.todayDetail}</p>
+      <button class="secondary-button" data-go-tab="${item.detailTab}" type="button">${item.actionButton}</button>
+    </article>
+  `).join("");
+
+  cards.innerHTML = templates.map(strategyTemplateCard).join("");
+  document.getElementById("today-template-note").innerHTML = `
+    <article><strong>1. 같은 순서</strong><span>모든 전략은 오늘 행동, 후보, 매수 기준, 매도 기준, 검증 결과 순서로 표시합니다.</span></article>
+    <article><strong>2. 다른 매도 규칙</strong><span>미국/한국 개별주는 6개월 50% 매도 규칙을 쓰고, 한국 ETF는 매월 리밸런싱이 매도 역할을 합니다.</span></article>
+    <article><strong>3. 새 전략 추가</strong><span>새 전략을 만들 때도 이 카드에 들어갈 항목을 먼저 정의한 뒤 백테스트와 계좌 기능을 붙입니다.</span></article>
   `;
 }
 
@@ -2968,17 +3162,67 @@ function renderRules() {
   `;
 }
 
+function primaryForTab(tab) {
+  const normalizedTab = LEGACY_TAB_MAP[tab] ?? tab;
+  return Object.entries(NAV_GROUPS).find(([, items]) => items.some((item) => item.tab === normalizedTab))?.[0] ?? "today";
+}
+
+function renderContextTabs(activeTab) {
+  const target = document.getElementById("context-tabs");
+  if (!target) return;
+  const normalizedTab = LEGACY_TAB_MAP[activeTab] ?? activeTab;
+  const primary = primaryForTab(normalizedTab);
+  const items = NAV_GROUPS[primary] ?? [];
+  target.innerHTML = items.length > 1
+    ? `
+      <span class="context-tabs-label">자산군 선택</span>
+      <div class="context-tab-list">
+        ${items.map((item) => `
+          <button class="context-tab ${item.tab === normalizedTab ? "active" : ""}" data-context-tab="${item.tab}" type="button">${item.label}</button>
+        `).join("")}
+      </div>
+    `
+    : "";
+}
+
+function activateTab(tab, updateHash = true) {
+  const normalizedTab = LEGACY_TAB_MAP[tab] ?? tab;
+  const panelTab = PANEL_ALIASES[normalizedTab] ?? normalizedTab;
+  const panel = document.getElementById(`${panelTab}-panel`);
+  if (!panel) return;
+  const primary = primaryForTab(normalizedTab);
+  document.querySelectorAll(".tab-button").forEach((item) => item.classList.toggle("active", item.dataset.primary === primary));
+  document.querySelectorAll(".tab-panel").forEach((item) => item.classList.toggle("active", item === panel));
+  renderContextTabs(normalizedTab);
+  if (updateHash) history.replaceState(null, "", `#${normalizedTab}`);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 function setupTabs() {
   document.querySelectorAll(".tab-button").forEach((button) => {
     button.addEventListener("click", () => {
-      const tab = button.dataset.tab;
-      document.querySelectorAll(".tab-button").forEach((item) => item.classList.toggle("active", item === button));
-      document.querySelectorAll(".tab-panel").forEach((panel) => panel.classList.toggle("active", panel.id === `${tab}-panel`));
+      activateTab(button.dataset.tab);
     });
+  });
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-go-tab], [data-context-tab]");
+    if (!button) return;
+    activateTab(button.dataset.goTab || button.dataset.contextTab);
+  });
+  const initialTab = location.hash.replace("#", "");
+  if (initialTab) {
+    activateTab(initialTab, false);
+  } else {
+    renderContextTabs("today");
+  }
+  window.addEventListener("hashchange", () => {
+    const tab = location.hash.replace("#", "");
+    if (tab) activateTab(tab, false);
   });
 }
 
 async function main() {
+  setupTabs();
   try {
     dashboard = await fetchJson("data/strategy-dashboard.json");
     koreaDashboard = await fetchOptionalJson("data/korea-strategy-dashboard.json");
@@ -2991,11 +3235,11 @@ async function main() {
     renderBacktest();
     renderKoreaInvest();
     renderKorea();
+    renderTodayDashboard();
     renderRules();
     setupAccount();
     setupPlanner();
     setupKoreaPlanner();
-    setupTabs();
   } catch (error) {
     document.getElementById("meta").textContent = error.message;
     document.querySelector("main").innerHTML = `<section class="panel"><h2>데이터 로드 실패</h2><p>${error.message}</p></section>`;

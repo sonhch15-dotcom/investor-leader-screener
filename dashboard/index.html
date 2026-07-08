@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Leader2 Strategy Dashboard</title>
-  <link rel="stylesheet" href="styles.css?v=20260708-backtest-labels">
+  <link rel="stylesheet" href="styles.css?v=20260708-template-dashboard">
 </head>
 <body>
   <header class="topbar">
@@ -17,20 +17,50 @@
 
   <main>
     <nav class="tabs" aria-label="Dashboard sections">
-      <button class="tab-button active" data-tab="us-start" type="button">미국 투자</button>
-      <button class="tab-button" data-tab="korea-stock-start" type="button">한국 주식</button>
-      <button class="tab-button" data-tab="korea-etf-start" type="button">한국 ETF</button>
-      <button class="tab-button" data-tab="ops" type="button">미국 운용</button>
-      <button class="tab-button" data-tab="backtest" type="button">미국 백테스트</button>
-      <button class="tab-button" data-tab="account" type="button">미국 계좌</button>
-      <button class="tab-button" data-tab="korea-invest" type="button">한국 운용</button>
-      <button class="tab-button" data-tab="korea-stock-backtest" type="button">한국 주식 백테스트</button>
-      <button class="tab-button" data-tab="korea-etf-backtest" type="button">한국 ETF 백테스트</button>
-      <button class="tab-button" data-tab="korea-account" type="button">한국 계좌</button>
-      <button class="tab-button" data-tab="rules" type="button">전략 규칙</button>
+      <button class="tab-button active" data-primary="today" data-tab="today" type="button">오늘</button>
+      <button class="tab-button" data-primary="start" data-tab="us-start" type="button">투자 시작</button>
+      <button class="tab-button" data-primary="ops" data-tab="ops" type="button">운용 현황</button>
+      <button class="tab-button" data-primary="backtest" data-tab="backtest" type="button">백테스트</button>
+      <button class="tab-button" data-primary="account" data-tab="account" type="button">계좌</button>
+      <button class="tab-button" data-primary="rules" data-tab="rules" type="button">전략 규칙</button>
     </nav>
+    <div class="context-tabs" id="context-tabs" aria-label="자산군 선택"></div>
 
-    <section class="tab-panel active" id="us-start-panel">
+    <section class="tab-panel active" id="today-panel">
+      <section class="panel today-hero">
+        <div class="section-title">
+          <div>
+            <h2>오늘 할 일</h2>
+            <p>미국 주식, 한국 주식, 한국 ETF를 같은 포맷으로 정리합니다. 자산군마다 세부 규칙은 다르지만 화면에서 확인하는 순서는 동일합니다.</p>
+          </div>
+          <span id="today-meta">공통 템플릿</span>
+        </div>
+        <div class="today-actions" id="today-action-cards"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>전략 공통 템플릿</h2>
+            <p>각 전략은 운용 대상, 오늘 행동, 매수 기준, 매도 기준, 검증 결과를 같은 카드 안에서 확인합니다.</p>
+          </div>
+          <span>미국 / 한국 / ETF 동일 포맷</span>
+        </div>
+        <div class="strategy-template-grid" id="today-template-cards"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title compact">
+          <div>
+            <h2>템플릿 원칙</h2>
+            <p>앞으로 새 전략을 추가할 때도 이 형식을 기본으로 쓰고, 전략 성격에 따라 매수/매도 규칙만 조정합니다.</p>
+          </div>
+        </div>
+        <div class="template-principles" id="today-template-note"></div>
+      </section>
+    </section>
+
+    <section class="tab-panel" id="us-start-panel">
       <section class="panel">
         <div class="section-title">
           <div>
@@ -749,6 +779,6 @@
     </section>
   </main>
 
-  <script src="app.js?v=20260708-backtest-labels"></script>
+  <script src="app.js?v=20260708-template-dashboard"></script>
 </body>
 </html>

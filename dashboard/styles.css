@@ -78,7 +78,8 @@ main {
 .tabs {
   display: flex;
   gap: 6px;
-  margin-bottom: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -100,12 +101,235 @@ main {
   color: var(--blue);
 }
 
+.context-tabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 38px;
+  margin-bottom: 16px;
+}
+
+.context-tabs-label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.context-tab-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.context-tab {
+  appearance: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: #344054;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 8px 12px;
+}
+
+.context-tab.active {
+  border-color: #9bbcf4;
+  background: #eef5ff;
+  color: var(--blue);
+}
+
 .tab-panel {
   display: none;
 }
 
 .tab-panel.active {
   display: block;
+}
+
+.today-hero {
+  background: linear-gradient(135deg, #ffffff 0%, #f2f7ff 100%);
+}
+
+.today-actions,
+.strategy-template-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.today-action-card,
+.strategy-template-card,
+.template-principles article {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.today-action-card {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border-left: 4px solid var(--blue);
+}
+
+.today-action-card.kr-stock {
+  border-left-color: var(--green);
+}
+
+.today-action-card.kr-etf {
+  border-left-color: #0f766e;
+}
+
+.today-action-card span,
+.template-action span,
+.template-card-head p,
+.template-rule-grid span,
+.template-foot span,
+.template-picks span,
+.template-picks small,
+.template-principles span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.today-action-card em {
+  font-style: normal;
+  justify-self: start;
+}
+
+.action-badge {
+  display: inline-flex;
+  width: max-content;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .01em;
+}
+
+.action-badge.buy {
+  border-color: #bfdbfe;
+  background: #eef5ff;
+  color: var(--blue);
+}
+
+.action-badge.warning {
+  border-color: #fed7aa;
+  background: #fff7ed;
+  color: var(--amber);
+}
+
+.action-badge.rebalance {
+  border-color: #99f6e4;
+  background: #ecfdf5;
+  color: #0f766e;
+}
+
+.today-action-card strong {
+  font-size: 22px;
+}
+
+.today-action-card .secondary-button {
+  justify-self: start;
+}
+
+.strategy-template-card {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.strategy-template-card.us {
+  border-top: 4px solid var(--blue);
+}
+
+.strategy-template-card.kr-stock {
+  border-top: 4px solid var(--green);
+}
+
+.strategy-template-card.kr-etf {
+  border-top: 4px solid #0f766e;
+}
+
+.template-card-head,
+.template-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.template-card-head > strong {
+  font-size: 22px;
+  white-space: nowrap;
+}
+
+.asset-badge {
+  display: inline-block;
+  margin-bottom: 5px;
+  padding: 4px 7px;
+  border-radius: 999px;
+  background: var(--soft);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.template-action {
+  display: grid;
+  gap: 4px;
+  padding: 11px;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.template-picks {
+  display: grid;
+  gap: 8px;
+}
+
+.template-picks article {
+  display: grid;
+  gap: 3px;
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fbfdff;
+}
+
+.template-rule-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.template-rule-grid div {
+  display: grid;
+  gap: 4px;
+  padding: 9px;
+  border-radius: 7px;
+  background: var(--soft);
+}
+
+.template-rule-grid strong {
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.template-principles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.template-principles article {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
 }
 
 .summary-grid {
@@ -1017,6 +1241,9 @@ tr:last-child td {
   .two-col,
   .rules-grid,
   .korea-invest-grid,
+  .today-actions,
+  .strategy-template-grid,
+  .template-principles,
   .planner-layout,
   .planner-hero,
   .account-tools,
@@ -1055,14 +1282,28 @@ tr:last-child td {
     min-width: max-content;
   }
 
+  .context-tabs {
+    display: grid;
+    gap: 8px;
+  }
+
   .summary-grid,
   .leader-layout,
   .buy-grid,
   .korea-strategy-grid,
   .korea-invest-grid,
+  .today-actions,
+  .strategy-template-grid,
+  .template-principles,
+  .template-rule-grid,
   .compact-list,
   .planner-summary {
     grid-template-columns: 1fr;
+  }
+
+  .template-card-head,
+  .template-foot {
+    display: grid;
   }
 
   .section-title {
