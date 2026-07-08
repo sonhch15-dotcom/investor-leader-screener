@@ -23,7 +23,7 @@
   assetClass: "us_stock",
   market: "US",
   asset: "미국 주식",
-  title: "Leader2 One Each",
+  title: "Leader2 + Repeat Theme Combo Cap27.5",
   status: "active",
   currency: "USD",
   benchmark: {
@@ -36,7 +36,7 @@
     primaryAction: "매수 가이드 보기"
   },
   rules: {
-    buy: ["월말 주도 섹터 상위 2곳에서 각 1개"],
+    buy: ["월말 주도 섹터 상위 2곳에서 각 1개", "반복 추천/AI 하드웨어 후보는 매수 금액 가중", "종목당 원금 한도 27.5%"],
     sell: ["6개월 50% 매도", "잔여 50% 주봉 연장"],
     rebalance: [],
     checkCycle: "월말 확정, 매주 보유 점검"
@@ -133,7 +133,9 @@
 1. `us_leader_monthly_v1`
    - 자산군: `us_stock`
    - 상태: `active`
-   - 규칙: 월간 주도 섹터 2곳에서 각 1개 종목, 6개월 후 50% 매도, 나머지 50%는 주봉 추세 연장.
+   - 공식 전략명: `Leader2 + Repeat Theme Combo Cap27.5`
+   - 규칙: 월간 주도 섹터 2곳에서 각 1개 종목을 고르고, 반복 추천/AI 하드웨어 후보는 매수 금액을 가중한다. 종목당 원금 한도는 27.5%이며, 6개월 후 50% 매도, 나머지 50%는 주봉 추세로 연장한다.
+   - 최종 검증: 1천만원 자금 제한 기준 누적 +429.8%, MDD -8.8%. 성과 1위 Cap30보다 보수적인 공식 운용안.
 
 2. `kr_stock_leader2_v1`
    - 자산군: `kr_stock`

@@ -315,8 +315,8 @@ function monthlySellEventRows() {
 
 const plannerModes = {
   ramp: {
-    label: "3개월 램프형 공격",
-    capPct: 0.225,
+    label: "공식 Cap27.5",
+    capPct: 0.275,
     normalPct: 0.075,
     rampPct: 0.10,
     defensivePct: 0.05,
@@ -339,7 +339,27 @@ const plannerModes = {
   }
 };
 
+const aiHardwareSymbols = new Set([
+  "NVDA", "AMD", "AVGO", "ARM", "MU", "ASML", "TSM", "SMH", "SOXX",
+  "WDC", "STX", "DELL", "HPE", "ANET", "VRT", "SMCI", "MRVL", "LRCX",
+  "KLAC", "AMAT", "TER", "MPWR", "ON", "QCOM", "INTC", "SNDK"
+]);
+
+const aiHardwareSectors = new Set([
+  "Semiconductors",
+  "Electronic Components",
+  "Computer Peripheral Equipment",
+  "Computer Communications Equipment"
+]);
+
+const defensiveOrWeakSectors = new Set([
+  "Real Estate",
+  "Consumer Staples",
+  "Utilities"
+]);
+
 const fallbackFxRate = 1380;
+const officialUsStrategyName = "Leader2 + Repeat Theme Combo Cap27.5";
 
 function krw(value) {
   if (!Number.isFinite(value)) return "-";
@@ -729,13 +749,48 @@ function setupAccount() {
 function plannedBuyAmount(mode, capital, cash, monthsSinceStart) {
   if (mode === plannerModes.ramp) {
     if (monthsSinceStart < mode.rampMonths && cash >= capital * mode.highCashPct) {
-      return { amount: capital * mode.rampPct, reason: "초기 3개월 램프업: 현금이 충분해 자본금의 10% 매수" };
+      return { amount: capital * mode.rampPct, reason: "공식 Cap27.5 초기 램프업: 현금이 충분해 기본 10%에서 신호 가중 적용" };
     }
     if (cash <= capital * mode.lowCashPct) {
-      return { amount: capital * mode.defensivePct, reason: "현금 부족 방어: 자본금의 5%로 축소" };
+      return { amount: capital * mode.defensivePct, reason: "공식 Cap27.5 현금 방어: 기본 5%에서 신호 가중 적용" };
     }
   }
   return { amount: capital * mode.normalPct, reason: `${mode.label} 기본 비중` };
+}
+
+function repeatThemeContext(row) {
+  const recent = finalStrategyValidation?.recentSelections?.leader2 ?? [];
+  const prior = recent.filter((item) => item.entryDate < (dashboard?.asOf ?? "9999-99-99"));
+  const previousSymbolSignals12m = prior.filter((item) => (item.symbols ?? []).includes(row.symbol)).length;
+  const previousSectorSignals6m = prior.filter((item) => (item.groups ?? []).includes(row.sector)).length;
+  const isAiHardware = aiHardwareSymbols.has(row.symbol) || aiHardwareSectors.has(row.sector);
+  return { previousSymbolSignals12m, previousSectorSignals6m, isAiHardware };
+}
+
+function repeatThemeMultiplier(row) {
+  const context = repeatThemeContext(row);
+  let multiplier = 1;
+  const reasons = [];
+  if (context.previousSymbolSignals12m >= 2) {
+    multiplier *= 1.45;
+    reasons.push("최근 12개월 반복 추천 2회 이상");
+  } else if (context.previousSymbolSignals12m >= 1) {
+    multiplier *= 1.25;
+    reasons.push("최근 12개월 반복 추천");
+  }
+  if (context.isAiHardware) {
+    multiplier *= 1.25;
+    reasons.push("AI/반도체 하드웨어 테마");
+  }
+  if (defensiveOrWeakSectors.has(row.sector)) {
+    multiplier *= 0.85;
+    reasons.push("방어/약세 섹터 감액");
+  }
+  return {
+    multiplier: Math.min(multiplier, 1.85),
+    context,
+    reasons: reasons.length ? reasons : ["기본 Leader2 후보"]
+  };
 }
 
 function sharePlan(row, krwBudget, fxRate, shareMode) {
@@ -786,8 +841,12 @@ function buildPlannerPlan() {
   for (const row of candidates) {
     const capAmount = capital * mode.capPct;
     const planned = plannedBuyAmount(mode, capital, cash, monthsSinceStart);
+    const tilt = mode === plannerModes.ramp
+      ? repeatThemeMultiplier(row)
+      : { multiplier: 1, reasons: [mode.label] };
+    const wanted = planned.amount * tilt.multiplier;
     const deployableCash = Math.max(0, cash - reserve);
-    const budget = Math.min(planned.amount, capAmount, deployableCash);
+    const budget = Math.min(wanted, capAmount, deployableCash);
     const shares = sharePlan(row, budget, fxRate, shareMode);
     const amount = shareMode === "fractional" ? budget : shares.krwUsed;
     const action = amount >= minOrder && shares.shares > 0 ? "buy" : "skip";
@@ -807,7 +866,11 @@ function buildPlannerPlan() {
       krwUsed: amount,
       leftoverKrw: shares.leftoverKrw,
       action,
-      reason
+      reason,
+      multiplier: tilt.multiplier,
+      signalReasons: tilt.reasons,
+      previousSymbolSignals12m: tilt.context?.previousSymbolSignals12m ?? 0,
+      previousSectorSignals6m: tilt.context?.previousSectorSignals6m ?? 0
     });
     if (action === "buy") cash -= amount;
   }
@@ -875,15 +938,16 @@ function renderPlanner() {
         <span>${row.name} | ${row.sector}</span>
       </div>
       <b>${row.action === "buy" ? `${krw(row.amount)} / ${usd(row.usdUsed)}` : "대기"}</b>
-      <p>${row.reason}</p>
-      <small>예상 주문: ${plan.shareMode === "fractional" ? row.shares.toFixed(4) : Math.floor(row.shares)}주 @ ${usd(row.close)} | 예산 ${krw(row.budget)} | 종목 한도 ${krw(row.capAmount)}</small>
+      <p>${row.reason} | 가중 ${row.multiplier?.toFixed(2) ?? "1.00"}x (${row.signalReasons?.join(", ")})</p>
+      <small>예상 주문: ${plan.shareMode === "fractional" ? row.shares.toFixed(4) : Math.floor(row.shares)}주 @ ${usd(row.close)} | 예산 ${krw(row.budget)} | 종목 한도 ${krw(row.capAmount)} | 반복 ${row.previousSymbolSignals12m}회 / 섹터 반복 ${row.previousSectorSignals6m}회</small>
       ${row.action === "buy" ? `<button class="secondary-button" data-record-buy="${row.symbol}" type="button">매수 기록</button>` : ""}
     </article>
   `).join("");
 
   document.getElementById("planner-weekly").innerHTML = `
     <ol class="flow-list">
-      <li><strong>월초/현재:</strong> ${plan.currentMonth} 후보 2개를 확인합니다. 월중 데이터는 관찰 후보이며, 실제 매수 기준은 월말 확정 신호입니다.</li>
+      <li><strong>월초/현재:</strong> ${plan.currentMonth} Leader2 후보 2개를 확인합니다. 월중 데이터는 관찰 후보이며, 실제 매수 기준은 월말 확정 신호입니다.</li>
+      <li><strong>매수 금액:</strong> 공식 Cap27.5는 기본 금액에 반복 추천, AI/반도체 하드웨어 신호를 가중하고 종목당 원금 한도를 27.5%로 제한합니다.</li>
       <li><strong>매수 후 매주:</strong> 새 종목을 더 사는 것이 아니라 보유 종목의 주봉 추세와 6개월 50% 매도 예정일을 점검합니다.</li>
       <li><strong>다음 달:</strong> 새 월의 추천 2개가 나오면 남은 현금과 새 자본금 기준으로 매수금을 다시 계산합니다.</li>
       <li><strong>6개월 후:</strong> 각 매수 건별로 50%를 기본 매도하고, 나머지 50%는 주봉 조건이 유지될 때만 연장합니다.</li>
@@ -896,7 +960,8 @@ function renderPlanner() {
       <li><strong>환율:</strong> 자동 조회 환율을 기본으로 쓰되, 실제 환전 환율과 수수료가 다르면 직접 수정합니다.</li>
       <li><strong>자본금 증가:</strong> 다음 월 리밸런싱부터 새 자본금 기준으로 매수금과 종목 한도를 다시 계산합니다.</li>
       <li><strong>자본금 감소/출금:</strong> 현금으로 먼저 처리합니다. 부족하면 매도 예정분, 주봉 약화분, 동일 종목 한도 초과분 순서로 줄입니다.</li>
-      <li><strong>현금 부족:</strong> 이번 달 후보 2개 중 중복 종목보다 신규 섹터/신규 종목을 우선하고, 최소 주문금액보다 작으면 대기합니다.</li>
+      <li><strong>공식 전략:</strong> 종목 선정은 Leader2 One Each, 자금 배분은 Repeat + Theme Combo Cap27.5를 사용합니다.</li>
+      <li><strong>현금 부족:</strong> 반복/테마 가중 후에도 최소 주문금액보다 작으면 대기하고, 다음 월 후보에서 다시 계산합니다.</li>
       <li><strong>1주 단위 주문:</strong> 달러 예산으로 살 수 있는 정수 주식 수를 계산하고, 남는 달러는 다음 매수 현금으로 남깁니다.</li>
     </ul>
   `;
@@ -1012,6 +1077,7 @@ function buildStrategyCatalog() {
   const etfAccount = etf?.capitalAccount ?? {};
   const stockRows = koreaStockPerformanceRows();
   const etfRows = koreaEtfPerformanceRows();
+  const officialUs = finalStrategyValidation?.practicalWinner;
 
   const catalog = [
     {
@@ -1019,22 +1085,22 @@ function buildStrategyCatalog() {
       assetClass: "us_stock",
       market: "US",
       asset: "미국 주식",
-      title: "Leader2 One Each",
+      title: "Leader2 + Repeat Theme Cap27.5",
       status: "active",
       statusLabel: usDue > 0 ? "매도 점검" : "매수 후보",
       statusTone: usDue > 0 ? "warning" : "buy",
       currency: "USD",
       tone: "us",
-      accountLabel: "공격형 성장 계좌 | 월 2개 후보",
+      accountLabel: "공격형 성장 계좌 | 공식 Cap27.5",
       type: "stock",
       benchmark: { symbol: "QQQ", label: "QQQ" },
       today: {
         summary: `${dashboard?.currentBuys?.length ?? 0}개 신규 후보`,
-        detail: `매도 점검 ${usDue}건, 연장 보유 ${usExtended}건을 함께 확인합니다.`,
+        detail: `Leader2로 종목을 고르고 Cap27.5로 금액을 정합니다. 매도 점검 ${usDue}건, 연장 보유 ${usExtended}건.`,
         primaryAction: "미국 매수 가이드 보기"
       },
       rules: {
-        buy: ["월말 주도 섹터 상위 2곳에서 각 1개"],
+        buy: ["월말 주도 섹터 상위 2곳에서 각 1개", "반복 추천/AI 하드웨어 후보는 매수 금액 가중", "종목당 원금 한도 27.5%"],
         sell: ["6개월 50% 매도", "잔여 50% 주봉 연장"],
         rebalance: [],
         checkCycle: "월말 확정, 매주 보유 점검"
@@ -1046,11 +1112,11 @@ function buildStrategyCatalog() {
           end: usLastCurve.asOf
         },
         metrics: {
-          strategyReturn: usAccount?.totalReturn ?? usFive?.totalReturn,
+          strategyReturn: officialUs?.totalReturn ?? usAccount?.totalReturn ?? usFive?.totalReturn,
           benchmarkReturn: usLastCurve.qqqTotalReturn ?? usFive?.qqqTotalReturn,
-          maxDrawdown: usAccount?.maxDrawdownAtCost ?? usFive?.maxDrawdown,
+          maxDrawdown: officialUs?.maxDrawdownAtCost ?? usAccount?.maxDrawdownAtCost ?? usFive?.maxDrawdown,
           winRate: dashboard?.backtest?.realizedSummary?.winRate,
-          tradeCount: usAccount?.executedBuys ?? dashboard?.backtest?.realizedSummary?.count
+          tradeCount: officialUs?.executedBuys ?? usAccount?.executedBuys ?? dashboard?.backtest?.realizedSummary?.count
         },
         equityCurve: usCurve
       },
@@ -2101,35 +2167,37 @@ function renderBacktest() {
   const five = dashboard.backtest.fiveYear;
   const realized = dashboard.backtest.realizedSummary ?? {};
   const account = dashboard.backtest.accountSimulation;
+  const official = finalStrategyValidation?.practicalWinner;
+  const aggressive = finalStrategyValidation?.finalWinner;
   const curveRows = dashboard.backtest.equityCurve ?? [];
   const lastCurve = curveRows.at(-1) ?? {};
   renderBacktestKpis("backtest-kpis", {
-    finalValue: account ? money(account.finalCapital) : percent(five?.totalReturn),
-    finalValueNote: account ? `1천만원 시작 | ${account.label}` : "자금 제한 없는 선정력 검증",
-    strategyReturn: account?.totalReturn ?? five?.totalReturn,
-    strategyNote: account ? `자금/현금 제한 반영 | CAGR ${percent(account.cagr)}` : "전략 규칙대로 운용",
+    finalValue: official ? money(official.finalCapital) : account ? money(account.finalCapital) : percent(five?.totalReturn),
+    finalValueNote: official ? `1천만원 시작 | ${official.label}` : account ? `1천만원 시작 | ${account.label}` : "자금 제한 없는 선정력 검증",
+    strategyReturn: official?.totalReturn ?? account?.totalReturn ?? five?.totalReturn,
+    strategyNote: official ? `공식 Cap27.5 | CAGR ${percent(official.cagr)} | Cap30 ${percent(aggressive?.totalReturn)}` : account ? `자금/현금 제한 반영 | CAGR ${percent(account.cagr)}` : "전략 규칙대로 운용",
     benchmarkLabel: "QQQ",
     benchmarkReturn: lastCurve.qqqTotalReturn ?? five?.qqqTotalReturn,
     activityLabel: "매수/청산",
-    activityValue: account ? `${account.executedBuys}/${account.attemptedBuys}` : `${realized.count ?? 0}건`,
-    activityNote: account ? `건너뜀 ${account.skippedBuys} | MDD ${percent(account.maxDrawdownAtCost)}` : `승률 ${plainPercent(realized.winRate)} | MDD ${percent(five?.maxDrawdown)}`
+    activityValue: official ? `${official.executedBuys}/${official.attemptedBuys}` : account ? `${account.executedBuys}/${account.attemptedBuys}` : `${realized.count ?? 0}건`,
+    activityNote: official ? `건너뜀 ${official.skippedBuys} | MDD ${percent(official.maxDrawdownAtCost)}` : account ? `건너뜀 ${account.skippedBuys} | MDD ${percent(account.maxDrawdownAtCost)}` : `승률 ${plainPercent(realized.winRate)} | MDD ${percent(five?.maxDrawdown)}`
   });
 
   renderBacktestTemplate("backtest-template", {
     asset: "미국 주식",
     tone: "us",
-    strategyName: dashboard.strategy?.name ?? "Leader2 One Each",
-    description: "월간 주도 섹터에서 2개 종목을 선정하고, 6개월 50% 매도 후 잔여 물량은 주봉 추세로 연장합니다.",
+    strategyName: "Leader2 + Repeat Theme Combo Cap27.5",
+    description: "Leader2로 월간 주도 섹터 2개에서 각 1개 종목을 고르고, 반복 추천/AI 하드웨어 신호에 따라 매수 금액을 가중합니다. 종목당 원금 한도는 27.5%입니다.",
     benchmarkLabel: "QQQ",
-    periodLabel: curveRows.length ? `${curveRows[0].asOf} ~ ${lastCurve.asOf}` : "기간 데이터 없음",
-    strategyReturn: account?.totalReturn ?? five?.totalReturn,
+    periodLabel: finalStrategyValidation?.period ? `${finalStrategyValidation.period.start} ~ ${finalStrategyValidation.period.end}` : curveRows.length ? `${curveRows[0].asOf} ~ ${lastCurve.asOf}` : "기간 데이터 없음",
+    strategyReturn: official?.totalReturn ?? account?.totalReturn ?? five?.totalReturn,
     benchmarkReturn: lastCurve.qqqTotalReturn ?? five?.qqqTotalReturn,
-    maxDrawdown: account?.maxDrawdownAtCost ?? five?.maxDrawdown,
-    tradeCountLabel: `${account?.executedBuys ?? realized.count ?? 0}건`,
-    tradeNote: account ? `시도 ${account.attemptedBuys}건 / 스킵 ${account.skippedBuys}` : `${realized.count ?? 0}개 청산`,
+    maxDrawdown: official?.maxDrawdownAtCost ?? account?.maxDrawdownAtCost ?? five?.maxDrawdown,
+    tradeCountLabel: `${official?.executedBuys ?? account?.executedBuys ?? realized.count ?? 0}건`,
+    tradeNote: official ? `시도 ${official.attemptedBuys}건 / 스킵 ${official.skippedBuys}` : account ? `시도 ${account.attemptedBuys}건 / 스킵 ${account.skippedBuys}` : `${realized.count ?? 0}개 청산`,
     winRateLabel: plainPercent(realized.winRate),
     winRateNote: `${realized.count ?? 0}개 청산 기준`,
-    ruleSummary: "월말 신규 후보 2개를 확정하고, 매수 lot마다 6개월 후 50%를 매도합니다. 남은 50%는 주봉 10주선과 RSI 조건이 유지될 때만 연장 보유합니다."
+    ruleSummary: "월말 신규 후보 2개를 확정하고 공식 Cap27.5 비중으로 매수합니다. 매수 lot마다 6개월 후 50%를 매도하고, 남은 50%는 주봉 10주선과 RSI 조건이 유지될 때만 연장 보유합니다."
   });
 
   renderPerformanceChart();
@@ -3447,20 +3515,22 @@ function renderRules() {
       <article>
         <h3>2. 종목 선정</h3>
         <ul>
-          <li>전략명: Leader2 One Each</li>
+          <li>공식 전략명: Leader2 + Repeat Theme Combo Cap27.5</li>
           <li>월 신규 후보: 주도 섹터 상위 2개에서 각 1개 종목</li>
-          <li>중복 추천은 허용하지만 종목별 누적 원금 한도를 넘기지 않습니다.</li>
+          <li>종목 선정은 Leader2 One Each 방식으로 고정합니다.</li>
+          <li>중복 추천은 허용하지만 종목별 누적 원금 한도 27.5%를 넘기지 않습니다.</li>
           <li>주간 업데이트는 신규 매수 확정이 아니라 관찰과 보유 점검용입니다.</li>
         </ul>
       </article>
       <article>
         <h3>3. 매수 금액</h3>
         <ul>
-          <li>기본 운용 모드: 3개월 램프형 공격</li>
-          <li>초기 3개월: 현금이 충분하면 후보당 자본금의 10%까지 매수</li>
-          <li>램프 이후: 후보당 자본금의 7.5% 매수</li>
-          <li>현금 부족 구간: 후보당 자본금의 5%로 축소하거나 대기</li>
-          <li>종목별 누적 원금 한도: 자본금의 22.5%</li>
+          <li>공식 운용 모드: Repeat + Theme Combo Cap27.5</li>
+          <li>기본 매수: 후보당 자본금의 7.5%</li>
+          <li>초기 램프업: 시작 후 3개월 동안 현금이 충분하면 기본 10%에서 가중 적용</li>
+          <li>가중 조건: 최근 12개월 반복 추천, AI/반도체 하드웨어, 강한 반복 테마</li>
+          <li>현금 부족 구간: 기본 5%에서 가중 적용하거나 최소 주문 미만이면 대기</li>
+          <li>종목별 누적 원금 한도: 자본금의 27.5%</li>
         </ul>
       </article>
       <article>
@@ -3611,7 +3681,7 @@ async function main() {
     koreaDashboard = await fetchOptionalJson("data/korea-strategy-dashboard.json");
     selectionStrategyLab = await fetchOptionalJson("data/selection-strategy-lab.json");
     finalStrategyValidation = await fetchOptionalJson("data/final-strategy-validation.json");
-    document.getElementById("meta").textContent = `${dashboard.asOf} | ${dashboard.strategy.name} | updated ${new Date(dashboard.generatedAt).toLocaleString()}`;
+    document.getElementById("meta").textContent = `${dashboard.asOf} | ${officialUsStrategyName} | updated ${new Date(dashboard.generatedAt).toLocaleString()}`;
     renderSummary();
     renderLeaders();
     renderBuys();
