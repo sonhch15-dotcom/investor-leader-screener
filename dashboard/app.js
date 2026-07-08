@@ -997,6 +997,150 @@ function templateMetric(label, value, className = "") {
   `;
 }
 
+function buildStrategyCatalog() {
+  const usDue = (dashboard?.portfolio?.holdings ?? []).filter((row) => row.status === "sell_due").length;
+  const usExtended = (dashboard?.portfolio?.holdings ?? []).filter((row) => row.status === "extended").length;
+  const usAccount = dashboard?.backtest?.accountSimulation;
+  const usFive = dashboard?.backtest?.fiveYear;
+  const usCurve = dashboard?.backtest?.equityCurve ?? [];
+  const usLastCurve = usCurve.at(-1) ?? {};
+  const stock = koreaStrategyByKey("kr_stocks");
+  const etf = koreaStrategyByKey("kr_etf_core_satellite_50_40_10");
+  const stockAccount = stock?.capitalAccount ?? {};
+  const etfAccount = etf?.capitalAccount ?? {};
+  const stockRows = koreaStockPerformanceRows();
+  const etfRows = koreaEtfPerformanceRows();
+
+  return [
+    {
+      id: "us_leader_monthly_v1",
+      assetClass: "us_stock",
+      market: "US",
+      asset: "미국 주식",
+      title: "Leader2 One Each",
+      status: "active",
+      statusLabel: usDue > 0 ? "매도 점검" : "매수 후보",
+      statusTone: usDue > 0 ? "warning" : "buy",
+      currency: "USD",
+      tone: "us",
+      accountLabel: "공격형 성장 계좌 | 월 2개 후보",
+      type: "stock",
+      benchmark: { symbol: "QQQ", label: "QQQ" },
+      today: {
+        summary: `${dashboard?.currentBuys?.length ?? 0}개 신규 후보`,
+        detail: `매도 점검 ${usDue}건, 연장 보유 ${usExtended}건을 함께 확인합니다.`,
+        primaryAction: "미국 매수 가이드 보기"
+      },
+      rules: {
+        buy: ["월말 주도 섹터 상위 2곳에서 각 1개"],
+        sell: ["6개월 50% 매도", "잔여 50% 주봉 연장"],
+        rebalance: [],
+        checkCycle: "월말 확정, 매주 보유 점검"
+      },
+      currentPicks: dashboard?.currentBuys ?? [],
+      backtest: {
+        period: {
+          start: usCurve[0]?.asOf,
+          end: usLastCurve.asOf
+        },
+        metrics: {
+          strategyReturn: usAccount?.totalReturn ?? usFive?.totalReturn,
+          benchmarkReturn: usLastCurve.qqqTotalReturn ?? usFive?.qqqTotalReturn,
+          maxDrawdown: usAccount?.maxDrawdownAtCost ?? usFive?.maxDrawdown,
+          winRate: dashboard?.backtest?.realizedSummary?.winRate,
+          tradeCount: usAccount?.executedBuys ?? dashboard?.backtest?.realizedSummary?.count
+        },
+        equityCurve: usCurve
+      },
+      tabs: { start: "us-start", operations: "ops", backtest: "backtest", account: "account" }
+    },
+    {
+      id: "kr_stock_leader2_v1",
+      assetClass: "kr_stock",
+      market: "KR",
+      asset: "한국 주식",
+      title: "한국 우량주 Leader2",
+      status: "active",
+      statusLabel: "매수 후보",
+      statusTone: "buy",
+      currency: "KRW",
+      tone: "kr-stock",
+      accountLabel: "일반 계좌 공격형 | 월 2개 후보",
+      type: "stock",
+      benchmark: { symbol: stock?.benchmarkSymbol, label: benchmarkLabel(stock?.benchmarkSymbol) },
+      today: {
+        summary: `${stock?.currentPicks?.length ?? 0}개 신규 후보`,
+        detail: "우량주 유니버스에서 주도 업종별 대표 종목을 확인합니다.",
+        primaryAction: "한국 주식 후보 보기"
+      },
+      rules: {
+        buy: ["월말 주도 업종 상위 2곳에서 각 1개"],
+        sell: ["6개월 50% 매도", "잔여 50% 주봉 연장"],
+        rebalance: [],
+        checkCycle: "월말 확정, 매주 보유 점검"
+      },
+      currentPicks: stock?.currentPicks ?? [],
+      backtest: {
+        period: {
+          start: stockRows[0]?.asOf ?? stockRows[0]?.month,
+          end: stockRows.at(-1)?.asOf ?? stockRows.at(-1)?.month
+        },
+        metrics: {
+          strategyReturn: stockAccount.totalReturn,
+          benchmarkReturn: lastFiniteReturn(stockRows, "benchmarkTotalReturn"),
+          maxDrawdown: stockAccount.maxDrawdown,
+          winRate: stock?.summary?.winRate,
+          tradeCount: stock?.summary?.tradeCount
+        },
+        equityCurve: stockRows
+      },
+      tabs: { start: "korea-stock-start", operations: "korea-invest-stock", backtest: "korea-stock-backtest", account: "korea-account-stock" }
+    },
+    {
+      id: "kr_etf_core_satellite_v1",
+      assetClass: "kr_etf",
+      market: "KR",
+      asset: "한국 ETF",
+      title: "Core Satellite 50/40/10",
+      status: "active",
+      statusLabel: "리밸런싱",
+      statusTone: "rebalance",
+      currency: "KRW",
+      tone: "kr-etf",
+      accountLabel: "연금/ETF 계좌 | 월간 리밸런싱",
+      type: "etf",
+      benchmark: { symbol: etf?.benchmarkSymbol, label: benchmarkLabel(etf?.benchmarkSymbol) },
+      today: {
+        summary: `${etf?.currentPicks?.length ?? 0}개 목표 ETF`,
+        detail: "계좌 전체를 코어 50%, 위성 40%, 방어 10% 목표 비중으로 맞춥니다.",
+        primaryAction: "ETF 리밸런싱 보기"
+      },
+      rules: {
+        buy: ["월말 강한 ETF 조합을 목표 비중으로 선정"],
+        sell: ["별도 6개월 매도 없음"],
+        rebalance: ["매월 전체 계좌를 50/40/10으로 조정"],
+        checkCycle: "월 1회 리밸런싱"
+      },
+      currentPicks: etf?.currentPicks ?? [],
+      backtest: {
+        period: {
+          start: etfRows[0]?.asOf ?? etfRows[0]?.month,
+          end: etfRows.at(-1)?.asOf ?? etfRows.at(-1)?.month
+        },
+        metrics: {
+          strategyReturn: etfAccount.totalReturn,
+          benchmarkReturn: lastFiniteReturn(etfRows, "benchmarkTotalReturn"),
+          maxDrawdown: etfAccount.maxDrawdown,
+          winRate: null,
+          tradeCount: etf?.summary?.tradeCount
+        },
+        equityCurve: etfRows
+      },
+      tabs: { start: "korea-etf-start", operations: "korea-invest-etf", backtest: "korea-etf-backtest", account: "korea-account-etf" }
+    }
+  ];
+}
+
 function strategyTemplateCard(template) {
   return `
     <article class="strategy-template-card ${template.tone}">
@@ -1029,83 +1173,28 @@ function strategyTemplateCard(template) {
 }
 
 function buildStrategyTemplates() {
-  const usDue = (dashboard?.portfolio?.holdings ?? []).filter((row) => row.status === "sell_due").length;
-  const usExtended = (dashboard?.portfolio?.holdings ?? []).filter((row) => row.status === "extended").length;
-  const usAccount = dashboard?.backtest?.accountSimulation;
-  const usFive = dashboard?.backtest?.fiveYear;
-  const stock = koreaStrategyByKey("kr_stocks");
-  const etf = koreaStrategyByKey("kr_etf_core_satellite_50_40_10");
-  const stockAccount = stock?.capitalAccount ?? {};
-  const etfAccount = etf?.capitalAccount ?? {};
-
-  return [
-    {
-      asset: "미국 주식",
-      title: "Leader2 One Each",
-      account: "공격형 성장 계좌 | 월 2개 후보",
-      type: "stock",
-      tone: "us",
-      statusLabel: usDue > 0 ? "매도 점검" : "매수 후보",
-      statusTone: usDue > 0 ? "warning" : "buy",
-      today: `${dashboard?.currentBuys?.length ?? 0}개 신규 후보`,
-      todayDetail: `매도 점검 ${usDue}건, 연장 보유 ${usExtended}건을 함께 확인합니다.`,
-      picks: dashboard?.currentBuys ?? [],
-      buyRule: "월말 주도 섹터 상위 2곳에서 각 1개",
-      sellRule: "6개월 50% 매도 + 잔여 50% 주봉 연장",
-      checkCycle: "월말 확정, 매주 보유 점검",
-      benchmark: "QQQ",
-      returnValue: usAccount?.totalReturn ?? usFive?.totalReturn,
-      returnText: percent(usAccount?.totalReturn ?? usFive?.totalReturn),
-      mddText: percent(usAccount?.maxDrawdownAtCost ?? usFive?.maxDrawdown),
-      detailTab: "us-start",
-      actionButton: "미국 매수 가이드 보기",
-      detailButton: "미국 전략 자세히 보기"
-    },
-    {
-      asset: "한국 주식",
-      title: "한국 우량주 Leader2",
-      account: "일반 계좌 공격형 | 월 2개 후보",
-      type: "stock",
-      tone: "kr-stock",
-      statusLabel: "매수 후보",
-      statusTone: "buy",
-      today: `${stock?.currentPicks?.length ?? 0}개 신규 후보`,
-      todayDetail: "우량주 유니버스에서 주도 업종별 대표 종목을 확인합니다.",
-      picks: stock?.currentPicks ?? [],
-      buyRule: "월말 주도 업종 상위 2곳에서 각 1개",
-      sellRule: "6개월 50% 매도 + 잔여 50% 주봉 연장",
-      checkCycle: "월말 확정, 매주 보유 점검",
-      benchmark: benchmarkLabel(stock?.benchmarkSymbol),
-      returnValue: stockAccount.totalReturn,
-      returnText: percent(stockAccount.totalReturn),
-      mddText: percent(stockAccount.maxDrawdown),
-      detailTab: "korea-stock-start",
-      actionButton: "한국 주식 후보 보기",
-      detailButton: "한국 주식 전략 보기"
-    },
-    {
-      asset: "한국 ETF",
-      title: "Core Satellite 50/40/10",
-      account: "연금/ETF 계좌 | 월간 리밸런싱",
-      type: "etf",
-      tone: "kr-etf",
-      statusLabel: "리밸런싱",
-      statusTone: "rebalance",
-      today: `${etf?.currentPicks?.length ?? 0}개 목표 ETF`,
-      todayDetail: "계좌 전체를 코어 50%, 위성 40%, 방어 10% 목표 비중으로 맞춥니다.",
-      picks: etf?.currentPicks ?? [],
-      buyRule: "월말 강한 ETF 조합을 목표 비중으로 선정",
-      sellRule: "6개월 매도 없음, 매월 리밸런싱으로 조정",
-      checkCycle: "월 1회 리밸런싱",
-      benchmark: benchmarkLabel(etf?.benchmarkSymbol),
-      returnValue: etfAccount.totalReturn,
-      returnText: percent(etfAccount.totalReturn),
-      mddText: percent(etfAccount.maxDrawdown),
-      detailTab: "korea-etf-start",
-      actionButton: "ETF 리밸런싱 보기",
-      detailButton: "ETF 전략 보기"
-    }
-  ];
+  return buildStrategyCatalog().map((strategy) => ({
+    asset: strategy.asset,
+    title: strategy.title,
+    account: strategy.accountLabel,
+    type: strategy.type,
+    tone: strategy.tone,
+    statusLabel: strategy.statusLabel,
+    statusTone: strategy.statusTone,
+    today: strategy.today.summary,
+    todayDetail: strategy.today.detail,
+    picks: strategy.currentPicks,
+    buyRule: strategy.rules.buy[0] ?? "-",
+    sellRule: strategy.rules.rebalance[0] ?? strategy.rules.sell[0] ?? "-",
+    checkCycle: strategy.rules.checkCycle,
+    benchmark: strategy.benchmark.label,
+    returnValue: strategy.backtest.metrics.strategyReturn,
+    returnText: percent(strategy.backtest.metrics.strategyReturn),
+    mddText: percent(strategy.backtest.metrics.maxDrawdown),
+    detailTab: strategy.tabs.start,
+    actionButton: strategy.today.primaryAction,
+    detailButton: `${strategy.asset} 전략 보기`
+  }));
 }
 
 function renderTodayDashboard() {
@@ -3156,17 +3245,98 @@ function renderKorea() {
   renderKoreaEtfBacktest();
 }
 
+function strategyStatusLabel(status) {
+  return {
+    active: "운용 중",
+    testing: "테스트 중",
+    paused: "보류",
+    retired: "폐기"
+  }[status] ?? status;
+}
+
+function strategyLibraryCard(strategy) {
+  const metrics = strategy.backtest.metrics ?? {};
+  const excess = Number.isFinite(metrics.strategyReturn) && Number.isFinite(metrics.benchmarkReturn)
+    ? metrics.strategyReturn - metrics.benchmarkReturn
+    : null;
+  return `
+    <article class="strategy-library-card ${strategy.tone}">
+      <div class="strategy-library-head">
+        <div>
+          <span class="asset-badge">${strategy.asset}</span>
+          <h3>${strategy.title}</h3>
+          <p>${strategy.id} | ${strategyStatusLabel(strategy.status)} | ${strategy.rules.checkCycle}</p>
+        </div>
+        <span class="action-badge ${strategy.status === "active" ? "buy" : "warning"}">${strategyStatusLabel(strategy.status)}</span>
+      </div>
+      <div class="strategy-library-action">
+        <strong>${strategy.today.summary}</strong>
+        <span>${strategy.today.detail}</span>
+      </div>
+      <div class="strategy-library-metrics">
+        ${templateMetric("전략", percent(metrics.strategyReturn), signedClass(metrics.strategyReturn))}
+        ${templateMetric(strategy.benchmark.label, percent(metrics.benchmarkReturn), signedClass(metrics.benchmarkReturn))}
+        ${templateMetric("초과", percent(excess), signedClass(excess))}
+        ${templateMetric("MDD", percent(metrics.maxDrawdown), "negative")}
+      </div>
+      <div class="strategy-library-rules">
+        <span>매수: ${strategy.rules.buy.join(" / ") || "-"}</span>
+        <span>매도/리밸런싱: ${[...strategy.rules.sell, ...strategy.rules.rebalance].join(" / ") || "-"}</span>
+      </div>
+      <div class="template-foot">
+        <span>후보 ${strategy.currentPicks.length}개 | 거래/리밸런싱 ${metrics.tradeCount ?? "-"}건</span>
+        <button class="secondary-button" data-go-tab="${strategy.tabs.backtest}" type="button">백테스트 보기</button>
+      </div>
+    </article>
+  `;
+}
+
+function strategyLibraryHtml() {
+  const strategies = buildStrategyCatalog();
+  return `
+    <section class="strategy-library-section">
+      <div class="section-title">
+        <div>
+          <h2>전략 보관함</h2>
+          <p>현재 운용 중인 전략들을 공통 템플릿으로 정리했습니다. 앞으로 새 전략도 이 구조에 등록한 뒤 화면에 노출합니다.</p>
+        </div>
+        <span>${strategies.length}개 등록</span>
+      </div>
+      <div class="strategy-library-grid">
+        ${strategies.map(strategyLibraryCard).join("")}
+      </div>
+    </section>
+    <section class="strategy-library-section">
+      <div class="section-title compact">
+        <div>
+          <h2>새 전략 등록 필수 항목</h2>
+          <p>전략이 늘어나도 화면을 새로 만들지 않기 위한 공통 입력 규격입니다.</p>
+        </div>
+      </div>
+      <div class="template-principles">
+        <article><strong>정체성</strong><span>전략 ID, 자산군, 시장, 상태, 기준 지표</span></article>
+        <article><strong>오늘 행동</strong><span>상태 배지, 요약, 주요 버튼, 실행 대상</span></article>
+        <article><strong>운용 규칙</strong><span>매수, 매도, 리밸런싱, 점검 주기</span></article>
+        <article><strong>백테스트</strong><span>전략 누적, 기준 지표, 초과 수익, MDD, 승률</span></article>
+        <article><strong>계좌 적용</strong><span>자본금 모델, 현재 보유, 다음 점검일</span></article>
+        <article><strong>상태 관리</strong><span>운용 중, 테스트 중, 보류, 폐기</span></article>
+      </div>
+    </section>
+  `;
+}
+
 function renderRules() {
   const panel = document.querySelector("#rules-panel .rules-panel");
   if (!panel) return;
   panel.innerHTML = `
     <div class="section-title">
       <div>
-        <h2>전략 규칙</h2>
-        <p>새 계좌를 실제로 시작하고 매월 운용할 때 적용할 현재 기준입니다.</p>
+        <h2>전략 규칙과 보관함</h2>
+        <p>현재 전략을 공통 템플릿으로 관리하고, 새 전략도 같은 규격으로 추가합니다.</p>
       </div>
-      <span>2026-07 운영안</span>
+      <span>공통 템플릿 v1</span>
     </div>
+    ${strategyLibraryHtml()}
     <div class="rules-grid">
       <article>
         <h3>1. 투자 시작</h3>

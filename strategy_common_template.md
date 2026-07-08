@@ -1,0 +1,127 @@
+# 전략 공통 템플릿 v1
+
+이 대시보드는 앞으로 새로운 전략을 만들 때마다 화면을 따로 설계하지 않는다. 모든 전략은 같은 입력 규격으로 등록하고, 오늘 할 일, 운용 현황, 백테스트, 계좌 적용 화면에서 같은 순서로 읽히게 만든다.
+
+## 전략이 반드시 답해야 하는 6가지 질문
+
+1. 무엇을 사는가?
+2. 언제 사는가?
+3. 얼마나 사는가?
+4. 언제 팔거나 리밸런싱하는가?
+5. 과거에는 기준 지표보다 잘했는가?
+6. 지금 내 계좌에서는 무엇을 해야 하는가?
+
+## 필수 전략 객체
+
+새 전략은 아래 형태로 정리한 뒤 대시보드에 추가한다.
+
+```js
+{
+  id: "us_leader_monthly_v1",
+  assetClass: "us_stock",
+  market: "US",
+  asset: "미국 주식",
+  title: "Leader2 One Each",
+  status: "active",
+  currency: "USD",
+  benchmark: {
+    symbol: "QQQ",
+    label: "QQQ"
+  },
+  today: {
+    summary: "2개 신규 후보",
+    detail: "매도 점검과 연장 보유를 함께 확인합니다.",
+    primaryAction: "매수 가이드 보기"
+  },
+  rules: {
+    buy: ["월말 주도 섹터 상위 2곳에서 각 1개"],
+    sell: ["6개월 50% 매도", "잔여 50% 주봉 연장"],
+    rebalance: [],
+    checkCycle: "월말 확정, 매주 보유 점검"
+  },
+  currentPicks: [],
+  backtest: {
+    period: {
+      start: "YYYY-MM-DD",
+      end: "YYYY-MM-DD"
+    },
+    metrics: {
+      strategyReturn: 0,
+      benchmarkReturn: 0,
+      excessReturn: 0,
+      maxDrawdown: 0,
+      winRate: 0,
+      tradeCount: 0
+    },
+    equityCurve: [],
+    monthlyEvents: [],
+    trades: []
+  },
+  account: {
+    model: "capital_limited",
+    initialCapital: 10000000
+  },
+  tabs: {
+    start: "us-start",
+    operations: "ops",
+    backtest: "backtest",
+    account: "account"
+  }
+}
+```
+
+## 전략 상태
+
+- `active`: 실제 대시보드에서 운용 중이며 오늘 할 일에 노출한다.
+- `testing`: 백테스트와 화면 검토 중인 전략이다. 운용 신호로 보지 않는다.
+- `paused`: 일시 중단한 전략이다.
+- `retired`: 폐기했지만 기록 확인을 위해 보관한다.
+
+## 자산군 라벨
+
+- `us_stock`: 미국 주식
+- `us_etf`: 미국 ETF
+- `kr_stock`: 한국 주식
+- `kr_etf`: 한국 ETF
+- `mixed`: 혼합 자산
+- `cash_defense`: 현금 또는 방어 전략
+
+## 백테스트 공통 요약
+
+모든 전략은 최소한 아래 결과를 제공해야 한다.
+
+- 전략 누적 수익률
+- 기준 지표 누적 수익률
+- 기준 지표 대비 초과 수익률
+- 최대 낙폭, MDD
+- 매수, 매도 또는 리밸런싱 횟수
+- 승률 또는 월간 플러스 비율
+- 기준 지표와 비교한 누적 성과 그래프
+- 월별 매수, 매도, 리밸런싱 기록
+
+## 현재 등록 전략
+
+1. `us_leader_monthly_v1`
+   - 자산군: `us_stock`
+   - 상태: `active`
+   - 규칙: 월간 주도 섹터 2곳에서 각 1개 종목, 6개월 후 50% 매도, 나머지 50%는 주봉 추세 연장.
+
+2. `kr_stock_leader2_v1`
+   - 자산군: `kr_stock`
+   - 상태: `active`
+   - 규칙: 한국 우량주 유니버스에서 월간 주도 업종 2곳의 대표 종목, 6개월 후 50% 매도, 나머지 50%는 주봉 추세 연장.
+
+3. `kr_etf_core_satellite_v1`
+   - 자산군: `kr_etf`
+   - 상태: `active`
+   - 규칙: 매월 코어 50%, 위성 40%, 방어 10% 목표 비중으로 리밸런싱.
+
+## 새 전략 등록 체크리스트
+
+1. 매수, 매도, 리밸런싱, 점검 주기를 먼저 정의한다.
+2. 비교할 기준 지표를 선택한다.
+3. 자금 제한이 있는 백테스트를 돌린다.
+4. 결과를 공통 전략 객체로 변환한다.
+5. 전략 보관함에 `testing` 상태로 등록한다.
+6. 오늘 카드와 백테스트 공통 요약에서 같은 포맷으로 읽히는지 확인한다.
+7. 운용하기로 결정한 뒤에만 상태를 `active`로 바꾼다.
