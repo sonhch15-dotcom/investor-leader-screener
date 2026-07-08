@@ -45,6 +45,56 @@ const scenarios = [
   }
 ];
 
+const scenarioCandidates = [
+  {
+    key: "conservative_5pct_cap15",
+    label: "Conservative: 5% / 15% cap",
+    description: "10M capital, buy 500K per signal, max 1.5M original cost per symbol.",
+    type: "fixed",
+    perSignalPct: 0.05,
+    symbolCapPct: 0.15
+  },
+  {
+    key: "base_6_5pct_cap17_5_reserve10",
+    label: "Base: 6.5% / 17.5% cap / 10% cash reserve",
+    description: "10M capital, buy 650K per signal, max 1.75M per symbol, preserve 1M cash when possible.",
+    type: "fixed",
+    perSignalPct: 0.065,
+    symbolCapPct: 0.175,
+    cashReservePct: 0.10
+  },
+  {
+    key: "aggressive_7pct_cap17_5_reserve10",
+    label: "Aggressive: 7% / 17.5% cap / 10% cash reserve",
+    description: "10M capital, buy 700K per signal, max 1.75M per symbol, preserve 1M cash when possible.",
+    type: "fixed",
+    perSignalPct: 0.07,
+    symbolCapPct: 0.175,
+    cashReservePct: 0.10
+  },
+  {
+    key: "over_7_5pct_cap20",
+    label: "Over-aggressive: 7.5% / 20% cap",
+    description: "10M capital, buy 750K per signal, max 2M per symbol, no cash reserve.",
+    type: "fixed",
+    perSignalPct: 0.075,
+    symbolCapPct: 0.20
+  },
+  {
+    key: "ramp_aggressive_3m",
+    label: "Ramp aggressive: 3M 1M/750K/500K",
+    description: "First three months deploy faster: buy 1M when cash is above 3M, 750K normally, 500K when cash is tight; max 2.25M per symbol.",
+    type: "ramp",
+    baseAmount: 750_000,
+    rampAmount: 1_000_000,
+    defensiveAmount: 500_000,
+    rampMonths: 3,
+    rampCashThreshold: 3_000_000,
+    defensiveCashThreshold: 1_000_000,
+    symbolCapPct: 0.225
+  }
+];
+
 function valueAfter(flag) {
   const index = process.argv.indexOf(flag);
   return index === -1 ? null : process.argv[index + 1] ?? null;
@@ -85,7 +135,12 @@ function loadTrades(data) {
     })) ?? [];
 }
 
-function targetBuyAmount(scenario, equity) {
+function targetBuyAmount(scenario, equity, cash, eventIndex) {
+  if (scenario.type === "ramp") {
+    if (cash <= scenario.defensiveCashThreshold) return scenario.defensiveAmount;
+    if (eventIndex < scenario.rampMonths * 2 && cash >= scenario.rampCashThreshold) return scenario.rampAmount;
+    return scenario.baseAmount;
+  }
   if (scenario.type === "dynamic") return equity / scenario.slots;
   return initialCapital * scenario.perSignalPct;
 }
@@ -134,6 +189,7 @@ function simulateScenario(scenario, trades) {
   let attemptedBuys = 0;
   let executedBuys = 0;
   let sellEvents = 0;
+  let buySignalIndex = 0;
 
   for (const event of events) {
     if (event.type === "sell") {
@@ -167,10 +223,13 @@ function simulateScenario(scenario, trades) {
 
     attemptedBuys += 1;
     const equity = equityAtCost(cash, positions);
-    const wanted = targetBuyAmount(scenario, equity);
+    const wanted = targetBuyAmount(scenario, equity, cash, buySignalIndex);
+    buySignalIndex += 1;
     const cap = initialCapital * scenario.symbolCapPct;
     const capRoom = Math.max(0, cap - symbolOpenCost(positions, event.trade.symbol));
-    const maxCashBuy = cash / (1 + costBps / 10_000);
+    const cashReserve = initialCapital * (scenario.cashReservePct ?? 0);
+    const deployableCash = Math.max(0, cash - cashReserve);
+    const maxCashBuy = deployableCash / (1 + costBps / 10_000);
     const amount = Math.min(wanted, capRoom, maxCashBuy);
     if (amount < minBuy) {
       skipped.push({
@@ -295,14 +354,15 @@ function markdown(result) {
   lines.push("");
   lines.push("## Recommended Operating Rule");
   lines.push("");
-  lines.push("Use the 5% per signal / 15% symbol cap version as the default operating rule.");
+  lines.push("Use the 3-month ramp aggressive version as the default operating rule.");
   lines.push("");
-  lines.push("- With 10,000,000 capital, buy 500,000 per new monthly recommendation.");
-  lines.push("- Buy two names per month, so the planned monthly new capital is about 1,000,000.");
-  lines.push("- If the same symbol is recommended again, additional buys are allowed only until total original cost reaches 1,500,000.");
+  lines.push("- With 10,000,000 capital, buy up to 1,000,000 per new monthly recommendation during the first three months when cash is above 3,000,000.");
+  lines.push("- After the ramp period, buy 750,000 per new monthly recommendation.");
+  lines.push("- If cash falls below 1,000,000, reduce the next buy to 500,000 or skip the lower-priority duplicate.");
+  lines.push("- If the same symbol is recommended again, additional buys are allowed only until total original cost reaches 2,250,000.");
   lines.push("- At six months, sell 50% of that specific monthly lot.");
   lines.push("- Keep the remaining 50% only while the weekly extension rule allows it; otherwise sell it.");
-  lines.push("- If cash is short, skip the lower-ranked/duplicate buy rather than forcing leverage.");
+  lines.push("- Recalculate next month from current total capital and cash; do not use leverage or retroactively buy old signals.");
   lines.push("");
   lines.push("## Best Scenario Details");
   lines.push("");
@@ -331,8 +391,8 @@ function markdown(result) {
 async function main() {
   const data = JSON.parse(await fs.readFile(inputPath, "utf8"));
   const trades = loadTrades(data);
-  const results = scenarios.map((scenario) => simulateScenario(scenario, trades));
-  const recommended = results.find((row) => row.key === "fixed_5pct_cap15");
+  const results = scenarioCandidates.map((scenario) => simulateScenario(scenario, trades));
+  const recommended = results.find((row) => row.key === "ramp_aggressive_3m");
   const result = {
     generatedAt: new Date().toISOString(),
     source: inputPath,

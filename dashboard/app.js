@@ -242,6 +242,176 @@ function monthlySellEventRows() {
   })).sort((a, b) => String(a.month).localeCompare(String(b.month)));
 }
 
+const plannerModes = {
+  ramp: {
+    label: "3개월 램프형 공격",
+    capPct: 0.225,
+    normalPct: 0.075,
+    rampPct: 0.10,
+    defensivePct: 0.05,
+    rampMonths: 3,
+    highCashPct: 0.30,
+    lowCashPct: 0.10,
+    reservePct: 0
+  },
+  base: {
+    label: "개선 기본형",
+    capPct: 0.175,
+    normalPct: 0.065,
+    reservePct: 0.10
+  },
+  over: {
+    label: "과공격형",
+    capPct: 0.20,
+    normalPct: 0.075,
+    reservePct: 0
+  }
+};
+
+function parseAmount(value) {
+  const numeric = Number(String(value ?? "").replace(/[^0-9.-]/g, ""));
+  return Number.isFinite(numeric) ? numeric : 0;
+}
+
+function krw(value) {
+  if (!Number.isFinite(value)) return "-";
+  return `${Math.round(value).toLocaleString("ko-KR")}원`;
+}
+
+function parseExistingCosts(text) {
+  const costs = new Map();
+  for (const line of String(text ?? "").split(/\n+/)) {
+    const match = line.trim().match(/^([A-Za-z.]+)\s*[:=,\s]\s*([0-9,]+)/);
+    if (!match) continue;
+    costs.set(match[1].toUpperCase(), parseAmount(match[2]));
+  }
+  return costs;
+}
+
+function plannedBuyAmount(mode, capital, cash, monthsSinceStart) {
+  if (mode === plannerModes.ramp) {
+    if (monthsSinceStart < mode.rampMonths && cash >= capital * mode.highCashPct) {
+      return { amount: capital * mode.rampPct, reason: "초기 3개월 램프업: 현금이 많아 10% 매수" };
+    }
+    if (cash <= capital * mode.lowCashPct) {
+      return { amount: capital * mode.defensivePct, reason: "현금 부족 방어: 5%로 축소" };
+    }
+  }
+  return { amount: capital * mode.normalPct, reason: `${mode.label} 기본 비중` };
+}
+
+function buildPlannerPlan() {
+  const capital = Math.max(0, parseAmount(document.getElementById("planner-capital")?.value));
+  let cash = Math.max(0, parseAmount(document.getElementById("planner-cash")?.value));
+  const monthsSinceStart = Math.max(0, parseAmount(document.getElementById("planner-months")?.value));
+  const mode = plannerModes[document.getElementById("planner-mode")?.value] ?? plannerModes.ramp;
+  const existingCosts = parseExistingCosts(document.getElementById("planner-existing")?.value);
+  const minOrder = Math.max(100_000, capital * 0.01);
+  const reserve = capital * (mode.reservePct ?? 0);
+  const buys = [];
+
+  for (const row of dashboard.currentBuys ?? []) {
+    const symbol = row.symbol.toUpperCase();
+    const existingCost = existingCosts.get(symbol) ?? 0;
+    const capAmount = capital * mode.capPct;
+    const capRoom = Math.max(0, capAmount - existingCost);
+    const planned = plannedBuyAmount(mode, capital, cash, monthsSinceStart);
+    const deployableCash = Math.max(0, cash - reserve);
+    const amount = Math.min(planned.amount, capRoom, deployableCash);
+    const action = amount >= minOrder ? "buy" : "skip";
+    const reason = capRoom < minOrder
+      ? `동일 종목 한도 ${krw(capAmount)}에 근접`
+      : deployableCash < minOrder
+        ? `현금 방어선 ${krw(reserve)} 때문에 대기`
+        : planned.reason;
+    buys.push({
+      ...row,
+      existingCost,
+      capAmount,
+      capRoom,
+      plannedAmount: planned.amount,
+      amount,
+      action,
+      reason
+    });
+    if (action === "buy") cash -= amount;
+  }
+
+  const sellRows = sortActionRows((dashboard.portfolio.holdings ?? []).filter((row) => (
+    row.status === "sell_due" || row.status === "extended" || row.status === "hold"
+  ))).slice(0, 10);
+
+  return {
+    capital,
+    startingCash: Math.max(0, parseAmount(document.getElementById("planner-cash")?.value)),
+    endingCash: cash,
+    monthsSinceStart,
+    mode,
+    buys,
+    sellRows,
+    reserve,
+    minOrder
+  };
+}
+
+function renderPlanner() {
+  const target = document.getElementById("planner-summary");
+  if (!target || !dashboard) return;
+  const plan = buildPlannerPlan();
+  const totalBuy = plan.buys.reduce((sum, row) => sum + (row.action === "buy" ? row.amount : 0), 0);
+  const skipped = plan.buys.filter((row) => row.action !== "buy").length;
+  target.innerHTML = `
+    <article class="kpi"><span>운용 모드</span><strong>${plan.mode.label}</strong><small>자본금 ${krw(plan.capital)}</small></article>
+    <article class="kpi"><span>이번 달 매수 예정</span><strong>${krw(totalBuy)}</strong><small>${plan.buys.length - skipped}건 실행 / ${skipped}건 대기</small></article>
+    <article class="kpi"><span>예상 잔여 현금</span><strong>${krw(plan.endingCash)}</strong><small>시작 현금 ${krw(plan.startingCash)}</small></article>
+    <article class="kpi"><span>종목당 한도</span><strong>${plainPercent(plan.mode.capPct)}</strong><small>최소 주문 ${krw(plan.minOrder)}</small></article>
+  `;
+
+  document.getElementById("planner-buys").innerHTML = plan.buys.map((row) => `
+    <article class="planner-card ${row.action}">
+      <div>
+        <strong>${row.symbol}</strong>
+        <span>${row.name} | ${row.sector}</span>
+      </div>
+      <b>${row.action === "buy" ? krw(row.amount) : "대기"}</b>
+      <p>${row.reason}</p>
+      <small>기존 입력 원금 ${krw(row.existingCost)} / 종목 한도 ${krw(row.capAmount)} / 한도 여유 ${krw(row.capRoom)}</small>
+    </article>
+  `).join("");
+
+  document.getElementById("planner-sells").innerHTML = plan.sellRows.length
+    ? plan.sellRows.map((row) => `
+      <article class="planner-card ${row.status}">
+        <div>
+          <strong>${row.symbol}</strong>
+          <span>${row.cohort} 추천 | ${row.sector}</span>
+        </div>
+        <b>${clearStatusLabel(row.status)}</b>
+        <p>${lotStatusText(row)}</p>
+        <small>${lotNextActionText(row)}</small>
+      </article>
+    `).join("")
+    : `<p class="empty-state">현재 매도 점검 대상이 없습니다.</p>`;
+
+  document.getElementById("planner-rules").innerHTML = `
+    <ul class="rule-list">
+      <li><strong>자본금 증가:</strong> 다음 월 리밸런싱부터 새 자본금 기준으로 매수금과 종목 한도를 다시 계산합니다. 이미 지난 달 신호를 억지로 따라 사지는 않습니다.</li>
+      <li><strong>자본금 감소/출금:</strong> 현금으로 먼저 처리합니다. 부족하면 잔여 매도 필요 종목, 주봉 약화 연장 종목, 동일 종목 한도 초과분 순서로 줄입니다.</li>
+      <li><strong>현금 부족:</strong> 이번 달 추천 2개 중 중복 종목보다 신규 섹터/신규 종목을 우선하고, 최소 주문금액보다 작으면 대기합니다.</li>
+      <li><strong>중복 추천:</strong> 같은 종목은 누적 원금이 종목 한도를 넘지 않는 범위에서만 추가 매수합니다.</li>
+      <li><strong>수익/손실 변동:</strong> 매월 총 자본금과 현금을 다시 입력해 다음 매수금만 조정합니다. 기존 보유분은 전략상 매도일과 주봉 조건으로 관리합니다.</li>
+    </ul>
+  `;
+}
+
+function setupPlanner() {
+  const form = document.getElementById("investment-planner-form");
+  if (!form) return;
+  form.addEventListener("input", renderPlanner);
+  form.addEventListener("change", renderPlanner);
+  renderPlanner();
+}
+
 function miniChart(row) {
   const chart = row.chart ?? [];
   if (chart.length < 2) return `<div class="mini-chart empty">차트 데이터 없음</div>`;
@@ -990,6 +1160,7 @@ async function main() {
     renderSymbolHoldings();
     renderSymbolSellDue();
     renderBacktest();
+    setupPlanner();
     setupTabs();
   } catch (error) {
     document.getElementById("meta").textContent = error.message;

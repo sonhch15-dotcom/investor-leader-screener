@@ -673,6 +673,107 @@ tr:last-child td {
   margin-bottom: 7px;
 }
 
+.planner-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, .75fr) 1.25fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.planner-form {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfe;
+}
+
+.planner-form label {
+  display: grid;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.planner-form input,
+.planner-form select,
+.planner-form textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  padding: 9px 10px;
+}
+
+.planner-form textarea {
+  resize: vertical;
+}
+
+.planner-output {
+  display: grid;
+  gap: 12px;
+}
+
+.planner-summary {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 0;
+}
+
+.planner-block {
+  display: grid;
+  gap: 8px;
+}
+
+.planner-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 10px;
+  padding: 11px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--blue);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.planner-card.skip,
+.planner-card.sell_due {
+  border-left-color: var(--amber);
+}
+
+.planner-card.extended {
+  border-left-color: var(--blue);
+}
+
+.planner-card.hold,
+.planner-card.buy {
+  border-left-color: var(--green);
+}
+
+.planner-card span,
+.planner-card small,
+.planner-card p {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.planner-card p,
+.planner-card small {
+  grid-column: 1 / -1;
+}
+
+.rule-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 18px;
+  color: #344054;
+  font-size: 13px;
+}
+
 .empty-state {
   color: var(--muted);
 }
@@ -684,7 +785,8 @@ tr:last-child td {
   }
 
   .two-col,
-  .rules-grid {
+  .rules-grid,
+  .planner-layout {
     grid-template-columns: 1fr;
   }
 }
@@ -718,7 +820,8 @@ tr:last-child td {
   .summary-grid,
   .leader-layout,
   .buy-grid,
-  .compact-list {
+  .compact-list,
+  .planner-summary {
     grid-template-columns: 1fr;
   }
 

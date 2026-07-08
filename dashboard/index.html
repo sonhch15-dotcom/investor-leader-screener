@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Leader2 Strategy Dashboard</title>
-  <link rel="stylesheet" href="styles.css?v=20260708-symbol-groups">
+  <link rel="stylesheet" href="styles.css?v=20260708-invest-start">
 </head>
 <body>
   <header class="topbar">
@@ -18,9 +18,65 @@
   <main>
     <nav class="tabs" aria-label="Dashboard sections">
       <button class="tab-button active" data-tab="ops" type="button">운용 현황</button>
+      <button class="tab-button" data-tab="start" type="button">투자 시작</button>
       <button class="tab-button" data-tab="backtest" type="button">백테스트</button>
       <button class="tab-button" data-tab="rules" type="button">전략 규칙</button>
     </nav>
+
+    <section class="tab-panel" id="start-panel">
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>투자 시작 계산기</h2>
+            <p>자본금과 현재 현금을 입력하면 이번 달 추천 종목을 얼마씩 매수할지 계산합니다.</p>
+          </div>
+          <span>규칙 기반 안내</span>
+        </div>
+        <div class="planner-layout">
+          <form class="planner-form" id="investment-planner-form">
+            <label>
+              <span>총 자본금</span>
+              <input id="planner-capital" inputmode="numeric" value="10000000">
+            </label>
+            <label>
+              <span>현재 매수 가능 현금</span>
+              <input id="planner-cash" inputmode="numeric" value="10000000">
+            </label>
+            <label>
+              <span>전략 시작 후 경과 개월</span>
+              <input id="planner-months" inputmode="numeric" value="0">
+            </label>
+            <label>
+              <span>운용 모드</span>
+              <select id="planner-mode">
+                <option value="ramp">3개월 램프형 공격</option>
+                <option value="base">개선 기본형</option>
+                <option value="over">과공격형</option>
+              </select>
+            </label>
+            <label class="wide">
+              <span>이미 보유한 종목 원금, 선택 입력</span>
+              <textarea id="planner-existing" rows="4" placeholder="예: STX 1000000&#10;ARM 650000"></textarea>
+            </label>
+          </form>
+          <div class="planner-output">
+            <div class="summary-grid planner-summary" id="planner-summary"></div>
+            <div class="planner-block">
+              <h3>이번 달 매수 안내</h3>
+              <div id="planner-buys"></div>
+            </div>
+            <div class="planner-block">
+              <h3>매도/보유 점검</h3>
+              <div id="planner-sells"></div>
+            </div>
+            <div class="planner-block">
+              <h3>자본금 변동 규칙</h3>
+              <div id="planner-rules"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
 
     <section class="tab-panel active" id="ops-panel">
       <section class="summary-grid" id="action-summary"></section>
@@ -254,6 +310,6 @@
     </section>
   </main>
 
-  <script src="app.js?v=20260708-symbol-groups"></script>
+  <script src="app.js?v=20260708-invest-start"></script>
 </body>
 </html>
