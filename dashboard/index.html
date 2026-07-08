@@ -441,6 +441,31 @@
       <section class="panel">
         <div class="section-title">
           <div>
+            <h2>한국 주식 전략 누적 성과 vs KOSPI200</h2>
+            <p>미국 백테스트와 같은 방식으로 월별 선정력 누적 곡선을 KOSPI200 ETF와 비교합니다.</p>
+          </div>
+          <span id="korea-stock-curve-meta"></span>
+        </div>
+        <div id="korea-stock-performance-chart"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>표 읽는 법</h2>
+            <p>처음 보는 사람도 바로 해석할 수 있도록 핵심 용어를 풀어 썼습니다.</p>
+          </div>
+        </div>
+        <div class="rules-grid">
+          <article><h3>전략</h3><p>우리가 만든 규칙대로 매수/매도했을 때의 수익률입니다.</p></article>
+          <article><h3>KOSPI200</h3><p>같은 기간 KOSPI200 ETF를 들고 있었을 때의 수익률입니다.</p></article>
+          <article><h3>KOSPI 초과</h3><p>전략 수익률에서 KOSPI200 수익률을 뺀 값입니다. 플러스면 KOSPI보다 잘한 것입니다.</p></article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
             <h2>한국 주식 성과 요약</h2>
             <p>6개월 50% 매도 후 잔여 50%는 주봉 추세로 연장하는 현재 운용 규칙의 결과입니다.</p>
           </div>
@@ -454,8 +479,8 @@
                 <th>청산 완료</th>
                 <th>보유중</th>
                 <th>평균 수익률</th>
-                <th>벤치마크</th>
-                <th>초과</th>
+                <th>KOSPI200</th>
+                <th>KOSPI 초과</th>
                 <th>승률</th>
                 <th>1천만원 계좌</th>
                 <th>MDD</th>
@@ -472,7 +497,7 @@
         <div class="section-title">
           <div>
             <h2>월별 매도 결과</h2>
-            <p>해당 월에 실제 발생한 50% 기본매도와 잔여 매도 이벤트를 벤치마크와 비교합니다.</p>
+            <p>해당 월에 실제 발생한 50% 기본매도와 잔여 매도 이벤트를 KOSPI200과 비교합니다.</p>
           </div>
           <div class="section-actions">
             <span id="korea-stock-monthly-sell-meta"></span>
@@ -488,8 +513,8 @@
                 <th>50% 기본매도</th>
                 <th>잔여 매도</th>
                 <th>평균 수익률</th>
-                <th>벤치마크</th>
-                <th>초과</th>
+                <th>KOSPI200</th>
+                <th>KOSPI 초과</th>
                 <th>종목</th>
               </tr>
             </thead>
@@ -536,7 +561,7 @@
         <div class="section-title">
           <div>
             <h2>한국 ETF 전략 검증</h2>
-            <p>Core 50%, Satellite 40%, Defense 10% 월간 리밸런싱 전략을 벤치마크와 비교합니다.</p>
+            <p>Core 50%, Satellite 40%, Defense 10% 월간 리밸런싱 전략을 KOSPI200과 비교합니다.</p>
           </div>
           <span id="korea-etf-backtest-meta">데이터 준비중</span>
         </div>
@@ -546,8 +571,33 @@
       <section class="panel">
         <div class="section-title">
           <div>
+            <h2>한국 ETF 전략 누적 성과 vs KOSPI200</h2>
+            <p>월간 50/40/10 리밸런싱 계좌의 누적 수익률을 KOSPI200 ETF와 비교합니다.</p>
+          </div>
+          <span id="korea-etf-curve-meta"></span>
+        </div>
+        <div id="korea-etf-performance-chart"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>표 읽는 법</h2>
+            <p>ETF 백테스트의 월별 카드와 표에 나오는 용어입니다.</p>
+          </div>
+        </div>
+        <div class="rules-grid">
+          <article><h3>전략 월수익률</h3><p>그 달에 ETF 50/40/10 계좌가 오른/내린 비율입니다.</p></article>
+          <article><h3>KOSPI200 월수익률</h3><p>같은 달 KOSPI200 ETF가 오른/내린 비율입니다.</p></article>
+          <article><h3>KOSPI 초과</h3><p>전략 월수익률에서 KOSPI200 월수익률을 뺀 값입니다. 플러스면 그 달에는 전략이 더 잘했습니다.</p></article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
             <h2>한국 ETF 성과 요약</h2>
-            <p>1천만원 계좌 기준 월별 리밸런싱 누적 성과와 벤치마크 대비 성과입니다.</p>
+            <p>1천만원 계좌 기준 월별 리밸런싱 누적 성과와 KOSPI200 대비 성과입니다.</p>
           </div>
         </div>
         <div class="table-wrap backtest-table">
@@ -558,8 +608,8 @@
                 <th>리밸런싱 월수</th>
                 <th>보유 ETF</th>
                 <th>계좌 수익률</th>
-                <th>벤치마크</th>
-                <th>초과</th>
+                <th>KOSPI200</th>
+                <th>KOSPI 초과</th>
                 <th>최종 자산</th>
                 <th>MDD</th>
               </tr>
@@ -574,7 +624,7 @@
         <div class="section-title">
           <div>
             <h2>월별 계좌 수익률</h2>
-            <p>ETF 전략의 월별 계좌 수익률을 KOSPI200 ETF 벤치마크와 비교합니다.</p>
+            <p>ETF 전략의 월별 계좌 수익률을 KOSPI200 ETF와 비교합니다.</p>
           </div>
           <div class="section-actions">
             <span id="korea-etf-monthly-return-meta"></span>
@@ -587,10 +637,10 @@
               <tr>
                 <th>월</th>
                 <th>전략 월수익률</th>
-                <th>벤치마크 월수익률</th>
-                <th>초과</th>
-                <th>전략 누적</th>
-                <th>벤치마크 누적</th>
+                <th>KOSPI200 월수익률</th>
+                <th>KOSPI 초과</th>
+                <th>전략 누적 수익률</th>
+                <th>KOSPI200 누적 수익률</th>
                 <th>계좌 평가액</th>
               </tr>
             </thead>

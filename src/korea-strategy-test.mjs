@@ -1108,6 +1108,7 @@ function simulateStrategy({
       maxDrawdown: maxDrawdown(curve)
     },
     capitalAccount,
+    benchmarkCurve: buildBenchmarkCurve(priceMap, benchmarkSymbol, monthEnds).filter((row) => curve.some((point) => point.month === row.month)),
     curve
   };
 }
@@ -1202,7 +1203,7 @@ async function main() {
     signalDates,
     monthEnds,
     latestDate: asOf,
-    benchmarkSymbol: "133690.KS",
+    benchmarkSymbol: "069500.KS",
     select: (snapshot) => selectEtfLeaders(snapshot, 3)
   });
 
@@ -1276,7 +1277,7 @@ async function main() {
       label: "KR ETF Defensive Rotation",
       description: "ETF rotation, but when KODEX 200 is weak, prefer bonds, commodities, dividends, or broad US ETFs.",
       instruments: etfUniverse,
-      benchmarkSymbol: "133690.KS",
+      benchmarkSymbol: "069500.KS",
       select: selectEtfDefensive
     }),
     simulateStrategy({
@@ -1285,7 +1286,7 @@ async function main() {
       label: "KR ETF No Repeat",
       description: "ETF rotation, but skip ETFs already held by previous monthly lots.",
       instruments: etfUniverse,
-      benchmarkSymbol: "133690.KS",
+      benchmarkSymbol: "069500.KS",
       select: selectEtfLeadersNoRepeat
     }),
     simulateStrategy({
@@ -1294,7 +1295,7 @@ async function main() {
       label: "KR ETF Pullback Entry",
       description: "ETF rotation, but enter only after a 20D-average pullback and bounce within 21 trading days.",
       instruments: etfUniverse,
-      benchmarkSymbol: "133690.KS",
+      benchmarkSymbol: "069500.KS",
       entryRule: (rows, signalDate) => pullbackEntry(rows, signalDate),
       select: (snapshot) => selectEtfLeaders(snapshot, 3)
     }),
@@ -1304,7 +1305,7 @@ async function main() {
       label: "KR ETF Top2 Concentrated",
       description: "More concentrated ETF rotation with only two ETF groups per month.",
       instruments: etfUniverse,
-      benchmarkSymbol: "133690.KS",
+      benchmarkSymbol: "069500.KS",
       select: (snapshot) => selectEtfLeaders(snapshot, 2)
     }),
     simulateStrategy({
@@ -1313,7 +1314,7 @@ async function main() {
       label: "KR ETF Top4 Diversified",
       description: "More diversified ETF rotation with four ETF groups per month.",
       instruments: etfUniverse,
-      benchmarkSymbol: "133690.KS",
+      benchmarkSymbol: "069500.KS",
       select: (snapshot) => selectEtfLeaders(snapshot, 4)
     })
   ];
@@ -1325,7 +1326,7 @@ async function main() {
       label: "KR ETF Rebalance Top2",
       description: "Monthly rebalance 100% of the account into the top 2 ETF groups, 50/50.",
       instruments: etfUniverse,
-      benchmarkSymbol: "133690.KS",
+      benchmarkSymbol: "069500.KS",
       selectWeights: (snapshot) => selectRebalanceTopN(snapshot, 2)
     }),
     simulateEtfRebalanceStrategy({
@@ -1334,7 +1335,7 @@ async function main() {
       label: "KR ETF Rebalance Top3",
       description: "Monthly rebalance 100% of the account into the top 3 ETF groups, equal weight.",
       instruments: etfUniverse,
-      benchmarkSymbol: "133690.KS",
+      benchmarkSymbol: "069500.KS",
       selectWeights: (snapshot) => selectRebalanceTopN(snapshot, 3)
     }),
     simulateEtfRebalanceStrategy({
@@ -1343,7 +1344,7 @@ async function main() {
       label: "KR ETF Absolute Momentum",
       description: "Monthly rebalance into top ETFs only when absolute momentum is positive. If none qualify, move to short/bond ETFs.",
       instruments: etfUniverse,
-      benchmarkSymbol: "133690.KS",
+      benchmarkSymbol: "069500.KS",
       selectWeights: selectAbsoluteMomentumEtfs
     }),
     simulateEtfRebalanceStrategy({
@@ -1352,7 +1353,7 @@ async function main() {
       label: "KR ETF Core Satellite",
       description: "Monthly 50% US core, 30% strongest satellite ETF, 20% defensive ETF.",
       instruments: etfUniverse,
-      benchmarkSymbol: "133690.KS",
+      benchmarkSymbol: "069500.KS",
       selectWeights: selectCoreSatelliteEtfs
     }),
     simulateEtfRebalanceStrategy({
@@ -1361,7 +1362,7 @@ async function main() {
       label: "KR ETF Core Satellite 60/30/10",
       description: "Monthly 60% US core, 30% strongest satellite ETF, 10% defensive ETF.",
       instruments: etfUniverse,
-      benchmarkSymbol: "133690.KS",
+      benchmarkSymbol: "069500.KS",
       selectWeights: (snapshot) => selectCoreSatelliteWithWeights(snapshot, { core: 0.6, satellite: 0.3, defensive: 0.1 })
     }),
     simulateEtfRebalanceStrategy({
@@ -1370,7 +1371,7 @@ async function main() {
       label: "KR ETF Core Satellite 50/40/10",
       description: "Monthly 50% US core, 40% strongest satellite ETF, 10% defensive ETF.",
       instruments: etfUniverse,
-      benchmarkSymbol: "133690.KS",
+      benchmarkSymbol: "069500.KS",
       selectWeights: (snapshot) => selectCoreSatelliteWithWeights(snapshot, { core: 0.5, satellite: 0.4, defensive: 0.1 })
     }),
     simulateEtfRebalanceStrategy({
@@ -1379,7 +1380,7 @@ async function main() {
       label: "KR ETF Core Satellite 70/20/10",
       description: "Monthly 70% US core, 20% strongest satellite ETF, 10% defensive ETF.",
       instruments: etfUniverse,
-      benchmarkSymbol: "133690.KS",
+      benchmarkSymbol: "069500.KS",
       selectWeights: (snapshot) => selectCoreSatelliteWithWeights(snapshot, { core: 0.7, satellite: 0.2, defensive: 0.1 })
     }),
     simulateEtfRebalanceStrategy({
@@ -1388,7 +1389,7 @@ async function main() {
       label: "KR ETF Core Satellite 40/40/20",
       description: "Monthly 40% US core, 40% strongest satellite ETF, 20% defensive ETF.",
       instruments: etfUniverse,
-      benchmarkSymbol: "133690.KS",
+      benchmarkSymbol: "069500.KS",
       selectWeights: (snapshot) => selectCoreSatelliteWithWeights(snapshot, { core: 0.4, satellite: 0.4, defensive: 0.2 })
     }),
     simulateEtfRebalanceStrategy({
@@ -1397,7 +1398,7 @@ async function main() {
       label: "KR ETF Risk Managed",
       description: "Monthly ETF rotation with KOSPI/Nasdaq regime filter. Weak regimes move toward bond, gold, dividend, or broad US ETFs.",
       instruments: etfUniverse,
-      benchmarkSymbol: "133690.KS",
+      benchmarkSymbol: "069500.KS",
       selectWeights: selectRiskManagedEtfs
     })
   ];

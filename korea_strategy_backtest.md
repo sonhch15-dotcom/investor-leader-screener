@@ -1,6 +1,6 @@
 # Korea Strategy Backtest
 
-Generated: 2026-07-08T10:08:15.113Z
+Generated: 2026-07-08T10:33:05.797Z
 As of: 2026-07-08
 
 ## Caveat
@@ -13,7 +13,7 @@ As of: 2026-07-08
 | Strategy | Trades | Realized | Open | Avg Return | Benchmark | Excess | Win Rate | Portfolio Curve | MDD | 10M Account | Account MDD | Skips |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | 한국 우량주 Leader2 | 100 | 83 | 17 | +48.1% | +24.3% | +23.8% | +73.5% | +1755.3% | -34.2% | +386.4% | -15.6% | 22 |
-| KR ETF Core Satellite 50/40/10 | 50 | 0 | 3 | +168.4% | +158.9% | +9.6% | - | +168.4% | -16.0% | +168.4% | -16.0% | 0 |
+| KR ETF Core Satellite 50/40/10 | 50 | 0 | 3 | +168.4% | +202.1% | -33.7% | - | +168.4% | -16.0% | +168.4% | -16.0% | 0 |
 
 ## 10M KRW Account Assumptions
 

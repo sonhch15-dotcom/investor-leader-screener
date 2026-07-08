@@ -1390,6 +1390,64 @@ function renderPerformanceChart() {
   `;
 }
 
+function renderComparisonPerformanceChart({
+  targetId,
+  metaId,
+  rows,
+  strategyKey,
+  benchmarkKey,
+  strategyLabel,
+  benchmarkLabel,
+  ariaLabel
+}) {
+  const target = document.getElementById(targetId);
+  const meta = document.getElementById(metaId);
+  if (!target) return;
+  const validRows = (rows ?? []).filter((row) => Number.isFinite(row[strategyKey]) || Number.isFinite(row[benchmarkKey]));
+  if (meta) {
+    meta.textContent = validRows.length
+      ? `${validRows[0].asOf ?? validRows[0].month} ~ ${validRows.at(-1).asOf ?? validRows.at(-1).month}`
+      : "데이터 없음";
+  }
+  if (validRows.length < 2) {
+    target.innerHTML = `<p class="empty-state">성과 곡선 데이터가 없습니다.</p>`;
+    return;
+  }
+
+  const width = 920;
+  const height = 320;
+  const pad = { top: 18, right: 24, bottom: 38, left: 54 };
+  const values = validRows.flatMap((row) => [row[strategyKey], row[benchmarkKey]]).filter(Number.isFinite);
+  const min = Math.min(0, ...values);
+  const max = Math.max(0.1, ...values);
+  const span = max - min || 1;
+  const xFor = (row) => pad.left + (validRows.indexOf(row) / (validRows.length - 1)) * (width - pad.left - pad.right);
+  const yFor = (value) => height - pad.bottom - ((value - min) / span) * (height - pad.top - pad.bottom);
+  const zeroY = yFor(0);
+  const strategyPath = linePath(validRows, strategyKey, xFor, yFor);
+  const benchmarkPath = linePath(validRows, benchmarkKey, xFor, yFor);
+  const last = validRows.at(-1);
+  const firstLabel = String(validRows[0].asOf ?? validRows[0].month).slice(0, 7);
+  const lastLabel = String(last.asOf ?? last.month).slice(0, 7);
+
+  target.innerHTML = `
+    <svg class="performance-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${ariaLabel}">
+      <line class="axis" x1="${pad.left}" y1="${zeroY.toFixed(1)}" x2="${width - pad.right}" y2="${zeroY.toFixed(1)}"></line>
+      <line class="axis" x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${height - pad.bottom}"></line>
+      <text class="chart-axis" x="8" y="${(yFor(max) + 4).toFixed(1)}">${percent(max)}</text>
+      <text class="chart-axis" x="8" y="${(yFor(min) + 4).toFixed(1)}">${percent(min)}</text>
+      <path class="strategy-line" d="${strategyPath}"></path>
+      <path class="qqq-line" d="${benchmarkPath}"></path>
+      <text class="chart-axis" x="${pad.left}" y="${height - 12}">${firstLabel}</text>
+      <text class="chart-axis" x="${width - pad.right - 52}" y="${height - 12}">${lastLabel}</text>
+    </svg>
+    <div class="legend">
+      <span class="strategy">${strategyLabel} ${percent(last[strategyKey])}</span>
+      <span class="qqq">${benchmarkLabel} ${percent(last[benchmarkKey])}</span>
+    </div>
+  `;
+}
+
 function showMoreLabel(showAll, visibleCount, totalCount) {
   return showAll
     ? `최근만 보기 (${visibleCount}/${totalCount})`
@@ -1645,7 +1703,7 @@ function renderBacktest() {
 
 function benchmarkLabel(symbol) {
   return {
-    "069500.KS": "KODEX 200",
+    "069500.KS": "KOSPI200",
     "133690.KS": "TIGER 나스닥100"
   }[symbol] ?? symbol ?? "벤치마크";
 }
@@ -1740,6 +1798,17 @@ function koreaStockMonthlySellRows() {
   })).sort((a, b) => a.month.localeCompare(b.month));
 }
 
+function koreaStockPerformanceRows() {
+  const strategy = koreaStockStrategy();
+  const benchmarkByMonth = new Map((strategy?.benchmarkCurve ?? []).map((row) => [row.month, row]));
+  return (strategy?.curve ?? []).map((row) => ({
+    month: row.month,
+    asOf: row.asOf,
+    strategyTotalReturn: row.strategyTotalReturn,
+    benchmarkTotalReturn: benchmarkByMonth.get(row.month)?.totalReturn
+  }));
+}
+
 function renderKoreaStockMonthlySells() {
   const allRows = [...koreaStockMonthlySellRows()].reverse();
   const rows = showAllKoreaStockMonthlySells ? allRows : allRows.slice(0, RECENT_KOREA_STOCK_SELL_LIMIT);
@@ -1775,11 +1844,11 @@ function renderKoreaStockMonthlySells() {
       </div>
       <div class="metric-line">
         <span>전략 ${percent(row.averageReturn)}</span>
-        <span>벤치마크 ${percent(row.averageBenchmarkReturn)}</span>
-        <span>초과 ${percent(row.averageExcessBenchmark)}</span>
+        <span>KOSPI200 ${percent(row.averageBenchmarkReturn)}</span>
+        <span>KOSPI 초과 ${percent(row.averageExcessBenchmark)}</span>
       </div>
       <ul class="event-list">${row.events.map((event) => `
-        <li><strong>${event.date} ${event.symbol}</strong><span>${event.reason} | ${percent(event.return)} / BM ${percent(event.benchmarkReturn)}</span></li>
+        <li><strong>${event.date} ${event.symbol}</strong><span>${event.reason} | 전략 ${percent(event.return)} / KOSPI200 ${percent(event.benchmarkReturn)}</span></li>
       `).join("")}</ul>
     </article>
   `).join("");
@@ -1821,6 +1890,17 @@ function koreaEtfMonthlyReturnRows() {
   });
 }
 
+function koreaEtfPerformanceRows() {
+  const strategy = koreaStrategyByKey("kr_etf_core_satellite_50_40_10");
+  const benchmarkByMonth = new Map((strategy?.capitalAccount?.benchmarkCurve ?? []).map((row) => [row.month, row]));
+  return (strategy?.capitalAccount?.curve ?? []).map((row) => ({
+    month: row.month,
+    asOf: row.asOf,
+    strategyTotalReturn: row.totalReturn,
+    benchmarkTotalReturn: benchmarkByMonth.get(row.month)?.totalReturn
+  }));
+}
+
 function renderKoreaEtfMonthlyReturns() {
   const allRows = [...koreaEtfMonthlyReturnRows()].reverse();
   const rows = showAllKoreaEtfMonthlyReturns ? allRows : allRows.slice(0, RECENT_KOREA_ETF_RETURN_LIMIT);
@@ -1855,8 +1935,8 @@ function renderKoreaEtfMonthlyReturns() {
       </div>
       <div class="metric-line">
         <span>전략 ${percent(row.monthlyReturn)}</span>
-        <span>벤치마크 ${percent(row.benchmarkMonthlyReturn)}</span>
-        <span>누적 ${percent(row.totalReturn)}</span>
+        <span>KOSPI200 ${percent(row.benchmarkMonthlyReturn)}</span>
+        <span>전략 누적 ${percent(row.totalReturn)}</span>
       </div>
     </article>
   `).join("");
@@ -2526,8 +2606,8 @@ function renderKoreaEtfBacktest() {
   document.getElementById("korea-etf-backtest-meta").textContent = `${koreaDashboard.asOf} 기준 | ${strategy.months ?? 0}개월`;
   document.getElementById("korea-etf-kpis").innerHTML = `
     <article class="kpi"><span>ETF 전략 수익률</span><strong class="${signedClass(account.totalReturn)}">${percent(account.totalReturn)}</strong><small>1천만원 ${krw(account.finalCapital)}</small></article>
-    <article class="kpi"><span>벤치마크</span><strong class="${signedClass(summary.averageBenchmarkReturn)}">${percent(summary.averageBenchmarkReturn)}</strong><small>${benchmarkLabel(strategy.benchmarkSymbol)}</small></article>
-    <article class="kpi"><span>초과 수익률</span><strong class="${signedClass(summary.averageExcessBenchmark)}">${percent(summary.averageExcessBenchmark)}</strong><small>전략 - 벤치마크</small></article>
+    <article class="kpi"><span>KOSPI200 누적</span><strong class="${signedClass(summary.averageBenchmarkReturn)}">${percent(summary.averageBenchmarkReturn)}</strong><small>비교 기준</small></article>
+    <article class="kpi"><span>KOSPI 초과</span><strong class="${signedClass(summary.averageExcessBenchmark)}">${percent(summary.averageExcessBenchmark)}</strong><small>전략 - KOSPI200</small></article>
     <article class="kpi"><span>리밸런싱</span><strong>${summary.tradeCount ?? 0}개월</strong><small>MDD ${percent(account.maxDrawdown)}</small></article>
   `;
 
@@ -2563,6 +2643,17 @@ function renderKoreaEtfBacktest() {
     </article>
   `;
 
+  renderComparisonPerformanceChart({
+    targetId: "korea-etf-performance-chart",
+    metaId: "korea-etf-curve-meta",
+    rows: koreaEtfPerformanceRows(),
+    strategyKey: "strategyTotalReturn",
+    benchmarkKey: "benchmarkTotalReturn",
+    strategyLabel: "ETF 전략",
+    benchmarkLabel: "KOSPI200",
+    ariaLabel: "Korea ETF strategy versus KOSPI200 performance chart"
+  });
+
   document.getElementById("korea-etf-summary-body").innerHTML = `
     <tr>
       <td><strong>${strategy.label}</strong><div class="sub">${benchmarkLabel(strategy.benchmarkSymbol)} 비교</div></td>
@@ -2586,8 +2677,8 @@ function renderKoreaEtfBacktest() {
       </div>
       <div class="metric-line">
         <span>리밸런싱 ${summary.tradeCount ?? 0}개월</span>
-        <span>벤치마크 ${percent(summary.averageBenchmarkReturn)}</span>
-        <span>초과 ${percent(summary.averageExcessBenchmark)}</span>
+        <span>KOSPI200 ${percent(summary.averageBenchmarkReturn)}</span>
+        <span>KOSPI 초과 ${percent(summary.averageExcessBenchmark)}</span>
         <span>계좌 ${krw(account.finalCapital)}</span>
         <span>MDD ${percent(account.maxDrawdown)}</span>
       </div>
@@ -2656,6 +2747,17 @@ function renderKorea() {
     </article>
   `).join("");
 
+  renderComparisonPerformanceChart({
+    targetId: "korea-stock-performance-chart",
+    metaId: "korea-stock-curve-meta",
+    rows: koreaStockPerformanceRows(),
+    strategyKey: "strategyTotalReturn",
+    benchmarkKey: "benchmarkTotalReturn",
+    strategyLabel: "주식 전략",
+    benchmarkLabel: "KOSPI200",
+    ariaLabel: "Korea stock strategy versus KOSPI200 performance chart"
+  });
+
   document.getElementById("korea-summary-body").innerHTML = strategies.map((strategy) => {
     const s = strategy.summary ?? {};
     const account = strategy.capitalAccount ?? {};
@@ -2693,7 +2795,7 @@ function renderKorea() {
           <span>청산 ${s.realizedCount ?? 0}</span>
           <span>보유 ${s.openCount ?? 0}</span>
           <span>승률 ${plainPercent(s.winRate)}</span>
-          <span>초과 ${percent(s.averageExcessBenchmark)}</span>
+          <span>KOSPI 초과 ${percent(s.averageExcessBenchmark)}</span>
           <span>계좌 ${krw(account.finalCapital)}</span>
           <span>MDD ${percent(account.maxDrawdown)}</span>
           <span>스킵 ${account.skippedBuys ?? 0}</span>
