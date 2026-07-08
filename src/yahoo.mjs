@@ -1,7 +1,9 @@
 import { createHash } from "node:crypto";
 
 export function yahooSymbol(symbol) {
-  return symbol.replaceAll(".", "-").toUpperCase();
+  const normalized = symbol.toUpperCase();
+  if (/^[0-9A-Z]+\.(KS|KQ)$/.test(normalized)) return normalized;
+  return normalized.replaceAll(".", "-");
 }
 
 export async function fetchChart(symbol, { range = "18mo", interval = "1d" } = {}) {

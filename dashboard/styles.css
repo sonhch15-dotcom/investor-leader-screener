@@ -224,6 +224,55 @@ main {
   color: var(--blue);
 }
 
+.korea-strategy-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.korea-invest-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 12px;
+}
+
+.korea-strategy-card,
+.korea-pick {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.korea-strategy-card {
+  padding: 14px;
+}
+
+.korea-strategy-card.featured {
+  border-color: #9bbcf4;
+  background: #f6f9ff;
+}
+
+.korea-strategy-card p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 8px 0 12px;
+}
+
+.korea-pick-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.korea-pick {
+  padding: 12px;
+}
+
+.korea-pick h3 {
+  font-size: 20px;
+}
+
 .mini-chart {
   width: 100%;
   height: 96px;
@@ -919,6 +968,31 @@ tr:last-child td {
   background: var(--soft);
 }
 
+.account-history {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  background: #fbfdff;
+}
+
+.mini-record {
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fff;
+}
+
+.mini-record span,
+.mini-record small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
 .empty-state {
   color: var(--muted);
 }
@@ -931,6 +1005,7 @@ tr:last-child td {
 
   .two-col,
   .rules-grid,
+  .korea-invest-grid,
   .planner-layout,
   .planner-hero,
   .account-tools,
@@ -972,6 +1047,8 @@ tr:last-child td {
   .summary-grid,
   .leader-layout,
   .buy-grid,
+  .korea-strategy-grid,
+  .korea-invest-grid,
   .compact-list,
   .planner-summary {
     grid-template-columns: 1fr;

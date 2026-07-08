@@ -53,6 +53,7 @@ async function main() {
     "sleeve_size_test.md",
     "portfolio_simulation_test.md",
     "capital_account_simulation.md",
+    "korea_strategy_backtest.md",
     "full_candidate_diversification_test.md",
     "sector_diversification_test.md",
   ];
