@@ -1242,6 +1242,98 @@ function renderBacktest() {
   `).join("");
 }
 
+function renderRules() {
+  const panel = document.querySelector("#rules-panel .rules-panel");
+  if (!panel) return;
+  panel.innerHTML = `
+    <div class="section-title">
+      <div>
+        <h2>전략 규칙</h2>
+        <p>새 계좌를 실제로 시작하고 매월 운용할 때 적용할 현재 기준입니다.</p>
+      </div>
+      <span>2026-07 운영안</span>
+    </div>
+    <div class="rules-grid">
+      <article>
+        <h3>1. 투자 시작</h3>
+        <ol>
+          <li>투자 시작월, 총 자본금, 현재 현금, USD/KRW 환율을 입력합니다.</li>
+          <li>시작월 이전 추천 종목은 소급 매수하지 않습니다.</li>
+          <li>현재 월 후보 2개부터 새 계좌의 첫 매수 대상으로 봅니다.</li>
+          <li>월중 후보는 관찰용이며, 실제 기준은 월말 확정 신호입니다.</li>
+        </ol>
+      </article>
+      <article>
+        <h3>2. 종목 선정</h3>
+        <ul>
+          <li>전략명: Leader2 One Each</li>
+          <li>월 신규 후보: 주도 섹터 상위 2개에서 각 1개 종목</li>
+          <li>중복 추천은 허용하지만 종목별 누적 원금 한도를 넘기지 않습니다.</li>
+          <li>주간 업데이트는 신규 매수 확정이 아니라 관찰과 보유 점검용입니다.</li>
+        </ul>
+      </article>
+      <article>
+        <h3>3. 매수 금액</h3>
+        <ul>
+          <li>기본 운용 모드: 3개월 램프형 공격</li>
+          <li>초기 3개월: 현금이 충분하면 후보당 자본금의 10%까지 매수</li>
+          <li>램프 이후: 후보당 자본금의 7.5% 매수</li>
+          <li>현금 부족 구간: 후보당 자본금의 5%로 축소하거나 대기</li>
+          <li>종목별 누적 원금 한도: 자본금의 22.5%</li>
+        </ul>
+      </article>
+      <article>
+        <h3>4. 달러 환산</h3>
+        <ul>
+          <li>대시보드는 원화 자본금을 기준으로 매수 금액을 계산합니다.</li>
+          <li>미국 주식 주문을 위해 USD/KRW 환율로 달러 예산을 함께 표시합니다.</li>
+          <li>자동 환율 조회가 실패하거나 실제 환전 환율이 다르면 직접 수정합니다.</li>
+          <li>1주 단위 주문은 살 수 있는 정수 주식 수만 계산하고 잔액은 현금으로 남깁니다.</li>
+          <li>소수점 매수가 가능한 계좌라면 소수점 매수 모드를 사용할 수 있습니다.</li>
+        </ul>
+      </article>
+      <article>
+        <h3>5. 보유와 매도</h3>
+        <ul>
+          <li>각 매수 건은 독립된 월별 lot으로 관리합니다.</li>
+          <li>기본 보유 6개월 도달 시 해당 lot의 50%를 매도합니다.</li>
+          <li>남은 50%는 주봉 10주선 위 + RSI 50 이상이면 연장 보유합니다.</li>
+          <li>10주선 2주 연속 이탈 또는 최대 12개월 도달 시 잔여분을 매도합니다.</li>
+          <li>전략상 기본 손절은 없지만, 개별 악재나 급락장은 별도 수동 검토합니다.</li>
+        </ul>
+      </article>
+      <article>
+        <h3>6. 자본금 변동</h3>
+        <ul>
+          <li>입금이나 수익 증가분은 다음 월 매수 계산부터 반영합니다.</li>
+          <li>출금이나 손실로 자본금이 줄면 현금부터 줄입니다.</li>
+          <li>현금이 부족하면 매도 예정분, 주봉 약화분, 한도 초과 중복 종목 순서로 줄입니다.</li>
+          <li>이미 지나간 월의 후보를 뒤늦게 매수하지 않습니다.</li>
+        </ul>
+      </article>
+      <article>
+        <h3>7. 실행 루틴</h3>
+        <ol>
+          <li>월말: 신규 후보 2개 확정 및 매수 금액 계산</li>
+          <li>매수 전: 일봉, 4시간봉, 1시간봉으로 과열/진입 위치 확인</li>
+          <li>매주: 보유 lot의 주봉 추세와 매도 예정일 점검</li>
+          <li>다음 달: 새 후보 2개만 추가 검토하고 기존 lot은 별도 관리</li>
+          <li>6개월/12개월: 부분 매도와 잔여 매도 규칙 실행</li>
+        </ol>
+      </article>
+      <article>
+        <h3>8. 한계와 주의</h3>
+        <ul>
+          <li>대시보드는 투자 판단 보조 도구이며 자동 주문 시스템이 아닙니다.</li>
+          <li>백테스트에는 세금, 실제 환전 스프레드, 체결 슬리피지, 배당이 완전히 반영되지 않습니다.</li>
+          <li>현재 데이터 기준의 후보는 미래 수익을 보장하지 않습니다.</li>
+          <li>대시보드 수익률과 실제 계좌 수익률은 체결 시점과 환율 때문에 달라질 수 있습니다.</li>
+        </ul>
+      </article>
+    </div>
+  `;
+}
+
 function setupTabs() {
   document.querySelectorAll(".tab-button").forEach((button) => {
     button.addEventListener("click", () => {
@@ -1262,6 +1354,7 @@ async function main() {
     renderSymbolHoldings();
     renderSymbolSellDue();
     renderBacktest();
+    renderRules();
     setupPlanner();
     setupTabs();
   } catch (error) {
