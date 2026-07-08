@@ -822,6 +822,20 @@ function portfolioValue(holdings, cash, priceMap, date) {
   return value;
 }
 
+function buildBenchmarkCurve(priceMap, symbol, monthEnds) {
+  if (!symbol || !monthEnds.length) return [];
+  const startDate = monthEnds[0];
+  return monthEnds.map((date, index) => {
+    const previousDate = index > 0 ? monthEnds[index - 1] : startDate;
+    return {
+      month: date.slice(0, 7),
+      asOf: date,
+      monthlyReturn: index > 0 ? round(periodReturn(priceMap, symbol, previousDate, date), 4) : 0,
+      totalReturn: round(periodReturn(priceMap, symbol, startDate, date), 4)
+    };
+  });
+}
+
 function nextTradeDateForAllocations(allocations, priceMap, signalDate) {
   const dates = allocations
     .map((allocation) => firstRowAfter(priceMap.get(allocation.symbol) ?? [], signalDate)?.date)
@@ -927,6 +941,7 @@ function simulateEtfRebalanceStrategy({
     openValue: round(final.openValue, 2),
     openLotCount: holdings.size,
     curve,
+    benchmarkCurve: buildBenchmarkCurve(priceMap, benchmarkSymbol, monthEnds),
     ledger,
     assumptions: {
       fractionalShares: true,
@@ -1015,6 +1030,17 @@ function simulateStrategy({
       const realizedReturn = events.length
         ? events.reduce((sum, event) => sum + event.return * event.weight, 0) / Math.max(0.01, realizedWeight)
         : null;
+      const benchmarkedEvents = events.map((event) => {
+        const eventBenchmarkReturn = periodReturn(priceMap, benchmarkSymbol, entry.date, event.date);
+        const eventExcessBenchmark = Number.isFinite(event.return) && Number.isFinite(eventBenchmarkReturn)
+          ? event.return - eventBenchmarkReturn
+          : null;
+        return {
+          ...event,
+          benchmarkReturn: round(eventBenchmarkReturn, 4),
+          excessBenchmark: round(eventExcessBenchmark, 4)
+        };
+      });
       const lastEvent = events.at(-1);
       const benchmarkReturn = lastEvent
         ? periodReturn(priceMap, benchmarkSymbol, entry.date, lastEvent.date)
@@ -1036,7 +1062,7 @@ function simulateStrategy({
         exitDate: lastEvent?.date ?? null,
         status: openStatus,
         remainingWeight,
-        events,
+        events: benchmarkedEvents,
         realizedReturn: round(realizedReturn, 4),
         benchmarkReturn: round(benchmarkReturn, 4),
         excessBenchmark: round(excessBenchmark, 4)

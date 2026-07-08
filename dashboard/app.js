@@ -3,12 +3,16 @@ let koreaDashboard = null;
 let showAllMonthlyExits = false;
 let showAllRealizedTrades = false;
 let showAllKoreaEtfRebalances = false;
+let showAllKoreaStockMonthlySells = false;
+let showAllKoreaEtfMonthlyReturns = false;
 let accountState = null;
 let koreaAccountState = null;
 
 const RECENT_MONTHLY_EXIT_LIMIT = 12;
 const RECENT_REALIZED_TRADE_LIMIT = 24;
 const RECENT_KOREA_REBALANCE_LIMIT = 12;
+const RECENT_KOREA_STOCK_SELL_LIMIT = 12;
+const RECENT_KOREA_ETF_RETURN_LIMIT = 12;
 const ACCOUNT_STORAGE_KEY = "leader2AccountV1";
 const KOREA_ACCOUNT_STORAGE_KEY = "leader2KoreaAccountV1";
 const KOREA_LIVE_STRATEGY_KEYS = new Set(["kr_stocks", "kr_etf_core_satellite_50_40_10"]);
@@ -1695,6 +1699,179 @@ function koreaEtfAllocationText(row) {
     .join(" / ");
 }
 
+function koreaStockMonthlySellRows() {
+  const strategy = koreaStockStrategy();
+  const grouped = new Map();
+  for (const trade of strategy?.trades ?? []) {
+    for (const event of trade.events ?? []) {
+      const month = String(event.date ?? "").slice(0, 7);
+      if (!month) continue;
+      const row = grouped.get(month) ?? {
+        month,
+        events: [],
+        eventCount: 0,
+        fixedCount: 0,
+        remainingCount: 0,
+        returnSum: 0,
+        benchmarkSum: 0,
+        excessSum: 0,
+        weightSum: 0,
+        symbols: new Set()
+      };
+      const weight = Number(event.weight) || 1;
+      row.eventCount += 1;
+      if (String(event.reason ?? "").includes("6개월")) row.fixedCount += 1;
+      else row.remainingCount += 1;
+      row.returnSum += (Number(event.return) || 0) * weight;
+      row.benchmarkSum += (Number(event.benchmarkReturn) || 0) * weight;
+      row.excessSum += (Number(event.excessBenchmark) || 0) * weight;
+      row.weightSum += weight;
+      row.symbols.add(trade.symbol);
+      row.events.push({ ...event, symbol: trade.symbol, name: trade.name, group: trade.group });
+      grouped.set(month, row);
+    }
+  }
+  return [...grouped.values()].map((row) => ({
+    ...row,
+    symbols: [...row.symbols],
+    averageReturn: row.weightSum ? row.returnSum / row.weightSum : null,
+    averageBenchmarkReturn: row.weightSum ? row.benchmarkSum / row.weightSum : null,
+    averageExcessBenchmark: row.weightSum ? row.excessSum / row.weightSum : null
+  })).sort((a, b) => a.month.localeCompare(b.month));
+}
+
+function renderKoreaStockMonthlySells() {
+  const allRows = [...koreaStockMonthlySellRows()].reverse();
+  const rows = showAllKoreaStockMonthlySells ? allRows : allRows.slice(0, RECENT_KOREA_STOCK_SELL_LIMIT);
+  const meta = document.getElementById("korea-stock-monthly-sell-meta");
+  if (meta) {
+    meta.textContent = showAllKoreaStockMonthlySells
+      ? `전체 ${allRows.length}개월`
+      : `최근 ${rows.length}개월 / 전체 ${allRows.length}개월`;
+  }
+  const body = document.getElementById("korea-stock-monthly-sell-body");
+  if (body) body.innerHTML = rows.map((row) => `
+    <tr>
+      <td>${row.month}</td>
+      <td>${row.eventCount}건<div class="sub">${row.events.slice(0, 4).map((event) => `${event.date} ${event.symbol}`).join(" / ")}</div></td>
+      <td class="num">${row.fixedCount}</td>
+      <td class="num">${row.remainingCount}</td>
+      <td class="num ${signedClass(row.averageReturn)}">${percent(row.averageReturn)}</td>
+      <td class="num ${signedClass(row.averageBenchmarkReturn)}">${percent(row.averageBenchmarkReturn)}</td>
+      <td class="num ${signedClass(row.averageExcessBenchmark)}">${percent(row.averageExcessBenchmark)}</td>
+      <td><strong>${row.symbols.join(", ")}</strong></td>
+    </tr>
+  `).join("");
+
+  const cards = document.getElementById("korea-stock-monthly-sell-cards");
+  if (cards) cards.innerHTML = rows.map((row) => `
+    <article class="result-card">
+      <div class="card-head">
+        <div>
+          <h3>${row.month} 매도 결과</h3>
+          <p>총 ${row.eventCount}건 | 기본 ${row.fixedCount} / 잔여 ${row.remainingCount}</p>
+        </div>
+        <strong class="${signedClass(row.averageExcessBenchmark)}">${percent(row.averageExcessBenchmark)}</strong>
+      </div>
+      <div class="metric-line">
+        <span>전략 ${percent(row.averageReturn)}</span>
+        <span>벤치마크 ${percent(row.averageBenchmarkReturn)}</span>
+        <span>초과 ${percent(row.averageExcessBenchmark)}</span>
+      </div>
+      <ul class="event-list">${row.events.map((event) => `
+        <li><strong>${event.date} ${event.symbol}</strong><span>${event.reason} | ${percent(event.return)} / BM ${percent(event.benchmarkReturn)}</span></li>
+      `).join("")}</ul>
+    </article>
+  `).join("");
+
+  const button = document.getElementById("toggle-korea-stock-monthly-sells");
+  if (button) {
+    button.hidden = allRows.length <= RECENT_KOREA_STOCK_SELL_LIMIT;
+    button.textContent = showMoreLabel(showAllKoreaStockMonthlySells, rows.length, allRows.length);
+    button.onclick = () => {
+      showAllKoreaStockMonthlySells = !showAllKoreaStockMonthlySells;
+      renderKoreaStockMonthlySells();
+    };
+  }
+}
+
+function koreaEtfMonthlyReturnRows() {
+  const strategy = koreaStrategyByKey("kr_etf_core_satellite_50_40_10");
+  const curve = strategy?.capitalAccount?.curve ?? [];
+  const benchmarkByMonth = new Map((strategy?.capitalAccount?.benchmarkCurve ?? []).map((row) => [row.month, row]));
+  return curve.map((row, index) => {
+    const previous = index > 0 ? curve[index - 1] : row;
+    const monthlyReturn = index > 0 && Number.isFinite(previous.equity) && previous.equity
+      ? row.equity / previous.equity - 1
+      : 0;
+    const benchmark = benchmarkByMonth.get(row.month) ?? {};
+    const benchmarkMonthly = Number.isFinite(benchmark.monthlyReturn) ? benchmark.monthlyReturn : null;
+    return {
+      ...row,
+      monthlyReturn,
+      benchmarkMonthlyReturn: benchmarkMonthly,
+      benchmarkTotalReturn: benchmark.totalReturn,
+      monthlyExcess: Number.isFinite(monthlyReturn) && Number.isFinite(benchmarkMonthly)
+        ? monthlyReturn - benchmarkMonthly
+        : null,
+      totalExcess: Number.isFinite(row.totalReturn) && Number.isFinite(benchmark.totalReturn)
+        ? row.totalReturn - benchmark.totalReturn
+        : null
+    };
+  });
+}
+
+function renderKoreaEtfMonthlyReturns() {
+  const allRows = [...koreaEtfMonthlyReturnRows()].reverse();
+  const rows = showAllKoreaEtfMonthlyReturns ? allRows : allRows.slice(0, RECENT_KOREA_ETF_RETURN_LIMIT);
+  const meta = document.getElementById("korea-etf-monthly-return-meta");
+  if (meta) {
+    meta.textContent = showAllKoreaEtfMonthlyReturns
+      ? `전체 ${allRows.length}개월`
+      : `최근 ${rows.length}개월 / 전체 ${allRows.length}개월`;
+  }
+  const body = document.getElementById("korea-etf-monthly-return-body");
+  if (body) body.innerHTML = rows.map((row) => `
+    <tr>
+      <td>${row.month}</td>
+      <td class="num ${signedClass(row.monthlyReturn)}">${percent(row.monthlyReturn)}</td>
+      <td class="num ${signedClass(row.benchmarkMonthlyReturn)}">${percent(row.benchmarkMonthlyReturn)}</td>
+      <td class="num ${signedClass(row.monthlyExcess)}">${percent(row.monthlyExcess)}</td>
+      <td class="num ${signedClass(row.totalReturn)}">${percent(row.totalReturn)}</td>
+      <td class="num ${signedClass(row.benchmarkTotalReturn)}">${percent(row.benchmarkTotalReturn)}</td>
+      <td class="num">${krw(row.equity)}</td>
+    </tr>
+  `).join("");
+
+  const cards = document.getElementById("korea-etf-monthly-return-cards");
+  if (cards) cards.innerHTML = rows.map((row) => `
+    <article class="result-card">
+      <div class="card-head">
+        <div>
+          <h3>${row.month} ETF 월수익률</h3>
+          <p>평가액 ${krw(row.equity)}</p>
+        </div>
+        <strong class="${signedClass(row.monthlyExcess)}">${percent(row.monthlyExcess)}</strong>
+      </div>
+      <div class="metric-line">
+        <span>전략 ${percent(row.monthlyReturn)}</span>
+        <span>벤치마크 ${percent(row.benchmarkMonthlyReturn)}</span>
+        <span>누적 ${percent(row.totalReturn)}</span>
+      </div>
+    </article>
+  `).join("");
+
+  const button = document.getElementById("toggle-korea-etf-monthly-returns");
+  if (button) {
+    button.hidden = allRows.length <= RECENT_KOREA_ETF_RETURN_LIMIT;
+    button.textContent = showMoreLabel(showAllKoreaEtfMonthlyReturns, rows.length, allRows.length);
+    button.onclick = () => {
+      showAllKoreaEtfMonthlyReturns = !showAllKoreaEtfMonthlyReturns;
+      renderKoreaEtfMonthlyReturns();
+    };
+  }
+}
+
 function renderKoreaEtfRebalances() {
   const allRows = [...koreaEtfRebalanceRows()].reverse();
   const rows = showAllKoreaEtfRebalances ? allRows : allRows.slice(0, RECENT_KOREA_REBALANCE_LIMIT);
@@ -2327,10 +2504,98 @@ function renderKoreaEmpty() {
   document.getElementById("korea-current-picks").innerHTML = `<p class="empty-state">한국 백테스트 데이터가 아직 생성되지 않았습니다.</p>`;
   document.getElementById("korea-summary-body").innerHTML = "";
   document.getElementById("korea-summary-cards").innerHTML = "";
+  document.getElementById("korea-stock-monthly-sell-body").innerHTML = "";
+  document.getElementById("korea-stock-monthly-sell-cards").innerHTML = "";
   document.getElementById("korea-trades-body").innerHTML = "";
   document.getElementById("korea-trades-cards").innerHTML = "";
+  document.getElementById("korea-etf-kpis").innerHTML = message;
+  document.getElementById("korea-etf-current-picks").innerHTML = `<p class="empty-state">한국 ETF 백테스트 데이터가 아직 생성되지 않았습니다.</p>`;
+  document.getElementById("korea-etf-summary-body").innerHTML = "";
+  document.getElementById("korea-etf-summary-cards").innerHTML = "";
+  document.getElementById("korea-etf-monthly-return-body").innerHTML = "";
+  document.getElementById("korea-etf-monthly-return-cards").innerHTML = "";
   document.getElementById("korea-etf-rebalance-body").innerHTML = "";
   document.getElementById("korea-etf-rebalance-cards").innerHTML = "";
+}
+
+function renderKoreaEtfBacktest() {
+  const strategy = koreaStrategyByKey("kr_etf_core_satellite_50_40_10");
+  if (!strategy) return;
+  const summary = strategy.summary ?? {};
+  const account = strategy.capitalAccount ?? {};
+  document.getElementById("korea-etf-backtest-meta").textContent = `${koreaDashboard.asOf} 기준 | ${strategy.months ?? 0}개월`;
+  document.getElementById("korea-etf-kpis").innerHTML = `
+    <article class="kpi"><span>ETF 전략 수익률</span><strong class="${signedClass(account.totalReturn)}">${percent(account.totalReturn)}</strong><small>1천만원 ${krw(account.finalCapital)}</small></article>
+    <article class="kpi"><span>벤치마크</span><strong class="${signedClass(summary.averageBenchmarkReturn)}">${percent(summary.averageBenchmarkReturn)}</strong><small>${benchmarkLabel(strategy.benchmarkSymbol)}</small></article>
+    <article class="kpi"><span>초과 수익률</span><strong class="${signedClass(summary.averageExcessBenchmark)}">${percent(summary.averageExcessBenchmark)}</strong><small>전략 - 벤치마크</small></article>
+    <article class="kpi"><span>리밸런싱</span><strong>${summary.tradeCount ?? 0}개월</strong><small>MDD ${percent(account.maxDrawdown)}</small></article>
+  `;
+
+  document.getElementById("korea-etf-current-picks").innerHTML = `
+    <article class="korea-strategy-card">
+      <div class="card-head">
+        <div>
+          <span class="label">${strategy.label}</span>
+          <h3>${strategy.currentPicks?.length ?? 0}개 ETF</h3>
+        </div>
+        <strong>${benchmarkLabel(strategy.benchmarkSymbol)}</strong>
+      </div>
+      <div class="korea-pick-list">
+        ${(strategy.currentPicks ?? []).map((row) => `
+          <div class="korea-pick">
+            <div class="card-head">
+              <div>
+                <h3>${row.symbol}</h3>
+                <p>${row.name} | ${row.group}</p>
+              </div>
+              <strong>${weightText(row.weight)}</strong>
+            </div>
+            ${miniChart(row)}
+            <div class="metric-line">
+              <span>점수 ${number(row.score, 1)}</span>
+              <span>1M ${percent(row.r1m)}</span>
+              <span>3M ${percent(row.r3m)}</span>
+              <span>6M ${percent(row.r6m)}</span>
+            </div>
+          </div>
+        `).join("") || `<p class="empty-state">현재 후보 없음</p>`}
+      </div>
+    </article>
+  `;
+
+  document.getElementById("korea-etf-summary-body").innerHTML = `
+    <tr>
+      <td><strong>${strategy.label}</strong><div class="sub">${benchmarkLabel(strategy.benchmarkSymbol)} 비교</div></td>
+      <td class="num">${summary.tradeCount ?? 0}</td>
+      <td class="num">${summary.openCount ?? 0}</td>
+      <td class="num ${signedClass(account.totalReturn)}">${percent(account.totalReturn)}</td>
+      <td class="num ${signedClass(summary.averageBenchmarkReturn)}">${percent(summary.averageBenchmarkReturn)}</td>
+      <td class="num ${signedClass(summary.averageExcessBenchmark)}">${percent(summary.averageExcessBenchmark)}</td>
+      <td class="num">${krw(account.finalCapital)}</td>
+      <td class="num negative">${percent(account.maxDrawdown)}</td>
+    </tr>
+  `;
+  document.getElementById("korea-etf-summary-cards").innerHTML = `
+    <article class="result-card">
+      <div class="card-head">
+        <div>
+          <h3>${strategy.label}</h3>
+          <p>${benchmarkLabel(strategy.benchmarkSymbol)} 비교</p>
+        </div>
+        <strong class="${signedClass(account.totalReturn)}">${percent(account.totalReturn)}</strong>
+      </div>
+      <div class="metric-line">
+        <span>리밸런싱 ${summary.tradeCount ?? 0}개월</span>
+        <span>벤치마크 ${percent(summary.averageBenchmarkReturn)}</span>
+        <span>초과 ${percent(summary.averageExcessBenchmark)}</span>
+        <span>계좌 ${krw(account.finalCapital)}</span>
+        <span>MDD ${percent(account.maxDrawdown)}</span>
+      </div>
+    </article>
+  `;
+
+  renderKoreaEtfMonthlyReturns();
+  renderKoreaEtfRebalances();
 }
 
 function renderKorea() {
@@ -2339,7 +2604,7 @@ function renderKorea() {
     return;
   }
 
-  const strategies = koreaLiveStrategies();
+  const strategies = [koreaStockStrategy()].filter(Boolean);
   document.getElementById("korea-meta").textContent = `${koreaDashboard.asOf} 기준 | ${koreaDashboard.years}년 | 오류 ${koreaDashboard.universe?.errorCount ?? 0}건`;
   document.getElementById("korea-kpis").innerHTML = strategies.map((strategy) => {
     const s = strategy.summary ?? {};
@@ -2475,7 +2740,8 @@ function renderKorea() {
     </article>
   `).join("");
 
-  renderKoreaEtfRebalances();
+  renderKoreaStockMonthlySells();
+  renderKoreaEtfBacktest();
 }
 
 function renderRules() {

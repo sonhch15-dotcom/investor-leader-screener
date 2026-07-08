@@ -24,7 +24,8 @@
       <button class="tab-button" data-tab="backtest" type="button">미국 백테스트</button>
       <button class="tab-button" data-tab="account" type="button">미국 계좌</button>
       <button class="tab-button" data-tab="korea-invest" type="button">한국 운용</button>
-      <button class="tab-button" data-tab="korea" type="button">한국 백테스트</button>
+      <button class="tab-button" data-tab="korea-stock-backtest" type="button">한국 주식 백테스트</button>
+      <button class="tab-button" data-tab="korea-etf-backtest" type="button">한국 ETF 백테스트</button>
       <button class="tab-button" data-tab="korea-account" type="button">한국 계좌</button>
       <button class="tab-button" data-tab="rules" type="button">전략 규칙</button>
     </nav>
@@ -423,14 +424,14 @@
       </section>
     </section>
 
-    <section class="tab-panel" id="korea-panel">
+    <section class="tab-panel" id="korea-stock-backtest-panel">
       <section class="summary-grid" id="korea-kpis"></section>
 
       <section class="panel">
         <div class="section-title">
           <div>
-            <h2>한국 우량주 / ETF 전략 검증</h2>
-            <p>한국 주식은 우량주 중심, ETF는 연금 운용에 쓸 수 있는 주요 ETF 중심으로 미국 전략과 같은 월간 주도주 방식의 가능성을 확인합니다.</p>
+            <h2>한국 우량주 전략 검증</h2>
+            <p>한국 주식은 우량주 중심으로 월별 선정, 6개월 50% 매도, 잔여 50% 주봉 연장 규칙을 검증합니다.</p>
           </div>
           <span id="korea-meta">데이터 준비중</span>
         </div>
@@ -440,8 +441,8 @@
       <section class="panel">
         <div class="section-title">
           <div>
-            <h2>전략별 성과 요약</h2>
-            <p>6개월 50% 매도 후 잔여 50%는 주봉 추세로 연장하는 현재 운용 규칙을 한국 우량주와 ETF에 각각 적용한 결과입니다.</p>
+            <h2>한국 주식 성과 요약</h2>
+            <p>6개월 50% 매도 후 잔여 50%는 주봉 추세로 연장하는 현재 운용 규칙의 결과입니다.</p>
           </div>
         </div>
         <div class="table-wrap backtest-table">
@@ -470,6 +471,37 @@
       <section class="panel">
         <div class="section-title">
           <div>
+            <h2>월별 매도 결과</h2>
+            <p>해당 월에 실제 발생한 50% 기본매도와 잔여 매도 이벤트를 벤치마크와 비교합니다.</p>
+          </div>
+          <div class="section-actions">
+            <span id="korea-stock-monthly-sell-meta"></span>
+            <button class="secondary-button" id="toggle-korea-stock-monthly-sells" type="button"></button>
+          </div>
+        </div>
+        <div class="table-wrap backtest-table">
+          <table>
+            <thead>
+              <tr>
+                <th>매도월</th>
+                <th>매도 이벤트</th>
+                <th>50% 기본매도</th>
+                <th>잔여 매도</th>
+                <th>평균 수익률</th>
+                <th>벤치마크</th>
+                <th>초과</th>
+                <th>종목</th>
+              </tr>
+            </thead>
+            <tbody id="korea-stock-monthly-sell-body"></tbody>
+          </table>
+        </div>
+        <div class="mobile-card-list backtest-card-list" id="korea-stock-monthly-sell-cards"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
             <h2>최근 청산 / 보유 종목</h2>
             <p>과거 월별 추천이 실제로 언제 매수되고, 50% 매도와 잔여 물량 매도가 어떻게 처리됐는지 확인합니다.</p>
           </div>
@@ -493,6 +525,79 @@
           </table>
         </div>
         <div class="mobile-card-list backtest-card-list" id="korea-trades-cards"></div>
+      </section>
+
+    </section>
+
+    <section class="tab-panel" id="korea-etf-backtest-panel">
+      <section class="summary-grid" id="korea-etf-kpis"></section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>한국 ETF 전략 검증</h2>
+            <p>Core 50%, Satellite 40%, Defense 10% 월간 리밸런싱 전략을 벤치마크와 비교합니다.</p>
+          </div>
+          <span id="korea-etf-backtest-meta">데이터 준비중</span>
+        </div>
+        <div class="korea-strategy-grid" id="korea-etf-current-picks"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>한국 ETF 성과 요약</h2>
+            <p>1천만원 계좌 기준 월별 리밸런싱 누적 성과와 벤치마크 대비 성과입니다.</p>
+          </div>
+        </div>
+        <div class="table-wrap backtest-table">
+          <table>
+            <thead>
+              <tr>
+                <th>전략</th>
+                <th>리밸런싱 월수</th>
+                <th>보유 ETF</th>
+                <th>계좌 수익률</th>
+                <th>벤치마크</th>
+                <th>초과</th>
+                <th>최종 자산</th>
+                <th>MDD</th>
+              </tr>
+            </thead>
+            <tbody id="korea-etf-summary-body"></tbody>
+          </table>
+        </div>
+        <div class="mobile-card-list backtest-card-list" id="korea-etf-summary-cards"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>월별 계좌 수익률</h2>
+            <p>ETF 전략의 월별 계좌 수익률을 KOSPI200 ETF 벤치마크와 비교합니다.</p>
+          </div>
+          <div class="section-actions">
+            <span id="korea-etf-monthly-return-meta"></span>
+            <button class="secondary-button" id="toggle-korea-etf-monthly-returns" type="button"></button>
+          </div>
+        </div>
+        <div class="table-wrap backtest-table">
+          <table>
+            <thead>
+              <tr>
+                <th>월</th>
+                <th>전략 월수익률</th>
+                <th>벤치마크 월수익률</th>
+                <th>초과</th>
+                <th>전략 누적</th>
+                <th>벤치마크 누적</th>
+                <th>계좌 평가액</th>
+              </tr>
+            </thead>
+            <tbody id="korea-etf-monthly-return-body"></tbody>
+          </table>
+        </div>
+        <div class="mobile-card-list backtest-card-list" id="korea-etf-monthly-return-cards"></div>
       </section>
 
       <section class="panel">

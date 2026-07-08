@@ -1,6 +1,6 @@
 # Korea Strategy Backtest
 
-Generated: 2026-07-08T09:23:36.429Z
+Generated: 2026-07-08T10:08:15.113Z
 As of: 2026-07-08
 
 ## Caveat
