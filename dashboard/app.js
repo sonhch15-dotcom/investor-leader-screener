@@ -1,5 +1,6 @@
 let dashboard = null;
 let koreaDashboard = null;
+let selectionStrategyLab = null;
 let showAllMonthlyExits = false;
 let showAllRealizedTrades = false;
 let showAllKoreaEtfRebalances = false;
@@ -1011,7 +1012,7 @@ function buildStrategyCatalog() {
   const stockRows = koreaStockPerformanceRows();
   const etfRows = koreaEtfPerformanceRows();
 
-  return [
+  const catalog = [
     {
       id: "us_leader_monthly_v1",
       assetClass: "us_stock",
@@ -1139,6 +1140,58 @@ function buildStrategyCatalog() {
       tabs: { start: "korea-etf-start", operations: "korea-invest-etf", backtest: "korea-etf-backtest", account: "korea-account-etf" }
     }
   ];
+  const bestSelectionRule = selectionStrategyLab?.rankings?.all6m?.[0];
+  const bestDetail = bestSelectionRule?.details?.at?.(-1);
+  if (bestSelectionRule) {
+    catalog.push({
+      id: "us_conviction_diverse_top2_candidate",
+      assetClass: "us_stock",
+      market: "US",
+      asset: "미국 주식",
+      title: bestSelectionRule.label,
+      status: "testing",
+      statusLabel: "테스트 중",
+      statusTone: "warning",
+      currency: "USD",
+      tone: "us testing",
+      accountLabel: "선정 규칙 후보 | 저장된 Top20 안에서 월 2개 선택",
+      type: "stock",
+      benchmark: { symbol: "QQQ", label: "QQQ" },
+      today: {
+        summary: `6개월 평균 ${percent(bestSelectionRule.horizons?.["6m"]?.averageReturn)}`,
+        detail: `QQQ 평균 초과 ${percent(bestSelectionRule.horizons?.["6m"]?.averageExcessQqq)}. 아직 완성 매도 규칙 검증 전 후보입니다.`,
+        primaryAction: "검증 리포트 보기"
+      },
+      rules: {
+        buy: ["점수, 반복 추천, 반복 섹터, AI/반도체, 눌림 재가속을 합산해 서로 다른 섹터 2개 선택"],
+        sell: ["기존 Leader2 매도 규칙 연결 전"],
+        rebalance: [],
+        checkCycle: "testing: 계좌 시뮬레이션 필요"
+      },
+      currentPicks: (bestDetail?.symbols ?? []).map((symbol, index) => ({
+        symbol,
+        name: symbol,
+        sector: bestDetail?.sectors?.[index] ?? "후보"
+      })),
+      backtest: {
+        period: {
+          start: selectionStrategyLab.sourceGeneratedAt,
+          end: selectionStrategyLab.generatedAt
+        },
+        metrics: {
+          strategyReturn: bestSelectionRule.horizons?.["6m"]?.averageReturn,
+          benchmarkReturn: bestSelectionRule.horizons?.["6m"]?.averageReturn - bestSelectionRule.horizons?.["6m"]?.averageExcessQqq,
+          maxDrawdown: null,
+          winRate: bestSelectionRule.horizons?.["6m"]?.beatQqqRate,
+          tradeCount: bestSelectionRule.activePeriods
+        },
+        equityCurve: []
+      },
+      reportUrl: "selection_strategy_lab.md",
+      tabs: { start: "rules", operations: "rules", backtest: "rules", account: "rules" }
+    });
+  }
+  return catalog;
 }
 
 function strategyTemplateCard(template) {
@@ -1173,7 +1226,7 @@ function strategyTemplateCard(template) {
 }
 
 function buildStrategyTemplates() {
-  return buildStrategyCatalog().map((strategy) => ({
+  return buildStrategyCatalog().filter((strategy) => strategy.status === "active").map((strategy) => ({
     asset: strategy.asset,
     title: strategy.title,
     account: strategy.accountLabel,
@@ -3315,7 +3368,9 @@ function strategyLibraryCard(strategy) {
       </div>
       <div class="template-foot">
         <span>후보 ${strategy.currentPicks.length}개 | 거래/리밸런싱 ${metrics.tradeCount ?? "-"}건</span>
-        <button class="secondary-button" data-go-tab="${strategy.tabs.backtest}" type="button">백테스트 보기</button>
+        ${strategy.reportUrl
+          ? `<a class="secondary-button" href="${strategy.reportUrl}" target="_blank" rel="noreferrer">검증 리포트</a>`
+          : `<button class="secondary-button" data-go-tab="${strategy.tabs.backtest}" type="button">백테스트 보기</button>`}
       </div>
     </article>
   `;
@@ -3542,6 +3597,7 @@ async function main() {
   try {
     dashboard = await fetchJson("data/strategy-dashboard.json");
     koreaDashboard = await fetchOptionalJson("data/korea-strategy-dashboard.json");
+    selectionStrategyLab = await fetchOptionalJson("data/selection-strategy-lab.json");
     document.getElementById("meta").textContent = `${dashboard.asOf} | ${dashboard.strategy.name} | updated ${new Date(dashboard.generatedAt).toLocaleString()}`;
     renderSummary();
     renderLeaders();

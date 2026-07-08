@@ -56,6 +56,7 @@ async function main() {
     "strategy_development_team.md",
     "strategy_common_template.md",
     "strategy_development_lab.md",
+    "selection_strategy_lab.md",
     "korea_strategy_backtest.md",
     "full_candidate_diversification_test.md",
     "sector_diversification_test.md",
