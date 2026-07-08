@@ -24,6 +24,7 @@
     "test:weekly-exit": "node src/weekly-exit-rule-test.mjs",
     "test:scale-execution": "node src/scale-execution-test.mjs",
     "test:capital-account": "node src/capital-account-simulation.mjs",
+    "test:strategy-lab": "node src/strategy-development-lab.mjs",
     "test:weekly-dropout": "node src/weekly-dropout-rule-test.mjs",
     "test:korea": "node src/korea-strategy-test.mjs",
     "build:strategy-data": "node src/strategy-dashboard-data.mjs",
