@@ -1,6 +1,6 @@
 # Final Strategy Validation
 
-Generated at: 2026-07-08T14:53:35.734Z
+Generated at: 2026-07-08T15:09:47.979Z
 Period: 2021-07-08 to 2026-07-08
 
 ## 최종 결론
@@ -54,6 +54,12 @@ Period: 2021-07-08 to 2026-07-08
 
 | 기준월 | 매수일 | 신규 후보 | 섹터 |
 |---|---|---|---|
+| 2025-07-25 | 2025-07-28 | GE, TPR | Industrials, Consumer Discretionary |
+| 2025-08-29 | 2025-09-02 | WYNN, WDC | Consumer Discretionary, Electronic Components |
+| 2025-09-26 | 2025-09-29 | WDC, INTC | Electronic Components, Semiconductors |
+| 2025-10-31 | 2025-11-03 | AMD, WDC | Semiconductors, Electronic Components |
+| 2025-11-28 | 2025-12-01 | LLY, SNDK | Health Care, Electronic Components |
+| 2025-12-26 | 2025-12-29 | BIIB, STX | Health Care, Electronic Components |
 | 2026-01-30 | 2026-02-02 | XOM, STX | Energy, Electronic Components |
 | 2026-02-27 | 2026-03-02 | TPL, GNRC | Energy, Industrials |
 | 2026-03-27 | 2026-03-30 | XOM, ETR | Energy, Utilities |
@@ -65,6 +71,12 @@ Period: 2021-07-08 to 2026-07-08
 
 | 기준월 | 매수일 | 신규 후보 | 섹터 |
 |---|---|---|---|
+| 2025-07-25 | 2025-07-28 | HOOD, GE | Financials, Industrials |
+| 2025-08-29 | 2025-09-02 | RCL, GEV | Consumer Discretionary, Industrials |
+| 2025-09-26 | 2025-09-29 | HOOD, TPR | Financials, Consumer Discretionary |
+| 2025-10-31 | 2025-11-03 | FIX, HOOD | Industrials, Financials |
+| 2025-11-28 | 2025-12-01 | FIX, EXPE | Industrials, Consumer Discretionary |
+| 2025-12-26 | 2025-12-29 | FIX, EXPE | Industrials, Consumer Discretionary |
 | 2026-01-30 | 2026-02-02 | FIX, ECHO | Industrials, Communication Services |
 | 2026-02-27 | 2026-03-02 | FIX, NEM | Industrials, Materials |
 | 2026-03-27 | 2026-03-30 | FIX, XOM | Industrials, Energy |

@@ -66,8 +66,8 @@ function tableAccount(lines, rows) {
   }
 }
 
-function recentSelections(strategy) {
-  return (strategy.selectionTimeline ?? []).slice(-6).map((row) => ({
+function recentSelections(strategy, count = 12) {
+  return (strategy.selectionTimeline ?? []).slice(-count).map((row) => ({
     asOf: row.asOf,
     entryDate: row.entryDate,
     symbols: row.symbols,

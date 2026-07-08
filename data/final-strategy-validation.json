@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-08T14:53:35.734Z",
+  "generatedAt": "2026-07-08T15:09:47.979Z",
   "period": {
     "start": "2021-07-08",
     "end": "2026-07-08"
@@ -29574,6 +29574,78 @@
   "recentSelections": {
     "leader2": [
       {
+        "asOf": "2025-07-25",
+        "entryDate": "2025-07-28",
+        "symbols": [
+          "GE",
+          "TPR"
+        ],
+        "groups": [
+          "Industrials",
+          "Consumer Discretionary"
+        ]
+      },
+      {
+        "asOf": "2025-08-29",
+        "entryDate": "2025-09-02",
+        "symbols": [
+          "WYNN",
+          "WDC"
+        ],
+        "groups": [
+          "Consumer Discretionary",
+          "Electronic Components"
+        ]
+      },
+      {
+        "asOf": "2025-09-26",
+        "entryDate": "2025-09-29",
+        "symbols": [
+          "WDC",
+          "INTC"
+        ],
+        "groups": [
+          "Electronic Components",
+          "Semiconductors"
+        ]
+      },
+      {
+        "asOf": "2025-10-31",
+        "entryDate": "2025-11-03",
+        "symbols": [
+          "AMD",
+          "WDC"
+        ],
+        "groups": [
+          "Semiconductors",
+          "Electronic Components"
+        ]
+      },
+      {
+        "asOf": "2025-11-28",
+        "entryDate": "2025-12-01",
+        "symbols": [
+          "LLY",
+          "SNDK"
+        ],
+        "groups": [
+          "Health Care",
+          "Electronic Components"
+        ]
+      },
+      {
+        "asOf": "2025-12-26",
+        "entryDate": "2025-12-29",
+        "symbols": [
+          "BIIB",
+          "STX"
+        ],
+        "groups": [
+          "Health Care",
+          "Electronic Components"
+        ]
+      },
+      {
         "asOf": "2026-01-30",
         "entryDate": "2026-02-02",
         "symbols": [
@@ -29647,6 +29719,78 @@
       }
     ],
     "conviction": [
+      {
+        "asOf": "2025-07-25",
+        "entryDate": "2025-07-28",
+        "symbols": [
+          "HOOD",
+          "GE"
+        ],
+        "groups": [
+          "Financials",
+          "Industrials"
+        ]
+      },
+      {
+        "asOf": "2025-08-29",
+        "entryDate": "2025-09-02",
+        "symbols": [
+          "RCL",
+          "GEV"
+        ],
+        "groups": [
+          "Consumer Discretionary",
+          "Industrials"
+        ]
+      },
+      {
+        "asOf": "2025-09-26",
+        "entryDate": "2025-09-29",
+        "symbols": [
+          "HOOD",
+          "TPR"
+        ],
+        "groups": [
+          "Financials",
+          "Consumer Discretionary"
+        ]
+      },
+      {
+        "asOf": "2025-10-31",
+        "entryDate": "2025-11-03",
+        "symbols": [
+          "FIX",
+          "HOOD"
+        ],
+        "groups": [
+          "Industrials",
+          "Financials"
+        ]
+      },
+      {
+        "asOf": "2025-11-28",
+        "entryDate": "2025-12-01",
+        "symbols": [
+          "FIX",
+          "EXPE"
+        ],
+        "groups": [
+          "Industrials",
+          "Consumer Discretionary"
+        ]
+      },
+      {
+        "asOf": "2025-12-26",
+        "entryDate": "2025-12-29",
+        "symbols": [
+          "FIX",
+          "EXPE"
+        ],
+        "groups": [
+          "Industrials",
+          "Consumer Discretionary"
+        ]
+      },
       {
         "asOf": "2026-01-30",
         "entryDate": "2026-02-02",
