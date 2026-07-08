@@ -9,6 +9,7 @@ const RECENT_MONTHLY_EXIT_LIMIT = 12;
 const RECENT_REALIZED_TRADE_LIMIT = 24;
 const ACCOUNT_STORAGE_KEY = "leader2AccountV1";
 const KOREA_ACCOUNT_STORAGE_KEY = "leader2KoreaAccountV1";
+const KOREA_LIVE_STRATEGY_KEYS = new Set(["kr_stocks", "kr_etf_core_satellite_50_40_10"]);
 
 async function fetchJson(path) {
   const response = await fetch(path, { cache: "no-store" });
@@ -1644,9 +1645,13 @@ function benchmarkLabel(symbol) {
 }
 
 function koreaTradeRows() {
-  return (koreaDashboard?.strategies ?? []).flatMap((strategy) => (
+  return koreaLiveStrategies().flatMap((strategy) => (
     strategy.trades ?? []
   ).map((trade) => ({ ...trade, strategyLabel: strategy.label })));
+}
+
+function koreaLiveStrategies() {
+  return (koreaDashboard?.strategies ?? []).filter((strategy) => KOREA_LIVE_STRATEGY_KEYS.has(strategy.key));
 }
 
 function koreaStrategyByKey(key) {
@@ -1692,18 +1697,13 @@ function renderKoreaInvest() {
   }
 
   const stock = koreaStrategyByKey("kr_stocks");
-  const stockStable = koreaStrategyByKey("kr_stock_kospi_only");
   const etfAggressive = koreaStrategyByKey("kr_etf_core_satellite_50_40_10");
-  const etfBalanced = koreaStrategyByKey("kr_etf_core_satellite_60_30_10");
-  const etfStable = koreaStrategyByKey("kr_etf_core_satellite_70_20_10");
-  const activeEtf = etfAggressive ?? etfBalanced ?? koreaStrategyByKey("kr_etf_core_satellite");
+  const activeEtf = etfAggressive ?? koreaStrategyByKey("kr_etf_core_satellite");
 
   document.getElementById("korea-invest-meta").textContent = `${koreaDashboard.asOf} 기준 | 한국 주식 + ETF 운용`;
   document.getElementById("korea-invest-kpis").innerHTML = [
-    strategyMetricCard("ETF 공격형 50/40/10", etfAggressive, "연금 후보"),
-    strategyMetricCard("ETF 균형형 60/30/10", etfBalanced, "MDD 완화"),
-    strategyMetricCard("한국 우량주 Leader2", stock, "공격형"),
-    strategyMetricCard("KOSPI Only", stockStable, "안정형"),
+    strategyMetricCard("한국 ETF 50/40/10", etfAggressive, "월간 리밸런싱"),
+    strategyMetricCard("한국 우량주 Leader2", stock, "월간 후보 2개"),
     `<article class="kpi"><span>현재 ETF 후보</span><strong>${activeEtf?.currentPicks?.length ?? 0}개</strong><small>월 1회 리밸런싱</small></article>`
   ].join("");
 
@@ -1726,15 +1726,6 @@ function renderKoreaInvest() {
         <span>수익률 ${percent(stock?.capitalAccount?.totalReturn)}</span>
         <span>최종 ${krw(stock?.capitalAccount?.finalCapital)}</span>
         <span>MDD ${percent(stock?.capitalAccount?.maxDrawdown)}</span>
-      </div>
-    </article>
-    <article class="korea-strategy-card">
-      <span class="label">보수적 대안</span>
-      <h3>ETF 60/30/10 또는 KOSPI Only</h3>
-      <p>ETF는 60/30/10으로 위성 비중을 낮추고, 개별주는 KOSPI Only로 코스닥 급등주 의존도를 줄입니다.</p>
-      <div class="metric-line">
-        <span>ETF MDD ${percent(etfBalanced?.capitalAccount?.maxDrawdown)}</span>
-        <span>KOSPI Only MDD ${percent(stockStable?.capitalAccount?.maxDrawdown)}</span>
       </div>
     </article>
   `;
@@ -1818,7 +1809,7 @@ function selectedKoreaEtfStrategy() {
 }
 
 function koreaStockStrategy() {
-  return koreaStrategyByKey("kr_stocks") ?? koreaStrategyByKey("kr_stock_kospi_only");
+  return koreaStrategyByKey("kr_stocks");
 }
 
 function defaultKoreaAccount() {
@@ -1868,16 +1859,17 @@ function applyKoreaAccountSettingsToForm() {
   const etfMode = document.getElementById("korea-etf-mode");
   if (etfCapital) etfCapital.value = Math.round(koreaAccountState.settings.etfCapital || 0).toLocaleString("ko-KR");
   if (stockCapital) stockCapital.value = Math.round(koreaAccountState.settings.stockCapital || 0).toLocaleString("ko-KR");
-  if (etfMode) etfMode.value = koreaAccountState.settings.etfMode || "kr_etf_core_satellite_50_40_10";
+  if (etfMode) etfMode.value = "kr_etf_core_satellite_50_40_10";
 }
 
 function syncKoreaAccountSettingsFromForm() {
   if (!koreaAccountState) return;
+  const etfMode = document.getElementById("korea-etf-mode")?.value;
   koreaAccountState.settings = {
     ...koreaAccountState.settings,
     etfCapital: Math.max(0, parseAmount(document.getElementById("korea-etf-capital")?.value)),
     stockCapital: Math.max(0, parseAmount(document.getElementById("korea-stock-capital")?.value)),
-    etfMode: document.getElementById("korea-etf-mode")?.value || koreaAccountState.settings.etfMode
+    etfMode: etfMode || "kr_etf_core_satellite_50_40_10"
   };
   saveKoreaAccount();
 }
@@ -2030,11 +2022,18 @@ function renderKoreaStart() {
   const etfCapital = Math.max(0, parseAmount(document.getElementById("korea-etf-capital")?.value));
   const stockCapital = Math.max(0, parseAmount(document.getElementById("korea-stock-capital")?.value));
 
-  document.getElementById("korea-start-summary").innerHTML = `
+  const etfSummary = document.getElementById("korea-etf-start-summary");
+  if (etfSummary) etfSummary.innerHTML = `
     <article class="kpi"><span>한국 ETF 계좌</span><strong>${krw(etfCapital)}</strong><small>${etf?.label ?? "-"}</small></article>
     <article class="kpi"><span>ETF 백테스트</span><strong class="${signedClass(etf?.capitalAccount?.totalReturn)}">${percent(etf?.capitalAccount?.totalReturn)}</strong><small>MDD ${percent(etf?.capitalAccount?.maxDrawdown)}</small></article>
+    <article class="kpi"><span>운용 방식</span><strong>월간 리밸런싱</strong><small>월말 확정 후 다음 거래일</small></article>
+  `;
+
+  const stockSummary = document.getElementById("korea-stock-start-summary");
+  if (stockSummary) stockSummary.innerHTML = `
     <article class="kpi"><span>한국 주식 계좌</span><strong>${krw(stockCapital)}</strong><small>${stock?.label ?? "-"}</small></article>
     <article class="kpi"><span>주식 백테스트</span><strong class="${signedClass(stock?.capitalAccount?.totalReturn)}">${percent(stock?.capitalAccount?.totalReturn)}</strong><small>MDD ${percent(stock?.capitalAccount?.maxDrawdown)}</small></article>
+    <article class="kpi"><span>매도 규칙</span><strong>6개월 50%</strong><small>잔여 50%는 주봉 점검</small></article>
   `;
 
   document.getElementById("korea-start-etf").innerHTML = (etf?.currentPicks ?? []).map((row) => `
@@ -2160,8 +2159,11 @@ function renderKoreaAccount() {
 function setupKoreaPlanner() {
   koreaAccountState = loadKoreaAccount();
   applyKoreaAccountSettingsToForm();
-  const form = document.getElementById("korea-planner-form");
-  if (!form) return;
+  const forms = [
+    document.getElementById("korea-stock-planner-form"),
+    document.getElementById("korea-etf-planner-form")
+  ].filter(Boolean);
+  if (!forms.length) return;
   ["korea-etf-capital", "korea-stock-capital"].forEach((id) => {
     const input = document.getElementById(id);
     if (!input) return;
@@ -2173,15 +2175,17 @@ function setupKoreaPlanner() {
       renderKoreaAccount();
     });
   });
-  form.addEventListener("input", () => {
-    syncKoreaAccountSettingsFromForm();
-    renderKoreaStart();
-    renderKoreaAccount();
-  });
-  form.addEventListener("change", () => {
-    syncKoreaAccountSettingsFromForm();
-    renderKoreaStart();
-    renderKoreaAccount();
+  forms.forEach((form) => {
+    form.addEventListener("input", () => {
+      syncKoreaAccountSettingsFromForm();
+      renderKoreaStart();
+      renderKoreaAccount();
+    });
+    form.addEventListener("change", () => {
+      syncKoreaAccountSettingsFromForm();
+      renderKoreaStart();
+      renderKoreaAccount();
+    });
   });
   document.getElementById("korea-account-panel")?.addEventListener("click", (event) => {
     const button = event.target.closest("[data-korea-action]");
@@ -2214,7 +2218,7 @@ function renderKorea() {
     return;
   }
 
-  const strategies = koreaDashboard.strategies ?? [];
+  const strategies = koreaLiveStrategies();
   document.getElementById("korea-meta").textContent = `${koreaDashboard.asOf} 기준 | ${koreaDashboard.years}년 | 오류 ${koreaDashboard.universe?.errorCount ?? 0}건`;
   document.getElementById("korea-kpis").innerHTML = strategies.map((strategy) => {
     const s = strategy.summary ?? {};

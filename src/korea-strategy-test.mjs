@@ -1388,7 +1388,10 @@ async function main() {
       errors
     },
     note: "First-pass Korea test. Current blue-chip and ETF universe can introduce survivorship bias.",
-    strategies: [stockStrategy, etfStrategy, ...extraStrategies, ...etfRebalanceStrategies]
+    strategies: [
+      stockStrategy,
+      etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_core_satellite_50_40_10")
+    ].filter(Boolean)
   };
 
   await fs.writeFile(outputJsonPath, `${JSON.stringify(result)}\n`, "utf8");
