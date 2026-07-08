@@ -8,6 +8,7 @@ const screenerPath = path.join("data", "screener-results.json");
 const buyRule5yPath = path.join("data", "monthly-buy-rule-test-5y.json");
 const buyRule3yPath = path.join("data", "monthly-buy-rule-test.json");
 const scaleExecutionPath = path.join("data", "scale-execution-test.json");
+const capitalAccountPath = path.join("data", "capital-account-simulation.json");
 const outputPath = path.join("data", "strategy-dashboard.json");
 const strategyLabel = "Leader2 One Each";
 const currentExecutionRule = "half_sell_half_weekly_extend";
@@ -826,6 +827,7 @@ async function main() {
   const buyRule5y = await optionalJson(buyRule5yPath);
   const buyRule3y = await optionalJson(buyRule3yPath);
   const scaleExecution = await optionalJson(scaleExecutionPath);
+  const capitalAccount = await optionalJson(capitalAccountPath);
   const strategy5y = pickStrategy(buyRule5y);
   const strategy3y = pickStrategy(buyRule3y);
   const currentExecutionRows = executionRows(scaleExecution);
@@ -895,11 +897,14 @@ async function main() {
       monthlyExits: monthlyExits(realizedTrades),
       monthlySellEvents: monthlySellEvents(realizedTrades),
       realizedTrades,
+      accountSimulation: capitalAccount?.recommended ?? null,
+      accountComparison: capitalAccount?.results ?? [],
       comparison: [],
       yearly: currentCurve?.length
         ? yearlyPerformance(currentCurve)
         : existingDashboard?.backtest?.yearly ?? [],
       reports: [
+        { label: "Capital Account Simulation", href: "capital_account_simulation.md" },
         { label: "일봉 진입 필터 검증", href: "daily_entry_filter_test.md" },
         { label: "주봉 매도 연장 검증", href: "weekly_exit_rule_test.md" },
         { label: "분할 매수/매도 검증", href: "scale_execution_test.md" },

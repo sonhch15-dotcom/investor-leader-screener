@@ -931,6 +931,7 @@ function renderBacktest() {
   const five = dashboard.backtest.fiveYear;
   const three = dashboard.backtest.threeYear;
   const realized = dashboard.backtest.realizedSummary ?? {};
+  const account = dashboard.backtest.accountSimulation;
   document.getElementById("backtest-kpis").innerHTML = `
     <article class="kpi"><span>5년 누적수익</span><strong>${percent(five?.totalReturn)}</strong><small>QQQ ${percent(five?.qqqTotalReturn)}</small></article>
     <article class="kpi"><span>5년 CAGR</span><strong>${percent(five?.cagr)}</strong><small>연복리</small></article>
@@ -938,6 +939,16 @@ function renderBacktest() {
     <article class="kpi"><span>청산 종목 평균</span><strong class="${signedClass(realized.averageReturn)}">${percent(realized.averageReturn)}</strong><small>${realized.count ?? 0}개 청산</small></article>
     <article class="kpi"><span>청산 승률</span><strong>${plainPercent(realized.winRate)}</strong><small>3년 누적 ${percent(three?.totalReturn)}</small></article>
   `;
+
+  if (account) {
+    document.getElementById("backtest-kpis").innerHTML = `
+      <article class="kpi"><span>1천만원 계좌</span><strong>${money(account.finalCapital)}</strong><small>${account.label}</small></article>
+      <article class="kpi"><span>계좌 총수익률</span><strong class="${signedClass(account.totalReturn)}">${percent(account.totalReturn)}</strong><small>CAGR ${percent(account.cagr)}</small></article>
+      <article class="kpi"><span>매수 실행</span><strong>${account.executedBuys}/${account.attemptedBuys}</strong><small>건너뜀 ${account.skippedBuys}</small></article>
+      <article class="kpi"><span>최소 현금</span><strong>${money(account.minCash)}</strong><small>현금 부족 여부 확인</small></article>
+      <article class="kpi"><span>기존 5년 전략</span><strong>${percent(five?.totalReturn)}</strong><small>QQQ ${percent(five?.qqqTotalReturn)} | 청산 ${realized.count ?? 0}개</small></article>
+    `;
+  }
 
   renderPerformanceChart();
 
