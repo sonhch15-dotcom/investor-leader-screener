@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Leader2 Strategy Dashboard</title>
-  <link rel="stylesheet" href="styles.css?v=20260708-strategy-library">
+  <link rel="stylesheet" href="styles.css?v=20260708-unified-backtest">
 </head>
 <body>
   <header class="topbar">
@@ -389,8 +389,15 @@
         </div>
       </section>
 
-      <section class="panel two-col">
-        <div>
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>전략 성과 요약</h2>
+            <p>연도별 성과와 상세 리포트를 한곳에서 확인합니다.</p>
+          </div>
+        </div>
+        <div class="two-col">
+          <div>
           <div class="section-title compact">
             <h2>연도별 성과</h2>
           </div>
@@ -408,12 +415,13 @@
               <tbody id="yearly-body"></tbody>
             </table>
           </div>
-        </div>
-        <div>
+          </div>
+          <div>
           <div class="section-title compact">
             <h2>상세 리포트</h2>
           </div>
           <div class="report-links" id="report-links"></div>
+          </div>
         </div>
       </section>
     </section>
@@ -482,19 +490,8 @@
       <section class="panel">
         <div class="section-title">
           <div>
-            <h2>한국 우량주 전략 검증</h2>
-            <p>한국 주식은 우량주 중심으로 월별 선정, 6개월 50% 매도, 잔여 50% 주봉 연장 규칙을 검증합니다.</p>
-          </div>
-          <span id="korea-meta">데이터 준비중</span>
-        </div>
-        <div class="korea-strategy-grid" id="korea-current-picks"></div>
-      </section>
-
-      <section class="panel">
-        <div class="section-title">
-          <div>
-            <h2>한국 주식 전략 누적 성과 vs KOSPI200</h2>
-            <p>미국 백테스트와 같은 방식으로 월별 선정력 누적 곡선을 KOSPI200 ETF와 비교합니다.</p>
+            <h2>전략 누적 성과 vs KOSPI200</h2>
+            <p>현재 운용 전략인 6개월 50% 매도 + 나머지 주봉 연장 기준으로 과거 계좌 곡선을 비교합니다.</p>
           </div>
           <span id="korea-stock-curve-meta"></span>
         </div>
@@ -504,52 +501,8 @@
       <section class="panel">
         <div class="section-title">
           <div>
-            <h2>표 읽는 법</h2>
-            <p>처음 보는 사람도 바로 해석할 수 있도록 핵심 용어를 풀어 썼습니다.</p>
-          </div>
-        </div>
-        <div class="rules-grid">
-          <article><h3>전략</h3><p>우리가 만든 규칙대로 매수/매도했을 때의 수익률입니다.</p></article>
-          <article><h3>KOSPI200</h3><p>같은 기간 KOSPI200 ETF를 들고 있었을 때의 수익률입니다.</p></article>
-          <article><h3>KOSPI 초과</h3><p>전략 수익률에서 KOSPI200 수익률을 뺀 값입니다. 플러스면 KOSPI보다 잘한 것입니다.</p></article>
-        </div>
-      </section>
-
-      <section class="panel">
-        <div class="section-title">
-          <div>
-            <h2>한국 주식 성과 요약</h2>
-            <p>6개월 50% 매도 후 잔여 50%는 주봉 추세로 연장하는 현재 운용 규칙의 결과입니다.</p>
-          </div>
-        </div>
-        <div class="table-wrap backtest-table">
-          <table>
-            <thead>
-              <tr>
-                <th>전략</th>
-                <th>매수 건수</th>
-                <th>청산 완료</th>
-                <th>보유중</th>
-                <th>평균 수익률</th>
-                <th>KOSPI200</th>
-                <th>KOSPI 초과</th>
-                <th>승률</th>
-                <th>1천만원 계좌</th>
-                <th>MDD</th>
-                <th>스킵</th>
-              </tr>
-            </thead>
-            <tbody id="korea-summary-body"></tbody>
-          </table>
-        </div>
-        <div class="mobile-card-list backtest-card-list" id="korea-summary-cards"></div>
-      </section>
-
-      <section class="panel">
-        <div class="section-title">
-          <div>
             <h2>월별 매도 결과</h2>
-            <p>해당 월에 실제 발생한 50% 기본매도와 잔여 매도 이벤트를 KOSPI200과 비교합니다.</p>
+            <p>50% 기본매도와 주봉 연장분 최종 매도를 반영한 월별 실현 수익률입니다.</p>
           </div>
           <div class="section-actions">
             <span id="korea-stock-monthly-sell-meta"></span>
@@ -566,7 +519,7 @@
                 <th>잔여 매도</th>
                 <th>평균 수익률</th>
                 <th>KOSPI200</th>
-                <th>KOSPI 초과</th>
+                <th>초과</th>
                 <th>종목</th>
               </tr>
             </thead>
@@ -579,7 +532,7 @@
       <section class="panel">
         <div class="section-title">
           <div>
-            <h2>최근 청산 / 보유 종목</h2>
+            <h2>청산/보유 종목별 기록</h2>
             <p>과거 월별 추천이 실제로 언제 매수되고, 50% 매도와 잔여 물량 매도가 어떻게 처리됐는지 확인합니다.</p>
           </div>
           <span id="korea-trades-meta"></span>
@@ -604,6 +557,47 @@
         <div class="mobile-card-list backtest-card-list" id="korea-trades-cards"></div>
       </section>
 
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>전략 성과 요약</h2>
+            <p>전체 매수 건수, 청산 완료, 승률, MDD를 한 번 더 표로 확인합니다.</p>
+          </div>
+        </div>
+        <div class="table-wrap backtest-table">
+          <table>
+            <thead>
+              <tr>
+                <th>전략</th>
+                <th>매수 건수</th>
+                <th>청산 완료</th>
+                <th>보유중</th>
+                <th>평균 수익률</th>
+                <th>KOSPI200</th>
+                <th>초과</th>
+                <th>승률</th>
+                <th>1천만원 계좌</th>
+                <th>MDD</th>
+                <th>스킵</th>
+              </tr>
+            </thead>
+            <tbody id="korea-summary-body"></tbody>
+          </table>
+        </div>
+        <div class="mobile-card-list backtest-card-list" id="korea-summary-cards"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>현재 후보 참고</h2>
+            <p>백테스트 결과와 별개로, 현재 월 기준 한국 주식 후보를 참고용으로 보여줍니다.</p>
+          </div>
+          <span id="korea-meta">데이터 준비중</span>
+        </div>
+        <div class="korea-strategy-grid" id="korea-current-picks"></div>
+      </section>
+
     </section>
 
     <section class="tab-panel" id="korea-etf-backtest-panel">
@@ -623,19 +617,8 @@
       <section class="panel">
         <div class="section-title">
           <div>
-            <h2>한국 ETF 전략 검증</h2>
-            <p>Core 50%, Satellite 40%, Defense 10% 월간 리밸런싱 전략을 KOSPI200과 비교합니다.</p>
-          </div>
-          <span id="korea-etf-backtest-meta">데이터 준비중</span>
-        </div>
-        <div class="korea-strategy-grid" id="korea-etf-current-picks"></div>
-      </section>
-
-      <section class="panel">
-        <div class="section-title">
-          <div>
-            <h2>한국 ETF 전략 누적 성과 vs KOSPI200</h2>
-            <p>월간 50/40/10 리밸런싱 계좌의 누적 수익률을 KOSPI200 ETF와 비교합니다.</p>
+            <h2>전략 누적 성과 vs KOSPI200</h2>
+            <p>현재 운용 전략인 Core 50%, Satellite 40%, Defense 10% 월간 리밸런싱 계좌 곡선을 비교합니다.</p>
           </div>
           <span id="korea-etf-curve-meta"></span>
         </div>
@@ -645,49 +628,8 @@
       <section class="panel">
         <div class="section-title">
           <div>
-            <h2>표 읽는 법</h2>
-            <p>ETF 백테스트의 월별 카드와 표에 나오는 용어입니다.</p>
-          </div>
-        </div>
-        <div class="rules-grid">
-          <article><h3>전략 월수익률</h3><p>그 달에 ETF 50/40/10 계좌가 오른/내린 비율입니다.</p></article>
-          <article><h3>KOSPI200 월수익률</h3><p>같은 달 KOSPI200 ETF가 오른/내린 비율입니다.</p></article>
-          <article><h3>KOSPI 초과</h3><p>전략 월수익률에서 KOSPI200 월수익률을 뺀 값입니다. 플러스면 그 달에는 전략이 더 잘했습니다.</p></article>
-        </div>
-      </section>
-
-      <section class="panel">
-        <div class="section-title">
-          <div>
-            <h2>한국 ETF 성과 요약</h2>
-            <p>1천만원 계좌 기준 월별 리밸런싱 누적 성과와 KOSPI200 대비 성과입니다.</p>
-          </div>
-        </div>
-        <div class="table-wrap backtest-table">
-          <table>
-            <thead>
-              <tr>
-                <th>전략</th>
-                <th>리밸런싱 월수</th>
-                <th>보유 ETF</th>
-                <th>계좌 수익률</th>
-                <th>KOSPI200</th>
-                <th>KOSPI 초과</th>
-                <th>최종 자산</th>
-                <th>MDD</th>
-              </tr>
-            </thead>
-            <tbody id="korea-etf-summary-body"></tbody>
-          </table>
-        </div>
-        <div class="mobile-card-list backtest-card-list" id="korea-etf-summary-cards"></div>
-      </section>
-
-      <section class="panel">
-        <div class="section-title">
-          <div>
             <h2>월별 계좌 수익률</h2>
-            <p>ETF 전략의 월별 계좌 수익률을 KOSPI200 ETF와 비교합니다.</p>
+            <p>월간 리밸런싱 후 ETF 계좌가 각 달에 얼마나 움직였는지 KOSPI200 ETF와 비교합니다.</p>
           </div>
           <div class="section-actions">
             <span id="korea-etf-monthly-return-meta"></span>
@@ -701,7 +643,7 @@
                 <th>월</th>
                 <th>전략 월수익률</th>
                 <th>KOSPI200 월수익률</th>
-                <th>KOSPI 초과</th>
+                <th>초과</th>
                 <th>전략 누적 수익률</th>
                 <th>KOSPI200 누적 수익률</th>
                 <th>계좌 평가액</th>
@@ -716,7 +658,7 @@
       <section class="panel">
         <div class="section-title">
           <div>
-            <h2>한국 ETF 월별 리밸런싱</h2>
+            <h2>월별 리밸런싱 기록</h2>
             <p>Core 50%, Satellite 40%, Defense 10%가 매월 어떤 ETF로 바뀌었는지 확인합니다.</p>
           </div>
           <div class="section-actions">
@@ -741,6 +683,44 @@
           </table>
         </div>
         <div class="mobile-card-list backtest-card-list" id="korea-etf-rebalance-cards"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>전략 성과 요약</h2>
+            <p>1천만원 계좌 기준 월별 리밸런싱 누적 성과와 KOSPI200 대비 성과입니다.</p>
+          </div>
+        </div>
+        <div class="table-wrap backtest-table">
+          <table>
+            <thead>
+              <tr>
+                <th>전략</th>
+                <th>리밸런싱 월수</th>
+                <th>보유 ETF</th>
+                <th>계좌 수익률</th>
+                <th>KOSPI200</th>
+                <th>초과</th>
+                <th>최종 자산</th>
+                <th>MDD</th>
+              </tr>
+            </thead>
+            <tbody id="korea-etf-summary-body"></tbody>
+          </table>
+        </div>
+        <div class="mobile-card-list backtest-card-list" id="korea-etf-summary-cards"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>현재 ETF 목표 비중 참고</h2>
+            <p>백테스트 결과와 별개로, 현재 월 기준 ETF 목표 비중을 참고용으로 보여줍니다.</p>
+          </div>
+          <span id="korea-etf-backtest-meta">데이터 준비중</span>
+        </div>
+        <div class="korea-strategy-grid" id="korea-etf-current-picks"></div>
       </section>
     </section>
 
@@ -812,6 +792,6 @@
     </section>
   </main>
 
-  <script src="app.js?v=20260708-strategy-library"></script>
+  <script src="app.js?v=20260708-unified-backtest"></script>
 </body>
 </html>

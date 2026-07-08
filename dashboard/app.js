@@ -1997,31 +1997,59 @@ function renderRealizedTrades() {
   };
 }
 
+function renderBacktestKpis(targetId, config) {
+  const target = document.getElementById(targetId);
+  if (!target) return;
+  const excess = Number.isFinite(config.strategyReturn) && Number.isFinite(config.benchmarkReturn)
+    ? config.strategyReturn - config.benchmarkReturn
+    : null;
+  target.innerHTML = `
+    <article class="kpi">
+      <span>계좌 평가액</span>
+      <strong>${config.finalValue}</strong>
+      <small>${config.finalValueNote}</small>
+    </article>
+    <article class="kpi">
+      <span>전략 누적 수익률</span>
+      <strong class="${signedClass(config.strategyReturn)}">${percent(config.strategyReturn)}</strong>
+      <small>${config.strategyNote}</small>
+    </article>
+    <article class="kpi">
+      <span>${config.benchmarkLabel} 누적</span>
+      <strong class="${signedClass(config.benchmarkReturn)}">${percent(config.benchmarkReturn)}</strong>
+      <small>같은 기간 기준 지표</small>
+    </article>
+    <article class="kpi">
+      <span>기준 지표 대비</span>
+      <strong class="${signedClass(excess)}">${percent(excess)}</strong>
+      <small>전략 - ${config.benchmarkLabel}</small>
+    </article>
+    <article class="kpi">
+      <span>${config.activityLabel}</span>
+      <strong>${config.activityValue}</strong>
+      <small>${config.activityNote}</small>
+    </article>
+  `;
+}
+
 function renderBacktest() {
   const five = dashboard.backtest.fiveYear;
-  const three = dashboard.backtest.threeYear;
   const realized = dashboard.backtest.realizedSummary ?? {};
   const account = dashboard.backtest.accountSimulation;
-  document.getElementById("backtest-kpis").innerHTML = `
-    <article class="kpi"><span>5년 누적수익</span><strong>${percent(five?.totalReturn)}</strong><small>QQQ ${percent(five?.qqqTotalReturn)}</small></article>
-    <article class="kpi"><span>5년 CAGR</span><strong>${percent(five?.cagr)}</strong><small>연복리</small></article>
-    <article class="kpi"><span>5년 MDD</span><strong class="negative">${percent(five?.maxDrawdown)}</strong><small>최대낙폭</small></article>
-    <article class="kpi"><span>청산 종목 평균</span><strong class="${signedClass(realized.averageReturn)}">${percent(realized.averageReturn)}</strong><small>${realized.count ?? 0}개 청산</small></article>
-    <article class="kpi"><span>청산 승률</span><strong>${plainPercent(realized.winRate)}</strong><small>3년 누적 ${percent(three?.totalReturn)}</small></article>
-  `;
-
-  if (account) {
-    document.getElementById("backtest-kpis").innerHTML = `
-      <article class="kpi"><span>현재 운용 계좌</span><strong>${money(account.finalCapital)}</strong><small>1천만원 시작 | ${account.label}</small></article>
-      <article class="kpi"><span>현재 운용 수익률</span><strong class="${signedClass(account.totalReturn)}">${percent(account.totalReturn)}</strong><small>자금/현금 제한 반영 | CAGR ${percent(account.cagr)}</small></article>
-      <article class="kpi"><span>매수 실행</span><strong>${account.executedBuys}/${account.attemptedBuys}</strong><small>건너뜀 ${account.skippedBuys}</small></article>
-      <article class="kpi"><span>최소 현금</span><strong>${money(account.minCash)}</strong><small>현금 부족 여부 확인</small></article>
-      <article class="kpi"><span>5년 선정력 검증</span><strong>${percent(five?.totalReturn)}</strong><small>자금 제한 없는 지수형 검증 | QQQ ${percent(five?.qqqTotalReturn)}</small></article>
-    `;
-  }
-
   const curveRows = dashboard.backtest.equityCurve ?? [];
   const lastCurve = curveRows.at(-1) ?? {};
+  renderBacktestKpis("backtest-kpis", {
+    finalValue: account ? money(account.finalCapital) : percent(five?.totalReturn),
+    finalValueNote: account ? `1천만원 시작 | ${account.label}` : "자금 제한 없는 선정력 검증",
+    strategyReturn: account?.totalReturn ?? five?.totalReturn,
+    strategyNote: account ? `자금/현금 제한 반영 | CAGR ${percent(account.cagr)}` : "전략 규칙대로 운용",
+    benchmarkLabel: "QQQ",
+    benchmarkReturn: lastCurve.qqqTotalReturn ?? five?.qqqTotalReturn,
+    activityLabel: "매수/청산",
+    activityValue: account ? `${account.executedBuys}/${account.attemptedBuys}` : `${realized.count ?? 0}건`,
+    activityNote: account ? `건너뜀 ${account.skippedBuys} | MDD ${percent(account.maxDrawdownAtCost)}` : `승률 ${plainPercent(realized.winRate)} | MDD ${percent(five?.maxDrawdown)}`
+  });
+
   renderBacktestTemplate("backtest-template", {
     asset: "미국 주식",
     tone: "us",
@@ -2961,15 +2989,21 @@ function renderKoreaEtfBacktest() {
   if (!strategy) return;
   const summary = strategy.summary ?? {};
   const account = strategy.capitalAccount ?? {};
-  document.getElementById("korea-etf-backtest-meta").textContent = `${koreaDashboard.asOf} 기준 | ${strategy.months ?? 0}개월`;
-  document.getElementById("korea-etf-kpis").innerHTML = `
-    <article class="kpi"><span>ETF 전략 수익률</span><strong class="${signedClass(account.totalReturn)}">${percent(account.totalReturn)}</strong><small>1천만원 ${krw(account.finalCapital)}</small></article>
-    <article class="kpi"><span>KOSPI200 누적</span><strong class="${signedClass(summary.averageBenchmarkReturn)}">${percent(summary.averageBenchmarkReturn)}</strong><small>비교 기준</small></article>
-    <article class="kpi"><span>KOSPI 초과</span><strong class="${signedClass(summary.averageExcessBenchmark)}">${percent(summary.averageExcessBenchmark)}</strong><small>전략 - KOSPI200</small></article>
-    <article class="kpi"><span>리밸런싱</span><strong>${summary.tradeCount ?? 0}개월</strong><small>MDD ${percent(account.maxDrawdown)}</small></article>
-  `;
-
   const etfPerformanceRows = koreaEtfPerformanceRows();
+  const benchmarkReturn = lastFiniteReturn(etfPerformanceRows, "benchmarkTotalReturn");
+  document.getElementById("korea-etf-backtest-meta").textContent = `${koreaDashboard.asOf} 기준 | ${strategy.months ?? 0}개월`;
+  renderBacktestKpis("korea-etf-kpis", {
+    finalValue: krw(account.finalCapital),
+    finalValueNote: "1천만원 시작 | ETF 계좌",
+    strategyReturn: account.totalReturn,
+    strategyNote: "50/40/10 월간 리밸런싱",
+    benchmarkLabel: benchmarkLabel(strategy.benchmarkSymbol),
+    benchmarkReturn,
+    activityLabel: "리밸런싱",
+    activityValue: `${summary.tradeCount ?? 0}개월`,
+    activityNote: `MDD ${percent(account.maxDrawdown)} | 보유 ETF ${summary.openCount ?? 0}개`
+  });
+
   renderBacktestTemplate("korea-etf-backtest-template", {
     asset: "한국 ETF",
     tone: "kr-etf",
@@ -2978,7 +3012,7 @@ function renderKoreaEtfBacktest() {
     benchmarkLabel: benchmarkLabel(strategy.benchmarkSymbol),
     periodLabel: etfPerformanceRows.length ? `${etfPerformanceRows[0].asOf ?? etfPerformanceRows[0].month} ~ ${etfPerformanceRows.at(-1).asOf ?? etfPerformanceRows.at(-1).month}` : "기간 데이터 없음",
     strategyReturn: account.totalReturn,
-    benchmarkReturn: lastFiniteReturn(etfPerformanceRows, "benchmarkTotalReturn"),
+    benchmarkReturn,
     maxDrawdown: account.maxDrawdown,
     tradeCountLabel: `${summary.tradeCount ?? 0}개월`,
     tradeNote: "월 1회 전체 계좌 리밸런싱",
@@ -3073,29 +3107,25 @@ function renderKorea() {
 
   const strategies = [koreaStockStrategy()].filter(Boolean);
   document.getElementById("korea-meta").textContent = `${koreaDashboard.asOf} 기준 | ${koreaDashboard.years}년 | 오류 ${koreaDashboard.universe?.errorCount ?? 0}건`;
-  document.getElementById("korea-kpis").innerHTML = strategies.map((strategy) => {
-    const s = strategy.summary ?? {};
-    const account = strategy.capitalAccount ?? {};
-    return `
-      <article class="kpi">
-        <span>${strategy.label}</span>
-        <strong class="${signedClass(account.totalReturn)}">${percent(account.totalReturn)}</strong>
-        <small>1천만원 계좌 ${krw(account.finalCapital)} | MDD ${percent(account.maxDrawdown)}</small>
-      </article>
-    `;
-  }).join("") + `
-    <article class="kpi">
-      <span>유니버스</span>
-      <strong>${koreaDashboard.universe?.stockCount ?? 0}/${koreaDashboard.universe?.etfCount ?? 0}</strong>
-      <small>우량주 / ETF 후보</small>
-    </article>
-  `;
 
   const mainStockStrategy = strategies[0];
   if (mainStockStrategy) {
     const summary = mainStockStrategy.summary ?? {};
     const account = mainStockStrategy.capitalAccount ?? {};
     const stockPerformanceRows = koreaStockPerformanceRows();
+    const benchmarkReturn = lastFiniteReturn(stockPerformanceRows, "benchmarkTotalReturn");
+    renderBacktestKpis("korea-kpis", {
+      finalValue: krw(account.finalCapital),
+      finalValueNote: "1천만원 시작 | 한국 주식 계좌",
+      strategyReturn: account.totalReturn,
+      strategyNote: "자금 제한 반영",
+      benchmarkLabel: benchmarkLabel(mainStockStrategy.benchmarkSymbol),
+      benchmarkReturn,
+      activityLabel: "매수/청산",
+      activityValue: `${summary.tradeCount ?? 0}건`,
+      activityNote: `청산 ${summary.realizedCount ?? 0}건 / 보유 ${summary.openCount ?? 0}건 | MDD ${percent(account.maxDrawdown)}`
+    });
+
     renderBacktestTemplate("korea-stock-backtest-template", {
       asset: "한국 주식",
       tone: "kr-stock",
@@ -3104,7 +3134,7 @@ function renderKorea() {
       benchmarkLabel: benchmarkLabel(mainStockStrategy.benchmarkSymbol),
       periodLabel: stockPerformanceRows.length ? `${stockPerformanceRows[0].asOf ?? stockPerformanceRows[0].month} ~ ${stockPerformanceRows.at(-1).asOf ?? stockPerformanceRows.at(-1).month}` : "기간 데이터 없음",
       strategyReturn: account.totalReturn,
-      benchmarkReturn: lastFiniteReturn(stockPerformanceRows, "benchmarkTotalReturn"),
+      benchmarkReturn,
       maxDrawdown: account.maxDrawdown,
       tradeCountLabel: `${summary.tradeCount ?? 0}건`,
       tradeNote: `청산 ${summary.realizedCount ?? 0}건 / 보유 ${summary.openCount ?? 0}건`,
