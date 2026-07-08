@@ -1,6 +1,7 @@
 let dashboard = null;
 let koreaDashboard = null;
 let selectionStrategyLab = null;
+let finalStrategyValidation = null;
 let showAllMonthlyExits = false;
 let showAllRealizedTrades = false;
 let showAllKoreaEtfRebalances = false;
@@ -1141,7 +1142,14 @@ function buildStrategyCatalog() {
     }
   ];
   const bestSelectionRule = selectionStrategyLab?.rankings?.all6m?.[0];
-  const bestDetail = bestSelectionRule?.latestSelection;
+  const convictionFinal = finalStrategyValidation?.accountRows?.find((row) => (
+    row.selectionEngine === "Conviction Diverse Top2" && row.key === "repeat_theme_combo"
+  ));
+  const finalWinner = finalStrategyValidation?.finalWinner;
+  const finalRecent = finalStrategyValidation?.recentSelections?.conviction?.at?.(-1);
+  const bestDetail = finalRecent
+    ? { symbols: finalRecent.symbols, sectors: finalRecent.groups }
+    : bestSelectionRule?.latestSelection;
   if (bestSelectionRule) {
     catalog.push({
       id: "us_conviction_diverse_top2_candidate",
@@ -1156,10 +1164,14 @@ function buildStrategyCatalog() {
       tone: "us testing",
       accountLabel: "선정 규칙 후보 | 저장된 Top20 안에서 월 2개 선택",
       type: "stock",
-      benchmark: { symbol: "QQQ", label: "QQQ" },
+      benchmark: { symbol: "LEADER2_BEST", label: "Leader2 1등" },
       today: {
-        summary: `6개월 평균 ${percent(bestSelectionRule.horizons?.["6m"]?.averageReturn)}`,
-        detail: `QQQ 평균 초과 ${percent(bestSelectionRule.horizons?.["6m"]?.averageExcessQqq)}. 아직 완성 매도 규칙 검증 전 후보입니다.`,
+        summary: convictionFinal
+          ? `완성 계좌 ${percent(convictionFinal.totalReturn)}`
+          : `6개월 평균 ${percent(bestSelectionRule.horizons?.["6m"]?.averageReturn)}`,
+        detail: convictionFinal && finalWinner
+          ? `월별 선정력은 좋았지만 Leader2 1등 ${percent(finalWinner.totalReturn)}보다 낮아 active 보류입니다.`
+          : `QQQ 평균 초과 ${percent(bestSelectionRule.horizons?.["6m"]?.averageExcessQqq)}. 아직 완성 매도 규칙 검증 전 후보입니다.`,
         primaryAction: "검증 리포트 보기"
       },
       rules: {
@@ -1179,15 +1191,15 @@ function buildStrategyCatalog() {
           end: selectionStrategyLab.generatedAt
         },
         metrics: {
-          strategyReturn: bestSelectionRule.horizons?.["6m"]?.averageReturn,
-          benchmarkReturn: bestSelectionRule.horizons?.["6m"]?.averageReturn - bestSelectionRule.horizons?.["6m"]?.averageExcessQqq,
-          maxDrawdown: null,
+          strategyReturn: convictionFinal?.totalReturn ?? bestSelectionRule.horizons?.["6m"]?.averageReturn,
+          benchmarkReturn: finalWinner?.totalReturn ?? bestSelectionRule.horizons?.["6m"]?.averageReturn - bestSelectionRule.horizons?.["6m"]?.averageExcessQqq,
+          maxDrawdown: convictionFinal?.maxDrawdownAtCost ?? null,
           winRate: bestSelectionRule.horizons?.["6m"]?.beatQqqRate,
-          tradeCount: bestSelectionRule.activePeriods
+          tradeCount: convictionFinal?.executedBuys ?? bestSelectionRule.activePeriods
         },
         equityCurve: []
       },
-      reportUrl: "selection_strategy_lab.md",
+      reportUrl: "final_strategy_validation.md",
       tabs: { start: "rules", operations: "rules", backtest: "rules", account: "rules" }
     });
   }
@@ -3598,6 +3610,7 @@ async function main() {
     dashboard = await fetchJson("data/strategy-dashboard.json");
     koreaDashboard = await fetchOptionalJson("data/korea-strategy-dashboard.json");
     selectionStrategyLab = await fetchOptionalJson("data/selection-strategy-lab.json");
+    finalStrategyValidation = await fetchOptionalJson("data/final-strategy-validation.json");
     document.getElementById("meta").textContent = `${dashboard.asOf} | ${dashboard.strategy.name} | updated ${new Date(dashboard.generatedAt).toLocaleString()}`;
     renderSummary();
     renderLeaders();

@@ -308,6 +308,83 @@ function qualityStock(row) {
     && row.score >= 75;
 }
 
+const aiHardwareSymbols = new Set([
+  "NVDA", "AMD", "AVGO", "ARM", "MU", "ASML", "TSM", "SMH", "SOXX",
+  "WDC", "STX", "DELL", "HPE", "ANET", "VRT", "SMCI", "MRVL", "LRCX",
+  "KLAC", "AMAT", "TER", "MPWR", "ON", "QCOM", "INTC", "SNDK"
+]);
+
+const aiHardwareSectors = new Set([
+  "Semiconductors",
+  "Electronic Components",
+  "Computer Peripheral Equipment",
+  "Computer Communications Equipment"
+]);
+
+const weakerSectors = new Set([
+  "Real Estate",
+  "Consumer Staples",
+  "Utilities"
+]);
+
+function isAiHardware(row) {
+  return aiHardwareSymbols.has(row.symbol) || aiHardwareSectors.has(row.sector);
+}
+
+function monthsBetween(startDate, endDate) {
+  const start = parseDate(startDate);
+  const end = parseDate(endDate);
+  return (end.getUTCFullYear() - start.getUTCFullYear()) * 12 + end.getUTCMonth() - start.getUTCMonth();
+}
+
+function enrichPeriods(periods) {
+  const symbolSeen = new Map();
+  const sectorSeen = new Map();
+  return periods.map((period) => {
+    const candidates = period.candidates.map((row) => {
+      const symbolHistory = symbolSeen.get(row.symbol) ?? [];
+      const sectorHistory = sectorSeen.get(row.sector) ?? [];
+      return {
+        ...row,
+        previousSymbolTop20_12m: symbolHistory.filter((date) => monthsBetween(date, period.entryDate) <= 12).length,
+        previousSectorTop20_6m: sectorHistory.filter((date) => monthsBetween(date, period.entryDate) <= 6).length,
+        isAiHardware: isAiHardware(row)
+      };
+    });
+    for (const row of candidates.slice(0, 20)) {
+      symbolSeen.set(row.symbol, [...(symbolSeen.get(row.symbol) ?? []), period.entryDate]);
+      sectorSeen.set(row.sector, [...(sectorSeen.get(row.sector) ?? []), period.entryDate]);
+    }
+    return { ...period, candidates };
+  });
+}
+
+function convictionScore(row) {
+  let score = row.score ?? 0;
+  score += (row.previousSymbolTop20_12m ?? 0) * 3.5;
+  score += Math.min(row.previousSectorTop20_6m ?? 0, 6) * 1.2;
+  if (row.isAiHardware) score += 5;
+  if (row.metrics?.above50 && row.metrics?.above200) score += 2;
+  if (weakerSectors.has(row.sector)) score -= 4;
+  if (row.metrics?.high52wDistance > -0.01) score -= 1.5;
+  return score;
+}
+
+function convictionDiverse(period, count = 2) {
+  const selected = [];
+  const sectors = new Set();
+  const rows = [...period.candidates]
+    .filter((row) => !weakerSectors.has(row.sector))
+    .sort((a, b) => convictionScore(b) - convictionScore(a) || a.rank - b.rank);
+  for (const row of rows) {
+    if (sectors.has(row.sector)) continue;
+    selected.push(row);
+    sectors.add(row.sector);
+    if (selected.length >= count) break;
+  }
+  return selected;
+}
+
 const rules = [
   {
     key: "main_rank2",
@@ -356,6 +433,12 @@ const rules = [
     label: "Strict Quality Main2",
     description: "Main leading groups, but require price above key moving averages and score >= 75",
     select: (period) => selectCapped(period, leaderGroups(period, 5), 10, 2).filter(qualityStock).slice(0, 2)
+  },
+  {
+    key: "conviction_diverse2",
+    label: "Conviction Diverse Top2",
+    description: "Top 2 by score, repeated Top20 signal, repeated sector leadership, AI hardware signal, and sector diversity",
+    select: (period) => convictionDiverse(period, 2)
   },
   {
     key: "baseline_top2",
@@ -583,7 +666,9 @@ async function main() {
   const instruments = await buildUniverse({ sample });
   console.log(`Universe size: ${instruments.length}`);
   const { priceMap, errors } = await collectPrices(instruments);
-  const { periods, startDate, endDate } = await buildPeriods(instruments, priceMap);
+  const rawPeriods = await buildPeriods(instruments, priceMap);
+  const periods = enrichPeriods(rawPeriods.periods);
+  const { startDate, endDate } = rawPeriods;
   const results = rules.map((rule) => simulateRule(priceMap, periods, rule));
   const rankedResults = rankResults(results);
   const result = {

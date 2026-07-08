@@ -4,13 +4,27 @@ import { fetchChart, syntheticChart } from "./yahoo.mjs";
 import { mean, round } from "./math.mjs";
 
 const sample = process.argv.includes("--sample");
-const sourcePath = path.join("data", "monthly-buy-rule-test-5y.json");
-const outputJsonPath = path.join("data", "scale-execution-test.json");
-const outputMdPath = "scale_execution_test.md";
-const strategyLabel = "Leader2 One Each";
+const sourcePath = path.join("data", valueAfter("--source") ?? "monthly-buy-rule-test-5y.json");
+const outputSuffix = safeSuffix(valueAfter("--output-suffix") ?? "");
+const outputJsonPath = path.join("data", `scale-execution-test${outputSuffix}.json`);
+const outputMdPath = `scale_execution_test${outputSuffix}.md`;
+const strategyLabel = valueAfter("--strategy-label") ?? "Leader2 One Each";
+const strategyKey = valueAfter("--strategy-key");
 const fixedHoldMonths = 6;
 const maxHoldMonths = 12;
 const costBps = 10;
+
+function valueAfter(flag) {
+  const index = process.argv.indexOf(flag);
+  if (index === -1) return null;
+  return process.argv[index + 1] ?? null;
+}
+
+function safeSuffix(value) {
+  if (!value) return "";
+  const suffix = value.startsWith("-") ? value : `-${value}`;
+  return suffix.replace(/[^a-z0-9_-]/gi, "");
+}
 
 function monthKey(date) {
   return String(date ?? "").slice(0, 7);
@@ -429,9 +443,11 @@ function markdown(result) {
 
 async function main() {
   const source = JSON.parse(await fs.readFile(sourcePath, "utf8"));
-  const strategy = (source.rankedResults ?? source.results ?? []).find((row) => row.label === strategyLabel);
+  const strategy = (source.rankedResults ?? source.results ?? []).find((row) => (
+    strategyKey ? row.key === strategyKey : row.label === strategyLabel
+  ));
   if (!strategy?.selectionTimeline?.length) {
-    throw new Error(`Missing strategy timeline for ${strategyLabel}. Run monthly-buy-rule-test.mjs --years 5 first.`);
+    throw new Error(`Missing strategy timeline for ${strategyKey ?? strategyLabel}. Run monthly-buy-rule-test.mjs --years 5 first.`);
   }
   const trades = selectedTrades(strategy);
   const symbols = Array.from(new Set([...trades.map((row) => row.symbol), "QQQ"]));

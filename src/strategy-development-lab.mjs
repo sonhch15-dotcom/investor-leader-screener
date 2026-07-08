@@ -2,13 +2,26 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { round } from "./math.mjs";
 
-const inputPath = path.join("data", "scale-execution-test.json");
-const outputJsonPath = path.join("data", "strategy-development-lab.json");
-const outputMdPath = "strategy_development_lab.md";
+const inputPath = path.join("data", valueAfter("--input") ?? "scale-execution-test.json");
+const outputSuffix = safeSuffix(valueAfter("--output-suffix") ?? "");
+const outputJsonPath = path.join("data", `strategy-development-lab${outputSuffix}.json`);
+const outputMdPath = `strategy_development_lab${outputSuffix}.md`;
 const sourceRule = "half_sell_half_weekly_extend";
 const initialCapital = 10_000_000;
 const costBps = 10;
 const minBuy = 100_000;
+
+function valueAfter(flag) {
+  const index = process.argv.indexOf(flag);
+  if (index === -1) return null;
+  return process.argv[index + 1] ?? null;
+}
+
+function safeSuffix(value) {
+  if (!value) return "";
+  const suffix = value.startsWith("-") ? value : `-${value}`;
+  return suffix.replace(/[^a-z0-9_-]/gi, "");
+}
 
 const aiHardwareSymbols = new Set([
   "NVDA", "AMD", "AVGO", "ARM", "MU", "ASML", "TSM", "SMH", "SOXX",
