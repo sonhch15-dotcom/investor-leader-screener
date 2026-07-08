@@ -131,6 +131,7 @@
           </form>
           <div class="planner-output">
             <div class="summary-grid planner-summary" id="korea-etf-start-summary"></div>
+            <div class="rules-grid" id="korea-etf-rule-cards"></div>
             <div class="planner-block"><h3>한국 ETF 매수 비중</h3><div id="korea-start-etf"></div></div>
           </div>
         </div>
@@ -492,6 +493,36 @@
           </table>
         </div>
         <div class="mobile-card-list backtest-card-list" id="korea-trades-cards"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>한국 ETF 월별 리밸런싱</h2>
+            <p>Core 50%, Satellite 40%, Defense 10%가 매월 어떤 ETF로 바뀌었는지 확인합니다.</p>
+          </div>
+          <div class="section-actions">
+            <span id="korea-etf-rebalance-meta"></span>
+            <button class="secondary-button" id="toggle-korea-etf-rebalances" type="button"></button>
+          </div>
+        </div>
+        <div class="table-wrap backtest-table">
+          <table>
+            <thead>
+              <tr>
+                <th>신호월</th>
+                <th>신호일</th>
+                <th>리밸런싱일</th>
+                <th>Core 50%</th>
+                <th>Satellite 40%</th>
+                <th>Defense 10%</th>
+                <th>당시 주도 그룹</th>
+              </tr>
+            </thead>
+            <tbody id="korea-etf-rebalance-body"></tbody>
+          </table>
+        </div>
+        <div class="mobile-card-list backtest-card-list" id="korea-etf-rebalance-cards"></div>
       </section>
     </section>
 

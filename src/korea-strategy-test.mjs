@@ -701,7 +701,7 @@ function simulateCapitalAccount(strategy, priceMap, monthEnds, {
     openValue: round(final.openValue, 2),
     openLotCount: openLots.length,
     curve,
-    ledger: ledger.slice(-80),
+    ledger,
     assumptions: {
       fractionalShares: true,
       rampMonths: 3,
@@ -927,7 +927,7 @@ function simulateEtfRebalanceStrategy({
     openValue: round(final.openValue, 2),
     openLotCount: holdings.size,
     curve,
-    ledger: ledger.slice(-80),
+    ledger,
     assumptions: {
       fractionalShares: true,
       monthlyRebalance: true,

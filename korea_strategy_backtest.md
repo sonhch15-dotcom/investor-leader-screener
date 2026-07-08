@@ -1,24 +1,36 @@
-# 한국 투자 전략 백테스트
+# Korea Strategy Backtest
 
-운용 화면에는 실제 사용할 전략만 남겼습니다.
+Generated: 2026-07-08T09:23:36.429Z
+As of: 2026-07-08
 
-## 표시 전략
+## Caveat
 
-- 한국 우량주 Leader2: 월말 기준 주도 업종 상위 2개에서 각 1개 종목을 선정, 6개월 후 50% 매도, 잔여 50%는 주봉 훼손 시 정리
-- KR ETF Core Satellite 50/40/10: 미국 코어 50%, 강한 위성 ETF 40%, 방어 ETF 10%로 월간 리밸런싱
+- This is a first-pass Korea universe test using current blue-chip stocks and major ETFs. It can contain survivorship bias.
+- Costs, taxes, dividend withholding, pension account restrictions, and live execution slippage are not fully modeled.
 
-## 최신 결과
+## Summary
+
+| Strategy | Trades | Realized | Open | Avg Return | Benchmark | Excess | Win Rate | Portfolio Curve | MDD | 10M Account | Account MDD | Skips |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 한국 우량주 Leader2 | 100 | 83 | 17 | +48.1% | +24.3% | +23.8% | +73.5% | +1755.3% | -34.2% | +386.4% | -15.6% | 22 |
+| KR ETF Core Satellite 50/40/10 | 50 | 0 | 3 | +168.4% | +158.9% | +9.6% | - | +168.4% | -16.0% | +168.4% | -16.0% | 0 |
+
+## 10M KRW Account Assumptions
+
+- Initial capital: 10,000,000 KRW.
+- Fractional shares are allowed, so high-priced Korean stocks can be bought by amount.
+- First 3 months: deploy up to 30% of initial capital per month, split equally across that month's picks.
+- After month 3: deploy up to 15% of initial capital per month, split equally across that month's picks.
+- Per-symbol original-cost cap: 22.5% of initial capital.
+- Sells follow the existing rule: sell 50% after 6 months, keep/sell the rest by weekly trend.
+
+## Current Picks
 
 ### 한국 우량주 Leader2
-- 총수익률: 386.4%
-- 최종 자산: 48,642,532원
-- MDD: -15.6%
-- 매수 건수: 100
-- 현재 후보: 009150.KS 삼성전기, 000660.KS SK하이닉스
+- 009150.KS 삼성전기 / 전자부품: score 79.21, 1M -24.9%, 3M +220.1%, 6M +480.0%
+- 000660.KS SK하이닉스 / 반도체: score 78.55, 1M -6.3%, 3M +134.3%, 6M +219.5%
 
 ### KR ETF Core Satellite 50/40/10
-- 총수익률: 168.4%
-- 최종 자산: 26,843,894원
-- MDD: -16.0%
-- 매수 건수: 50
-- 현재 후보: 360750.KS TIGER 미국S&P500, 395160.KS KODEX 시스템반도체, 458730.KS TIGER 미국배당다우존스
+- 360750.KS TIGER 미국S&P500 / 미국 대표지수: score 76.78, 1M +0.2%, 3M +13.7%, 6M +13.4%
+- 395160.KS KODEX 시스템반도체 / 반도체: score 77.12, 1M -14.6%, 3M +71.6%, 6M +145.5%
+- 458730.KS TIGER 미국배당다우존스 / 미국 배당: score 72.35, 1M +0.4%, 3M +6.9%, 6M +23.6%

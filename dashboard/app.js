@@ -2,11 +2,13 @@ let dashboard = null;
 let koreaDashboard = null;
 let showAllMonthlyExits = false;
 let showAllRealizedTrades = false;
+let showAllKoreaEtfRebalances = false;
 let accountState = null;
 let koreaAccountState = null;
 
 const RECENT_MONTHLY_EXIT_LIMIT = 12;
 const RECENT_REALIZED_TRADE_LIMIT = 24;
+const RECENT_KOREA_REBALANCE_LIMIT = 12;
 const ACCOUNT_STORAGE_KEY = "leader2AccountV1";
 const KOREA_ACCOUNT_STORAGE_KEY = "leader2KoreaAccountV1";
 const KOREA_LIVE_STRATEGY_KEYS = new Set(["kr_stocks", "kr_etf_core_satellite_50_40_10"]);
@@ -1654,6 +1656,107 @@ function koreaLiveStrategies() {
   return (koreaDashboard?.strategies ?? []).filter((strategy) => KOREA_LIVE_STRATEGY_KEYS.has(strategy.key));
 }
 
+function koreaEtfRebalanceRows() {
+  const strategy = koreaStrategyByKey("kr_etf_core_satellite_50_40_10");
+  if (!strategy) return [];
+  const ledgerByDate = new Map();
+  for (const event of strategy.capitalAccount?.ledger ?? []) {
+    if (event.type !== "rebalance") continue;
+    const rows = ledgerByDate.get(event.date) ?? [];
+    rows.push(event);
+    ledgerByDate.set(event.date, rows);
+  }
+  return (strategy.timeline ?? [])
+    .filter((row) => row.tradeDate && (row.rows ?? []).length)
+    .map((row) => {
+      const ledgerRows = ledgerByDate.get(row.tradeDate) ?? [];
+      const allocations = (ledgerRows.length ? ledgerRows : row.rows).map((item) => ({
+        symbol: item.symbol,
+        name: item.name,
+        group: item.group,
+        weight: item.weight,
+        amount: item.amount,
+        price: item.price ?? item.close,
+        r3m: item.r3m
+      })).sort((a, b) => (b.weight ?? 0) - (a.weight ?? 0));
+      return {
+        month: row.month,
+        signalDate: row.signalDate,
+        tradeDate: row.tradeDate,
+        leaders: row.leaders ?? [],
+        allocations
+      };
+    });
+}
+
+function koreaEtfAllocationText(row) {
+  return (row.allocations ?? [])
+    .map((item) => `${weightText(item.weight)} ${item.symbol} ${item.name}`)
+    .join(" / ");
+}
+
+function renderKoreaEtfRebalances() {
+  const allRows = [...koreaEtfRebalanceRows()].reverse();
+  const rows = showAllKoreaEtfRebalances ? allRows : allRows.slice(0, RECENT_KOREA_REBALANCE_LIMIT);
+  const meta = document.getElementById("korea-etf-rebalance-meta");
+  if (meta) {
+    meta.textContent = showAllKoreaEtfRebalances
+      ? `전체 ${allRows.length}개월`
+      : `최근 ${rows.length}개월 / 전체 ${allRows.length}개월`;
+  }
+
+  const roleLabel = (index) => ["Core", "Satellite", "Defense"][index] ?? `ETF ${index + 1}`;
+  const cell = (item, index) => item ? `
+    <strong>${item.symbol}</strong>
+    <div class="sub">${item.name}</div>
+    <div class="sub">${roleLabel(index)} ${weightText(item.weight)} | ${item.group}</div>
+    <div class="sub">${Number.isFinite(item.amount) ? krw(item.amount) : ""}${Number.isFinite(item.price) ? ` @ ${krw(item.price)}` : ""}</div>
+  ` : "-";
+
+  const body = document.getElementById("korea-etf-rebalance-body");
+  if (body) body.innerHTML = rows.map((row) => `
+    <tr>
+      <td>${row.month}</td>
+      <td>${row.signalDate}</td>
+      <td>${row.tradeDate}</td>
+      <td>${cell(row.allocations[0], 0)}</td>
+      <td>${cell(row.allocations[1], 1)}</td>
+      <td>${cell(row.allocations[2], 2)}</td>
+      <td>${(row.leaders ?? []).slice(0, 3).map((leader) => `${leader.group} ${number(leader.leadershipScore, 1)}`).join(" / ")}</td>
+    </tr>
+  `).join("");
+
+  const cards = document.getElementById("korea-etf-rebalance-cards");
+  if (cards) cards.innerHTML = rows.map((row) => `
+    <article class="result-card">
+      <div class="card-head">
+        <div>
+          <h3>${row.month} ETF 리밸런싱</h3>
+          <p>신호 ${row.signalDate} | 체결 ${row.tradeDate}</p>
+        </div>
+        <strong>${row.allocations.length}개</strong>
+      </div>
+      <div class="metric-line">
+        ${(row.allocations ?? []).map((item, index) => `
+          <span>${roleLabel(index)} ${weightText(item.weight)} ${item.symbol}</span>
+        `).join("")}
+      </div>
+      <p class="reason">${koreaEtfAllocationText(row)}</p>
+      <p class="reason">주도 그룹: ${(row.leaders ?? []).slice(0, 3).map((leader) => leader.group).join(" / ")}</p>
+    </article>
+  `).join("");
+
+  const button = document.getElementById("toggle-korea-etf-rebalances");
+  if (button) {
+    button.hidden = allRows.length <= RECENT_KOREA_REBALANCE_LIMIT;
+    button.textContent = showMoreLabel(showAllKoreaEtfRebalances, rows.length, allRows.length);
+    button.onclick = () => {
+      showAllKoreaEtfRebalances = !showAllKoreaEtfRebalances;
+      renderKoreaEtfRebalances();
+    };
+  }
+}
+
 function koreaStrategyByKey(key) {
   return (koreaDashboard?.strategies ?? []).find((strategy) => strategy.key === key) ?? null;
 }
@@ -2036,6 +2139,22 @@ function renderKoreaStart() {
     <article class="kpi"><span>매도 규칙</span><strong>6개월 50%</strong><small>잔여 50%는 주봉 점검</small></article>
   `;
 
+  const etfRules = document.getElementById("korea-etf-rule-cards");
+  if (etfRules) etfRules.innerHTML = `
+    <article>
+      <h3>Core 50%</h3>
+      <p>미국 대표지수/성장주 ETF 중 가장 강한 후보를 고릅니다. 계좌의 안정적인 중심축입니다.</p>
+    </article>
+    <article>
+      <h3>Satellite 40%</h3>
+      <p>그달의 주도 섹터/테마 ETF를 고릅니다. 반도체, 금융, 2차전지처럼 월별 주도 그룹이 바뀌면 이 40%가 바뀔 수 있습니다.</p>
+    </article>
+    <article>
+      <h3>Defense 10%</h3>
+      <p>채권, 원자재, 미국 배당 ETF 중 상대적으로 좋은 방어 후보를 둡니다. 매월 말 확정 후 다음 거래일에 50/40/10으로 다시 맞춥니다.</p>
+    </article>
+  `;
+
   document.getElementById("korea-start-etf").innerHTML = (etf?.currentPicks ?? []).map((row) => `
     <article class="planner-card buy">
       <strong>${row.symbol}</strong>
@@ -2210,6 +2329,8 @@ function renderKoreaEmpty() {
   document.getElementById("korea-summary-cards").innerHTML = "";
   document.getElementById("korea-trades-body").innerHTML = "";
   document.getElementById("korea-trades-cards").innerHTML = "";
+  document.getElementById("korea-etf-rebalance-body").innerHTML = "";
+  document.getElementById("korea-etf-rebalance-cards").innerHTML = "";
 }
 
 function renderKorea() {
@@ -2353,6 +2474,8 @@ function renderKorea() {
       <p class="reason">${row.status} ${(row.events ?? []).map((event) => `${event.date} ${event.reason}`).join(" / ")}</p>
     </article>
   `).join("");
+
+  renderKoreaEtfRebalances();
 }
 
 function renderRules() {

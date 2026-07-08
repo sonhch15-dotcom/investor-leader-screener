@@ -161,6 +161,17 @@ main {
   font-size: 13px;
 }
 
+.section-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
 .leader-layout {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
