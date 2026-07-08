@@ -268,87 +268,147 @@ const plannerModes = {
   }
 };
 
+const fallbackFxRate = 1380;
+
 function parseAmount(value) {
   const numeric = Number(String(value ?? "").replace(/[^0-9.-]/g, ""));
   return Number.isFinite(numeric) ? numeric : 0;
 }
 
-function krw(value) {
-  if (!Number.isFinite(value)) return "-";
-  return `${Math.round(value).toLocaleString("ko-KR")}원`;
+function formatIntegerInput(input) {
+  const value = parseAmount(input.value);
+  input.value = value ? Math.round(value).toLocaleString("ko-KR") : "";
 }
 
-function parseExistingCosts(text) {
-  const costs = new Map();
-  for (const line of String(text ?? "").split(/\n+/)) {
-    const match = line.trim().match(/^([A-Za-z.]+)\s*[:=,\s]\s*([0-9,]+)/);
-    if (!match) continue;
-    costs.set(match[1].toUpperCase(), parseAmount(match[2]));
-  }
-  return costs;
+function krw(value) {
+  if (!Number.isFinite(value)) return "-";
+  return `₩${Math.round(value).toLocaleString("ko-KR")}`;
+}
+
+function usd(value) {
+  if (!Number.isFinite(value)) return "-";
+  return `$${value.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+function monthKeyFromDate(value) {
+  return String(value ?? "").slice(0, 7);
+}
+
+function monthDiff(startMonth, endMonth) {
+  if (!/^\d{4}-\d{2}$/.test(startMonth) || !/^\d{4}-\d{2}$/.test(endMonth)) return 0;
+  const [startYear, startM] = startMonth.split("-").map(Number);
+  const [endYear, endM] = endMonth.split("-").map(Number);
+  return Math.max(0, (endYear - startYear) * 12 + endM - startM);
 }
 
 function plannedBuyAmount(mode, capital, cash, monthsSinceStart) {
   if (mode === plannerModes.ramp) {
     if (monthsSinceStart < mode.rampMonths && cash >= capital * mode.highCashPct) {
-      return { amount: capital * mode.rampPct, reason: "초기 3개월 램프업: 현금이 많아 10% 매수" };
+      return { amount: capital * mode.rampPct, reason: "초기 3개월 램프업: 현금이 충분해 자본금의 10% 매수" };
     }
     if (cash <= capital * mode.lowCashPct) {
-      return { amount: capital * mode.defensivePct, reason: "현금 부족 방어: 5%로 축소" };
+      return { amount: capital * mode.defensivePct, reason: "현금 부족 방어: 자본금의 5%로 축소" };
     }
   }
   return { amount: capital * mode.normalPct, reason: `${mode.label} 기본 비중` };
 }
 
+function sharePlan(row, krwBudget, fxRate, shareMode) {
+  const price = row.close;
+  const usdBudget = fxRate > 0 ? krwBudget / fxRate : 0;
+  if (!Number.isFinite(price) || price <= 0 || usdBudget <= 0) {
+    return { shares: 0, usdUsed: 0, krwUsed: 0, leftoverKrw: krwBudget };
+  }
+  const rawShares = usdBudget / price;
+  const shares = shareMode === "fractional" ? rawShares : Math.floor(rawShares);
+  const usdUsed = shares * price;
+  const krwUsed = usdUsed * fxRate;
+  return {
+    shares,
+    usdUsed,
+    krwUsed,
+    leftoverKrw: Math.max(0, krwBudget - krwUsed)
+  };
+}
+
+function allocationGradient(rows) {
+  const colors = ["#2563eb", "#16a34a", "#f59e0b", "#94a3b8"];
+  let cursor = 0;
+  const parts = rows.map((row, index) => {
+    const start = cursor;
+    cursor += row.pct;
+    return `${colors[index % colors.length]} ${start}% ${cursor}%`;
+  });
+  parts.push(`#e5e7eb ${cursor}% 100%`);
+  return `conic-gradient(${parts.join(", ")})`;
+}
+
 function buildPlannerPlan() {
+  const currentMonth = monthKeyFromDate(dashboard.asOf);
+  const startMonth = document.getElementById("planner-start-month")?.value || currentMonth;
   const capital = Math.max(0, parseAmount(document.getElementById("planner-capital")?.value));
   let cash = Math.max(0, parseAmount(document.getElementById("planner-cash")?.value));
-  const monthsSinceStart = Math.max(0, parseAmount(document.getElementById("planner-months")?.value));
+  const fxRate = Math.max(0, parseAmount(document.getElementById("planner-fx")?.value) || fallbackFxRate);
+  const shareMode = document.getElementById("planner-share-mode")?.value ?? "whole";
+  const monthsSinceStart = monthDiff(startMonth, currentMonth);
   const mode = plannerModes[document.getElementById("planner-mode")?.value] ?? plannerModes.ramp;
-  const existingCosts = parseExistingCosts(document.getElementById("planner-existing")?.value);
   const minOrder = Math.max(100_000, capital * 0.01);
   const reserve = capital * (mode.reservePct ?? 0);
   const buys = [];
+  const isFutureStart = startMonth > currentMonth;
+  const candidates = isFutureStart ? [] : (dashboard.currentBuys ?? []);
 
-  for (const row of dashboard.currentBuys ?? []) {
-    const symbol = row.symbol.toUpperCase();
-    const existingCost = existingCosts.get(symbol) ?? 0;
+  for (const row of candidates) {
     const capAmount = capital * mode.capPct;
-    const capRoom = Math.max(0, capAmount - existingCost);
     const planned = plannedBuyAmount(mode, capital, cash, monthsSinceStart);
     const deployableCash = Math.max(0, cash - reserve);
-    const amount = Math.min(planned.amount, capRoom, deployableCash);
-    const action = amount >= minOrder ? "buy" : "skip";
-    const reason = capRoom < minOrder
-      ? `동일 종목 한도 ${krw(capAmount)}에 근접`
-      : deployableCash < minOrder
-        ? `현금 방어선 ${krw(reserve)} 때문에 대기`
+    const budget = Math.min(planned.amount, capAmount, deployableCash);
+    const shares = sharePlan(row, budget, fxRate, shareMode);
+    const amount = shareMode === "fractional" ? budget : shares.krwUsed;
+    const action = amount >= minOrder && shares.shares > 0 ? "buy" : "skip";
+    const reason = deployableCash < minOrder
+      ? `현금 방어선 ${krw(reserve)} 때문에 대기`
+      : shareMode === "whole" && shares.shares < 1
+        ? "1주 매수에 필요한 달러 예산이 부족해 대기"
         : planned.reason;
     buys.push({
       ...row,
-      existingCost,
       capAmount,
-      capRoom,
-      plannedAmount: planned.amount,
+      budget,
       amount,
+      usdBudget: budget / fxRate,
+      shares: shares.shares,
+      usdUsed: shares.usdUsed,
+      krwUsed: amount,
+      leftoverKrw: shares.leftoverKrw,
       action,
       reason
     });
     if (action === "buy") cash -= amount;
   }
 
-  const sellRows = sortActionRows((dashboard.portfolio.holdings ?? []).filter((row) => (
-    row.status === "sell_due" || row.status === "extended" || row.status === "hold"
-  ))).slice(0, 10);
+  const totalBuy = buys.reduce((sum, row) => sum + (row.action === "buy" ? row.amount : 0), 0);
+  const allocationRows = buys.filter((row) => row.action === "buy").map((row) => ({
+    symbol: row.symbol,
+    amount: row.amount,
+    pct: capital > 0 ? row.amount / capital * 100 : 0
+  }));
 
   return {
     capital,
     startingCash: Math.max(0, parseAmount(document.getElementById("planner-cash")?.value)),
     endingCash: cash,
+    fxRate,
+    shareMode,
+    startMonth,
+    currentMonth,
     monthsSinceStart,
+    isFutureStart,
     mode,
     buys,
-    sellRows,
+    totalBuy,
+    allocationRows,
+    cashPct: capital > 0 ? Math.max(0, cash) / capital * 100 : 0,
     reserve,
     minOrder
   };
@@ -358,58 +418,100 @@ function renderPlanner() {
   const target = document.getElementById("planner-summary");
   if (!target || !dashboard) return;
   const plan = buildPlannerPlan();
-  const totalBuy = plan.buys.reduce((sum, row) => sum + (row.action === "buy" ? row.amount : 0), 0);
   const skipped = plan.buys.filter((row) => row.action !== "buy").length;
+  const signalMeta = document.getElementById("planner-signal-meta");
+  if (signalMeta) {
+    signalMeta.textContent = `${plan.currentMonth} ${plan.startMonth === plan.currentMonth ? "현재 후보" : "현재월 기준"} | 환율 ${plan.fxRate.toLocaleString("ko-KR")}`;
+  }
+  const donut = document.getElementById("planner-donut");
+  if (donut) {
+    donut.style.background = allocationGradient(plan.allocationRows);
+    donut.innerHTML = `
+      <div>
+        <span>매수 비중</span>
+        <strong>${plainPercent(plan.capital ? plan.totalBuy / plan.capital : 0)}</strong>
+        <small>현금 ${plainPercent(plan.cashPct / 100)}</small>
+      </div>
+    `;
+  }
   target.innerHTML = `
-    <article class="kpi"><span>운용 모드</span><strong>${plan.mode.label}</strong><small>자본금 ${krw(plan.capital)}</small></article>
-    <article class="kpi"><span>이번 달 매수 예정</span><strong>${krw(totalBuy)}</strong><small>${plan.buys.length - skipped}건 실행 / ${skipped}건 대기</small></article>
-    <article class="kpi"><span>예상 잔여 현금</span><strong>${krw(plan.endingCash)}</strong><small>시작 현금 ${krw(plan.startingCash)}</small></article>
+    <article class="kpi"><span>운용 모드</span><strong>${plan.mode.label}</strong><small>시작월 ${plan.startMonth}</small></article>
+    <article class="kpi"><span>이번 달 매수 예정</span><strong>${krw(plan.totalBuy)}</strong><small>${usd(plan.totalBuy / plan.fxRate)} | ${plan.buys.length - skipped}건 실행 / ${skipped}건 대기</small></article>
+    <article class="kpi"><span>예상 잔여 현금</span><strong>${krw(plan.endingCash)}</strong><small>${usd(plan.endingCash / plan.fxRate)} | 시작 현금 ${krw(plan.startingCash)}</small></article>
     <article class="kpi"><span>종목당 한도</span><strong>${plainPercent(plan.mode.capPct)}</strong><small>최소 주문 ${krw(plan.minOrder)}</small></article>
   `;
 
-  document.getElementById("planner-buys").innerHTML = plan.buys.map((row) => `
+  document.getElementById("planner-buys").innerHTML = plan.isFutureStart
+    ? `<p class="empty-state">투자 시작월이 현재 데이터 월(${plan.currentMonth})보다 늦습니다. 해당 월 데이터가 생기면 신규 후보 2개를 계산합니다.</p>`
+    : plan.buys.map((row) => `
     <article class="planner-card ${row.action}">
       <div>
         <strong>${row.symbol}</strong>
         <span>${row.name} | ${row.sector}</span>
       </div>
-      <b>${row.action === "buy" ? krw(row.amount) : "대기"}</b>
+      <b>${row.action === "buy" ? `${krw(row.amount)} / ${usd(row.usdUsed)}` : "대기"}</b>
       <p>${row.reason}</p>
-      <small>기존 입력 원금 ${krw(row.existingCost)} / 종목 한도 ${krw(row.capAmount)} / 한도 여유 ${krw(row.capRoom)}</small>
+      <small>예상 주문: ${plan.shareMode === "fractional" ? row.shares.toFixed(4) : Math.floor(row.shares)}주 @ ${usd(row.close)} | 예산 ${krw(row.budget)} | 종목 한도 ${krw(row.capAmount)}</small>
     </article>
   `).join("");
 
-  document.getElementById("planner-sells").innerHTML = plan.sellRows.length
-    ? plan.sellRows.map((row) => `
-      <article class="planner-card ${row.status}">
-        <div>
-          <strong>${row.symbol}</strong>
-          <span>${row.cohort} 추천 | ${row.sector}</span>
-        </div>
-        <b>${clearStatusLabel(row.status)}</b>
-        <p>${lotStatusText(row)}</p>
-        <small>${lotNextActionText(row)}</small>
-      </article>
-    `).join("")
-    : `<p class="empty-state">현재 매도 점검 대상이 없습니다.</p>`;
+  document.getElementById("planner-weekly").innerHTML = `
+    <ol class="flow-list">
+      <li><strong>월초/현재:</strong> ${plan.currentMonth} 후보 2개를 확인합니다. 월중 데이터는 관찰 후보이며, 실제 매수 기준은 월말 확정 신호입니다.</li>
+      <li><strong>매수 후 매주:</strong> 새 종목을 더 사는 것이 아니라 보유 종목의 주봉 추세와 6개월 50% 매도 예정일을 점검합니다.</li>
+      <li><strong>다음 달:</strong> 새 월의 추천 2개가 나오면 남은 현금과 새 자본금 기준으로 매수금을 다시 계산합니다.</li>
+      <li><strong>6개월 후:</strong> 각 매수 건별로 50%를 기본 매도하고, 나머지 50%는 주봉 조건이 유지될 때만 연장합니다.</li>
+    </ol>
+  `;
 
   document.getElementById("planner-rules").innerHTML = `
     <ul class="rule-list">
-      <li><strong>자본금 증가:</strong> 다음 월 리밸런싱부터 새 자본금 기준으로 매수금과 종목 한도를 다시 계산합니다. 이미 지난 달 신호를 억지로 따라 사지는 않습니다.</li>
-      <li><strong>자본금 감소/출금:</strong> 현금으로 먼저 처리합니다. 부족하면 잔여 매도 필요 종목, 주봉 약화 연장 종목, 동일 종목 한도 초과분 순서로 줄입니다.</li>
-      <li><strong>현금 부족:</strong> 이번 달 추천 2개 중 중복 종목보다 신규 섹터/신규 종목을 우선하고, 최소 주문금액보다 작으면 대기합니다.</li>
-      <li><strong>중복 추천:</strong> 같은 종목은 누적 원금이 종목 한도를 넘지 않는 범위에서만 추가 매수합니다.</li>
-      <li><strong>수익/손실 변동:</strong> 매월 총 자본금과 현금을 다시 입력해 다음 매수금만 조정합니다. 기존 보유분은 전략상 매도일과 주봉 조건으로 관리합니다.</li>
+      <li><strong>과거 추천:</strong> 시작월 이전 후보는 매수하지 않습니다. 새 계좌는 현재 월 후보부터 기록을 쌓습니다.</li>
+      <li><strong>환율:</strong> 자동 조회 환율을 기본으로 쓰되, 실제 환전 환율과 수수료가 다르면 직접 수정합니다.</li>
+      <li><strong>자본금 증가:</strong> 다음 월 리밸런싱부터 새 자본금 기준으로 매수금과 종목 한도를 다시 계산합니다.</li>
+      <li><strong>자본금 감소/출금:</strong> 현금으로 먼저 처리합니다. 부족하면 매도 예정분, 주봉 약화분, 동일 종목 한도 초과분 순서로 줄입니다.</li>
+      <li><strong>현금 부족:</strong> 이번 달 후보 2개 중 중복 종목보다 신규 섹터/신규 종목을 우선하고, 최소 주문금액보다 작으면 대기합니다.</li>
+      <li><strong>1주 단위 주문:</strong> 달러 예산으로 살 수 있는 정수 주식 수를 계산하고, 남는 달러는 다음 매수 현금으로 남깁니다.</li>
     </ul>
   `;
+}
+
+async function updateFxRate() {
+  const input = document.getElementById("planner-fx");
+  if (!input) return;
+  try {
+    const response = await fetch("https://open.er-api.com/v6/latest/USD", { cache: "no-store" });
+    if (!response.ok) return;
+    const data = await response.json();
+    const rate = data?.rates?.KRW;
+    if (Number.isFinite(rate)) {
+      input.value = Math.round(rate).toLocaleString("ko-KR");
+      renderPlanner();
+    }
+  } catch {
+    input.value = Math.round(parseAmount(input.value) || fallbackFxRate).toLocaleString("ko-KR");
+  }
 }
 
 function setupPlanner() {
   const form = document.getElementById("investment-planner-form");
   if (!form) return;
+  const currentMonth = monthKeyFromDate(dashboard?.asOf);
+  const startMonth = document.getElementById("planner-start-month");
+  if (startMonth && !startMonth.value) startMonth.value = currentMonth;
+  ["planner-capital", "planner-cash", "planner-fx"].forEach((id) => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    formatIntegerInput(input);
+    input.addEventListener("blur", () => {
+      formatIntegerInput(input);
+      renderPlanner();
+    });
+  });
   form.addEventListener("input", renderPlanner);
   form.addEventListener("change", renderPlanner);
   renderPlanner();
+  updateFxRate();
 }
 
 function miniChart(row) {
