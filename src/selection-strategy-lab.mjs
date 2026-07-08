@@ -281,7 +281,7 @@ function summarizeStrategy(periods, strategy, periodFilter = () => true, robust 
     emptyPeriods: detailRows.filter((row) => row.selectedCount === 0).length,
     averageSelectedCount: avg(detailRows.map((row) => row.selectedCount)),
     horizons: horizonsSummary,
-    details: detailRows
+    latestSelection: detailRows.at(-1)
   };
 }
 

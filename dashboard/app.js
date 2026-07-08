@@ -1141,7 +1141,7 @@ function buildStrategyCatalog() {
     }
   ];
   const bestSelectionRule = selectionStrategyLab?.rankings?.all6m?.[0];
-  const bestDetail = bestSelectionRule?.details?.at?.(-1);
+  const bestDetail = bestSelectionRule?.latestSelection;
   if (bestSelectionRule) {
     catalog.push({
       id: "us_conviction_diverse_top2_candidate",

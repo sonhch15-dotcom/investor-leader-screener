@@ -1,6 +1,6 @@
 # Selection Strategy Lab
 
-Generated at: 2026-07-08T14:35:32.092Z
+Generated at: 2026-07-08T14:38:15.942Z
 Source: data\monthly-selection-test.json
 Periods: 36
 Test target: monthly 2-stock selection from saved Top20 candidates.
