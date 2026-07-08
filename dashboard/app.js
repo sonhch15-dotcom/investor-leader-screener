@@ -82,6 +82,166 @@ function tag(text, className = "") {
   return `<span class="tag ${className}">${text}</span>`;
 }
 
+function formatDate(value) {
+  return value || "-";
+}
+
+function actionDate(row) {
+  if (row.status === "sell_due") return row.stopDate ?? row.maxExitDate ?? row.halfSellDate;
+  if (row.status === "extended") return row.stopDate ?? row.maxExitDate;
+  if (row.status === "hold") return row.halfSellDate;
+  return row.entryDate;
+}
+
+function groupStatus(rows) {
+  if (rows.some((row) => row.status === "sell_due")) return "sell_due";
+  if (rows.some((row) => row.status === "extended")) return "extended";
+  if (rows.some((row) => row.status === "new")) return "new";
+  return "hold";
+}
+
+function groupHoldings(rows) {
+  const groups = new Map();
+  for (const row of rows) {
+    const current = groups.get(row.symbol) ?? {
+      symbol: row.symbol,
+      name: row.name,
+      sector: row.sector,
+      currentPrice: row.currentPrice,
+      tradingViewUrl: row.tradingViewUrl,
+      yahooUrl: row.yahooUrl,
+      lots: []
+    };
+    current.lots.push(row);
+    if (Number.isFinite(row.currentPrice)) current.currentPrice = row.currentPrice;
+    groups.set(row.symbol, current);
+  }
+
+  return Array.from(groups.values()).map((group) => {
+    const lots = sortByRecentCohort(group.lots);
+    const investedLots = lots.filter((row) => row.status !== "new");
+    const weightedLots = investedLots.filter((row) => Number.isFinite(row.entryPrice) && Number.isFinite(row.remainingWeight));
+    const totalWeight = weightedLots.reduce((sum, row) => sum + row.remainingWeight, 0);
+    const averageEntry = totalWeight
+      ? weightedLots.reduce((sum, row) => sum + row.entryPrice * row.remainingWeight, 0) / totalWeight
+      : null;
+    const currentReturn = Number.isFinite(averageEntry) && Number.isFinite(group.currentPrice) && averageEntry
+      ? group.currentPrice / averageEntry - 1
+      : null;
+    return {
+      ...group,
+      lots,
+      status: groupStatus(lots),
+      totalWeight,
+      averageEntry,
+      currentReturn,
+      nextDate: lots.map(actionDate).filter(Boolean).sort()[0] ?? null,
+      sellDueCount: lots.filter((row) => row.status === "sell_due").length,
+      extendedCount: lots.filter((row) => row.status === "extended").length
+    };
+  }).sort((a, b) => {
+    const priority = { sell_due: 0, extended: 1, hold: 2, new: 3 };
+    const priorityCompare = (priority[a.status] ?? 99) - (priority[b.status] ?? 99);
+    if (priorityCompare !== 0) return priorityCompare;
+    return String(a.nextDate ?? "9999").localeCompare(String(b.nextDate ?? "9999"));
+  });
+}
+
+function lotLine(row) {
+  const firstSell = row.status === "new"
+    ? "진입 대기"
+    : `50% 매도 ${formatDate(row.halfSellDate)}`;
+  const remainingSell = row.status === "sell_due"
+    ? `잔여 매도 ${formatDate(row.stopDate ?? row.maxExitDate)}`
+    : row.status === "extended"
+      ? `잔여 50% 연장 중, 최대 ${formatDate(row.maxExitDate)}`
+      : `잔여 판단 ${formatDate(row.halfSellDate)}`;
+  return `
+    <li>
+      <strong>${row.cohort}</strong>
+      <span>매수 ${formatDate(row.entryDate)} @ ${money(row.entryPrice)}</span>
+      <span class="${signedClass(row.currentReturn)}">현재 ${percent(row.currentReturn)}</span>
+      <span>${firstSell}</span>
+      <span>${remainingSell}</span>
+    </li>
+  `;
+}
+
+function lotList(rows) {
+  return `<ul class="lot-list">${rows.map(lotLine).join("")}</ul>`;
+}
+
+function eventLine(event) {
+  return `
+    <li>
+      <strong>${event.date}</strong>
+      <span>${event.symbol} ${sellReasonLabel(event.reason)}</span>
+      <span>${event.cohort} 추천</span>
+      <span class="${signedClass(event.return)}">${percent(event.return)}</span>
+    </li>
+  `;
+}
+
+function tradeSellEvents(row) {
+  const events = row.sellEvents?.length
+    ? row.sellEvents
+    : (row.sellDates ?? []).map((date, index) => ({
+      date,
+      month: String(date).slice(0, 7),
+      reason: row.sellReasons?.[index] ?? "sell",
+      weight: (row.sellDates ?? []).length >= 2 ? 0.5 : 1,
+      price: row.exitPrice,
+      return: row.return
+    }));
+  return events.map((event) => ({
+    ...event,
+    symbol: event.symbol ?? row.symbol,
+    name: event.name ?? row.name,
+    sector: event.sector ?? row.sector,
+    cohort: event.cohort ?? row.cohort,
+    entryDate: event.entryDate ?? row.entryDate,
+    entryPrice: event.entryPrice ?? row.entryPrice
+  }));
+}
+
+function monthlySellEventRows() {
+  const generated = dashboard.backtest.monthlySellEvents ?? [];
+  if (generated.length) return generated;
+
+  const groups = new Map();
+  for (const trade of dashboard.backtest.realizedTrades ?? []) {
+    for (const event of tradeSellEvents(trade)) {
+      const current = groups.get(event.month) ?? {
+        month: event.month,
+        events: [],
+        fixedCount: 0,
+        remainingCount: 0,
+        symbols: [],
+        weightedReturnSum: 0,
+        returnWeight: 0
+      };
+      current.events.push(event);
+      if (event.reason === "half_fixed_6m") current.fixedCount += 1;
+      else current.remainingCount += 1;
+      if (!current.symbols.includes(event.symbol)) current.symbols.push(event.symbol);
+      if (Number.isFinite(event.return)) {
+        current.weightedReturnSum += event.return * (event.weight ?? 1);
+        current.returnWeight += event.weight ?? 1;
+      }
+      groups.set(event.month, current);
+    }
+  }
+  return Array.from(groups.values()).map((row) => ({
+    month: row.month,
+    eventCount: row.events.length,
+    fixedCount: row.fixedCount,
+    remainingCount: row.remainingCount,
+    symbols: row.symbols,
+    averageEventReturn: row.weightedReturnSum / Math.max(1, row.returnWeight),
+    events: row.events.sort((a, b) => String(a.date).localeCompare(String(b.date)))
+  })).sort((a, b) => String(a.month).localeCompare(String(b.month)));
+}
+
 function miniChart(row) {
   const chart = row.chart ?? [];
   if (chart.length < 2) return `<div class="mini-chart empty">차트 데이터 없음</div>`;
@@ -238,6 +398,81 @@ function renderSellDue() {
     : `<p class="empty-state">이번 리밸런싱에서 50% 매도/연장 점검할 종목이 없습니다.</p>`;
 }
 
+function renderGroupedHoldings() {
+  const holdings = sortByRecentCohort(dashboard.portfolio.holdings ?? []);
+  const groups = groupHoldings(holdings);
+  const totalLots = groups.reduce((sum, group) => sum + group.lots.length, 0);
+  const table = document.getElementById("holdings-body").closest("table");
+  table.querySelector("thead").innerHTML = `
+    <tr>
+      <th>종목</th>
+      <th>섹터</th>
+      <th>추천/매수 묶음</th>
+      <th>평균 보유가</th>
+      <th>현재가</th>
+      <th>통합 수익률</th>
+      <th>상태</th>
+      <th>다음 매도/점검</th>
+      <th>링크</th>
+    </tr>
+  `;
+  document.getElementById("holdings-meta").textContent = `종목 ${groups.length}개 | 추천 묶음 ${totalLots}개`;
+  document.getElementById("holdings-body").innerHTML = groups.map((group) => `
+    <tr>
+      <td><strong>${group.symbol}</strong><div class="sub">${group.name}</div></td>
+      <td>${group.sector}</td>
+      <td>${lotList(group.lots)}</td>
+      <td class="num">${money(group.averageEntry)}</td>
+      <td class="num">${money(group.currentPrice)}</td>
+      <td class="num ${signedClass(group.currentReturn)}">${percent(group.currentReturn)}</td>
+      <td>${tag(statusLabel(group.status), group.status)}<div class="sub">남은 비중 ${number(group.totalWeight, 1)}</div></td>
+      <td><strong>${formatDate(group.nextDate)}</strong><div class="sub">${group.sellDueCount ? `${group.sellDueCount}건 잔여 매도 필요` : group.extendedCount ? `${group.extendedCount}건 주봉 연장 중` : "6개월 50% 매도일 대기"}</div></td>
+      <td><a href="${group.tradingViewUrl}" target="_blank" rel="noreferrer">차트</a></td>
+    </tr>
+  `).join("");
+
+  document.getElementById("holdings-cards").innerHTML = groups.map((group) => `
+    <article class="mobile-holding">
+      <div class="card-head">
+        <div>
+          <h3>${group.symbol}</h3>
+          <p>${group.sector} | 추천 묶음 ${group.lots.length}개</p>
+        </div>
+        ${tag(statusLabel(group.status), group.status)}
+      </div>
+      <div class="mobile-price">
+        <span>평균 ${money(group.averageEntry)} → 현재 ${money(group.currentPrice)}</span>
+        <strong class="${signedClass(group.currentReturn)}">${percent(group.currentReturn)}</strong>
+      </div>
+      ${lotList(group.lots)}
+      <p class="reason"><strong>다음 점검 ${formatDate(group.nextDate)}</strong> | ${group.sellDueCount ? `${group.sellDueCount}건 잔여 매도 필요` : group.extendedCount ? `${group.extendedCount}건 주봉 연장 중` : "6개월 50% 매도일 대기"}</p>
+      <div class="links">
+        <a href="${group.tradingViewUrl}" target="_blank" rel="noreferrer">TradingView</a>
+        <a href="${group.yahooUrl}" target="_blank" rel="noreferrer">Yahoo</a>
+      </div>
+    </article>
+  `).join("");
+}
+
+function renderGroupedSellDue() {
+  const actionRows = (dashboard.portfolio.holdings ?? []).filter((row) => (
+    row.status === "sell_due" || row.status === "extended"
+  ));
+  const groups = groupHoldings(actionRows);
+  document.getElementById("sell-due").innerHTML = groups.length
+    ? groups.map((group) => `
+      <article class="due-item grouped-due">
+        <div>
+          <strong>${group.symbol}</strong>
+          <span>${group.sector} | ${group.sellDueCount ? `${group.sellDueCount}건 잔여 매도 필요` : `${group.extendedCount}건 연장 보유`}</span>
+        </div>
+        ${lotList(group.lots)}
+        <b class="${signedClass(group.currentReturn)}">${percent(group.currentReturn)}</b>
+      </article>
+    `).join("")
+    : `<p class="empty-state">이번 리밸런싱에서 50% 매도/연장 점검할 종목이 없습니다.</p>`;
+}
+
 function linePath(rows, valueKey, xFor, yFor) {
   return rows
     .filter((row) => Number.isFinite(row[valueKey]))
@@ -294,6 +529,56 @@ function showMoreLabel(showAll, visibleCount, totalCount) {
     : `전체 보기 (${totalCount}개)`;
 }
 
+function renderMonthlySellEvents() {
+  const allRows = [...monthlySellEventRows()].reverse();
+  const rows = showAllMonthlyExits ? allRows : allRows.slice(0, RECENT_MONTHLY_EXIT_LIMIT);
+  const table = document.getElementById("monthly-exits-body").closest("table");
+  table.querySelector("thead").innerHTML = `
+    <tr>
+      <th>월</th>
+      <th>실제 매도 이벤트</th>
+      <th>50% 기본매도</th>
+      <th>잔여 매도</th>
+      <th>평균 이벤트 수익률</th>
+      <th>종목</th>
+    </tr>
+  `;
+  document.getElementById("monthly-exit-meta").textContent = showAllMonthlyExits
+    ? `전체 ${allRows.length}개월`
+    : `최근 ${rows.length}개월 / 전체 ${allRows.length}개월`;
+  document.getElementById("monthly-exits-body").innerHTML = rows.map((row) => `
+    <tr>
+      <td>${row.month}</td>
+      <td>${row.eventCount}건<div class="sub">${(row.events ?? []).slice(0, 4).map((event) => `${event.date} ${event.symbol}`).join(" / ")}</div></td>
+      <td class="num">${row.fixedCount}</td>
+      <td class="num">${row.remainingCount}</td>
+      <td class="num ${signedClass(row.averageEventReturn)}">${percent(row.averageEventReturn)}</td>
+      <td><strong>${(row.symbols ?? []).join(", ")}</strong></td>
+    </tr>
+  `).join("");
+
+  document.getElementById("monthly-exits-cards").innerHTML = rows.map((row) => `
+    <article class="result-card">
+      <div class="card-head">
+        <div>
+          <h3>${row.month} 실제 매도</h3>
+          <p>총 ${row.eventCount}건 | 기본 ${row.fixedCount} / 잔여 ${row.remainingCount}</p>
+        </div>
+        <strong class="${signedClass(row.averageEventReturn)}">${percent(row.averageEventReturn)}</strong>
+      </div>
+      <ul class="event-list">${(row.events ?? []).map(eventLine).join("")}</ul>
+    </article>
+  `).join("");
+
+  const button = document.getElementById("toggle-monthly-exits");
+  button.hidden = allRows.length <= RECENT_MONTHLY_EXIT_LIMIT;
+  button.textContent = showMoreLabel(showAllMonthlyExits, rows.length, allRows.length);
+  button.onclick = () => {
+    showAllMonthlyExits = !showAllMonthlyExits;
+    renderMonthlySellEvents();
+  };
+}
+
 function renderMonthlyExits() {
   const allRows = [...(dashboard.backtest.monthlyExits ?? [])].reverse();
   const rows = showAllMonthlyExits ? allRows : allRows.slice(0, RECENT_MONTHLY_EXIT_LIMIT);
@@ -336,6 +621,64 @@ function renderMonthlyExits() {
   button.onclick = () => {
     showAllMonthlyExits = !showAllMonthlyExits;
     renderMonthlyExits();
+  };
+}
+
+function renderDetailedRealizedTrades() {
+  const allRows = [...(dashboard.backtest.realizedTrades ?? [])].reverse();
+  const rows = showAllRealizedTrades ? allRows : allRows.slice(0, RECENT_REALIZED_TRADE_LIMIT);
+  const table = document.getElementById("realized-trades-body").closest("table");
+  table.querySelector("thead").innerHTML = `
+    <tr>
+      <th>추천월</th>
+      <th>종목</th>
+      <th>매수일/매수가</th>
+      <th>매도 이벤트</th>
+      <th>최종 청산월</th>
+      <th>실현 수익률</th>
+      <th>QQQ</th>
+      <th>초과</th>
+    </tr>
+  `;
+  document.getElementById("realized-trade-meta").textContent = showAllRealizedTrades
+    ? `전체 ${allRows.length}개 청산 완료`
+    : `최근 ${rows.length}개 / 전체 ${allRows.length}개`;
+  document.getElementById("realized-trades-body").innerHTML = rows.map((row) => `
+    <tr>
+      <td>${row.cohort}</td>
+      <td><strong>${row.symbol}</strong><div class="sub">${row.name}</div><div class="sub">${row.sector}</div></td>
+      <td>${(row.buyDates ?? []).join(", ")}<div class="sub">@ ${money(row.entryPrice)}</div></td>
+      <td><ul class="event-list">${tradeSellEvents(row).map(eventLine).join("")}</ul></td>
+      <td>${row.exitMonth}</td>
+      <td class="num ${signedClass(row.return)}">${percent(row.return)}</td>
+      <td class="num ${signedClass(row.qqqReturn)}">${percent(row.qqqReturn)}</td>
+      <td class="num ${signedClass(row.excessQqq)}">${percent(row.excessQqq)}</td>
+    </tr>
+  `).join("");
+
+  document.getElementById("realized-trades-cards").innerHTML = rows.map((row) => `
+    <article class="result-card">
+      <div class="card-head">
+        <div>
+          <h3>${row.symbol}</h3>
+          <p>${row.cohort} 추천 | 매수 ${(row.buyDates ?? []).join(", ")}</p>
+        </div>
+        <strong class="${signedClass(row.return)}">${percent(row.return)}</strong>
+      </div>
+      <div class="mobile-price">
+        <span>매수가 ${money(row.entryPrice)}</span>
+        <span class="${signedClass(row.excessQqq)}">QQQ 대비 ${percent(row.excessQqq)}</span>
+      </div>
+      <ul class="event-list">${tradeSellEvents(row).map(eventLine).join("")}</ul>
+    </article>
+  `).join("");
+
+  const button = document.getElementById("toggle-realized-trades");
+  button.hidden = allRows.length <= RECENT_REALIZED_TRADE_LIMIT;
+  button.textContent = showMoreLabel(showAllRealizedTrades, rows.length, allRows.length);
+  button.onclick = () => {
+    showAllRealizedTrades = !showAllRealizedTrades;
+    renderDetailedRealizedTrades();
   };
 }
 
@@ -404,8 +747,8 @@ function renderBacktest() {
 
   renderPerformanceChart();
 
-  renderMonthlyExits();
-  renderRealizedTrades();
+  renderMonthlySellEvents();
+  renderDetailedRealizedTrades();
 
   document.getElementById("yearly-body").innerHTML = (dashboard.backtest.yearly ?? []).map((row) => `
     <tr>
@@ -439,8 +782,8 @@ async function main() {
     renderSummary();
     renderLeaders();
     renderBuys();
-    renderHoldings();
-    renderSellDue();
+    renderGroupedHoldings();
+    renderGroupedSellDue();
     renderBacktest();
     setupTabs();
   } catch (error) {

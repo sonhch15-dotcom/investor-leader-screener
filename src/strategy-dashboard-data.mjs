@@ -520,7 +520,25 @@ function executionRows(scaleExecution) {
     ?.filter((row) => row.entered) ?? null;
 }
 
-function realizedTradesFromExecution(rows) {
+function sellEventsForTrade(row, priceMap) {
+  const priceRows = priceMap?.get(row.symbol) ?? [];
+  const sellDates = row.sellDates ?? [row.firstSellDate, row.lastSellDate].filter(Boolean);
+  const sellReasons = row.sellReasons ?? [];
+  const eventWeight = sellDates.length >= 2 ? 0.5 : 1;
+  return sellDates.map((date, index) => {
+    const price = rowOnOrAfter(priceRows, date)?.close ?? null;
+    return {
+      date,
+      month: monthKey(date),
+      reason: sellReasons[index] ?? "sell",
+      weight: eventWeight,
+      price: round(price, 2),
+      return: round(percentReturn(row.averageBuyPrice, price), 4)
+    };
+  });
+}
+
+function realizedTradesFromExecution(rows, priceMap) {
   if (!rows?.length) return [];
   return sortByDate(rows.map((row) => ({
     cohort: row.cohort,
@@ -539,7 +557,8 @@ function realizedTradesFromExecution(rows) {
     excessQqq: row.excessQqq,
     buyDates: row.buyDates ?? [row.firstBuyDate].filter(Boolean),
     sellDates: row.sellDates ?? [row.firstSellDate, row.lastSellDate].filter(Boolean),
-    sellReasons: row.sellReasons ?? []
+    sellReasons: row.sellReasons ?? [],
+    sellEvents: sellEventsForTrade(row, priceMap)
   })), "exitDate");
 }
 
@@ -597,6 +616,50 @@ function monthlyExits(trades) {
     qqqReturn: round(row.qqqReturnSum / Math.max(1, row.qqqCount), 4),
     excessQqq: round(row.returnSum / row.count - row.qqqReturnSum / Math.max(1, row.qqqCount), 4),
     winRate: round(row.winners / row.count, 4)
+  }));
+}
+
+function monthlySellEvents(trades) {
+  const groups = new Map();
+  for (const trade of trades) {
+    for (const event of trade.sellEvents ?? []) {
+      const current = groups.get(event.month) ?? {
+        month: event.month,
+        events: [],
+        fixedCount: 0,
+        remainingCount: 0,
+        returnWeight: 0,
+        weightedReturnSum: 0,
+        symbols: []
+      };
+      const entry = {
+        ...event,
+        symbol: trade.symbol,
+        name: trade.name,
+        sector: trade.sector,
+        cohort: trade.cohort,
+        entryDate: trade.entryDate,
+        entryPrice: trade.entryPrice
+      };
+      current.events.push(entry);
+      if (event.reason === "half_fixed_6m") current.fixedCount += 1;
+      else current.remainingCount += 1;
+      if (Number.isFinite(event.return)) {
+        current.returnWeight += event.weight;
+        current.weightedReturnSum += event.return * event.weight;
+      }
+      if (!current.symbols.includes(trade.symbol)) current.symbols.push(trade.symbol);
+      groups.set(event.month, current);
+    }
+  }
+  return Array.from(groups.values()).map((row) => ({
+    month: row.month,
+    eventCount: row.events.length,
+    fixedCount: row.fixedCount,
+    remainingCount: row.remainingCount,
+    symbols: row.symbols,
+    averageEventReturn: round(row.weightedReturnSum / Math.max(1, row.returnWeight), 4),
+    events: sortByDate(row.events, "date")
   }));
 }
 
@@ -776,7 +839,7 @@ async function main() {
   const { priceMap, errors } = await fetchPrices(symbols);
   const holdings = buildHoldings(cohorts, priceMap, screener, currentAsOf);
   const realizedTrades = currentExecutionRows?.length
-    ? realizedTradesFromExecution(currentExecutionRows)
+    ? realizedTradesFromExecution(currentExecutionRows, priceMap)
     : strategy5y?.selectionTimeline?.length
       ? buildRealizedTrades(strategy5y, priceMap, strategy5y.holdMonths ?? 6)
       : existingDashboard?.backtest?.realizedTrades ?? [];
@@ -817,6 +880,7 @@ async function main() {
       equityCurve: currentCurve,
       realizedSummary: realizedSummary(realizedTrades),
       monthlyExits: monthlyExits(realizedTrades),
+      monthlySellEvents: monthlySellEvents(realizedTrades),
       realizedTrades,
       comparison: [],
       yearly: currentCurve?.length
