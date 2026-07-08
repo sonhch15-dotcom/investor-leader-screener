@@ -622,7 +622,20 @@ function monthlyExits(trades) {
 function monthlySellEvents(trades) {
   const groups = new Map();
   for (const trade of trades) {
-    for (const event of trade.sellEvents ?? []) {
+    const fallbackEvents = (trade.sellDates ?? []).map((date, index) => ({
+      date,
+      month: monthKey(date),
+      reason: trade.sellReasons?.[index] ?? "sell",
+      weight: (trade.sellDates ?? []).length >= 2 ? 0.5 : 1,
+      price: trade.exitPrice,
+      return: trade.return
+    }));
+    for (const rawEvent of (trade.sellEvents?.length ? trade.sellEvents : fallbackEvents)) {
+      const event = {
+        ...rawEvent,
+        month: rawEvent.month ?? monthKey(rawEvent.date)
+      };
+      if (!event.month) continue;
       const current = groups.get(event.month) ?? {
         month: event.month,
         events: [],
