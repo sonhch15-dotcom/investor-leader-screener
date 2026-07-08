@@ -473,6 +473,200 @@ function renderGroupedSellDue() {
     : `<p class="empty-state">이번 리밸런싱에서 50% 매도/연장 점검할 종목이 없습니다.</p>`;
 }
 
+function clearStatusLabel(status) {
+  return {
+    new: "신규 매수 후보",
+    hold: "보유중",
+    extended: "잔여 물량 유지중",
+    sell_due: "매도 필요"
+  }[status] ?? status;
+}
+
+function clearStatusTag(status) {
+  return `<span class="tag ${status}">${clearStatusLabel(status)}</span>`;
+}
+
+function clearWeeklyTrendText(row) {
+  const trend = row.weeklyTrend ?? {};
+  if (!trend.date) return "주봉 데이터 없음";
+  const state = trend.alive ? "주봉 유지" : "주봉 약화";
+  return `${state} | 10W ${money(trend.ma10)} | RSI ${number(trend.rsi14, 1)}`;
+}
+
+function lotPositionWeight(row) {
+  if (row.status === "new") return 0;
+  if (row.status === "hold") return 1;
+  return 0.5;
+}
+
+function lotStatusText(row) {
+  if (row.status === "new") return "신규 매수 후보";
+  if (row.status === "hold") return `보유중 | 50% 매도 예정 ${formatDate(row.halfSellDate)}`;
+  if (row.status === "extended") return `50% 매도 완료 | 나머지 50% 유지중 | 최대 ${formatDate(row.maxExitDate)}`;
+  if (row.status === "sell_due") return `50% 매도 완료 | 잔여 물량 매도 필요 ${formatDate(row.stopDate ?? row.maxExitDate ?? row.halfSellDate)}`;
+  return row.actionLabel ?? "-";
+}
+
+function lotNextActionText(row) {
+  if (row.status === "new") return `매수 기준일 ${formatDate(row.entryDate)}`;
+  if (row.status === "hold") return `다음 행동: ${formatDate(row.halfSellDate)} 50% 기본 매도`;
+  if (row.status === "extended") return `잔여 50%: ${clearWeeklyTrendText(row)}`;
+  if (row.status === "sell_due") return `매도 사유: ${row.stopReason ?? row.remainingSellRule ?? "전략상 잔여 매도 조건 도달"}`;
+  return row.remainingSellRule ?? "-";
+}
+
+function buildSymbolGroups(rows) {
+  const groups = new Map();
+  for (const row of rows) {
+    const group = groups.get(row.symbol) ?? {
+      symbol: row.symbol,
+      name: row.name,
+      sector: row.sector,
+      currentPrice: row.currentPrice,
+      tradingViewUrl: row.tradingViewUrl,
+      yahooUrl: row.yahooUrl,
+      lots: []
+    };
+    group.lots.push(row);
+    if (Number.isFinite(row.currentPrice)) group.currentPrice = row.currentPrice;
+    groups.set(row.symbol, group);
+  }
+
+  return Array.from(groups.values()).map((group) => {
+    const lots = sortByRecentCohort(group.lots);
+    const weightedLots = lots
+      .map((row) => ({ row, weight: lotPositionWeight(row) }))
+      .filter((item) => item.weight > 0 && Number.isFinite(item.row.entryPrice));
+    const totalWeight = weightedLots.reduce((sum, item) => sum + item.weight, 0);
+    const averageEntry = totalWeight
+      ? weightedLots.reduce((sum, item) => sum + item.row.entryPrice * item.weight, 0) / totalWeight
+      : null;
+    const aggregateReturn = Number.isFinite(averageEntry) && Number.isFinite(group.currentPrice) && averageEntry
+      ? group.currentPrice / averageEntry - 1
+      : null;
+    const status = groupStatus(lots);
+    const nextDate = lots.map(actionDate).filter(Boolean).sort()[0] ?? null;
+    return {
+      ...group,
+      lots,
+      status,
+      totalBuys: lots.length,
+      totalWeight,
+      averageEntry,
+      aggregateReturn,
+      nextDate,
+      sellDueCount: lots.filter((row) => row.status === "sell_due").length,
+      extendedCount: lots.filter((row) => row.status === "extended").length,
+      holdCount: lots.filter((row) => row.status === "hold").length,
+      newCount: lots.filter((row) => row.status === "new").length
+    };
+  }).sort((a, b) => {
+    const priority = { sell_due: 0, extended: 1, hold: 2, new: 3 };
+    const priorityCompare = (priority[a.status] ?? 99) - (priority[b.status] ?? 99);
+    if (priorityCompare !== 0) return priorityCompare;
+    return String(a.symbol).localeCompare(String(b.symbol));
+  });
+}
+
+function symbolStatusSummary(group) {
+  const parts = [];
+  if (group.sellDueCount) parts.push(`매도 필요 ${group.sellDueCount}건`);
+  if (group.extendedCount) parts.push(`나머지 물량 유지 ${group.extendedCount}건`);
+  if (group.holdCount) parts.push(`보유중 ${group.holdCount}건`);
+  if (group.newCount) parts.push(`신규 후보 ${group.newCount}건`);
+  return parts.join(" / ") || "-";
+}
+
+function symbolLotList(lots) {
+  return `<ul class="symbol-lot-list">${lots.map((row) => `
+    <li class="${row.status}">
+      <div class="lot-top">
+        <strong>${row.cohort} 추천</strong>
+        ${clearStatusTag(row.status)}
+      </div>
+      <div class="lot-grid">
+        <span>매수일</span><b>${formatDate(row.entryDate)}</b>
+        <span>매수가</span><b>${money(row.entryPrice)}</b>
+        <span>현재 수익률</span><b class="${signedClass(row.currentReturn)}">${percent(row.currentReturn)}</b>
+        <span>매도 상태</span><b>${lotStatusText(row)}</b>
+      </div>
+      <p>${lotNextActionText(row)}</p>
+    </li>
+  `).join("")}</ul>`;
+}
+
+function renderSymbolHoldings() {
+  const groups = buildSymbolGroups(dashboard.portfolio.holdings ?? []);
+  const totalLots = groups.reduce((sum, group) => sum + group.lots.length, 0);
+  const table = document.getElementById("holdings-body").closest("table");
+  table.querySelector("thead").innerHTML = `
+    <tr>
+      <th>종목</th>
+      <th>종합 수익률</th>
+      <th>매수 기록</th>
+      <th>상태 요약</th>
+      <th>다음 점검</th>
+      <th>링크</th>
+    </tr>
+  `;
+  document.getElementById("holdings-meta").textContent = `종목별 묶음 ${groups.length}개 | 전체 추천/매수 기록 ${totalLots}건`;
+  document.getElementById("holdings-body").innerHTML = groups.map((group) => `
+    <tr>
+      <td><strong>${group.symbol}</strong><div class="sub">${group.name}</div><div class="sub">${group.sector}</div></td>
+      <td class="num ${signedClass(group.aggregateReturn)}">${percent(group.aggregateReturn)}<div class="sub">평균 ${money(group.averageEntry)} → 현재 ${money(group.currentPrice)}</div></td>
+      <td>${symbolLotList(group.lots)}</td>
+      <td>${clearStatusTag(group.status)}<div class="sub">${symbolStatusSummary(group)}</div></td>
+      <td><strong>${formatDate(group.nextDate)}</strong><div class="sub">전략상 남은 비중 ${number(group.totalWeight, 1)}</div></td>
+      <td><a href="${group.tradingViewUrl}" target="_blank" rel="noreferrer">차트</a></td>
+    </tr>
+  `).join("");
+
+  document.getElementById("holdings-cards").innerHTML = groups.map((group) => `
+    <article class="symbol-card mobile-holding ${group.status}">
+      <div class="symbol-card-head">
+        <div>
+          <span class="label">종목별 묶음</span>
+          <h3>${group.symbol}</h3>
+          <p>${group.name} | ${group.sector}</p>
+        </div>
+        <strong class="${signedClass(group.aggregateReturn)}">${percent(group.aggregateReturn)}</strong>
+      </div>
+      <div class="symbol-card-metrics">
+        <span>총 ${group.totalBuys}회 매수</span>
+        <span>평균 ${money(group.averageEntry)}</span>
+        <span>현재 ${money(group.currentPrice)}</span>
+      </div>
+      <div class="symbol-card-status">
+        ${clearStatusTag(group.status)}
+        <span>${symbolStatusSummary(group)}</span>
+      </div>
+      ${symbolLotList(group.lots)}
+      <div class="links">
+        <a href="${group.tradingViewUrl}" target="_blank" rel="noreferrer">TradingView</a>
+        <a href="${group.yahooUrl}" target="_blank" rel="noreferrer">Yahoo</a>
+      </div>
+    </article>
+  `).join("");
+}
+
+function renderSymbolSellDue() {
+  const groups = buildSymbolGroups((dashboard.portfolio.holdings ?? []).filter((row) => (
+    row.status === "sell_due" || row.status === "extended"
+  )));
+  document.getElementById("sell-due").innerHTML = groups.length
+    ? groups.map((group) => `
+      <article class="due-item grouped-due">
+        <div>
+          <strong>${group.symbol}</strong>
+          <span>${symbolStatusSummary(group)}</span>
+        </div>
+        ${symbolLotList(group.lots)}
+        <b class="${signedClass(group.aggregateReturn)}">${percent(group.aggregateReturn)}</b>
+      </article>
+    `).join("")
+    : `<p class="empty-state">이번 리밸런싱에서 50% 매도/연장 점검할 종목이 없습니다.</p>`;
+}
+
 function linePath(rows, valueKey, xFor, yFor) {
   return rows
     .filter((row) => Number.isFinite(row[valueKey]))
@@ -782,8 +976,8 @@ async function main() {
     renderSummary();
     renderLeaders();
     renderBuys();
-    renderGroupedHoldings();
-    renderGroupedSellDue();
+    renderSymbolHoldings();
+    renderSymbolSellDue();
     renderBacktest();
     setupTabs();
   } catch (error) {

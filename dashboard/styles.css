@@ -417,6 +417,112 @@ tr:last-child td {
   margin-top: 3px;
 }
 
+.symbol-card {
+  border-left: 4px solid var(--blue);
+}
+
+.symbol-card.sell_due {
+  border-left-color: var(--amber);
+}
+
+.symbol-card.extended {
+  border-left-color: var(--blue);
+}
+
+.symbol-card.hold {
+  border-left-color: var(--green);
+}
+
+.symbol-card-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.symbol-card-head h3 {
+  font-size: 24px;
+}
+
+.symbol-card-head strong {
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+}
+
+.symbol-card-metrics,
+.symbol-card-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.symbol-card-metrics span,
+.symbol-card-status > span:not(.tag) {
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: var(--soft);
+  color: #344054;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.symbol-lot-list {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+.symbol-lot-list li {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfe;
+  padding: 9px;
+}
+
+.symbol-lot-list li.sell_due {
+  border-color: #e2b65d;
+  background: #fffaf0;
+}
+
+.symbol-lot-list li.extended {
+  border-color: #9bbcf4;
+  background: #f6f9ff;
+}
+
+.lot-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 7px;
+}
+
+.lot-grid {
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  gap: 5px 8px;
+  font-size: 12px;
+}
+
+.lot-grid span,
+.symbol-lot-list p {
+  color: var(--muted);
+}
+
+.lot-grid b {
+  font-weight: 800;
+}
+
+.symbol-lot-list p {
+  margin: 7px 0 0;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
 .show-more-row {
   display: flex;
   justify-content: center;
@@ -649,5 +755,13 @@ tr:last-child td {
   .event-list li,
   .grouped-due {
     grid-template-columns: 1fr;
+  }
+
+  .symbol-card-head {
+    align-items: flex-start;
+  }
+
+  .lot-grid {
+    grid-template-columns: 72px 1fr;
   }
 }
