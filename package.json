@@ -30,6 +30,8 @@
     "test:weekly-dropout": "node src/weekly-dropout-rule-test.mjs",
     "test:korea": "node src/korea-strategy-test.mjs",
     "build:strategy-data": "node src/strategy-dashboard-data.mjs",
+    "build:signals": "node scripts/build-signal-package.mjs",
+    "build:app-assets": "node scripts/build-signal-package.mjs --app-assets",
     "build:pages": "node scripts/build-pages.mjs",
     "serve": "node src/server.mjs",
     "check": "node --check src/refresh.mjs && node --check src/server.mjs"

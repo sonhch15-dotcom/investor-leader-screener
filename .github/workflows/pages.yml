@@ -6,9 +6,9 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    # Weekly refresh after the US market week has fully closed.
-    # Runs Monday 07:00 KST / Sunday 22:00 UTC.
-    - cron: "0 22 * * 0"
+    # Runs after the US regular session has closed.
+    # Monday-Friday 22:00 UTC / Tuesday-Saturday 07:00 KST.
+    - cron: "0 22 * * 1-5"
 
 permissions:
   contents: read
@@ -42,6 +42,9 @@ jobs:
 
       - name: Build static site
         run: node scripts/build-pages.mjs
+
+      - name: Build Android signal API
+        run: node scripts/build-signal-package.mjs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
