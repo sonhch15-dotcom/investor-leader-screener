@@ -7,6 +7,8 @@ const sample = process.argv.includes("--sample");
 const years = Number(valueAfter("--years") ?? 5);
 const outputJsonPath = path.join("data", "korea-strategy-dashboard.json");
 const outputMdPath = "korea_strategy_backtest.md";
+const stockVariantJsonPath = path.join("data", "korea-stock-score-variant-test.json");
+const stockVariantMdPath = "korea_stock_score_variant_test.md";
 const configPath = path.join("config", "korea-universe.json");
 const initialCapital = 10_000_000;
 
@@ -54,6 +56,11 @@ function clean(values) {
 
 function avg(values) {
   return mean(clean(values));
+}
+
+function krw(value) {
+  if (!Number.isFinite(value)) return "-";
+  return Math.round(value).toLocaleString("ko-KR");
 }
 
 function sma(values, length) {
@@ -316,6 +323,37 @@ function selectEtfLeaders(snapshot, count = 3) {
 
 function selectTopScoring(snapshot, count = 2) {
   return snapshot.filter((row) => row.eligible).slice(0, count).map(compactPick);
+}
+
+function selectStockScoreC(snapshot, count = 2) {
+  const groups = groupStats(snapshot);
+  const groupScores = groups.map((row) => row.leadershipScore);
+  const groupByName = new Map(groups.map((row) => [row.group, row]));
+  const ranked = snapshot
+    .filter((row) => row.eligible)
+    .map((row) => {
+      const group = groupByName.get(row.group);
+      const normalizedGroupScore = percentileRank(groupScores, group?.leadershipScore ?? 0) * 100;
+      const cScore = row.score * 0.9 + normalizedGroupScore * 0.1;
+      return {
+        ...row,
+        baseScore: row.score,
+        score: round(cScore, 2),
+        groupRank: group ? groups.indexOf(group) + 1 : null,
+        groupScore: group?.leadershipScore ?? null
+      };
+    })
+    .sort((a, b) => b.score - a.score);
+
+  const selected = [];
+  const seenGroups = new Set();
+  for (const row of ranked) {
+    if (seenGroups.has(row.group)) continue;
+    selected.push(compactPick(row));
+    seenGroups.add(row.group);
+    if (selected.length >= count) break;
+  }
+  return selected;
 }
 
 function activeSymbols(trades, signalDate) {
@@ -1160,6 +1198,72 @@ function markdownReport(result) {
   return lines.join("\n");
 }
 
+function recentSelections(strategy, count = 12) {
+  return (strategy.timeline ?? []).slice(-count).map((row) => ({
+    month: row.month,
+    signalDate: row.signalDate,
+    picks: (row.rows ?? []).map((pick) => ({
+      symbol: pick.symbol,
+      name: pick.name,
+      group: pick.group,
+      score: pick.score
+    }))
+  }));
+}
+
+function markdownStockVariantReport(result) {
+  const lines = [];
+  lines.push("# Korea Stock Score Variant Test");
+  lines.push("");
+  lines.push(`Generated: ${result.generatedAt}`);
+  lines.push(`As of: ${result.asOf}`);
+  lines.push(`Period: ${result.years} years / ${result.months} monthly signals`);
+  lines.push("");
+  lines.push("## Purpose");
+  lines.push("");
+  lines.push("한국 주식 전략에 미국 C안과 같은 철학을 적용할 수 있는지 보기 위해, 그룹 리더십 영향도를 다르게 둔 A/B/C를 비교했다.");
+  lines.push("");
+  lines.push("## Variant Definitions");
+  lines.push("");
+  lines.push("| Variant | Strategy Key | Definition |");
+  lines.push("| --- | --- | --- |");
+  lines.push("| KR-A | kr_stocks | 현재 방식. 주도 그룹 상위 2개를 먼저 고르고, 각 그룹에서 대표 종목 1개를 선택한다. |");
+  lines.push("| KR-B | kr_stock_top_score2 | 그룹 영향 제거. 전체 종목 중 개별 점수 상위 2개를 선택한다. |");
+  lines.push("| KR-C | kr_stock_score_c | 그룹 영향 축소. 개별 점수 90% + 정규화 그룹 리더십 10%, 그룹당 최대 1개를 선택한다. |");
+  lines.push("");
+  lines.push("## 10M KRW Account Result");
+  lines.push("");
+  lines.push("| Rank | Variant | Final Capital | Account Return | CAGR | Account MDD | Buys | Skips | Trade Avg | Win Rate | Benchmark | Excess |");
+  lines.push("| ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |");
+  result.variants
+    .slice()
+    .sort((a, b) => (b.account?.totalReturn ?? -Infinity) - (a.account?.totalReturn ?? -Infinity))
+    .forEach((row, index) => {
+      lines.push(`| ${index + 1} | ${row.variant} ${row.label} | ${krw(row.account?.finalCapital)} | ${pctText(row.account?.totalReturn)} | ${pctText(row.account?.cagr)} | ${pctText(row.account?.maxDrawdown)} | ${row.account?.executedBuys ?? "-"} | ${row.account?.skippedBuys ?? "-"} | ${pctText(row.summary.averageReturn)} | ${pctText(row.summary.winRate)} | ${pctText(row.summary.averageBenchmarkReturn)} | ${pctText(row.summary.averageExcessBenchmark)} |`);
+    });
+  lines.push("");
+  lines.push("## Recent 12 Monthly Picks");
+  for (const variant of result.variants) {
+    lines.push("");
+    lines.push(`### ${variant.variant} ${variant.label}`);
+    lines.push("");
+    lines.push("| Month | Signal Date | Picks |");
+    lines.push("| --- | --- | --- |");
+    for (const row of variant.recentSelections) {
+      const picks = row.picks.map((pick) => `${pick.symbol} ${pick.name} / ${pick.group} / ${pick.score}`).join("<br>");
+      lines.push(`| ${row.month} | ${row.signalDate} | ${picks} |`);
+    }
+  }
+  lines.push("");
+  lines.push("## Interpretation");
+  lines.push("");
+  lines.push("- KR-A가 이기면 한국 주식에서는 그룹 리더십을 먼저 고르는 현재 방식이 더 적합하다는 뜻이다.");
+  lines.push("- KR-B가 이기면 그룹보다 개별 종목 모멘텀/유동성/추세가 더 중요하다는 뜻이다.");
+  lines.push("- KR-C가 이기면 그룹 흐름은 유지하되, 개별 종목 점수 중심으로 완화하는 방식이 가장 균형적이라는 뜻이다.");
+  lines.push("- 이 테스트는 현재 한국 우량주 유니버스 기준이므로 생존 편향 가능성이 있다.");
+  return lines.join("\n");
+}
+
 async function main() {
   const config = JSON.parse(await fs.readFile(configPath, "utf8"));
   const stocks = config.stocks.map((row) => ({ ...row, type: "stock" }));
@@ -1270,6 +1374,16 @@ async function main() {
       benchmarkSymbol: "069500.KS",
       minAvgValue20: 5_000_000_000,
       select: (snapshot) => selectTopScoring(snapshot, 2)
+    }),
+    simulateStrategy({
+      ...baseArgs,
+      key: "kr_stock_score_c",
+      label: "KR Stock Score C",
+      description: "Reduced group influence: 90% individual score + 10% normalized group leadership, max 1 per group.",
+      instruments: stockUniverse,
+      benchmarkSymbol: "069500.KS",
+      minAvgValue20: 5_000_000_000,
+      select: (snapshot) => selectStockScoreC(snapshot, 2)
     }),
     simulateStrategy({
       ...baseArgs,
@@ -1421,9 +1535,47 @@ async function main() {
     ].filter(Boolean)
   };
 
+  const stockVariantStrategies = [
+    { variant: "KR-A", strategy: stockStrategy },
+    { variant: "KR-B", strategy: extraStrategies.find((strategy) => strategy.key === "kr_stock_top_score2") },
+    { variant: "KR-C", strategy: extraStrategies.find((strategy) => strategy.key === "kr_stock_score_c") }
+  ].filter((row) => row.strategy).map(({ variant, strategy }) => ({
+    variant,
+    key: strategy.key,
+    label: strategy.label,
+    description: strategy.description,
+    benchmarkSymbol: strategy.benchmarkSymbol,
+    months: strategy.months,
+    summary: strategy.summary,
+    account: strategy.capitalAccount,
+    currentPicks: strategy.currentPicks,
+    recentSelections: recentSelections(strategy, 12)
+  }));
+
+  const stockVariantResult = {
+    generatedAt: result.generatedAt,
+    asOf,
+    years,
+    months: signalDates.length,
+    universe: result.universe,
+    benchmarkSymbol: "069500.KS",
+    assumptions: {
+      initialCapital,
+      fractionalShares: true,
+      firstThreeMonthsMonthlyPct: 0.3,
+      afterThreeMonthsMonthlyPct: 0.15,
+      symbolCostCapPct: 0.225,
+      sellRule: "50% after 6 months, remaining by weekly trend"
+    },
+    variants: stockVariantStrategies
+  };
+
   await fs.writeFile(outputJsonPath, `${JSON.stringify(result)}\n`, "utf8");
   await fs.writeFile(outputMdPath, markdownReport(result), "utf8");
+  await fs.writeFile(stockVariantJsonPath, `${JSON.stringify(stockVariantResult, null, 2)}\n`, "utf8");
+  await fs.writeFile(stockVariantMdPath, markdownStockVariantReport(stockVariantResult), "utf8");
   console.log(`Wrote ${outputJsonPath} and ${outputMdPath}`);
+  console.log(`Wrote ${stockVariantJsonPath} and ${stockVariantMdPath}`);
 }
 
 main().catch((error) => {
