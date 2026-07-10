@@ -9,6 +9,8 @@ const outputJsonPath = path.join("data", "korea-strategy-dashboard.json");
 const outputMdPath = "korea_strategy_backtest.md";
 const stockVariantJsonPath = path.join("data", "korea-stock-score-variant-test.json");
 const stockVariantMdPath = "korea_stock_score_variant_test.md";
+const etfVariantJsonPath = path.join("data", "korea-etf-score-variant-test.json");
+const etfVariantMdPath = "korea_etf_score_variant_test.md";
 const configPath = path.join("config", "korea-universe.json");
 const initialCapital = 10_000_000;
 
@@ -797,6 +799,57 @@ function selectRebalanceTopN(snapshot, count) {
   return combineAllocations(picks.map((row) => weightedPick(row, 1 / Math.max(1, picks.length))));
 }
 
+function scoreCAdjustedSnapshot(snapshot) {
+  const groups = groupStats(snapshot);
+  const groupScores = groups.map((row) => row.leadershipScore);
+  const groupByName = new Map(groups.map((row) => [row.group, row]));
+  return snapshot.map((row) => {
+    const group = groupByName.get(row.group);
+    const normalizedGroupScore = percentileRank(groupScores, group?.leadershipScore ?? 0) * 100;
+    return {
+      ...row,
+      baseScore: row.score,
+      score: round(row.score * 0.9 + normalizedGroupScore * 0.1, 2),
+      groupScore: group?.leadershipScore ?? null
+    };
+  }).sort((a, b) => b.score - a.score);
+}
+
+function selectRebalanceTopNNoGroup(snapshot, count) {
+  const picks = snapshot.filter((row) => row.eligible).slice(0, count);
+  return combineAllocations(picks.map((row) => weightedPick(row, 1 / Math.max(1, picks.length))));
+}
+
+function topUniqueGroupsScoreC(snapshot, count, filter = () => true) {
+  const selected = [];
+  const seenGroups = new Set();
+  for (const row of scoreCAdjustedSnapshot(snapshot).filter((item) => item.eligible && filter(item))) {
+    if (seenGroups.has(row.group)) continue;
+    selected.push(row);
+    seenGroups.add(row.group);
+    if (selected.length >= count) break;
+  }
+  return selected;
+}
+
+function bestByGroupsScoreC(snapshot, groups, count = 1) {
+  return topUniqueGroupsScoreC(snapshot, count, (row) => groups.has(row.group));
+}
+
+function selectCoreSatelliteScoreCWithWeights(snapshot, weights) {
+  const coreGroups = new Set(["미국 대표지수", "미국 성장주"]);
+  const satelliteExcludes = new Set(["미국 대표지수", "미국 성장주", "미국 배당", "채권", "원자재"]);
+  const defensiveGroups = new Set(["채권", "원자재", "미국 배당"]);
+  const core = bestByGroupsScoreC(snapshot, coreGroups, 1)[0] ?? fallbackEtf(snapshot, ["360750.KS", "133690.KS"]);
+  const satellite = topUniqueGroupsScoreC(snapshot, 1, (row) => !satelliteExcludes.has(row.group))[0] ?? core;
+  const defensive = bestByGroupsScoreC(snapshot, defensiveGroups, 1)[0] ?? fallbackEtf(snapshot, ["153130.KS", "132030.KS"]);
+  return combineAllocations([
+    weightedPick(core, weights.core),
+    weightedPick(satellite, weights.satellite),
+    weightedPick(defensive, weights.defensive)
+  ]);
+}
+
 function selectAbsoluteMomentumEtfs(snapshot) {
   const picks = topUniqueGroups(snapshot, 3, (row) => row.metric.momentum > 0 && row.metric.r3m > 0);
   if (picks.length) return combineAllocations(picks.map((row) => weightedPick(row, 1 / picks.length)));
@@ -1264,6 +1317,74 @@ function markdownStockVariantReport(result) {
   return lines.join("\n");
 }
 
+function recentEtfRebalances(strategy, count = 12) {
+  return (strategy.timeline ?? []).slice(-count).map((row) => ({
+    month: row.month,
+    signalDate: row.signalDate,
+    tradeDate: row.tradeDate,
+    allocations: (row.rows ?? []).map((pick) => ({
+      symbol: pick.symbol,
+      name: pick.name,
+      group: pick.group,
+      score: pick.score,
+      weight: pick.weight
+    }))
+  }));
+}
+
+function markdownEtfVariantReport(result) {
+  const lines = [];
+  lines.push("# Korea ETF Score Variant Test");
+  lines.push("");
+  lines.push(`Generated: ${result.generatedAt}`);
+  lines.push(`As of: ${result.asOf}`);
+  lines.push(`Period: ${result.years} years / ${result.months} monthly signals`);
+  lines.push("");
+  lines.push("## Purpose");
+  lines.push("");
+  lines.push("한국 ETF 전략에서 현재 Core/Satellite/Defense 구조를 유지할지, 그룹 구조를 제거하거나 그룹 영향도를 축소하는 방식이 더 나은지 비교했다.");
+  lines.push("");
+  lines.push("## Variant Definitions");
+  lines.push("");
+  lines.push("| Variant | Strategy Key | Definition |");
+  lines.push("| --- | --- | --- |");
+  lines.push("| ETF-A | kr_etf_core_satellite_50_40_10 | 현재 공식 방식. 미국 코어 50%, 주도 위성 ETF 40%, 방어 ETF 10%로 월간 리밸런싱한다. |");
+  lines.push("| ETF-B | kr_etf_score_top3_equal | 그룹 구조 제거. 전체 ETF 중 개별 점수 상위 3개를 1/3씩 리밸런싱한다. |");
+  lines.push("| ETF-C | kr_etf_score_c_core_satellite_50_40_10 | 50/40/10 구조는 유지하되 ETF 선택 점수에 개별 점수 90% + 그룹 리더십 10%를 반영한다. |");
+  lines.push("");
+  lines.push("## 10M KRW Account Result");
+  lines.push("");
+  lines.push("| Rank | Variant | Final Capital | Account Return | CAGR | Account MDD | Rebalance Months | ETF Positions | Benchmark | Excess |");
+  lines.push("| ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |");
+  result.variants
+    .slice()
+    .sort((a, b) => (b.account?.totalReturn ?? -Infinity) - (a.account?.totalReturn ?? -Infinity))
+    .forEach((row, index) => {
+      lines.push(`| ${index + 1} | ${row.variant} ${row.label} | ${krw(row.account?.finalCapital)} | ${pctText(row.account?.totalReturn)} | ${pctText(row.account?.cagr)} | ${pctText(row.account?.maxDrawdown)} | ${row.summary.tradeCount ?? "-"} | ${row.summary.openCount ?? "-"} | ${pctText(row.summary.averageBenchmarkReturn)} | ${pctText(row.summary.averageExcessBenchmark)} |`);
+    });
+  lines.push("");
+  lines.push("## Recent 12 Monthly Rebalances");
+  for (const variant of result.variants) {
+    lines.push("");
+    lines.push(`### ${variant.variant} ${variant.label}`);
+    lines.push("");
+    lines.push("| Month | Signal Date | Trade Date | Target Allocations |");
+    lines.push("| --- | --- | --- | --- |");
+    for (const row of variant.recentRebalances) {
+      const allocations = row.allocations.map((pick) => `${pick.symbol} ${pick.name} / ${pick.group} / ${pctText(pick.weight)} / score ${pick.score}`).join("<br>");
+      lines.push(`| ${row.month} | ${row.signalDate} | ${row.tradeDate ?? "-"} | ${allocations} |`);
+    }
+  }
+  lines.push("");
+  lines.push("## Interpretation");
+  lines.push("");
+  lines.push("- ETF-A가 이기면 연금/ETF 계좌에서는 현재 50/40/10 구조가 가장 적합하다는 뜻이다.");
+  lines.push("- ETF-B가 이기면 방어/코어 틀보다 순수 모멘텀 ETF 회전이 더 강하다는 뜻이다. 다만 집중도와 회전 리스크를 별도로 봐야 한다.");
+  lines.push("- ETF-C가 이기면 50/40/10 구조는 유지하되 ETF 선정 점수만 완화하는 방식이 더 적합하다는 뜻이다.");
+  lines.push("- ETF 전략은 세금, 연금 계좌 매매 가능 종목, 환헤지 여부, 실제 리밸런싱 비용을 추가 검토해야 한다.");
+  return lines.join("\n");
+}
+
 async function main() {
   const config = JSON.parse(await fs.readFile(configPath, "utf8"));
   const stocks = config.stocks.map((row) => ({ ...row, type: "stock" }));
@@ -1454,6 +1575,15 @@ async function main() {
     }),
     simulateEtfRebalanceStrategy({
       ...baseArgs,
+      key: "kr_etf_score_top3_equal",
+      label: "KR ETF Score Top3 Equal",
+      description: "Monthly rebalance 100% of the account into the top 3 individual ETF scores, ignoring group buckets.",
+      instruments: etfUniverse,
+      benchmarkSymbol: "069500.KS",
+      selectWeights: (snapshot) => selectRebalanceTopNNoGroup(snapshot, 3)
+    }),
+    simulateEtfRebalanceStrategy({
+      ...baseArgs,
       key: "kr_etf_absolute_momentum",
       label: "KR ETF Absolute Momentum",
       description: "Monthly rebalance into top ETFs only when absolute momentum is positive. If none qualify, move to short/bond ETFs.",
@@ -1487,6 +1617,15 @@ async function main() {
       instruments: etfUniverse,
       benchmarkSymbol: "069500.KS",
       selectWeights: (snapshot) => selectCoreSatelliteWithWeights(snapshot, { core: 0.5, satellite: 0.4, defensive: 0.1 })
+    }),
+    simulateEtfRebalanceStrategy({
+      ...baseArgs,
+      key: "kr_etf_score_c_core_satellite_50_40_10",
+      label: "KR ETF Score C Core Satellite 50/40/10",
+      description: "Monthly 50/40/10 ETF account with 90% individual score + 10% group leadership for ETF selection.",
+      instruments: etfUniverse,
+      benchmarkSymbol: "069500.KS",
+      selectWeights: (snapshot) => selectCoreSatelliteScoreCWithWeights(snapshot, { core: 0.5, satellite: 0.4, defensive: 0.1 })
     }),
     simulateEtfRebalanceStrategy({
       ...baseArgs,
@@ -1570,12 +1709,49 @@ async function main() {
     variants: stockVariantStrategies
   };
 
+  const etfVariantStrategies = [
+    { variant: "ETF-A", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_core_satellite_50_40_10") },
+    { variant: "ETF-B", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_score_top3_equal") },
+    { variant: "ETF-C", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_score_c_core_satellite_50_40_10") }
+  ].filter((row) => row.strategy).map(({ variant, strategy }) => ({
+    variant,
+    key: strategy.key,
+    label: strategy.label,
+    description: strategy.description,
+    benchmarkSymbol: strategy.benchmarkSymbol,
+    months: strategy.months,
+    summary: strategy.summary,
+    account: strategy.capitalAccount,
+    currentPicks: strategy.currentPicks,
+    recentRebalances: recentEtfRebalances(strategy, 12)
+  }));
+
+  const etfVariantResult = {
+    generatedAt: result.generatedAt,
+    asOf,
+    years,
+    months: signalDates.length,
+    universe: result.universe,
+    benchmarkSymbol: "069500.KS",
+    assumptions: {
+      initialCapital,
+      fractionalShares: true,
+      monthlyRebalance: true,
+      benchmark: "KODEX 200",
+      costsModeled: false
+    },
+    variants: etfVariantStrategies
+  };
+
   await fs.writeFile(outputJsonPath, `${JSON.stringify(result)}\n`, "utf8");
   await fs.writeFile(outputMdPath, markdownReport(result), "utf8");
   await fs.writeFile(stockVariantJsonPath, `${JSON.stringify(stockVariantResult, null, 2)}\n`, "utf8");
   await fs.writeFile(stockVariantMdPath, markdownStockVariantReport(stockVariantResult), "utf8");
+  await fs.writeFile(etfVariantJsonPath, `${JSON.stringify(etfVariantResult, null, 2)}\n`, "utf8");
+  await fs.writeFile(etfVariantMdPath, markdownEtfVariantReport(etfVariantResult), "utf8");
   console.log(`Wrote ${outputJsonPath} and ${outputMdPath}`);
   console.log(`Wrote ${stockVariantJsonPath} and ${stockVariantMdPath}`);
+  console.log(`Wrote ${etfVariantJsonPath} and ${etfVariantMdPath}`);
 }
 
 main().catch((error) => {
