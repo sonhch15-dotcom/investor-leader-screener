@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Leader2 Strategy Dashboard</title>
-  <link rel="stylesheet" href="styles.css?v=20260708-unified-backtest">
+  <link rel="stylesheet" href="styles.css?v=20260710-score-c-tab">
 </head>
 <body>
   <header class="topbar">
@@ -426,6 +426,103 @@
       </section>
     </section>
 
+    <section class="tab-panel" id="us-score-c-backtest-panel">
+      <section class="summary-grid" id="score-c-kpis"></section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>백테스트 공통 요약</h2>
+            <p>C안 선정 방식과 Cap27.5 운용 규칙을 기존 백테스트 패널과 같은 형식으로 정리합니다.</p>
+          </div>
+          <span>공통 템플릿</span>
+        </div>
+        <div id="score-c-backtest-template"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>C안 누적 성과 vs QQQ</h2>
+            <p>C안으로 월별 종목을 선정했을 때의 누적 성과를 같은 기간 QQQ와 비교합니다.</p>
+          </div>
+          <span id="score-c-curve-meta"></span>
+        </div>
+        <div id="score-c-performance-chart"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>월별 매도 결과</h2>
+            <p>6개월 50% 매도와 주봉 연장분 최종 매도를 반영한 월별 실현 수익률입니다.</p>
+          </div>
+          <span id="score-c-monthly-exit-meta"></span>
+        </div>
+        <div class="table-wrap backtest-table">
+          <table>
+            <thead>
+              <tr>
+                <th>월</th>
+                <th>실제 매도 이벤트</th>
+                <th>50% 기본매도</th>
+                <th>잔여 매도</th>
+                <th>평균 이벤트 수익률</th>
+                <th>종목</th>
+              </tr>
+            </thead>
+            <tbody id="score-c-monthly-exits-body"></tbody>
+          </table>
+        </div>
+        <div class="mobile-card-list backtest-card-list" id="score-c-monthly-exits-cards"></div>
+        <div class="show-more-row">
+          <button class="secondary-button" id="toggle-score-c-monthly-exits" type="button"></button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>청산 완료 종목별 수익률</h2>
+            <p>C안으로 선정된 종목이 언제 매수되고 언제 매도되었는지 종목 단위로 확인합니다.</p>
+          </div>
+          <span id="score-c-realized-trade-meta"></span>
+        </div>
+        <div class="table-wrap backtest-table">
+          <table>
+            <thead>
+              <tr>
+                <th>추천월</th>
+                <th>종목</th>
+                <th>매수일/매수가</th>
+                <th>매도 이벤트</th>
+                <th>최종 청산월</th>
+                <th>실현 수익률</th>
+                <th>QQQ</th>
+                <th>초과</th>
+              </tr>
+            </thead>
+            <tbody id="score-c-realized-trades-body"></tbody>
+          </table>
+        </div>
+        <div class="mobile-card-list backtest-card-list" id="score-c-realized-trades-cards"></div>
+        <div class="show-more-row">
+          <button class="secondary-button" id="toggle-score-c-realized-trades" type="button"></button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
+            <h2>최근 12개월 선정 종목</h2>
+            <p>C안 기준으로 각 월말에 확정된 신규 추천 종목입니다. 매수일은 다음 거래일 기준입니다.</p>
+          </div>
+          <span id="score-c-selection-meta"></span>
+        </div>
+        <div class="mobile-card-list backtest-card-list" id="score-c-recent-selections"></div>
+      </section>
+    </section>
+
     <section class="tab-panel" id="korea-invest-panel">
       <section class="summary-grid" id="korea-invest-kpis"></section>
 
@@ -793,6 +890,6 @@
     </section>
   </main>
 
-  <script src="app.js?v=20260709-cap275-official"></script>
+  <script src="app.js?v=20260710-score-c-tab"></script>
 </body>
 </html>

@@ -943,6 +943,7 @@ tr:last-child td {
 }
 
 #performance-chart,
+#score-c-performance-chart,
 #korea-stock-performance-chart,
 #korea-etf-performance-chart {
   overflow: hidden;

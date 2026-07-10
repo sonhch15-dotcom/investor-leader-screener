@@ -2,8 +2,13 @@ let dashboard = null;
 let koreaDashboard = null;
 let selectionStrategyLab = null;
 let finalStrategyValidation = null;
+let scoreVariantTest = null;
+let scoreCScaleTest = null;
+let scoreCStrategyLab = null;
 let showAllMonthlyExits = false;
 let showAllRealizedTrades = false;
+let showAllScoreCMonthlyExits = false;
+let showAllScoreCRealizedTrades = false;
 let showAllKoreaEtfRebalances = false;
 let showAllKoreaStockMonthlySells = false;
 let showAllKoreaEtfMonthlyReturns = false;
@@ -32,6 +37,7 @@ const NAV_GROUPS = {
   ],
   backtest: [
     { tab: "backtest", label: "미국 주식" },
+    { tab: "us-score-c-backtest", label: "미국 C안" },
     { tab: "korea-stock-backtest", label: "한국 주식" },
     { tab: "korea-etf-backtest", label: "한국 ETF" }
   ],
@@ -279,8 +285,12 @@ function monthlySellEventRows() {
   const generated = dashboard.backtest.monthlySellEvents ?? [];
   if (generated.length) return generated;
 
+  return monthlySellEventRowsFromTrades(dashboard.backtest.realizedTrades ?? []);
+}
+
+function monthlySellEventRowsFromTrades(trades) {
   const groups = new Map();
-  for (const trade of dashboard.backtest.realizedTrades ?? []) {
+  for (const trade of trades ?? []) {
     for (const event of tradeSellEvents(trade)) {
       const current = groups.get(event.month) ?? {
         month: event.month,
@@ -2220,6 +2230,217 @@ function renderBacktest() {
   `).join("");
 }
 
+function scoreCSelectionResult() {
+  return scoreVariantTest?.results?.find((row) => row.key === "c_half_sector_normalized") ?? null;
+}
+
+function scoreCScaleEvaluation() {
+  return scoreCScaleTest?.evaluations?.find((row) => row.rule === "half_sell_half_weekly_extend") ?? null;
+}
+
+function scoreCScaleSummary() {
+  return scoreCScaleTest?.summaries?.find((row) => row.key === "half_sell_half_weekly_extend") ?? null;
+}
+
+function scoreCAccountResult() {
+  return scoreCStrategyLab?.results?.find((row) => row.key === "repeat_theme_combo_cap275") ?? null;
+}
+
+function scoreCRealizedTrades() {
+  return (scoreCScaleEvaluation()?.rows ?? [])
+    .filter((row) => row.entered)
+    .map((row) => ({
+      ...row,
+      entryPrice: row.averageBuyPrice,
+      exitPrice: row.averageSellPrice,
+      exitDate: row.lastSellDate,
+      exitMonth: String(row.lastSellDate ?? "").slice(0, 7)
+    }));
+}
+
+function scoreCCurveRows() {
+  return (scoreCSelectionResult()?.curve ?? []).map((row) => ({
+    ...row,
+    strategyTotalReturn: Number.isFinite(row.equity) ? row.equity - 1 : null,
+    qqqTotalReturn: Number.isFinite(row.qqqEquity) ? row.qqqEquity - 1 : null
+  }));
+}
+
+function renderScoreCEmpty() {
+  const message = `<article class="kpi"><span>데이터</span><strong>-</strong><small>C안 백테스트 데이터가 아직 준비되지 않았습니다.</small></article>`;
+  document.getElementById("score-c-kpis").innerHTML = message;
+  document.getElementById("score-c-backtest-template").innerHTML = `<p class="empty-state">C안 데이터 로드 실패</p>`;
+  document.getElementById("score-c-performance-chart").innerHTML = "";
+  document.getElementById("score-c-monthly-exits-body").innerHTML = "";
+  document.getElementById("score-c-monthly-exits-cards").innerHTML = "";
+  document.getElementById("score-c-realized-trades-body").innerHTML = "";
+  document.getElementById("score-c-realized-trades-cards").innerHTML = "";
+  document.getElementById("score-c-recent-selections").innerHTML = "";
+}
+
+function renderScoreCMonthlySellEvents() {
+  const allRows = [...monthlySellEventRowsFromTrades(scoreCRealizedTrades())].reverse();
+  const rows = showAllScoreCMonthlyExits ? allRows : allRows.slice(0, RECENT_MONTHLY_EXIT_LIMIT);
+  document.getElementById("score-c-monthly-exit-meta").textContent = showAllScoreCMonthlyExits
+    ? `전체 ${allRows.length}개월`
+    : `최근 ${rows.length}개월 / 전체 ${allRows.length}개월`;
+  document.getElementById("score-c-monthly-exits-body").innerHTML = rows.map((row) => `
+    <tr>
+      <td>${row.month}</td>
+      <td>${row.eventCount}건<div class="sub">${(row.events ?? []).slice(0, 4).map((event) => `${event.date} ${event.symbol}`).join(" / ")}</div></td>
+      <td class="num">${row.fixedCount}</td>
+      <td class="num">${row.remainingCount}</td>
+      <td class="num ${signedClass(row.averageEventReturn)}">${percent(row.averageEventReturn)}</td>
+      <td><strong>${(row.symbols ?? []).join(", ")}</strong></td>
+    </tr>
+  `).join("");
+
+  document.getElementById("score-c-monthly-exits-cards").innerHTML = rows.map((row) => `
+    <article class="result-card">
+      <div class="card-head">
+        <div>
+          <h3>${row.month} 실제 매도</h3>
+          <p>총 ${row.eventCount}건 | 기본 ${row.fixedCount} / 잔여 ${row.remainingCount}</p>
+        </div>
+        <strong class="${signedClass(row.averageEventReturn)}">${percent(row.averageEventReturn)}</strong>
+      </div>
+      <ul class="event-list">${(row.events ?? []).map(eventLine).join("")}</ul>
+    </article>
+  `).join("");
+
+  const button = document.getElementById("toggle-score-c-monthly-exits");
+  button.hidden = allRows.length <= RECENT_MONTHLY_EXIT_LIMIT;
+  button.textContent = showMoreLabel(showAllScoreCMonthlyExits, rows.length, allRows.length);
+  button.onclick = () => {
+    showAllScoreCMonthlyExits = !showAllScoreCMonthlyExits;
+    renderScoreCMonthlySellEvents();
+  };
+}
+
+function renderScoreCRealizedTrades() {
+  const allRows = [...scoreCRealizedTrades()].reverse();
+  const rows = showAllScoreCRealizedTrades ? allRows : allRows.slice(0, RECENT_REALIZED_TRADE_LIMIT);
+  document.getElementById("score-c-realized-trade-meta").textContent = showAllScoreCRealizedTrades
+    ? `전체 ${allRows.length}개 청산 완료`
+    : `최근 ${rows.length}개 / 전체 ${allRows.length}개`;
+  document.getElementById("score-c-realized-trades-body").innerHTML = rows.map((row) => `
+    <tr>
+      <td>${row.cohort}</td>
+      <td><strong>${row.symbol}</strong><div class="sub">${row.name}</div><div class="sub">${row.sector}</div></td>
+      <td>${(row.buyDates ?? []).join(", ")}<div class="sub">@ ${money(row.entryPrice)}</div></td>
+      <td><ul class="event-list">${tradeSellEvents(row).map(eventLine).join("")}</ul></td>
+      <td>${row.exitMonth}</td>
+      <td class="num ${signedClass(row.return)}">${percent(row.return)}</td>
+      <td class="num ${signedClass(row.qqqReturn)}">${percent(row.qqqReturn)}</td>
+      <td class="num ${signedClass(row.excessQqq)}">${percent(row.excessQqq)}</td>
+    </tr>
+  `).join("");
+
+  document.getElementById("score-c-realized-trades-cards").innerHTML = rows.map((row) => `
+    <article class="result-card">
+      <div class="card-head">
+        <div>
+          <h3>${row.symbol}</h3>
+          <p>${row.cohort} 추천 | 매수 ${(row.buyDates ?? []).join(", ")}</p>
+        </div>
+        <strong class="${signedClass(row.return)}">${percent(row.return)}</strong>
+      </div>
+      <div class="mobile-price">
+        <span>매수 ${money(row.entryPrice)} / 평균 매도 ${money(row.exitPrice)}</span>
+        <span class="${signedClass(row.excessQqq)}">QQQ 대비 ${percent(row.excessQqq)}</span>
+      </div>
+      <ul class="event-list">${tradeSellEvents(row).map(eventLine).join("")}</ul>
+    </article>
+  `).join("");
+
+  const button = document.getElementById("toggle-score-c-realized-trades");
+  button.hidden = allRows.length <= RECENT_REALIZED_TRADE_LIMIT;
+  button.textContent = showMoreLabel(showAllScoreCRealizedTrades, rows.length, allRows.length);
+  button.onclick = () => {
+    showAllScoreCRealizedTrades = !showAllScoreCRealizedTrades;
+    renderScoreCRealizedTrades();
+  };
+}
+
+function renderScoreCRecentSelections() {
+  const result = scoreCSelectionResult();
+  const rows = [...(result?.recentSelections ?? [])].reverse();
+  document.getElementById("score-c-selection-meta").textContent = `최근 ${rows.length}개월`;
+  document.getElementById("score-c-recent-selections").innerHTML = rows.map((month) => `
+    <article class="result-card">
+      <div class="card-head">
+        <div>
+          <h3>${month.asOf} 확정</h3>
+          <p>매수 기준일 ${month.entryDate}</p>
+        </div>
+        <strong>${(month.rows ?? []).length}개</strong>
+      </div>
+      <div class="metric-line">
+        ${(month.rows ?? []).map((row) => `
+          <span><strong>${row.symbol}</strong> ${row.name} | ${row.sector} | 점수 ${number(row.score, 1)} | 순위 ${row.rank}</span>
+        `).join("")}
+      </div>
+    </article>
+  `).join("");
+}
+
+function renderScoreCBacktest() {
+  const selection = scoreCSelectionResult();
+  const account = scoreCAccountResult();
+  const summary = scoreCScaleSummary();
+  const curveRows = scoreCCurveRows();
+  const lastCurve = curveRows.at(-1) ?? {};
+
+  if (!selection || !account || !summary) {
+    renderScoreCEmpty();
+    return;
+  }
+
+  renderBacktestKpis("score-c-kpis", {
+    finalValue: money(account.finalCapital),
+    finalValueNote: "1천만원 시작 | C안 Cap27.5",
+    strategyReturn: account.totalReturn,
+    strategyNote: `CAGR ${percent(account.cagr)} | MDD ${percent(account.maxDrawdownAtCost)}`,
+    benchmarkLabel: "QQQ",
+    benchmarkReturn: lastCurve.qqqTotalReturn ?? selection.qqqTotalReturn,
+    activityLabel: "매수/청산",
+    activityValue: `${account.executedBuys}/${account.attemptedBuys}`,
+    activityNote: `건너뜀 ${account.skippedBuys} | 종목 ${scoreCScaleTest?.symbolCount ?? 0}개`
+  });
+
+  renderBacktestTemplate("score-c-backtest-template", {
+    asset: "미국 주식 C안",
+    tone: "us",
+    strategyName: "C Half Sector10 Normalized + Cap27.5",
+    description: "개별 종목 점수를 중심으로 보되 섹터 점수는 10%만 반영해 특정 섹터 쏠림을 줄인 후보 선정 방식입니다.",
+    benchmarkLabel: "QQQ",
+    periodLabel: curveRows.length ? `${curveRows[0].asOf} ~ ${curveRows.at(-1).asOf}` : "기간 데이터 없음",
+    strategyReturn: account.totalReturn,
+    benchmarkReturn: lastCurve.qqqTotalReturn ?? selection.qqqTotalReturn,
+    maxDrawdown: account.maxDrawdownAtCost,
+    tradeCountLabel: `${account.executedBuys}건`,
+    tradeNote: `시도 ${account.attemptedBuys}건 / 스킵 ${account.skippedBuys}`,
+    winRateLabel: plainPercent(summary.winRate),
+    winRateNote: `${summary.enteredTrades}개 청산 기준`,
+    ruleSummary: "월말 C안 점수로 신규 후보 2개를 확정하고 다음 거래일 매수합니다. Cap27.5 계좌 규칙으로 종목당 최대 27.5%까지만 보유하며, 각 lot은 6개월 후 50%를 매도하고 남은 50%는 주봉 추세가 유지될 때만 최대 12개월까지 연장합니다."
+  });
+
+  renderComparisonPerformanceChart({
+    targetId: "score-c-performance-chart",
+    metaId: "score-c-curve-meta",
+    rows: curveRows,
+    strategyKey: "strategyTotalReturn",
+    benchmarkKey: "qqqTotalReturn",
+    strategyLabel: "C안",
+    benchmarkLabel: "QQQ",
+    ariaLabel: "C variant strategy versus QQQ performance chart"
+  });
+
+  renderScoreCMonthlySellEvents();
+  renderScoreCRealizedTrades();
+  renderScoreCRecentSelections();
+}
+
 function benchmarkLabel(symbol) {
   return {
     "069500.KS": "KOSPI200",
@@ -3681,6 +3902,9 @@ async function main() {
     koreaDashboard = await fetchOptionalJson("data/korea-strategy-dashboard.json");
     selectionStrategyLab = await fetchOptionalJson("data/selection-strategy-lab.json");
     finalStrategyValidation = await fetchOptionalJson("data/final-strategy-validation.json");
+    scoreVariantTest = await fetchOptionalJson("data/sector-score-variant-test.json");
+    scoreCScaleTest = await fetchOptionalJson("data/scale-execution-test-score-c.json");
+    scoreCStrategyLab = await fetchOptionalJson("data/strategy-development-lab-score-c.json");
     document.getElementById("meta").textContent = `${dashboard.asOf} | ${officialUsStrategyName} | updated ${new Date(dashboard.generatedAt).toLocaleString()}`;
     renderSummary();
     renderLeaders();
@@ -3688,6 +3912,7 @@ async function main() {
     renderSymbolHoldings();
     renderSymbolSellDue();
     renderBacktest();
+    renderScoreCBacktest();
     renderKoreaInvest();
     renderKorea();
     renderTodayDashboard();
