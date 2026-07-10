@@ -775,6 +775,7 @@ function combineAllocations(allocations) {
 }
 
 function weightedPick(row, weight) {
+  if (!row || !Number.isFinite(weight) || weight <= 0) return null;
   return row ? { ...compactPick(row), weight } : null;
 }
 
@@ -834,8 +835,78 @@ function selectRebalanceBySymbols(snapshot, symbols, count) {
   return combineAllocations(picks.map((row) => weightedPick(row, 1 / Math.max(1, picks.length))));
 }
 
+const kospiAlphaSymbols = [
+  "069500.KS",
+  "102110.KS",
+  "229200.KS",
+  "091160.KS",
+  "091230.KS",
+  "395160.KS",
+  "305720.KS",
+  "364970.KS",
+  "091170.KS",
+  "102970.KS",
+  "140700.KS"
+];
+
+const concentratedAlphaSymbols = [
+  "069500.KS",
+  "102110.KS",
+  "229200.KS",
+  "091160.KS",
+  "091230.KS",
+  "395160.KS",
+  "305720.KS",
+  "364970.KS"
+];
+
+const defensiveSymbols = ["132030.KS", "153130.KS", "114260.KS", "148070.KS", "458730.KS"];
+
+function benchmarkPick(snapshot) {
+  return snapshot.find((row) => row.symbol === "069500.KS") ?? fallbackEtf(snapshot, ["069500.KS"]);
+}
+
+function bestAlphaPicks(snapshot, count = 1) {
+  return selectRebalanceBySymbols(snapshot, concentratedAlphaSymbols, count);
+}
+
+function bestAlphaRows(snapshot, count = 1) {
+  const allow = new Set(concentratedAlphaSymbols);
+  return snapshot.filter((row) => row.eligible && allow.has(row.symbol)).slice(0, count);
+}
+
+function bestDefensivePick(snapshot) {
+  return snapshot.filter((row) => defensiveSymbols.includes(row.symbol) && row.eligible)[0]
+    ?? fallbackEtf(snapshot, defensiveSymbols)
+    ?? benchmarkPick(snapshot);
+}
+
+function realizedVolatility(rows, date, days = 63) {
+  const data = rowsUntil(rows, date).slice(-(days + 1));
+  if (data.length < days + 1) return null;
+  const returns = [];
+  for (let index = 1; index < data.length; index += 1) {
+    const value = pct(data[index - 1].close, data[index].close);
+    if (Number.isFinite(value)) returns.push(value);
+  }
+  if (returns.length < days) return null;
+  const average = avg(returns);
+  const variance = avg(returns.map((value) => (value - average) ** 2));
+  return Math.sqrt(variance) * Math.sqrt(252);
+}
+
+function alphaTrendHealthy(row, context) {
+  if (!row) return false;
+  const weekly = weeklyAtOrBefore(weeklyRows(context.priceMap.get(row.symbol) ?? []), context.signalDate);
+  return row.metric.above50
+    && row.metric.above200
+    && Number.isFinite(row.metric.r3m)
+    && row.metric.r3m > 0
+    && aliveWeekly(weekly);
+}
+
 function selectBenchmarkPlusBestSatellite(snapshot) {
-  const benchmark = snapshot.find((row) => row.symbol === "069500.KS") ?? fallbackEtf(snapshot, ["069500.KS"]);
+  const benchmark = benchmarkPick(snapshot);
   const satellite = snapshot.find((row) => row.eligible && row.symbol !== "069500.KS" && row.symbol !== "102110.KS") ?? benchmark;
   return combineAllocations([
     weightedPick(benchmark, 0.5),
@@ -845,40 +916,65 @@ function selectBenchmarkPlusBestSatellite(snapshot) {
 
 function selectKospiAlphaTop2(snapshot, context) {
   const kospiStrong = strongMetric(context.priceMap, "069500.KS", context.signalDate);
-  const alphaSymbols = [
-    "069500.KS",
-    "102110.KS",
-    "229200.KS",
-    "091160.KS",
-    "091230.KS",
-    "395160.KS",
-    "305720.KS",
-    "364970.KS",
-    "091170.KS",
-    "102970.KS",
-    "140700.KS"
-  ];
-  if (kospiStrong) return selectRebalanceBySymbols(snapshot, alphaSymbols, 2);
-  const defensive = snapshot.filter((row) => ["132030.KS", "153130.KS", "114260.KS", "148070.KS"].includes(row.symbol) && row.eligible).slice(0, 1);
-  const fallback = defensive[0] ?? fallbackEtf(snapshot, ["153130.KS", "132030.KS", "069500.KS"]);
-  return combineAllocations([weightedPick(fallback, 1)]);
+  if (kospiStrong) return selectRebalanceBySymbols(snapshot, kospiAlphaSymbols, 2);
+  return combineAllocations([weightedPick(bestDefensivePick(snapshot), 1)]);
 }
 
 function selectBenchmarkOrAlpha(snapshot, context) {
   const benchmarkStrong = strongMetric(context.priceMap, "069500.KS", context.signalDate);
-  const aggressive = selectRebalanceBySymbols(snapshot, [
-    "069500.KS",
-    "102110.KS",
-    "229200.KS",
-    "091160.KS",
-    "091230.KS",
-    "395160.KS",
-    "305720.KS",
-    "364970.KS"
-  ], 1);
+  const aggressive = bestAlphaPicks(snapshot, 1);
   if (benchmarkStrong && aggressive.length) return aggressive;
-  const benchmark = snapshot.find((row) => row.symbol === "069500.KS") ?? fallbackEtf(snapshot, ["069500.KS"]);
+  return combineAllocations([weightedPick(benchmarkPick(snapshot), 1)]);
+}
+
+function selectBenchmarkOrAlphaDefensive(snapshot, context) {
+  const benchmarkStrong = strongMetric(context.priceMap, "069500.KS", context.signalDate);
+  const aggressive = bestAlphaPicks(snapshot, 1);
+  if (benchmarkStrong && aggressive.length) return aggressive;
+  return combineAllocations([weightedPick(bestDefensivePick(snapshot), 1)]);
+}
+
+function selectBenchmarkOrAlpha8020(snapshot, context) {
+  const benchmarkStrong = strongMetric(context.priceMap, "069500.KS", context.signalDate);
+  const aggressive = bestAlphaRows(snapshot, 1)[0];
+  const benchmark = benchmarkPick(snapshot);
+  if (benchmarkStrong && aggressive) {
+    return combineAllocations([
+      weightedPick(aggressive, 0.8),
+      weightedPick(benchmark, 0.2)
+    ]);
+  }
   return combineAllocations([weightedPick(benchmark, 1)]);
+}
+
+function selectBenchmarkOrAlphaTop2(snapshot, context) {
+  const benchmarkStrong = strongMetric(context.priceMap, "069500.KS", context.signalDate);
+  const aggressive = bestAlphaPicks(snapshot, 2);
+  if (benchmarkStrong && aggressive.length) return aggressive;
+  return combineAllocations([weightedPick(benchmarkPick(snapshot), 1)]);
+}
+
+function selectBenchmarkOrAlphaTrendGuard(snapshot, context) {
+  const benchmarkStrong = strongMetric(context.priceMap, "069500.KS", context.signalDate);
+  const aggressive = bestAlphaRows(snapshot, 1)[0];
+  if (benchmarkStrong && alphaTrendHealthy(aggressive, context)) return combineAllocations([weightedPick(aggressive, 1)]);
+  return combineAllocations([weightedPick(bestDefensivePick(snapshot), 1)]);
+}
+
+function selectBenchmarkOrAlphaVolControl(snapshot, context) {
+  const benchmarkStrong = strongMetric(context.priceMap, "069500.KS", context.signalDate);
+  const aggressive = bestAlphaRows(snapshot, 1)[0];
+  const benchmark = benchmarkPick(snapshot);
+  if (!benchmarkStrong || !aggressive) return combineAllocations([weightedPick(benchmark, 1)]);
+
+  const vol = realizedVolatility(context.priceMap.get(aggressive.symbol) ?? [], context.signalDate);
+  const alphaWeight = Number.isFinite(vol)
+    ? vol >= 0.45 ? 0.5 : vol >= 0.32 ? 0.75 : 1
+    : 0.8;
+  return combineAllocations([
+    weightedPick(aggressive, alphaWeight),
+    weightedPick(benchmark, 1 - alphaWeight)
+  ]);
 }
 
 function topUniqueGroupsScoreC(snapshot, count, filter = () => true) {
@@ -1417,6 +1513,11 @@ function markdownEtfVariantReport(result) {
   lines.push("| ETF-F | kr_etf_benchmark_plus_satellite | KODEX200 50%를 고정하고, 나머지 50%는 가장 강한 비벤치마크 ETF에 배분한다. |");
   lines.push("| ETF-G | kr_etf_kospi_alpha_top2 | KODEX200 추세가 강하면 국내 알파 ETF 상위 2개에 투자하고, 약세장에서는 방어 ETF로 이동한다. |");
   lines.push("| ETF-H | kr_etf_benchmark_or_alpha | KODEX200 추세가 강하면 국내 알파 ETF 1위에 집중하고, 약하면 KODEX200을 보유한다. |");
+  lines.push("| ETF-I | kr_etf_benchmark_or_alpha_defensive | ETF-H와 같지만 KODEX200 약세 구간에서는 KODEX200 대신 가장 강한 방어 ETF로 이동한다. |");
+  lines.push("| ETF-J | kr_etf_benchmark_or_alpha_80_20 | ETF-H와 같지만 강세 구간에도 알파 ETF 80%, KODEX200 20%로 집중도를 낮춘다. |");
+  lines.push("| ETF-K | kr_etf_benchmark_or_alpha_top2 | ETF-H와 같지만 강세 구간에는 알파 ETF 상위 2개를 50/50으로 나눠 담는다. |");
+  lines.push("| ETF-L | kr_etf_benchmark_or_alpha_trend_guard | ETF-H와 같지만 선택 ETF의 일봉/주봉 추세가 훼손되면 방어 ETF로 이동한다. |");
+  lines.push("| ETF-M | kr_etf_benchmark_or_alpha_vol_control | ETF-H와 같지만 선택 ETF 변동성이 높으면 알파 ETF 비중을 75% 또는 50%로 낮춘다. |");
   lines.push("");
   lines.push("## 10M KRW Account Result");
   lines.push("");
@@ -1696,6 +1797,51 @@ async function main() {
     }),
     simulateEtfRebalanceStrategy({
       ...baseArgs,
+      key: "kr_etf_benchmark_or_alpha_defensive",
+      label: "KR ETF Benchmark Or Alpha Defensive",
+      description: "When KODEX 200 trend is strong, hold the strongest KOSPI alpha ETF. Otherwise move to the strongest defensive ETF.",
+      instruments: etfUniverse,
+      benchmarkSymbol: "069500.KS",
+      selectWeights: selectBenchmarkOrAlphaDefensive
+    }),
+    simulateEtfRebalanceStrategy({
+      ...baseArgs,
+      key: "kr_etf_benchmark_or_alpha_80_20",
+      label: "KR ETF Benchmark Or Alpha 80/20",
+      description: "When KODEX 200 trend is strong, hold 80% strongest KOSPI alpha ETF and 20% KODEX 200. Otherwise hold KODEX 200.",
+      instruments: etfUniverse,
+      benchmarkSymbol: "069500.KS",
+      selectWeights: selectBenchmarkOrAlpha8020
+    }),
+    simulateEtfRebalanceStrategy({
+      ...baseArgs,
+      key: "kr_etf_benchmark_or_alpha_top2",
+      label: "KR ETF Benchmark Or Alpha Top2",
+      description: "When KODEX 200 trend is strong, split into the strongest two KOSPI alpha ETFs. Otherwise hold KODEX 200.",
+      instruments: etfUniverse,
+      benchmarkSymbol: "069500.KS",
+      selectWeights: selectBenchmarkOrAlphaTop2
+    }),
+    simulateEtfRebalanceStrategy({
+      ...baseArgs,
+      key: "kr_etf_benchmark_or_alpha_trend_guard",
+      label: "KR ETF Benchmark Or Alpha Trend Guard",
+      description: "Use the strongest KOSPI alpha ETF only when KODEX 200 and the selected ETF pass daily and weekly trend checks. Otherwise move to defensive ETF.",
+      instruments: etfUniverse,
+      benchmarkSymbol: "069500.KS",
+      selectWeights: selectBenchmarkOrAlphaTrendGuard
+    }),
+    simulateEtfRebalanceStrategy({
+      ...baseArgs,
+      key: "kr_etf_benchmark_or_alpha_vol_control",
+      label: "KR ETF Benchmark Or Alpha Vol Control",
+      description: "When KODEX 200 trend is strong, reduce alpha ETF weight if realized volatility is elevated.",
+      instruments: etfUniverse,
+      benchmarkSymbol: "069500.KS",
+      selectWeights: selectBenchmarkOrAlphaVolControl
+    }),
+    simulateEtfRebalanceStrategy({
+      ...baseArgs,
       key: "kr_etf_absolute_momentum",
       label: "KR ETF Absolute Momentum",
       description: "Monthly rebalance into top ETFs only when absolute momentum is positive. If none qualify, move to short/bond ETFs.",
@@ -1829,7 +1975,12 @@ async function main() {
     { variant: "ETF-E", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_score_top1") },
     { variant: "ETF-F", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_benchmark_plus_satellite") },
     { variant: "ETF-G", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_kospi_alpha_top2") },
-    { variant: "ETF-H", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_benchmark_or_alpha") }
+    { variant: "ETF-H", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_benchmark_or_alpha") },
+    { variant: "ETF-I", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_benchmark_or_alpha_defensive") },
+    { variant: "ETF-J", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_benchmark_or_alpha_80_20") },
+    { variant: "ETF-K", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_benchmark_or_alpha_top2") },
+    { variant: "ETF-L", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_benchmark_or_alpha_trend_guard") },
+    { variant: "ETF-M", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_benchmark_or_alpha_vol_control") }
   ].filter((row) => row.strategy).map(({ variant, strategy }) => ({
     variant,
     key: strategy.key,
