@@ -9,6 +9,8 @@ const sample = process.argv.includes("--sample");
 const years = Number(valueAfter("--years") ?? 5);
 const holdMonths = Number(valueAfter("--hold-months") ?? 6);
 const costBps = Number(valueAfter("--cost-bps") ?? 10);
+const liveUniverse = process.argv.includes("--live-universe");
+const universeSnapshotPath = valueAfter("--universe") ?? "data/universe.json";
 const outputJsonPath = path.join("data", "sector-score-variant-test.json");
 const outputMdPath = "sector_score_variant_test.md";
 
@@ -143,6 +145,20 @@ async function collectPrices(instruments) {
     }
   }
   return { priceMap, errors };
+}
+
+async function loadInstruments() {
+  if (sample || liveUniverse) {
+    return {
+      instruments: await buildUniverse({ sample }),
+      universeSource: sample ? "buildUniverse sample" : "live buildUniverse"
+    };
+  }
+
+  return {
+    instruments: JSON.parse(await fs.readFile(universeSnapshotPath, "utf8")),
+    universeSource: universeSnapshotPath
+  };
 }
 
 function weightedMomentum(metrics) {
@@ -396,19 +412,20 @@ function markdown(result) {
   lines.push(`Generated at: ${result.generatedAt}`);
   lines.push(`Period: ${result.startDate} to ${result.endDate}`);
   lines.push(`Mode: ${result.mode}`);
+  lines.push(`Universe source: ${result.universeSource}`);
   lines.push("");
-  lines.push("## Reproducibility Warning");
+  lines.push("## Reproducibility Note");
   lines.push("");
-  lines.push("이 결과는 공식 전략 변경 근거가 아니라 `Exploratory` 등급의 1차 실험이다.");
+  lines.push("This run uses the stored universe and sector snapshot so A/B/C changes only the individual score formula.");
   lines.push("");
-  lines.push("- 이 테스트는 기존 `#backtest` 화면의 저장 유니버스/섹터 분류를 고정하지 않고 실행 시점에 유니버스를 다시 구성한다.");
-  lines.push("- 따라서 A Current Sector20은 점수 산식은 현재 방식과 같지만, 기존 공식 백테스트와 같은 입력 조건으로 실행된 결과가 아니다.");
-  lines.push("- 기존 공식 백테스트와 직접 비교하면 안 된다.");
-  lines.push("- 공식 비교를 하려면 동일 유니버스, 동일 섹터 분류, 동일 가격 데이터, 동일 매매 규칙을 고정한 뒤 A/B/C 산식만 바꿔 다시 검증해야 한다.");
+  lines.push("- Universe source: `data/universe.json` by default.");
+  lines.push("- Fixed items: universe, sector classification, price collection method, Leader2 buy rule, six-month rolling hold test.");
+  lines.push("- Changed item: individual stock score formula only.");
+  lines.push("- Remaining limitation: prices are still re-fetched at run time. Official promotion still needs fixed price snapshots plus Cap27.5 account-level validation.");
   lines.push("");
   lines.push("## Purpose");
   lines.push("");
-  lines.push("개별 종목 점수 안에 섹터/테마 점수를 얼마나 반영할지 A/B/C로 나누어 Leader2 종목 선정력을 비교한다.");
+  lines.push("Compare A/B/C variants for how much sector/theme score should be included in the individual stock score before Leader2 sector selection.");
   lines.push("");
   lines.push("## Results");
   lines.push("");
@@ -432,17 +449,18 @@ function markdown(result) {
   lines.push("");
   lines.push("## Interpretation Guide");
   lines.push("");
-  lines.push("- A Current Sector20: 현재 공식 방식이다. 개별 종목 점수에 섹터/테마 20점을 그대로 포함한다.");
-  lines.push("- B No Sector Normalized: 섹터/테마 점수를 제거하고 나머지 점수를 100점으로 환산한다. 섹터 중복 반영을 가장 강하게 제거한다.");
-  lines.push("- C Half Sector10 Normalized: 섹터/테마를 절반만 반영한다. 현재 방식과 완전 분리 방식의 절충안이다.");
-  lines.push("- 이 테스트는 종목 선정 엔진 비교용이다. Cap27.5 자금배분, 6개월 50% 매도 + 주봉 연장 매도까지 포함한 최종 계좌 검증은 별도 단계에서 다시 확인해야 한다.");
+  lines.push("- A Current Sector20: current official individual score style, including full sector/theme score.");
+  lines.push("- B No Sector Normalized: removes sector/theme from the individual score and rescales the remaining score to 100.");
+  lines.push("- C Half Sector10 Normalized: includes half of sector/theme score and rescales to 100.");
+  lines.push("- This test compares the selection engine only. Cap27.5 sizing and the final half-sell plus weekly-extension account simulation must be validated separately.");
   lines.push("");
   return lines.join("\n");
 }
 
 async function main() {
   console.log(sample ? "Running sector score variant test with sample data." : "Running sector score variant test with live data.");
-  const instruments = await buildUniverse({ sample });
+  const { instruments, universeSource } = await loadInstruments();
+  console.log(`Universe source: ${universeSource}`);
   console.log(`Universe size: ${instruments.length}`);
   const { priceMap, errors } = await collectPrices(instruments);
   const results = [];
@@ -458,6 +476,7 @@ async function main() {
   const result = {
     generatedAt: new Date().toISOString(),
     mode: sample ? "sample" : "live",
+    universeSource,
     years,
     holdMonths,
     costBps,
@@ -480,3 +499,4 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+
