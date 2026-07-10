@@ -64,6 +64,7 @@ async function main() {
     "sector_diversification_test.md",
     "sector_score_variant_test.md",
     "backtest_reproducibility_whitepaper.md",
+    "score_variant_final_validation.md",
   ];
 
   await copyDir(path.join(root, "dashboard"), dist);
