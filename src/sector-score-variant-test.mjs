@@ -397,6 +397,15 @@ function markdown(result) {
   lines.push(`Period: ${result.startDate} to ${result.endDate}`);
   lines.push(`Mode: ${result.mode}`);
   lines.push("");
+  lines.push("## Reproducibility Warning");
+  lines.push("");
+  lines.push("이 결과는 공식 전략 변경 근거가 아니라 `Exploratory` 등급의 1차 실험이다.");
+  lines.push("");
+  lines.push("- 이 테스트는 기존 `#backtest` 화면의 저장 유니버스/섹터 분류를 고정하지 않고 실행 시점에 유니버스를 다시 구성한다.");
+  lines.push("- 따라서 A Current Sector20은 점수 산식은 현재 방식과 같지만, 기존 공식 백테스트와 같은 입력 조건으로 실행된 결과가 아니다.");
+  lines.push("- 기존 공식 백테스트와 직접 비교하면 안 된다.");
+  lines.push("- 공식 비교를 하려면 동일 유니버스, 동일 섹터 분류, 동일 가격 데이터, 동일 매매 규칙을 고정한 뒤 A/B/C 산식만 바꿔 다시 검증해야 한다.");
+  lines.push("");
   lines.push("## Purpose");
   lines.push("");
   lines.push("개별 종목 점수 안에 섹터/테마 점수를 얼마나 반영할지 A/B/C로 나누어 Leader2 종목 선정력을 비교한다.");
