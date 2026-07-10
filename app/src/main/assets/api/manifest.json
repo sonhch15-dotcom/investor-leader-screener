@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "1.1.0",
+  "packageVersion": "2026-07-10T04:22:28.538Z",
+  "generatedAt": "2026-07-10T04:22:28.538Z",
+  "status": "normal",
+  "markets": [
+    "US_STOCK",
+    "KR_STOCK",
+    "KR_ETF"
+  ],
+  "files": [
+    {
+      "path": "/signals/latest.json",
+      "version": "2026-07",
+      "sha256": "d11cc34d79d9a0b6c68304e78bcd03736317bb9615831c3045417d5802f8fcb2",
+      "updatedAt": "2026-07-10T04:22:28.538Z",
+      "status": "normal"
+    },
+    {
+      "path": "/signals/2026-07.json",
+      "version": "2026-07",
+      "sha256": "d11cc34d79d9a0b6c68304e78bcd03736317bb9615831c3045417d5802f8fcb2",
+      "updatedAt": "2026-07-10T04:22:28.538Z",
+      "status": "normal"
+    },
+    {
+      "path": "/signals/us/latest.json",
+      "version": "2026-07",
+      "sha256": "66b0e8e65fb349d8a1b70cb7ac6cadf04259c4ed6ff874bcbd18d469b424ce42",
+      "updatedAt": "2026-07-10T04:22:28.538Z",
+      "status": "normal"
+    },
+    {
+      "path": "/signals/kr-stock/latest.json",
+      "version": "2026-07",
+      "sha256": "4daf35f36a05ef508e8e67cd1c6b3148d34eda995a2838ff82131e3a9b31a2a8",
+      "updatedAt": "2026-07-10T04:22:28.538Z",
+      "status": "normal"
+    },
+    {
+      "path": "/signals/kr-etf/latest.json",
+      "version": "2026-07",
+      "sha256": "44bceaf6274c656b9c7fab9fab199f0a08704b37d8ee93c98224d9b2d3a907e0",
+      "updatedAt": "2026-07-10T04:22:28.538Z",
+      "status": "normal"
+    },
+    {
+      "path": "/weekly-trends/latest.json",
+      "version": "2026-W28",
+      "sha256": "a7a3c0fd7ac9f91066b83903bdb1b29aa4a659666d65909855d70c1bdfc36283",
+      "updatedAt": "2026-07-10T04:22:28.538Z",
+      "status": "normal"
+    },
+    {
+      "path": "/prices/latest.json",
+      "version": "2026-07-10",
+      "sha256": "fc309994fbf8819f7444b5a363bef99548bc2dddc93f7f48cac22dd95c4ccf30",
+      "updatedAt": "2026-07-10T04:22:28.538Z",
+      "status": "delayed"
+    },
+    {
+      "path": "/fx/latest.json",
+      "version": "2026-07-10",
+      "sha256": "ca239b2148b1a5676b1f3847054710f227dd3cc67e42f610b5631b1c8d5e9542",
+      "updatedAt": "2026-07-10T04:22:28.538Z",
+      "status": "delayed"
+    },
+    {
+      "path": "/strategies/catalog.json",
+      "version": "2026-07-10T04:22:28.538Z",
+      "sha256": "e119763c55524ac14653a17ca4bff79ee90b65d3bb24469b9131a18e2dfda0f3",
+      "updatedAt": "2026-07-10T04:22:28.538Z",
+      "status": "normal"
+    },
+    {
+      "path": "/backtests/summary.json",
+      "version": "2026-07-10T04:22:28.538Z",
+      "sha256": "2a38fa1e1d883a536c4241021dc1955abfe4aa571349fdceb1333a3e0bd6283b",
+      "updatedAt": "2026-07-10T04:22:28.538Z",
+      "status": "normal"
+    }
+  ],
+  "nextExpectedRunAt": null
+}

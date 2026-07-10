@@ -6,9 +6,17 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    # Runs after the US regular session has closed.
-    # Monday-Friday 22:00 UTC / Tuesday-Saturday 07:00 KST.
+    # Low-frequency market checkpoints for the personal Android app.
+    # 00:30 UTC: Korea market open window / 09:30 KST.
+    - cron: "30 0 * * 1-5"
+    # 06:40 UTC: Korea market close window / 15:40 KST.
+    - cron: "40 6 * * 1-5"
+    # 14:30 UTC: US market open window during US daylight time / 23:30 KST.
+    - cron: "30 14 * * 1-5"
+    # 22:00 UTC: after US regular session close / 07:00 KST next day.
     - cron: "0 22 * * 1-5"
+    # 23:30 UTC: delayed Yahoo close-price retry / 08:30 KST next day.
+    - cron: "30 23 * * 1-5"
 
 permissions:
   contents: read

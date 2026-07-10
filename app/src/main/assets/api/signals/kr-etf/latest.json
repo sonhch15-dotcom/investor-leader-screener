@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "1.1.0",
+  "signalMonth": "2026-07",
+  "generatedAt": "2026-07-10T04:22:28.538Z",
+  "asOf": "2026-07-10",
+  "status": "normal",
+  "signals": [
+    {
+      "signalId": "KRETF-2026-07-REBALANCE-01",
+      "market": "KR_ETF",
+      "strategyKey": "kr_etf_benchmark_or_alpha_defensive",
+      "actionType": "rebalance",
+      "symbol": "KR_ETF_BASKET",
+      "name": "KR ETF Benchmark Or Alpha Defensive",
+      "currency": "KRW",
+      "rank": 1,
+      "score": 100,
+      "targetWeight": null,
+      "referencePrice": 0,
+      "referenceDate": "2026-07-10",
+      "validFrom": "2026-07-11",
+      "validUntil": "2026-07-31",
+      "scoreFormulaVersion": "kr_etf_benchmark_or_alpha_defensive_v1",
+      "sectorMapVersion": "kr_etf_alpha_defensive_bucket_v1",
+      "universeHash": "fdc00db6a2d16e08a15ceda66707181cffa0b32cbc2adcab4b98519349b60727",
+      "backtestRunId": "korea_etf_10y_validation_2026-07-10",
+      "dataAsOf": "2026-07-10",
+      "strategyStatus": "active",
+      "reasons": [
+        "Monthly rebalance window",
+        "KODEX 200 trend gate: above the 200-day average with positive momentum means alpha-on",
+        "Alpha-on: rebalance 100% into the highest-scoring domestic alpha ETF",
+        "Weak benchmark: rebalance 100% into the highest-scoring defensive ETF"
+      ],
+      "warnings": [
+        "This strategy can concentrate the ETF account in one ETF.",
+        "Before ordering, check pension-account tradability, minimum trade amount, fees, and taxes."
+      ],
+      "orderHint": {
+        "budgetPolicy": "target_weight_rebalance",
+        "driftThreshold": 0.05,
+        "minTradeAmount": 50000,
+        "concentrationLimit": 1,
+        "requiresPensionTradabilityCheck": true,
+        "rounding": "floor_to_whole_share"
+      }
+    }
+  ],
+  "targetWeights": [
+    {
+      "symbol": "395160.KS",
+      "name": "KODEX 시스템반도체",
+      "role": "반도체",
+      "targetWeight": 1,
+      "referencePrice": 47825,
+      "currency": "KRW",
+      "metrics": {
+        "r1m": -0.0115,
+        "r3m": 0.6857,
+        "r6m": 1.4094,
+        "momentum": 0.5878
+      }
+    }
+  ],
+  "excludedCandidates": [],
+  "market": "KR_ETF"
+}

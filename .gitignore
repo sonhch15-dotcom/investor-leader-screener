@@ -1,5 +1,10 @@
 node_modules/
 dist/
+.gradle/
+build/
+app/build/
+android-sdk/
+artifacts/*.apk
 .codex-remote-attachments/
 .env
 .env.*

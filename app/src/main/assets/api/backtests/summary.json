@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "1.1.0",
+  "generatedAt": "2026-07-10T04:22:28.538Z",
+  "summaries": [
+    {
+      "strategyKey": "us_leader2_repeat_theme_combo_cap27_5",
+      "period": null,
+      "totalReturn": null,
+      "maxDrawdown": null,
+      "sourceFile": "data/strategy-dashboard.json"
+    },
+    {
+      "strategyKey": "us_leader2_score_c_cap27_5",
+      "period": "2021-08..2026-06",
+      "totalReturn": 4.9,
+      "maxDrawdown": -0.065,
+      "sourceFile": "score_variant_final_validation.md",
+      "status": "candidate"
+    },
+    {
+      "strategyKey": "kr_stock_leader2",
+      "period": "61 months",
+      "totalReturn": 18.6264,
+      "maxDrawdown": -0.1562,
+      "tradeCount": 100,
+      "sourceFile": "data/korea-strategy-dashboard.json"
+    },
+    {
+      "strategyKey": "kr_etf_benchmark_or_alpha_defensive",
+      "period": "61 months",
+      "totalReturn": 4.9307,
+      "cagr": 0.4193,
+      "maxDrawdown": -0.1755,
+      "tradeCount": 50,
+      "sourceFile": "data/korea-etf-score-variant-test.json",
+      "validation": {
+        "fiveYear": {
+          "period": "61 months",
+          "totalReturn": 4.9307,
+          "cagr": 0.4193,
+          "maxDrawdown": -0.1755,
+          "tradeCount": 50,
+          "sourceFile": "data/korea-etf-score-variant-test.json"
+        },
+        "tenYear": {
+          "period": "121 months",
+          "totalReturn": 16.1724,
+          "cagr": 0.3258,
+          "maxDrawdown": -0.1757,
+          "tradeCount": 110,
+          "sourceFile": "data/korea-etf-10y-validation.json"
+        }
+      }
+    }
+  ]
+}

@@ -38,14 +38,49 @@ const krStockStrategy = {
   sectorMapVersion: "kr_universe_group_snapshot_v1",
   backtestRunId: "korea_strategy_dashboard"
 };
-const krEtfStrategy = {
-  strategyKey: "kr_etf_benchmark_or_alpha",
-  name: "KR ETF Benchmark Or Alpha",
-  market: "KR_ETF",
-  status: "active",
-  scoreFormulaVersion: "kr_etf_benchmark_or_alpha_v1",
-  sectorMapVersion: "kr_etf_alpha_bucket_v1",
-  backtestRunId: "korea_strategy_dashboard"
+const KR_ETF_ACTIVE_STRATEGY_KEY = "kr_etf_benchmark_or_alpha_defensive";
+const KR_ETF_LEGACY_STRATEGY_KEY = "kr_etf_benchmark_or_alpha";
+const KR_ETF_5Y_VALIDATION_FILE = "data/korea-etf-score-variant-test.json";
+const KR_ETF_10Y_VALIDATION_FILE = "data/korea-etf-10y-validation.json";
+const krEtfStrategyDefinitions = {
+  [KR_ETF_ACTIVE_STRATEGY_KEY]: {
+    strategyKey: KR_ETF_ACTIVE_STRATEGY_KEY,
+    name: "KR ETF Benchmark Or Alpha Defensive",
+    market: "KR_ETF",
+    status: "active",
+    scoreFormulaVersion: "kr_etf_benchmark_or_alpha_defensive_v1",
+    sectorMapVersion: "kr_etf_alpha_defensive_bucket_v1",
+    backtestRunId: "korea_etf_10y_validation_2026-07-10",
+    description: "Monthly ETF-I rotation. If KODEX 200 is strong, hold the top domestic alpha ETF; if weak, hold the strongest defensive ETF.",
+    reasons: [
+      "Monthly rebalance window",
+      "KODEX 200 trend gate: above the 200-day average with positive momentum means alpha-on",
+      "Alpha-on: rebalance 100% into the highest-scoring domestic alpha ETF",
+      "Weak benchmark: rebalance 100% into the highest-scoring defensive ETF"
+    ],
+    warnings: [
+      "This strategy can concentrate the ETF account in one ETF.",
+      "Before ordering, check pension-account tradability, minimum trade amount, fees, and taxes."
+    ]
+  },
+  [KR_ETF_LEGACY_STRATEGY_KEY]: {
+    strategyKey: KR_ETF_LEGACY_STRATEGY_KEY,
+    name: "KR ETF Benchmark Or Alpha",
+    market: "KR_ETF",
+    status: "candidate",
+    scoreFormulaVersion: "kr_etf_benchmark_or_alpha_v1",
+    sectorMapVersion: "kr_etf_alpha_bucket_v1",
+    backtestRunId: "korea_etf_score_variant_test_2026-07-10",
+    description: "Legacy ETF-H comparison. If KODEX 200 is strong, hold the top domestic alpha ETF; otherwise hold KODEX 200.",
+    reasons: [
+      "Monthly rebalance window",
+      "Benchmark Or Alpha target allocation check",
+      "If KODEX 200 trend is strong, use the highest-scoring KOSPI alpha ETF; otherwise hold KODEX 200"
+    ],
+    warnings: [
+      "Legacy comparison strategy. Use ETF-I defensive as the app default unless intentionally testing."
+    ]
+  }
 };
 
 function round(value, digits = 4) {
@@ -268,14 +303,50 @@ function signalFromKrStock(row, index, signalMonth, asOf, validUntil, universeHa
   };
 }
 
-function signalFromEtf(strategy, signalMonth, asOf, validUntil, universeHash) {
+function krEtfDefinitionFor(strategy) {
+  const definition = krEtfStrategyDefinitions[strategy?.key] ?? krEtfStrategyDefinitions[KR_ETF_ACTIVE_STRATEGY_KEY];
+  return {
+    ...definition,
+    strategyKey: strategy?.key ?? definition.strategyKey,
+    name: strategy?.label ?? definition.name
+  };
+}
+
+function findEtfStrategy(data, key) {
+  return data?.variants?.find((strategy) => strategy.key === key)
+    ?? data?.strategies?.find((strategy) => strategy.key === key)
+    ?? null;
+}
+
+function chooseEtfSignalStrategy(korea, etfFiveYear, etfTenYear) {
+  return findEtfStrategy(etfFiveYear, KR_ETF_ACTIVE_STRATEGY_KEY)
+    ?? findEtfStrategy(etfTenYear, KR_ETF_ACTIVE_STRATEGY_KEY)
+    ?? findEtfStrategy(korea, KR_ETF_ACTIVE_STRATEGY_KEY)
+    ?? findEtfStrategy(korea, KR_ETF_LEGACY_STRATEGY_KEY)
+    ?? findEtfStrategy(etfFiveYear, KR_ETF_LEGACY_STRATEGY_KEY)
+    ?? {};
+}
+
+function backtestSummary(strategy, sourceFile) {
+  if (!strategy) return null;
+  return {
+    period: strategy.months ? `${strategy.months} months` : null,
+    totalReturn: strategy.summary?.totalReturn ?? strategy.account?.totalReturn ?? strategy.capitalAccount?.totalReturn ?? null,
+    cagr: strategy.summary?.cagr ?? strategy.account?.cagr ?? strategy.capitalAccount?.cagr ?? null,
+    maxDrawdown: strategy.summary?.maxDrawdown ?? strategy.account?.maxDrawdown ?? strategy.capitalAccount?.maxDrawdown ?? null,
+    tradeCount: strategy.summary?.tradeCount ?? strategy.account?.executedBuys ?? strategy.capitalAccount?.executedBuys ?? null,
+    sourceFile
+  };
+}
+
+function signalFromEtf(strategy, strategyDefinition, signalMonth, asOf, validUntil, universeHash) {
   return {
     signalId: `KRETF-${signalMonth}-REBALANCE-01`,
     market: "KR_ETF",
-    strategyKey: krEtfStrategy.strategyKey,
+    strategyKey: strategyDefinition.strategyKey,
     actionType: "rebalance",
     symbol: "KR_ETF_BASKET",
-    name: strategy.label ?? "KR ETF Core Satellite",
+    name: strategy.label ?? strategyDefinition.name,
     currency: "KRW",
     rank: 1,
     score: 100,
@@ -284,19 +355,15 @@ function signalFromEtf(strategy, signalMonth, asOf, validUntil, universeHash) {
     referenceDate: asOf,
     validFrom: nextDay(asOf),
     validUntil,
-    ...strategyMetadata(krEtfStrategy, asOf, universeHash),
-    reasons: [
-      "Monthly rebalance window",
-      "Benchmark Or Alpha target allocation check",
-      "If KODEX 200 trend is strong, use the highest-scoring KOSPI alpha ETF; otherwise hold KODEX 200"
-    ],
-    warnings: [
-      "This strategy can concentrate the ETF account in one ETF, so rebalance size and account risk limits must be checked before execution"
-    ],
+    ...strategyMetadata(strategyDefinition, asOf, universeHash),
+    reasons: strategyDefinition.reasons ?? [],
+    warnings: strategyDefinition.warnings ?? [],
     orderHint: {
       budgetPolicy: "target_weight_rebalance",
       driftThreshold: 0.05,
       minTradeAmount: 50000,
+      concentrationLimit: 1,
+      requiresPensionTradabilityCheck: true,
       rounding: "floor_to_whole_share"
     }
   };
@@ -537,13 +604,22 @@ async function main() {
   const us = await readJson("data/strategy-dashboard.json");
   const scoreVariants = await readOptionalJson("data/sector-score-variant-test.json");
   const korea = await readJson("data/korea-strategy-dashboard.json");
+  const etfFiveYear = await readOptionalJson(KR_ETF_5Y_VALIDATION_FILE);
+  const etfTenYear = await readOptionalJson(KR_ETF_10Y_VALIDATION_FILE);
   const krStock = korea.strategies?.find((strategy) => strategy.key === "kr_stocks") ?? {};
-  const krEtf = korea.strategies?.find((strategy) => strategy.key === "kr_etf_benchmark_or_alpha") ?? {};
-  const asOf = [us.asOf, korea.asOf].filter(Boolean).sort().at(-1);
+  const krEtf = chooseEtfSignalStrategy(korea, etfFiveYear, etfTenYear);
+  const krEtfDefinition = krEtfDefinitionFor(krEtf);
+  const krEtfLegacy = findEtfStrategy(etfFiveYear, KR_ETF_LEGACY_STRATEGY_KEY)
+    ?? findEtfStrategy(etfTenYear, KR_ETF_LEGACY_STRATEGY_KEY);
+  const krEtfFiveYearSummary = findEtfStrategy(etfFiveYear, krEtfDefinition.strategyKey);
+  const krEtfTenYearSummary = findEtfStrategy(etfTenYear, krEtfDefinition.strategyKey);
+  const krEtfAsOf = krEtf.asOf ?? etfFiveYear?.asOf ?? etfTenYear?.asOf ?? korea.asOf;
+  const asOf = [us.asOf, korea.asOf, krEtfAsOf].filter(Boolean).sort().at(-1);
   const signalMonth = asOf.slice(0, 7);
   const validUntil = endOfMonth(signalMonth);
   const usUniverseHash = await fileHash("data/universe.json");
   const koreaUniverseHash = await fileHash("data/korea-strategy-dashboard.json");
+  const krEtfUniverseHash = await fileHash(KR_ETF_5Y_VALIDATION_FILE);
   const usSourceRows = rowsBySymbol(us.currentBuys, us.portfolio?.holdings);
   const usScoreCRows = latestScoreVariantRows(scoreVariants, "c_half_sector_normalized", usSourceRows);
 
@@ -551,7 +627,7 @@ async function main() {
   const usScoreCSignals = usScoreCRows.map((row, index) => signalFromUs(row, index, signalMonth, validUntil, usScoreCStrategy, row.lastDate ?? us.asOf, usUniverseHash));
   const krStockSignals = (krStock.currentPicks ?? []).map((row, index) => signalFromKrStock(row, index, signalMonth, korea.asOf, validUntil, koreaUniverseHash));
   const etfTargets = (krEtf.currentPicks ?? []).map(etfTargetFromPick);
-  const etfSignal = signalFromEtf(krEtf, signalMonth, korea.asOf, validUntil, koreaUniverseHash);
+  const etfSignal = signalFromEtf(krEtf, krEtfDefinition, signalMonth, krEtfAsOf, validUntil, krEtfUniverseHash);
   const allSignals = [...usSignals, ...usScoreCSignals, ...krStockSignals, etfSignal];
 
   const trendRows = [
@@ -621,15 +697,40 @@ async function main() {
         riskNotice: "Check trading halts, price limits, and liquidity before ordering."
       },
       {
-        ...catalogStrategy(krEtfStrategy),
-        name: krEtf.label ?? "KR ETF Core Satellite 50/40/10",
-        description: krEtf.description ?? "",
-        universeHash: koreaUniverseHash,
-        dataAsOf: korea.asOf,
-        riskNotice: "Check rebalance cost, tax, and minimum trade size."
-      }
+        ...catalogStrategy(krEtfDefinition),
+        name: krEtf.label ?? krEtfDefinition.name,
+        description: krEtf.description ?? krEtfDefinition.description ?? "",
+        universeHash: krEtfUniverseHash,
+        dataAsOf: krEtfAsOf,
+        validationReports: [
+          "korea_etf_10y_validation.md",
+          "korea_etf_score_variant_test.md"
+        ],
+        validation: {
+          fiveYear: backtestSummary(krEtfFiveYearSummary, KR_ETF_5Y_VALIDATION_FILE),
+          tenYear: backtestSummary(krEtfTenYearSummary, KR_ETF_10Y_VALIDATION_FILE)
+        },
+        riskNotice: "ETF-I can rebalance 100% into one ETF. Check pension-account tradability, rebalance cost, tax, and minimum trade size before ordering."
+      },
+      ...(krEtfLegacy ? [{
+        ...catalogStrategy(krEtfDefinitionFor(krEtfLegacy)),
+        name: krEtfLegacy.label ?? krEtfStrategyDefinitions[KR_ETF_LEGACY_STRATEGY_KEY].name,
+        description: krEtfLegacy.description ?? krEtfStrategyDefinitions[KR_ETF_LEGACY_STRATEGY_KEY].description,
+        universeHash: krEtfUniverseHash,
+        dataAsOf: krEtfAsOf,
+        validationReports: [
+          "korea_etf_score_variant_test.md"
+        ],
+        validation: {
+          fiveYear: backtestSummary(krEtfLegacy, KR_ETF_5Y_VALIDATION_FILE)
+        },
+        riskNotice: "Legacy ETF-H comparison. Prefer ETF-I defensive for the app default unless deliberately testing the old KODEX200 fallback."
+      }] : [])
     ]
   };
+
+  const krEtfBacktest = backtestSummary(krEtf, KR_ETF_5Y_VALIDATION_FILE);
+  const krEtfTenYearBacktest = backtestSummary(krEtfTenYearSummary, KR_ETF_10Y_VALIDATION_FILE);
 
   const summary = {
     schemaVersion,
@@ -659,12 +760,17 @@ async function main() {
         sourceFile: "data/korea-strategy-dashboard.json"
       },
       {
-        strategyKey: krEtfStrategy.strategyKey,
-        period: krEtf.months ? `${krEtf.months} months` : null,
-        totalReturn: krEtf.summary?.totalReturn ?? null,
-        maxDrawdown: krEtf.capitalAccount?.maxDrawdown ?? null,
-        tradeCount: krEtf.summary?.tradeCount ?? null,
-        sourceFile: "data/korea-strategy-dashboard.json"
+        strategyKey: krEtfDefinition.strategyKey,
+        period: krEtfBacktest?.period ?? null,
+        totalReturn: krEtfBacktest?.totalReturn ?? null,
+        cagr: krEtfBacktest?.cagr ?? null,
+        maxDrawdown: krEtfBacktest?.maxDrawdown ?? null,
+        tradeCount: krEtfBacktest?.tradeCount ?? null,
+        sourceFile: KR_ETF_5Y_VALIDATION_FILE,
+        validation: {
+          fiveYear: krEtfBacktest,
+          tenYear: krEtfTenYearBacktest
+        }
       }
     ]
   };

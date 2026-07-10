@@ -1,0 +1,272 @@
+{
+  "schemaVersion": "1.1.0",
+  "generatedAt": "2026-07-10T04:22:28.538Z",
+  "asOf": "2026-07-10",
+  "status": "delayed",
+  "quotes": [
+    {
+      "symbol": "TECH",
+      "name": "Bio-Techne",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 70.92,
+      "priceDate": "2026-07-06",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "STX",
+      "name": "Seagate Technology",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 868.26,
+      "priceDate": "2026-07-06",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "INTC",
+      "name": "Intel",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 122.2,
+      "priceDate": "2026-06-26",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "KLAC",
+      "name": "KLA Corporation",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 233.31,
+      "priceDate": "2026-06-26",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "HWM",
+      "name": "Howmet Aerospace",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 277.91,
+      "priceDate": "2025-06-27",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "GE",
+      "name": "GE Aerospace",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 378.68,
+      "priceDate": "2025-07-25",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "TPR",
+      "name": "Tapestry, Inc.",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 145.49,
+      "priceDate": "2025-07-25",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "WYNN",
+      "name": "Wynn Resorts",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 95.89,
+      "priceDate": "2025-08-29",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "WDC",
+      "name": "Western Digital",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 577.46,
+      "priceDate": "2025-08-29",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "AMD",
+      "name": "Advanced Micro Devices",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 552.05,
+      "priceDate": "2025-10-31",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "LLY",
+      "name": "Lilly (Eli)",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 1200.06,
+      "priceDate": "2025-11-28",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "SNDK",
+      "name": "Sandisk",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 1744.43,
+      "priceDate": "2025-11-28",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "BIIB",
+      "name": "Biogen",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 208.46,
+      "priceDate": "2025-12-26",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "XOM",
+      "name": "ExxonMobil",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 136.44,
+      "priceDate": "2026-01-30",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "TPL",
+      "name": "Texas Pacific Land Corporation",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 402.8,
+      "priceDate": "2026-02-27",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "GNRC",
+      "name": "Generac",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 257.81,
+      "priceDate": "2026-02-27",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "ETR",
+      "name": "Entergy",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 113.83,
+      "priceDate": "2026-03-27",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "ARM",
+      "name": "Arm Holdings",
+      "market": "US_STOCK",
+      "currency": "USD",
+      "price": 322.24,
+      "priceDate": "2026-04-24",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "009150.KS",
+      "name": "삼성전기",
+      "market": "KR_STOCK",
+      "currency": "KRW",
+      "price": 1602000,
+      "priceDate": "2026-07-10",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "000660.KS",
+      "name": "SK하이닉스",
+      "market": "KR_STOCK",
+      "currency": "KRW",
+      "price": 2238000,
+      "priceDate": "2026-07-10",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "010130.KS",
+      "name": "고려아연",
+      "market": "KR_STOCK",
+      "currency": "KRW",
+      "price": 1088000,
+      "priceDate": "2026-07-10",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "006400.KS",
+      "name": "삼성SDI",
+      "market": "KR_STOCK",
+      "currency": "KRW",
+      "price": 434000,
+      "priceDate": "2026-07-10",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "066570.KS",
+      "name": "LG전자",
+      "market": "KR_STOCK",
+      "currency": "KRW",
+      "price": 185400,
+      "priceDate": "2026-07-10",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    },
+    {
+      "symbol": "395160.KS",
+      "name": "KODEX 시스템반도체",
+      "market": "KR_ETF",
+      "currency": "KRW",
+      "price": 47825,
+      "priceDate": "2026-07-10",
+      "source": "strategy-dashboard-fallback",
+      "status": "delayed",
+      "error": "fetch failed"
+    }
+  ]
+}
