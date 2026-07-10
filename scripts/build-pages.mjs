@@ -55,6 +55,7 @@ async function main() {
     "capital_account_simulation.md",
     "strategy_development_team.md",
     "strategy_common_template.md",
+    "THREAD_SHARED_CONTEXT.md",
     "android_app_strategy_plan.md",
     "strategy_development_lab.md",
     "selection_strategy_lab.md",
