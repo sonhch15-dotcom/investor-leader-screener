@@ -62,6 +62,7 @@ async function main() {
     "korea_strategy_backtest.md",
     "korea_stock_score_variant_test.md",
     "korea_etf_score_variant_test.md",
+    "korea_etf_10y_validation.md",
     "full_candidate_diversification_test.md",
     "sector_diversification_test.md",
     "sector_score_variant_test.md",

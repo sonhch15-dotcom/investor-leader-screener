@@ -14,6 +14,13 @@ const etfVariantMdPath = "korea_etf_score_variant_test.md";
 const configPath = path.join("config", "korea-universe.json");
 const initialCapital = 10_000_000;
 
+function yahooRangeForYears(yearCount) {
+  if (yearCount <= 2) return "2y";
+  if (yearCount <= 5) return "5y";
+  if (yearCount <= 10) return "10y";
+  return "max";
+}
+
 function valueAfter(flag) {
   const index = process.argv.indexOf(flag);
   return index === -1 ? null : process.argv[index + 1] ?? null;
@@ -198,11 +205,12 @@ function monthlyEndDates(rows, startDate, endDate) {
 async function collectPrices(instruments) {
   const priceMap = new Map();
   const errors = [];
+  const range = yahooRangeForYears(years);
   for (const [index, instrument] of instruments.entries()) {
     try {
       const rows = sample
         ? syntheticChart(instrument.symbol, 1350)
-        : await fetchChart(instrument.symbol, { range: "5y", interval: "1d" });
+        : await fetchChart(instrument.symbol, { range, interval: "1d" });
       priceMap.set(instrument.symbol, rows);
       if ((index + 1) % 20 === 0) console.log(`Fetched Korea ${index + 1}/${instruments.length}`);
     } catch (error) {
