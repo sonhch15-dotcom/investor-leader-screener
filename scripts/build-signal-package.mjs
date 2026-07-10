@@ -8,7 +8,7 @@ const args = new Set(process.argv.slice(2));
 const schemaVersion = "1.1.0";
 const generatedAt = new Date().toISOString();
 const distApiDir = path.join(root, "dist", "api");
-const appAssetApiDir = path.join(root, "app", "src", "main", "assets", "api");
+const appAssetApiDir = path.join(root, "investor-run-android", "app", "src", "main", "assets", "api");
 const usBaselineStrategy = {
   signalIdPrefix: "US",
   strategyKey: "us_leader2_repeat_theme_combo_cap27_5",
@@ -158,17 +158,28 @@ function weeklyTrendFor(row, market) {
       trendState: "needs_review",
       breakDate: null,
       confirmationRequired: true,
+      exitConfirmed: false,
       metrics: {
         distanceToTrendLine: null,
-        rsi14: null
+        rsi14: null,
+        belowTrendWeeks: 0,
+        exitReason: null
       }
     };
   }
 
+  const previous = weekly.at(-2);
   const distance = latest.close / latest.ma10 - 1;
   const rsiValue = latest.rsi14;
-  const broken = latest.close < latest.ma10 || (Number.isFinite(rsiValue) && rsiValue < 50);
-  const weakening = !broken && (distance < 0.05 || (Number.isFinite(rsiValue) && rsiValue < 55));
+  const belowTrend = latest.close < latest.ma10;
+  const previousBelowTrend = Number.isFinite(previous?.close)
+    && Number.isFinite(previous?.ma10)
+    && previous.close < previous.ma10;
+  const belowTrendWeeks = belowTrend ? (previousBelowTrend ? 2 : 1) : 0;
+  const rsiExit = Number.isFinite(rsiValue) && rsiValue < 50;
+  const exitConfirmed = belowTrendWeeks >= 2 || rsiExit;
+  const confirmationRequired = belowTrend && !exitConfirmed;
+  const weakening = !exitConfirmed && (belowTrend || distance < 0.05 || (Number.isFinite(rsiValue) && rsiValue < 55));
   return {
     market,
     symbol: row.symbol,
@@ -177,12 +188,15 @@ function weeklyTrendFor(row, market) {
     weekEndDate: latest.date,
     close: round(latest.close, 2),
     weeklyTrendLine: round(latest.ma10, 2),
-    trendState: broken ? "broken" : weakening ? "weakening" : "alive",
-    breakDate: broken ? latest.date : null,
-    confirmationRequired: broken,
+    trendState: exitConfirmed ? "broken" : weakening ? "weakening" : "alive",
+    breakDate: exitConfirmed ? latest.date : null,
+    confirmationRequired,
+    exitConfirmed,
     metrics: {
       distanceToTrendLine: round(distance, 4),
-      rsi14: round(rsiValue, 1)
+      rsi14: round(rsiValue, 1),
+      belowTrendWeeks,
+      exitReason: belowTrendWeeks >= 2 ? "two_week_ma10_break" : rsiExit ? "rsi_below_50" : null
     }
   };
 }
@@ -369,8 +383,9 @@ function signalFromEtf(strategy, strategyDefinition, signalMonth, asOf, validUnt
   };
 }
 
-function etfTargetFromPick(row) {
+function etfTargetFromPick(row, strategyKey) {
   return {
+    strategyKey,
     symbol: row.symbol,
     name: row.name,
     role: row.group ?? "target",
@@ -626,7 +641,7 @@ async function main() {
   const usSignals = (us.currentBuys ?? []).map((row, index) => signalFromUs(row, index, signalMonth, validUntil, usBaselineStrategy, us.asOf, usUniverseHash));
   const usScoreCSignals = usScoreCRows.map((row, index) => signalFromUs(row, index, signalMonth, validUntil, usScoreCStrategy, row.lastDate ?? us.asOf, usUniverseHash));
   const krStockSignals = (krStock.currentPicks ?? []).map((row, index) => signalFromKrStock(row, index, signalMonth, korea.asOf, validUntil, koreaUniverseHash));
-  const etfTargets = (krEtf.currentPicks ?? []).map(etfTargetFromPick);
+  const etfTargets = (krEtf.currentPicks ?? []).map((row) => etfTargetFromPick(row, krEtfDefinition.strategyKey));
   const etfSignal = signalFromEtf(krEtf, krEtfDefinition, signalMonth, krEtfAsOf, validUntil, krEtfUniverseHash);
   const allSignals = [...usSignals, ...usScoreCSignals, ...krStockSignals, etfSignal];
 
@@ -808,6 +823,13 @@ async function main() {
     packageVersion: generatedAt,
     generatedAt,
     status: "normal",
+    minAppVersionCode: 57,
+    capabilities: [
+      "strategy_status_gate",
+      "signal_validity_gate",
+      "etf_zero_target_liquidation",
+      "weekly_exit_v2"
+    ],
     markets: ["US_STOCK", "KR_STOCK", "KR_ETF"],
     files: makeFileRecords(files),
     nextExpectedRunAt: null

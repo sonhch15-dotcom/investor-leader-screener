@@ -37,7 +37,7 @@
 ```text
 Market = US_STOCK | KR_STOCK | KR_ETF
 DataStatus = normal | delayed | needs_review | failed
-StrategyStatus = active | paused | testing | retired
+StrategyStatus = active | candidate | paused | testing | retired
 ActionType = buy | sell | rebalance | watch | record_missing
 TrendState = alive | weakening | broken | needs_review
 ```
@@ -148,6 +148,13 @@ TrendState = alive | weakening | broken | needs_review
 - `strategyStatus`는 `active`, `candidate`, `testing`, `paused`, `retired` 중 하나다.
 - Android 앱은 종목 선정은 다시 계산하지 않고, 이 메타데이터를 표시/기록해 전략 변경과 입력 데이터 변경을 구분한다.
 
+실행 게이트:
+
+- `strategyStatus = active`인 신호만 주문 가능하다.
+- `candidate`, `testing`, `paused`, `retired` 신호는 비교/설명 전용이다.
+- 현재 날짜가 `validFrom..validUntil` 범위를 벗어나면 주문 가이드를 차단한다.
+- 정상 상태라도 가격/환율 기준일이 앱의 최대 허용 경과일을 넘으면 주문 가이드를 차단한다.
+
 ## 6. 미국 주식 신호
 
 ```json
@@ -193,6 +200,8 @@ TrendState = alive | weakening | broken | needs_review
 - 월간 매수 예산은 사용자가 앱에 입력한 현금과 설정값으로 계산한다.
 - 이미 보유 중인 활성 lot과 중복되는 추천은 앱에서 경고한다.
 - 6개월/12개월 날짜는 앱의 lot 기록 기준으로 다시 계산한다.
+- 주봉 매도는 6개월 50% 매도 이후 잔여 lot에만 적용한다.
+- 잔여 lot은 10주선 2주 연속 이탈 또는 RSI 50 하회가 확정된 경우에만 최종 매도 검토 대상으로 만든다.
 
 ## 7. 한국 주식 신호
 
@@ -285,6 +294,8 @@ TrendState = alive | weakening | broken | needs_review
 - 현재 ETF 평가금액은 사용자의 보유 수량과 최신 기준가로 계산한다.
 - 목표 비중과 현재 비중의 차이가 `driftThreshold`를 넘으면 리밸런싱 ActionCard를 만든다.
 - 최소 주문 금액 미만이면 알림은 만들되 주문 가이드는 "보류 가능" 상태로 표시한다.
+- 리밸런싱 계산 대상은 `현재 보유 ETF ∪ targetWeights`다.
+- 현재 보유 중이지만 새 `targetWeights`에 없는 ETF는 목표 비중 0%로 계산해 매도 가이드를 만든다.
 
 ## 9. weekly-trends/latest.json
 
@@ -308,6 +319,7 @@ TrendState = alive | weakening | broken | needs_review
       "trendState": "alive",
       "breakDate": null,
       "confirmationRequired": false,
+      "exitConfirmed": false,
       "metrics": {
         "distanceToTrendLine": 0.051,
         "weeklyReturn": 0.024,
@@ -324,7 +336,8 @@ TrendState = alive | weakening | broken | needs_review
       "weeklyTrendLine": 276000,
       "trendState": "broken",
       "breakDate": "2026-07-10",
-      "confirmationRequired": true,
+      "confirmationRequired": false,
+      "exitConfirmed": true,
       "metrics": {
         "distanceToTrendLine": -0.022,
         "weeklyReturn": -0.041,
@@ -340,7 +353,8 @@ TrendState = alive | weakening | broken | needs_review
 - `trendState = alive`: 보유 유지.
 - `trendState = weakening`: `운용` 화면에서 감시 배지를 표시한다.
 - `trendState = broken`: 6개월 이후 잔여 lot이 있으면 매도 ActionCard를 만든다.
-- `confirmationRequired = true`: 주문 가이드 전에 수동 확인 체크리스트를 표시한다.
+- `exitConfirmed = true`: 10주선 2주 연속 이탈 또는 RSI 50 하회가 확정됐다.
+- `confirmationRequired = true`: 첫 이탈 등 추가 주봉 확인이 필요하며 매도 주문 가이드는 열지 않는다.
 - `needs_review`: 데이터 이상 가능성이 있으므로 주문 가이드를 비활성화한다.
 
 ## 10. prices/latest.json

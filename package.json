@@ -32,6 +32,7 @@
     "test:korea": "node src/korea-strategy-test.mjs",
     "build:strategy-data": "node src/strategy-dashboard-data.mjs",
     "build:signals": "node scripts/build-signal-package.mjs",
+    "verify:signals": "node scripts/verify-signal-package.mjs",
     "build:app-assets": "node scripts/build-signal-package.mjs --app-assets",
     "build:pages": "node scripts/build-pages.mjs",
     "serve": "node src/server.mjs",
