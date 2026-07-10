@@ -1,6 +1,11 @@
 # Investor Leader Screener
 
-미국 주식/ETF 주도주 후보를 자동으로 점수화하고 웹 대시보드에서 확인하는 첫 버전입니다.
+미국 주식, 한국 주식, 한국 ETF 전략 신호를 생성하고 GitHub Pages API와 웹 대시보드로 배포하는 public repository입니다.
+
+Android 앱 코드는 별도 private repository에서 관리합니다.
+
+- Android app repo: `sonhch15-dotcom/investor-run-android`
+- Pages/API URL: `https://sonhch15-dotcom.github.io/investor-leader-screener/api`
 
 ## 현재 구현 범위
 
@@ -12,6 +17,7 @@
 - 시장 상태 점수 계산
 - 매수 가능/감시/제외 분류
 - 웹 대시보드 표시
+- Android 앱이 읽는 정적 signal package 생성
 
 ## 실행
 
@@ -44,6 +50,30 @@ npm run refresh
 ```
 
 실데이터는 Yahoo Finance 무료 데이터를 사용하므로, 일시적인 차단이나 누락이 발생할 수 있습니다.
+
+## Android Signal API
+
+Android 앱은 이 repo의 GitHub Pages API를 읽습니다. 앱 코드는 private repo에 있지만, 전략 신호와 가격/환율 패키지는 public Pages에서 계속 제공합니다.
+
+로컬에서 API 패키지만 생성:
+
+```powershell
+npm run build:signals
+```
+
+주요 API 경로:
+
+```text
+https://sonhch15-dotcom.github.io/investor-leader-screener/api/manifest.json
+https://sonhch15-dotcom.github.io/investor-leader-screener/api/signals/latest.json
+https://sonhch15-dotcom.github.io/investor-leader-screener/api/signals/us/latest.json
+https://sonhch15-dotcom.github.io/investor-leader-screener/api/signals/kr-stock/latest.json
+https://sonhch15-dotcom.github.io/investor-leader-screener/api/signals/kr-etf/latest.json
+```
+
+API 계약 문서:
+
+- `signal_package_schema.md`
 
 ## 산출 파일
 
@@ -84,6 +114,17 @@ node src/backtest.mjs --as-of 2025-07-06 --top 10
 dashboard/ + data/
 → dist/
 → GitHub Pages artifact
+```
+
+Pages workflow는 다음 순서로 실행됩니다.
+
+```text
+src/refresh.mjs
+→ src/strategy-dashboard-data.mjs
+→ src/korea-strategy-test.mjs
+→ scripts/build-pages.mjs
+→ scripts/build-signal-package.mjs
+→ dist/
 ```
 
 로컬에서 Pages용 파일만 만들려면:
