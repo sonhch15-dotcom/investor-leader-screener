@@ -27,6 +27,7 @@
     "test:strategy-lab": "node src/strategy-development-lab.mjs",
     "test:selection-lab": "node src/selection-strategy-lab.mjs",
     "test:final-validation": "node src/final-strategy-validation.mjs",
+    "test:score-variants": "node src/sector-score-variant-test.mjs",
     "test:weekly-dropout": "node src/weekly-dropout-rule-test.mjs",
     "test:korea": "node src/korea-strategy-test.mjs",
     "build:strategy-data": "node src/strategy-dashboard-data.mjs",

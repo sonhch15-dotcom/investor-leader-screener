@@ -62,6 +62,7 @@ async function main() {
     "korea_strategy_backtest.md",
     "full_candidate_diversification_test.md",
     "sector_diversification_test.md",
+    "sector_score_variant_test.md",
   ];
 
   await copyDir(path.join(root, "dashboard"), dist);

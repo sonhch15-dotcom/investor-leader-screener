@@ -182,7 +182,12 @@ function detectSetup(metric) {
   };
 }
 
-export function scoreUniverse(instruments, priceMap) {
+export function scoreUniverse(instruments, priceMap, options = {}) {
+  const sectorThemeWeight = Number.isFinite(options.sectorThemeWeight)
+    ? Math.max(0, options.sectorThemeWeight)
+    : 1;
+  const normalizeScore = Boolean(options.normalizeScore);
+  const maxScore = 35 + 30 + 15 + 20 * sectorThemeWeight;
   const metrics = new Map();
   for (const instrument of instruments) {
     const rows = priceMap.get(instrument.symbol);
@@ -281,7 +286,8 @@ export function scoreUniverse(instruments, priceMap) {
     };
     volume.total = volume.dollarVolume + volume.volumeIncrease + volume.upDownQuality;
 
-    const score = round(relative.total + momentum.total + sectorTheme.total + volume.total, 2);
+    const rawScore = relative.total + momentum.total + sectorTheme.total * sectorThemeWeight + volume.total;
+    const score = round(normalizeScore && maxScore > 0 ? rawScore / maxScore * 100 : rawScore, 2);
     const setup = detectSetup(metric);
     const warnings = [...setup.warnings];
     if (instrument.leveraged) warnings.push("레버리지 ETF");
@@ -299,7 +305,18 @@ export function scoreUniverse(instruments, priceMap) {
       underlying: instrument.underlying,
       score,
       status: "unclassified",
-      scores: { relative, momentum, sectorTheme, volume },
+      scores: {
+        relative,
+        momentum,
+        sectorTheme: {
+          ...sectorTheme,
+          appliedWeight: sectorThemeWeight,
+          appliedTotal: round(sectorTheme.total * sectorThemeWeight, 2)
+        },
+        volume,
+        rawScore: round(rawScore, 2),
+        normalized: normalizeScore
+      },
       metrics: {
         close: round(metric.close, 2),
         r1m: round(metric.returns.r1m, 4),
