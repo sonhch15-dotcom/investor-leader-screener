@@ -820,6 +820,59 @@ function selectRebalanceTopNNoGroup(snapshot, count) {
   return combineAllocations(picks.map((row) => weightedPick(row, 1 / Math.max(1, picks.length))));
 }
 
+function selectRebalanceBySymbols(snapshot, symbols, count) {
+  const allow = new Set(symbols);
+  const picks = snapshot.filter((row) => row.eligible && allow.has(row.symbol)).slice(0, count);
+  return combineAllocations(picks.map((row) => weightedPick(row, 1 / Math.max(1, picks.length))));
+}
+
+function selectBenchmarkPlusBestSatellite(snapshot) {
+  const benchmark = snapshot.find((row) => row.symbol === "069500.KS") ?? fallbackEtf(snapshot, ["069500.KS"]);
+  const satellite = snapshot.find((row) => row.eligible && row.symbol !== "069500.KS" && row.symbol !== "102110.KS") ?? benchmark;
+  return combineAllocations([
+    weightedPick(benchmark, 0.5),
+    weightedPick(satellite, 0.5)
+  ]);
+}
+
+function selectKospiAlphaTop2(snapshot, context) {
+  const kospiStrong = strongMetric(context.priceMap, "069500.KS", context.signalDate);
+  const alphaSymbols = [
+    "069500.KS",
+    "102110.KS",
+    "229200.KS",
+    "091160.KS",
+    "091230.KS",
+    "395160.KS",
+    "305720.KS",
+    "364970.KS",
+    "091170.KS",
+    "102970.KS",
+    "140700.KS"
+  ];
+  if (kospiStrong) return selectRebalanceBySymbols(snapshot, alphaSymbols, 2);
+  const defensive = snapshot.filter((row) => ["132030.KS", "153130.KS", "114260.KS", "148070.KS"].includes(row.symbol) && row.eligible).slice(0, 1);
+  const fallback = defensive[0] ?? fallbackEtf(snapshot, ["153130.KS", "132030.KS", "069500.KS"]);
+  return combineAllocations([weightedPick(fallback, 1)]);
+}
+
+function selectBenchmarkOrAlpha(snapshot, context) {
+  const benchmarkStrong = strongMetric(context.priceMap, "069500.KS", context.signalDate);
+  const aggressive = selectRebalanceBySymbols(snapshot, [
+    "069500.KS",
+    "102110.KS",
+    "229200.KS",
+    "091160.KS",
+    "091230.KS",
+    "395160.KS",
+    "305720.KS",
+    "364970.KS"
+  ], 1);
+  if (benchmarkStrong && aggressive.length) return aggressive;
+  const benchmark = snapshot.find((row) => row.symbol === "069500.KS") ?? fallbackEtf(snapshot, ["069500.KS"]);
+  return combineAllocations([weightedPick(benchmark, 1)]);
+}
+
 function topUniqueGroupsScoreC(snapshot, count, filter = () => true) {
   const selected = [];
   const seenGroups = new Set();
@@ -1351,6 +1404,11 @@ function markdownEtfVariantReport(result) {
   lines.push("| ETF-A | kr_etf_core_satellite_50_40_10 | 현재 공식 방식. 미국 코어 50%, 주도 위성 ETF 40%, 방어 ETF 10%로 월간 리밸런싱한다. |");
   lines.push("| ETF-B | kr_etf_score_top3_equal | 그룹 구조 제거. 전체 ETF 중 개별 점수 상위 3개를 1/3씩 리밸런싱한다. |");
   lines.push("| ETF-C | kr_etf_score_c_core_satellite_50_40_10 | 50/40/10 구조는 유지하되 ETF 선택 점수에 개별 점수 90% + 그룹 리더십 10%를 반영한다. |");
+  lines.push("| ETF-D | kr_etf_score_top2_equal | 그룹 구조 제거. 전체 ETF 중 개별 점수 상위 2개를 50/50으로 리밸런싱한다. |");
+  lines.push("| ETF-E | kr_etf_score_top1 | 전체 ETF 중 개별 점수 1위에 100% 리밸런싱한다. 가장 공격적인 후보라 MDD 확인이 필수다. |");
+  lines.push("| ETF-F | kr_etf_benchmark_plus_satellite | KODEX200 50%를 고정하고, 나머지 50%는 가장 강한 비벤치마크 ETF에 배분한다. |");
+  lines.push("| ETF-G | kr_etf_kospi_alpha_top2 | KODEX200 추세가 강하면 국내 알파 ETF 상위 2개에 투자하고, 약세장에서는 방어 ETF로 이동한다. |");
+  lines.push("| ETF-H | kr_etf_benchmark_or_alpha | KODEX200 추세가 강하면 국내 알파 ETF 1위에 집중하고, 약하면 KODEX200을 보유한다. |");
   lines.push("");
   lines.push("## 10M KRW Account Result");
   lines.push("");
@@ -1381,6 +1439,7 @@ function markdownEtfVariantReport(result) {
   lines.push("- ETF-A가 이기면 연금/ETF 계좌에서는 현재 50/40/10 구조가 가장 적합하다는 뜻이다.");
   lines.push("- ETF-B가 이기면 방어/코어 틀보다 순수 모멘텀 ETF 회전이 더 강하다는 뜻이다. 다만 집중도와 회전 리스크를 별도로 봐야 한다.");
   lines.push("- ETF-C가 이기면 50/40/10 구조는 유지하되 ETF 선정 점수만 완화하는 방식이 더 적합하다는 뜻이다.");
+  lines.push("- ETF-D~H는 벤치마크 초과를 목표로 한 공격형 후보이며, 수익률뿐 아니라 MDD와 규칙 설명 가능성을 같이 확인해야 한다.");
   lines.push("- ETF 전략은 세금, 연금 계좌 매매 가능 종목, 환헤지 여부, 실제 리밸런싱 비용을 추가 검토해야 한다.");
   return lines.join("\n");
 }
@@ -1584,6 +1643,51 @@ async function main() {
     }),
     simulateEtfRebalanceStrategy({
       ...baseArgs,
+      key: "kr_etf_score_top2_equal",
+      label: "KR ETF Score Top2 Equal",
+      description: "Monthly rebalance 100% of the account into the top 2 individual ETF scores, ignoring group buckets.",
+      instruments: etfUniverse,
+      benchmarkSymbol: "069500.KS",
+      selectWeights: (snapshot) => selectRebalanceTopNNoGroup(snapshot, 2)
+    }),
+    simulateEtfRebalanceStrategy({
+      ...baseArgs,
+      key: "kr_etf_score_top1",
+      label: "KR ETF Score Top1",
+      description: "Monthly rebalance 100% of the account into the single highest individual ETF score.",
+      instruments: etfUniverse,
+      benchmarkSymbol: "069500.KS",
+      selectWeights: (snapshot) => selectRebalanceTopNNoGroup(snapshot, 1)
+    }),
+    simulateEtfRebalanceStrategy({
+      ...baseArgs,
+      key: "kr_etf_benchmark_plus_satellite",
+      label: "KR ETF Benchmark Plus Satellite",
+      description: "Monthly 50% KODEX 200 and 50% strongest non-benchmark ETF satellite.",
+      instruments: etfUniverse,
+      benchmarkSymbol: "069500.KS",
+      selectWeights: selectBenchmarkPlusBestSatellite
+    }),
+    simulateEtfRebalanceStrategy({
+      ...baseArgs,
+      key: "kr_etf_kospi_alpha_top2",
+      label: "KR ETF KOSPI Alpha Top2",
+      description: "When KODEX 200 trend is strong, rotate into the strongest two KOSPI alpha ETFs. In weak regimes, move to defensive ETFs.",
+      instruments: etfUniverse,
+      benchmarkSymbol: "069500.KS",
+      selectWeights: selectKospiAlphaTop2
+    }),
+    simulateEtfRebalanceStrategy({
+      ...baseArgs,
+      key: "kr_etf_benchmark_or_alpha",
+      label: "KR ETF Benchmark Or Alpha",
+      description: "When KODEX 200 trend is strong, hold the strongest KOSPI alpha ETF. Otherwise hold KODEX 200.",
+      instruments: etfUniverse,
+      benchmarkSymbol: "069500.KS",
+      selectWeights: selectBenchmarkOrAlpha
+    }),
+    simulateEtfRebalanceStrategy({
+      ...baseArgs,
       key: "kr_etf_absolute_momentum",
       label: "KR ETF Absolute Momentum",
       description: "Monthly rebalance into top ETFs only when absolute momentum is positive. If none qualify, move to short/bond ETFs.",
@@ -1670,7 +1774,7 @@ async function main() {
     note: "First-pass Korea test. Current blue-chip and ETF universe can introduce survivorship bias.",
     strategies: [
       stockStrategy,
-      etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_core_satellite_50_40_10")
+      etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_benchmark_or_alpha")
     ].filter(Boolean)
   };
 
@@ -1712,7 +1816,12 @@ async function main() {
   const etfVariantStrategies = [
     { variant: "ETF-A", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_core_satellite_50_40_10") },
     { variant: "ETF-B", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_score_top3_equal") },
-    { variant: "ETF-C", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_score_c_core_satellite_50_40_10") }
+    { variant: "ETF-C", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_score_c_core_satellite_50_40_10") },
+    { variant: "ETF-D", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_score_top2_equal") },
+    { variant: "ETF-E", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_score_top1") },
+    { variant: "ETF-F", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_benchmark_plus_satellite") },
+    { variant: "ETF-G", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_kospi_alpha_top2") },
+    { variant: "ETF-H", strategy: etfRebalanceStrategies.find((strategy) => strategy.key === "kr_etf_benchmark_or_alpha") }
   ].filter((row) => row.strategy).map(({ variant, strategy }) => ({
     variant,
     key: strategy.key,

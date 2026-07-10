@@ -5,10 +5,48 @@ import { fetchChart } from "../src/yahoo.mjs";
 
 const root = process.cwd();
 const args = new Set(process.argv.slice(2));
-const schemaVersion = "1.0.0";
+const schemaVersion = "1.1.0";
 const generatedAt = new Date().toISOString();
 const distApiDir = path.join(root, "dist", "api");
 const appAssetApiDir = path.join(root, "app", "src", "main", "assets", "api");
+const usBaselineStrategy = {
+  signalIdPrefix: "US",
+  strategyKey: "us_leader2_repeat_theme_combo_cap27_5",
+  name: "US Leader2 + Repeat Theme Combo Cap27.5",
+  market: "US_STOCK",
+  status: "active",
+  scoreFormulaVersion: "score_a_sector20_v1",
+  sectorMapVersion: "universe_sector_snapshot_v1",
+  backtestRunId: "official-cap27.5-baseline"
+};
+const usScoreCStrategy = {
+  signalIdPrefix: "USC",
+  strategyKey: "us_leader2_score_c_cap27_5",
+  name: "US Leader2 Score C Half Sector10 Cap27.5",
+  market: "US_STOCK",
+  status: "candidate",
+  scoreFormulaVersion: "score_c_half_sector10_normalized_v1",
+  sectorMapVersion: "universe_sector_snapshot_v1",
+  backtestRunId: "score_variant_final_validation_2026-07-10"
+};
+const krStockStrategy = {
+  strategyKey: "kr_stock_leader2",
+  name: "KR Stock Leader2",
+  market: "KR_STOCK",
+  status: "active",
+  scoreFormulaVersion: "kr_leader2_v1",
+  sectorMapVersion: "kr_universe_group_snapshot_v1",
+  backtestRunId: "korea_strategy_dashboard"
+};
+const krEtfStrategy = {
+  strategyKey: "kr_etf_benchmark_or_alpha",
+  name: "KR ETF Benchmark Or Alpha",
+  market: "KR_ETF",
+  status: "active",
+  scoreFormulaVersion: "kr_etf_benchmark_or_alpha_v1",
+  sectorMapVersion: "kr_etf_alpha_bucket_v1",
+  backtestRunId: "korea_strategy_dashboard"
+};
 
 function round(value, digits = 4) {
   return Number.isFinite(value) ? Number(value.toFixed(digits)) : null;
@@ -118,11 +156,34 @@ function normalizeReason(reason) {
   return String(reason ?? "").trim();
 }
 
-function signalFromUs(row, index, signalMonth, validUntil) {
+function strategyMetadata(strategy, dataAsOf, universeHash) {
   return {
-    signalId: `US-${signalMonth}-${row.symbol}-${String(index + 1).padStart(2, "0")}`,
+    scoreFormulaVersion: strategy.scoreFormulaVersion ?? "",
+    sectorMapVersion: strategy.sectorMapVersion ?? "",
+    universeHash: universeHash ?? "",
+    backtestRunId: strategy.backtestRunId ?? "",
+    dataAsOf: dataAsOf ?? "",
+    strategyStatus: strategy.status ?? ""
+  };
+}
+
+function catalogStrategy(strategy) {
+  const { signalIdPrefix, ...visible } = strategy;
+  return visible;
+}
+
+function validFromFor(row, referenceDate) {
+  if (row.validFrom) return row.validFrom;
+  if (row.entryDate) return row.entryDate;
+  return referenceDate ? nextDay(referenceDate) : "";
+}
+
+function signalFromUs(row, index, signalMonth, validUntil, strategy, dataAsOf, universeHash) {
+  const referenceDate = row.lastDate ?? row.asOf ?? dataAsOf ?? "";
+  return {
+    signalId: `${strategy.signalIdPrefix ?? "US"}-${signalMonth}-${row.symbol}-${String(index + 1).padStart(2, "0")}`,
     market: "US_STOCK",
-    strategyKey: "us_leader2_repeat_theme_combo_cap27_5",
+    strategyKey: strategy.strategyKey,
     actionType: "buy",
     symbol: row.symbol,
     name: row.name,
@@ -131,10 +192,11 @@ function signalFromUs(row, index, signalMonth, validUntil) {
     rank: index + 1,
     score: round(row.score, 2),
     targetWeight: null,
-    referencePrice: round(row.close, 2),
-    referenceDate: row.lastDate,
-    validFrom: nextDay(row.lastDate),
+    referencePrice: round(fallbackPrice(row), 2),
+    referenceDate,
+    validFrom: validFromFor(row, referenceDate),
     validUntil,
+    ...strategyMetadata(strategy, dataAsOf, universeHash),
     reasons: (row.reasons ?? []).map(normalizeReason).filter(Boolean),
     warnings: row.warnings ?? [],
     metrics: {
@@ -163,11 +225,11 @@ function signalFromUs(row, index, signalMonth, validUntil) {
   };
 }
 
-function signalFromKrStock(row, index, signalMonth, asOf, validUntil) {
+function signalFromKrStock(row, index, signalMonth, asOf, validUntil, universeHash) {
   return {
     signalId: `KRSTOCK-${signalMonth}-${row.symbol}-${String(index + 1).padStart(2, "0")}`,
     market: "KR_STOCK",
-    strategyKey: "kr_stock_leader2",
+    strategyKey: krStockStrategy.strategyKey,
     actionType: "buy",
     symbol: row.symbol,
     name: row.name,
@@ -180,6 +242,7 @@ function signalFromKrStock(row, index, signalMonth, asOf, validUntil) {
     referenceDate: asOf,
     validFrom: nextDay(asOf),
     validUntil,
+    ...strategyMetadata(krStockStrategy, asOf, universeHash),
     reasons: [
       `Group leader: ${row.group}`,
       "KR Stock Leader2 rank passed",
@@ -205,11 +268,11 @@ function signalFromKrStock(row, index, signalMonth, asOf, validUntil) {
   };
 }
 
-function signalFromEtf(strategy, signalMonth, asOf, validUntil) {
+function signalFromEtf(strategy, signalMonth, asOf, validUntil, universeHash) {
   return {
     signalId: `KRETF-${signalMonth}-REBALANCE-01`,
     market: "KR_ETF",
-    strategyKey: "kr_etf_core_satellite_50_40_10",
+    strategyKey: krEtfStrategy.strategyKey,
     actionType: "rebalance",
     symbol: "KR_ETF_BASKET",
     name: strategy.label ?? "KR ETF Core Satellite",
@@ -221,11 +284,15 @@ function signalFromEtf(strategy, signalMonth, asOf, validUntil) {
     referenceDate: asOf,
     validFrom: nextDay(asOf),
     validUntil,
+    ...strategyMetadata(krEtfStrategy, asOf, universeHash),
     reasons: [
       "Monthly rebalance window",
-      "Core/Satellite/Defense target allocation check"
+      "Benchmark Or Alpha target allocation check",
+      "If KODEX 200 trend is strong, use the highest-scoring KOSPI alpha ETF; otherwise hold KODEX 200"
     ],
-    warnings: [],
+    warnings: [
+      "This strategy can concentrate the ETF account in one ETF, so rebalance size and account risk limits must be checked before execution"
+    ],
     orderHint: {
       budgetPolicy: "target_weight_rebalance",
       driftThreshold: 0.05,
@@ -386,6 +453,22 @@ async function readJson(filePath) {
   return JSON.parse(await fs.readFile(path.join(root, filePath), "utf8"));
 }
 
+async function readOptionalJson(filePath) {
+  try {
+    return await readJson(filePath);
+  } catch {
+    return null;
+  }
+}
+
+async function fileHash(filePath) {
+  try {
+    return sha256(await fs.readFile(path.join(root, filePath), "utf8"));
+  } catch {
+    return "";
+  }
+}
+
 function stringify(value) {
   return `${JSON.stringify(value, null, 2)}\n`;
 }
@@ -416,29 +499,71 @@ function makeFileRecords(files) {
   });
 }
 
+function rowsBySymbol(...groups) {
+  const rows = new Map();
+  for (const group of groups) {
+    for (const row of group ?? []) {
+      if (row?.symbol && !rows.has(row.symbol)) rows.set(row.symbol, row);
+    }
+  }
+  return rows;
+}
+
+function latestScoreVariantRows(scoreVariantData, key, sourceRows) {
+  const variant = scoreVariantData?.results?.find((row) => row.key === key)
+    ?? scoreVariantData?.rankedResults?.find((row) => row.key === key);
+  const selection = variant?.recentSelections?.at(-1);
+  if (!selection?.rows?.length) return [];
+  return selection.rows.map((row) => {
+    const source = sourceRows.get(row.symbol) ?? {};
+    return {
+      ...source,
+      ...row,
+      lastDate: selection.asOf ?? source.lastDate,
+      validFrom: selection.entryDate,
+      reasons: [
+        ...(source.reasons ?? []),
+        "Score C: sector/theme score halved and normalized"
+      ],
+      warnings: [
+        ...(source.warnings ?? []),
+        "Candidate strategy: verify before official replacement"
+      ]
+    };
+  });
+}
+
 async function main() {
   const us = await readJson("data/strategy-dashboard.json");
+  const scoreVariants = await readOptionalJson("data/sector-score-variant-test.json");
   const korea = await readJson("data/korea-strategy-dashboard.json");
   const krStock = korea.strategies?.find((strategy) => strategy.key === "kr_stocks") ?? {};
-  const krEtf = korea.strategies?.find((strategy) => strategy.key === "kr_etf_core_satellite_50_40_10") ?? {};
+  const krEtf = korea.strategies?.find((strategy) => strategy.key === "kr_etf_benchmark_or_alpha") ?? {};
   const asOf = [us.asOf, korea.asOf].filter(Boolean).sort().at(-1);
   const signalMonth = asOf.slice(0, 7);
   const validUntil = endOfMonth(signalMonth);
+  const usUniverseHash = await fileHash("data/universe.json");
+  const koreaUniverseHash = await fileHash("data/korea-strategy-dashboard.json");
+  const usSourceRows = rowsBySymbol(us.currentBuys, us.portfolio?.holdings);
+  const usScoreCRows = latestScoreVariantRows(scoreVariants, "c_half_sector_normalized", usSourceRows);
 
-  const usSignals = (us.currentBuys ?? []).map((row, index) => signalFromUs(row, index, signalMonth, validUntil));
-  const krStockSignals = (krStock.currentPicks ?? []).map((row, index) => signalFromKrStock(row, index, signalMonth, korea.asOf, validUntil));
+  const usSignals = (us.currentBuys ?? []).map((row, index) => signalFromUs(row, index, signalMonth, validUntil, usBaselineStrategy, us.asOf, usUniverseHash));
+  const usScoreCSignals = usScoreCRows.map((row, index) => signalFromUs(row, index, signalMonth, validUntil, usScoreCStrategy, row.lastDate ?? us.asOf, usUniverseHash));
+  const krStockSignals = (krStock.currentPicks ?? []).map((row, index) => signalFromKrStock(row, index, signalMonth, korea.asOf, validUntil, koreaUniverseHash));
   const etfTargets = (krEtf.currentPicks ?? []).map(etfTargetFromPick);
-  const etfSignal = signalFromEtf(krEtf, signalMonth, korea.asOf, validUntil);
-  const allSignals = [...usSignals, ...krStockSignals, etfSignal];
+  const etfSignal = signalFromEtf(krEtf, signalMonth, korea.asOf, validUntil, koreaUniverseHash);
+  const allSignals = [...usSignals, ...usScoreCSignals, ...krStockSignals, etfSignal];
 
   const trendRows = [
     ...(us.currentBuys ?? []).map((row) => weeklyTrendFor(row, "US_STOCK")),
+    ...usScoreCRows.map((row) => weeklyTrendFor(row, "US_STOCK")),
     ...(krStock.currentPicks ?? []).map((row) => weeklyTrendFor(row, "KR_STOCK")),
     ...(krEtf.currentPicks ?? []).map((row) => weeklyTrendFor(row, "KR_ETF"))
   ];
 
   const quoteCandidates = new Map();
   for (const row of us.currentBuys ?? []) addQuoteCandidate(quoteCandidates, row, "US_STOCK", us.asOf);
+  for (const row of usScoreCRows) addQuoteCandidate(quoteCandidates, row, "US_STOCK", row.lastDate ?? us.asOf);
   for (const row of us.portfolio?.holdings ?? []) addQuoteCandidate(quoteCandidates, row, "US_STOCK", us.asOf);
   for (const row of krStock.currentPicks ?? []) addQuoteCandidate(quoteCandidates, row, "KR_STOCK", korea.asOf);
   for (const row of krStock.openTrades ?? []) addQuoteCandidate(quoteCandidates, row, "KR_STOCK", korea.asOf);
@@ -474,27 +599,33 @@ async function main() {
     generatedAt,
     strategies: [
       {
-        strategyKey: "us_leader2_repeat_theme_combo_cap27_5",
-        name: "US Leader2 + Repeat Theme Combo Cap27.5",
-        market: "US_STOCK",
-        status: "active",
+        ...catalogStrategy(usBaselineStrategy),
         description: us.strategy?.summary ?? "",
+        universeHash: usUniverseHash,
+        dataAsOf: us.asOf,
         riskNotice: "Past validation results do not guarantee future returns."
       },
       {
-        strategyKey: "kr_stock_leader2",
+        ...catalogStrategy(usScoreCStrategy),
+        description: "Candidate variant: sector/theme score is halved in individual stock scoring while Leader2 sector selection and Cap27.5 execution remain unchanged.",
+        universeHash: usUniverseHash,
+        dataAsOf: usScoreCRows[0]?.lastDate ?? us.asOf,
+        riskNotice: "Candidate strategy. Compare with active baseline before official replacement."
+      },
+      {
+        ...catalogStrategy(krStockStrategy),
         name: krStock.label ?? "KR Stock Leader2",
-        market: "KR_STOCK",
-        status: "active",
         description: krStock.description ?? "",
+        universeHash: koreaUniverseHash,
+        dataAsOf: korea.asOf,
         riskNotice: "Check trading halts, price limits, and liquidity before ordering."
       },
       {
-        strategyKey: "kr_etf_core_satellite_50_40_10",
+        ...catalogStrategy(krEtfStrategy),
         name: krEtf.label ?? "KR ETF Core Satellite 50/40/10",
-        market: "KR_ETF",
-        status: "active",
         description: krEtf.description ?? "",
+        universeHash: koreaUniverseHash,
+        dataAsOf: korea.asOf,
         riskNotice: "Check rebalance cost, tax, and minimum trade size."
       }
     ]
@@ -505,14 +636,22 @@ async function main() {
     generatedAt,
     summaries: [
       {
-        strategyKey: "us_leader2_repeat_theme_combo_cap27_5",
+        strategyKey: usBaselineStrategy.strategyKey,
         period: us.backtest?.period ?? null,
         totalReturn: us.backtest?.totalReturn ?? null,
         maxDrawdown: us.backtest?.maxDrawdown ?? null,
         sourceFile: "data/strategy-dashboard.json"
       },
       {
-        strategyKey: "kr_stock_leader2",
+        strategyKey: usScoreCStrategy.strategyKey,
+        period: "2021-08..2026-06",
+        totalReturn: 4.9,
+        maxDrawdown: -0.065,
+        sourceFile: "score_variant_final_validation.md",
+        status: usScoreCStrategy.status
+      },
+      {
+        strategyKey: krStockStrategy.strategyKey,
         period: krStock.months ? `${krStock.months} months` : null,
         totalReturn: krStock.summary?.totalReturn ?? null,
         maxDrawdown: krStock.capitalAccount?.maxDrawdown ?? null,
@@ -520,7 +659,7 @@ async function main() {
         sourceFile: "data/korea-strategy-dashboard.json"
       },
       {
-        strategyKey: "kr_etf_core_satellite_50_40_10",
+        strategyKey: krEtfStrategy.strategyKey,
         period: krEtf.months ? `${krEtf.months} months` : null,
         totalReturn: krEtf.summary?.totalReturn ?? null,
         maxDrawdown: krEtf.capitalAccount?.maxDrawdown ?? null,
@@ -536,7 +675,7 @@ async function main() {
     "signals/us/latest.json": {
       ...latestSignals,
       market: "US_STOCK",
-      signals: usSignals,
+      signals: [...usSignals, ...usScoreCSignals],
       targetWeights: []
     },
     "signals/kr-stock/latest.json": {
@@ -571,13 +710,7 @@ async function main() {
 
   await writePackage(distApiDir, files);
   if (args.has("--app-assets")) {
-    await writePackage(appAssetApiDir, {
-      "manifest.json": manifest,
-      "signals/latest.json": latestSignals,
-      "weekly-trends/latest.json": weeklyTrends,
-      "prices/latest.json": prices,
-      "fx/latest.json": fx
-    });
+    await writePackage(appAssetApiDir, files);
   }
 
   console.log(`Built signal package: ${allSignals.length} signals, ${trendRows.length} trends, ${prices.quotes.length} quotes`);
