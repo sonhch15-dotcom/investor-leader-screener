@@ -1,6 +1,7 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { validateStrategyTransitions } from "../src/strategy-transition-contract.mjs";
 
 const root = process.cwd();
 const apiDir = path.join(root, "dist", "api");
@@ -54,6 +55,7 @@ if (manifest.status !== "normal") fail(`manifest status is ${manifest.status}`);
 if (!Number.isInteger(manifest.minAppVersionCode) || manifest.minAppVersionCode < 1) fail("minAppVersionCode is missing");
 if (!Array.isArray(manifest.capabilities) || !manifest.capabilities.includes("weekly_exit_v2")) fail("capabilities are incomplete");
 if (!manifest.capabilities.includes("six_month_extension_v1")) fail("six_month_extension_v1 capability is missing");
+if (!manifest.capabilities.includes("strategy_transition_v1")) fail("strategy_transition_v1 capability is missing");
 
 const records = new Map((manifest.files ?? []).map((record) => [String(record.path ?? "").replace(/^\//, ""), record]));
 for (const relativePath of requiredFiles) {
@@ -71,6 +73,19 @@ for (const market of markets) {
   if (!active.length) fail(`${market} has no active signal`);
   if (new Set(active.map((signal) => signal.strategyKey)).size !== 1) fail(`${market} has multiple active strategy keys`);
 }
+
+const { json: usSignals } = await readJson("signals/us/latest.json");
+const { json: catalog } = await readJson("strategies/catalog.json");
+if (JSON.stringify(latest.strategyTransitions ?? []) !== JSON.stringify(usSignals.strategyTransitions ?? [])) {
+  fail("global and US strategyTransitions disagree");
+}
+const transitionErrors = validateStrategyTransitions({
+  transitions: latest.strategyTransitions,
+  signalMonth: latest.signalMonth,
+  signals: latest.signals,
+  catalogStrategies: catalog.strategies
+});
+if (transitionErrors.length) fail(transitionErrors.join("; "));
 
 const { json: etf } = await readJson("signals/kr-etf/latest.json");
 const activeEtf = etf.signals?.find((signal) => signal.strategyStatus === "active" && signal.actionType === "rebalance");

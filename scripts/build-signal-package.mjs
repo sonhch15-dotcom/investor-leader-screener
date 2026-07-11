@@ -31,6 +31,15 @@ const usScoreCStrategy = {
   sectorMapVersion: "universe_sector_snapshot_v1",
   backtestRunId: "us-score-a-c-corrected-frozen-20260711"
 };
+const usScoreCTransition = {
+  market: "US_STOCK",
+  fromStrategyKey: usBaselineStrategy.strategyKey,
+  toStrategyKey: usScoreCStrategy.strategyKey,
+  effectiveSignalMonth: "2026-08",
+  newEnrollmentPolicy: "wait_for_effective_signal",
+  existingMonthlyPlanPolicy: "finish_locked_month",
+  existingLotPolicy: "keep_original_strategy"
+};
 const krStockStrategy = {
   strategyKey: "kr_stock_leader2",
   name: "KR Stock Leader2",
@@ -691,6 +700,7 @@ async function main() {
     asOf,
     status: allSignals.length ? "normal" : "failed",
     signals: allSignals,
+    strategyTransitions: [usScoreCTransition],
     targetWeights: etfTargets,
     excludedCandidates: []
   };
@@ -861,12 +871,14 @@ async function main() {
       ...latestSignals,
       market: "KR_STOCK",
       signals: krStockSignals,
+      strategyTransitions: [],
       targetWeights: []
     },
     "signals/kr-etf/latest.json": {
       ...latestSignals,
       market: "KR_ETF",
       signals: [etfSignal],
+      strategyTransitions: [],
       targetWeights: etfTargets
     },
     "weekly-trends/latest.json": weeklyTrends,
@@ -887,7 +899,8 @@ async function main() {
       "signal_validity_gate",
       "etf_zero_target_liquidation",
       "weekly_exit_v2",
-      "six_month_extension_v1"
+      "six_month_extension_v1",
+      "strategy_transition_v1"
     ],
     markets: ["US_STOCK", "KR_STOCK", "KR_ETF"],
     files: makeFileRecords(files),

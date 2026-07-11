@@ -54,7 +54,8 @@ TrendState = alive | weakening | broken | needs_review
   "minAppVersionCode": 58,
   "capabilities": [
     "weekly_exit_v2",
-    "six_month_extension_v1"
+    "six_month_extension_v1",
+    "strategy_transition_v1"
   ],
   "files": [
     {
@@ -135,6 +136,17 @@ TrendState = alive | weakening | broken | needs_review
       }
     }
   ],
+  "strategyTransitions": [
+    {
+      "market": "US_STOCK",
+      "fromStrategyKey": "us_leader2_repeat_theme_combo_cap27_5",
+      "toStrategyKey": "us_leader2_score_c_cap27_5",
+      "effectiveSignalMonth": "2026-08",
+      "newEnrollmentPolicy": "wait_for_effective_signal",
+      "existingMonthlyPlanPolicy": "finish_locked_month",
+      "existingLotPolicy": "keep_original_strategy"
+    }
+  ],
   "excludedCandidates": [
     {
       "market": "US_STOCK",
@@ -162,6 +174,17 @@ TrendState = alive | weakening | broken | needs_review
 - `candidate`, `testing`, `paused`, `retired` 신호는 비교/설명 전용이다.
 - 현재 날짜가 `validFrom..validUntil` 범위를 벗어나면 주문 가이드를 차단한다.
 - 정상 상태라도 가격/환율 기준일이 앱의 최대 허용 경과일을 넘으면 주문 가이드를 차단한다.
+
+### 5.1 전략 전환 계약
+
+- `strategy_transition_v1` capability와 `strategyTransitions`는 항상 함께 제공한다.
+- `effectiveSignalMonth` 이전에는 `fromStrategyKey`만 `active`이고 `toStrategyKey`는 `candidate`여야 한다.
+- 적용 월부터는 `toStrategyKey`만 `active`이고 `fromStrategyKey`는 `testing`이어야 한다.
+- `wait_for_effective_signal`은 새 사용자가 이미 진입일이 지난 기존 월 신호를 매수하지 않고 적용 월 신호를 기다린다는 뜻이다.
+- `finish_locked_month`는 기존 사용자가 현재 월에 고정한 전략의 미완료 주문만 마칠 수 있다는 뜻이다.
+- `keep_original_strategy`는 기존 lot의 `strategyKey`, 매수일, 청산 일정을 새 전략으로 변경하지 않는다는 뜻이다.
+- Android는 계좌별 `signalMonth + executionStrategyKey`를 고정하고, 같은 월에 다른 active key가 나타나면 신규 주문을 차단한다.
+- 2026-07 C 후보 신호를 나중에 소급해 active로 바꾸지 않는다. 2026-08 C 신호는 2026-07 월말 데이터로 새로 생성해야 한다.
 
 ## 6. 미국 주식 신호
 

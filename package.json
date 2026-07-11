@@ -30,6 +30,7 @@
     "test:score-variants": "node src/sector-score-variant-test.mjs",
     "test:score-a-c-corrected": "node src/score-a-c-corrected-validation.mjs",
     "test:backtest-core": "node src/backtest-execution-core.test.mjs",
+    "test:strategy-transition": "node src/strategy-transition-contract.test.mjs",
     "test:weekly-dropout": "node src/weekly-dropout-rule-test.mjs",
     "test:korea": "node src/korea-strategy-test.mjs",
     "build:strategy-data": "node src/strategy-dashboard-data.mjs",

@@ -55,7 +55,9 @@ jobs:
         run: node scripts/build-signal-package.mjs
 
       - name: Verify Android signal API contract
-        run: node scripts/verify-signal-package.mjs
+        run: |
+          node src/strategy-transition-contract.test.mjs
+          node scripts/verify-signal-package.mjs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4

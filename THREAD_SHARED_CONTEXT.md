@@ -216,3 +216,30 @@ Android 적용:
 - 연장 중 2주 MA10 하회
 - 12개월 도달
 - A/C 혼재 lot
+
+## 12. 2026-08 미국 Score C 전환 계약
+
+현재 상태:
+
+- 2026-07 신호는 Score A가 `active`, Score C가 `candidate`다.
+- 2026-07 C 후보 INTC/KLAC는 계획 진입일이 지난 신호이므로 소급해 active로 바꾸지 않는다.
+- 기존 A 사용자는 7월 A 월간 계획을 유지하고 기존 A lot의 `strategyKey`, 매수일, 청산 일정도 그대로 보존한다.
+- 7월 신규 사용자는 월중 진입하지 않고 계좌 설정 후 2026-08 공식 C 신호를 기다린다.
+
+Public API 계약:
+
+- manifest capability: `strategy_transition_v1`
+- `signals/latest.json`과 `signals/us/latest.json`에 `strategyTransitions`를 제공한다.
+- 전환: `us_leader2_repeat_theme_combo_cap27_5` -> `us_leader2_score_c_cap27_5`
+- 적용 월: `2026-08`
+- 신규 사용자: `wait_for_effective_signal`
+- 기존 월간 계획: `finish_locked_month`
+- 기존 lot: `keep_original_strategy`
+- 적용 월 전에는 A active/C candidate, 적용 월부터는 A testing/C active가 아니면 verifier가 Pages 배포를 차단한다.
+- Android v0.4.2가 선택적 전환 계약을 먼저 지원한 뒤, 2026-08 패키지에서 `minAppVersionCode`를 59로 올린다.
+
+남은 선행 조건:
+
+- 2026-07 월말 최신 데이터로 Score C 추천 2종목을 새로 계산하는 live 생성 경로를 검증한다.
+- Android v0.4.2의 계좌별 월간 실행 잠금과 신규 사용자 대기 정책을 배포한다.
+- 두 조건을 통과한 뒤에만 2026-08 신호에서 C를 active로 전환한다.
