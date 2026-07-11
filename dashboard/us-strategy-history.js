@@ -1,4 +1,6 @@
 const DATA_URL = "./data/us-strategy-history-report.json";
+const SECTOR_FLOW_NAME = "섹터 흐름형";
+const STOCK_STRENGTH_NAME = "종목 힘 중심형";
 
 const percent = (value, digits = 1) => Number.isFinite(value)
   ? `${value >= 0 ? "+" : ""}${(value * 100).toFixed(digits)}%`
@@ -7,7 +9,13 @@ const plainPercent = (value, digits = 1) => Number.isFinite(value)
   ? `${(value * 100).toFixed(digits)}%`
   : "-";
 const points = (value, digits = 1) => Number.isFinite(value)
-  ? `${value >= 0 ? "+" : ""}${(value * 100).toFixed(digits)}%p`
+  ? `${value >= 0 ? "+" : ""}${(value * 100).toFixed(digits)}%포인트`
+  : "-";
+const plainPoints = (value, digits = 1) => Number.isFinite(value)
+  ? `${Math.abs(value * 100).toFixed(digits)}%포인트`
+  : "-";
+const pointNumber = (value, digits = 1) => Number.isFinite(value)
+  ? `${value >= 0 ? "+" : ""}${(value * 100).toFixed(digits)}`
   : "-";
 const money = (value) => Number.isFinite(value)
   ? `${Math.round(value).toLocaleString("ko-KR")}원`
@@ -20,6 +28,22 @@ const compactMoney = (value) => {
 };
 const formatDate = (date) => date ? date.replaceAll("-", ".") : "-";
 const signedClass = (value) => value < 0 ? "negative-text" : "positive-text";
+const sectorLabel = (sector) => ({
+  "Electronic Components": "전자부품",
+  Financials: "금융",
+  Software: "소프트웨어",
+  "Consumer Discretionary": "선택소비",
+  Semiconductors: "반도체",
+  Industrials: "산업재",
+  "Consumer Staples": "필수소비",
+  "Communication Services": "통신·미디어",
+  "Health Care": "헬스케어",
+  "Real Estate": "부동산",
+  Energy: "에너지",
+  Utilities: "전기·가스",
+  Materials: "소재",
+  Biotechnology: "바이오"
+})[sector] ?? sector;
 const escapeHtml = (value) => String(value ?? "")
   .replaceAll("&", "&amp;")
   .replaceAll("<", "&lt;")
@@ -35,18 +59,18 @@ function renderSummary(data) {
   const { headline, selection, exits } = data;
   const mddCost = Math.abs(headline.scoreC.maxDrawdown - headline.scoreA.maxDrawdown);
   const summary = [
-    `<strong>C의 실제 계좌 누적 수익률은 ${percent(headline.scoreC.accountReturn)}로 A의 ${percent(headline.scoreA.accountReturn)}보다 ${points(headline.accountReturnAdvantage)} 높았습니다.</strong> 같은 1천만원 기준 최종 자산 차이는 ${compactMoney(headline.finalCapitalAdvantage)}입니다.`,
-    `<strong>C는 승률을 높인 것이 아니라 큰 승자를 더 잘 포착했습니다.</strong> 서로 달랐던 36개 슬롯에서 C 전용 종목 평균은 ${percent(selection.cOnly.averageReturn)}, A 전용은 ${percent(selection.aOnly.averageReturn)}였습니다. 반면 승률은 C ${plainPercent(selection.cOnly.winRate)}, A ${plainPercent(selection.aOnly.winRate)}였습니다.`,
-    `<strong>6개월 절반 연장은 C의 공동 청산 거래당 평균 ${points(exits.c.averageImprovement)}를 더했습니다.</strong> 중앙값은 ${points(exits.c.medianImprovement)}였고, +300% 초과 거래를 제외해도 평균 ${points(exits.c.robustAverageImprovement)} 개선됐습니다. 소수의 큰 추세가 작은 되돌림을 압도한 구조입니다.`,
-    `<strong>더 높은 수익에는 비슷하거나 조금 큰 고통이 동반됐습니다.</strong> C의 MDD는 ${percent(headline.scoreC.maxDrawdown)}로 A보다 ${points(-mddCost)} 더 깊었습니다. 2022년 긴축과 2025년 관세·성장 불확실성 구간에서 두 전략 모두 흔들렸습니다.`
+    `<strong>1천만원으로 시작했다면 ${STOCK_STRENGTH_NAME}은 약 ${compactMoney(data.account.current.c.finalCapital)}, ${SECTOR_FLOW_NAME}은 약 ${compactMoney(data.account.current.a.finalCapital)}이 됐습니다.</strong> 두 계좌의 최종 차이는 약 ${compactMoney(headline.finalCapitalAdvantage)}이었습니다.`,
+    `<strong>${STOCK_STRENGTH_NAME}이 매번 더 자주 맞힌 것은 아닙니다.</strong> 서로 다르게 고른 36건에서 돈을 번 거래의 비율은 ${plainPercent(selection.cOnly.winRate)}로 ${SECTOR_FLOW_NAME}의 ${plainPercent(selection.aOnly.winRate)}보다 낮았습니다. 대신 한 건당 평균 수익은 ${percent(selection.cOnly.averageReturn)}로 훨씬 컸습니다.`,
+    `<strong>6개월 뒤 절반을 남겨둔 선택은 한 거래당 평균 ${points(exits.c.averageImprovement)}를 더했습니다.</strong> 대부분의 거래에서는 차이가 작았지만, STX나 APP처럼 오래 오른 몇 종목에서 큰 추가 수익이 나왔습니다. +300% 넘게 오른 초대박 거래를 빼도 평균 ${points(exits.c.robustAverageImprovement)}가 남았습니다.`,
+    `<strong>좋은 결과만 있었던 것은 아닙니다.</strong> ${STOCK_STRENGTH_NAME} 계좌는 가장 힘들 때 고점에서 ${plainPercent(Math.abs(headline.scoreC.maxDrawdown))} 줄었고, ${SECTOR_FLOW_NAME}보다 ${plainPoints(mddCost)} 더 깊게 떨어졌습니다. 2022년과 2025년에는 실제로 버티기 어려운 시간이 있었습니다.`
   ];
   document.getElementById("executive-summary-list").innerHTML = summary
     .map((text) => `<article class="summary-point"><p>${text}</p></article>`).join("");
   document.getElementById("headline-metrics").innerHTML = [
-    metricCard("Score C 계좌", percent(headline.scoreC.accountReturn), `CAGR ${percent(headline.scoreC.cagr)}`),
-    metricCard("Score A 계좌", percent(headline.scoreA.accountReturn), `CAGR ${percent(headline.scoreA.cagr)}`),
-    metricCard("QQQ", percent(headline.qqq.totalReturn), `같은 기간 CAGR ${percent(headline.qqq.cagr)}`),
-    metricCard("C - A", points(headline.accountReturnAdvantage), `MDD 차이 ${points(headline.scoreC.maxDrawdown - headline.scoreA.maxDrawdown)}`)
+    metricCard(STOCK_STRENGTH_NAME, percent(headline.scoreC.accountReturn), `연평균 ${percent(headline.scoreC.cagr)} · 최대 하락 ${percent(headline.scoreC.maxDrawdown)}`),
+    metricCard(SECTOR_FLOW_NAME, percent(headline.scoreA.accountReturn), `연평균 ${percent(headline.scoreA.cagr)} · 최대 하락 ${percent(headline.scoreA.maxDrawdown)}`),
+    metricCard("QQQ 시장 기준", percent(headline.qqq.totalReturn), `연평균 ${percent(headline.qqq.cagr)} · 최대 하락 ${percent(headline.qqq.maxDrawdown)}`),
+    metricCard("누적 차이(%포인트)", pointNumber(headline.accountReturnAdvantage), `${STOCK_STRENGTH_NAME}이 더 높음`)
   ].join("");
 }
 
@@ -60,7 +84,7 @@ function renderScoreWeights(data) {
     </div>`;
   };
   const legend = data.scoreWeights.a.map((item, index) => `<span style="--swatch:${palette[index]}">${escapeHtml(item.label)}</span>`).join("");
-  document.getElementById("score-weight-chart").innerHTML = `${row("a", "Score A")}${row("c", "Score C")}<div class="stacked-legend">${legend}</div>`;
+  document.getElementById("score-weight-chart").innerHTML = `${row("a", SECTOR_FLOW_NAME)}${row("c", STOCK_STRENGTH_NAME)}<div class="stacked-legend">${legend}</div>`;
   document.getElementById("score-weight-note").textContent = data.scoreWeights.note;
 }
 
@@ -75,7 +99,7 @@ function renderSlots(data) {
     </div>
     <div class="slot-labels">
       <div><span>같은 종목</span><strong>${selection.commonSlots}</strong><span>${plainPercent(selection.commonSlots / selection.totalSlotsEach, 0)}</span></div>
-      <div><span>전략별 다른 종목</span><strong>${selection.cOnlySlots}</strong><span>${selection.changedSetMonths}개월에서 발생</span></div>
+      <div><span>서로 다른 종목</span><strong>${selection.cOnlySlots}</strong><span>${selection.changedSetMonths}개월에서 발생</span></div>
     </div>`;
 }
 
@@ -117,8 +141,8 @@ function renderEquityChart(data) {
 function comparisonBar(label, aValue, cValue, formatter = percent) {
   const max = Math.max(Math.abs(aValue), Math.abs(cValue), 0.0001);
   return `<div class="comparison-row">
-    <div class="comparison-row-head"><span>${label} · A</span><strong>${formatter(aValue)}</strong></div><div class="bar-track"><div class="bar-fill" style="width:${Math.abs(aValue) / max * 100}%"></div></div>
-    <div class="comparison-row-head"><span>${label} · C</span><strong>${formatter(cValue)}</strong></div><div class="bar-track"><div class="bar-fill c" style="width:${Math.abs(cValue) / max * 100}%"></div></div>
+    <div class="comparison-row-head"><span>${label} · ${SECTOR_FLOW_NAME}</span><strong>${formatter(aValue)}</strong></div><div class="bar-track"><div class="bar-fill" style="width:${Math.abs(aValue) / max * 100}%"></div></div>
+    <div class="comparison-row-head"><span>${label} · ${STOCK_STRENGTH_NAME}</span><strong>${formatter(cValue)}</strong></div><div class="bar-track"><div class="bar-fill c" style="width:${Math.abs(cValue) / max * 100}%"></div></div>
   </div>`;
 }
 
@@ -128,8 +152,8 @@ function renderDifferentPicks(data) {
   document.getElementById("different-pick-stats").innerHTML = [
     comparisonBar("평균", a.averageReturn, c.averageReturn),
     comparisonBar("중앙값", a.medianReturn, c.medianReturn),
-    comparisonBar("승률", a.winRate, c.winRate, plainPercent),
-    comparisonBar("+300% 초과 제외 평균", a.robustAverageReturn, c.robustAverageReturn)
+    comparisonBar("돈을 번 거래 비율", a.winRate, c.winRate, plainPercent),
+    comparisonBar("+300% 넘은 종목을 뺀 평균", a.robustAverageReturn, c.robustAverageReturn)
   ].join("");
 }
 
@@ -138,7 +162,7 @@ function renderSectorShift(data) {
   const max = Math.max(...rows.map((row) => Math.abs(row.change)), 1);
   document.getElementById("sector-shift-chart").innerHTML = rows.map((row) => `
     <div class="diverging-row">
-      <span class="diverging-label" title="${escapeHtml(row.sector)}">${escapeHtml(row.sector)}</span>
+      <span class="diverging-label" title="${escapeHtml(row.sector)}">${escapeHtml(sectorLabel(row.sector))}</span>
       <div class="diverging-track"><span class="diverging-fill ${row.change >= 0 ? "positive" : "negative"}" style="width:${Math.abs(row.change) / max * 50}%"></span></div>
       <span class="diverging-value ${signedClass(row.change)}">${row.change > 0 ? "+" : ""}${row.change}</span>
     </div>`).join("");
@@ -150,7 +174,7 @@ function annualLabel(key) {
     wf_2023: "2023",
     wf_2024: "2024",
     wf_2025: "2025",
-    wf_2026_ytd: "2026 YTD"
+    wf_2026_ytd: "2026 현재"
   })[key] ?? key;
 }
 
@@ -160,8 +184,8 @@ function renderAnnual(data) {
     <div class="annual-row">
       <div class="annual-label">${annualLabel(row.key)}</div>
       <div class="annual-bars">
-        <div class="annual-series"><span>A</span><div class="bar-track"><div class="bar-fill" style="width:${row.scoreAReturn / max * 100}%"></div></div><strong>${percent(row.scoreAReturn)}</strong></div>
-        <div class="annual-series"><span>C</span><div class="bar-track"><div class="bar-fill c" style="width:${row.scoreCReturn / max * 100}%"></div></div><strong>${percent(row.scoreCReturn)}</strong></div>
+        <div class="annual-series"><span title="${SECTOR_FLOW_NAME}">섹터</span><div class="bar-track"><div class="bar-fill" style="width:${row.scoreAReturn / max * 100}%"></div></div><strong>${percent(row.scoreAReturn)}</strong></div>
+        <div class="annual-series"><span title="${STOCK_STRENGTH_NAME}">종목</span><div class="bar-track"><div class="bar-fill c" style="width:${row.scoreCReturn / max * 100}%"></div></div><strong>${percent(row.scoreCReturn)}</strong></div>
       </div>
     </div>`).join("");
 }
@@ -178,7 +202,7 @@ function uniqueTrades(rows) {
 
 function tradeRows(group) {
   return uniqueTrades(group.all ?? [...group.best, ...group.worst]).map((row) => `
-    <tr><td>${row.cohort}</td><td><strong>${escapeHtml(row.symbol)}</strong><br>${escapeHtml(row.name)}</td><td>${escapeHtml(row.sector)}</td><td class="numeric ${signedClass(row.return)}">${percent(row.return)}</td><td>${row.closed ? "청산" : "평가 중"}</td></tr>`).join("");
+    <tr><td>${row.cohort}</td><td><strong>${escapeHtml(row.symbol)}</strong><br>${escapeHtml(row.name)}</td><td>${escapeHtml(sectorLabel(row.sector))}</td><td class="numeric ${signedClass(row.return)}">${percent(row.return)}</td><td>${row.closed ? "매도 완료" : "보유 중"}</td></tr>`).join("");
 }
 
 function renderSelectionTables(data) {
@@ -188,30 +212,30 @@ function renderSelectionTables(data) {
 
 function renderExitAccount(data) {
   const rows = [
-    { label: "Score A", fixed: data.account.fixedSixMonth.a.totalReturn, current: data.account.current.a.totalReturn },
-    { label: "Score C", fixed: data.account.fixedSixMonth.c.totalReturn, current: data.account.current.c.totalReturn }
+    { key: "a", label: SECTOR_FLOW_NAME, fixed: data.account.fixedSixMonth.a.totalReturn, current: data.account.current.a.totalReturn },
+    { key: "c", label: STOCK_STRENGTH_NAME, fixed: data.account.fixedSixMonth.c.totalReturn, current: data.account.current.c.totalReturn }
   ];
   const max = Math.max(...rows.flatMap((row) => [row.fixed, row.current]));
   document.getElementById("exit-account-comparison").innerHTML = rows.map((row) => `
     <div class="comparison-row">
       <div class="comparison-row-head"><span>${row.label} · 6개월 전량</span><strong>${percent(row.fixed)}</strong></div><div class="bar-track"><div class="bar-fill fixed" style="width:${row.fixed / max * 100}%"></div></div>
       <div class="comparison-row-head"><span>${row.label} · 50% + 연장</span><strong>${percent(row.current)}</strong></div><div class="bar-track"><div class="bar-fill ${row.label.endsWith("C") ? "c" : ""}" style="width:${row.current / max * 100}%"></div></div>
-      <p class="chart-note">누적 차이 ${points(row.current - row.fixed)} · MDD ${percent(row.label.endsWith("C") ? data.account.current.c.maxDrawdown : data.account.current.a.maxDrawdown)}</p>
+      <p class="chart-note">6개월에 모두 팔았을 때보다 ${points(row.current - row.fixed)} 높음 · 가장 깊은 하락 ${percent(data.account.current[row.key].maxDrawdown)}</p>
     </div>`).join("");
 }
 
 function renderPairedExit(data) {
   const row = data.exits.c;
   document.getElementById("paired-exit-stats").innerHTML = `
-    <div class="paired-stat"><strong class="positive-text">${row.improvedTrades}</strong><span>개선</span></div>
-    <div class="paired-stat"><strong>${row.unchangedTrades}</strong><span>동일</span></div>
-    <div class="paired-stat"><strong class="negative-text">${row.worsenedTrades}</strong><span>악화</span></div>
-    <div class="paired-callout"><strong>평균 ${points(row.averageImprovement)}</strong> · 중앙값 ${points(row.medianImprovement)} · 이상치 제외 평균 ${points(row.robustAverageImprovement)}</div>`;
+    <div class="paired-stat"><strong class="positive-text">${row.improvedTrades}</strong><span>더 좋아짐</span></div>
+    <div class="paired-stat"><strong>${row.unchangedTrades}</strong><span>차이 없음</span></div>
+    <div class="paired-stat"><strong class="negative-text">${row.worsenedTrades}</strong><span>더 나빠짐</span></div>
+    <div class="paired-callout"><strong>한 거래당 평균 ${points(row.averageImprovement)}</strong> · 가운데 거래는 ${points(row.medianImprovement)} · +300% 넘은 거래를 빼면 평균 ${points(row.robustAverageImprovement)}</div>`;
 }
 
 function impactGroup(title, rows, className) {
   const max = Math.max(...rows.map((row) => Math.abs(row.improvement)), 0.001);
-  return `<div class="impact-group"><p class="mini-label">${title} · 그룹 내 독립 척도</p>${rows.map((row) => `
+  return `<div class="impact-group"><p class="mini-label">${title} · 이 묶음 안에서 막대 길이 비교</p>${rows.map((row) => `
     <div class="impact-row">
       <div class="impact-label"><strong>${escapeHtml(row.symbol)}</strong><span>${row.cohort}</span></div>
       <div class="impact-track"><div class="impact-fill ${className}" style="width:${Math.abs(row.improvement) / max * 100}%"></div></div>
@@ -231,10 +255,10 @@ function renderExtensionImpact(data) {
 function renderPeriods(data) {
   const c = data.account.analysis.c;
   const cards = [
-    ["최고 1개월", percent(c.bestMonths[0].return), c.bestMonths[0].month],
-    ["최악 1개월", percent(c.worstMonths[0].return), c.worstMonths[0].month],
-    ["최고 12개월", percent(c.rollingTwelveMonths.best.return), `${c.rollingTwelveMonths.best.startDate.slice(0, 7)} ~ ${c.rollingTwelveMonths.best.endDate.slice(0, 7)}`],
-    ["최대 낙폭", percent(c.drawdown.drawdown), `${c.drawdown.peakDate} ~ ${c.drawdown.troughDate}`]
+    ["가장 좋았던 한 달", percent(c.bestMonths[0].return), c.bestMonths[0].month],
+    ["가장 힘들었던 한 달", percent(c.worstMonths[0].return), c.worstMonths[0].month],
+    ["가장 좋았던 12개월", percent(c.rollingTwelveMonths.best.return), `${c.rollingTwelveMonths.best.startDate.slice(0, 7)} ~ ${c.rollingTwelveMonths.best.endDate.slice(0, 7)}`],
+    ["계좌가 가장 크게 줄었을 때", percent(c.drawdown.drawdown), `${c.drawdown.peakDate} ~ ${c.drawdown.troughDate}`]
   ];
   document.getElementById("best-worst-periods").innerHTML = cards.map(([label, value, note]) => `<article class="period-card"><span>${label}</span><strong class="${value.startsWith("-") ? "negative-text" : "positive-text"}">${value}</strong><small>${note}</small></article>`).join("");
 }
@@ -245,9 +269,9 @@ function renderRegimes(data) {
     <article class="regime-card ${regime.tone}">
       <div class="regime-head"><h3>${escapeHtml(regime.title)}</h3><span class="regime-period">${escapeHtml(regime.period)}</span></div>
       <div class="regime-columns">
-        <div><strong>백테스트에서 보인 것</strong><p>${escapeHtml(regime.evidence)}</p></div>
-        <div><strong>당시 배경 해석</strong><p>${escapeHtml(regime.interpretation)}</p></div>
-        <div><strong>앞으로의 교훈</strong><p>${escapeHtml(regime.lesson)}</p></div>
+        <div><strong>그때 계좌에서는</strong><p>${escapeHtml(regime.evidence)}</p></div>
+        <div><strong>당시 시장에서는</strong><p>${escapeHtml(regime.interpretation)}</p></div>
+        <div><strong>다음에 기억할 점</strong><p>${escapeHtml(regime.lesson)}</p></div>
       </div>
       <div class="source-chips">${regime.sourceIds.map((id) => {
         const source = sources.get(id);
@@ -258,15 +282,15 @@ function renderRegimes(data) {
 
 function renderMethodology(data) {
   const methodRows = [
-    ["검증 기간", `${data.period.accountStartDate} ~ ${data.period.accountEndDate}`],
-    ["가격 기준일", data.provenance.priceAsOf],
-    ["고정 유니버스", `${data.provenance.universeSize}종목`],
-    ["월별 신규 선정", "2종목"],
-    ["초기 자본", "10,000,000원"],
-    ["거래 비용", `매수·매도 각 ${data.provenance.transactionCostBps}bp`],
-    ["계좌 평가", data.provenance.valuationMode],
-    ["미청산 처리", data.provenance.incompleteTradePolicy],
-    ["검증 ID", data.provenance.runId]
+    ["검증에 쓴 기간", `${data.period.accountStartDate} ~ ${data.period.accountEndDate}`],
+    ["마지막 주가 기준일", data.provenance.priceAsOf],
+    ["검토한 종목", `${data.provenance.universeSize}종목`],
+    ["한 달에 새로 산 종목", "2종목"],
+    ["처음 넣은 돈", "10,000,000원"],
+    ["가정한 거래 비용", "살 때 0.1% · 팔 때 0.1%"],
+    ["보유 중인 계좌 계산", "매주 실제 종가로 다시 평가"],
+    ["아직 팔지 않은 종목", `${data.provenance.priceAsOf} 종가로 임시 평가`],
+    ["계산 결과 식별 번호", data.provenance.runId]
   ];
   document.getElementById("method-grid").innerHTML = methodRows.map(([label, value]) => `<article class="method-card"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></article>`).join("");
   document.getElementById("caveat-list").innerHTML = data.caveats.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
@@ -274,8 +298,8 @@ function renderMethodology(data) {
 }
 
 function renderMeta(data) {
-  document.getElementById("as-of-chip").textContent = `${data.provenance.priceAsOf} 종가 기준`;
-  document.getElementById("footer-meta").textContent = `Run ${data.provenance.runId} · 생성 ${data.generatedAt.slice(0, 10)}`;
+  document.getElementById("as-of-chip").textContent = `${data.provenance.priceAsOf} 주가 기준`;
+  document.getElementById("footer-meta").textContent = `계산 기준 ${data.provenance.priceAsOf} · 보고서 갱신 ${data.generatedAt.slice(0, 10)}`;
   document.getElementById("print-report").addEventListener("click", () => window.print());
 }
 

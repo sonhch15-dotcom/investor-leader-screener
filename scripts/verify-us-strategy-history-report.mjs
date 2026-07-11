@@ -20,6 +20,8 @@ function chronological(curve) {
 }
 
 assert(report.schemaVersion === 1, "Unexpected history report schema version.");
+assert(report.strategyNames?.a?.displayName === "섹터 흐름형", "Friendly Score A name is missing.");
+assert(report.strategyNames?.c?.displayName === "종목 힘 중심형", "Friendly Score C name is missing.");
 assert(report.provenance.runId === validation.runId, "Validation run ID mismatch.");
 assert(report.provenance.priceSnapshotHash === validation.provenance.priceSnapshotHash, "Price snapshot hash mismatch.");
 assert(close(report.headline.scoreA.accountReturn, validation.scoreA.account.totalReturn), "Score A account return mismatch.");
@@ -50,7 +52,7 @@ const sourceIds = new Set(report.sources.map((source) => source.id));
 assert(sourceIds.size === report.sources.length, "Duplicate source IDs found.");
 assert(report.sources.every((source) => source.url.startsWith("https://")), "Every external source must use HTTPS.");
 assert(report.regimes.every((regime) => regime.sourceIds.every((id) => sourceIds.has(id))), "A regime references a missing source.");
-assert(report.caveats.some((item) => item.includes("생존자 편향")), "Survivorship-bias caveat is missing.");
-assert(report.caveats.some((item) => item.includes("우측 검열")), "Right-censoring caveat is missing.");
+assert(report.caveats.some((item) => item.includes("상장폐지")), "Survivorship-bias caveat is missing.");
+assert(report.caveats.some((item) => item.includes("임시 계산")), "Right-censoring caveat is missing.");
 
 console.log("US strategy history report verification passed.");

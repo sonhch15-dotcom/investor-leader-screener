@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="미국 주식 Score A와 Score C, 6개월 50% 매도와 주봉 연장 규칙의 역사적 백테스트 분석 보고서">
-  <title>미국 A·C 전략 역사 보고서</title>
+  <meta name="description" content="미국 주도주를 고르는 두 가지 방법과 6개월 매도 규칙을 초보자도 이해할 수 있게 풀어쓴 5년 백테스트 보고서">
+  <title>미국 주도주 전략, 지난 5년을 다시 보다</title>
   <link rel="stylesheet" href="us-strategy-history.css">
 </head>
 <body>
@@ -21,41 +21,58 @@
 
   <main class="report-shell">
     <section class="hero" aria-labelledby="report-title">
-      <p class="eyebrow">US LEADER2 HISTORICAL REVIEW</p>
-      <h1 id="report-title">미국 A·C 전략 역사 보고서</h1>
-      <p class="hero-lede">왜 C가 A보다 나았는지, 왜 6개월에 절반을 팔고 나머지를 주봉으로 관리했는지, 그리고 전략이 가장 강하고 약했던 시장을 한 번에 복기합니다.</p>
-      <p class="contract-note"><strong>운용 계약 변경 없음.</strong> 이 페이지는 연구 보고서이며 2026년 7월 현재 A active, C candidate 상태와 신호 API를 바꾸지 않습니다.</p>
+      <p class="eyebrow">미국 주도주 전략 5년 복기</p>
+      <h1 id="report-title">미국 주도주 전략,<br>지난 5년을 다시 보다</h1>
+      <p class="hero-lede">어떤 기준으로 종목을 골랐을 때 결과가 더 좋았는지, 6개월 뒤에는 왜 절반만 팔았는지, 그리고 힘든 시장에서는 계좌가 얼마나 흔들렸는지 차근차근 살펴봅니다.</p>
+      <p class="contract-note"><strong>지금 쓰는 매매 규칙은 바뀌지 않습니다.</strong> 이 페이지는 과거 결과를 이해하기 위한 복기 자료입니다. 앱의 종목 추천이나 매수·매도 일정에는 영향을 주지 않습니다.</p>
     </section>
 
     <nav class="section-nav" aria-label="보고서 목차">
       <a href="#executive-summary">결론</a>
-      <a href="#score-comparison">A와 C</a>
-      <a href="#exit-rule">매도 규칙</a>
-      <a href="#market-regimes">역사 구간</a>
-      <a href="#playbook">실전 교훈</a>
-      <a href="#methodology">검증 조건</a>
+      <a href="#score-comparison">종목 고르기</a>
+      <a href="#exit-rule">언제 팔까</a>
+      <a href="#market-regimes">좋고 나빴던 때</a>
+      <a href="#playbook">기억할 점</a>
+      <a href="#next-tests">다음 실험</a>
+      <a href="#methodology">알아둘 조건</a>
     </nav>
 
     <section class="report-section summary-section" id="executive-summary">
       <div class="section-heading">
-        <p class="section-kicker">Executive Summary</p>
-        <h2>결론부터 보면 C와 절반 연장은 함께 작동했습니다</h2>
+        <p class="section-kicker">먼저 보는 결론</p>
+        <h2>이것만 먼저 기억하면 됩니다</h2>
       </div>
       <div class="summary-list" id="executive-summary-list" aria-live="polite"></div>
       <div class="metric-strip" id="headline-metrics"></div>
+      <aside class="plain-language-note" aria-labelledby="terms-title">
+        <h3 id="terms-title">숫자는 이렇게 읽으세요</h3>
+        <dl class="term-grid">
+          <div><dt>누적 수익률</dt><dd>처음 투자한 돈이 전체 기간 동안 얼마나 늘거나 줄었는지 보여줍니다. +100%면 원금이 두 배가 된 것입니다.</dd></div>
+          <div><dt>연평균 수익률 <small>(CAGR)</small></dt><dd>전체 결과를 “매년 같은 속도로 불어났다”고 바꾸어 계산한 값입니다. 실제로 매년 똑같이 올랐다는 뜻은 아닙니다.</dd></div>
+          <div><dt>최대 하락폭 <small>(MDD)</small></dt><dd>계좌가 가장 높았던 순간부터 가장 깊게 떨어졌을 때의 손실 폭입니다. 투자자가 실제로 버텨야 했던 가장 힘든 구간에 가깝습니다.</dd></div>
+          <div><dt>수익 난 거래 비율 <small>(흔히 승률)</small></dt><dd>매수한 건 중 돈을 번 건의 비율입니다. 이 비율이 높아도 큰 손실이 있으면 전체 수익은 낮을 수 있습니다.</dd></div>
+          <div><dt>수익률 차이 <small>(%포인트)</small></dt><dd>예를 들어 10%와 25%의 차이는 15%가 아니라 15%포인트라고 씁니다.</dd></div>
+          <div><dt>중앙값</dt><dd>수익률을 작은 순서대로 세웠을 때 한가운데 값입니다. 초대박 종목 한두 개에 덜 흔들려 ‘보통 거래’의 모습을 보는 데 도움이 됩니다.</dd></div>
+        </dl>
+      </aside>
     </section>
 
     <section class="report-section" id="score-comparison">
       <div class="section-heading">
-        <p class="section-kicker">01 · SELECTION</p>
-        <h2>C는 더 자주 맞힌 전략이 아니라, 더 큰 승자를 고른 전략입니다</h2>
-        <p>두 전략은 같은 월말, 같은 551종목, 같은 가격 스냅샷에서 매월 2개를 골랐습니다. 달라진 것은 섹터·테마 점수의 영향력뿐입니다.</p>
+        <p class="section-kicker">01 · 종목 고르기</p>
+        <h2>업종보다 ‘종목 자체의 힘’을 더 본 방식이 앞섰습니다</h2>
+        <p>두 방식 모두 매달 같은 날, 같은 551개 종목 중에서 2개를 골랐습니다. 차이는 하나였습니다. 잘나가는 업종에 점수를 더 줄지, 그 업종 안에서도 실제로 더 강하게 오르는 종목을 우선할지였습니다.</p>
+      </div>
+
+      <div class="strategy-name-grid">
+        <article><span>종목 고르는 방법 1</span><h3>섹터 흐름형</h3><p>최근 잘나가는 업종에 점수를 더 줍니다. 그 업종에 속했다는 사실이 전체 점수의 20%를 차지합니다.</p></article>
+        <article><span>종목 고르는 방법 2</span><h3>종목 힘 중심형</h3><p>업종 점수는 줄이고, 시장보다 얼마나 강하게 움직였는지·최근 상승 흐름·거래량처럼 종목 자체의 움직임을 더 중요하게 봅니다.</p></article>
       </div>
 
       <div class="two-column">
         <article class="evidence-card">
           <div class="card-heading">
-            <div><p class="mini-label">점수 구성</p><h3>A와 C의 가중치</h3></div>
+            <div><p class="mini-label">무엇을 더 중요하게 봤나</p><h3>종목 점수의 구성</h3></div>
             <span class="unit-label">100점 환산</span>
           </div>
           <div id="score-weight-chart" class="stacked-chart"></div>
@@ -63,95 +80,95 @@
         </article>
         <article class="evidence-card">
           <div class="card-heading">
-            <div><p class="mini-label">선정 슬롯</p><h3>118개 중 어디서 달랐나</h3></div>
-            <span class="unit-label">59개 매수월</span>
+            <div><p class="mini-label">지난 59개월의 추천</p><h3>118번의 추천 중 얼마나 달랐나</h3></div>
+            <span class="unit-label">매달 2종목</span>
           </div>
           <div id="slot-comparison" class="slot-chart"></div>
-          <p class="chart-note">같은 종목을 고른 82개 슬롯은 공통 기반입니다. C의 우위는 서로 달랐던 36개 슬롯에서 설명됩니다.</p>
+          <p class="chart-note">118번의 추천 자리 중 82번은 같은 종목을 골랐습니다. 결과 차이는 서로 다른 종목을 고른 나머지 36번에서 생겼습니다.</p>
         </article>
       </div>
 
       <article class="evidence-card wide-card">
         <div class="card-heading">
-          <div><p class="mini-label">실제 계좌 곡선</p><h3>Score A, Score C, QQQ 누적 성과</h3></div>
+          <div><p class="mini-label">1천만원으로 시작했다면</p><h3>두 방식과 시장 기준의 자산 변화</h3></div>
           <span class="unit-label">1천만원 · 거래비용 포함</span>
         </div>
         <div class="chart-legend" aria-label="계열 범례">
-          <span><i class="legend-c"></i>Score C</span>
-          <span><i class="legend-a"></i>Score A</span>
-          <span><i class="legend-benchmark"></i>QQQ</span>
+          <span><i class="legend-c"></i>종목 힘 중심형</span>
+          <span><i class="legend-a"></i>섹터 흐름형</span>
+          <span><i class="legend-benchmark"></i>QQQ(시장 기준)</span>
         </div>
-        <div class="svg-chart" id="equity-chart" role="img" aria-label="Score A, Score C와 QQQ 누적 수익률 선 그래프"></div>
-        <p class="chart-note">계좌 결과는 월별 2종목 신호, 3개월 램프형 자금 배분, 종목당 원금 한도 27.5%, 매수·매도 각 10bp 비용을 함께 반영합니다.</p>
+        <div class="svg-chart" id="equity-chart" role="img" aria-label="섹터 흐름형, 종목 힘 중심형과 QQQ의 누적 수익률 선 그래프"></div>
+        <p class="chart-note">QQQ는 미국 대형 기술주 100개를 담은 ETF로, 전략이 시장보다 잘했는지 비교하는 기준입니다. 계산에는 매달 2종목 매수, 종목당 최대 원금 27.5%, 매수·매도 때 각각 0.1%의 비용을 반영했습니다.</p>
       </article>
 
       <div class="two-column">
         <article class="evidence-card">
           <div class="card-heading">
-            <div><p class="mini-label">다른 36개 선정</p><h3>A 전용과 C 전용 종목의 결과</h3></div>
-            <span class="unit-label">실현·평가 수익률</span>
+            <div><p class="mini-label">서로 다르게 고른 36번</p><h3>각 방식이 따로 고른 종목의 결과</h3></div>
+            <span class="unit-label">매도 완료·현재 평가 포함</span>
           </div>
           <div id="different-pick-stats" class="comparison-bars"></div>
-          <p class="chart-note">승률만 보면 A가 높지만 평균·중앙값은 C가 컸습니다. 이것이 “많이 맞히기”보다 “큰 리더를 놓치지 않기”의 차이입니다.</p>
+          <p class="chart-note">섹터 흐름형은 돈을 번 거래의 비율이 조금 더 높았습니다. 하지만 종목 힘 중심형은 크게 오른 종목을 더 잘 골라 한 건당 수익이 훨씬 컸습니다.</p>
         </article>
         <article class="evidence-card">
           <div class="card-heading">
-            <div><p class="mini-label">섹터 이동</p><h3>C가 더 많이·적게 고른 곳</h3></div>
-            <span class="unit-label">A 대비 슬롯 증감</span>
+            <div><p class="mini-label">어떤 업종이 달라졌나</p><h3>종목 힘 중심형이 더 고른 업종</h3></div>
+            <span class="unit-label">섹터 흐름형과 비교</span>
           </div>
           <div id="sector-shift-chart" class="diverging-chart"></div>
-          <p class="chart-note">C는 금융·소비재의 섹터 보너스를 덜 따르고, 전자부품·소프트웨어·반도체에서 개별 강도가 높은 종목을 더 골랐습니다.</p>
+          <p class="chart-note">종목 힘 중심형은 금융·소비재를 덜 고르고, 전자부품·소프트웨어·반도체에서 실제 주가 흐름이 더 강한 종목을 많이 골랐습니다. 여기서 섹터는 비슷한 사업을 하는 업종 묶음을 뜻합니다.</p>
         </article>
       </div>
 
       <article class="evidence-card">
         <div class="card-heading">
-          <div><p class="mini-label">독립 시작 구간</p><h3>각 연도에서 새 계좌로 시작했을 때</h3></div>
-          <span class="unit-label">구간별 1천만원 재시작</span>
+          <div><p class="mini-label">시작 시점이 달라도 괜찮았나</p><h3>각 해에 처음 투자를 시작했다고 가정</h3></div>
+          <span class="unit-label">매번 1천만원으로 시작</span>
         </div>
         <div id="annual-comparison" class="annual-chart"></div>
-        <p class="chart-note">C는 다섯 개 시작 구간 모두에서 A보다 높은 수익률을 기록했습니다. 다만 2024년과 2026 YTD에는 C의 구간 MDD도 더 컸습니다.</p>
+        <p class="chart-note">종목 힘 중심형은 다섯 번의 시작 시점에서 모두 앞섰습니다. 다만 2024년과 2026년 현재까지의 구간에서는 중간에 떨어지는 폭도 더 컸습니다.</p>
       </article>
 
       <details class="detail-panel">
-        <summary>선정이 달랐던 종목 전체 보기</summary>
+        <summary>두 방식이 다르게 고른 종목 전체 보기</summary>
         <div class="detail-grid">
-          <div><h3>C만 고른 상위·하위 종목</h3><div class="table-scroll"><table><thead><tr><th>추천월</th><th>종목</th><th>섹터</th><th>수익률</th><th>상태</th></tr></thead><tbody id="c-only-trades"></tbody></table></div></div>
-          <div><h3>A만 고른 상위·하위 종목</h3><div class="table-scroll"><table><thead><tr><th>추천월</th><th>종목</th><th>섹터</th><th>수익률</th><th>상태</th></tr></thead><tbody id="a-only-trades"></tbody></table></div></div>
+          <div><h3>종목 힘 중심형만 고른 종목</h3><div class="table-scroll"><table><thead><tr><th>추천월</th><th>종목</th><th>업종</th><th>수익률</th><th>상태</th></tr></thead><tbody id="c-only-trades"></tbody></table></div></div>
+          <div><h3>섹터 흐름형만 고른 종목</h3><div class="table-scroll"><table><thead><tr><th>추천월</th><th>종목</th><th>업종</th><th>수익률</th><th>상태</th></tr></thead><tbody id="a-only-trades"></tbody></table></div></div>
         </div>
       </details>
     </section>
 
     <section class="report-section" id="exit-rule">
       <div class="section-heading">
-        <p class="section-kicker">02 · EXIT</p>
-        <h2>6개월 절반 매도는 이익을 잠그고, 남은 절반은 큰 추세를 열어뒀습니다</h2>
-        <p>이 규칙의 목적은 최고점을 맞히는 것이 아닙니다. 6개월에 현금을 일부 회수하면서도 소수의 초대형 리더가 12개월까지 이어질 가능성을 보존하는 것입니다.</p>
+        <p class="section-kicker">02 · 언제 팔까</p>
+        <h2>6개월에 절반을 팔고, 잘 가는 종목은 조금 더 들고 가는 편이 나았습니다</h2>
+        <p>최고점에서 정확히 파는 것은 현실적으로 어렵습니다. 그래서 6개월이 되면 절반은 현금으로 돌려놓고, 남은 절반은 상승 흐름이 살아 있을 때만 더 보유했습니다.</p>
       </div>
 
       <div class="rule-flow" aria-label="현재 매도 규칙">
-        <article><span>1</span><h3>6개월 도달</h3><p>원 lot의 50%를 무조건 매도합니다.</p></article>
-        <article><span>2</span><h3>잔여 50% 판정</h3><p>주봉 종가 ≥ MA10이고 RSI14 ≥ 50일 때만 연장합니다. 아니면 같은 날 전량 종료합니다.</p></article>
-        <article><span>3</span><h3>연장 후 종료</h3><p>MA10을 2주 연속 하회하거나 총 12개월에 도달하면 매도합니다. RSI 하회만으로는 팔지 않습니다.</p></article>
+        <article><span>1</span><h3>산 지 6개월이 되면</h3><p>그 추천월에 산 물량의 절반을 먼저 팝니다. 수익이든 손실이든 예외는 두지 않습니다.</p></article>
+        <article><span>2</span><h3>나머지 절반을 더 들고 갈지 확인</h3><p>일주일 단위 차트에서 현재 가격이 최근 10주 평균 위에 있고, 주가의 힘을 나타내는 RSI가 50 이상일 때만 계속 보유합니다.</p></article>
+        <article><span>3</span><h3>더 보유한 물량을 파는 때</h3><p>가격이 10주 평균 아래에서 2주 연속 끝나거나, 처음 산 날부터 12개월이 되면 모두 팝니다.</p></article>
       </div>
 
       <div class="two-column">
         <article class="evidence-card">
           <div class="card-heading"><div><p class="mini-label">계좌 전체 비교</p><h3>6개월 전량 매도 vs 절반 연장</h3></div><span class="unit-label">누적 수익률</span></div>
           <div id="exit-account-comparison" class="comparison-bars"></div>
-          <p class="chart-note">계좌 비교는 매도 시점이 바뀌면서 현금 가용성과 이후 매수 규모도 함께 바뀐 결과입니다.</p>
+          <p class="chart-note">매도 날짜가 달라지면 다음 종목을 살 수 있는 현금도 달라집니다. 위 결과에는 이런 차이까지 모두 들어 있습니다.</p>
         </article>
         <article class="evidence-card">
-          <div class="card-heading"><div><p class="mini-label">같은 거래끼리 비교</p><h3>연장 규칙의 비대칭 손익</h3></div><span class="unit-label">공동 청산 거래</span></div>
+          <div class="card-heading"><div><p class="mini-label">같은 거래끼리 비교</p><h3>작은 되돌림보다 큰 승자 몇 개가 더 컸습니다</h3></div><span class="unit-label">두 방식 모두 매도 완료</span></div>
           <div id="paired-exit-stats" class="paired-stats"></div>
-          <p class="chart-note">C에서 좋아진 거래 24개, 나빠진 거래 26개, 동일 47개였지만 평균 개선은 +12.3%p였습니다. 개선 횟수가 아니라 개선 폭이 컸습니다.</p>
+          <p class="chart-note">종목 힘 중심형에서 더 좋아진 거래는 24건, 더 나빠진 거래는 26건, 차이가 없던 거래는 47건이었습니다. 좋아진 횟수는 많지 않았지만, 잘된 몇 건의 추가 수익이 매우 컸습니다.</p>
         </article>
       </div>
 
       <article class="evidence-card">
-        <div class="card-heading"><div><p class="mini-label">어디서 효과가 났나</p><h3>잔여 절반이 만든 추가 수익과 되돌림</h3></div><span class="unit-label">C · 고정 6개월 대비 %p</span></div>
+        <div class="card-heading"><div><p class="mini-label">어디서 효과가 났나</p><h3>남겨둔 절반이 더 벌거나 되돌려준 금액</h3></div><span class="unit-label">종목 힘 중심형</span></div>
         <div id="extension-impact-chart" class="impact-chart"></div>
-        <p class="chart-note">최악의 되돌림은 대체로 제한적이었지만, STX·APP·HOOD 같은 장기 추세의 추가 수익은 매우 컸습니다.</p>
+        <p class="chart-note">더 들고 있다가 수익이 일부 줄어든 종목도 있었지만 그 폭은 비교적 작았습니다. 반대로 STX·APP·HOOD처럼 오래 오른 종목에서 얻은 추가 수익은 훨씬 컸습니다.</p>
       </article>
 
       <details class="detail-panel">
@@ -162,9 +179,9 @@
 
     <section class="report-section" id="market-regimes">
       <div class="section-heading">
-        <p class="section-kicker">03 · HISTORY</p>
-        <h2>전략은 긴축과 정책 충격에 약했고, 실적이 확인된 리더 확산기에 강했습니다</h2>
-        <p>아래 원인 해석은 백테스트 가격과 공식 거시·기업 자료의 시간적 일치를 비교한 것입니다. 단일 사건이 주가를 움직였다고 단정하지 않습니다.</p>
+        <p class="section-kicker">03 · 좋고 나빴던 때</p>
+        <h2>금리가 빠르게 오를 때 힘들었고, 기업 실적이 주가를 따라잡을 때 강했습니다</h2>
+        <p>아래 설명은 당시 주가와 공식 경제·기업 자료를 나란히 놓고 해석한 것입니다. 주가는 여러 이유로 움직이므로 한 사건이 모든 원인이라고 단정하지는 않습니다.</p>
       </div>
 
       <div class="period-summary" id="best-worst-periods"></div>
@@ -173,26 +190,45 @@
 
     <section class="report-section" id="playbook">
       <div class="section-heading">
-        <p class="section-kicker">04 · PLAYBOOK</p>
-        <h2>앞으로 전략을 따를 때 미리 받아들여야 할 경험</h2>
+        <p class="section-kicker">04 · 실제 투자에서 기억할 점</p>
+        <h2>좋은 결과만큼 힘든 순간도 미리 알고 시작해야 합니다</h2>
       </div>
       <div class="lesson-grid">
-        <article><strong>약 -20% 계좌 낙폭은 실패 판정선이 아닙니다.</strong><p>A와 C 모두 2025년 정책 충격에서 비슷한 시점에 최대 낙폭을 겪었습니다. 전략 자체가 깨졌는지는 월별 후보와 주봉 규칙의 재현성으로 판단해야 합니다.</p></article>
-        <article><strong>높은 승률보다 큰 승자를 남기는지가 중요합니다.</strong><p>C 전용 종목의 승률은 A보다 낮았습니다. 그래도 STX, APP, CVNA, NVDA 같은 오른쪽 꼬리가 전체 우위를 만들었습니다.</p></article>
-        <article><strong>6개월 전에 불안하다는 이유만으로 임의 청산하지 않습니다.</strong><p>조기 청산·재진입 연구는 독립 구간 승격 기준을 통과하지 못했습니다. 현재 규칙은 6개월 50% 매도를 유지합니다.</p></article>
-        <article><strong>연장된 절반도 영구 보유가 아닙니다.</strong><p>주봉 MA10 2주 훼손 또는 12개월 만료라는 종료 조건이 있습니다. 강한 추세를 허용하되 끝없는 기대 보유를 막습니다.</p></article>
-        <article><strong>C의 우위에는 집중 위험이 같이 옵니다.</strong><p>장기 수익률은 높았지만 MDD는 A보다 조금 나빴습니다. 월 2종목과 종목당 원금 27.5% 한도를 확대할 근거는 이 보고서만으로 부족합니다.</p></article>
-        <article><strong>월중 점수 변화는 기존 lot를 바꾸지 않습니다.</strong><p>추천월에 확정한 전략 키와 종목, 매수일, 매도 일정은 lot별로 보존합니다. 새 전략 전환은 새 신호월의 신규 lot에만 적용합니다.</p></article>
+        <article><strong>계좌가 한때 약 20% 줄어드는 구간도 있었습니다.</strong><p>두 방식 모두 2025년에 비슷한 시점에서 가장 크게 흔들렸습니다. 1천만원이 약 800만원까지 줄어드는 상황을 견딜 수 있는지 먼저 생각해야 합니다.</p></article>
+        <article><strong>자주 맞히는 것보다 크게 오른 종목을 너무 일찍 팔지 않는 것이 중요했습니다.</strong><p>종목 힘 중심형은 돈 번 거래의 비율이 오히려 낮았습니다. 그래도 STX, APP, CVNA, NVDA처럼 크게 오른 종목이 전체 결과를 끌어올렸습니다.</p></article>
+        <article><strong>6개월 전에 불안하다는 이유만으로 임의로 팔지는 않습니다.</strong><p>더 일찍 팔았다가 다시 사는 방법도 시험했지만, 시작 시점을 바꾸어 확인하니 결과가 꾸준하지 않았습니다. 그래서 현재는 6개월이 될 때까지 기다리는 규칙을 유지합니다.</p></article>
+        <article><strong>더 들고 가기로 한 절반도 영원히 보유하지는 않습니다.</strong><p>일주일 단위 차트에서 가격이 10주 평균 아래로 2주 연속 내려가거나, 처음 산 날부터 12개월이 되면 매도합니다.</p></article>
+        <article><strong>수익이 더 높았던 만큼 한쪽 업종에 몰릴 위험도 있었습니다.</strong><p>종목 힘 중심형은 전자부품과 반도체를 더 많이 골랐습니다. 월 2종목이나 종목당 원금 27.5% 한도를 바로 늘릴 근거는 아직 부족합니다.</p></article>
+        <article><strong>한 번 산 물량의 일정은 나중 추천이 바뀌어도 그대로 관리합니다.</strong><p>추천받은 달, 매수일, 6개월 매도일을 각각 따로 기록합니다. 다음 달에 다른 종목이 추천돼도 이미 산 물량의 일정은 바꾸지 않습니다.</p></article>
+      </div>
+    </section>
+
+    <section class="report-section" id="next-tests">
+      <div class="section-heading">
+        <p class="section-kicker">05 · 다음에 꼭 해볼 백테스트</p>
+        <h2>이번 결과를 보고 새로 확인해야 할 질문들</h2>
+        <p>아래 아이디어는 아직 쓰기로 정한 규칙이 아닙니다. 지금 전략을 바꾸기 전에 먼저 같은 데이터로 시험하고, 시작 시기나 검증 기간을 바꿔도 결과가 이어지는지 확인해야 합니다.</p>
+      </div>
+      <div class="next-test-list">
+        <article><span>1</span><div><h3>시장이 크게 무너질 때 새 매수만 줄이면 손실이 덜할까?</h3><p>QQQ가 최근 200일 평균 가격 아래에 있을 때 새로 살 금액을 절반으로 줄이는 방법을 시험합니다. 2022년과 2025년의 최대 하락폭을 줄이면서 이후 반등을 놓치지 않는지가 핵심입니다.</p><small>비교할 것: 전체 수익, 최대 하락폭, 반등 초기에 놓친 수익</small></div></article>
+        <article><span>2</span><div><h3>같은 달 두 종목을 서로 다른 업종에서 고르면 더 안전할까?</h3><p>현재 방식은 강한 종목 두 개가 같은 업종에서 나올 수 있습니다. 한 업종당 한 종목만 허용했을 때 전자부품·반도체 쏠림과 계좌 흔들림이 줄어드는지 확인합니다.</p><small>비교할 것: 업종 제한 없음 vs 한 업종 한 종목</small></div></article>
+        <article><span>3</span><div><h3>6개월에 항상 50%를 팔지 말고, 추세에 따라 25%·50%·75%를 팔면?</h3><p>이번 결과는 큰 승자를 남겨두는 일이 중요하다는 점을 보여줬습니다. 다만 규칙을 복잡하게 만들수록 과거에만 잘 맞을 위험이 있으므로 미리 정한 단순 기준으로만 시험합니다.</p><small>비교할 것: 현재 50% 고정 vs 주봉 강도에 따른 세 단계 매도</small></div></article>
+        <article><span>4</span><div><h3>매달 2종목보다 3~4종목을 사면 결과가 더 안정적일까?</h3><p>종목 수를 늘리면 한 종목 실패의 충격은 줄지만, 크게 오른 한 종목의 효과도 옅어질 수 있습니다. 같은 1천만원과 같은 종목당 한도에서 비교해야 합니다.</p><small>비교할 것: 월 2·3·4종목의 수익, 최대 하락폭, 현금 부족, 거래비용</small></div></article>
+        <article><span>5</span><div><h3>그 당시 실제로 존재했던 종목만 써도 결과가 유지될까?</h3><p>현재 검증은 지금의 551개 종목을 과거에도 그대로 적용했습니다. 상장폐지 종목과 그 당시 시장에 포함됐던 종목까지 복원한 뒤에도 종목 힘 중심형의 우위가 남는지 확인해야, 이 방법을 공식 전략으로 쓸 때 더 믿을 수 있습니다.</p><small>비교할 것: 현재 종목 목록 vs 각 시점에 실제 존재했던 종목 목록</small></div></article>
       </div>
     </section>
 
     <section class="report-section methodology-section" id="methodology">
       <div class="section-heading">
-        <p class="section-kicker">05 · METHOD & LIMITS</p>
-        <h2>같은 데이터를 재사용했지만, 완전한 미래 재현은 아닙니다</h2>
+        <p class="section-kicker">06 · 숫자를 믿기 전에</p>
+        <h2>실제 투자 결과와 달라질 수 있는 조건도 있습니다</h2>
       </div>
       <div class="method-grid" id="method-grid"></div>
-      <div class="caveat-box"><h3>반드시 함께 볼 한계</h3><ul id="caveat-list"></ul></div>
+      <details class="detail-panel internal-name-panel">
+        <summary>개발 기록에서 A·C라는 이름이 보이는 이유</summary>
+        <p>과거 계산을 정확히 다시 실행하기 위해 데이터 파일과 앱 연결 규칙에는 기존 코드명인 Score A와 Score C를 남겨둡니다. 이 보고서에서는 뜻을 바로 알 수 있도록 각각 <strong>섹터 흐름형</strong>과 <strong>종목 힘 중심형</strong>으로 표시했습니다. 이름만 바꿨으며 계산식은 그대로입니다.</p>
+      </details>
+      <div class="caveat-box"><h3>결과를 볼 때 꼭 기억할 점</h3><ul id="caveat-list"></ul></div>
       <details class="detail-panel source-panel">
         <summary>역사 해석에 사용한 공식 출처</summary>
         <ol id="source-list"></ol>
