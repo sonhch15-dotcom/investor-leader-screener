@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import { weeklyRows } from "./backtest-execution-core.mjs";
 import {
   priceMapFromSnapshot,
@@ -242,9 +243,9 @@ function isAiHardware(trade) {
   return aiHardwareSymbols.has(trade.symbol) || aiHardwareSectors.has(trade.sector);
 }
 
-function loadTrades(data, robust = false) {
+function loadTrades(data, robust = false, ruleKey = sourceRule) {
   const trades = data.evaluations
-    ?.find((entry) => entry.rule === sourceRule)
+    ?.find((entry) => entry.rule === ruleKey)
     ?.rows
     ?.filter((row) => row.entered)
     ?.map((row, index) => ({
@@ -758,7 +759,15 @@ async function main() {
   console.log(`Wrote ${outputJsonPath} and ${outputMdPath}`);
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+const entryUrl = process.argv[1]
+  ? pathToFileURL(path.resolve(process.argv[1])).href
+  : null;
+
+if (import.meta.url === entryUrl) {
+  main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}
+
+export { loadTrades, scenarios, simulateScenario };

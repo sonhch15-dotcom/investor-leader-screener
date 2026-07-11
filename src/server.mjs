@@ -2,7 +2,8 @@ import http from "node:http";
 import fs from "node:fs/promises";
 import path from "node:path";
 
-const PORT = Number(process.env.PORT ?? 4173);
+const portFlagIndex = process.argv.indexOf("--port");
+const PORT = Number(portFlagIndex >= 0 ? process.argv[portFlagIndex + 1] : process.env.PORT ?? 4173);
 const ROOT = process.cwd();
 
 const MIME = {
@@ -17,6 +18,11 @@ function resolvePath(urlPath) {
   if (urlPath === "/" || urlPath === "") return path.join(ROOT, "dashboard", "index.html");
   if (urlPath === "/app.js") return path.join(ROOT, "dashboard", "app.js");
   if (urlPath === "/styles.css") return path.join(ROOT, "dashboard", "styles.css");
+  if ([
+    "/us-strategy-history.html",
+    "/us-strategy-history.css",
+    "/us-strategy-history.js"
+  ].includes(urlPath)) return path.join(ROOT, "dashboard", urlPath.slice(1));
   const normalized = path.normalize(urlPath).replace(/^(\.\.[/\\])+/, "");
   return path.join(ROOT, normalized);
 }

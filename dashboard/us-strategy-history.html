@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="미국 주식 Score A와 Score C, 6개월 50% 매도와 주봉 연장 규칙의 역사적 백테스트 분석 보고서">
+  <title>미국 A·C 전략 역사 보고서</title>
+  <link rel="stylesheet" href="us-strategy-history.css">
+</head>
+<body>
+  <header class="report-header">
+    <div class="header-inner">
+      <a class="back-link" href="./?cb=us-history#us-score-c-backtest">대시보드로 돌아가기</a>
+      <div class="header-actions">
+        <span id="as-of-chip" class="status-chip">데이터 확인 중</span>
+        <button class="print-button" id="print-report" type="button">인쇄</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="report-shell">
+    <section class="hero" aria-labelledby="report-title">
+      <p class="eyebrow">US LEADER2 HISTORICAL REVIEW</p>
+      <h1 id="report-title">미국 A·C 전략 역사 보고서</h1>
+      <p class="hero-lede">왜 C가 A보다 나았는지, 왜 6개월에 절반을 팔고 나머지를 주봉으로 관리했는지, 그리고 전략이 가장 강하고 약했던 시장을 한 번에 복기합니다.</p>
+      <p class="contract-note"><strong>운용 계약 변경 없음.</strong> 이 페이지는 연구 보고서이며 2026년 7월 현재 A active, C candidate 상태와 신호 API를 바꾸지 않습니다.</p>
+    </section>
+
+    <nav class="section-nav" aria-label="보고서 목차">
+      <a href="#executive-summary">결론</a>
+      <a href="#score-comparison">A와 C</a>
+      <a href="#exit-rule">매도 규칙</a>
+      <a href="#market-regimes">역사 구간</a>
+      <a href="#playbook">실전 교훈</a>
+      <a href="#methodology">검증 조건</a>
+    </nav>
+
+    <section class="report-section summary-section" id="executive-summary">
+      <div class="section-heading">
+        <p class="section-kicker">Executive Summary</p>
+        <h2>결론부터 보면 C와 절반 연장은 함께 작동했습니다</h2>
+      </div>
+      <div class="summary-list" id="executive-summary-list" aria-live="polite"></div>
+      <div class="metric-strip" id="headline-metrics"></div>
+    </section>
+
+    <section class="report-section" id="score-comparison">
+      <div class="section-heading">
+        <p class="section-kicker">01 · SELECTION</p>
+        <h2>C는 더 자주 맞힌 전략이 아니라, 더 큰 승자를 고른 전략입니다</h2>
+        <p>두 전략은 같은 월말, 같은 551종목, 같은 가격 스냅샷에서 매월 2개를 골랐습니다. 달라진 것은 섹터·테마 점수의 영향력뿐입니다.</p>
+      </div>
+
+      <div class="two-column">
+        <article class="evidence-card">
+          <div class="card-heading">
+            <div><p class="mini-label">점수 구성</p><h3>A와 C의 가중치</h3></div>
+            <span class="unit-label">100점 환산</span>
+          </div>
+          <div id="score-weight-chart" class="stacked-chart"></div>
+          <p class="chart-note" id="score-weight-note"></p>
+        </article>
+        <article class="evidence-card">
+          <div class="card-heading">
+            <div><p class="mini-label">선정 슬롯</p><h3>118개 중 어디서 달랐나</h3></div>
+            <span class="unit-label">59개 매수월</span>
+          </div>
+          <div id="slot-comparison" class="slot-chart"></div>
+          <p class="chart-note">같은 종목을 고른 82개 슬롯은 공통 기반입니다. C의 우위는 서로 달랐던 36개 슬롯에서 설명됩니다.</p>
+        </article>
+      </div>
+
+      <article class="evidence-card wide-card">
+        <div class="card-heading">
+          <div><p class="mini-label">실제 계좌 곡선</p><h3>Score A, Score C, QQQ 누적 성과</h3></div>
+          <span class="unit-label">1천만원 · 거래비용 포함</span>
+        </div>
+        <div class="chart-legend" aria-label="계열 범례">
+          <span><i class="legend-c"></i>Score C</span>
+          <span><i class="legend-a"></i>Score A</span>
+          <span><i class="legend-benchmark"></i>QQQ</span>
+        </div>
+        <div class="svg-chart" id="equity-chart" role="img" aria-label="Score A, Score C와 QQQ 누적 수익률 선 그래프"></div>
+        <p class="chart-note">계좌 결과는 월별 2종목 신호, 3개월 램프형 자금 배분, 종목당 원금 한도 27.5%, 매수·매도 각 10bp 비용을 함께 반영합니다.</p>
+      </article>
+
+      <div class="two-column">
+        <article class="evidence-card">
+          <div class="card-heading">
+            <div><p class="mini-label">다른 36개 선정</p><h3>A 전용과 C 전용 종목의 결과</h3></div>
+            <span class="unit-label">실현·평가 수익률</span>
+          </div>
+          <div id="different-pick-stats" class="comparison-bars"></div>
+          <p class="chart-note">승률만 보면 A가 높지만 평균·중앙값은 C가 컸습니다. 이것이 “많이 맞히기”보다 “큰 리더를 놓치지 않기”의 차이입니다.</p>
+        </article>
+        <article class="evidence-card">
+          <div class="card-heading">
+            <div><p class="mini-label">섹터 이동</p><h3>C가 더 많이·적게 고른 곳</h3></div>
+            <span class="unit-label">A 대비 슬롯 증감</span>
+          </div>
+          <div id="sector-shift-chart" class="diverging-chart"></div>
+          <p class="chart-note">C는 금융·소비재의 섹터 보너스를 덜 따르고, 전자부품·소프트웨어·반도체에서 개별 강도가 높은 종목을 더 골랐습니다.</p>
+        </article>
+      </div>
+
+      <article class="evidence-card">
+        <div class="card-heading">
+          <div><p class="mini-label">독립 시작 구간</p><h3>각 연도에서 새 계좌로 시작했을 때</h3></div>
+          <span class="unit-label">구간별 1천만원 재시작</span>
+        </div>
+        <div id="annual-comparison" class="annual-chart"></div>
+        <p class="chart-note">C는 다섯 개 시작 구간 모두에서 A보다 높은 수익률을 기록했습니다. 다만 2024년과 2026 YTD에는 C의 구간 MDD도 더 컸습니다.</p>
+      </article>
+
+      <details class="detail-panel">
+        <summary>선정이 달랐던 종목 전체 보기</summary>
+        <div class="detail-grid">
+          <div><h3>C만 고른 상위·하위 종목</h3><div class="table-scroll"><table><thead><tr><th>추천월</th><th>종목</th><th>섹터</th><th>수익률</th><th>상태</th></tr></thead><tbody id="c-only-trades"></tbody></table></div></div>
+          <div><h3>A만 고른 상위·하위 종목</h3><div class="table-scroll"><table><thead><tr><th>추천월</th><th>종목</th><th>섹터</th><th>수익률</th><th>상태</th></tr></thead><tbody id="a-only-trades"></tbody></table></div></div>
+        </div>
+      </details>
+    </section>
+
+    <section class="report-section" id="exit-rule">
+      <div class="section-heading">
+        <p class="section-kicker">02 · EXIT</p>
+        <h2>6개월 절반 매도는 이익을 잠그고, 남은 절반은 큰 추세를 열어뒀습니다</h2>
+        <p>이 규칙의 목적은 최고점을 맞히는 것이 아닙니다. 6개월에 현금을 일부 회수하면서도 소수의 초대형 리더가 12개월까지 이어질 가능성을 보존하는 것입니다.</p>
+      </div>
+
+      <div class="rule-flow" aria-label="현재 매도 규칙">
+        <article><span>1</span><h3>6개월 도달</h3><p>원 lot의 50%를 무조건 매도합니다.</p></article>
+        <article><span>2</span><h3>잔여 50% 판정</h3><p>주봉 종가 ≥ MA10이고 RSI14 ≥ 50일 때만 연장합니다. 아니면 같은 날 전량 종료합니다.</p></article>
+        <article><span>3</span><h3>연장 후 종료</h3><p>MA10을 2주 연속 하회하거나 총 12개월에 도달하면 매도합니다. RSI 하회만으로는 팔지 않습니다.</p></article>
+      </div>
+
+      <div class="two-column">
+        <article class="evidence-card">
+          <div class="card-heading"><div><p class="mini-label">계좌 전체 비교</p><h3>6개월 전량 매도 vs 절반 연장</h3></div><span class="unit-label">누적 수익률</span></div>
+          <div id="exit-account-comparison" class="comparison-bars"></div>
+          <p class="chart-note">계좌 비교는 매도 시점이 바뀌면서 현금 가용성과 이후 매수 규모도 함께 바뀐 결과입니다.</p>
+        </article>
+        <article class="evidence-card">
+          <div class="card-heading"><div><p class="mini-label">같은 거래끼리 비교</p><h3>연장 규칙의 비대칭 손익</h3></div><span class="unit-label">공동 청산 거래</span></div>
+          <div id="paired-exit-stats" class="paired-stats"></div>
+          <p class="chart-note">C에서 좋아진 거래 24개, 나빠진 거래 26개, 동일 47개였지만 평균 개선은 +12.3%p였습니다. 개선 횟수가 아니라 개선 폭이 컸습니다.</p>
+        </article>
+      </div>
+
+      <article class="evidence-card">
+        <div class="card-heading"><div><p class="mini-label">어디서 효과가 났나</p><h3>잔여 절반이 만든 추가 수익과 되돌림</h3></div><span class="unit-label">C · 고정 6개월 대비 %p</span></div>
+        <div id="extension-impact-chart" class="impact-chart"></div>
+        <p class="chart-note">최악의 되돌림은 대체로 제한적이었지만, STX·APP·HOOD 같은 장기 추세의 추가 수익은 매우 컸습니다.</p>
+      </article>
+
+      <details class="detail-panel">
+        <summary>절반 연장 거래의 정확한 매수·매도 날짜 보기</summary>
+        <div class="table-scroll"><table><thead><tr><th>추천월</th><th>종목</th><th>매수일</th><th>6개월 매도일</th><th>잔여 매도일</th><th>6개월 전량</th><th>절반 연장</th><th>차이</th></tr></thead><tbody id="extension-trades"></tbody></table></div>
+      </details>
+    </section>
+
+    <section class="report-section" id="market-regimes">
+      <div class="section-heading">
+        <p class="section-kicker">03 · HISTORY</p>
+        <h2>전략은 긴축과 정책 충격에 약했고, 실적이 확인된 리더 확산기에 강했습니다</h2>
+        <p>아래 원인 해석은 백테스트 가격과 공식 거시·기업 자료의 시간적 일치를 비교한 것입니다. 단일 사건이 주가를 움직였다고 단정하지 않습니다.</p>
+      </div>
+
+      <div class="period-summary" id="best-worst-periods"></div>
+      <div class="regime-list" id="regime-list"></div>
+    </section>
+
+    <section class="report-section" id="playbook">
+      <div class="section-heading">
+        <p class="section-kicker">04 · PLAYBOOK</p>
+        <h2>앞으로 전략을 따를 때 미리 받아들여야 할 경험</h2>
+      </div>
+      <div class="lesson-grid">
+        <article><strong>약 -20% 계좌 낙폭은 실패 판정선이 아닙니다.</strong><p>A와 C 모두 2025년 정책 충격에서 비슷한 시점에 최대 낙폭을 겪었습니다. 전략 자체가 깨졌는지는 월별 후보와 주봉 규칙의 재현성으로 판단해야 합니다.</p></article>
+        <article><strong>높은 승률보다 큰 승자를 남기는지가 중요합니다.</strong><p>C 전용 종목의 승률은 A보다 낮았습니다. 그래도 STX, APP, CVNA, NVDA 같은 오른쪽 꼬리가 전체 우위를 만들었습니다.</p></article>
+        <article><strong>6개월 전에 불안하다는 이유만으로 임의 청산하지 않습니다.</strong><p>조기 청산·재진입 연구는 독립 구간 승격 기준을 통과하지 못했습니다. 현재 규칙은 6개월 50% 매도를 유지합니다.</p></article>
+        <article><strong>연장된 절반도 영구 보유가 아닙니다.</strong><p>주봉 MA10 2주 훼손 또는 12개월 만료라는 종료 조건이 있습니다. 강한 추세를 허용하되 끝없는 기대 보유를 막습니다.</p></article>
+        <article><strong>C의 우위에는 집중 위험이 같이 옵니다.</strong><p>장기 수익률은 높았지만 MDD는 A보다 조금 나빴습니다. 월 2종목과 종목당 원금 27.5% 한도를 확대할 근거는 이 보고서만으로 부족합니다.</p></article>
+        <article><strong>월중 점수 변화는 기존 lot를 바꾸지 않습니다.</strong><p>추천월에 확정한 전략 키와 종목, 매수일, 매도 일정은 lot별로 보존합니다. 새 전략 전환은 새 신호월의 신규 lot에만 적용합니다.</p></article>
+      </div>
+    </section>
+
+    <section class="report-section methodology-section" id="methodology">
+      <div class="section-heading">
+        <p class="section-kicker">05 · METHOD & LIMITS</p>
+        <h2>같은 데이터를 재사용했지만, 완전한 미래 재현은 아닙니다</h2>
+      </div>
+      <div class="method-grid" id="method-grid"></div>
+      <div class="caveat-box"><h3>반드시 함께 볼 한계</h3><ul id="caveat-list"></ul></div>
+      <details class="detail-panel source-panel">
+        <summary>역사 해석에 사용한 공식 출처</summary>
+        <ol id="source-list"></ol>
+      </details>
+    </section>
+  </main>
+
+  <footer class="report-footer">
+    <p>Investor Leader Screener · 연구용 백테스트 보고서</p>
+    <p id="footer-meta"></p>
+  </footer>
+
+  <div class="loading-state" id="loading-state" role="status">보고서 데이터를 불러오고 있습니다.</div>
+  <script type="module" src="us-strategy-history.js"></script>
+</body>
+</html>

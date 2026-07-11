@@ -2286,6 +2286,7 @@ function renderBacktest() {
   }
 
   const reports = [
+    { label: "A·C 역사와 매도 규칙 보고서", href: "us-strategy-history.html" },
     { label: "Score A·C 교정 검증", href: "score_a_c_corrected_validation.md" },
     ...(dashboard.backtest.reports ?? [])
   ];
