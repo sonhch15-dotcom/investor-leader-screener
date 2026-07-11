@@ -283,3 +283,20 @@ Public API 계약:
 - 결론: 현재 6개월 50/50 규칙을 유지한다. 두 대안은 연구 결과일 뿐 active/testing 전략으로 승격하지 않는다.
 - Public API, `six_month_extension_v1`, Android ExecutionPolicy 및 APK에는 변경이 없다.
 - 상세 보고서: `early_exit_reentry_test.md`
+
+## 14. Android v0.4.3-v0.4.4 Material 3 입력 전환
+
+Private Android 적용 상태:
+
+- v0.4.3 / versionCode 60: 공통 Material 3 테마, 안전 영역, 계좌 입출금, 미국·한국 주식 추천 체결 화면 전환
+- v0.4.4 / versionCode 61: 한국 ETF 리밸런싱, 수동 추가매수, FIFO/특정 lot 매도, 입출금·매수·매도 기록 정정 화면 전환
+- Compose 화면은 입력과 미리보기만 담당하고 장부 저장, active 신호 확인, 월간 실행 잠금, ETF 목표, 현금, FIFO/lot 흐름은 기존 `LedgerStore`와 `ExecutionPolicy`가 최종 검증한다.
+- ETF·수동·정정 화면에서 돌아온 뒤 현재 신호·보유·원 기록을 다시 조회하므로 오래된 화면 상태로 저장하지 않는다.
+- 기존 A/C lot의 `strategyKey`, 6개월 연장 판정, 12개월 일정과 2026-08 C 전환 계약은 변경하지 않았다.
+
+Public 영향:
+
+- 신호 JSON 스키마와 Pages 생성 코드는 변경하지 않는다.
+- `minAppVersionCode`는 UI 전환만을 이유로 올리지 않는다.
+- Android UI 변경이 public 전략 결과나 candidate 신호를 실행 가능하게 만들지 않는다.
+- 환전, 배당, 기존 보유 초기 등록, 증권사 보유 대조는 아직 기존 Android 화면을 사용한다.
