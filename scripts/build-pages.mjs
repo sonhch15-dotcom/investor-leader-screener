@@ -78,6 +78,7 @@ async function main() {
     "backtest_reproducibility_whitepaper.md",
     "score_variant_final_validation.md",
     "score_a_c_corrected_validation.md",
+    "early_exit_reentry_test.md",
   ];
 
   await copyDir(path.join(root, "dashboard"), dist);
