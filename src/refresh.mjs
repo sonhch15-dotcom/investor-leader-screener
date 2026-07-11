@@ -7,6 +7,7 @@ import { buildScoreCLiveSignal } from "./live-score-c-signal.mjs";
 import { clamp, mean, round } from "./math.mjs";
 
 const sample = process.argv.includes("--sample");
+const scoreCFrozenUniversePath = path.join("data", "universe-corrected-frozen-20260711.json");
 
 async function ensureDir(dir) {
   await fs.mkdir(dir, { recursive: true });
@@ -26,6 +27,16 @@ async function collectPrices(instruments) {
     }
   }
   return { priceMap, errors };
+}
+
+function mergePriceInstruments(...groups) {
+  const bySymbol = new Map();
+  for (const group of groups) {
+    for (const instrument of group) {
+      if (!bySymbol.has(instrument.symbol)) bySymbol.set(instrument.symbol, instrument);
+    }
+  }
+  return [...bySymbol.values()];
 }
 
 function compactChart(rows, days = 126) {
@@ -132,8 +143,13 @@ function buildCurrentGroupStats(rows) {
 async function main() {
   console.log(sample ? "Running with synthetic sample data." : "Running with live Yahoo Finance data.");
   const instruments = await buildUniverse({ sample });
+  const scoreCInstruments = sample
+    ? instruments
+    : JSON.parse(await fs.readFile(scoreCFrozenUniversePath, "utf8"));
+  const priceInstruments = mergePriceInstruments(instruments, scoreCInstruments);
   console.log(`Universe size: ${instruments.length}`);
-  const { priceMap, errors } = await collectPrices(instruments);
+  console.log(`Score C frozen universe size: ${scoreCInstruments.length}`);
+  const { priceMap, errors } = await collectPrices(priceInstruments);
   const results = scoreUniverse(instruments, priceMap);
   const chartSymbols = new Set(
     results.rows
@@ -158,7 +174,7 @@ async function main() {
     excluded: results.rows.filter((row) => row.status === "excluded").length
   };
   results.currentGroupStats = buildCurrentGroupStats(results.rows);
-  const scoreCLive = buildScoreCLiveSignal({ instruments, priceMap });
+  const scoreCLive = buildScoreCLiveSignal({ instruments: scoreCInstruments, priceMap });
 
   await ensureDir("data");
   await fs.writeFile(path.join("data", "screener-results.json"), JSON.stringify(results, null, 2), "utf8");

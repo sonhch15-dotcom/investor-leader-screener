@@ -190,6 +190,7 @@ TrendState = alive | weakening | broken | needs_review
 Score C live 선택 파일:
 
 - `selections/us-score-c/latest.json`은 고정 백테스트 결과가 아니라 최신 가격 자료로 계산한 월간 선택 원본이다.
+- 종목·섹터 분류는 백테스트와 동일한 `data/universe-corrected-frozen-20260711.json`을 사용하고, 가격만 매 실행에서 최신으로 갱신한다.
 - 검증된 백테스트와 동일하게 각 달의 마지막 금요일을 선택 기준일로 사용하고, 다음 마지막 금요일 전까지 같은 기준일을 재계산하므로 실행 간 종목이 바뀌지 않는다.
 - Score C 산식은 `score_c_half_sector10_normalized_v1`이며 섹터/테마 점수를 절반 반영한 뒤 100점으로 환산한다.
 - 현재와 직전 3개 월간 기준일을 함께 계산해 그룹 Top50 가속도와 최근 3회 존재 보너스를 재현한다.

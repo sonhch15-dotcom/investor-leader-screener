@@ -253,6 +253,7 @@ Public API 계약:
   - 유니버스 가격 커버리지 98% 이상, 가격 지연 3일 이내, 서로 다른 주도 그룹 2종목을 강제
   - 고정 스냅샷 재현 결과: 2026-07 C 후보 INTC/KLAC 일치
   - 재현 입력 유니버스: `data/universe-corrected-frozen-20260711.json`
+  - live 운용도 같은 고정 종목·섹터 매핑을 사용하고 가격만 최신화한다. live Wikipedia 구성으로 C 유니버스를 다시 만들지 않는다.
   - 2026-08 모의 패키지: C active, A testing, minAppVersionCode 59, validFrom 2026-08-03 검증 통과
   - 8월인데 7월 선택이 남은 모의 패키지는 fail-closed 검증 통과
 

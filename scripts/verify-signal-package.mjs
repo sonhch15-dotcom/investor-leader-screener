@@ -89,12 +89,16 @@ const transitionErrors = validateStrategyTransitions({
 if (transitionErrors.length) fail(transitionErrors.join("; "));
 
 const { json: scoreCSelection } = await readJson("selections/us-score-c/latest.json");
+const frozenUniverse = JSON.parse(await fs.readFile(path.join(root, "data", "universe-corrected-frozen-20260711.json"), "utf8"));
+const frozenUniverseHash = sha256(JSON.stringify(frozenUniverse));
 const usTransition = latest.strategyTransitions?.find((row) => row.market === "US_STOCK");
 if (!usTransition) fail("US_STOCK transition is missing");
 if (scoreCSelection.status !== "normal" || scoreCSelection.complete !== true) fail("Score C live selection is incomplete");
 if (scoreCSelection.signalMonth !== latest.signalMonth) fail("Score C selection month does not match signal package");
 if (scoreCSelection.strategyKey !== usTransition.toStrategyKey) fail("Score C selection strategyKey mismatch");
 if (scoreCSelection.selectionSource !== "live_score_c_last_friday_v1") fail("Score C selection is not from the live monthly path");
+if (scoreCSelection.universeHash !== frozenUniverseHash) fail("Score C live universe differs from the corrected frozen universe");
+if (scoreCSelection.universeSize !== frozenUniverse.length) fail("Score C live universe size mismatch");
 if (!Array.isArray(scoreCSelection.currentPicks) || scoreCSelection.currentPicks.length !== 2) fail("Score C must select two stocks");
 if (Number(scoreCSelection.coverageRatio ?? 0) < 0.98) fail("Score C price coverage is below 98%");
 if (Number(scoreCSelection.selectionLagDays ?? 99) > 3) fail("Score C selection data is stale");
