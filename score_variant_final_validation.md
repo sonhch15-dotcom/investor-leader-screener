@@ -1,5 +1,7 @@
 # Score Variant Final Validation
 
+> Superseded for official comparison by `score_a_c_corrected_validation.md` and run `us-score-a-c-corrected-frozen-20260711`. The figures below use the legacy forced-exit and cost-based MDD engine and are retained only for audit history.
+
 Generated at: 2026-07-10
 
 ## Purpose

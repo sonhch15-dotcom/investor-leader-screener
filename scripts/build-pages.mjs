@@ -27,6 +27,12 @@ async function copyDir(source, target) {
     if (entry.isDirectory()) {
       await copyDir(sourcePath, targetPath);
     } else if (entry.isFile()) {
+      if (source.includes(`${path.sep}data`) && (
+        entry.name.endsWith(".json.gz")
+        || entry.name.includes("corrected-sample")
+        || entry.name.includes("corrected-selection-")
+        || entry.name.includes("corrected-frozen-20260711-replay")
+      )) continue;
       await copyFile(sourcePath, targetPath);
     }
   }
@@ -69,6 +75,7 @@ async function main() {
     "sector_score_variant_test.md",
     "backtest_reproducibility_whitepaper.md",
     "score_variant_final_validation.md",
+    "score_a_c_corrected_validation.md",
   ];
 
   await copyDir(path.join(root, "dashboard"), dist);

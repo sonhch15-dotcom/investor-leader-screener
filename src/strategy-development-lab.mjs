@@ -1,5 +1,11 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { weeklyRows } from "./backtest-execution-core.mjs";
+import {
+  priceMapFromSnapshot,
+  priceOnOrBefore,
+  readPriceSnapshot
+} from "./backtest-price-snapshot.mjs";
 import { round } from "./math.mjs";
 
 const inputPath = path.join("data", valueAfter("--input") ?? "scale-execution-test.json");
@@ -155,6 +161,39 @@ const splitDefinitions = [
   }
 ];
 
+const walkForwardDefinitions = [
+  {
+    key: "wf_2021_2022",
+    label: "2021-2022 신호",
+    start: "2021-01-01",
+    end: "2022-12-31"
+  },
+  {
+    key: "wf_2023",
+    label: "2023 신호",
+    start: "2023-01-01",
+    end: "2023-12-31"
+  },
+  {
+    key: "wf_2024",
+    label: "2024 신호",
+    start: "2024-01-01",
+    end: "2024-12-31"
+  },
+  {
+    key: "wf_2025",
+    label: "2025 신호",
+    start: "2025-01-01",
+    end: "2025-12-31"
+  },
+  {
+    key: "wf_2026_ytd",
+    label: "2026 YTD 신호",
+    start: "2026-01-01",
+    end: "2026-12-31"
+  }
+];
+
 function repeatThemeComboSize({ baseAmount, trade, context }) {
   let multiplier = 1;
   if (context.previousSymbolSignals12m >= 2) multiplier *= 1.45;
@@ -219,13 +258,27 @@ function loadTrades(data, robust = false) {
 function makeEvents(trades) {
   const events = [];
   for (const trade of trades) {
-    events.push({ type: "buy", date: trade.firstBuyDate, trade });
-    for (let index = 0; index < trade.sellDates.length; index += 1) {
+    const buyPrice = trade.averageBuyMarketPrice
+      ?? trade.buyLots?.[0]?.price
+      ?? trade.averageBuyPrice;
+    events.push({ type: "buy", date: trade.firstBuyDate, price: buyPrice, trade });
+    const sellLots = trade.sellLots?.length
+      ? trade.sellLots
+      : (trade.sellDates ?? []).map((date, index) => ({
+          date,
+          price: trade.averageSellPrice,
+          shareFraction: 0.5,
+          reason: trade.sellReasons?.[index]
+        }));
+    for (let index = 0; index < sellLots.length; index += 1) {
+      const sell = sellLots[index];
       events.push({
         type: "sell",
-        date: trade.sellDates[index],
+        date: sell.date,
+        price: sell.price,
+        shareFraction: sell.shareFraction,
         trade,
-        reason: trade.sellReasons[index],
+        reason: sell.reason,
         part: index + 1
       });
     }
@@ -248,6 +301,62 @@ function equityAtCost(cash, positions) {
   return cash + openCost;
 }
 
+function openMarketValue(positions, date, priceMap) {
+  return positions.reduce((sum, lot) => {
+    if (lot.remainingShares <= 0) return sum;
+    const price = priceOnOrBefore(priceMap.get(lot.symbol) ?? [], date)?.close ?? lot.entryPrice;
+    return sum + lot.remainingShares * price;
+  }, 0);
+}
+
+function equityAtMarket(cash, positions, date, priceMap) {
+  return cash + openMarketValue(positions, date, priceMap);
+}
+
+function valuationDates(events, valuation) {
+  const firstDate = events[0]?.date;
+  const lastDate = valuation?.asOf ?? events.at(-1)?.date;
+  const dates = new Set(events.map((event) => event.date));
+  if (valuation?.priceMap && firstDate && lastDate) {
+    for (const row of weeklyRows(valuation.priceMap.get("QQQ") ?? [])) {
+      if (row.date >= firstDate && row.date <= lastDate) dates.add(row.date);
+    }
+    dates.add(lastDate);
+  }
+  return [...dates].filter(Boolean).sort();
+}
+
+function benchmarkSummary(priceMap, curve, firstDate, lastDate) {
+  const rows = priceMap?.get("QQQ") ?? [];
+  const entry = rows.find((row) => row.date >= firstDate && Number.isFinite(row.close));
+  const exit = priceOnOrBefore(rows, lastDate);
+  if (!entry || !exit || !curve.length) return null;
+  const buyCost = initialCapital * costBps / 10_000;
+  const shares = (initialCapital - buyCost) / entry.close;
+  const benchmarkCurve = curve.map((row) => {
+    const price = priceOnOrBefore(rows, row.date)?.close ?? entry.close;
+    const equity = shares * price;
+    return {
+      date: row.date,
+      equity: round(equity, 2),
+      totalReturn: round(equity / initialCapital - 1, 4)
+    };
+  });
+  const finalCapital = shares * exit.close;
+  const totalReturn = finalCapital / initialCapital - 1;
+  const years = yearsBetween(firstDate, lastDate);
+  return {
+    symbol: "QQQ",
+    firstDate: entry.date,
+    lastDate: exit.date,
+    finalCapital: round(finalCapital, 2),
+    totalReturn: round(totalReturn, 4),
+    cagr: round((1 + totalReturn) ** (1 / years) - 1, 4),
+    maxDrawdown: maxDrawdown(benchmarkCurve),
+    curve: benchmarkCurve
+  };
+}
+
 function symbolOpenCost(positions, symbol) {
   return positions
     .filter((lot) => lot.symbol === symbol)
@@ -267,7 +376,7 @@ function signalContext(trade, signalHistory) {
   };
 }
 
-function simulateScenario(scenario, trades) {
+function simulateScenario(scenario, trades, valuation = null) {
   let cash = initialCapital;
   let totalCosts = 0;
   let attemptedBuys = 0;
@@ -281,106 +390,130 @@ function simulateScenario(scenario, trades) {
   const curve = [];
   const signalHistory = [];
   const events = makeEvents(trades);
-
+  const hasOpenTrades = trades.some((trade) => trade.entered && !trade.closed);
+  const effectiveValuation = valuation
+    ? { ...valuation, asOf: hasOpenTrades ? valuation.asOf : events.at(-1)?.date }
+    : null;
+  const priceMap = effectiveValuation?.priceMap ?? new Map();
+  const eventsByDate = new Map();
   for (const event of events) {
-    if (event.type === "sell") {
-      const lot = lots.get(event.trade.id);
-      if (!lot || lot.remainingShares <= 0) continue;
-      const sharesToSell = Math.min(lot.remainingShares, lot.originalShares * 0.5);
-      const gross = sharesToSell * event.trade.averageSellPrice;
-      const cost = gross * costBps / 10_000;
-      cash += gross - cost;
+    const rows = eventsByDate.get(event.date) ?? [];
+    rows.push(event);
+    eventsByDate.set(event.date, rows);
+  }
+  const dates = valuationDates(events, effectiveValuation);
+
+  for (const date of dates) {
+    for (const event of eventsByDate.get(date) ?? []) {
+      if (event.type === "sell") {
+        const lot = lots.get(event.trade.id);
+        if (!lot || lot.remainingShares <= 0 || !Number.isFinite(event.price)) continue;
+        const shareFraction = Number.isFinite(event.shareFraction) ? event.shareFraction : 0.5;
+        const sharesToSell = Math.min(lot.remainingShares, lot.originalShares * shareFraction);
+        const gross = sharesToSell * event.price;
+        const cost = gross * costBps / 10_000;
+        cash += gross - cost;
+        totalCosts += cost;
+        lot.remainingShares = round(lot.remainingShares - sharesToSell, 8);
+        sellEvents += 1;
+        ledger.push({
+          date: event.date,
+          type: "sell",
+          symbol: event.trade.symbol,
+          sector: event.trade.sector,
+          reason: event.reason,
+          price: round(event.price, 4),
+          shares: round(sharesToSell, 8),
+          amount: round(gross - cost, 2),
+          cash: round(cash, 2)
+        });
+        continue;
+      }
+
+      attemptedBuys += 1;
+      const baseAmount = baseRampAmount(cash, buySignalIndex);
+      const context = signalContext(event.trade, signalHistory);
+      const wanted = scenario.size({ baseAmount, trade: event.trade, context });
+      buySignalIndex += 1;
+      signalHistory.push({
+        date: event.trade.firstBuyDate,
+        symbol: event.trade.symbol,
+        sector: event.trade.sector
+      });
+
+      const cap = initialCapital * scenario.symbolCapPct;
+      const capRoom = Math.max(0, cap - symbolOpenCost(positions, event.trade.symbol));
+      const maxCashBuy = cash / (1 + costBps / 10_000);
+      const amount = Math.min(wanted, capRoom, maxCashBuy);
+      if (amount < minBuy || !Number.isFinite(event.price) || event.price <= 0) {
+        skipped.push({
+          date: event.date,
+          symbol: event.trade.symbol,
+          wanted: round(wanted, 2),
+          cash: round(cash, 2),
+          capRoom: round(capRoom, 2),
+          reason: !Number.isFinite(event.price) || event.price <= 0
+            ? "missing_buy_price"
+            : capRoom < minBuy ? "symbol_cap" : "cash"
+        });
+        continue;
+      }
+
+      const cost = amount * costBps / 10_000;
+      const shares = amount / event.price;
+      cash -= amount + cost;
       totalCosts += cost;
-      lot.remainingShares = round(lot.remainingShares - sharesToSell, 8);
-      sellEvents += 1;
+      const lot = {
+        id: event.trade.id,
+        symbol: event.trade.symbol,
+        name: event.trade.name,
+        sector: event.trade.sector,
+        entryDate: event.trade.firstBuyDate,
+        entryPrice: event.price,
+        originalShares: shares,
+        remainingShares: shares,
+        buyAmount: amount,
+        expectedReturn: event.trade.return
+      };
+      positions.push(lot);
+      lots.set(event.trade.id, lot);
+      executedBuys += 1;
       ledger.push({
         date: event.date,
-        type: "sell",
+        type: "buy",
         symbol: event.trade.symbol,
         sector: event.trade.sector,
-        reason: event.reason,
-        amount: round(gross - cost, 2),
+        price: round(event.price, 4),
+        shares: round(shares, 8),
+        amount: round(amount + cost, 2),
+        baseAmount: round(baseAmount, 2),
+        wanted: round(wanted, 2),
         cash: round(cash, 2)
       });
-      curve.push({
-        date: event.date,
-        cash: round(cash, 2),
-        equity: round(equityAtCost(cash, positions), 2),
-        openLots: positions.filter((lot) => lot.remainingShares > 0).length
-      });
-      continue;
     }
 
-    attemptedBuys += 1;
-    const baseAmount = baseRampAmount(cash, buySignalIndex);
-    const context = signalContext(event.trade, signalHistory);
-    const wanted = scenario.size({ baseAmount, trade: event.trade, context });
-    buySignalIndex += 1;
-    signalHistory.push({
-      date: event.trade.firstBuyDate,
-      symbol: event.trade.symbol,
-      sector: event.trade.sector
-    });
-
-    const cap = initialCapital * scenario.symbolCapPct;
-    const capRoom = Math.max(0, cap - symbolOpenCost(positions, event.trade.symbol));
-    const maxCashBuy = cash / (1 + costBps / 10_000);
-    const amount = Math.min(wanted, capRoom, maxCashBuy);
-    if (amount < minBuy) {
-      skipped.push({
-        date: event.date,
-        symbol: event.trade.symbol,
-        wanted: round(wanted, 2),
-        cash: round(cash, 2),
-        capRoom: round(capRoom, 2),
-        reason: capRoom < minBuy ? "symbol_cap" : "cash"
-      });
-      continue;
-    }
-
-    const cost = amount * costBps / 10_000;
-    const shares = amount / event.trade.averageBuyPrice;
-    cash -= amount + cost;
-    totalCosts += cost;
-    const lot = {
-      id: event.trade.id,
-      symbol: event.trade.symbol,
-      name: event.trade.name,
-      sector: event.trade.sector,
-      entryDate: event.trade.firstBuyDate,
-      entryPrice: event.trade.averageBuyPrice,
-      originalShares: shares,
-      remainingShares: shares,
-      buyAmount: amount,
-      expectedReturn: event.trade.return
-    };
-    positions.push(lot);
-    lots.set(event.trade.id, lot);
-    executedBuys += 1;
-    ledger.push({
-      date: event.date,
-      type: "buy",
-      symbol: event.trade.symbol,
-      sector: event.trade.sector,
-      amount: round(amount + cost, 2),
-      baseAmount: round(baseAmount, 2),
-      wanted: round(wanted, 2),
-      cash: round(cash, 2)
-    });
+    const costEquity = equityAtCost(cash, positions);
+    const marketEquity = effectiveValuation
+      ? equityAtMarket(cash, positions, date, priceMap)
+      : costEquity;
     curve.push({
-      date: event.date,
+      date,
       cash: round(cash, 2),
-      equity: round(equityAtCost(cash, positions), 2),
+      equity: round(marketEquity, 2),
+      costEquity: round(costEquity, 2),
+      openMarketValue: round(Math.max(0, marketEquity - cash), 2),
       openLots: positions.filter((item) => item.remainingShares > 0).length
     });
   }
 
-  const finalCapital = cash;
+  const finalCapital = curve.at(-1)?.equity ?? cash;
   const totalReturn = finalCapital / initialCapital - 1;
   const firstDate = events[0]?.date;
-  const lastDate = events.at(-1)?.date;
+  const lastDate = curve.at(-1)?.date ?? events.at(-1)?.date;
   const years = yearsBetween(firstDate, lastDate);
   const buyLedger = ledger.filter((row) => row.type === "buy");
+  const benchmark = effectiveValuation ? benchmarkSummary(priceMap, curve, firstDate, lastDate) : null;
+  const remainingOpenValue = curve.at(-1)?.openMarketValue ?? 0;
   const bySector = Array.from(positions.reduce((map, lot) => {
     const current = map.get(lot.sector) ?? { sector: lot.sector, buyAmount: 0, profitProxy: 0, count: 0 };
     current.buyAmount += lot.buyAmount;
@@ -397,9 +530,16 @@ function simulateScenario(scenario, trades) {
     symbolCapPct: scenario.symbolCapPct,
     initialCapital,
     finalCapital: round(finalCapital, 2),
+    finalCash: round(cash, 2),
+    openMarketValue: round(remainingOpenValue, 2),
+    openLotCount: positions.filter((lot) => lot.remainingShares > 0).length,
     totalReturn: round(totalReturn, 4),
     cagr: round((1 + totalReturn) ** (1 / years) - 1, 4),
-    maxDrawdownAtCost: maxDrawdown(curve),
+    maxDrawdown: maxDrawdown(curve),
+    maxDrawdownAtCost: maxDrawdown(curve.map((row) => ({ ...row, equity: row.costEquity }))),
+    valuationMode: effectiveValuation ? "weekly_mark_to_market" : "cost_legacy",
+    valuationAsOf: lastDate,
+    benchmark,
     attemptedBuys,
     executedBuys,
     skippedBuys: skipped.length,
@@ -427,7 +567,7 @@ function compareToBaseline(rows) {
     .map((row) => ({
       ...row,
       improvement: round(row.totalReturn - baseline.totalReturn, 4),
-      mddChange: round(row.maxDrawdownAtCost - baseline.maxDrawdownAtCost, 4)
+      mddChange: round(row.maxDrawdown - baseline.maxDrawdown, 4)
     }))
     .sort((a, b) => b.totalReturn - a.totalReturn);
 }
@@ -436,8 +576,8 @@ function filterTradesByDate(trades, start, end) {
   return trades.filter((trade) => trade.firstBuyDate >= start && trade.firstBuyDate <= end);
 }
 
-function runComparison(trades) {
-  return compareToBaseline(scenarios.map((scenario) => simulateScenario(scenario, trades)));
+function runComparison(trades, valuation) {
+  return compareToBaseline(scenarios.map((scenario) => simulateScenario(scenario, trades, valuation)));
 }
 
 function pickRows(rows, keys) {
@@ -449,7 +589,7 @@ function table(lines, rows) {
   lines.push("| 후보 전략 | 최종 자산 | 누적 수익률 | CAGR | MDD | 기존 대비 | 매수 | 스킵 | 최소 현금 |");
   lines.push("|---|---:|---:|---:|---:|---:|---:|---:|---:|");
   for (const row of rows) {
-    lines.push(`| ${row.label} | ${money(row.finalCapital)} | ${valuePct(row.totalReturn)} | ${valuePct(row.cagr)} | ${valuePct(row.maxDrawdownAtCost)} | ${valuePct(row.improvement)} | ${row.executedBuys}/${row.attemptedBuys} | ${row.skippedBuys} | ${money(row.minCash)} |`);
+    lines.push(`| ${row.label} | ${money(row.finalCapital)} | ${valuePct(row.totalReturn)} | ${valuePct(row.cagr)} | ${valuePct(row.maxDrawdown)} | ${valuePct(row.improvement)} | ${row.executedBuys}/${row.attemptedBuys} | ${row.skippedBuys} | ${money(row.minCash)} |`);
   }
 }
 
@@ -457,7 +597,7 @@ function compactTable(lines, rows) {
   lines.push("| 전략 | 누적 수익률 | 기존 대비 | MDD | 매수 | 스킵 |");
   lines.push("|---|---:|---:|---:|---:|---:|");
   for (const row of rows) {
-    lines.push(`| ${row.label} | ${valuePct(row.totalReturn)} | ${valuePct(row.improvement)} | ${valuePct(row.maxDrawdownAtCost)} | ${row.executedBuys}/${row.attemptedBuys} | ${row.skippedBuys} |`);
+    lines.push(`| ${row.label} | ${valuePct(row.totalReturn)} | ${valuePct(row.improvement)} | ${valuePct(row.maxDrawdown)} | ${row.executedBuys}/${row.attemptedBuys} | ${row.skippedBuys} |`);
   }
 }
 
@@ -467,7 +607,7 @@ function splitTable(lines, splitResults) {
   for (const split of splitResults) {
     const baseline = split.results.find((row) => row.key === "active_ramp_aggressive_3m");
     const candidate = split.results.find((row) => row.key === "repeat_theme_combo");
-    lines.push(`| ${split.label} | ${split.tradeCount} | ${valuePct(baseline?.totalReturn)} | ${valuePct(candidate?.totalReturn)} | ${valuePct(candidate?.improvement)} | ${valuePct(candidate?.maxDrawdownAtCost)} |`);
+    lines.push(`| ${split.label} | ${split.tradeCount} | ${valuePct(baseline?.totalReturn)} | ${valuePct(candidate?.totalReturn)} | ${valuePct(candidate?.improvement)} | ${valuePct(candidate?.maxDrawdown)} |`);
   }
 }
 
@@ -480,11 +620,12 @@ function markdown(result) {
   lines.push(`Source rule: ${result.sourceRule}`);
   lines.push(`Initial capital: ${money(result.initialCapital)}`);
   lines.push(`Cost: ${result.costBps} bps per buy/sell`);
+  lines.push(`Valuation: ${result.valuationMode}, as of ${result.priceAsOf ?? "-"}`);
   lines.push("");
   lines.push("## 팀별 검토 요약");
   lines.push("");
   lines.push("- 전략 리서치팀: 반복 추천 종목과 지속 주도 테마에 더 크게 배분하면 현재 전략을 개선할 수 있다는 가설을 세웠다.");
-  lines.push("- 데이터/유니버스팀: 기존 Leader2 One Each의 5년 실거래 후보 106건을 사용했다.");
+  lines.push(`- 데이터/유니버스팀: 입력 전략의 5년 월별 후보 ${result.tradeCount}건을 사용했다.`);
   lines.push("- 퀀트/백테스트팀: 1천만원 자금 제한 계좌로 후보 배분 전략을 비교했다.");
   lines.push("- 리스크/검증팀: AI/반도체 테마 가중은 사후 과최적화 위험이 있으므로 robust check를 함께 봐야 한다.");
   lines.push("- 포트폴리오/자금배분팀: 현재 3개월 램프형 공격 전략을 기준선으로 두고, 반복/테마 신호에만 매수 금액을 조정했다.");
@@ -554,16 +695,38 @@ function markdown(result) {
 
 async function main() {
   const data = JSON.parse(await fs.readFile(inputPath, "utf8"));
+  let valuation = null;
+  if (data.priceSnapshotPath) {
+    const snapshotPath = path.resolve(data.priceSnapshotPath);
+    const snapshot = await readPriceSnapshot(snapshotPath);
+    if (data.priceSnapshotHash && data.priceSnapshotHash !== snapshot.hash) {
+      throw new Error(`Scale output and price snapshot hashes differ: ${inputPath}`);
+    }
+    valuation = {
+      asOf: snapshot.asOf,
+      hash: snapshot.hash,
+      path: data.priceSnapshotPath,
+      priceMap: priceMapFromSnapshot(snapshot)
+    };
+  }
   const trades = loadTrades(data, false);
   const robustTrades = loadTrades(data, true);
-  const results = runComparison(trades);
-  const robustResults = runComparison(robustTrades);
+  const results = runComparison(trades, valuation);
+  const robustResults = runComparison(robustTrades, valuation);
   const splitResults = splitDefinitions.map((split) => {
     const splitTrades = filterTradesByDate(trades, split.start, split.end);
     return {
       ...split,
       tradeCount: splitTrades.length,
-      results: runComparison(splitTrades)
+      results: runComparison(splitTrades, valuation)
+    };
+  });
+  const walkForwardResults = walkForwardDefinitions.map((split) => {
+    const splitTrades = filterTradesByDate(trades, split.start, split.end);
+    return {
+      ...split,
+      tradeCount: splitTrades.length,
+      results: runComparison(splitTrades, valuation)
     };
   });
   const result = {
@@ -572,6 +735,11 @@ async function main() {
     sourceRule,
     initialCapital,
     costBps,
+    valuationMode: valuation ? "weekly_mark_to_market" : "cost_legacy",
+    incompleteTradePolicy: data.incompleteTradePolicy ?? "legacy_forced_close",
+    priceSnapshotPath: valuation?.path ?? null,
+    priceSnapshotHash: valuation?.hash ?? null,
+    priceAsOf: valuation?.asOf ?? null,
     tradeCount: trades.length,
     robustTradeCount: robustTrades.length,
     strategyDefinitions: scenarios.map(({ key, label, description, symbolCapPct }) => ({
@@ -582,7 +750,8 @@ async function main() {
     })),
     results,
     robustResults,
-    splitResults
+    splitResults,
+    walkForwardResults
   };
   await fs.writeFile(outputJsonPath, JSON.stringify(result, null, 2), "utf8");
   await fs.writeFile(outputMdPath, markdown(result), "utf8");

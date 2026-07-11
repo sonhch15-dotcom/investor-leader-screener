@@ -170,3 +170,18 @@ ETF-I 규칙 요약:
 - Latest KR ETF signal: `https://sonhch15-dotcom.github.io/investor-leader-screener/api/signals/kr-etf/latest.json`
 - 10Y Korea ETF validation: `https://sonhch15-dotcom.github.io/investor-leader-screener/korea_etf_10y_validation.md`
 - 5Y Korea ETF comparison: `https://sonhch15-dotcom.github.io/investor-leader-screener/korea_etf_score_variant_test.md`
+
+## 10. 2026-07-11 미국 Score A·C 교정 검증
+
+- 검증 Run ID: `us-score-a-c-corrected-frozen-20260711`
+- Score A는 계속 `active`이다.
+- Score C는 `candidate`이며 세부 단계는 `validated_candidate`이다.
+- Android 앱은 계속 `active` 신호만 실제 주문 가이드로 사용해야 한다.
+- Score C 신호를 앱에서 보여줄 경우 주문 지시가 아닌 shadow/testing 비교 정보로만 표시한다.
+- 미국 공식 운용 종목 수는 월 2개를 유지한다.
+- 한국 주식 Leader2 월 2개, 한국 ETF ETF-I 1개 전략은 변경하지 않았다.
+- 교정 계좌 결과: Score A +416.1%, Score C +520.0%, QQQ +96.4%.
+- 시장가 MDD: Score A -19.8%, Score C -20.4%.
+- Score C는 연도별 5개 신호 구간에서 모두 A보다 높은 수익률을 기록했다.
+- 공식 승격 보류 사유는 시점별 과거 유니버스와 완전한 전진 관찰 구간이 아직 없기 때문이다.
+- API/문서 기준 파일: `data/score-a-c-corrected-validation.json`, `score_a_c_corrected_validation.md`, `backtest_reproducibility_whitepaper.md`.

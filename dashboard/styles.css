@@ -938,6 +938,10 @@ tr:last-child td {
   gap: 14px;
 }
 
+.two-col > * {
+  min-width: 0;
+}
+
 .compact {
   margin-bottom: 8px;
 }

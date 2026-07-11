@@ -1499,13 +1499,13 @@ function markdownEtfVariantReport(result) {
   lines.push("");
   lines.push("## Purpose");
   lines.push("");
-  lines.push("한국 ETF 전략에서 현재 Core/Satellite/Defense 구조를 유지할지, 그룹 구조를 제거하거나 그룹 영향도를 축소하는 방식이 더 나은지 비교했다.");
+  lines.push("한국 ETF 전략 후보를 같은 월간 리밸런싱 조건에서 비교했다. 현재 공식 active는 ETF-I이며 ETF-A Core/Satellite/Defense는 과거 기준선으로 보존한다.");
   lines.push("");
   lines.push("## Variant Definitions");
   lines.push("");
   lines.push("| Variant | Strategy Key | Definition |");
   lines.push("| --- | --- | --- |");
-  lines.push("| ETF-A | kr_etf_core_satellite_50_40_10 | 현재 공식 방식. 미국 코어 50%, 주도 위성 ETF 40%, 방어 ETF 10%로 월간 리밸런싱한다. |");
+  lines.push("| ETF-A | kr_etf_core_satellite_50_40_10 | 과거 기준선. 미국 코어 50%, 주도 위성 ETF 40%, 방어 ETF 10%로 월간 리밸런싱한다. 현재 active는 ETF-I다. |");
   lines.push("| ETF-B | kr_etf_score_top3_equal | 그룹 구조 제거. 전체 ETF 중 개별 점수 상위 3개를 1/3씩 리밸런싱한다. |");
   lines.push("| ETF-C | kr_etf_score_c_core_satellite_50_40_10 | 50/40/10 구조는 유지하되 ETF 선택 점수에 개별 점수 90% + 그룹 리더십 10%를 반영한다. |");
   lines.push("| ETF-D | kr_etf_score_top2_equal | 그룹 구조 제거. 전체 ETF 중 개별 점수 상위 2개를 50/50으로 리밸런싱한다. |");

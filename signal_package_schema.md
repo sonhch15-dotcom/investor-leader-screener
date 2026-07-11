@@ -104,6 +104,7 @@ TrendState = alive | weakening | broken | needs_review
       "backtestRunId": "official-cap27.5-baseline",
       "dataAsOf": "2026-07-08",
       "strategyStatus": "active",
+      "validationStage": "corrected_control",
       "actionType": "buy",
       "symbol": "NVDA",
       "name": "NVIDIA Corp.",
@@ -146,6 +147,7 @@ TrendState = alive | weakening | broken | needs_review
 - `sectorMapVersion`과 `universeHash`는 유니버스/섹터 스냅샷 재현성 검증에 사용한다.
 - `backtestRunId`는 해당 신호가 근거로 삼은 공식 검증 run 또는 문서 ID다.
 - `strategyStatus`는 `active`, `candidate`, `testing`, `paused`, `retired` 중 하나다.
+- `validationStage`는 같은 `strategyStatus` 안에서의 세부 검증 상태다. 예: `corrected_control`, `validated_candidate`. 주문 가능 여부는 이 값이 아니라 `strategyStatus = active`로만 결정한다.
 - Android 앱은 종목 선정은 다시 계산하지 않고, 이 메타데이터를 표시/기록해 전략 변경과 입력 데이터 변경을 구분한다.
 
 실행 게이트:
@@ -250,33 +252,17 @@ TrendState = alive | weakening | broken | needs_review
 {
   "schemaVersion": "1.0.0",
   "market": "KR_ETF",
-  "strategyKey": "kr_etf_core_satellite_50_40_10",
-  "generatedAt": "2026-07-09T00:30:00Z",
-  "asOf": "2026-07-08",
+  "strategyKey": "kr_etf_benchmark_or_alpha_defensive",
+  "generatedAt": "2026-07-10T00:30:00Z",
+  "asOf": "2026-07-10",
   "status": "normal",
   "targetWeights": [
     {
-      "symbol": "069500.KS",
-      "name": "KODEX 200",
-      "role": "core",
-      "targetWeight": 0.50,
-      "referencePrice": 48320,
-      "currency": "KRW"
-    },
-    {
-      "symbol": "102110.KS",
-      "name": "TIGER 200",
-      "role": "satellite",
-      "targetWeight": 0.40,
-      "referencePrice": 48290,
-      "currency": "KRW"
-    },
-    {
-      "symbol": "153130.KS",
-      "name": "KODEX 단기채권",
-      "role": "defense",
-      "targetWeight": 0.10,
-      "referencePrice": 108450,
+      "symbol": "395160.KS",
+      "name": "KODEX 시스템반도체",
+      "role": "alpha",
+      "targetWeight": 1.0,
+      "referencePrice": 47825,
       "currency": "KRW"
     }
   ],
@@ -466,11 +452,11 @@ TrendState = alive | weakening | broken | needs_review
       "riskNotice": "한국 주식 가격 제한폭과 거래정지 리스크를 확인해야 합니다."
     },
     {
-      "strategyKey": "kr_etf_core_satellite_50_40_10",
-      "name": "KR ETF Core Satellite 50/40/10",
+      "strategyKey": "kr_etf_benchmark_or_alpha_defensive",
+      "name": "KR ETF Benchmark Or Alpha Defensive",
       "market": "KR_ETF",
       "status": "active",
-      "description": "한국 ETF 코어/위성/방어 비중 전략",
+      "description": "KODEX200 강세에는 최상위 국내 알파 ETF, 약세에는 최상위 방어 ETF 1개로 월간 전환",
       "riskNotice": "리밸런싱 비용과 세금을 확인해야 합니다."
     }
   ]
@@ -488,11 +474,23 @@ TrendState = alive | weakening | broken | needs_review
   "summaries": [
     {
       "strategyKey": "us_leader2_repeat_theme_combo_cap27_5",
-      "period": "2016-01..2026-07",
-      "totalReturn": 4.298,
-      "maxDrawdown": -0.088,
-      "tradeCount": 128,
-      "sourceFile": "data/strategy-dashboard.json"
+      "period": "2021-08-30..2026-07-10",
+      "totalReturn": 4.1611,
+      "cagr": 0.4017,
+      "maxDrawdown": -0.1979,
+      "benchmarkReturn": 0.964,
+      "sourceFile": "data/score-a-c-corrected-validation.json"
+    },
+    {
+      "strategyKey": "us_leader2_score_c_cap27_5",
+      "period": "2021-08-30..2026-07-10",
+      "totalReturn": 5.2004,
+      "cagr": 0.4557,
+      "maxDrawdown": -0.2038,
+      "benchmarkReturn": 0.964,
+      "status": "candidate",
+      "validationStage": "validated_candidate",
+      "sourceFile": "data/score-a-c-corrected-validation.json"
     },
     {
       "strategyKey": "kr_stock_leader2",

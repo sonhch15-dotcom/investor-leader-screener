@@ -3,8 +3,12 @@ let koreaDashboard = null;
 let selectionStrategyLab = null;
 let finalStrategyValidation = null;
 let scoreVariantTest = null;
+let scoreAScaleTest = null;
+let scoreAStrategyLab = null;
 let scoreCScaleTest = null;
 let scoreCStrategyLab = null;
+let scoreACorrectedValidation = null;
+let koreaEtfValidation = null;
 let showAllMonthlyExits = false;
 let showAllRealizedTrades = false;
 let showAllScoreCMonthlyExits = false;
@@ -22,7 +26,7 @@ const RECENT_KOREA_STOCK_SELL_LIMIT = 12;
 const RECENT_KOREA_ETF_RETURN_LIMIT = 12;
 const ACCOUNT_STORAGE_KEY = "leader2AccountV1";
 const KOREA_ACCOUNT_STORAGE_KEY = "leader2KoreaAccountV1";
-const KOREA_LIVE_STRATEGY_KEYS = new Set(["kr_stocks", "kr_etf_core_satellite_50_40_10"]);
+const ACTIVE_KOREA_ETF_KEY = "kr_etf_benchmark_or_alpha_defensive";
 const NAV_GROUPS = {
   today: [{ tab: "today", label: "오늘" }],
   start: [
@@ -37,7 +41,7 @@ const NAV_GROUPS = {
   ],
   backtest: [
     { tab: "backtest", label: "미국 주식" },
-    { tab: "us-score-c-backtest", label: "미국 C안" },
+    { tab: "us-score-c-backtest", label: "미국 A·C 검증" },
     { tab: "korea-stock-backtest", label: "한국 주식" },
     { tab: "korea-etf-backtest", label: "한국 ETF" }
   ],
@@ -282,6 +286,7 @@ function tradeSellEvents(row) {
 }
 
 function monthlySellEventRows() {
+  if (scoreAScaleTest) return monthlySellEventRowsFromTrades(scoreATradeRows());
   const generated = dashboard.backtest.monthlySellEvents ?? [];
   if (generated.length) return generated;
 
@@ -318,7 +323,9 @@ function monthlySellEventRowsFromTrades(trades) {
     fixedCount: row.fixedCount,
     remainingCount: row.remainingCount,
     symbols: row.symbols,
-    averageEventReturn: row.weightedReturnSum / Math.max(1, row.returnWeight),
+    averageEventReturn: row.returnWeight > 0
+      ? row.weightedReturnSum / row.returnWeight
+      : null,
     events: row.events.sort((a, b) => String(a.date).localeCompare(String(b.date)))
   })).sort((a, b) => String(a.month).localeCompare(String(b.month)));
 }
@@ -1081,8 +1088,12 @@ function buildStrategyCatalog() {
   const usFive = dashboard?.backtest?.fiveYear;
   const usCurve = dashboard?.backtest?.equityCurve ?? [];
   const usLastCurve = usCurve.at(-1) ?? {};
+  const correctedUsAccount = scoreAAccountResult();
+  const correctedUsSummary = scoreAScaleSummary();
+  const correctedUsCurve = scoreACurveRows();
+  const correctedUsLastCurve = correctedUsCurve.at(-1) ?? {};
   const stock = koreaStrategyByKey("kr_stocks");
-  const etf = koreaStrategyByKey("kr_etf_core_satellite_50_40_10");
+  const etf = activeKoreaEtfStrategy();
   const stockAccount = stock?.capitalAccount ?? {};
   const etfAccount = etf?.capitalAccount ?? {};
   const stockRows = koreaStockPerformanceRows();
@@ -1118,17 +1129,17 @@ function buildStrategyCatalog() {
       currentPicks: dashboard?.currentBuys ?? [],
       backtest: {
         period: {
-          start: usCurve[0]?.asOf,
-          end: usLastCurve.asOf
+          start: correctedUsCurve[0]?.asOf ?? usCurve[0]?.asOf,
+          end: correctedUsLastCurve.asOf ?? usLastCurve.asOf
         },
         metrics: {
-          strategyReturn: officialUs?.totalReturn ?? usAccount?.totalReturn ?? usFive?.totalReturn,
-          benchmarkReturn: usLastCurve.qqqTotalReturn ?? usFive?.qqqTotalReturn,
-          maxDrawdown: officialUs?.maxDrawdownAtCost ?? usAccount?.maxDrawdownAtCost ?? usFive?.maxDrawdown,
-          winRate: dashboard?.backtest?.realizedSummary?.winRate,
-          tradeCount: officialUs?.executedBuys ?? usAccount?.executedBuys ?? dashboard?.backtest?.realizedSummary?.count
+          strategyReturn: correctedUsAccount?.totalReturn ?? officialUs?.totalReturn ?? usAccount?.totalReturn ?? usFive?.totalReturn,
+          benchmarkReturn: correctedUsAccount?.benchmark?.totalReturn ?? correctedUsLastCurve.qqqTotalReturn ?? usLastCurve.qqqTotalReturn ?? usFive?.qqqTotalReturn,
+          maxDrawdown: correctedUsAccount?.maxDrawdown ?? usFive?.maxDrawdown,
+          winRate: correctedUsSummary?.winRate ?? dashboard?.backtest?.realizedSummary?.winRate,
+          tradeCount: correctedUsAccount?.executedBuys ?? officialUs?.executedBuys ?? usAccount?.executedBuys ?? dashboard?.backtest?.realizedSummary?.count
         },
-        equityCurve: usCurve
+        equityCurve: correctedUsCurve.length ? correctedUsCurve : usCurve
       },
       tabs: { start: "us-start", operations: "ops", backtest: "backtest", account: "account" }
     },
@@ -1175,11 +1186,11 @@ function buildStrategyCatalog() {
       tabs: { start: "korea-stock-start", operations: "korea-invest-stock", backtest: "korea-stock-backtest", account: "korea-account-stock" }
     },
     {
-      id: "kr_etf_core_satellite_v1",
+      id: "kr_etf_benchmark_or_alpha_defensive_v1",
       assetClass: "kr_etf",
       market: "KR",
       asset: "한국 ETF",
-      title: "Core Satellite 50/40/10",
+      title: "ETF-I 주도·방어 1개",
       status: "active",
       statusLabel: "리밸런싱",
       statusTone: "rebalance",
@@ -1190,13 +1201,13 @@ function buildStrategyCatalog() {
       benchmark: { symbol: etf?.benchmarkSymbol, label: benchmarkLabel(etf?.benchmarkSymbol) },
       today: {
         summary: `${etf?.currentPicks?.length ?? 0}개 목표 ETF`,
-        detail: "계좌 전체를 코어 50%, 위성 40%, 방어 10% 목표 비중으로 맞춥니다.",
+        detail: "강한 장세에는 최상위 알파 ETF, 약한 장세에는 방어 ETF 1개로 월간 교체합니다.",
         primaryAction: "ETF 리밸런싱 보기"
       },
       rules: {
-        buy: ["월말 강한 ETF 조합을 목표 비중으로 선정"],
+        buy: ["월말 시장 상태에 따라 주도 또는 방어 ETF 1개 선정"],
         sell: ["별도 6개월 매도 없음"],
-        rebalance: ["매월 전체 계좌를 50/40/10으로 조정"],
+        rebalance: ["매월 전체 계좌를 선정 ETF 100% 목표로 조정"],
         checkCycle: "월 1회 리밸런싱"
       },
       currentPicks: etf?.currentPicks ?? [],
@@ -1269,7 +1280,7 @@ function buildStrategyCatalog() {
         metrics: {
           strategyReturn: convictionFinal?.totalReturn ?? bestSelectionRule.horizons?.["6m"]?.averageReturn,
           benchmarkReturn: finalWinner?.totalReturn ?? bestSelectionRule.horizons?.["6m"]?.averageReturn - bestSelectionRule.horizons?.["6m"]?.averageExcessQqq,
-          maxDrawdown: convictionFinal?.maxDrawdownAtCost ?? null,
+          maxDrawdown: convictionFinal?.maxDrawdown ?? null,
           winRate: bestSelectionRule.horizons?.["6m"]?.beatQqqRate,
           tradeCount: convictionFinal?.executedBuys ?? bestSelectionRule.activePeriods
         },
@@ -2030,7 +2041,8 @@ function renderMonthlyExits() {
 }
 
 function renderDetailedRealizedTrades() {
-  const allRows = [...(dashboard.backtest.realizedTrades ?? [])].reverse();
+  const correctedRows = scoreAScaleTest ? scoreARealizedTrades() : null;
+  const allRows = [...(correctedRows ?? dashboard.backtest.realizedTrades ?? [])].reverse();
   const rows = showAllRealizedTrades ? allRows : allRows.slice(0, RECENT_REALIZED_TRADE_LIMIT);
   const table = document.getElementById("realized-trades-body").closest("table");
   table.querySelector("thead").innerHTML = `
@@ -2178,54 +2190,106 @@ function renderBacktest() {
   const realized = dashboard.backtest.realizedSummary ?? {};
   const account = dashboard.backtest.accountSimulation;
   const official = finalStrategyValidation?.practicalWinner;
-  const aggressive = finalStrategyValidation?.finalWinner;
-  const curveRows = dashboard.backtest.equityCurve ?? [];
+  const correctedAccount = scoreAAccountResult();
+  const correctedSummary = scoreAScaleSummary();
+  const curveRows = scoreACurveRows();
+  const legacyCurveRows = dashboard.backtest.equityCurve ?? [];
   const lastCurve = curveRows.at(-1) ?? {};
+  const legacyLastCurve = legacyCurveRows.at(-1) ?? {};
+  const strategyReturn = correctedAccount?.totalReturn ?? official?.totalReturn ?? account?.totalReturn ?? five?.totalReturn;
+  const benchmarkReturn = correctedAccount?.benchmark?.totalReturn ?? lastCurve.qqqTotalReturn ?? legacyLastCurve.qqqTotalReturn ?? five?.qqqTotalReturn;
   renderBacktestKpis("backtest-kpis", {
-    finalValue: official ? money(official.finalCapital) : account ? money(account.finalCapital) : percent(five?.totalReturn),
-    finalValueNote: official ? `1천만원 시작 | ${official.label}` : account ? `1천만원 시작 | ${account.label}` : "자금 제한 없는 선정력 검증",
-    strategyReturn: official?.totalReturn ?? account?.totalReturn ?? five?.totalReturn,
-    strategyNote: official ? `공식 Cap27.5 | CAGR ${percent(official.cagr)} | Cap30 ${percent(aggressive?.totalReturn)}` : account ? `자금/현금 제한 반영 | CAGR ${percent(account.cagr)}` : "전략 규칙대로 운용",
+    finalValue: correctedAccount ? money(correctedAccount.finalCapital) : official ? money(official.finalCapital) : account ? money(account.finalCapital) : percent(five?.totalReturn),
+    finalValueNote: correctedAccount
+      ? `현금 ${money(correctedAccount.finalCash)} | 보유 ${money(correctedAccount.openMarketValue)}`
+      : official ? `1천만원 시작 | ${official.label}` : account ? `1천만원 시작 | ${account.label}` : "자금 제한 없는 선정력 검증",
+    strategyReturn,
+    strategyNote: correctedAccount
+      ? `Score A active | CAGR ${percent(correctedAccount.cagr)} | 시장가 MDD ${percent(correctedAccount.maxDrawdown)}`
+      : official ? `공식 Cap27.5 | CAGR ${percent(official.cagr)}` : account ? `자금/현금 제한 반영 | CAGR ${percent(account.cagr)}` : "전략 규칙대로 운용",
     benchmarkLabel: "QQQ",
-    benchmarkReturn: lastCurve.qqqTotalReturn ?? five?.qqqTotalReturn,
-    activityLabel: "매수/청산",
-    activityValue: official ? `${official.executedBuys}/${official.attemptedBuys}` : account ? `${account.executedBuys}/${account.attemptedBuys}` : `${realized.count ?? 0}건`,
-    activityNote: official ? `건너뜀 ${official.skippedBuys} | MDD ${percent(official.maxDrawdownAtCost)}` : account ? `건너뜀 ${account.skippedBuys} | MDD ${percent(account.maxDrawdownAtCost)}` : `승률 ${plainPercent(realized.winRate)} | MDD ${percent(five?.maxDrawdown)}`
+    benchmarkReturn,
+    activityLabel: correctedAccount ? "계좌 매수/보유 lot" : "매수/청산",
+    activityValue: correctedAccount
+      ? `${correctedAccount.executedBuys}/${correctedAccount.openLotCount}`
+      : official ? `${official.executedBuys}/${official.attemptedBuys}` : account ? `${account.executedBuys}/${account.attemptedBuys}` : `${realized.count ?? 0}건`,
+    activityNote: correctedAccount
+      ? `건너뜀 ${correctedAccount.skippedBuys} | 선택 종목 ${scoreAScaleTest?.symbolCount ?? 0}개`
+      : official ? `건너뜀 ${official.skippedBuys}` : account ? `건너뜀 ${account.skippedBuys}` : `승률 ${plainPercent(realized.winRate)} | MDD ${percent(five?.maxDrawdown)}`
   });
 
   renderBacktestTemplate("backtest-template", {
     asset: "미국 주식",
     tone: "us",
-    strategyName: "Leader2 + Repeat Theme Combo Cap27.5",
-    description: "Leader2로 월간 주도 섹터 2개에서 각 1개 종목을 고르고, 반복 추천/AI 하드웨어 신호에 따라 매수 금액을 가중합니다. 종목당 원금 한도는 27.5%입니다.",
+    strategyName: "Score A Leader2 + Repeat Theme Combo Cap27.5",
+    description: "현재 active인 Score A로 월간 주도 섹터 2개에서 각 1개 종목을 고르고, 반복 추천/AI 하드웨어 신호에 따라 매수 금액을 가중합니다. 종목당 원금 한도는 27.5%입니다.",
     benchmarkLabel: "QQQ",
-    periodLabel: finalStrategyValidation?.period ? `${finalStrategyValidation.period.start} ~ ${finalStrategyValidation.period.end}` : curveRows.length ? `${curveRows[0].asOf} ~ ${lastCurve.asOf}` : "기간 데이터 없음",
-    strategyReturn: official?.totalReturn ?? account?.totalReturn ?? five?.totalReturn,
-    benchmarkReturn: lastCurve.qqqTotalReturn ?? five?.qqqTotalReturn,
-    maxDrawdown: official?.maxDrawdownAtCost ?? account?.maxDrawdownAtCost ?? five?.maxDrawdown,
-    tradeCountLabel: `${official?.executedBuys ?? account?.executedBuys ?? realized.count ?? 0}건`,
-    tradeNote: official ? `시도 ${official.attemptedBuys}건 / 스킵 ${official.skippedBuys}` : account ? `시도 ${account.attemptedBuys}건 / 스킵 ${account.skippedBuys}` : `${realized.count ?? 0}개 청산`,
-    winRateLabel: plainPercent(realized.winRate),
-    winRateNote: `${realized.count ?? 0}개 청산 기준`,
-    ruleSummary: "월말 신규 후보 2개를 확정하고 공식 Cap27.5 비중으로 매수합니다. 매수 lot마다 6개월 후 50%를 매도하고, 남은 50%는 주봉 10주선과 RSI 조건이 유지될 때만 연장 보유합니다."
+    periodLabel: curveRows.length
+      ? `${curveRows[0].asOf} ~ ${lastCurve.asOf}`
+      : finalStrategyValidation?.period ? `${finalStrategyValidation.period.start} ~ ${finalStrategyValidation.period.end}` : "기간 데이터 없음",
+    strategyReturn,
+    benchmarkReturn,
+    maxDrawdown: correctedAccount?.maxDrawdown ?? five?.maxDrawdown,
+    tradeCountLabel: `${correctedAccount?.executedBuys ?? official?.executedBuys ?? account?.executedBuys ?? realized.count ?? 0}건`,
+    tradeNote: correctedAccount
+      ? `시도 ${correctedAccount.attemptedBuys}건 / 스킵 ${correctedAccount.skippedBuys}`
+      : official ? `시도 ${official.attemptedBuys}건 / 스킵 ${official.skippedBuys}` : account ? `시도 ${account.attemptedBuys}건 / 스킵 ${account.skippedBuys}` : `${realized.count ?? 0}개 청산`,
+    winRateLabel: plainPercent(correctedSummary?.winRate ?? realized.winRate),
+    winRateNote: correctedSummary
+      ? `${correctedSummary.closedTrades}개 청산 / ${correctedSummary.openTrades}개 미청산 (선정 거래)`
+      : `${realized.count ?? 0}개 청산 기준`,
+    ruleSummary: "월말 Score A 신규 후보 2개를 확정하고 공식 Cap27.5 비중으로 매수합니다. 매수 lot마다 6개월 후 50%를 매도하고, 남은 50%는 주봉 10주선과 RSI 조건이 유지될 때만 최대 12개월 연장합니다. 미완료 lot은 강제 청산하지 않고 시장가로 평가합니다."
   });
 
-  renderPerformanceChart();
+  if (curveRows.length) {
+    renderComparisonPerformanceChart({
+      targetId: "performance-chart",
+      metaId: "curve-meta",
+      rows: curveRows,
+      strategyKey: "strategyTotalReturn",
+      benchmarkKey: "qqqTotalReturn",
+      strategyLabel: "Score A 계좌",
+      benchmarkLabel: "QQQ",
+      ariaLabel: "Score A strategy versus QQQ performance chart"
+    });
+  } else {
+    renderPerformanceChart();
+  }
 
   renderMonthlySellEvents();
   renderDetailedRealizedTrades();
 
-  document.getElementById("yearly-body").innerHTML = (dashboard.backtest.yearly ?? []).map((row) => `
-    <tr>
-      <td>${row.year}</td>
-      <td class="num ${signedClass(row.return)}">${percent(row.return)}</td>
-      <td class="num ${signedClass(row.qqqReturn)}">${percent(row.qqqReturn)}</td>
-      <td class="num ${signedClass(row.excessQqq)}">${percent(row.excessQqq)}</td>
-      <td class="num">${plainPercent(row.beatQqqRate)}</td>
-    </tr>
-  `).join("");
+  const annualComparisons = scoreACorrectedValidation?.annualComparisons ?? [];
+  const yearlyTable = document.getElementById("yearly-body").closest("table");
+  if (annualComparisons.length) {
+    yearlyTable.querySelector("thead").innerHTML = `<tr><th>신호 구간</th><th>Score A</th><th>Score C</th><th>C-A</th><th>A MDD</th><th>C MDD</th></tr>`;
+    document.getElementById("yearly-body").innerHTML = annualComparisons.map((row) => `
+      <tr>
+        <td>${row.label}</td>
+        <td class="num ${signedClass(row.scoreAReturn)}">${percent(row.scoreAReturn)}</td>
+        <td class="num ${signedClass(row.scoreCReturn)}">${percent(row.scoreCReturn)}</td>
+        <td class="num ${signedClass(row.scoreCReturn - row.scoreAReturn)}">${percent(row.scoreCReturn - row.scoreAReturn)}</td>
+        <td class="num negative">${percent(row.scoreAMaxDrawdown)}</td>
+        <td class="num negative">${percent(row.scoreCMaxDrawdown)}</td>
+      </tr>
+    `).join("");
+  } else {
+    document.getElementById("yearly-body").innerHTML = (dashboard.backtest.yearly ?? []).map((row) => `
+      <tr>
+        <td>${row.year}</td>
+        <td class="num ${signedClass(row.return)}">${percent(row.return)}</td>
+        <td class="num ${signedClass(row.qqqReturn)}">${percent(row.qqqReturn)}</td>
+        <td class="num ${signedClass(row.excessQqq)}">${percent(row.excessQqq)}</td>
+        <td class="num">${plainPercent(row.beatQqqRate)}</td>
+      </tr>
+    `).join("");
+  }
 
-  document.getElementById("report-links").innerHTML = (dashboard.backtest.reports ?? []).map((row) => `
+  const reports = [
+    { label: "Score A·C 교정 검증", href: "score_a_c_corrected_validation.md" },
+    ...(dashboard.backtest.reports ?? [])
+  ];
+  document.getElementById("report-links").innerHTML = reports.map((row) => `
     <a class="report-link" href="${row.href}" target="_blank" rel="noreferrer">${row.label}</a>
   `).join("");
 }
@@ -2234,41 +2298,101 @@ function scoreCSelectionResult() {
   return scoreVariantTest?.results?.find((row) => row.key === "c_half_sector_normalized") ?? null;
 }
 
-function scoreCScaleEvaluation() {
-  return scoreCScaleTest?.evaluations?.find((row) => row.rule === "half_sell_half_weekly_extend") ?? null;
+function correctedScaleEvaluation(scaleTest) {
+  return scaleTest?.evaluations?.find((row) => row.rule === "half_sell_half_weekly_extend") ?? null;
 }
 
-function scoreCScaleSummary() {
-  return scoreCScaleTest?.summaries?.find((row) => row.key === "half_sell_half_weekly_extend") ?? null;
+function correctedScaleSummary(scaleTest) {
+  return scaleTest?.summaries?.find((row) => row.key === "half_sell_half_weekly_extend") ?? null;
 }
 
-function scoreCAccountResult() {
-  return scoreCStrategyLab?.results?.find((row) => row.key === "repeat_theme_combo_cap275") ?? null;
+function correctedAccountResult(strategyLab) {
+  return strategyLab?.results?.find((row) => row.key === "repeat_theme_combo_cap275") ?? null;
 }
 
-function scoreCRealizedTrades() {
-  return (scoreCScaleEvaluation()?.rows ?? [])
+function correctedTradeRows(scaleTest) {
+  const sellCostRate = (scaleTest?.costBps ?? 0) / 10_000;
+  return (correctedScaleEvaluation(scaleTest)?.rows ?? [])
     .filter((row) => row.entered)
     .map((row) => ({
       ...row,
-      entryPrice: row.averageBuyPrice,
+      entryPrice: row.averageBuyMarketPrice ?? row.averageBuyPrice,
       exitPrice: row.averageSellPrice,
       exitDate: row.lastSellDate,
-      exitMonth: String(row.lastSellDate ?? "").slice(0, 7)
+      exitMonth: String(row.lastSellDate ?? "").slice(0, 7),
+      sellEvents: (row.sellLots ?? []).map((sell) => ({
+        date: sell.date,
+        month: String(sell.date).slice(0, 7),
+        reason: sell.reason,
+        weight: sell.shareFraction,
+        price: sell.price,
+        return: Number.isFinite(sell.price) && Number.isFinite(row.averageBuyPrice)
+          ? sell.price * (1 - sellCostRate) / row.averageBuyPrice - 1
+          : null
+      }))
     }));
 }
 
-function scoreCCurveRows() {
-  return (scoreCSelectionResult()?.curve ?? []).map((row) => ({
+function correctedCurveRows(account) {
+  const benchmarkByDate = new Map((account?.benchmark?.curve ?? []).map((row) => [row.date, row]));
+  return (account?.curve ?? []).map((row) => ({
     ...row,
-    strategyTotalReturn: Number.isFinite(row.equity) ? row.equity - 1 : null,
-    qqqTotalReturn: Number.isFinite(row.qqqEquity) ? row.qqqEquity - 1 : null
+    asOf: row.date,
+    strategyTotalReturn: Number.isFinite(row.equity) && account.initialCapital
+      ? row.equity / account.initialCapital - 1
+      : null,
+    qqqTotalReturn: benchmarkByDate.get(row.date)?.totalReturn ?? null
   }));
+}
+
+function scoreAScaleSummary() {
+  return correctedScaleSummary(scoreAScaleTest);
+}
+
+function scoreAAccountResult() {
+  return correctedAccountResult(scoreAStrategyLab);
+}
+
+function scoreATradeRows() {
+  return correctedTradeRows(scoreAScaleTest);
+}
+
+function scoreARealizedTrades() {
+  return scoreATradeRows().filter((row) => row.closed);
+}
+
+function scoreACurveRows() {
+  return correctedCurveRows(scoreAAccountResult());
+}
+
+function scoreCScaleEvaluation() {
+  return correctedScaleEvaluation(scoreCScaleTest);
+}
+
+function scoreCScaleSummary() {
+  return correctedScaleSummary(scoreCScaleTest);
+}
+
+function scoreCAccountResult() {
+  return correctedAccountResult(scoreCStrategyLab);
+}
+
+function scoreCTradeRows() {
+  return correctedTradeRows(scoreCScaleTest);
+}
+
+function scoreCRealizedTrades() {
+  return scoreCTradeRows().filter((row) => row.closed);
+}
+
+function scoreCCurveRows() {
+  return correctedCurveRows(scoreCAccountResult());
 }
 
 function renderScoreCEmpty() {
   const message = `<article class="kpi"><span>데이터</span><strong>-</strong><small>C안 백테스트 데이터가 아직 준비되지 않았습니다.</small></article>`;
   document.getElementById("score-c-kpis").innerHTML = message;
+  document.getElementById("score-a-c-verdict").innerHTML = "";
   document.getElementById("score-c-backtest-template").innerHTML = `<p class="empty-state">C안 데이터 로드 실패</p>`;
   document.getElementById("score-c-performance-chart").innerHTML = "";
   document.getElementById("score-c-monthly-exits-body").innerHTML = "";
@@ -2278,8 +2402,41 @@ function renderScoreCEmpty() {
   document.getElementById("score-c-recent-selections").innerHTML = "";
 }
 
+function renderScoreACVerdict() {
+  const validation = scoreACorrectedValidation;
+  const scoreA = validation?.scoreA?.account;
+  const scoreC = validation?.scoreC?.account;
+  const target = document.getElementById("score-a-c-verdict");
+  if (!target || !scoreA || !scoreC) {
+    if (target) target.innerHTML = `<p class="empty-state">A·C 교정 검증 데이터가 없습니다.</p>`;
+    return;
+  }
+  const passed = (validation.gates ?? []).filter((gate) => gate.passed).length;
+  const annualWins = (validation.annualComparisons ?? []).filter((row) => row.winner === "Score C").length;
+  target.innerHTML = `
+    <article class="backtest-template-card us">
+      <div class="backtest-template-head">
+        <div>
+          <span class="label">교정 엔진 · 고정 스냅샷</span>
+          <strong>Score C는 검증 통과 후보, 실운용은 Score A 유지</strong>
+          <p>실제 매도 가격, 미청산 보유분 시장가, 주간 MDD를 반영한 동일 조건 비교입니다.</p>
+        </div>
+        <span>${passed}/${validation.gates?.length ?? 0} 게이트 통과</span>
+      </div>
+      <div class="backtest-template-metrics">
+        <article><span>Score A 계좌</span><strong>${percent(scoreA.totalReturn)}</strong><small>현재 active</small></article>
+        <article><span>Score C 계좌</span><strong>${percent(scoreC.totalReturn)}</strong><small>validated candidate</small></article>
+        <article><span>A 시장가 MDD</span><strong class="negative">${percent(scoreA.maxDrawdown)}</strong><small>원가 기준 아님</small></article>
+        <article><span>C 시장가 MDD</span><strong class="negative">${percent(scoreC.maxDrawdown)}</strong><small>A 대비 ${percent(scoreC.maxDrawdown - scoreA.maxDrawdown)}</small></article>
+        <article><span>연도별 우위</span><strong>${annualWins}/${validation.annualComparisons?.length ?? 0}</strong><small>독립 1천만원 계좌</small></article>
+        <article><span>공식 승격</span><strong>보류</strong><small>시점별 유니버스·전진 관찰 필요</small></article>
+      </div>
+    </article>
+  `;
+}
+
 function renderScoreCMonthlySellEvents() {
-  const allRows = [...monthlySellEventRowsFromTrades(scoreCRealizedTrades())].reverse();
+  const allRows = [...monthlySellEventRowsFromTrades(scoreCTradeRows())].reverse();
   const rows = showAllScoreCMonthlyExits ? allRows : allRows.slice(0, RECENT_MONTHLY_EXIT_LIMIT);
   document.getElementById("score-c-monthly-exit-meta").textContent = showAllScoreCMonthlyExits
     ? `전체 ${allRows.length}개월`
@@ -2398,31 +2555,33 @@ function renderScoreCBacktest() {
 
   renderBacktestKpis("score-c-kpis", {
     finalValue: money(account.finalCapital),
-    finalValueNote: "1천만원 시작 | C안 Cap27.5",
+    finalValueNote: `현금 ${money(account.finalCash)} | 보유 ${money(account.openMarketValue)}`,
     strategyReturn: account.totalReturn,
-    strategyNote: `CAGR ${percent(account.cagr)} | MDD ${percent(account.maxDrawdownAtCost)}`,
+    strategyNote: `CAGR ${percent(account.cagr)} | 시장가 MDD ${percent(account.maxDrawdown)}`,
     benchmarkLabel: "QQQ",
-    benchmarkReturn: lastCurve.qqqTotalReturn ?? selection.qqqTotalReturn,
-    activityLabel: "매수/청산",
-    activityValue: `${account.executedBuys}/${account.attemptedBuys}`,
-    activityNote: `건너뜀 ${account.skippedBuys} | 종목 ${scoreCScaleTest?.symbolCount ?? 0}개`
+    benchmarkReturn: account.benchmark?.totalReturn ?? lastCurve.qqqTotalReturn ?? selection.qqqTotalReturn,
+    activityLabel: "계좌 매수/보유 lot",
+    activityValue: `${account.executedBuys}/${account.openLotCount}`,
+    activityNote: `건너뜀 ${account.skippedBuys} | 선택 종목 ${scoreCScaleTest?.symbolCount ?? 0}개`
   });
 
+  renderScoreACVerdict();
+
   renderBacktestTemplate("score-c-backtest-template", {
-    asset: "미국 주식 C안",
+    asset: "미국 주식 A·C 검증",
     tone: "us",
     strategyName: "C Half Sector10 Normalized + Cap27.5",
-    description: "개별 종목 점수를 중심으로 보되 섹터 점수는 10%만 반영해 특정 섹터 쏠림을 줄인 후보 선정 방식입니다.",
+    description: "Score C는 섹터 점수를 10%로 낮춘 Leader2 후보입니다. 교정 백테스트를 통과했지만 실운용 active는 Score A로 유지합니다.",
     benchmarkLabel: "QQQ",
     periodLabel: curveRows.length ? `${curveRows[0].asOf} ~ ${curveRows.at(-1).asOf}` : "기간 데이터 없음",
     strategyReturn: account.totalReturn,
-    benchmarkReturn: lastCurve.qqqTotalReturn ?? selection.qqqTotalReturn,
-    maxDrawdown: account.maxDrawdownAtCost,
+    benchmarkReturn: account.benchmark?.totalReturn ?? lastCurve.qqqTotalReturn ?? selection.qqqTotalReturn,
+    maxDrawdown: account.maxDrawdown,
     tradeCountLabel: `${account.executedBuys}건`,
     tradeNote: `시도 ${account.attemptedBuys}건 / 스킵 ${account.skippedBuys}`,
     winRateLabel: plainPercent(summary.winRate),
-    winRateNote: `${summary.enteredTrades}개 청산 기준`,
-    ruleSummary: "월말 C안 점수로 신규 후보 2개를 확정하고 다음 거래일 매수합니다. Cap27.5 계좌 규칙으로 종목당 최대 27.5%까지만 보유하며, 각 lot은 6개월 후 50%를 매도하고 남은 50%는 주봉 추세가 유지될 때만 최대 12개월까지 연장합니다."
+    winRateNote: `${summary.closedTrades}개 청산 / ${summary.openTrades}개 미청산 (선정 거래)`,
+    ruleSummary: "월말 C안 점수로 신규 후보 2개를 확정하고 다음 거래일 매수합니다. Cap27.5 계좌 규칙으로 종목당 최대 27.5%까지만 보유하며, 각 lot은 6개월 후 50%를 매도하고 남은 50%는 주봉 추세가 유지될 때만 최대 12개월까지 연장합니다. 미완료 lot은 강제 청산하지 않고 시장가로 평가합니다."
   });
 
   renderComparisonPerformanceChart({
@@ -2431,7 +2590,7 @@ function renderScoreCBacktest() {
     rows: curveRows,
     strategyKey: "strategyTotalReturn",
     benchmarkKey: "qqqTotalReturn",
-    strategyLabel: "C안",
+    strategyLabel: "Score C 계좌",
     benchmarkLabel: "QQQ",
     ariaLabel: "C variant strategy versus QQQ performance chart"
   });
@@ -2455,11 +2614,11 @@ function koreaTradeRows() {
 }
 
 function koreaLiveStrategies() {
-  return (koreaDashboard?.strategies ?? []).filter((strategy) => KOREA_LIVE_STRATEGY_KEYS.has(strategy.key));
+  return [koreaStrategyByKey("kr_stocks"), activeKoreaEtfStrategy()].filter(Boolean);
 }
 
 function koreaEtfRebalanceRows() {
-  const strategy = koreaStrategyByKey("kr_etf_core_satellite_50_40_10");
+  const strategy = activeKoreaEtfStrategy();
   if (!strategy) return [];
   const ledgerByDate = new Map();
   for (const event of strategy.capitalAccount?.ledger ?? []) {
@@ -2605,7 +2764,7 @@ function renderKoreaStockMonthlySells() {
 }
 
 function koreaEtfMonthlyReturnRows() {
-  const strategy = koreaStrategyByKey("kr_etf_core_satellite_50_40_10");
+  const strategy = activeKoreaEtfStrategy();
   const curve = strategy?.capitalAccount?.curve ?? [];
   const benchmarkByMonth = new Map((strategy?.capitalAccount?.benchmarkCurve ?? []).map((row) => [row.month, row]));
   return curve.map((row, index) => {
@@ -2631,7 +2790,7 @@ function koreaEtfMonthlyReturnRows() {
 }
 
 function koreaEtfPerformanceRows() {
-  const strategy = koreaStrategyByKey("kr_etf_core_satellite_50_40_10");
+  const strategy = activeKoreaEtfStrategy();
   const benchmarkByMonth = new Map((strategy?.capitalAccount?.benchmarkCurve ?? []).map((row) => [row.month, row]));
   return (strategy?.capitalAccount?.curve ?? []).map((row) => ({
     month: row.month,
@@ -2758,6 +2917,26 @@ function koreaStrategyByKey(key) {
   return (koreaDashboard?.strategies ?? []).find((strategy) => strategy.key === key) ?? null;
 }
 
+function activeKoreaEtfStrategy() {
+  const source = koreaEtfValidation?.variants?.find((strategy) => strategy.key === ACTIVE_KOREA_ETF_KEY)
+    ?? koreaStrategyByKey("kr_etf_benchmark_or_alpha")
+    ?? null;
+  if (!source) return null;
+  const timeline = source.timeline ?? (source.recentRebalances ?? []).map((row) => ({
+    month: row.month,
+    signalDate: row.signalDate,
+    tradeDate: row.tradeDate,
+    rows: row.allocations ?? []
+  }));
+  return {
+    ...source,
+    sourceLabel: source.label,
+    label: "ETF-I 주도·방어 1개",
+    capitalAccount: source.capitalAccount ?? source.account,
+    timeline
+  };
+}
+
 function weightText(value) {
   if (!Number.isFinite(value)) return "-";
   return `${(value * 100).toFixed(0)}%`;
@@ -2797,12 +2976,11 @@ function renderKoreaInvest() {
   }
 
   const stock = koreaStrategyByKey("kr_stocks");
-  const etfAggressive = koreaStrategyByKey("kr_etf_core_satellite_50_40_10");
-  const activeEtf = etfAggressive ?? koreaStrategyByKey("kr_etf_core_satellite");
+  const activeEtf = activeKoreaEtfStrategy();
 
   document.getElementById("korea-invest-meta").textContent = `${koreaDashboard.asOf} 기준 | 한국 주식 + ETF 운용`;
   document.getElementById("korea-invest-kpis").innerHTML = [
-    strategyMetricCard("한국 ETF 50/40/10", etfAggressive, "월간 리밸런싱"),
+    strategyMetricCard("한국 ETF ETF-I", activeEtf, "월간 1개 리밸런싱"),
     strategyMetricCard("한국 우량주 Leader2", stock, "월간 후보 2개"),
     `<article class="kpi"><span>현재 ETF 후보</span><strong>${activeEtf?.currentPicks?.length ?? 0}개</strong><small>월 1회 리밸런싱</small></article>`
   ].join("");
@@ -2810,12 +2988,12 @@ function renderKoreaInvest() {
   document.getElementById("korea-invest-cards").innerHTML = `
     <article class="korea-strategy-card featured">
       <span class="label">연금 / ETF 대표 전략</span>
-      <h3>Core Satellite 50/40/10</h3>
-      <p>미국 코어 50%, 강한 위성 ETF 40%, 방어 ETF 10%로 매월 전체 계좌를 리밸런싱합니다.</p>
+      <h3>ETF-I 주도·방어 1개</h3>
+      <p>강한 장세에는 최상위 알파 ETF, 약한 장세에는 방어 ETF 1개로 매월 전체 계좌를 리밸런싱합니다.</p>
       <div class="metric-line">
-        <span>수익률 ${percent(etfAggressive?.capitalAccount?.totalReturn)}</span>
-        <span>최종 ${krw(etfAggressive?.capitalAccount?.finalCapital)}</span>
-        <span>MDD ${percent(etfAggressive?.capitalAccount?.maxDrawdown)}</span>
+        <span>수익률 ${percent(activeEtf?.capitalAccount?.totalReturn)}</span>
+        <span>최종 ${krw(activeEtf?.capitalAccount?.finalCapital)}</span>
+        <span>MDD ${percent(activeEtf?.capitalAccount?.maxDrawdown)}</span>
       </div>
     </article>
     <article class="korea-strategy-card">
@@ -2831,7 +3009,7 @@ function renderKoreaInvest() {
   `;
 
   const etfAccountBase = 10_000_000;
-  document.getElementById("korea-etf-meta").textContent = `${activeEtf?.label ?? "Core Satellite"} | 1,000만원 예시`;
+  document.getElementById("korea-etf-meta").textContent = `${activeEtf?.label ?? "ETF-I"} | 1,000만원 예시`;
   document.getElementById("korea-etf-weights").innerHTML = (activeEtf?.currentPicks ?? []).map((row) => `
     <article class="buy-card">
       <div class="card-head">
@@ -2875,9 +3053,9 @@ function renderKoreaInvest() {
     <article>
       <h3>ETF 매수/매도</h3>
       <ol>
-        <li>월말에 Core, Satellite, Defense 후보를 확정합니다.</li>
-        <li>다음 거래일에 ETF 계좌 전체를 50/40/10 목표 비중으로 맞춥니다.</li>
-        <li>기존 ETF가 목표보다 많으면 일부 매도하고, 부족하면 추가 매수합니다.</li>
+        <li>월말에 KODEX200이 200일선 위이고 모멘텀이 양수인지 확인합니다.</li>
+        <li>강한 장세에는 주도 ETF 1개, 약한 장세에는 방어 ETF 1개를 확정합니다.</li>
+        <li>다음 거래일에 기존 ETF를 정리하고 선정 ETF를 계좌의 100% 목표로 맞춥니다.</li>
         <li>별도 6개월 매도 규칙은 쓰지 않고 매월 리밸런싱이 매수/매도 역할을 합니다.</li>
       </ol>
     </article>
@@ -2893,7 +3071,7 @@ function renderKoreaInvest() {
     <article>
       <h3>권장 운용</h3>
       <ul>
-        <li>연금 계좌는 ETF Core Satellite를 우선 후보로 둡니다.</li>
+        <li>연금 계좌는 ETF-I 주도·방어 전략을 우선 후보로 둡니다.</li>
         <li>일반 계좌의 공격형 자금은 한국 우량주 Leader2로 분리합니다.</li>
         <li>한국 주식과 ETF 성과는 섞어 보지 말고 각각 별도 계좌처럼 관리합니다.</li>
       </ul>
@@ -2902,10 +3080,7 @@ function renderKoreaInvest() {
 }
 
 function selectedKoreaEtfStrategy() {
-  const key = document.getElementById("korea-etf-mode")?.value
-    || koreaAccountState?.settings?.etfMode
-    || "kr_etf_core_satellite_50_40_10";
-  return koreaStrategyByKey(key) ?? koreaStrategyByKey("kr_etf_core_satellite_50_40_10");
+  return activeKoreaEtfStrategy();
 }
 
 function koreaStockStrategy() {
@@ -2920,7 +3095,7 @@ function defaultKoreaAccount() {
     settings: {
       etfCapital: 10_000_000,
       stockCapital: 10_000_000,
-      etfMode: "kr_etf_core_satellite_50_40_10"
+      etfMode: ACTIVE_KOREA_ETF_KEY
     },
     etfRebalances: [],
     stockLots: [],
@@ -2959,7 +3134,7 @@ function applyKoreaAccountSettingsToForm() {
   const etfMode = document.getElementById("korea-etf-mode");
   if (etfCapital) etfCapital.value = Math.round(koreaAccountState.settings.etfCapital || 0).toLocaleString("ko-KR");
   if (stockCapital) stockCapital.value = Math.round(koreaAccountState.settings.stockCapital || 0).toLocaleString("ko-KR");
-  if (etfMode) etfMode.value = "kr_etf_core_satellite_50_40_10";
+  if (etfMode) etfMode.value = ACTIVE_KOREA_ETF_KEY;
 }
 
 function syncKoreaAccountSettingsFromForm() {
@@ -2969,7 +3144,7 @@ function syncKoreaAccountSettingsFromForm() {
     ...koreaAccountState.settings,
     etfCapital: Math.max(0, parseAmount(document.getElementById("korea-etf-capital")?.value)),
     stockCapital: Math.max(0, parseAmount(document.getElementById("korea-stock-capital")?.value)),
-    etfMode: etfMode || "kr_etf_core_satellite_50_40_10"
+    etfMode: etfMode || ACTIVE_KOREA_ETF_KEY
   };
   saveKoreaAccount();
 }
@@ -3139,16 +3314,16 @@ function renderKoreaStart() {
   const etfRules = document.getElementById("korea-etf-rule-cards");
   if (etfRules) etfRules.innerHTML = `
     <article>
-      <h3>Core 50%</h3>
-      <p>미국 대표지수/성장주 ETF 중 가장 강한 후보를 고릅니다. 계좌의 안정적인 중심축입니다.</p>
+      <h3>시장 상태</h3>
+      <p>월말 KODEX200이 200일선 위이고 모멘텀이 양수면 강한 장세, 아니면 약한 장세로 판정합니다.</p>
     </article>
     <article>
-      <h3>Satellite 40%</h3>
-      <p>그달의 주도 섹터/테마 ETF를 고릅니다. 반도체, 금융, 2차전지처럼 월별 주도 그룹이 바뀌면 이 40%가 바뀔 수 있습니다.</p>
+      <h3>강한 장세</h3>
+      <p>KOSPI200과 반도체·자동차·2차전지 등 알파 후보 중 점수가 가장 높은 ETF 1개를 100% 보유합니다.</p>
     </article>
     <article>
-      <h3>Defense 10%</h3>
-      <p>채권, 원자재, 미국 배당 ETF 중 상대적으로 좋은 방어 후보를 둡니다. 매월 말 확정 후 다음 거래일에 50/40/10으로 다시 맞춥니다.</p>
+      <h3>약한 장세</h3>
+      <p>금·채권 등 방어 후보 중 점수가 가장 높은 ETF 1개를 100% 보유하고, 다음 월말에 다시 판정합니다.</p>
     </article>
   `;
 
@@ -3187,7 +3362,7 @@ function renderKoreaAccount() {
 
   document.getElementById("korea-account-meta").textContent = `${koreaDashboard.asOf} 기준 | ETF와 주식 계좌 분리`;
   document.getElementById("korea-account-summary").innerHTML = `
-    <article class="kpi"><span>ETF 계좌 모드</span><strong>${etf?.label?.replace("KR ETF Core Satellite ", "") ?? "-"}</strong><small>${krw(etfCapital)} 기준</small></article>
+    <article class="kpi"><span>ETF 계좌 모드</span><strong>${etf?.label ?? "-"}</strong><small>${krw(etfCapital)} 기준</small></article>
     <article class="kpi"><span>ETF 기록</span><strong>${koreaAccountState.etfRebalances.length}회</strong><small>최근 ${latestRebalance?.date ?? "-"}</small></article>
     <article class="kpi"><span>한국 주식 lot</span><strong>${openLots.length}개</strong><small>${krw(stockCapital)} 기준</small></article>
     <article class="kpi"><span>실현 손익</span><strong class="${signedClass(realized)}">${krw(realized)}</strong><small>매도 기록 기준</small></article>
@@ -3339,18 +3514,18 @@ function renderKoreaEmpty() {
 }
 
 function renderKoreaEtfBacktest() {
-  const strategy = koreaStrategyByKey("kr_etf_core_satellite_50_40_10");
+  const strategy = activeKoreaEtfStrategy();
   if (!strategy) return;
   const summary = strategy.summary ?? {};
   const account = strategy.capitalAccount ?? {};
   const etfPerformanceRows = koreaEtfPerformanceRows();
   const benchmarkReturn = lastFiniteReturn(etfPerformanceRows, "benchmarkTotalReturn");
-  document.getElementById("korea-etf-backtest-meta").textContent = `${koreaDashboard.asOf} 기준 | ${strategy.months ?? 0}개월`;
+  document.getElementById("korea-etf-backtest-meta").textContent = `${koreaEtfValidation?.asOf ?? koreaDashboard.asOf} 기준 | ${strategy.months ?? 0}개월`;
   renderBacktestKpis("korea-etf-kpis", {
     finalValue: krw(account.finalCapital),
     finalValueNote: "1천만원 시작 | ETF 계좌",
     strategyReturn: account.totalReturn,
-    strategyNote: "50/40/10 월간 리밸런싱",
+    strategyNote: "ETF-I 월간 1개 리밸런싱",
     benchmarkLabel: benchmarkLabel(strategy.benchmarkSymbol),
     benchmarkReturn,
     activityLabel: "리밸런싱",
@@ -3362,17 +3537,17 @@ function renderKoreaEtfBacktest() {
     asset: "한국 ETF",
     tone: "kr-etf",
     strategyName: strategy.label,
-    description: "연금/ETF 계좌를 Core 50%, Satellite 40%, Defense 10% 목표 비중으로 월간 리밸런싱합니다.",
+    description: "강한 장세에는 최상위 알파 ETF, 약한 장세에는 방어 ETF 1개를 선택해 연금/ETF 계좌를 월간 리밸런싱합니다.",
     benchmarkLabel: benchmarkLabel(strategy.benchmarkSymbol),
     periodLabel: etfPerformanceRows.length ? `${etfPerformanceRows[0].asOf ?? etfPerformanceRows[0].month} ~ ${etfPerformanceRows.at(-1).asOf ?? etfPerformanceRows.at(-1).month}` : "기간 데이터 없음",
     strategyReturn: account.totalReturn,
     benchmarkReturn,
     maxDrawdown: account.maxDrawdown,
     tradeCountLabel: `${summary.tradeCount ?? 0}개월`,
-    tradeNote: "월 1회 전체 계좌 리밸런싱",
+    tradeNote: "월 1회 ETF 1개로 전체 계좌 리밸런싱",
     winRateLabel: "-",
     winRateNote: "ETF 전략은 승률보다 누적/낙폭 중심",
-    ruleSummary: "매월 말 강한 코어/위성/방어 ETF를 확정하고 다음 거래일에 계좌 전체를 50/40/10 목표 비중으로 맞춥니다. 별도 6개월 매도 규칙은 쓰지 않습니다."
+    ruleSummary: "매월 말 시장 상태를 판정합니다. 강한 장세에는 가장 강한 알파 ETF 1개, 약한 장세에는 가장 강한 방어 ETF 1개를 확정하고 다음 거래일에 계좌 전체를 100% 목표 비중으로 맞춥니다. 별도 6개월 매도 규칙은 쓰지 않습니다."
   });
 
   document.getElementById("korea-etf-current-picks").innerHTML = `
@@ -3803,13 +3978,13 @@ function renderRules() {
         </ul>
       </article>
       <article>
-        <h3>9. 한국 ETF Core Satellite</h3>
+        <h3>9. 한국 ETF ETF-I</h3>
         <ul>
-          <li>대표 전략: Core Satellite 50/40/10</li>
-          <li>Core 50%: 미국 대표지수 또는 미국 성장주 ETF 중 강한 ETF</li>
-          <li>Satellite 40%: 반도체, 2차전지, 금융, 헬스케어 등 가장 강한 위성 ETF</li>
-          <li>Defense 10%: 미국배당, 금, 채권, 원자재 등 방어 ETF</li>
-          <li>매월 말 후보를 확정하고 다음 거래일에 계좌 전체를 목표 비중으로 리밸런싱합니다.</li>
+          <li>대표 전략: ETF-I 주도·방어 1개</li>
+          <li>월말 KODEX200이 200일선 위이고 모멘텀이 양수면 강한 장세로 봅니다.</li>
+          <li>강한 장세에는 KOSPI 알파 후보 중 점수가 가장 높은 ETF 1개를 보유합니다.</li>
+          <li>약한 장세에는 금·채권 등 방어 후보 중 점수가 가장 높은 ETF 1개를 보유합니다.</li>
+          <li>매월 말 후보를 확정하고 다음 거래일에 계좌 전체를 선정 ETF 100%로 리밸런싱합니다.</li>
           <li>ETF 전략은 6개월 50% 매도 규칙을 쓰지 않고 월간 비중 조정이 매수와 매도 역할을 합니다.</li>
         </ul>
       </article>
@@ -3826,7 +4001,7 @@ function renderRules() {
       <article>
         <h3>11. 한국 계좌 분리 원칙</h3>
         <ul>
-          <li>연금 계좌는 ETF Core Satellite를 우선 후보로 둡니다.</li>
+          <li>연금 계좌는 ETF-I 주도·방어 전략을 우선 후보로 둡니다.</li>
           <li>일반 계좌의 공격형 자금은 한국 우량주 Leader2로 분리합니다.</li>
           <li>한국 ETF와 한국 개별주는 매도 규칙이 다르므로 같은 수익률표로만 판단하지 않습니다.</li>
           <li>전략 변경은 백테스트 결과가 개선될 때만 반영하고, 대시보드에는 운용 중인 대표 전략을 우선 표시합니다.</li>
@@ -3900,11 +4075,18 @@ async function main() {
   try {
     dashboard = await fetchJson("data/strategy-dashboard.json");
     koreaDashboard = await fetchOptionalJson("data/korea-strategy-dashboard.json");
+    koreaEtfValidation = await fetchOptionalJson("data/korea-etf-score-variant-test.json");
     selectionStrategyLab = await fetchOptionalJson("data/selection-strategy-lab.json");
     finalStrategyValidation = await fetchOptionalJson("data/final-strategy-validation.json");
-    scoreVariantTest = await fetchOptionalJson("data/sector-score-variant-test.json");
-    scoreCScaleTest = await fetchOptionalJson("data/scale-execution-test-score-c.json");
-    scoreCStrategyLab = await fetchOptionalJson("data/strategy-development-lab-score-c.json");
+    scoreVariantTest = await fetchOptionalJson("data/sector-score-variant-test-corrected-frozen-20260711.json")
+      ?? await fetchOptionalJson("data/sector-score-variant-test.json");
+    scoreAScaleTest = await fetchOptionalJson("data/scale-execution-test-corrected-score-a-20260711.json");
+    scoreAStrategyLab = await fetchOptionalJson("data/strategy-development-lab-corrected-score-a-20260711.json");
+    scoreCScaleTest = await fetchOptionalJson("data/scale-execution-test-corrected-score-c-20260711.json")
+      ?? await fetchOptionalJson("data/scale-execution-test-score-c.json");
+    scoreCStrategyLab = await fetchOptionalJson("data/strategy-development-lab-corrected-score-c-20260711.json")
+      ?? await fetchOptionalJson("data/strategy-development-lab-score-c.json");
+    scoreACorrectedValidation = await fetchOptionalJson("data/score-a-c-corrected-validation.json");
     document.getElementById("meta").textContent = `${dashboard.asOf} | ${officialUsStrategyName} | updated ${new Date(dashboard.generatedAt).toLocaleString()}`;
     renderSummary();
     renderLeaders();

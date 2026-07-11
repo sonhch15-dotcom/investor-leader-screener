@@ -15,9 +15,10 @@ const usBaselineStrategy = {
   name: "US Leader2 + Repeat Theme Combo Cap27.5",
   market: "US_STOCK",
   status: "active",
+  validationStage: "corrected_control",
   scoreFormulaVersion: "score_a_sector20_v1",
   sectorMapVersion: "universe_sector_snapshot_v1",
-  backtestRunId: "official-cap27.5-baseline"
+  backtestRunId: "us-score-a-c-corrected-frozen-20260711"
 };
 const usScoreCStrategy = {
   signalIdPrefix: "USC",
@@ -25,9 +26,10 @@ const usScoreCStrategy = {
   name: "US Leader2 Score C Half Sector10 Cap27.5",
   market: "US_STOCK",
   status: "candidate",
+  validationStage: "validated_candidate",
   scoreFormulaVersion: "score_c_half_sector10_normalized_v1",
   sectorMapVersion: "universe_sector_snapshot_v1",
-  backtestRunId: "score_variant_final_validation_2026-07-10"
+  backtestRunId: "us-score-a-c-corrected-frozen-20260711"
 };
 const krStockStrategy = {
   strategyKey: "kr_stock_leader2",
@@ -212,7 +214,8 @@ function strategyMetadata(strategy, dataAsOf, universeHash) {
     universeHash: universeHash ?? "",
     backtestRunId: strategy.backtestRunId ?? "",
     dataAsOf: dataAsOf ?? "",
-    strategyStatus: strategy.status ?? ""
+    strategyStatus: strategy.status ?? "",
+    validationStage: strategy.validationStage ?? ""
   };
 }
 
@@ -609,7 +612,7 @@ function latestScoreVariantRows(scoreVariantData, key, sourceRows) {
       ],
       warnings: [
         ...(source.warnings ?? []),
-        "Candidate strategy: verify before official replacement"
+        "Validated candidate: shadow-test before official replacement"
       ]
     };
   });
@@ -617,7 +620,9 @@ function latestScoreVariantRows(scoreVariantData, key, sourceRows) {
 
 async function main() {
   const us = await readJson("data/strategy-dashboard.json");
-  const scoreVariants = await readOptionalJson("data/sector-score-variant-test.json");
+  const scoreVariants = await readOptionalJson("data/sector-score-variant-test-corrected-frozen-20260711.json")
+    ?? await readOptionalJson("data/sector-score-variant-test.json");
+  const correctedUsValidation = await readOptionalJson("data/score-a-c-corrected-validation.json");
   const korea = await readJson("data/korea-strategy-dashboard.json");
   const etfFiveYear = await readOptionalJson(KR_ETF_5Y_VALIDATION_FILE);
   const etfTenYear = await readOptionalJson(KR_ETF_10Y_VALIDATION_FILE);
@@ -632,7 +637,8 @@ async function main() {
   const asOf = [us.asOf, korea.asOf, krEtfAsOf].filter(Boolean).sort().at(-1);
   const signalMonth = asOf.slice(0, 7);
   const validUntil = endOfMonth(signalMonth);
-  const usUniverseHash = await fileHash("data/universe.json");
+  const usUniverseHash = correctedUsValidation?.provenance?.universeHash
+    ?? await fileHash("data/universe.json");
   const koreaUniverseHash = await fileHash("data/korea-strategy-dashboard.json");
   const krEtfUniverseHash = await fileHash(KR_ETF_5Y_VALIDATION_FILE);
   const usSourceRows = rowsBySymbol(us.currentBuys, us.portfolio?.holdings);
@@ -694,14 +700,41 @@ async function main() {
         description: us.strategy?.summary ?? "",
         universeHash: usUniverseHash,
         dataAsOf: us.asOf,
+        validationReports: [
+          "score_a_c_corrected_validation.md",
+          "backtest_reproducibility_whitepaper.md"
+        ],
+        validation: correctedUsValidation ? {
+          grade: "Corrected Control",
+          role: "active_baseline",
+          totalReturn: correctedUsValidation.scoreA?.account?.totalReturn,
+          cagr: correctedUsValidation.scoreA?.account?.cagr,
+          maxDrawdown: correctedUsValidation.scoreA?.account?.maxDrawdown,
+          benchmarkReturn: correctedUsValidation.scoreA?.account?.benchmark?.totalReturn
+        } : null,
         riskNotice: "Past validation results do not guarantee future returns."
       },
       {
         ...catalogStrategy(usScoreCStrategy),
-        description: "Candidate variant: sector/theme score is halved in individual stock scoring while Leader2 sector selection and Cap27.5 execution remain unchanged.",
+        description: "Validated candidate: sector/theme score is halved in individual stock scoring while Leader2 sector selection and Cap27.5 execution remain unchanged.",
         universeHash: usUniverseHash,
         dataAsOf: usScoreCRows[0]?.lastDate ?? us.asOf,
-        riskNotice: "Candidate strategy. Compare with active baseline before official replacement."
+        validationReports: [
+          "score_a_c_corrected_validation.md",
+          "backtest_reproducibility_whitepaper.md"
+        ],
+        validation: correctedUsValidation ? {
+          grade: correctedUsValidation.grade,
+          role: "promotion_candidate",
+          candidatePassed: correctedUsValidation.candidatePassed,
+          totalReturn: correctedUsValidation.scoreC?.account?.totalReturn,
+          cagr: correctedUsValidation.scoreC?.account?.cagr,
+          maxDrawdown: correctedUsValidation.scoreC?.account?.maxDrawdown,
+          benchmarkReturn: correctedUsValidation.scoreC?.account?.benchmark?.totalReturn,
+          annualWins: correctedUsValidation.annualComparisons?.filter((row) => row.winner === "Score C").length,
+          annualTests: correctedUsValidation.annualComparisons?.length
+        } : null,
+        riskNotice: "Validated candidate only. The active strategy remains Score A until point-in-time universe and forward-observation gates are satisfied."
       },
       {
         ...catalogStrategy(krStockStrategy),
@@ -753,18 +786,27 @@ async function main() {
     summaries: [
       {
         strategyKey: usBaselineStrategy.strategyKey,
-        period: us.backtest?.period ?? null,
-        totalReturn: us.backtest?.totalReturn ?? null,
-        maxDrawdown: us.backtest?.maxDrawdown ?? null,
-        sourceFile: "data/strategy-dashboard.json"
+        period: correctedUsValidation
+          ? `${correctedUsValidation.period?.accountStartDate}..${correctedUsValidation.period?.accountEndDate}`
+          : us.backtest?.period ?? null,
+        totalReturn: correctedUsValidation?.scoreA?.account?.totalReturn ?? us.backtest?.totalReturn ?? null,
+        cagr: correctedUsValidation?.scoreA?.account?.cagr ?? null,
+        maxDrawdown: correctedUsValidation?.scoreA?.account?.maxDrawdown ?? us.backtest?.maxDrawdown ?? null,
+        benchmarkReturn: correctedUsValidation?.scoreA?.account?.benchmark?.totalReturn ?? null,
+        sourceFile: correctedUsValidation ? "data/score-a-c-corrected-validation.json" : "data/strategy-dashboard.json"
       },
       {
         strategyKey: usScoreCStrategy.strategyKey,
-        period: "2021-08..2026-06",
-        totalReturn: 4.9,
-        maxDrawdown: -0.065,
-        sourceFile: "score_variant_final_validation.md",
-        status: usScoreCStrategy.status
+        period: correctedUsValidation
+          ? `${correctedUsValidation.period?.accountStartDate}..${correctedUsValidation.period?.accountEndDate}`
+          : null,
+        totalReturn: correctedUsValidation?.scoreC?.account?.totalReturn ?? null,
+        cagr: correctedUsValidation?.scoreC?.account?.cagr ?? null,
+        maxDrawdown: correctedUsValidation?.scoreC?.account?.maxDrawdown ?? null,
+        benchmarkReturn: correctedUsValidation?.scoreC?.account?.benchmark?.totalReturn ?? null,
+        sourceFile: "data/score-a-c-corrected-validation.json",
+        status: usScoreCStrategy.status,
+        validationStage: usScoreCStrategy.validationStage
       },
       {
         strategyKey: krStockStrategy.strategyKey,

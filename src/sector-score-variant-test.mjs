@@ -1,5 +1,13 @@
+import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
+import {
+  buildPriceSnapshot,
+  priceMapFromSnapshot,
+  readPriceSnapshot,
+  relativeSnapshotPath,
+  writePriceSnapshot
+} from "./backtest-price-snapshot.mjs";
 import { buildUniverse } from "./universe.mjs";
 import { fetchChart, syntheticChart } from "./yahoo.mjs";
 import { scoreUniverse } from "./scoring.mjs";
@@ -11,8 +19,12 @@ const holdMonths = Number(valueAfter("--hold-months") ?? 6);
 const costBps = Number(valueAfter("--cost-bps") ?? 10);
 const liveUniverse = process.argv.includes("--live-universe");
 const universeSnapshotPath = valueAfter("--universe") ?? "data/universe.json";
-const outputJsonPath = path.join("data", "sector-score-variant-test.json");
-const outputMdPath = "sector_score_variant_test.md";
+const outputSuffix = safeSuffix(valueAfter("--output-suffix") ?? "");
+const outputJsonPath = path.join("data", `sector-score-variant-test${outputSuffix}.json`);
+const outputMdPath = `sector_score_variant_test${outputSuffix}.md`;
+const snapshotInPath = valueAfter("--snapshot-in");
+const snapshotOutPath = valueAfter("--snapshot-out")
+  ?? path.join("data", `sector-score-price-snapshot${outputSuffix}.json.gz`);
 
 const variants = [
   {
@@ -39,6 +51,12 @@ function valueAfter(flag) {
   const index = process.argv.indexOf(flag);
   if (index === -1) return null;
   return process.argv[index + 1] ?? null;
+}
+
+function safeSuffix(value) {
+  if (!value) return "";
+  const suffix = value.startsWith("-") ? value : `-${value}`;
+  return suffix.replace(/[^a-z0-9_-]/gi, "");
 }
 
 function parseDate(date) {
@@ -70,7 +88,7 @@ function firstRowAfter(rows, date) {
 }
 
 function rowOnOrAfter(rows, date) {
-  return rows.find((row) => row.date >= date && Number.isFinite(row.close)) ?? rows.at(-1) ?? null;
+  return rows.find((row) => row.date >= date && Number.isFinite(row.close)) ?? null;
 }
 
 function latestDate(priceMap) {
@@ -413,6 +431,8 @@ function markdown(result) {
   lines.push(`Period: ${result.startDate} to ${result.endDate}`);
   lines.push(`Mode: ${result.mode}`);
   lines.push(`Universe source: ${result.universeSource}`);
+  lines.push(`Universe hash: ${result.universeHash}`);
+  lines.push(`Price snapshot: ${result.priceSnapshotPath} (${result.priceSnapshotHash})`);
   lines.push("");
   lines.push("## Reproducibility Note");
   lines.push("");
@@ -421,7 +441,8 @@ function markdown(result) {
   lines.push("- Universe source: `data/universe.json` by default.");
   lines.push("- Fixed items: universe, sector classification, price collection method, Leader2 buy rule, six-month rolling hold test.");
   lines.push("- Changed item: individual stock score formula only.");
-  lines.push("- Remaining limitation: prices are still re-fetched at run time. Official promotion still needs fixed price snapshots plus Cap27.5 account-level validation.");
+  lines.push("- Price reproducibility: the archived snapshot above can be replayed without re-fetching market data.");
+  lines.push("- Remaining limitation: the universe is a current-constituent snapshot, not point-in-time historical membership. Official promotion also needs an untouched forward-observation period.");
   lines.push("");
   lines.push("## Purpose");
   lines.push("");
@@ -458,11 +479,33 @@ function markdown(result) {
 }
 
 async function main() {
-  console.log(sample ? "Running sector score variant test with sample data." : "Running sector score variant test with live data.");
+  console.log(snapshotInPath
+    ? "Running sector score variant test from a fixed price snapshot."
+    : sample ? "Running sector score variant test with sample data." : "Running sector score variant test with live data.");
   const { instruments, universeSource } = await loadInstruments();
   console.log(`Universe source: ${universeSource}`);
   console.log(`Universe size: ${instruments.length}`);
-  const { priceMap, errors } = await collectPrices(instruments);
+  let snapshot;
+  let errors = [];
+  let snapshotPath = snapshotInPath;
+  if (snapshotInPath) {
+    snapshot = await readPriceSnapshot(snapshotInPath);
+  } else {
+    const collected = await collectPrices(instruments);
+    errors = collected.errors;
+    snapshot = buildPriceSnapshot(collected.priceMap, {
+      source: sample ? "synthetic" : "yahoo-adjusted-close"
+    });
+    snapshotPath = snapshotOutPath;
+    await writePriceSnapshot(snapshotOutPath, snapshot);
+  }
+  const priceMap = priceMapFromSnapshot(snapshot);
+  const missingSymbols = instruments
+    .map((instrument) => instrument.symbol)
+    .filter((symbol) => !(priceMap.get(symbol)?.length));
+  if (missingSymbols.length) {
+    throw new Error(`Price snapshot is missing ${missingSymbols.length} universe symbols.`);
+  }
   const results = [];
   let sharedDates = null;
 
@@ -475,8 +518,12 @@ async function main() {
   const rankedResults = [...results].sort((a, b) => b.totalReturn - a.totalReturn);
   const result = {
     generatedAt: new Date().toISOString(),
-    mode: sample ? "sample" : "live",
+    mode: snapshotInPath ? "snapshot_replay" : sample ? "sample" : "live",
     universeSource,
+    universeHash: createHash("sha256").update(JSON.stringify(instruments)).digest("hex"),
+    priceSnapshotPath: relativeSnapshotPath(process.cwd(), path.resolve(snapshotPath)),
+    priceSnapshotHash: snapshot.hash,
+    priceAsOf: snapshot.asOf,
     years,
     holdMonths,
     costBps,

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Leader2 Strategy Dashboard</title>
-  <link rel="stylesheet" href="styles.css?v=20260710-score-c-tab">
+  <link rel="stylesheet" href="styles.css?v=20260711-corrected-score-ac-v2">
 </head>
 <body>
   <header class="topbar">
@@ -151,14 +151,14 @@
         <div class="section-title">
           <div>
             <h2>한국 ETF 투자</h2>
-            <p>연금/ETF 계좌는 Core Satellite 50/40/10 전략으로 월말 확정 후 다음 거래일 리밸런싱합니다.</p>
+            <p>연금/ETF 계좌는 ETF-I 전략으로 월말에 주도 또는 방어 ETF 1개를 확정하고 다음 거래일 리밸런싱합니다.</p>
           </div>
           <span id="korea-etf-start-meta">한국 ETF 전략</span>
         </div>
         <div class="planner-layout">
           <form class="planner-form" id="korea-etf-planner-form">
             <label><span>한국 ETF 계좌 원금</span><input id="korea-etf-capital" inputmode="numeric" value="10,000,000"></label>
-            <label><span>ETF 운용 전략</span><select id="korea-etf-mode"><option value="kr_etf_core_satellite_50_40_10">Core Satellite 50/40/10</option></select></label>
+            <label><span>ETF 운용 전략</span><select id="korea-etf-mode"><option value="kr_etf_benchmark_or_alpha_defensive">ETF-I 주도·방어 1개</option></select></label>
           </form>
           <div class="planner-output">
             <div class="summary-grid planner-summary" id="korea-etf-start-summary"></div>
@@ -308,7 +308,7 @@
         <div class="section-title">
           <div>
             <h2>백테스트 공통 요약</h2>
-            <p>새 전략을 추가해도 같은 형식으로 전략 성과, 기준 지표, 초과 수익, 위험 지표를 비교합니다.</p>
+            <p>현재 active인 Score A의 교정 계좌 성과와 시장가 위험 지표를 공통 형식으로 정리합니다.</p>
           </div>
           <span>공통 템플릿</span>
         </div>
@@ -319,7 +319,7 @@
         <div class="section-title">
           <div>
             <h2>전략 누적 성과 vs QQQ</h2>
-            <p>현재 운용 전략인 6개월 50% 매도 + 나머지 주봉 연장 기준으로 과거 계좌 곡선을 비교합니다.</p>
+            <p>현금 제한, 미청산 보유분과 실제 매도 lot을 반영한 Score A 계좌 곡선을 QQQ와 비교합니다.</p>
           </div>
           <span id="curve-meta"></span>
         </div>
@@ -330,7 +330,7 @@
         <div class="section-title">
           <div>
             <h2>월별 매도 결과</h2>
-            <p>50% 매도와 주봉 연장분 최종 매도를 반영한 월별 실현 수익률입니다.</p>
+            <p>완전 청산 여부와 관계없이 실제 발생한 50% 매도와 잔여 매도를 월별로 표시합니다.</p>
           </div>
           <span id="monthly-exit-meta"></span>
         </div>
@@ -399,7 +399,7 @@
         <div class="two-col">
           <div>
           <div class="section-title compact">
-            <h2>연도별 성과</h2>
+            <h2>연도별 A·C 신호 구간 비교</h2>
           </div>
           <div class="table-wrap">
             <table class="compact-table">
@@ -432,8 +432,19 @@
       <section class="panel">
         <div class="section-title">
           <div>
+            <h2>Score A·C 교정 검증 판정</h2>
+            <p>같은 고정 가격 스냅샷에서 실제 매도 가격, 미청산 보유분과 시장가 MDD를 반영한 결과입니다.</p>
+          </div>
+          <span>Candidate Gate</span>
+        </div>
+        <div id="score-a-c-verdict"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <div>
             <h2>백테스트 공통 요약</h2>
-            <p>C안 선정 방식과 Cap27.5 운용 규칙을 기존 백테스트 패널과 같은 형식으로 정리합니다.</p>
+            <p>검증을 통과한 C안과 Cap27.5 운용 규칙을 기존 백테스트 패널과 같은 형식으로 정리합니다.</p>
           </div>
           <span>공통 템플릿</span>
         </div>
@@ -443,8 +454,8 @@
       <section class="panel">
         <div class="section-title">
           <div>
-            <h2>C안 누적 성과 vs QQQ</h2>
-            <p>C안으로 월별 종목을 선정했을 때의 누적 성과를 같은 기간 QQQ와 비교합니다.</p>
+            <h2>Score C 계좌 누적 성과 vs QQQ</h2>
+            <p>현금 제한, 미청산 보유분과 실제 매도 lot을 반영한 계좌 성과를 같은 기간 QQQ와 비교합니다.</p>
           </div>
           <span id="score-c-curve-meta"></span>
         </div>
@@ -530,7 +541,7 @@
         <div class="section-title">
           <div>
             <h2>한국 투자 운용 가이드</h2>
-            <p>한국 주식은 주도 우량주, 연금/ETF는 Core Satellite 리밸런싱을 중심으로 이번 달 실행 대상을 정리합니다.</p>
+            <p>한국 주식은 주도 우량주, 연금/ETF는 ETF-I 주도·방어 전환을 중심으로 이번 달 실행 대상을 정리합니다.</p>
           </div>
           <span id="korea-invest-meta">데이터 준비중</span>
         </div>
@@ -540,8 +551,8 @@
       <section class="panel">
         <div class="section-title">
           <div>
-            <h2>ETF Core Satellite 매수 비중</h2>
-            <p>매월 말 후보를 확정하고 다음 거래일에 전체 ETF 계좌를 목표 비중으로 다시 맞춥니다.</p>
+            <h2>ETF-I 이번 달 목표</h2>
+            <p>매월 말 시장 상태와 ETF 점수를 확인하고 다음 거래일에 전체 ETF 계좌를 선정 종목 100%로 맞춥니다.</p>
           </div>
           <span id="korea-etf-meta"></span>
         </div>
@@ -715,7 +726,7 @@
         <div class="section-title">
           <div>
             <h2>전략 누적 성과 vs KOSPI200</h2>
-            <p>현재 운용 전략인 Core 50%, Satellite 40%, Defense 10% 월간 리밸런싱 계좌 곡선을 비교합니다.</p>
+            <p>현재 운용 전략인 ETF-I 주도·방어 1개 월간 리밸런싱 계좌 곡선을 KOSPI200과 비교합니다.</p>
           </div>
           <span id="korea-etf-curve-meta"></span>
         </div>
@@ -890,6 +901,6 @@
     </section>
   </main>
 
-  <script src="app.js?v=20260710-score-c-tab"></script>
+  <script src="app.js?v=20260711-corrected-score-ac-v2"></script>
 </body>
 </html>

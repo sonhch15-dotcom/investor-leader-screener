@@ -1,5 +1,14 @@
+import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { evaluateTrade, weeklyRows } from "./backtest-execution-core.mjs";
+import {
+  buildPriceSnapshot,
+  priceMapFromSnapshot,
+  readPriceSnapshot,
+  relativeSnapshotPath,
+  writePriceSnapshot
+} from "./backtest-price-snapshot.mjs";
 import { fetchChart, syntheticChart } from "./yahoo.mjs";
 import { mean, round } from "./math.mjs";
 
@@ -8,6 +17,9 @@ const sourcePath = path.join("data", valueAfter("--source") ?? "monthly-buy-rule
 const outputSuffix = safeSuffix(valueAfter("--output-suffix") ?? "");
 const outputJsonPath = path.join("data", `scale-execution-test${outputSuffix}.json`);
 const outputMdPath = `scale_execution_test${outputSuffix}.md`;
+const snapshotInPath = valueAfter("--snapshot-in");
+const snapshotOutPath = valueAfter("--snapshot-out")
+  ?? path.join("data", `scale-execution-price-snapshot${outputSuffix}.json.gz`);
 const strategyLabel = valueAfter("--strategy-label") ?? "Leader2 One Each";
 const strategyKey = valueAfter("--strategy-key");
 const fixedHoldMonths = 6;
@@ -30,94 +42,8 @@ function monthKey(date) {
   return String(date ?? "").slice(0, 7);
 }
 
-function rowOnOrAfter(rows, date) {
-  return rows.find((row) => row.date >= date && Number.isFinite(row.close)) ?? rows.at(-1) ?? null;
-}
-
-function rowOffsetOnOrAfter(rows, date, offset) {
-  const index = rows.findIndex((row) => row.date >= date && Number.isFinite(row.close));
-  if (index === -1) return null;
-  return rows[index + offset] ?? null;
-}
-
-function rowsBetween(rows, startDate, endDate) {
-  return rows.filter((row) => row.date >= startDate && row.date < endDate && Number.isFinite(row.close));
-}
-
 function timelineDate(timeline, index, months) {
-  return timeline[Math.min(timeline.length - 1, index + months)]?.entryDate ?? timeline.at(-1)?.entryDate;
-}
-
-function movingAverage(values, index, length) {
-  if (index < length - 1) return null;
-  const slice = values.slice(index - length + 1, index + 1).filter(Number.isFinite);
-  if (slice.length !== length) return null;
-  return mean(slice);
-}
-
-function rsi(values, index, length = 14) {
-  if (index < length) return null;
-  let gains = 0;
-  let losses = 0;
-  for (let i = index - length + 1; i <= index; i += 1) {
-    const change = values[i] - values[i - 1];
-    if (change > 0) gains += change;
-    else losses += Math.abs(change);
-  }
-  if (losses === 0) return 100;
-  const rs = gains / losses;
-  return 100 - 100 / (1 + rs);
-}
-
-function weekKey(dateString) {
-  const date = new Date(`${dateString}T00:00:00Z`);
-  const day = date.getUTCDay() || 7;
-  date.setUTCDate(date.getUTCDate() + 4 - day);
-  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
-  const week = Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
-  return `${date.getUTCFullYear()}-${String(week).padStart(2, "0")}`;
-}
-
-function weeklyRows(dailyRows) {
-  const groups = new Map();
-  for (const row of dailyRows) groups.set(weekKey(row.date), row);
-  const rows = Array.from(groups.values()).sort((a, b) => a.date.localeCompare(b.date));
-  const closes = rows.map((row) => row.close);
-  return rows.map((row, index) => ({
-    date: row.date,
-    close: row.close,
-    ma10: movingAverage(closes, index, 10),
-    rsi14: rsi(closes, index, 14)
-  }));
-}
-
-function weeklyOnOrBefore(rows, date) {
-  return rows.filter((row) => row.date <= date).at(-1) ?? null;
-}
-
-function consecutiveBelow10w(rows, index) {
-  return index > 0
-    && Number.isFinite(rows[index].ma10)
-    && Number.isFinite(rows[index - 1].ma10)
-    && rows[index].close < rows[index].ma10
-    && rows[index - 1].close < rows[index - 1].ma10;
-}
-
-function weeklyExtensionExit(weekly, fixedExitDate, maxExitDate) {
-  const fixedWeek = weeklyOnOrBefore(weekly, fixedExitDate);
-  const alive = fixedWeek
-    && Number.isFinite(fixedWeek.ma10)
-    && Number.isFinite(fixedWeek.rsi14)
-    && fixedWeek.close >= fixedWeek.ma10
-    && fixedWeek.rsi14 >= 50;
-  if (!alive) return { date: fixedExitDate, reason: "trend_not_alive_at_6m" };
-  const startIndex = weekly.findIndex((row) => row.date > fixedExitDate);
-  for (let index = Math.max(0, startIndex); index < weekly.length; index += 1) {
-    const row = weekly[index];
-    if (row.date > maxExitDate) break;
-    if (consecutiveBelow10w(weekly, index)) return { date: row.date, reason: "two_week_10w_break" };
-  }
-  return { date: maxExitDate, reason: "max_12m" };
+  return timeline[index + months]?.entryDate ?? null;
 }
 
 const executionRules = [
@@ -187,11 +113,11 @@ async function fetchPrices(symbols) {
 function selectedTrades(strategy) {
   const timeline = strategy.selectionTimeline ?? [];
   const trades = [];
-  for (let index = 0; index + fixedHoldMonths < timeline.length; index += 1) {
+  for (let index = 0; index < timeline.length; index += 1) {
     const cohort = timeline[index];
     const fixedExitDate = timelineDate(timeline, index, fixedHoldMonths);
     const maxExitDate = timelineDate(timeline, index, maxHoldMonths);
-    if (!cohort?.rows?.length || !cohort.entryDate || !fixedExitDate) continue;
+    if (!cohort?.rows?.length || !cohort.entryDate) continue;
     for (const row of cohort.rows) {
       trades.push({
         cohortIndex: index,
@@ -208,105 +134,6 @@ function selectedTrades(strategy) {
     }
   }
   return trades;
-}
-
-function buyLots(rule, trade, dailyRows) {
-  const cashPerLot = 1 / rule.buyOffsets.length;
-  return rule.buyOffsets.map((offset) => {
-    const row = rowOffsetOnOrAfter(dailyRows, trade.entryDate, offset);
-    if (!row?.close) return null;
-    const fee = cashPerLot * costBps / 10_000;
-    return {
-      date: row.date,
-      price: row.close,
-      cash: cashPerLot,
-      shares: (cashPerLot - fee) / row.close
-    };
-  }).filter(Boolean);
-}
-
-function fixedSellLots(rule, trade, dailyRows, totalShares) {
-  const sharePerLot = totalShares / rule.sellOffsets.length;
-  return rule.sellOffsets.map((offset) => {
-    const row = rowOffsetOnOrAfter(dailyRows, trade.fixedExitDate, offset);
-    if (!row?.close) return null;
-    return {
-      date: row.date,
-      price: row.close,
-      shares: sharePerLot,
-      reason: offset === 0 ? "fixed_6m" : `fixed_6m_plus_${offset}d`
-    };
-  }).filter(Boolean);
-}
-
-function halfWeeklySellLots(trade, dailyRows, weeklyRowsForSymbol, totalShares) {
-  const fixed = rowOffsetOnOrAfter(dailyRows, trade.fixedExitDate, 0);
-  const extended = weeklyExtensionExit(weeklyRowsForSymbol, trade.fixedExitDate, trade.maxExitDate);
-  const extendedRow = rowOnOrAfter(dailyRows, extended.date);
-  return [
-    fixed ? {
-      date: fixed.date,
-      price: fixed.close,
-      shares: totalShares * 0.5,
-      reason: "half_fixed_6m"
-    } : null,
-    extendedRow ? {
-      date: extendedRow.date,
-      price: extendedRow.close,
-      shares: totalShares * 0.5,
-      reason: `half_${extended.reason}`
-    } : null
-  ].filter(Boolean);
-}
-
-function evaluateTrade(rule, trade, dailyMap, weeklyMap) {
-  const dailyRows = dailyMap.get(trade.symbol) ?? [];
-  const weeklyRowsForSymbol = weeklyMap.get(trade.symbol) ?? [];
-  const buys = buyLots(rule, trade, dailyRows);
-  if (buys.length !== rule.buyOffsets.length) {
-    return { ...trade, rule: rule.key, label: rule.label, entered: false, reason: "missing_buy_price" };
-  }
-  const totalShares = buys.reduce((sum, lot) => sum + lot.shares, 0);
-  const sells = rule.sellMode === "half_weekly"
-    ? halfWeeklySellLots(trade, dailyRows, weeklyRowsForSymbol, totalShares)
-    : fixedSellLots(rule, trade, dailyRows, totalShares);
-  const expectedSellLots = rule.sellMode === "half_weekly" ? 2 : rule.sellOffsets.length;
-  if (sells.length !== expectedSellLots) {
-    return { ...trade, rule: rule.key, label: rule.label, entered: false, reason: "missing_sell_price" };
-  }
-
-  const grossProceeds = sells.reduce((sum, lot) => sum + lot.shares * lot.price, 0);
-  const sellFee = grossProceeds * costBps / 10_000;
-  const proceeds = grossProceeds - sellFee;
-  const netReturn = proceeds - 1;
-  const firstBuy = buys[0];
-  const lastSell = sells.at(-1);
-  const qqqRows = dailyMap.get("QQQ") ?? [];
-  const qqqEntry = rowOnOrAfter(qqqRows, firstBuy.date);
-  const qqqExit = rowOnOrAfter(qqqRows, lastSell.date);
-  const qqqReturn = qqqEntry && qqqExit && qqqEntry.close ? qqqExit.close / qqqEntry.close - 1 : null;
-  const holdDays = rowsBetween(dailyRows, firstBuy.date, lastSell.date).length;
-  const averageBuyPrice = buys.reduce((sum, lot) => sum + lot.cash, 0) / totalShares;
-  const averageSellPrice = grossProceeds / totalShares;
-  return {
-    ...trade,
-    rule: rule.key,
-    label: rule.label,
-    entered: true,
-    firstBuyDate: firstBuy.date,
-    lastBuyDate: buys.at(-1).date,
-    firstSellDate: sells[0].date,
-    lastSellDate: lastSell.date,
-    holdDays,
-    averageBuyPrice: round(averageBuyPrice, 2),
-    averageSellPrice: round(averageSellPrice, 2),
-    return: round(netReturn, 4),
-    qqqReturn: round(qqqReturn, 4),
-    excessQqq: round(Number.isFinite(qqqReturn) ? netReturn - qqqReturn : null, 4),
-    buyDates: buys.map((lot) => lot.date),
-    sellDates: sells.map((lot) => lot.date),
-    sellReasons: sells.map((lot) => lot.reason)
-  };
 }
 
 function median(values) {
@@ -326,16 +153,17 @@ function reasonCounts(rows) {
 
 function summarize(rule, rows, baselineRows) {
   const entered = rows.filter((row) => row.entered);
-  const baseline = new Map(baselineRows.filter((row) => row.entered).map((row) => [`${row.symbol}|${row.cohort}`, row]));
-  const returns = entered.map((row) => row.return).filter(Number.isFinite);
-  const qqqReturns = entered.map((row) => row.qqqReturn).filter(Number.isFinite);
-  const improvements = entered
+  const closed = entered.filter((row) => row.closed);
+  const baseline = new Map(baselineRows.filter((row) => row.closed).map((row) => [`${row.symbol}|${row.cohort}`, row]));
+  const returns = closed.map((row) => row.return).filter(Number.isFinite);
+  const qqqReturns = closed.map((row) => row.qqqReturn).filter(Number.isFinite);
+  const improvements = closed
     .map((row) => {
       const base = baseline.get(`${row.symbol}|${row.cohort}`);
       return base ? row.return - base.return : null;
     })
     .filter(Number.isFinite);
-  const robust = entered.filter((row) => Math.abs(row.return) < 3);
+  const robust = closed.filter((row) => Math.abs(row.return) < 3);
   const robustReturns = robust.map((row) => row.return).filter(Number.isFinite);
   const robustQqqReturns = robust.map((row) => row.qqqReturn).filter(Number.isFinite);
   const robustImprovements = robust
@@ -351,7 +179,9 @@ function summarize(rule, rows, baselineRows) {
     trades: rows.length,
     enteredTrades: entered.length,
     skippedTrades: rows.length - entered.length,
-    averageHoldDays: round(mean(entered.map((row) => row.holdDays)), 1),
+    closedTrades: closed.length,
+    openTrades: entered.length - closed.length,
+    averageHoldDays: round(mean(closed.map((row) => row.holdDays)), 1),
     averageReturn: round(mean(returns), 4),
     medianReturn: round(median(returns), 4),
     winRate: round(returns.filter((value) => value > 0).length / Math.max(1, returns.length), 4),
@@ -367,8 +197,8 @@ function summarize(rule, rows, baselineRows) {
       averageImprovementVsBaseline: round(mean(robustImprovements), 4)
     },
     sellReasons: reasonCounts(entered),
-    bestTrade: [...entered].sort((a, b) => b.return - a.return)[0] ?? null,
-    worstTrade: [...entered].sort((a, b) => a.return - b.return)[0] ?? null,
+    bestTrade: [...closed].sort((a, b) => b.return - a.return)[0] ?? null,
+    worstTrade: [...closed].sort((a, b) => a.return - b.return)[0] ?? null,
     recentTrades: entered.slice(-12)
   };
 }
@@ -390,15 +220,16 @@ function markdown(result) {
   lines.push(`Generated at: ${result.generatedAt}`);
   lines.push(`Source strategy: ${result.strategyLabel}`);
   lines.push(`Source file: ${result.sourcePath}`);
-  lines.push(`Completed selected trades: ${result.selectedTradeCount}`);
+  lines.push(`Selected trades: ${result.selectedTradeCount}`);
+  lines.push(`Price snapshot: ${result.priceSnapshotPath} (${result.priceSnapshotHash})`);
   lines.push(`Transaction cost: ${result.costBps} bps on each buy/sell cash flow`);
   lines.push("");
   lines.push("## Summary");
   lines.push("");
-  lines.push("| Rule | Entered | Skipped | Avg Hold Days | Avg Return | Median | Win Rate | Avg QQQ | Excess QQQ | Improvement vs Baseline |");
-  lines.push("|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|");
+  lines.push("| Rule | Entered | Closed | Open | Skipped | Avg Hold Days | Avg Return | Median | Win Rate | Avg QQQ | Excess QQQ | Improvement vs Baseline |");
+  lines.push("|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|");
   for (const row of result.summaries) {
-    lines.push(`| ${row.label} | ${row.enteredTrades} | ${row.skippedTrades} | ${formatNumber(row.averageHoldDays)} | ${formatPct(row.averageReturn)} | ${formatPct(row.medianReturn)} | ${formatPct(row.winRate)} | ${formatPct(row.averageQqqReturn)} | ${formatPct(row.averageExcessQqq)} | ${formatPct(row.averageImprovementVsBaseline)} |`);
+    lines.push(`| ${row.label} | ${row.enteredTrades} | ${row.closedTrades} | ${row.openTrades} | ${row.skippedTrades} | ${formatNumber(row.averageHoldDays)} | ${formatPct(row.averageReturn)} | ${formatPct(row.medianReturn)} | ${formatPct(row.winRate)} | ${formatPct(row.averageQqqReturn)} | ${formatPct(row.averageExcessQqq)} | ${formatPct(row.averageImprovementVsBaseline)} |`);
   }
   lines.push("");
   lines.push("## Robust Check");
@@ -442,7 +273,8 @@ function markdown(result) {
 }
 
 async function main() {
-  const source = JSON.parse(await fs.readFile(sourcePath, "utf8"));
+  const sourceBytes = await fs.readFile(sourcePath);
+  const source = JSON.parse(sourceBytes.toString("utf8"));
   const strategy = (source.rankedResults ?? source.results ?? []).find((row) => (
     strategyKey ? row.key === strategyKey : row.label === strategyLabel
   ));
@@ -451,12 +283,37 @@ async function main() {
   }
   const trades = selectedTrades(strategy);
   const symbols = Array.from(new Set([...trades.map((row) => row.symbol), "QQQ"]));
-  console.log(`Testing ${trades.length} completed trades across ${symbols.length} symbols.`);
-  const { dailyMap, weeklyMap, errors } = await fetchPrices(symbols);
+  console.log(`Testing ${trades.length} selected trades across ${symbols.length} symbols.`);
+  let snapshot;
+  let errors = [];
+  let snapshotPath = snapshotInPath;
+  if (snapshotInPath) {
+    snapshot = await readPriceSnapshot(snapshotInPath);
+  } else {
+    const fetched = await fetchPrices(symbols);
+    errors = fetched.errors;
+    const firstDate = trades.map((row) => row.entryDate).sort()[0] ?? null;
+    snapshot = buildPriceSnapshot(fetched.dailyMap, {
+      firstDate,
+      source: sample ? "synthetic" : "yahoo-adjusted-close"
+    });
+    snapshotPath = snapshotOutPath;
+    await writePriceSnapshot(snapshotOutPath, snapshot);
+  }
+  const dailyMap = priceMapFromSnapshot(snapshot);
+  const missingSymbols = symbols.filter((symbol) => !(dailyMap.get(symbol)?.length));
+  if (missingSymbols.length) {
+    throw new Error(`Price snapshot is missing symbols: ${missingSymbols.join(", ")}`);
+  }
+  const weeklyMap = new Map([...dailyMap].map(([symbol, rows]) => [symbol, weeklyRows(rows)]));
   const evaluations = executionRules.map((rule) => ({
     rule: rule.key,
     label: rule.label,
-    rows: trades.map((trade) => evaluateTrade(rule, trade, dailyMap, weeklyMap))
+    rows: trades.map((trade) => evaluateTrade(rule, trade, dailyMap, weeklyMap, {
+      costBps,
+      benchmarkSymbol: "QQQ",
+      asOfDate: snapshot.asOf
+    }))
   }));
   const baselineRows = evaluations.find((row) => row.rule === "lump_buy_lump_sell")?.rows ?? [];
   const summaries = evaluations.map((entry) => summarize(
@@ -466,12 +323,19 @@ async function main() {
   ));
   const result = {
     generatedAt: new Date().toISOString(),
-    mode: sample ? "sample" : "live",
+    mode: snapshotInPath ? "snapshot_replay" : sample ? "sample" : "live",
     sourcePath,
+    sourceHash: createHash("sha256").update(sourceBytes).digest("hex"),
+    selectionTimelineHash: createHash("sha256").update(JSON.stringify(strategy.selectionTimeline)).digest("hex"),
     strategyLabel,
     fixedHoldMonths,
     maxHoldMonths,
     costBps,
+    valuationMode: "weekly_mark_to_market",
+    incompleteTradePolicy: "right_censored",
+    priceSnapshotPath: relativeSnapshotPath(process.cwd(), path.resolve(snapshotPath)),
+    priceSnapshotHash: snapshot.hash,
+    priceAsOf: snapshot.asOf,
     selectedTradeCount: trades.length,
     symbolCount: symbols.length,
     errors,
