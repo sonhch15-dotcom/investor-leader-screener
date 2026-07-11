@@ -79,6 +79,7 @@ API 계약 문서:
 
 - `data/universe.json`: 이번 실행에서 사용한 종목 유니버스
 - `data/screener-results.json`: 점수 계산 결과와 대시보드 데이터
+- `data/score-c-live.json`: 마지막 완료 월간 금요일 기준 Score C Leader2 선택과 재현 메타데이터
 - `data/backtest-results.json`: 과거 기준일 종목 선정력 검증 결과
 - `data/monthly-selection-test.json`: 최근 3년 월간 반복 선정력 검증 결과
 - `backtest_report.md`: 백테스트 요약 리포트

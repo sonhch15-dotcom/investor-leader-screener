@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { validateStrategyTransitions } from "./strategy-transition-contract.mjs";
+import { strategyTransitionState, validateStrategyTransitions } from "./strategy-transition-contract.mjs";
 
 const A = "us_leader2_repeat_theme_combo_cap27_5";
 const C = "us_leader2_score_c_cap27_5";
@@ -38,5 +38,13 @@ assert.deepEqual(errors("2026-07", "active", "candidate"), []);
 assert.ok(errors("2026-07", "testing", "active").some((error) => error.includes("must be active")));
 assert.deepEqual(errors("2026-08", "testing", "active"), []);
 assert.ok(errors("2026-08", "active", "candidate").some((error) => error.includes("must be testing")));
+assert.deepEqual(
+  strategyTransitionState({ transition, signalMonth: "2026-07", generatedAt: "2026-08-01T00:00:00.000Z" }),
+  { effective: false, due: true, stale: true }
+);
+assert.deepEqual(
+  strategyTransitionState({ transition, signalMonth: "2026-08", generatedAt: "2026-07-31T22:00:00.000Z" }),
+  { effective: true, due: false, stale: false }
+);
 
 console.log("Strategy transition contract tests passed.");

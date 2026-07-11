@@ -3,6 +3,7 @@ import path from "node:path";
 import { buildUniverse } from "./universe.mjs";
 import { fetchChart, syntheticChart } from "./yahoo.mjs";
 import { scoreUniverse } from "./scoring.mjs";
+import { buildScoreCLiveSignal } from "./live-score-c-signal.mjs";
 import { clamp, mean, round } from "./math.mjs";
 
 const sample = process.argv.includes("--sample");
@@ -157,11 +158,14 @@ async function main() {
     excluded: results.rows.filter((row) => row.status === "excluded").length
   };
   results.currentGroupStats = buildCurrentGroupStats(results.rows);
+  const scoreCLive = buildScoreCLiveSignal({ instruments, priceMap });
 
   await ensureDir("data");
   await fs.writeFile(path.join("data", "screener-results.json"), JSON.stringify(results, null, 2), "utf8");
   await fs.writeFile(path.join("data", "universe.json"), JSON.stringify(instruments, null, 2), "utf8");
+  await fs.writeFile(path.join("data", "score-c-live.json"), `${JSON.stringify(scoreCLive, null, 2)}\n`, "utf8");
   console.log(`Wrote data/screener-results.json (${results.rows.length} rows)`);
+  console.log(`Wrote data/score-c-live.json for ${scoreCLive.signalMonth}: ${scoreCLive.currentPicks.map((row) => row.symbol).join(", ")}`);
   if (errors.length) console.log(`Completed with ${errors.length} data errors. See JSON errors field.`);
 }
 

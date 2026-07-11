@@ -29,6 +29,7 @@ async function copyDir(source, target) {
     } else if (entry.isFile()) {
       if (source.includes(`${path.sep}data`) && (
         entry.name.endsWith(".json.gz")
+        || entry.name.includes("universe-corrected-frozen")
         || entry.name.includes("corrected-sample")
         || entry.name.includes("corrected-selection-")
         || entry.name.includes("corrected-frozen-20260711-replay")
@@ -62,6 +63,7 @@ async function main() {
     "strategy_development_team.md",
     "strategy_common_template.md",
     "THREAD_SHARED_CONTEXT.md",
+    "signal_package_schema.md",
     "android_app_strategy_plan.md",
     "strategy_development_lab.md",
     "selection_strategy_lab.md",

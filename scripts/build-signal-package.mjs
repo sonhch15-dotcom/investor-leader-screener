@@ -2,11 +2,13 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fetchChart } from "../src/yahoo.mjs";
+import { strategyTransitionState } from "../src/strategy-transition-contract.mjs";
 
 const root = process.cwd();
 const args = new Set(process.argv.slice(2));
 const schemaVersion = "1.1.0";
-const generatedAt = new Date().toISOString();
+const generatedAt = process.env.SIGNAL_PACKAGE_GENERATED_AT || new Date().toISOString();
+const scoreCLivePath = process.env.SCORE_C_LIVE_PATH || "data/score-c-live.json";
 const distApiDir = path.join(root, "dist", "api");
 const appAssetApiDir = path.join(root, "investor-run-android", "app", "src", "main", "assets", "api");
 const usBaselineStrategy = {
@@ -273,6 +275,8 @@ function signalFromUs(row, index, signalMonth, validUntil, strategy, dataAsOf, u
     referenceDate,
     validFrom: validFromFor(row, referenceDate),
     validUntil,
+    selectionAsOf: row.selectionAsOf ?? null,
+    selectionSource: row.selectionSource ?? null,
     ...strategyMetadata(strategy, dataAsOf, universeHash),
     reasons: (row.reasons ?? []).map(normalizeReason).filter(Boolean),
     warnings: row.warnings ?? [],
@@ -560,7 +564,8 @@ async function buildPrices(candidates, asOf) {
 }
 
 async function readJson(filePath) {
-  return JSON.parse(await fs.readFile(path.join(root, filePath), "utf8"));
+  const resolved = path.isAbsolute(filePath) ? filePath : path.join(root, filePath);
+  return JSON.parse(await fs.readFile(resolved, "utf8"));
 }
 
 async function readOptionalJson(filePath) {
@@ -609,44 +614,9 @@ function makeFileRecords(files) {
   });
 }
 
-function rowsBySymbol(...groups) {
-  const rows = new Map();
-  for (const group of groups) {
-    for (const row of group ?? []) {
-      if (row?.symbol && !rows.has(row.symbol)) rows.set(row.symbol, row);
-    }
-  }
-  return rows;
-}
-
-function latestScoreVariantRows(scoreVariantData, key, sourceRows) {
-  const variant = scoreVariantData?.results?.find((row) => row.key === key)
-    ?? scoreVariantData?.rankedResults?.find((row) => row.key === key);
-  const selection = variant?.recentSelections?.at(-1);
-  if (!selection?.rows?.length) return [];
-  return selection.rows.map((row) => {
-    const source = sourceRows.get(row.symbol) ?? {};
-    return {
-      ...source,
-      ...row,
-      lastDate: selection.asOf ?? source.lastDate,
-      validFrom: selection.entryDate,
-      reasons: [
-        ...(source.reasons ?? []),
-        "Score C: sector/theme score halved and normalized"
-      ],
-      warnings: [
-        ...(source.warnings ?? []),
-        "Validated candidate: shadow-test before official replacement"
-      ]
-    };
-  });
-}
-
 async function main() {
   const us = await readJson("data/strategy-dashboard.json");
-  const scoreVariants = await readOptionalJson("data/sector-score-variant-test-corrected-frozen-20260711.json")
-    ?? await readOptionalJson("data/sector-score-variant-test.json");
+  const scoreCLive = await readJson(scoreCLivePath);
   const correctedUsValidation = await readOptionalJson("data/score-a-c-corrected-validation.json");
   const korea = await readJson("data/korea-strategy-dashboard.json");
   const etfFiveYear = await readOptionalJson(KR_ETF_5Y_VALIDATION_FILE);
@@ -660,17 +630,44 @@ async function main() {
   const krEtfTenYearSummary = findEtfStrategy(etfTenYear, krEtfDefinition.strategyKey);
   const krEtfAsOf = krEtf.asOf ?? etfFiveYear?.asOf ?? etfTenYear?.asOf ?? korea.asOf;
   const asOf = [us.asOf, korea.asOf, krEtfAsOf].filter(Boolean).sort().at(-1);
-  const signalMonth = asOf.slice(0, 7);
+  const signalMonth = scoreCLive.signalMonth;
+  const transitionState = strategyTransitionState({
+    transition: usScoreCTransition,
+    signalMonth,
+    generatedAt
+  });
+  const transitionEffective = transitionState.effective;
+  const scoreCLiveReady = scoreCLive.status === "normal"
+    && scoreCLive.complete === true
+    && scoreCLive.strategyKey === usScoreCStrategy.strategyKey
+    && scoreCLive.scoreFormulaVersion === usScoreCStrategy.scoreFormulaVersion
+    && Array.isArray(scoreCLive.currentPicks)
+    && scoreCLive.currentPicks.length === 2
+    && scoreCLive.currentPicks.every((row) => row.selectionSource === scoreCLive.selectionSource);
+  if (!scoreCLiveReady) throw new Error("Score C live monthly selection is incomplete.");
+  if (transitionState.stale) {
+    throw new Error(`Score C transition is due, but the latest live signal month is ${signalMonth}.`);
+  }
+  const packageBaselineStrategy = {
+    ...usBaselineStrategy,
+    status: transitionEffective ? "testing" : "active",
+    validationStage: transitionEffective ? "shadow_control" : "corrected_control"
+  };
+  const packageScoreCStrategy = {
+    ...usScoreCStrategy,
+    status: transitionEffective ? "active" : "candidate",
+    validationStage: transitionEffective ? "controlled_active" : "validated_candidate"
+  };
   const validUntil = endOfMonth(signalMonth);
   const usUniverseHash = correctedUsValidation?.provenance?.universeHash
     ?? await fileHash("data/universe.json");
   const koreaUniverseHash = await fileHash("data/korea-strategy-dashboard.json");
   const krEtfUniverseHash = await fileHash(KR_ETF_5Y_VALIDATION_FILE);
-  const usSourceRows = rowsBySymbol(us.currentBuys, us.portfolio?.holdings);
-  const usScoreCRows = latestScoreVariantRows(scoreVariants, "c_half_sector_normalized", usSourceRows);
+  const usScoreCRows = scoreCLive.currentPicks;
+  const scoreCUniverseHash = scoreCLive.universeHash || usUniverseHash;
 
-  const usSignals = (us.currentBuys ?? []).map((row, index) => signalFromUs(row, index, signalMonth, validUntil, usBaselineStrategy, us.asOf, usUniverseHash));
-  const usScoreCSignals = usScoreCRows.map((row, index) => signalFromUs(row, index, signalMonth, validUntil, usScoreCStrategy, row.lastDate ?? us.asOf, usUniverseHash));
+  const usSignals = (us.currentBuys ?? []).map((row, index) => signalFromUs(row, index, signalMonth, validUntil, packageBaselineStrategy, us.asOf, usUniverseHash));
+  const usScoreCSignals = usScoreCRows.map((row, index) => signalFromUs(row, index, signalMonth, validUntil, packageScoreCStrategy, scoreCLive.dataAsOf, scoreCUniverseHash));
   const krStockSignals = (krStock.currentPicks ?? []).map((row, index) => signalFromKrStock(row, index, signalMonth, korea.asOf, validUntil, koreaUniverseHash));
   const etfTargets = (krEtf.currentPicks ?? []).map((row) => etfTargetFromPick(row, krEtfDefinition.strategyKey));
   const etfSignal = signalFromEtf(krEtf, krEtfDefinition, signalMonth, krEtfAsOf, validUntil, krEtfUniverseHash);
@@ -722,7 +719,7 @@ async function main() {
     generatedAt,
     strategies: [
       {
-        ...catalogStrategy(usBaselineStrategy),
+        ...catalogStrategy(packageBaselineStrategy),
         description: us.strategy?.summary ?? "",
         universeHash: usUniverseHash,
         dataAsOf: us.asOf,
@@ -741,10 +738,12 @@ async function main() {
         riskNotice: "Past validation results do not guarantee future returns."
       },
       {
-        ...catalogStrategy(usScoreCStrategy),
-        description: "Validated candidate: sector/theme score is halved in individual stock scoring while Leader2 sector selection and Cap27.5 execution remain unchanged.",
-        universeHash: usUniverseHash,
-        dataAsOf: usScoreCRows[0]?.lastDate ?? us.asOf,
+        ...catalogStrategy(packageScoreCStrategy),
+        description: transitionEffective
+          ? "Official controlled-active strategy: sector/theme score is halved in individual stock scoring while Leader2 sector selection and Cap27.5 execution remain unchanged."
+          : "Validated candidate: sector/theme score is halved in individual stock scoring while Leader2 sector selection and Cap27.5 execution remain unchanged.",
+        universeHash: scoreCUniverseHash,
+        dataAsOf: scoreCLive.dataAsOf,
         validationReports: [
           "score_a_c_corrected_validation.md",
           "backtest_reproducibility_whitepaper.md"
@@ -760,7 +759,9 @@ async function main() {
           annualWins: correctedUsValidation.annualComparisons?.filter((row) => row.winner === "Score C").length,
           annualTests: correctedUsValidation.annualComparisons?.length
         } : null,
-        riskNotice: "Validated candidate only. The active strategy remains Score A until point-in-time universe and forward-observation gates are satisfied."
+        riskNotice: transitionEffective
+          ? "Controlled live operation. Existing Score A lots keep their original exit schedule."
+          : "Validated candidate only. New users wait for the 2026-08 effective signal."
       },
       {
         ...catalogStrategy(krStockStrategy),
@@ -811,7 +812,7 @@ async function main() {
     generatedAt,
     summaries: [
       {
-        strategyKey: usBaselineStrategy.strategyKey,
+        strategyKey: packageBaselineStrategy.strategyKey,
         period: correctedUsValidation
           ? `${correctedUsValidation.period?.accountStartDate}..${correctedUsValidation.period?.accountEndDate}`
           : us.backtest?.period ?? null,
@@ -822,7 +823,7 @@ async function main() {
         sourceFile: correctedUsValidation ? "data/score-a-c-corrected-validation.json" : "data/strategy-dashboard.json"
       },
       {
-        strategyKey: usScoreCStrategy.strategyKey,
+        strategyKey: packageScoreCStrategy.strategyKey,
         period: correctedUsValidation
           ? `${correctedUsValidation.period?.accountStartDate}..${correctedUsValidation.period?.accountEndDate}`
           : null,
@@ -831,8 +832,8 @@ async function main() {
         maxDrawdown: correctedUsValidation?.scoreC?.account?.maxDrawdown ?? null,
         benchmarkReturn: correctedUsValidation?.scoreC?.account?.benchmark?.totalReturn ?? null,
         sourceFile: "data/score-a-c-corrected-validation.json",
-        status: usScoreCStrategy.status,
-        validationStage: usScoreCStrategy.validationStage
+        status: packageScoreCStrategy.status,
+        validationStage: packageScoreCStrategy.validationStage
       },
       {
         strategyKey: krStockStrategy.strategyKey,
@@ -885,7 +886,8 @@ async function main() {
     "prices/latest.json": prices,
     "fx/latest.json": fx,
     "strategies/catalog.json": strategies,
-    "backtests/summary.json": summary
+    "backtests/summary.json": summary,
+    "selections/us-score-c/latest.json": scoreCLive
   };
 
   const manifest = {
@@ -893,7 +895,7 @@ async function main() {
     packageVersion: generatedAt,
     generatedAt,
     status: "normal",
-    minAppVersionCode: 58,
+    minAppVersionCode: transitionEffective ? 59 : 58,
     capabilities: [
       "strategy_status_gate",
       "signal_validity_gate",

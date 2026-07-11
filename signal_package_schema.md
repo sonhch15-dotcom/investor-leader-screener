@@ -28,6 +28,7 @@
 /api/fx/latest.json
 /api/backtests/summary.json
 /api/strategies/catalog.json
+/api/selections/us-score-c/latest.json
 ```
 
 앱은 `manifest.json`의 버전과 파일 해시를 보고 캐시 갱신 여부를 판단한다.
@@ -185,6 +186,17 @@ TrendState = alive | weakening | broken | needs_review
 - `keep_original_strategy`는 기존 lot의 `strategyKey`, 매수일, 청산 일정을 새 전략으로 변경하지 않는다는 뜻이다.
 - Android는 계좌별 `signalMonth + executionStrategyKey`를 고정하고, 같은 월에 다른 active key가 나타나면 신규 주문을 차단한다.
 - 2026-07 C 후보 신호를 나중에 소급해 active로 바꾸지 않는다. 2026-08 C 신호는 2026-07 월말 데이터로 새로 생성해야 한다.
+
+Score C live 선택 파일:
+
+- `selections/us-score-c/latest.json`은 고정 백테스트 결과가 아니라 최신 가격 자료로 계산한 월간 선택 원본이다.
+- 검증된 백테스트와 동일하게 각 달의 마지막 금요일을 선택 기준일로 사용하고, 다음 마지막 금요일 전까지 같은 기준일을 재계산하므로 실행 간 종목이 바뀌지 않는다.
+- Score C 산식은 `score_c_half_sector10_normalized_v1`이며 섹터/테마 점수를 절반 반영한 뒤 100점으로 환산한다.
+- 현재와 직전 3개 월간 기준일을 함께 계산해 그룹 Top50 가속도와 최근 3회 존재 보너스를 재현한다.
+- 고정 재현 테스트는 `data/universe-corrected-frozen-20260711.json`과 교정 가격 스냅샷을 함께 사용해 live refresh의 유니버스 변경과 분리한다.
+- 가격 유니버스 커버리지가 98% 미만이거나 기준일과 실제 가격일 차이가 3일을 넘거나 Leader2 두 종목을 만들지 못하면 `complete = false`로 처리하고 배포를 차단한다.
+- 적용 월이 됐는데 새 선택 파일의 `signalMonth`가 갱신되지 않으면 Pages 배포를 실패시켜 이전 C 후보의 소급 실행을 막는다.
+- 적용 월부터 C는 `active`, A는 `testing`, `minAppVersionCode`는 59가 된다.
 
 ## 6. 미국 주식 신호
 

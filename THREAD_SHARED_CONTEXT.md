@@ -238,8 +238,27 @@ Public API 계약:
 - 적용 월 전에는 A active/C candidate, 적용 월부터는 A testing/C active가 아니면 verifier가 Pages 배포를 차단한다.
 - Android v0.4.2가 선택적 전환 계약을 먼저 지원한 뒤, 2026-08 패키지에서 `minAppVersionCode`를 59로 올린다.
 
-남은 선행 조건:
+완료된 선행 조건:
 
-- 2026-07 월말 최신 데이터로 Score C 추천 2종목을 새로 계산하는 live 생성 경로를 검증한다.
-- Android v0.4.2의 계좌별 월간 실행 잠금과 신규 사용자 대기 정책을 배포한다.
-- 두 조건을 통과한 뒤에만 2026-08 신호에서 C를 active로 전환한다.
+- Android `v0.4.2` / versionCode 59 배포 완료
+  - private commit: `1f1a09d`
+  - Release: `https://github.com/sonhch15-dotcom/investor-run-android/releases/tag/v0.4.2`
+  - execution plan lock, 신규 사용자 대기, 기존 A migration, 중앙 실행 정책, backup/import 검증 완료
+- Public live Score C 생성 경로 구현 완료
+  - 원본: `data/score-c-live.json`
+  - API: `/api/selections/us-score-c/latest.json`
+  - 선택 기준: 마지막 완료 월간 금요일
+  - 산식: `score_c_half_sector10_normalized_v1`
+  - 현재·직전 3개 기준일로 그룹 가속도 재현
+  - 유니버스 가격 커버리지 98% 이상, 가격 지연 3일 이내, 서로 다른 주도 그룹 2종목을 강제
+  - 고정 스냅샷 재현 결과: 2026-07 C 후보 INTC/KLAC 일치
+  - 재현 입력 유니버스: `data/universe-corrected-frozen-20260711.json`
+  - 2026-08 모의 패키지: C active, A testing, minAppVersionCode 59, validFrom 2026-08-03 검증 통과
+  - 8월인데 7월 선택이 남은 모의 패키지는 fail-closed 검증 통과
+
+남은 실제 전환 조건:
+
+- 2026-07-31 미국 종가가 실제로 수집되어야 한다.
+- 그 데이터로 생성된 2026-08 Score C 추천 2종목이 품질 게이트를 통과해야 한다.
+- 성공하면 같은 Pages 실행에서 C active/A testing/minAppVersionCode 59로 자동 전환한다.
+- 실패하면 새 패키지를 배포하지 않고 기존 7월 신호는 유효기간 만료 상태로 남겨 주문을 차단한다.

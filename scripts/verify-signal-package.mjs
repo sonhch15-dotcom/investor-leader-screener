@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { validateStrategyTransitions } from "../src/strategy-transition-contract.mjs";
+import { strategyTransitionState, validateStrategyTransitions } from "../src/strategy-transition-contract.mjs";
 
 const root = process.cwd();
 const apiDir = path.join(root, "dist", "api");
@@ -14,7 +14,8 @@ const requiredFiles = [
   "prices/latest.json",
   "fx/latest.json",
   "strategies/catalog.json",
-  "backtests/summary.json"
+  "backtests/summary.json",
+  "selections/us-score-c/latest.json"
 ];
 const strategyStatuses = new Set(["active", "candidate", "testing", "paused", "retired"]);
 const markets = ["US_STOCK", "KR_STOCK", "KR_ETF"];
@@ -86,6 +87,38 @@ const transitionErrors = validateStrategyTransitions({
   catalogStrategies: catalog.strategies
 });
 if (transitionErrors.length) fail(transitionErrors.join("; "));
+
+const { json: scoreCSelection } = await readJson("selections/us-score-c/latest.json");
+const usTransition = latest.strategyTransitions?.find((row) => row.market === "US_STOCK");
+if (!usTransition) fail("US_STOCK transition is missing");
+if (scoreCSelection.status !== "normal" || scoreCSelection.complete !== true) fail("Score C live selection is incomplete");
+if (scoreCSelection.signalMonth !== latest.signalMonth) fail("Score C selection month does not match signal package");
+if (scoreCSelection.strategyKey !== usTransition.toStrategyKey) fail("Score C selection strategyKey mismatch");
+if (scoreCSelection.selectionSource !== "live_score_c_last_friday_v1") fail("Score C selection is not from the live monthly path");
+if (!Array.isArray(scoreCSelection.currentPicks) || scoreCSelection.currentPicks.length !== 2) fail("Score C must select two stocks");
+if (Number(scoreCSelection.coverageRatio ?? 0) < 0.98) fail("Score C price coverage is below 98%");
+if (Number(scoreCSelection.selectionLagDays ?? 99) > 3) fail("Score C selection data is stale");
+const expectedSymbols = scoreCSelection.currentPicks.map((row) => row.symbol).sort().join(",");
+const scoreCSignals = latest.signals.filter((row) => row.market === "US_STOCK" && row.strategyKey === usTransition.toStrategyKey);
+const actualSymbols = scoreCSignals.map((row) => row.symbol).sort().join(",");
+if (actualSymbols !== expectedSymbols) fail("Score C API symbols do not match the live selection");
+if (scoreCSignals.some((row) => row.selectionSource !== scoreCSelection.selectionSource)) fail("Score C signal provenance is missing");
+
+const transitionState = strategyTransitionState({
+  transition: usTransition,
+  signalMonth: latest.signalMonth,
+  generatedAt: manifest.generatedAt
+});
+const transitionEffective = transitionState.effective;
+if (transitionState.stale) fail("Score C transition is due but the signal package is stale");
+if (transitionEffective) {
+  if (manifest.minAppVersionCode < 59) fail("effective Score C package must require app versionCode 59");
+  if (scoreCSignals.some((row) => String(row.validFrom).slice(0, 7) !== latest.signalMonth)) {
+    fail("effective Score C signals must start in the effective signal month");
+  }
+} else if (manifest.minAppVersionCode !== 58) {
+  fail("pre-transition package must keep minAppVersionCode 58");
+}
 
 const { json: etf } = await readJson("signals/kr-etf/latest.json");
 const activeEtf = etf.signals?.find((signal) => signal.strategyStatus === "active" && signal.actionType === "rebalance");

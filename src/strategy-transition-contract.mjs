@@ -6,6 +6,17 @@ const allowedPolicies = {
   existingLotPolicy: new Set(["keep_original_strategy"])
 };
 
+export function strategyTransitionState({ transition, signalMonth, generatedAt }) {
+  const generatedMonth = String(generatedAt ?? "").slice(0, 7);
+  const effective = SIGNAL_MONTH.test(String(signalMonth ?? ""))
+    && SIGNAL_MONTH.test(String(transition?.effectiveSignalMonth ?? ""))
+    && signalMonth >= transition.effectiveSignalMonth;
+  const due = SIGNAL_MONTH.test(generatedMonth)
+    && SIGNAL_MONTH.test(String(transition?.effectiveSignalMonth ?? ""))
+    && generatedMonth >= transition.effectiveSignalMonth;
+  return { effective, due, stale: due && !effective };
+}
+
 function strategyStatus(rows, strategyKey) {
   const statuses = new Set(
     rows
@@ -64,7 +75,7 @@ export function validateStrategyTransitions({
     const marketSignals = (signals ?? []).filter((row) => row.market === transition.market);
     const fromStatus = strategyStatus(marketSignals, transition.fromStrategyKey);
     const toStatus = strategyStatus(marketSignals, transition.toStrategyKey);
-    const beforeEffectiveMonth = signalMonth < transition.effectiveSignalMonth;
+    const beforeEffectiveMonth = !strategyTransitionState({ transition, signalMonth }).effective;
     const expectedFromStatus = beforeEffectiveMonth ? "active" : "testing";
     const expectedToStatus = beforeEffectiveMonth ? "candidate" : "active";
 
