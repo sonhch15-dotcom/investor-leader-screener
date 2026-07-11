@@ -161,6 +161,10 @@ function weeklyTrendFor(row, market) {
       breakDate: null,
       confirmationRequired: true,
       exitConfirmed: false,
+      sixMonthExtensionEligible: null,
+      sixMonthExtensionReason: "metrics_unavailable",
+      postExtensionExitConfirmed: false,
+      postExtensionExitReason: null,
       metrics: {
         distanceToTrendLine: null,
         rsi14: null,
@@ -178,8 +182,16 @@ function weeklyTrendFor(row, market) {
     && Number.isFinite(previous?.ma10)
     && previous.close < previous.ma10;
   const belowTrendWeeks = belowTrend ? (previousBelowTrend ? 2 : 1) : 0;
-  const rsiExit = Number.isFinite(rsiValue) && rsiValue < 50;
-  const exitConfirmed = belowTrendWeeks >= 2 || rsiExit;
+  const rsiAvailable = Number.isFinite(rsiValue);
+  const sixMonthExtensionEligible = rsiAvailable ? !belowTrend && rsiValue >= 50 : null;
+  const sixMonthExtensionReason = !rsiAvailable
+    ? "metrics_unavailable"
+    : belowTrend
+      ? "close_below_ma10"
+      : rsiValue < 50
+        ? "rsi_below_50"
+        : "close_above_ma10_and_rsi_at_least_50";
+  const exitConfirmed = belowTrendWeeks >= 2;
   const confirmationRequired = belowTrend && !exitConfirmed;
   const weakening = !exitConfirmed && (belowTrend || distance < 0.05 || (Number.isFinite(rsiValue) && rsiValue < 55));
   return {
@@ -194,11 +206,15 @@ function weeklyTrendFor(row, market) {
     breakDate: exitConfirmed ? latest.date : null,
     confirmationRequired,
     exitConfirmed,
+    sixMonthExtensionEligible,
+    sixMonthExtensionReason,
+    postExtensionExitConfirmed: exitConfirmed,
+    postExtensionExitReason: exitConfirmed ? "two_week_ma10_break" : null,
     metrics: {
       distanceToTrendLine: round(distance, 4),
       rsi14: round(rsiValue, 1),
       belowTrendWeeks,
-      exitReason: belowTrendWeeks >= 2 ? "two_week_ma10_break" : rsiExit ? "rsi_below_50" : null
+      exitReason: belowTrendWeeks >= 2 ? "two_week_ma10_break" : null
     }
   };
 }
@@ -865,12 +881,13 @@ async function main() {
     packageVersion: generatedAt,
     generatedAt,
     status: "normal",
-    minAppVersionCode: 57,
+    minAppVersionCode: 58,
     capabilities: [
       "strategy_status_gate",
       "signal_validity_gate",
       "etf_zero_target_liquidation",
-      "weekly_exit_v2"
+      "weekly_exit_v2",
+      "six_month_extension_v1"
     ],
     markets: ["US_STOCK", "KR_STOCK", "KR_ETF"],
     files: makeFileRecords(files),

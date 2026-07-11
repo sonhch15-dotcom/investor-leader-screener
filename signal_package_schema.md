@@ -51,6 +51,11 @@ TrendState = alive | weakening | broken | needs_review
   "generatedAt": "2026-07-09T00:30:00Z",
   "baseUrl": "https://example.github.io/investor-api/api",
   "status": "normal",
+  "minAppVersionCode": 58,
+  "capabilities": [
+    "weekly_exit_v2",
+    "six_month_extension_v1"
+  ],
   "files": [
     {
       "path": "/signals/latest.json",
@@ -79,6 +84,7 @@ TrendState = alive | weakening | broken | needs_review
 앱 처리 규칙:
 
 - `schemaVersion`의 major 버전이 앱 지원 범위를 벗어나면 데이터 갱신을 중단한다.
+- `minAppVersionCode`가 설치 앱보다 높거나 `six_month_extension_v1`이 없으면 보정 신호를 적용하지 않는다.
 - `status`가 `failed`이면 주문 가이드를 비활성화한다.
 - `sha256`이 기존 캐시와 같으면 파일을 다시 파싱하지 않는다.
 
@@ -203,7 +209,9 @@ TrendState = alive | weakening | broken | needs_review
 - 이미 보유 중인 활성 lot과 중복되는 추천은 앱에서 경고한다.
 - 6개월/12개월 날짜는 앱의 lot 기록 기준으로 다시 계산한다.
 - 주봉 매도는 6개월 50% 매도 이후 잔여 lot에만 적용한다.
-- 잔여 lot은 10주선 2주 연속 이탈 또는 RSI 50 하회가 확정된 경우에만 최종 매도 검토 대상으로 만든다.
+- 6개월에는 항상 원 lot의 50%를 매도한다. 같은 주차의 종가가 10주선 이상이고 RSI14가 50 이상일 때만 잔여 50%를 연장한다.
+- 연장 자격이 없으면 6개월에 잔여 50%도 함께 정리한다.
+- 연장된 잔여 lot은 10주선 2주 연속 이탈 또는 12개월 도달 때 최종 매도 대상으로 만든다. 연장 중 RSI14 50 미만만으로는 매도하지 않는다.
 
 ## 7. 한국 주식 신호
 
@@ -306,10 +314,17 @@ TrendState = alive | weakening | broken | needs_review
       "breakDate": null,
       "confirmationRequired": false,
       "exitConfirmed": false,
+      "sixMonthExtensionEligible": true,
+      "sixMonthExtensionReason": "close_above_ma10_and_rsi_at_least_50",
+      "postExtensionExitConfirmed": false,
+      "postExtensionExitReason": null,
       "metrics": {
         "distanceToTrendLine": 0.051,
         "weeklyReturn": 0.024,
-        "drawdownFromHigh": -0.072
+        "drawdownFromHigh": -0.072,
+        "rsi14": 58.4,
+        "belowTrendWeeks": 0,
+        "exitReason": null
       }
     },
     {
@@ -324,10 +339,17 @@ TrendState = alive | weakening | broken | needs_review
       "breakDate": "2026-07-10",
       "confirmationRequired": false,
       "exitConfirmed": true,
+      "sixMonthExtensionEligible": false,
+      "sixMonthExtensionReason": "close_below_ma10",
+      "postExtensionExitConfirmed": true,
+      "postExtensionExitReason": "two_week_ma10_break",
       "metrics": {
         "distanceToTrendLine": -0.022,
         "weeklyReturn": -0.041,
-        "drawdownFromHigh": -0.118
+        "drawdownFromHigh": -0.118,
+        "rsi14": 47.2,
+        "belowTrendWeeks": 2,
+        "exitReason": "two_week_ma10_break"
       }
     }
   ]
@@ -338,8 +360,12 @@ TrendState = alive | weakening | broken | needs_review
 
 - `trendState = alive`: 보유 유지.
 - `trendState = weakening`: `운용` 화면에서 감시 배지를 표시한다.
-- `trendState = broken`: 6개월 이후 잔여 lot이 있으면 매도 ActionCard를 만든다.
-- `exitConfirmed = true`: 10주선 2주 연속 이탈 또는 RSI 50 하회가 확정됐다.
+- `sixMonthExtensionEligible = true`: 6개월 50% 매도 후 잔여 50%를 연장할 수 있다.
+- `sixMonthExtensionEligible = false`: 6개월 시점에 원 lot 전량을 정리한다.
+- `sixMonthExtensionEligible = null`: 판단 지표가 없으므로 자동 주문을 만들지 않고 검토 대상으로 둔다.
+- `postExtensionExitConfirmed = true`: 연장된 잔여 lot이 10주선을 2주 연속 하회했다.
+- `exitConfirmed`는 이전 앱 호환용 별칭이며 `postExtensionExitConfirmed`와 같은 값이어야 한다.
+- 연장 중 `RSI14 < 50`만으로는 `postExtensionExitConfirmed`를 만들지 않는다.
 - `confirmationRequired = true`: 첫 이탈 등 추가 주봉 확인이 필요하며 매도 주문 가이드는 열지 않는다.
 - `needs_review`: 데이터 이상 가능성이 있으므로 주문 가이드를 비활성화한다.
 

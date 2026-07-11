@@ -53,6 +53,7 @@ if (!String(manifest.schemaVersion ?? "").startsWith("1.")) fail("unsupported ma
 if (manifest.status !== "normal") fail(`manifest status is ${manifest.status}`);
 if (!Number.isInteger(manifest.minAppVersionCode) || manifest.minAppVersionCode < 1) fail("minAppVersionCode is missing");
 if (!Array.isArray(manifest.capabilities) || !manifest.capabilities.includes("weekly_exit_v2")) fail("capabilities are incomplete");
+if (!manifest.capabilities.includes("six_month_extension_v1")) fail("six_month_extension_v1 capability is missing");
 
 const records = new Map((manifest.files ?? []).map((record) => [String(record.path ?? "").replace(/^\//, ""), record]));
 for (const relativePath of requiredFiles) {
@@ -68,6 +69,7 @@ latest.signals.forEach(verifySignal);
 for (const market of markets) {
   const active = latest.signals.filter((signal) => signal.market === market && signal.strategyStatus === "active");
   if (!active.length) fail(`${market} has no active signal`);
+  if (new Set(active.map((signal) => signal.strategyKey)).size !== 1) fail(`${market} has multiple active strategy keys`);
 }
 
 const { json: etf } = await readJson("signals/kr-etf/latest.json");
@@ -84,8 +86,24 @@ for (const target of etf.targetWeights) {
 const { json: weekly } = await readJson("weekly-trends/latest.json");
 if (!Array.isArray(weekly.trends) || !weekly.trends.length) fail("weekly trends are empty");
 for (const trend of weekly.trends) {
+  const metrics = trend.metrics ?? {};
+  if (!(trend.sixMonthExtensionEligible === null || typeof trend.sixMonthExtensionEligible === "boolean")) {
+    fail(`${trend.symbol} has invalid sixMonthExtensionEligible`);
+  }
+  if (typeof trend.postExtensionExitConfirmed !== "boolean") fail(`${trend.symbol} is missing postExtensionExitConfirmed`);
+  if (trend.exitConfirmed !== trend.postExtensionExitConfirmed) fail(`${trend.symbol} exit compatibility fields disagree`);
   if (trend.trendState === "broken" && trend.exitConfirmed !== true) fail(`${trend.symbol} is broken without exitConfirmed`);
   if (trend.confirmationRequired === true && trend.exitConfirmed === true) fail(`${trend.symbol} cannot be pending and confirmed`);
+  if (trend.postExtensionExitConfirmed && Number(metrics.belowTrendWeeks ?? 0) < 2) {
+    fail(`${trend.symbol} exits without a two-week MA10 break`);
+  }
+  if (metrics.exitReason === "rsi_below_50" || trend.postExtensionExitReason === "rsi_below_50") {
+    fail(`${trend.symbol} cannot use RSI-only post-extension exit`);
+  }
+  if (trend.sixMonthExtensionEligible === true
+      && (!(Number(trend.close) >= Number(trend.weeklyTrendLine)) || !(Number(metrics.rsi14) >= 50))) {
+    fail(`${trend.symbol} has invalid six-month extension eligibility`);
+  }
 }
 
 const { json: prices } = await readJson("prices/latest.json");
