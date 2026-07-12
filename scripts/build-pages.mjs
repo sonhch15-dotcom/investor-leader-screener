@@ -95,6 +95,11 @@ async function main() {
     }
   }
 
+  const reportCatalog = JSON.parse(await fs.readFile(path.join(root, "data", "report-catalog.json"), "utf8"));
+  for (const report of reportCatalog.groups.flatMap((group) => group.reports)) {
+    await copyFile(path.join(root, report.source), path.join(dist, report.href));
+  }
+
   await copyFile(path.join(root, "stock_selection_system.md"), path.join(dist, "stock_selection_system.md"));
   await fs.writeFile(path.join(dist, ".nojekyll"), "", "utf8");
 

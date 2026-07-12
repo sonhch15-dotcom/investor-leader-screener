@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "strategy-id",
+  "title": "전략 이름",
+  "market": "US_STOCK",
+  "status": "research",
+  "createdAt": "YYYY-MM-DD",
+  "hypothesis": "이 전략이 기존 전략보다 나을 것으로 보는 이유",
+  "baselineStrategyKey": "baseline-key",
+  "candidateStrategyKeys": ["candidate-key"],
+  "dataContract": {
+    "source": "data vendor or frozen dataset",
+    "start": "YYYY-MM-DD",
+    "end": "YYYY-MM-DD",
+    "universe": "point-in-time universe rule",
+    "membershipMode": "point_in_time",
+    "taxonomy": "classification name and version",
+    "survivorshipBiasControlled": true
+  },
+  "capitalContract": {
+    "initialKrw": 100000000,
+    "fxRate": null,
+    "fxAsOf": "YYYY-MM-DD",
+    "fxSource": "official source URL",
+    "fractionalShares": true,
+    "transactionCostBpsPerSide": [10, 25],
+    "fxSpreadBps": [0, 25],
+    "maxPositionPct": 0.275
+  },
+  "executionContract": {
+    "signalTiming": "month_end_close",
+    "entryTiming": "next_trading_day_or_later",
+    "membershipLagTradingDays": 5,
+    "exitRule": "strategy-specific rule",
+    "delistingRule": "liquidate_on_delisting_event"
+  },
+  "robustnessChecks": [
+    "full_period",
+    "independent_start_periods",
+    "recent_period",
+    "cost_stress",
+    "execution_delay",
+    "top_winner_removal",
+    "delisting_audit"
+  ],
+  "promotionGates": {
+    "capitalCoverageMin": 0.95,
+    "maxMddDeteriorationPctPoint": 0.03,
+    "requiresIndependentPeriodWin": true,
+    "requiresForwardShadow": true
+  },
+  "commands": [],
+  "artifacts": {
+    "resultJson": "",
+    "report": "",
+    "dashboardHref": ""
+  }
+}

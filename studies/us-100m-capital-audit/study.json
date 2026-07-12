@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "us-100m-capital-audit",
+  "title": "미국 전략 1억원 실계좌형 검증",
+  "market": "US_STOCK",
+  "status": "completed",
+  "createdAt": "2026-07-12",
+  "hypothesis": "일관된 업종 분류와 자금 예약 방식을 적용하면 C의 우위와 비용 스트레스 안정성이 유지될 수 있다.",
+  "baselineStrategyKey": "us_leader2_repeat_theme_combo_cap27_5",
+  "candidateStrategyKeys": ["us_leader2_score_c_cap27_5"],
+  "dataContract": {
+    "source": "QuantConnect ETF Constituents and US Equity data",
+    "start": "2010-08-27",
+    "end": "2026-04-13",
+    "universe": "Point-in-time union of SPY and QQQ constituents",
+    "membershipMode": "point_in_time",
+    "taxonomy": "Morningstar sector plus Morningstar industry group v2",
+    "survivorshipBiasControlled": true
+  },
+  "capitalContract": {
+    "initialKrw": 100000000,
+    "fxRate": 1501.4,
+    "fxAsOf": "2026-07-10",
+    "fxSource": "https://english.mofe.go.kr/?boardCd=P0002&seq=2052",
+    "fractionalShares": true,
+    "transactionCostBpsPerSide": [10, 25],
+    "fxSpreadBps": [0, 25],
+    "maxPositionPct": 0.275
+  },
+  "executionContract": {
+    "signalTiming": "last_friday_close",
+    "entryTiming": "second_available_trading_day_after_signal",
+    "membershipLagTradingDays": 5,
+    "exitRule": "six_month_half_then_weekly_extension_to_twelve_months",
+    "delistingRule": "liquidate_on_delisting_event"
+  },
+  "robustnessChecks": ["full_period", "coherent_taxonomy", "cost_stress", "execution_delay", "capital_allocator", "top_winner_removal", "delisting_audit"],
+  "promotionGates": {
+    "capitalCoverageMin": 0.95,
+    "maxMddDeteriorationPctPoint": 0.03,
+    "requiresIndependentPeriodWin": true,
+    "requiresForwardShadow": true
+  },
+  "commands": ["QuantConnect research/quantconnect/us_100m_coherent_capital_audit.py", "node scripts/verify-us-100m-capital-audit.mjs"],
+  "artifacts": {
+    "resultJson": "data/quantconnect-us-100m-capital-audit.json",
+    "report": "dashboard/us-100m-capital-audit.html",
+    "dashboardHref": "us-100m-capital-audit.html"
+  },
+  "decision": "baseline_a_remains_active"
+}

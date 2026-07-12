@@ -9,6 +9,7 @@ let scoreCScaleTest = null;
 let scoreCStrategyLab = null;
 let scoreACorrectedValidation = null;
 let koreaEtfValidation = null;
+let reportCatalog = null;
 let showAllMonthlyExits = false;
 let showAllRealizedTrades = false;
 let showAllScoreCMonthlyExits = false;
@@ -2286,6 +2287,7 @@ function renderBacktest() {
   }
 
   const reports = [
+    { label: "미국 전략 1억원 실계좌형 검증", href: "us-100m-capital-audit.html" },
     { label: "미국 주도주 전략 5년 복기", href: "us-strategy-history.html" },
     { label: "과거 실제 구성 종목 감사", href: "point-in-time-audit.html" },
     { label: "C 전략 2010~2026 강건성 감사", href: "c-robustness-audit.html" },
@@ -3855,6 +3857,49 @@ function strategyLibraryCard(strategy) {
   `;
 }
 
+function reportLibraryHtml() {
+  const groups = reportCatalog?.groups ?? [];
+  if (!groups.length) return `
+    <section class="strategy-library-section">
+      <div class="section-title"><div><h2>연구 보고서</h2><p>보고서 목록을 불러오지 못했습니다.</p></div></div>
+    </section>
+  `;
+  return `
+    <section class="strategy-library-section report-library-section" id="research-report-library">
+      <div class="section-title">
+        <div>
+          <h2>연구 보고서</h2>
+          <p>핵심 결론부터 세부 실험까지 한곳에서 찾을 수 있습니다. 필요한 묶음만 펼쳐 보세요.</p>
+        </div>
+        <span>${reportCatalog.reportCount ?? groups.flatMap((group) => group.reports).length}개 연결</span>
+      </div>
+      <div class="report-library-groups">
+        ${groups.map((group, index) => `
+          <details class="report-library-group" ${index === 0 ? "open" : ""}>
+            <summary>
+              <div><strong>${group.label}</strong><span>${group.description ?? ""}</span></div>
+              <small>${group.reports.length}개</small>
+            </summary>
+            <div class="report-library-grid">
+              ${group.reports.map((report) => `
+                <article class="report-library-card">
+                  <div class="report-library-meta">
+                    <span class="asset-badge">${report.market ?? "공통"}</span>
+                    <span>${report.status ?? (report.href.endsWith(".html") ? "요약판" : "원문")}</span>
+                  </div>
+                  <h3>${report.title}</h3>
+                  <p>${report.summary ?? "검증 과정과 결과를 기록한 원본 보고서입니다."}</p>
+                  <a class="secondary-button" href="${report.href}" target="_blank" rel="noreferrer">보고서 열기</a>
+                </article>
+              `).join("")}
+            </div>
+          </details>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
 function strategyLibraryHtml() {
   const strategies = buildStrategyCatalog();
   return `
@@ -3870,6 +3915,7 @@ function strategyLibraryHtml() {
         ${strategies.map(strategyLibraryCard).join("")}
       </div>
     </section>
+    ${reportLibraryHtml()}
     <section class="strategy-library-section">
       <div class="section-title compact">
         <div>
@@ -3898,7 +3944,10 @@ function renderRules() {
         <h2>전략 규칙과 보관함</h2>
         <p>현재 전략을 공통 템플릿으로 관리하고, 새 전략도 같은 규격으로 추가합니다.</p>
       </div>
-      <span>공통 템플릿 v1</span>
+      <div class="rules-head-actions">
+        <span>공통 템플릿 v1</span>
+        <button class="secondary-button" data-report-jump="research-report-library" type="button">연구 보고서 ${reportCatalog?.reportCount ?? 0}개</button>
+      </div>
     </div>
     ${strategyLibraryHtml()}
     <div class="rules-grid">
@@ -4057,6 +4106,11 @@ function setupTabs() {
     });
   });
   document.addEventListener("click", (event) => {
+    const reportJump = event.target.closest("[data-report-jump]");
+    if (reportJump) {
+      document.getElementById(reportJump.dataset.reportJump)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
     const button = event.target.closest("[data-go-tab], [data-context-tab]");
     if (!button) return;
     activateTab(button.dataset.goTab || button.dataset.contextTab);
@@ -4090,6 +4144,7 @@ async function main() {
     scoreCStrategyLab = await fetchOptionalJson("data/strategy-development-lab-corrected-score-c-20260711.json")
       ?? await fetchOptionalJson("data/strategy-development-lab-score-c.json");
     scoreACorrectedValidation = await fetchOptionalJson("data/score-a-c-corrected-validation.json");
+    reportCatalog = await fetchOptionalJson("data/report-catalog.json");
     document.getElementById("meta").textContent = `${dashboard.asOf} | ${officialUsStrategyName} | updated ${new Date(dashboard.generatedAt).toLocaleString()}`;
     renderSummary();
     renderLeaders();

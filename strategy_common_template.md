@@ -167,3 +167,12 @@ MDD는 반드시 시장가 평가 계좌곡선으로 계산한다. 매수가 또
 5. 전략 보관함에 `testing` 상태로 등록한다.
 6. 오늘 카드와 백테스트 공통 요약에서 같은 포맷으로 읽히는지 확인한다.
 7. 운용하기로 결정한 뒤에만 상태를 `active`로 바꾼다.
+
+## 새 전략 자동화 경로
+
+1. `npm run study:new -- <strategy-id> "전략 이름" <market>`으로 연구 계약을 만든다.
+2. 미국 전략은 1억원을 공식 기준일 환율로 달러 환산한 계좌를 공통 자금 기준으로 사용한다.
+3. `npm run study:verify`로 시점별 유니버스, 분류 체계, 비용, 시차, 승격 관문이 명시됐는지 확인한다.
+4. 보고서를 `config/report-catalog.json`에 등록한다.
+5. `npm run build:reports`, `npm run verify:reports`, `npm run build:pages`를 통과시킨다.
+6. 자세한 순서는 `strategy_validation_pipeline.md`를 따른다.

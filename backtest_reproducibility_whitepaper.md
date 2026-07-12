@@ -348,3 +348,10 @@ Score C 승격 전 PIT 검증을 2010년 8월부터 2026년 3월까지 188개월
 - 권고: Score A active, Score C candidate 유지, 2026-08 자동 승격 보류
 - 실제 Public API·Android 상태 변경: 이 연구만으로 적용하지 않음
 - 상세 자료: `quantconnect_c_robustness_audit.md`, `data/quantconnect-c-robustness-audit.json`
+## 13. 1억원 공통 계좌 계약과 연구 자동화
+
+새 미국 전략의 자금 검증은 기본적으로 1억원을 공식 기준일 환율로 달러 환산하고 소수점 거래를 허용한다. 기본 비용은 매수·매도 각각 10bp, 스트레스는 각각 25bp와 최초 환전 25bp를 적용한다.
+
+모든 새 연구는 `config/strategy-study-template.json`으로 유니버스, 분류 체계, 시차, 자금, 비용, 청산 규칙을 먼저 고정한다. `scripts/verify-strategy-studies.mjs`가 필수 계약을 검사하고, 최종 보고서는 `config/report-catalog.json`에 등록한다. 보고서 빌더와 검증기가 실제 파일 존재와 중복 링크를 확인하므로 누락된 보고서가 있으면 Pages 빌드를 중단한다.
+
+세부 실행 순서는 `strategy_validation_pipeline.md`를 따른다.

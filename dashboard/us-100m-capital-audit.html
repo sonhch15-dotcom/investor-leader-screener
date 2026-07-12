@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="1억원을 달러로 환전해 미국 Leader2 전략을 운용했을 때의 장기 자금·비용·선정식 검증 보고서">
+  <title>1억원으로 미국 전략을 운용했다면?</title>
+  <link rel="stylesheet" href="us-strategy-history.css">
+  <link rel="stylesheet" href="point-in-time-audit.css">
+  <link rel="stylesheet" href="c-robustness-audit.css">
+  <link rel="stylesheet" href="us-100m-capital-audit.css">
+</head>
+<body class="audit-report capital-report">
+  <header class="report-header">
+    <div class="header-inner">
+      <a class="back-link" href="./#rules">대시보드로 돌아가기</a>
+      <div class="header-actions">
+        <span class="status-chip">2026-04-13 가격까지</span>
+        <button class="print-button" type="button" onclick="window.print()">인쇄</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="report-shell">
+    <section class="hero">
+      <p class="eyebrow">미국 전략 · 1억원 한정 계좌 검증</p>
+      <h1>1억원으로 시작했다면<br>얼마가 됐을까?</h1>
+      <p class="hero-lede">과거 그날의 SPY·QQQ 구성 종목만 사용하고, 1억원을 달러로 바꾼 뒤 실제 계좌처럼 현금 안에서만 샀습니다. 두 선정 방식과 세 가지 자금 배분법을 같은 조건에서 비교했습니다.</p>
+      <div class="decision-banner warning-decision">
+        <span class="decision-badge">현재 공식 전략 유지</span>
+        <p><strong>기존 섹터 흐름형이 후보 종목 힘 중심형보다 나았습니다.</strong> 다만 두 방식 모두 QQQ 완전투자에는 크게 뒤졌습니다. 후보 전략의 8월 자동 승격 근거는 더 약해졌습니다.</p>
+      </div>
+    </section>
+
+    <nav class="section-nav" aria-label="보고서 목차">
+      <a href="#result">결론</a>
+      <a href="#capital">자금 배분</a>
+      <a href="#selection">선정 방식</a>
+      <a href="#benchmark">QQQ 비교</a>
+      <a href="#risk">위험 점검</a>
+      <a href="#next">다음 검증</a>
+    </nav>
+
+    <section class="report-section" id="result">
+      <div class="section-heading">
+        <p class="section-kicker">먼저 보는 결과</p>
+        <h2>현실 비용을 넣은 램프형 계좌 결과입니다</h2>
+        <p>매수·매도 때마다 0.25%, 최초 환전 때 0.25%를 비용으로 잡은 보수적인 조건입니다.</p>
+      </div>
+      <div class="headline-grid">
+        <article class="headline-card preferred"><span>섹터 흐름형 · 기존 공식</span><strong>5억 1,175만원</strong><small>누적 +411.8% · 연평균 11.0% · 최대 하락 -29.2%</small></article>
+        <article class="headline-card"><span>종목 힘 중심형 · 후보</span><strong>4억 8,951만원</strong><small>누적 +389.5% · 연평균 10.7% · 최대 하락 -32.1%</small></article>
+        <article class="headline-card benchmark"><span>QQQ 완전투자 참고</span><strong>약 16억 1,907만원</strong><small>누적 +1,519.1% · 같은 환전·매수 비용 적용</small></article>
+      </div>
+      <div class="plain-language-note">
+        <h3>이 숫자를 한 문장으로 읽으면</h3>
+        <p>우리 전략은 원금을 약 다섯 배로 만들었지만, 같은 기간 기술주 지수를 계속 들고 있었다면 약 열여섯 배가 됐습니다. 종목 선정 후보를 바꾸는 것보다 <strong>현금을 오래 쉬게 하지 않고 시장의 큰 상승을 놓치지 않는 구조</strong>를 연구할 필요가 더 큽니다.</p>
+      </div>
+    </section>
+
+    <section class="report-section" id="capital">
+      <div class="section-heading">
+        <p class="section-kicker">01 · 돈을 어떻게 나눴나</p>
+        <h2>공격형 램프가 가장 많이 벌었고, 하락도 더 컸습니다</h2>
+        <p>세 방식 모두 빚을 쓰지 않았고 소수점 거래를 허용했습니다.</p>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>자금 배분</th><th>쉽게 설명하면</th><th>최종 자산</th><th>누적 수익</th><th>최대 하락</th><th>평균 현금</th></tr></thead>
+          <tbody>
+            <tr><td><strong>3개월 램프형</strong></td><td>첫 3개월 빠르게 채우고 이후 현재 자산에 맞춰 매수</td><td>5억 1,175만원</td><td class="positive">+411.8%</td><td>-29.2%</td><td>13.4%</td></tr>
+            <tr><td><strong>9개월 슬롯형</strong></td><td>앞으로의 월별 매수 자리를 넉넉히 예약</td><td>4억 2,466만원</td><td class="positive">+324.7%</td><td>-24.3%</td><td>28.7%</td></tr>
+            <tr><td><strong>기존 금액 환산형</strong></td><td>초기 자금 비율을 고정해 매달 같은 기준액 사용</td><td>약 3억 4,586만원</td><td class="positive">+245.9%</td><td>-20.6%</td><td>49.0%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="two-column">
+        <article class="evidence-card"><p class="mini-label">장점</p><h3>현금 부족으로 놓친 추천은 0건</h3><p>램프형은 계획된 376건 가운데 현금 부족으로 건너뛴 매수가 없었습니다. 자금 경로가 수수료 때문에 무너지는 문제는 해결됐습니다.</p></article>
+        <article class="evidence-card warning-card"><p class="mini-label">의도된 제한</p><h3>종목 한도 때문에 22건은 추가 매수하지 않음</h3><p>같은 종목이 반복 추천되어 원금의 27.5% 한도에 닿은 경우입니다. 무리해서 한 종목에 몰지 않은 결과이며, 다음 후보로 대체할지는 별도 시험이 필요합니다.</p></article>
+      </div>
+    </section>
+
+    <section class="report-section" id="selection">
+      <div class="section-heading">
+        <p class="section-kicker">02 · 어떤 종목 선정이 나았나</p>
+        <h2>일관된 업종표에서는 기존 방식이 다시 앞섰습니다</h2>
+        <p>넓은 섹터와 세부 업종을 한 열에 섞지 않고, 모든 종목에 Morningstar 섹터와 산업그룹을 같은 방식으로 적용했습니다.</p>
+      </div>
+      <div class="comparison-panel">
+        <div class="comparison-row"><span>섹터 흐름형</span><div><i style="width: 100%"></i></div><strong>+411.8%</strong></div>
+        <div class="comparison-row candidate"><span>종목 힘 중심형</span><div><i style="width: 94.6%"></i></div><strong>+389.5%</strong></div>
+      </div>
+      <div class="finding-grid">
+        <article><span>수익 차이</span><strong>기존 방식 +22.2%p</strong><p>같은 돈과 매도 규칙에서 종목 선정만 바꾼 결과입니다.</p></article>
+        <article><span>최대 하락</span><strong>-29.2% vs -32.1%</strong><p>후보 방식이 가장 힘든 순간에 약 2.9%p 더 깊게 빠졌습니다.</p></article>
+        <article><span>큰 수익 2건 제외</span><strong>+362.4% vs +342.8%</strong><p>몇 번의 대박을 빼도 기존 방식의 우위가 남았습니다.</p></article>
+      </div>
+      <aside class="caveat-box"><h3>운용 판단</h3><ul><li>기존 섹터 흐름형은 active를 유지합니다.</li><li>종목 힘 중심형은 candidate로 남깁니다.</li><li>2026년 8월 자동 전환은 public API와 Android 앱의 취소 계약을 함께 정한 뒤 멈춰야 합니다.</li><li>이미 산 기존 lot의 6개월·주봉·12개월 매도 일정은 바꾸지 않습니다.</li></ul></aside>
+    </section>
+
+    <section class="report-section" id="benchmark">
+      <div class="section-heading">
+        <p class="section-kicker">03 · 시장 기준과 비교</p>
+        <h2>QQQ와의 격차가 가장 큰 숙제입니다</h2>
+        <p>아래 길이는 최종 자산을 같은 눈금으로 표시합니다.</p>
+      </div>
+      <div class="benchmark-bars">
+        <div><span>QQQ</span><b><i style="width: 100%"></i></b><strong>16.19억원</strong></div>
+        <div><span>섹터 흐름형</span><b><i style="width: 31.6%"></i></b><strong>5.12억원</strong></div>
+        <div><span>종목 힘 중심형</span><b><i style="width: 30.2%"></i></b><strong>4.90억원</strong></div>
+      </div>
+      <p class="chart-note">QQQ는 시작부터 끝까지 거의 100% 투자한 참고 기준입니다. 우리 전략은 월별 추천과 매도 규칙 때문에 현금을 보유하므로 완전히 같은 상품은 아니지만, 투자자가 포기한 시장 수익을 확인하는 비교로는 꼭 필요합니다.</p>
+    </section>
+
+    <section class="report-section" id="risk">
+      <div class="section-heading">
+        <p class="section-kicker">04 · 불리한 상황도 확인</p>
+        <h2>비용과 상장폐지를 빼지 않았습니다</h2>
+      </div>
+      <div class="two-column">
+        <article class="evidence-card"><p class="mini-label">비용 스트레스</p><h3>기존 방식 수익 -29.3%p</h3><p>거래비용을 0.10%에서 0.25%로 높이고 환전 비용 0.25%를 더하자 누적 수익이 +441.1%에서 +411.8%로 낮아졌습니다.</p></article>
+        <article class="evidence-card"><p class="mini-label">상장폐지·인수</p><h3>선정 종목 4개 이벤트 반영</h3><p>AGN, ANDV, CA, CSRA의 상장폐지 이벤트를 감지해 당시 가격 경로 안에서 정리했습니다. 현재 살아 있는 종목만 골라 과거를 꾸미지 않았습니다.</p></article>
+      </div>
+      <div class="method-grid">
+        <article><strong>검증 기간</strong><span>2010-08-27 신호부터 2026-04-13 가격까지</span></article>
+        <article><strong>초기 환전</strong><span>1억원 ÷ 1,501.4원 = $66,604.50</span></article>
+        <article><strong>매수 시차</strong><span>신호 뒤 한 거래일을 더 기다려 체결</span></article>
+        <article><strong>구성 종목 시차</strong><span>지수 구성 정보 5거래일 지연</span></article>
+        <article><strong>매도</strong><span>6개월 50%, 나머지는 주봉 조건과 12개월 한도</span></article>
+        <article><strong>종목 한도</strong><span>같은 종목 누적 원금 27.5%</span></article>
+      </div>
+      <div class="caveat-box"><h3>숫자를 볼 때 기억할 한계</h3><ul><li>QuantConnect에서 이번 실행에 제공된 마지막 가격은 2026-04-13입니다. 7월 현재 추천을 검증한 결과가 아닙니다.</li><li>원화 결과는 시작과 끝을 같은 1,501.4원 환율로 표시했습니다. 16년 동안의 실제 환율 손익은 포함하지 않았습니다.</li><li>세금, 배당 원천징수, 증권사별 최소 수수료는 포함하지 않았습니다.</li><li>소수점 거래를 가정했으므로 정수 주식만 사는 계좌는 결과가 조금 달라집니다.</li></ul></div>
+    </section>
+
+    <section class="report-section" id="next">
+      <div class="section-heading">
+        <p class="section-kicker">05 · 다음 전략에서 먼저 시험할 것</p>
+        <h2>종목 점수보다 자산 구조를 바꿀 차례입니다</h2>
+      </div>
+      <div class="gate-list">
+        <article><span>1</span><div><strong>QQQ 코어 + Leader2 위성</strong><p>시장 상승을 놓치지 않도록 QQQ를 기본 보유하고 월별 주도주를 일부만 더하는 구조를 시험합니다.</p></div></article>
+        <article><span>2</span><div><strong>램프형과 슬롯형의 중간</strong><p>현금 10~20%를 목표로 하되 다음 달 매수 자리를 자동 예약하는 동적 배분을 시험합니다.</p></div></article>
+        <article><span>3</span><div><strong>27.5% 한도 대체 후보</strong><p>반복 추천 종목이 한도에 닿으면 현금으로 둘지, 다음 업종 리더를 살지 비교합니다.</p></div></article>
+        <article><span>4</span><div><strong>미래 관찰 구간</strong><p>새 후보는 과거 수익만으로 승격하지 않고 최소 6개월 동안 월별 신호를 고정 저장해 확인합니다.</p></div></article>
+      </div>
+      <details class="detail-panel source-panel">
+        <summary>원본 결과와 환율 출처 보기</summary>
+        <ol>
+          <li><a href="data/quantconnect-us-100m-capital-audit.json" target="_blank" rel="noreferrer">구조화된 백테스트 결과 JSON</a></li>
+          <li><a href="quantconnect_c_robustness_audit.md" target="_blank" rel="noreferrer">C 선정식 장기 강건성 원문</a></li>
+          <li><a href="https://english.mofe.go.kr/?boardCd=P0002&amp;seq=2052" target="_blank" rel="noreferrer">기획재정부 2026-07-10 원/달러 종가</a></li>
+          <li><a href="https://www.quantconnect.com/docs/v2/writing-algorithms/datasets/quantconnect/us-etf-constituents" target="_blank" rel="noreferrer">QuantConnect ETF 구성 종목 문서</a></li>
+        </ol>
+      </details>
+    </section>
+  </main>
+
+  <footer class="report-footer"><p>Investor Leader Screener · 미국 전략 1억원 실계좌형 검증</p><p>QuantConnect run · 2026-07-12</p></footer>
+</body>
+</html>

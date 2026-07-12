@@ -378,3 +378,48 @@ Public 영향:
 - Android는 현재와 같이 API의 단일 active 전략만 주문 가능하게 유지한다. Public에서 별도 승인 없이 C를 active로 바꾸지 않는다.
 - 기존 A lot의 `strategyKey`, 매수일, 6개월·주봉·12개월 일정은 그대로 보존한다.
 - 상세 자료: `quantconnect_c_robustness_audit.md`, `data/quantconnect-c-robustness-audit.json`, `research/quantconnect/us_long_horizon_audit.py`
+
+## 20. 2026-07-12 미국 전략 1억원 실계좌형 검증
+
+- Run ID: `us-100m-coherent-capital-audit-20260712-v1`
+- 초기 자금: 100,000,000원
+- 고정 환율: 2026-07-10 기획재정부 원/달러 종가 1,501.4원
+- 초기 달러: 66,604.50달러
+- 소수점 거래, 당시 SPY·QQQ 구성 종목, Morningstar 섹터·산업그룹 일관 분류를 사용했다.
+- 신호 뒤 한 거래일 추가 지연, 구성 종목 정보 5거래일 지연, 상장폐지 이벤트를 반영했다.
+- 매도 계약은 6개월 50% 매도, 잔여분 주봉 연장, 최대 12개월을 유지했다.
+
+현실 비용 스트레스의 3개월 램프형 결과:
+
+- 비용: 매수·매도 각각 25bp, 최초 환전 25bp
+- Score A: +411.75%, CAGR 11.02%, MDD -29.15%, 최종 340,850.58달러
+- Score C: +389.51%, CAGR 10.70%, MDD -32.08%, 최종 326,036.67달러
+- 같은 비용의 QQQ: +1,519.07%
+- 현금 부족 매수 누락: A 0건, C 0건
+- 27.5% 종목 한도 누락: A 22건, C 25건
+- 평균 현금 비중: A 13.44%, C 14.45%
+- 최고 수익 lot 두 개 제외: A +362.36%, C +342.75%
+- 선택 후 상장폐지 이벤트: AGN, ANDV, CA, CSRA
+
+결론:
+
+- 일관된 분류와 같은 1억원 계좌에서는 A가 수익, CAGR, MDD, 최고 2개 lot 제거 결과에서 모두 C보다 우수했다.
+- 3개월 램프형은 9개월 슬롯형보다 수익과 자금 활용은 높지만 MDD가 더 깊다. 공격형 기본 계좌는 램프형을 유지하고 슬롯형은 저위험 비교안으로 보존한다.
+- A `active`, C `candidate` 유지 권고가 강화됐다.
+- 2026-08 C 자동 승격을 그대로 실행하지 않는다.
+
+전환 취소 관련 Public·Android 공동 작업:
+
+- 현재 `strategy_transition_v1`은 예정 전환만 표현하며 안전한 취소 상태가 없다.
+- 이번 연구 커밋에서는 기존 July API를 갑자기 깨지 않기 위해 transition payload와 `minAppVersionCode`를 직접 바꾸지 않는다.
+- 8월 신호 생성 전에 public 계약에 `cancelled` 또는 `paused` 전환 상태, 계속 운용할 전략 키 A, 취소 사유를 추가해야 한다.
+- Android는 이 상태를 받으면 기존 2026-08 C 대기 상태를 해제하고 새 월 A active 신호를 실행 가능하게 해야 한다.
+- 기존 A/C lot은 매수 당시 전략 키와 청산 일정을 그대로 유지한다.
+- 취소 계약을 이해하는 Android 버전을 먼저 배포한 다음 public 전환 payload를 변경한다.
+
+상세 자료:
+
+- `dashboard/us-100m-capital-audit.html`
+- `data/quantconnect-us-100m-capital-audit.json`
+- `research/quantconnect/us_100m_coherent_capital_audit.py`
+- `strategy_validation_pipeline.md`

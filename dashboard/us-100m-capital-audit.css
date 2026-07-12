@@ -1,0 +1,91 @@
+.capital-report .warning-decision {
+  border-color: var(--gold);
+  background: var(--gold-light);
+}
+
+.headline-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.headline-card {
+  display: grid;
+  gap: 7px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.headline-card.preferred { border-top-color: var(--teal); }
+.headline-card.benchmark { border-top-color: var(--navy); }
+.headline-card span, .headline-card small { color: var(--muted); }
+.headline-card span { font-size: 13px; font-weight: 800; }
+.headline-card strong { font-size: 25px; line-height: 1.25; }
+.headline-card small { line-height: 1.5; }
+
+.comparison-panel,
+.benchmark-bars {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.comparison-row {
+  display: grid;
+  grid-template-columns: 150px 1fr 90px;
+  gap: 12px;
+  align-items: center;
+}
+
+.comparison-row > div,
+.benchmark-bars b {
+  height: 14px;
+  border-radius: 4px;
+  background: #e7edef;
+  overflow: hidden;
+}
+
+.comparison-row i,
+.benchmark-bars i {
+  display: block;
+  height: 100%;
+  background: var(--teal);
+}
+
+.comparison-row.candidate i { background: #6b7f8a; }
+.comparison-row strong { text-align: right; }
+
+.benchmark-bars > div {
+  display: grid;
+  grid-template-columns: 130px 1fr 110px;
+  gap: 12px;
+  align-items: center;
+}
+
+.benchmark-bars > div:first-child i { background: var(--navy); }
+.benchmark-bars > div:nth-child(2) i { background: var(--teal); }
+.benchmark-bars > div:nth-child(3) i { background: #6b7f8a; }
+.benchmark-bars strong { text-align: right; }
+
+.capital-report td.positive { color: var(--teal); font-weight: 800; }
+
+@media (max-width: 820px) {
+  .headline-grid { grid-template-columns: 1fr; }
+  .comparison-row,
+  .benchmark-bars > div { grid-template-columns: 1fr; gap: 6px; }
+  .comparison-row strong,
+  .benchmark-bars strong { text-align: left; }
+}
+
+@media print {
+  .report-header, .section-nav { display: none; }
+  .headline-grid { grid-template-columns: repeat(3, 1fr); }
+}

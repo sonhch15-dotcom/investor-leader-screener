@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "updatedAt": "2026-07-12",
+  "groups": [
+    {
+      "id": "core",
+      "label": "핵심 결론",
+      "description": "현재 전략을 판단할 때 먼저 읽을 보고서입니다.",
+      "reports": [
+        { "id": "us-100m-capital-audit", "title": "미국 전략 1억원 실계좌형 검증", "source": "dashboard/us-100m-capital-audit.html", "href": "us-100m-capital-audit.html", "market": "미국", "status": "최신", "summary": "환전, 비용, 자금 배분, A·C 선정식을 같은 계좌 조건으로 비교합니다." },
+        { "id": "c-robustness-audit", "title": "종목 힘 중심형 장기 강건성 감사", "source": "dashboard/c-robustness-audit.html", "href": "c-robustness-audit.html", "market": "미국", "status": "핵심", "summary": "2010년 이후 시점 구성 종목과 상장폐지를 포함해 후보 선정식의 승격 가능성을 점검합니다." },
+        { "id": "point-in-time-audit", "title": "과거 실제 구성 종목 감사", "source": "dashboard/point-in-time-audit.html", "href": "point-in-time-audit.html", "market": "미국", "status": "핵심", "summary": "당시 지수 구성 종목만 사용했는지 확인한 생존편향 감사입니다." },
+        { "id": "us-strategy-history", "title": "미국 전략 5년 복기", "source": "dashboard/us-strategy-history.html", "href": "us-strategy-history.html", "market": "미국", "status": "핵심", "summary": "좋았던 시기와 어려웠던 시기를 처음 투자하는 사람도 읽기 쉽게 정리했습니다." },
+        { "id": "point-in-time-audit-raw", "title": "과거 실제 구성 종목 감사 원문", "source": "quantconnect_point_in_time_audit.md", "market": "미국", "status": "원문" },
+        { "id": "c-robustness-audit-raw", "title": "종목 힘 중심형 장기 강건성 감사 원문", "source": "quantconnect_c_robustness_audit.md", "market": "미국", "status": "원문" },
+        { "id": "score-a-c-corrected", "title": "기본형과 균형형 선정식 교정 검증", "source": "score_a_c_corrected_validation.md", "market": "미국", "status": "결정" },
+        { "id": "final-strategy-validation", "title": "최종 운용 전략 검증", "source": "final_strategy_validation.md", "market": "미국", "status": "결정" },
+        { "id": "early-exit-reentry", "title": "6개월 전 조기 매도·재진입 검증", "source": "early_exit_reentry_test.md", "market": "미국", "status": "결정" }
+      ]
+    },
+    {
+      "id": "selection",
+      "label": "종목 선정 연구",
+      "description": "점수, 섹터, 업종, 후보 수를 바꿔 본 실험 기록입니다.",
+      "reports": [
+        { "id": "monthly-selection-report", "title": "월별 종목 선정 결과", "source": "monthly_selection_report.md", "market": "미국" },
+        { "id": "monthly-selection-plan", "title": "월별 선정력 검증 계획", "source": "monthly_selection_test_plan.md", "market": "미국" },
+        { "id": "winner-loser-analysis", "title": "성과가 좋았던 종목의 공통점", "source": "winner_loser_analysis.md", "market": "미국" },
+        { "id": "group-leadership", "title": "주도 업종 선정 검증", "source": "group_leadership_test.md", "market": "미국" },
+        { "id": "full-universe-groups", "title": "전체 유니버스 업종 검증", "source": "full_universe_group_test.md", "market": "미국" },
+        { "id": "sector-diversification", "title": "섹터 분산 검증", "source": "sector_diversification_test.md", "market": "미국" },
+        { "id": "full-candidate-diversification", "title": "전체 후보 분산 검증", "source": "full_candidate_diversification_test.md", "market": "미국" },
+        { "id": "sector-score-variants", "title": "섹터 점수 A·B·C 실험", "source": "sector_score_variant_test.md", "market": "미국" },
+        { "id": "sector-score-frozen", "title": "고정 데이터 섹터 점수 재현", "source": "sector_score_variant_test-corrected-frozen-20260711.md", "market": "미국" },
+        { "id": "score-variant-final", "title": "점수 변형 최종 비교", "source": "score_variant_final_validation.md", "market": "미국" },
+        { "id": "selection-strategy-lab", "title": "종목 선정 전략 연구실", "source": "selection_strategy_lab.md", "market": "미국" },
+        { "id": "us-candidate-study", "title": "미국 후보 전략 추가 연구", "source": "us_backtest_candidate_study.md", "market": "미국" }
+      ]
+    },
+    {
+      "id": "execution",
+      "label": "매수·매도·자금 연구",
+      "description": "보유기간, 진입, 청산, 포지션 크기와 실제 자금 제약을 검증합니다.",
+      "reports": [
+        { "id": "backtest-report", "title": "기본 백테스트 보고서", "source": "backtest_report.md", "market": "미국" },
+        { "id": "daily-entry", "title": "일봉 진입 필터 검증", "source": "daily_entry_filter_test.md", "market": "미국" },
+        { "id": "weekly-exit", "title": "주봉 매도 규칙 검증", "source": "weekly_exit_rule_test.md", "market": "미국" },
+        { "id": "weekly-dropout", "title": "주간 주도주 탈락 대응 검증", "source": "weekly_dropout_rule_test.md", "market": "미국" },
+        { "id": "holding-period", "title": "보유기간 검증", "source": "holding_period_test.md", "market": "미국" },
+        { "id": "stop-rule", "title": "손절 규칙 검증", "source": "stop_rule_test.md", "market": "미국" },
+        { "id": "position-cap", "title": "종목별 비중 한도 검증", "source": "position_cap_test.md", "market": "미국" },
+        { "id": "sleeve-size", "title": "투자 묶음 크기 검증", "source": "sleeve_size_test.md", "market": "미국" },
+        { "id": "portfolio-simulation", "title": "포트폴리오 운용 시뮬레이션", "source": "portfolio_simulation_test.md", "market": "미국" },
+        { "id": "monthly-buy", "title": "월별 매수 규칙 검증", "source": "monthly_buy_rule_test.md", "market": "미국" },
+        { "id": "monthly-buy-5y", "title": "월별 매수 규칙 5년 검증", "source": "monthly_buy_rule_test-5y.md", "market": "미국" },
+        { "id": "scale-execution", "title": "분할 매수·매도 검증", "source": "scale_execution_test.md", "market": "미국" },
+        { "id": "capital-account", "title": "1천만원 자금 제약 계좌 검증", "source": "capital_account_simulation.md", "market": "미국" },
+        { "id": "strategy-development-lab", "title": "전략 개발 후보 비교", "source": "strategy_development_lab.md", "market": "미국" }
+      ]
+    },
+    {
+      "id": "experiments",
+      "label": "선정식별 상세 실험",
+      "description": "기존 결과를 재현하거나 후보 선정식을 나란히 비교한 원본 보고서입니다.",
+      "reports": [
+        { "id": "scale-conviction", "title": "확신도 분산형 체결 검증", "source": "scale_execution_test-conviction.md", "market": "미국" },
+        { "id": "scale-score-a", "title": "기본형 점수 체결 검증", "source": "scale_execution_test-score-a.md", "market": "미국" },
+        { "id": "scale-score-b", "title": "무섹터형 점수 체결 검증", "source": "scale_execution_test-score-b.md", "market": "미국" },
+        { "id": "scale-score-c", "title": "균형형 점수 체결 검증", "source": "scale_execution_test-score-c.md", "market": "미국" },
+        { "id": "scale-corrected-a", "title": "교정 기본형 체결 재현", "source": "scale_execution_test-corrected-score-a-20260711.md", "market": "미국" },
+        { "id": "scale-corrected-c", "title": "교정 균형형 체결 재현", "source": "scale_execution_test-corrected-score-c-20260711.md", "market": "미국" },
+        { "id": "lab-conviction", "title": "확신도 분산형 계좌 실험", "source": "strategy_development_lab-conviction.md", "market": "미국" },
+        { "id": "lab-score-a", "title": "기본형 점수 계좌 실험", "source": "strategy_development_lab-score-a.md", "market": "미국" },
+        { "id": "lab-score-b", "title": "무섹터형 점수 계좌 실험", "source": "strategy_development_lab-score-b.md", "market": "미국" },
+        { "id": "lab-score-c", "title": "균형형 점수 계좌 실험", "source": "strategy_development_lab-score-c.md", "market": "미국" },
+        { "id": "lab-corrected-a", "title": "교정 기본형 계좌 재현", "source": "strategy_development_lab-corrected-score-a-20260711.md", "market": "미국" },
+        { "id": "lab-corrected-c", "title": "교정 균형형 계좌 재현", "source": "strategy_development_lab-corrected-score-c-20260711.md", "market": "미국" }
+      ]
+    },
+    {
+      "id": "korea",
+      "label": "한국 주식·ETF",
+      "description": "한국 우량주와 연금용 ETF 전략의 검증 기록입니다.",
+      "reports": [
+        { "id": "korea-strategy", "title": "한국 전략 백테스트", "source": "korea_strategy_backtest.md", "market": "한국" },
+        { "id": "korea-stock-score", "title": "한국 우량주 점수 검증", "source": "korea_stock_score_variant_test.md", "market": "한국" },
+        { "id": "korea-etf-score", "title": "한국 ETF 점수 검증", "source": "korea_etf_score_variant_test.md", "market": "한국 ETF" },
+        { "id": "korea-etf-10y", "title": "한국 ETF 10년 검증", "source": "korea_etf_10y_validation.md", "market": "한국 ETF" }
+      ]
+    },
+    {
+      "id": "method",
+      "label": "방법론·운영 문서",
+      "description": "재현 가능한 백테스트와 다음 전략 개발에 쓰는 기준 문서입니다.",
+      "reports": [
+        { "id": "reproducibility-whitepaper", "title": "백테스트 재현성 백서", "source": "backtest_reproducibility_whitepaper.md", "market": "공통", "status": "필수" },
+        { "id": "strategy-pipeline", "title": "전략 검증 자동화 절차", "source": "strategy_validation_pipeline.md", "market": "공통", "status": "신규" },
+        { "id": "strategy-template", "title": "전략 공통 템플릿", "source": "strategy_common_template.md", "market": "공통" },
+        { "id": "strategy-team", "title": "전략 개발 팀 운영 규칙", "source": "strategy_development_team.md", "market": "공통" },
+        { "id": "stock-selection-system", "title": "종목 선정 시스템 설계", "source": "stock_selection_system.md", "market": "공통" },
+        { "id": "strategy-summary", "title": "전략 전체 요약", "source": "strategy_summary.md", "market": "공통" },
+        { "id": "strategy-rule-test", "title": "전략 규칙 검증", "source": "strategy_rule_test.md", "market": "공통" },
+        { "id": "chart-review", "title": "차트 검토 기록", "source": "chart_review.md", "market": "공통" },
+        { "id": "signal-schema", "title": "앱 신호 패키지 계약", "source": "signal_package_schema.md", "market": "공통" }
+      ]
+    }
+  ]
+}

@@ -63,8 +63,19 @@ jobs:
       - name: Verify Score C long robustness audit
         run: node scripts/verify-c-robustness-audit.mjs
 
+      - name: Verify US 100M KRW capital audit
+        run: node scripts/verify-us-100m-capital-audit.mjs
+
+      - name: Build and verify report catalog
+        run: |
+          node scripts/build-report-catalog.mjs
+          node scripts/verify-report-catalog.mjs
+
       - name: Build static site
         run: node scripts/build-pages.mjs
+
+      - name: Verify deployed report files
+        run: node scripts/verify-report-catalog.mjs --dist
 
       - name: Build Android signal API
         run: node scripts/build-signal-package.mjs

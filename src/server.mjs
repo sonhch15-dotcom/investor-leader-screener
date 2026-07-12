@@ -24,7 +24,12 @@ function resolvePath(urlPath) {
     "/us-strategy-history.js",
     "/point-in-time-audit.html",
     "/point-in-time-audit.css",
-    "/point-in-time-audit.js"
+    "/point-in-time-audit.js",
+    "/c-robustness-audit.html",
+    "/c-robustness-audit.css",
+    "/c-robustness-audit.js",
+    "/us-100m-capital-audit.html",
+    "/us-100m-capital-audit.css"
   ].includes(urlPath)) return path.join(ROOT, "dashboard", urlPath.slice(1));
   const normalized = path.normalize(urlPath).replace(/^(\.\.[/\\])+/, "");
   return path.join(ROOT, normalized);

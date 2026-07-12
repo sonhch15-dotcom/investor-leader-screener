@@ -45,9 +45,14 @@
     "verify:us-history": "node scripts/verify-us-strategy-history-report.mjs",
     "verify:point-in-time": "node scripts/verify-point-in-time-audit.mjs",
     "verify:c-robustness": "node scripts/verify-c-robustness-audit.mjs",
+    "verify:us-100m": "node scripts/verify-us-100m-capital-audit.mjs",
+    "build:reports": "node scripts/build-report-catalog.mjs",
+    "verify:reports": "node scripts/verify-report-catalog.mjs",
+    "study:new": "node scripts/scaffold-strategy-study.mjs",
+    "study:verify": "node scripts/verify-strategy-studies.mjs",
     "build:app-assets": "node scripts/build-signal-package.mjs --app-assets",
     "build:us-history": "node src/us-strategy-history-report.mjs",
-    "build:pages": "node src/us-strategy-history-report.mjs && node scripts/build-pages.mjs",
+    "build:pages": "node scripts/build-report-catalog.mjs && node src/us-strategy-history-report.mjs && node scripts/build-pages.mjs",
     "serve": "node src/server.mjs",
     "check": "node --check src/refresh.mjs && node --check src/server.mjs"
   }
