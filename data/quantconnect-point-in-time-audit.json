@@ -1,0 +1,1648 @@
+{
+  "generatedAt": "2026-07-12T04:47:14.516Z",
+  "provider": "QuantConnect Free / LEAN master v17914",
+  "project": {
+    "id": 34043103,
+    "smokeBacktest": "Crying Fluorescent Pink Horse",
+    "pitBacktest": "Energetic Yellow Owl",
+    "fixedBacktest": "Well Dressed Red Orange Rhinoceros"
+  },
+  "period": {
+    "start": "2021-08-27",
+    "lastSignal": "2026-03-27",
+    "lastPriceDate": "2026-04-13",
+    "requestedEnd": "2026-07-10",
+    "signalMonths": 56
+  },
+  "smoke": {
+    "spyConstituents": {
+      "date": "2023-09-01",
+      "count": 503
+    },
+    "qqqConstituents": {
+      "date": "2023-09-01",
+      "count": 100
+    },
+    "delistedPrice": {
+      "symbol": "ATVI",
+      "date": "2023-09-01",
+      "close": 92.04,
+      "sectorCode": 308
+    },
+    "delistingEvents": [
+      {
+        "date": "2023-10-13",
+        "type": "Warning",
+        "price": 94.42
+      },
+      {
+        "date": "2023-10-14",
+        "type": "Delisted",
+        "price": 94.42
+      }
+    ]
+  },
+  "contract": {
+    "classification": "LEGACY_COMPAT: frozen 2026 sector map for mapped current names; point-in-time Morningstar fallback for historical-only names",
+    "execution": "Cap27.5, 10 bps each side, six-month 50% sale, remaining half extends only when weekly close >= MA10 and RSI14 >= 50, then exits on two weekly closes below MA10 or 12 months",
+    "universePit": "monthly point-in-time union of SPY and QQQ constituents",
+    "universeFixed": "517 frozen current stock symbols applied to all history"
+  },
+  "pit": {
+    "meta": {
+      "mode": "PIT",
+      "class": "LEGACY_COMPAT",
+      "signals": 56,
+      "ever": 667,
+      "current": 518,
+      "last_data": "2026-04-13",
+      "delist_selected": 1
+    },
+    "summaries": [
+      {
+        "variant": "A",
+        "ret": 1.5685,
+        "cagr": 0.2264,
+        "mdd": -0.2477,
+        "qqq": 0.6695,
+        "buys": "109/112",
+        "skip": 3,
+        "cash": 5809272,
+        "equity": 25684938,
+        "open": 15,
+        "cost": 163871
+      },
+      {
+        "variant": "C",
+        "ret": 1.8778,
+        "cagr": 0.257,
+        "mdd": -0.254,
+        "qqq": 0.6695,
+        "buys": "108/112",
+        "skip": 4,
+        "cash": 8056328,
+        "equity": 28778091,
+        "open": 15,
+        "cost": 168711
+      }
+    ],
+    "yearly": [
+      {
+        "variant": "A",
+        "returns": {
+          "2021": 0.002,
+          "2022": -0.036,
+          "2023": 0.036,
+          "2024": 0.274,
+          "2025": 0.411,
+          "2026": 0.427
+        }
+      },
+      {
+        "variant": "C",
+        "returns": {
+          "2021": -0.002,
+          "2022": -0.002,
+          "2023": 0.106,
+          "2024": 0.304,
+          "2025": 0.402,
+          "2026": 0.429
+        }
+      }
+    ],
+    "signals": [
+      {
+        "month": "2021-08",
+        "universe": 526,
+        "a": [
+          "IT",
+          "SNPS"
+        ],
+        "c": [
+          "IT",
+          "SNPS"
+        ]
+      },
+      {
+        "month": "2021-09",
+        "universe": 525,
+        "a": [
+          "CRM",
+          "TMO"
+        ],
+        "c": [
+          "TMO",
+          "COG"
+        ]
+      },
+      {
+        "month": "2021-10",
+        "universe": 525,
+        "a": [
+          "APA",
+          "MRO"
+        ],
+        "c": [
+          "APA",
+          "MRO"
+        ]
+      },
+      {
+        "month": "2021-11",
+        "universe": 526,
+        "a": [
+          "HD",
+          "ETSY"
+        ],
+        "c": [
+          "ETSY",
+          "QCOM"
+        ]
+      },
+      {
+        "month": "2021-12",
+        "universe": 528,
+        "a": [
+          "PLD",
+          "PFE"
+        ],
+        "c": [
+          "PLD",
+          "KLAC"
+        ]
+      },
+      {
+        "month": "2022-01",
+        "universe": 527,
+        "a": [
+          "HAL",
+          "MRO"
+        ],
+        "c": [
+          "HAL",
+          "MRO"
+        ]
+      },
+      {
+        "month": "2022-02",
+        "universe": 528,
+        "a": [
+          "PXD",
+          "CVX"
+        ],
+        "c": [
+          "PXD",
+          "CVX"
+        ]
+      },
+      {
+        "month": "2022-03",
+        "universe": 526,
+        "a": [
+          "OXY",
+          "CTRA"
+        ],
+        "c": [
+          "OXY",
+          "CTRA"
+        ]
+      },
+      {
+        "month": "2022-04",
+        "universe": 526,
+        "a": [
+          "VLO",
+          "HSY"
+        ],
+        "c": [
+          "VLO",
+          "HSY"
+        ]
+      },
+      {
+        "month": "2022-05",
+        "universe": 527,
+        "a": [
+          "CTRA",
+          "DVN"
+        ],
+        "c": [
+          "CTRA",
+          "DVN"
+        ]
+      },
+      {
+        "month": "2022-06",
+        "universe": 524,
+        "a": [
+          "K",
+          "HSY"
+        ],
+        "c": [
+          "K",
+          "HSY"
+        ]
+      },
+      {
+        "month": "2022-07",
+        "universe": 524,
+        "a": [
+          "ENPH",
+          "NOC"
+        ],
+        "c": [
+          "ENPH",
+          "NOC"
+        ]
+      },
+      {
+        "month": "2022-08",
+        "universe": 523,
+        "a": [
+          "OXY",
+          "HES"
+        ],
+        "c": [
+          "OXY",
+          "HES"
+        ]
+      },
+      {
+        "month": "2022-09",
+        "universe": 524,
+        "a": [
+          "REGN",
+          "LW"
+        ],
+        "c": [
+          "REGN",
+          "LW"
+        ]
+      },
+      {
+        "month": "2022-10",
+        "universe": 525,
+        "a": [
+          "SLB",
+          "HES"
+        ],
+        "c": [
+          "SLB",
+          "HES"
+        ]
+      },
+      {
+        "month": "2022-11",
+        "universe": 522,
+        "a": [
+          "URI",
+          "ENPH"
+        ],
+        "c": [
+          "URI",
+          "ENPH"
+        ]
+      },
+      {
+        "month": "2022-12",
+        "universe": 521,
+        "a": [
+          "CAT",
+          "SLB"
+        ],
+        "c": [
+          "CAT",
+          "SLB"
+        ]
+      },
+      {
+        "month": "2023-01",
+        "universe": 521,
+        "a": [
+          "FCX",
+          "LVS"
+        ],
+        "c": [
+          "LVS",
+          "FCX"
+        ]
+      },
+      {
+        "month": "2023-02",
+        "universe": 522,
+        "a": [
+          "ACGL",
+          "PH"
+        ],
+        "c": [
+          "PH",
+          "WYNN"
+        ]
+      },
+      {
+        "month": "2023-03",
+        "universe": 520,
+        "a": [
+          "ANET",
+          "NVDA"
+        ],
+        "c": [
+          "NVDA",
+          "META"
+        ]
+      },
+      {
+        "month": "2023-04",
+        "universe": 522,
+        "a": [
+          "KMB",
+          "XRAY"
+        ],
+        "c": [
+          "HCA",
+          "KMB"
+        ]
+      },
+      {
+        "month": "2023-05",
+        "universe": 523,
+        "a": [
+          "NVDA",
+          "GOOGL"
+        ],
+        "c": [
+          "SNPS",
+          "NVDA"
+        ]
+      },
+      {
+        "month": "2023-06",
+        "universe": 520,
+        "a": [
+          "CCL",
+          "GE"
+        ],
+        "c": [
+          "CCL",
+          "GE"
+        ]
+      },
+      {
+        "month": "2023-07",
+        "universe": 522,
+        "a": [
+          "META",
+          "NVDA"
+        ],
+        "c": [
+          "META",
+          "AVGO"
+        ]
+      },
+      {
+        "month": "2023-08",
+        "universe": 522,
+        "a": [
+          "MPC",
+          "PXD"
+        ],
+        "c": [
+          "MPC",
+          "PXD"
+        ]
+      },
+      {
+        "month": "2023-09",
+        "universe": 520,
+        "a": [
+          "XOM",
+          "MRO"
+        ],
+        "c": [
+          "XOM",
+          "MRO"
+        ]
+      },
+      {
+        "month": "2023-10",
+        "universe": 519,
+        "a": [
+          "PXD",
+          "STX"
+        ],
+        "c": [
+          "PXD",
+          "STX"
+        ]
+      },
+      {
+        "month": "2023-11",
+        "universe": 519,
+        "a": [
+          "IT",
+          "KLAC"
+        ],
+        "c": [
+          "META",
+          "KLAC"
+        ]
+      },
+      {
+        "month": "2023-12",
+        "universe": 519,
+        "a": [
+          "TEAM",
+          "ZION"
+        ],
+        "c": [
+          "AMD",
+          "ZION"
+        ]
+      },
+      {
+        "month": "2024-01",
+        "universe": 519,
+        "a": [
+          "BK",
+          "WDC"
+        ],
+        "c": [
+          "WDC",
+          "BK"
+        ]
+      },
+      {
+        "month": "2024-02",
+        "universe": 519,
+        "a": [
+          "UBER",
+          "VTRS"
+        ],
+        "c": [
+          "UBER",
+          "VTRS"
+        ]
+      },
+      {
+        "month": "2024-03",
+        "universe": 518,
+        "a": [
+          "ALL",
+          "WDC"
+        ],
+        "c": [
+          "ALL",
+          "WDC"
+        ]
+      },
+      {
+        "month": "2024-04",
+        "universe": 517,
+        "a": [
+          "WAB",
+          "WDC"
+        ],
+        "c": [
+          "WAB",
+          "WDC"
+        ]
+      },
+      {
+        "month": "2024-05",
+        "universe": 517,
+        "a": [
+          "NEE",
+          "NVDA"
+        ],
+        "c": [
+          "NEE",
+          "NVDA"
+        ]
+      },
+      {
+        "month": "2024-06",
+        "universe": 518,
+        "a": [
+          "GLW",
+          "KLAC"
+        ],
+        "c": [
+          "GLW",
+          "KLAC"
+        ]
+      },
+      {
+        "month": "2024-07",
+        "universe": 518,
+        "a": [
+          "CFG",
+          "CBRE"
+        ],
+        "c": [
+          "CFG",
+          "CBRE"
+        ]
+      },
+      {
+        "month": "2024-08",
+        "universe": 519,
+        "a": [
+          "VTR",
+          "AFL"
+        ],
+        "c": [
+          "VTR",
+          "AFL"
+        ]
+      },
+      {
+        "month": "2024-09",
+        "universe": 519,
+        "a": [
+          "NRG",
+          "CHRW"
+        ],
+        "c": [
+          "NRG",
+          "CHRW"
+        ]
+      },
+      {
+        "month": "2024-10",
+        "universe": 518,
+        "a": [
+          "RJF",
+          "CBRE"
+        ],
+        "c": [
+          "RJF",
+          "TTD"
+        ]
+      },
+      {
+        "month": "2024-11",
+        "universe": 519,
+        "a": [
+          "KKR",
+          "LYV"
+        ],
+        "c": [
+          "KKR",
+          "PAYC"
+        ]
+      },
+      {
+        "month": "2024-12",
+        "universe": 518,
+        "a": [
+          "DRI",
+          "SYF"
+        ],
+        "c": [
+          "DRI",
+          "PLTR"
+        ]
+      },
+      {
+        "month": "2025-01",
+        "universe": 518,
+        "a": [
+          "COF",
+          "META"
+        ],
+        "c": [
+          "COF",
+          "META"
+        ]
+      },
+      {
+        "month": "2025-02",
+        "universe": 519,
+        "a": [
+          "FOXA",
+          "NI"
+        ],
+        "c": [
+          "FOXA",
+          "NI"
+        ]
+      },
+      {
+        "month": "2025-03",
+        "universe": 517,
+        "a": [
+          "EXE",
+          "DTE"
+        ],
+        "c": [
+          "EXE",
+          "DTE"
+        ]
+      },
+      {
+        "month": "2025-04",
+        "universe": 517,
+        "a": [
+          "PM",
+          "CNP"
+        ],
+        "c": [
+          "PM",
+          "CNP"
+        ]
+      },
+      {
+        "month": "2025-05",
+        "universe": 518,
+        "a": [
+          "GE",
+          "STX"
+        ],
+        "c": [
+          "BA",
+          "STX"
+        ]
+      },
+      {
+        "month": "2025-06",
+        "universe": 512,
+        "a": [
+          "HWM",
+          "WDC"
+        ],
+        "c": [
+          "HWM",
+          "WDC"
+        ]
+      },
+      {
+        "month": "2025-07",
+        "universe": 515,
+        "a": [
+          "URI",
+          "STX"
+        ],
+        "c": [
+          "URI",
+          "STX"
+        ]
+      },
+      {
+        "month": "2025-08",
+        "universe": 516,
+        "a": [
+          "WYNN",
+          "WDC"
+        ],
+        "c": [
+          "WYNN",
+          "WDC"
+        ]
+      },
+      {
+        "month": "2025-09",
+        "universe": 515,
+        "a": [
+          "ORCL",
+          "WDC"
+        ],
+        "c": [
+          "WDC",
+          "INTC"
+        ]
+      },
+      {
+        "month": "2025-10",
+        "universe": 516,
+        "a": [
+          "AMD",
+          "WDC"
+        ],
+        "c": [
+          "WDC",
+          "AMD"
+        ]
+      },
+      {
+        "month": "2025-11",
+        "universe": 516,
+        "a": [
+          "LLY",
+          "WDC"
+        ],
+        "c": [
+          "LLY",
+          "WDC"
+        ]
+      },
+      {
+        "month": "2025-12",
+        "universe": 517,
+        "a": [
+          "C",
+          "STX"
+        ],
+        "c": [
+          "NEM",
+          "STX"
+        ]
+      },
+      {
+        "month": "2026-01",
+        "universe": 518,
+        "a": [
+          "HAL",
+          "STX"
+        ],
+        "c": [
+          "HAL",
+          "STX"
+        ]
+      },
+      {
+        "month": "2026-02",
+        "universe": 519,
+        "a": [
+          "TPL",
+          "GNRC"
+        ],
+        "c": [
+          "TPL",
+          "SNDK"
+        ]
+      },
+      {
+        "month": "2026-03",
+        "universe": 518,
+        "a": [
+          "OXY",
+          "WDC"
+        ],
+        "c": [
+          "OXY",
+          "WDC"
+        ]
+      }
+    ],
+    "outCurrent": {
+      "A": [
+        "ENPH@2022-07",
+        "ENPH@2022-11",
+        "ETSY@2021-11",
+        "HES@2022-08",
+        "HES@2022-10",
+        "K@2022-06",
+        "LW@2022-09",
+        "MRO@2021-10",
+        "MRO@2022-01",
+        "MRO@2023-09",
+        "PXD@2022-02",
+        "PXD@2023-08",
+        "PXD@2023-10",
+        "XRAY@2023-04",
+        "ZION@2023-12"
+      ],
+      "C": [
+        "ENPH@2022-07",
+        "ENPH@2022-11",
+        "ETSY@2021-11",
+        "HES@2022-08",
+        "HES@2022-10",
+        "K@2022-06",
+        "LW@2022-09",
+        "MRO@2021-10",
+        "MRO@2022-01",
+        "MRO@2023-09",
+        "PAYC@2024-11",
+        "PXD@2022-02",
+        "PXD@2023-08",
+        "PXD@2023-10",
+        "ZION@2023-12"
+      ]
+    },
+    "selectedDelisting": [
+      "PXD@2024-05-03"
+    ],
+    "note": "PXD delisted because Exxon Mobil acquisition closed, not bankruptcy."
+  },
+  "fixed": {
+    "meta": {
+      "mode": "FIXED",
+      "class": "LEGACY_COMPAT",
+      "signals": 56,
+      "ever": 667,
+      "current": 518,
+      "last_data": "2026-04-13",
+      "delist_selected": 0
+    },
+    "summaries": [
+      {
+        "variant": "A",
+        "ret": 2.0814,
+        "cagr": 0.2757,
+        "mdd": -0.2631,
+        "qqq": 0.6695,
+        "buys": "109/112",
+        "skip": 3,
+        "cash": 12966061,
+        "equity": 30813974,
+        "open": 15,
+        "cost": 166687
+      },
+      {
+        "variant": "C",
+        "ret": 2.7056,
+        "cagr": 0.3277,
+        "mdd": -0.2464,
+        "qqq": 0.6695,
+        "buys": "108/112",
+        "skip": 4,
+        "cash": 15228760,
+        "equity": 37055567,
+        "open": 16,
+        "cost": 173867
+      }
+    ],
+    "yearly": [
+      {
+        "variant": "A",
+        "returns": {
+          "2021": -0.026,
+          "2022": -0.083,
+          "2023": 0.119,
+          "2024": 0.373,
+          "2025": 0.74,
+          "2026": 0.29
+        }
+      },
+      {
+        "variant": "C",
+        "returns": {
+          "2021": -0.016,
+          "2022": -0.06,
+          "2023": 0.161,
+          "2024": 0.542,
+          "2025": 0.686,
+          "2026": 0.328
+        }
+      }
+    ],
+    "signals": [
+      {
+        "month": "2021-08",
+        "universe": 517,
+        "a": [
+          "IT",
+          "TECH"
+        ],
+        "c": [
+          "SNPS",
+          "TECH"
+        ]
+      },
+      {
+        "month": "2021-09",
+        "universe": 517,
+        "a": [
+          "CRM",
+          "CRL"
+        ],
+        "c": [
+          "CRL",
+          "CRM"
+        ]
+      },
+      {
+        "month": "2021-10",
+        "universe": 517,
+        "a": [
+          "APA",
+          "APO"
+        ],
+        "c": [
+          "APA",
+          "APO"
+        ]
+      },
+      {
+        "month": "2021-11",
+        "universe": 517,
+        "a": [
+          "HD",
+          "AMD"
+        ],
+        "c": [
+          "HD",
+          "QCOM"
+        ]
+      },
+      {
+        "month": "2021-12",
+        "universe": 517,
+        "a": [
+          "PLD",
+          "ACN"
+        ],
+        "c": [
+          "PLD",
+          "AVGO"
+        ]
+      },
+      {
+        "month": "2022-01",
+        "universe": 517,
+        "a": [
+          "HAL",
+          "ADM"
+        ],
+        "c": [
+          "HAL",
+          "ADM"
+        ]
+      },
+      {
+        "month": "2022-02",
+        "universe": 517,
+        "a": [
+          "EXE",
+          "BG"
+        ],
+        "c": [
+          "EXE",
+          "MOS"
+        ]
+      },
+      {
+        "month": "2022-03",
+        "universe": 517,
+        "a": [
+          "OXY",
+          "MOS"
+        ],
+        "c": [
+          "OXY",
+          "MOS"
+        ]
+      },
+      {
+        "month": "2022-04",
+        "universe": 517,
+        "a": [
+          "VLO",
+          "HSY"
+        ],
+        "c": [
+          "VLO",
+          "HSY"
+        ]
+      },
+      {
+        "month": "2022-05",
+        "universe": 517,
+        "a": [
+          "DVN",
+          "NRG"
+        ],
+        "c": [
+          "DVN",
+          "NRG"
+        ]
+      },
+      {
+        "month": "2022-06",
+        "universe": 517,
+        "a": [
+          "LLY",
+          "HSY"
+        ],
+        "c": [
+          "LLY",
+          "HSY"
+        ]
+      },
+      {
+        "month": "2022-07",
+        "universe": 517,
+        "a": [
+          "TPL",
+          "HUBB"
+        ],
+        "c": [
+          "TPL",
+          "HUBB"
+        ]
+      },
+      {
+        "month": "2022-08",
+        "universe": 517,
+        "a": [
+          "OXY",
+          "AES"
+        ],
+        "c": [
+          "OXY",
+          "AES"
+        ]
+      },
+      {
+        "month": "2022-09",
+        "universe": 517,
+        "a": [
+          "MPC",
+          "REGN"
+        ],
+        "c": [
+          "REGN",
+          "MPC"
+        ]
+      },
+      {
+        "month": "2022-10",
+        "universe": 517,
+        "a": [
+          "SLB",
+          "PFG"
+        ],
+        "c": [
+          "SLB",
+          "GILD"
+        ]
+      },
+      {
+        "month": "2022-11",
+        "universe": 517,
+        "a": [
+          "EME",
+          "TPL"
+        ],
+        "c": [
+          "EME",
+          "GILD"
+        ]
+      },
+      {
+        "month": "2022-12",
+        "universe": 517,
+        "a": [
+          "CAT",
+          "SLB"
+        ],
+        "c": [
+          "CAT",
+          "SLB"
+        ]
+      },
+      {
+        "month": "2023-01",
+        "universe": 517,
+        "a": [
+          "LVS",
+          "STT"
+        ],
+        "c": [
+          "LVS",
+          "STT"
+        ]
+      },
+      {
+        "month": "2023-02",
+        "universe": 517,
+        "a": [
+          "GE",
+          "ACGL"
+        ],
+        "c": [
+          "FIX",
+          "NVDA"
+        ]
+      },
+      {
+        "month": "2023-03",
+        "universe": 517,
+        "a": [
+          "ANET",
+          "NVDA"
+        ],
+        "c": [
+          "NVDA",
+          "ANET"
+        ]
+      },
+      {
+        "month": "2023-04",
+        "universe": 517,
+        "a": [
+          "HSY",
+          "HCA"
+        ],
+        "c": [
+          "HCA",
+          "HSY"
+        ]
+      },
+      {
+        "month": "2023-05",
+        "universe": 517,
+        "a": [
+          "SMCI",
+          "PLTR"
+        ],
+        "c": [
+          "PLTR",
+          "NVDA"
+        ]
+      },
+      {
+        "month": "2023-06",
+        "universe": 517,
+        "a": [
+          "CCL",
+          "GE"
+        ],
+        "c": [
+          "CCL",
+          "GE"
+        ]
+      },
+      {
+        "month": "2023-07",
+        "universe": 517,
+        "a": [
+          "UBER",
+          "META"
+        ],
+        "c": [
+          "META",
+          "NVDA"
+        ]
+      },
+      {
+        "month": "2023-08",
+        "universe": 517,
+        "a": [
+          "AKAM",
+          "MPC"
+        ],
+        "c": [
+          "BR",
+          "MPC"
+        ]
+      },
+      {
+        "month": "2023-09",
+        "universe": 517,
+        "a": [
+          "XOM",
+          "CBOE"
+        ],
+        "c": [
+          "XOM",
+          "CBOE"
+        ]
+      },
+      {
+        "month": "2023-10",
+        "universe": 517,
+        "a": [
+          "DELL",
+          "STX"
+        ],
+        "c": [
+          "DELL",
+          "STX"
+        ]
+      },
+      {
+        "month": "2023-11",
+        "universe": 517,
+        "a": [
+          "GDDY",
+          "PLTR"
+        ],
+        "c": [
+          "GDDY",
+          "PLTR"
+        ]
+      },
+      {
+        "month": "2023-12",
+        "universe": 517,
+        "a": [
+          "HOOD",
+          "AMD"
+        ],
+        "c": [
+          "HOOD",
+          "AMD"
+        ]
+      },
+      {
+        "month": "2024-01",
+        "universe": 517,
+        "a": [
+          "IBM",
+          "WDC"
+        ],
+        "c": [
+          "IBM",
+          "WDC"
+        ]
+      },
+      {
+        "month": "2024-02",
+        "universe": 517,
+        "a": [
+          "HOOD",
+          "UBER"
+        ],
+        "c": [
+          "UBER",
+          "PLTR"
+        ]
+      },
+      {
+        "month": "2024-03",
+        "universe": 517,
+        "a": [
+          "HOOD",
+          "GE"
+        ],
+        "c": [
+          "HOOD",
+          "WDC"
+        ]
+      },
+      {
+        "month": "2024-04",
+        "universe": 517,
+        "a": [
+          "WAB",
+          "WDC"
+        ],
+        "c": [
+          "WAB",
+          "WDC"
+        ]
+      },
+      {
+        "month": "2024-05",
+        "universe": 517,
+        "a": [
+          "FSLR",
+          "NEE"
+        ],
+        "c": [
+          "FSLR",
+          "NEE"
+        ]
+      },
+      {
+        "month": "2024-06",
+        "universe": 517,
+        "a": [
+          "GLW",
+          "T"
+        ],
+        "c": [
+          "GLW",
+          "KLAC"
+        ]
+      },
+      {
+        "month": "2024-07",
+        "universe": 517,
+        "a": [
+          "CFG",
+          "CBRE"
+        ],
+        "c": [
+          "CFG",
+          "CBRE"
+        ]
+      },
+      {
+        "month": "2024-08",
+        "universe": 517,
+        "a": [
+          "VTR",
+          "ERIE"
+        ],
+        "c": [
+          "VTR",
+          "ERIE"
+        ]
+      },
+      {
+        "month": "2024-09",
+        "universe": 517,
+        "a": [
+          "NRG",
+          "MMM"
+        ],
+        "c": [
+          "NRG",
+          "MMM"
+        ]
+      },
+      {
+        "month": "2024-10",
+        "universe": 517,
+        "a": [
+          "HOOD",
+          "CBRE"
+        ],
+        "c": [
+          "HOOD",
+          "CBRE"
+        ]
+      },
+      {
+        "month": "2024-11",
+        "universe": 517,
+        "a": [
+          "HOOD",
+          "TPR"
+        ],
+        "c": [
+          "HOOD",
+          "PLTR"
+        ]
+      },
+      {
+        "month": "2024-12",
+        "universe": 517,
+        "a": [
+          "DRI",
+          "CIEN"
+        ],
+        "c": [
+          "DRI",
+          "FOXA"
+        ]
+      },
+      {
+        "month": "2025-01",
+        "universe": 517,
+        "a": [
+          "RCL",
+          "TKO"
+        ],
+        "c": [
+          "IBKR",
+          "META"
+        ]
+      },
+      {
+        "month": "2025-02",
+        "universe": 517,
+        "a": [
+          "FOXA",
+          "NI"
+        ],
+        "c": [
+          "FOXA",
+          "NI"
+        ]
+      },
+      {
+        "month": "2025-03",
+        "universe": 517,
+        "a": [
+          "EXE",
+          "DTE"
+        ],
+        "c": [
+          "EXE",
+          "DTE"
+        ]
+      },
+      {
+        "month": "2025-04",
+        "universe": 517,
+        "a": [
+          "PM",
+          "CNP"
+        ],
+        "c": [
+          "PM",
+          "CNP"
+        ]
+      },
+      {
+        "month": "2025-05",
+        "universe": 517,
+        "a": [
+          "GE",
+          "APH"
+        ],
+        "c": [
+          "BA",
+          "STX"
+        ]
+      },
+      {
+        "month": "2025-06",
+        "universe": 517,
+        "a": [
+          "HWM",
+          "WDC"
+        ],
+        "c": [
+          "AMD",
+          "WDC"
+        ]
+      },
+      {
+        "month": "2025-07",
+        "universe": 517,
+        "a": [
+          "TEL",
+          "FIX"
+        ],
+        "c": [
+          "FIX",
+          "STX"
+        ]
+      },
+      {
+        "month": "2025-08",
+        "universe": 517,
+        "a": [
+          "WYNN",
+          "WDC"
+        ],
+        "c": [
+          "WYNN",
+          "WDC"
+        ]
+      },
+      {
+        "month": "2025-09",
+        "universe": 517,
+        "a": [
+          "CIEN",
+          "WDC"
+        ],
+        "c": [
+          "WDC",
+          "INTC"
+        ]
+      },
+      {
+        "month": "2025-10",
+        "universe": 517,
+        "a": [
+          "AMD",
+          "WDC"
+        ],
+        "c": [
+          "WDC",
+          "AMD"
+        ]
+      },
+      {
+        "month": "2025-11",
+        "universe": 517,
+        "a": [
+          "LLY",
+          "WDC"
+        ],
+        "c": [
+          "LLY",
+          "WDC"
+        ]
+      },
+      {
+        "month": "2025-12",
+        "universe": 517,
+        "a": [
+          "MRK",
+          "STX"
+        ],
+        "c": [
+          "NEM",
+          "STX"
+        ]
+      },
+      {
+        "month": "2026-01",
+        "universe": 517,
+        "a": [
+          "HAL",
+          "STX"
+        ],
+        "c": [
+          "HAL",
+          "STX"
+        ]
+      },
+      {
+        "month": "2026-02",
+        "universe": 517,
+        "a": [
+          "TPL",
+          "GNRC"
+        ],
+        "c": [
+          "TPL",
+          "SNDK"
+        ]
+      },
+      {
+        "month": "2026-03",
+        "universe": 517,
+        "a": [
+          "OXY",
+          "ETR"
+        ],
+        "c": [
+          "OXY",
+          "WDC"
+        ]
+      }
+    ],
+    "outCurrent": {
+      "A": [],
+      "C": []
+    },
+    "selectedDelisting": []
+  },
+  "cleanClassificationSensitivity": {
+    "meta": {
+      "mode": "PIT",
+      "class": "MORNINGSTAR_CLEAN",
+      "signals": 56,
+      "ever": 667,
+      "current": 518,
+      "last_data": "2026-04-13",
+      "delist_selected": 1
+    },
+    "summaries": [
+      {
+        "variant": "A",
+        "ret": 0.3825,
+        "cagr": 0.0726,
+        "mdd": -0.2221,
+        "qqq": 0.6695,
+        "buys": "112/112",
+        "skip": 0,
+        "cash": 4328801,
+        "equity": 13825375,
+        "open": 13,
+        "cost": 158183
+      },
+      {
+        "variant": "C",
+        "ret": 0.2357,
+        "cagr": 0.0469,
+        "mdd": -0.2355,
+        "qqq": 0.6695,
+        "buys": "110/112",
+        "skip": 2,
+        "cash": 3005943,
+        "equity": 12357121,
+        "open": 13,
+        "cost": 156160
+      }
+    ],
+    "yearly": [
+      {
+        "variant": "A",
+        "returns": { "2021": 0.007, "2022": -0.094, "2023": 0.163, "2024": 0.186, "2025": 0.11, "2026": -0.01 }
+      },
+      {
+        "variant": "C",
+        "returns": { "2021": -0.022, "2022": -0.086, "2023": 0.161, "2024": 0.19, "2025": 0.033, "2026": -0.031 }
+      }
+    ],
+    "signals": []
+  },
+  "comparison": {
+    "pitVsFixedSelectionOverlap": {
+      "A": {
+        "sameSetMonths": 15,
+        "two": 15,
+        "one": 30,
+        "zero": 11
+      },
+      "C": {
+        "sameSetMonths": 18,
+        "two": 18,
+        "one": 30,
+        "zero": 8
+      }
+    },
+    "aVsCWithinPit": {
+      "sameSetMonths": 39,
+      "two": 39,
+      "one": 17,
+      "zero": 0
+    }
+  },
+  "limitations": [
+    "QuantConnect available prices ended 2026-04-13, so April-June 2026 signals are excluded.",
+    "Historical-only names use point-in-time Morningstar classification because the frozen legacy map contains only current names.",
+    "PIT and fixed controls share QuantConnect prices, scoring, costs and execution; their difference primarily isolates membership survivorship, with residual ticker/classification fallback effects.",
+    "Research only: this result does not change the public API, Android execution policy or active strategy."
+  ]
+}

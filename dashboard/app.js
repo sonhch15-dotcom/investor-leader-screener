@@ -2287,6 +2287,7 @@ function renderBacktest() {
 
   const reports = [
     { label: "미국 주도주 전략 5년 복기", href: "us-strategy-history.html" },
+    { label: "과거 실제 구성 종목 감사", href: "point-in-time-audit.html" },
     { label: "Score A·C 교정 검증", href: "score_a_c_corrected_validation.md" },
     ...(dashboard.backtest.reports ?? [])
   ];

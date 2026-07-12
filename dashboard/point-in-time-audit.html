@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="과거 실제 SPY와 QQQ 구성 종목을 사용해 미국 Leader2 전략의 생존편향을 다시 확인한 보고서">
+  <title>지금 남은 종목만 보면 성과가 부풀려질까?</title>
+  <link rel="stylesheet" href="us-strategy-history.css">
+  <link rel="stylesheet" href="point-in-time-audit.css">
+</head>
+<body class="audit-report">
+  <header class="report-header">
+    <div class="header-inner">
+      <a class="back-link" href="./?cb=pit-audit#us-score-c-backtest">대시보드로 돌아가기</a>
+      <div class="header-actions">
+        <span id="as-of-chip" class="status-chip">데이터 확인 중</span>
+        <button class="print-button" id="print-report" type="button">인쇄</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="report-shell">
+    <section class="hero" aria-labelledby="report-title">
+      <p class="eyebrow">미국 전략 생존편향 감사</p>
+      <h1 id="report-title">지금 남아 있는 종목만 보면<br>성과가 부풀려질까?</h1>
+      <p class="hero-lede">과거 그달에 실제로 SPY와 QQQ에 들어 있던 종목만 놓고, 섹터 흐름형과 종목 힘 중심형을 다시 시험했습니다. 현재 종목 517개를 과거에도 있었다고 가정한 대조군과 같은 조건에서 비교했습니다.</p>
+      <p class="contract-note"><strong>결론부터 말하면 성과는 부풀려졌습니다.</strong> 다만 종목 힘 중심형이 섹터 흐름형보다 앞선 방향은 보정 후에도 유지됐습니다. 이 연구만으로 앱의 active 전략이나 2026년 8월 전환 계약을 바꾸지는 않습니다.</p>
+    </section>
+
+    <nav class="section-nav" aria-label="보고서 목차">
+      <a href="#conclusion">결론</a>
+      <a href="#fair-comparison">같은 조건 비교</a>
+      <a href="#selection-change">추천 변화</a>
+      <a href="#delisting">상장폐지 확인</a>
+      <a href="#why-different">기존 결과와 차이</a>
+      <a href="#methodology">검증 조건</a>
+    </nav>
+
+    <section class="report-section" id="conclusion">
+      <div class="section-heading">
+        <p class="section-kicker">먼저 보는 결론</p>
+        <h2>현재 종목만 쓴 결과는 실제 과거 구성보다 높았습니다</h2>
+        <p>두 실험은 가격, 점수식, 매수 금액, 매도 규칙, 거래비용이 같습니다. 오직 종목 명단만 다릅니다.</p>
+      </div>
+      <div class="metric-strip" id="headline-metrics"></div>
+      <div class="finding-grid" id="key-findings"></div>
+      <aside class="plain-language-note">
+        <h3>생존편향이란?</h3>
+        <p>지금 지수에 남은 회사들은 대체로 그동안 잘 버틴 회사들입니다. 이 회사들만 과거로 데려가 시험하면, 당시 실제로 지수에 있었지만 이후 부진해 빠진 회사가 사라집니다. 시험지가 쉬워져 과거 성과가 실제보다 좋아 보일 수 있습니다.</p>
+      </aside>
+    </section>
+
+    <section class="report-section" id="fair-comparison">
+      <div class="section-heading">
+        <p class="section-kicker">01 · 같은 조건 비교</p>
+        <h2>종목 명단 하나만 바꿔 비교했습니다</h2>
+        <p>1천만원 계좌, Cap27.5 비중, 매수와 매도 각각 0.1% 비용, 6개월 절반 매도와 잔여 주봉 연장을 똑같이 적용했습니다.</p>
+      </div>
+
+      <div class="two-column">
+        <article class="evidence-card">
+          <div class="card-heading"><div><p class="mini-label">섹터 흐름형</p><h3>당시 구성 vs 현재 종목 고정</h3></div><span class="unit-label">누적 수익률</span></div>
+          <div class="audit-bars" id="a-comparison-bars"></div>
+        </article>
+        <article class="evidence-card">
+          <div class="card-heading"><div><p class="mini-label">종목 힘 중심형</p><h3>당시 구성 vs 현재 종목 고정</h3></div><span class="unit-label">누적 수익률</span></div>
+          <div class="audit-bars" id="c-comparison-bars"></div>
+        </article>
+      </div>
+
+      <article class="evidence-card wide-card">
+        <div class="card-heading"><div><p class="mini-label">한눈에 보는 전체 값</p><h3>성과와 위험을 함께 비교</h3></div><span class="unit-label">2021-08-27 ~ 2026-04-13</span></div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>종목 고르는 방법</th><th>종목 명단</th><th>누적 수익</th><th>연평균</th><th>최대 하락</th><th>QQQ 대비</th><th>마지막 자산</th></tr></thead>
+            <tbody id="comparison-table"></tbody>
+          </table>
+        </div>
+        <p class="chart-note">최대 하락은 계좌가 앞선 최고점에서 가장 깊게 내려갔던 폭입니다. 값이 작다고 무조건 좋은 전략은 아니며 수익과 함께 봐야 합니다.</p>
+      </article>
+
+      <div class="two-column">
+        <article class="evidence-card">
+          <div class="card-heading"><div><p class="mini-label">보정 뒤에도 남은 차이</p><h3>종목 힘 중심형이 A형보다 앞섰나</h3></div></div>
+          <div id="pit-strategy-comparison" class="plain-result"></div>
+        </article>
+        <article class="evidence-card">
+          <div class="card-heading"><div><p class="mini-label">해마다 계좌가 얼마나 변했나</p><h3>당시 구성 종목 기준 연도별 수익</h3></div></div>
+          <div id="yearly-chart" class="yearly-audit"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="report-section" id="selection-change">
+      <div class="section-heading">
+        <p class="section-kicker">02 · 추천 종목 변화</p>
+        <h2>56개월 중 절반이 넘는 달에서 추천이 달라졌습니다</h2>
+        <p>현재 종목만 고정한 실험과 실제 당시 구성 종목 실험이 매달 2개 중 몇 개를 똑같이 골랐는지 확인했습니다.</p>
+      </div>
+      <div class="two-column" id="overlap-cards"></div>
+      <article class="evidence-card wide-card">
+        <div class="card-heading"><div><p class="mini-label">현재 지수에서 빠진 추천</p><h3>당시에는 살 수 있었지만 지금 명단에는 없는 종목</h3></div><span class="unit-label">각 방식 15건</span></div>
+        <div class="removed-grid" id="removed-selections"></div>
+        <p class="chart-note">같은 종목이 여러 달 다시 추천되면 각각 별도 매수 lot이므로 여러 번 표시합니다. 지수 제외가 곧 상장폐지를 뜻하지는 않습니다.</p>
+      </article>
+
+      <details class="detail-panel">
+        <summary>56개월의 추천 종목 전체 보기</summary>
+        <div class="table-scroll detail-table-wrap">
+          <table>
+            <thead><tr><th>추천월</th><th>당시 종목 수</th><th>당시 구성 · 섹터 흐름형</th><th>당시 구성 · 종목 힘 중심형</th><th>현재 종목 고정 · 섹터 흐름형</th><th>현재 종목 고정 · 종목 힘 중심형</th></tr></thead>
+            <tbody id="monthly-signals"></tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+
+    <section class="report-section" id="delisting">
+      <div class="section-heading">
+        <p class="section-kicker">03 · 상장폐지 종목 확인</p>
+        <h2>추천 종목 중 PXD의 상장폐지 이벤트가 실제로 잡혔습니다</h2>
+        <p>무료 데이터에서도 과거 가격과 상장폐지 경고, 최종 상장폐지 이벤트를 읽을 수 있는지 별도 확인했습니다.</p>
+      </div>
+      <div class="rule-flow delisting-flow">
+        <article><span>1</span><h3>PXD가 과거 추천에 포함</h3><p>2022년 2월, 2023년 8월과 10월 추천에 들어왔습니다.</p></article>
+        <article><span>2</span><h3>2024-05-03 상장폐지 처리</h3><p>보유 중인 lot은 QuantConnect의 상장폐지 경고 가격으로 청산했습니다.</p></article>
+        <article><span>3</span><h3>파산 사례는 아니었습니다</h3><p>Pioneer Natural Resources가 Exxon Mobil에 인수되며 거래가 끝난 기업행위 상장폐지였습니다.</p></article>
+      </div>
+      <div class="two-column">
+        <article class="evidence-card"><p class="mini-label">실전 전략 감사</p><h3>선정 뒤 상장폐지 이벤트</h3><div class="large-number">1개 종목</div><p>PXD만 확인됐습니다. 부도나 파산으로 사라진 추천 종목은 이번 56개월 표본에서 없었습니다.</p></article>
+        <article class="evidence-card"><p class="mini-label">무료 데이터 기능 시험</p><h3>이미 상장폐지된 ATVI 조회</h3><div class="smoke-facts" id="smoke-facts"></div><p>이 시험은 전략 성과에 넣지 않고, 데이터가 현재 사라진 종목을 실제로 읽는지만 확인했습니다.</p></article>
+      </div>
+    </section>
+
+    <section class="report-section" id="why-different">
+      <div class="section-heading">
+        <p class="section-kicker">04 · 기존 웹 결과와 왜 다른가</p>
+        <h2>유니버스뿐 아니라 데이터 날짜와 업종표도 달랐습니다</h2>
+        <p>기존 +416.1%, +520.0%와 이번 숫자를 바로 빼면 안 됩니다. 생존편향은 QuantConnect 안에서 PIT와 고정 대조군끼리 비교해야 합니다.</p>
+      </div>
+      <div class="lesson-grid difference-grid">
+        <article><strong>데이터 마지막 날짜가 다릅니다.</strong><p>기존 웹 스냅샷은 2026-07-10까지지만 QuantConnect에서 이번에 사용할 수 있었던 마지막 일봉은 2026-04-13입니다. 그래서 4~6월 신규 신호가 없습니다.</p></article>
+        <article><strong>가격 제공처와 조정 방식이 다릅니다.</strong><p>같은 종목도 기업행위와 수정주가 처리 방식에 따라 과거 가격이 조금 달라질 수 있습니다.</p></article>
+        <article><strong>업종표가 결과를 크게 바꿉니다.</strong><p>Morningstar 업종만 일관되게 쓴 민감도 시험은 A형 +38.3%, C형 +23.6%였습니다. 기존 혼합 업종표와 의미가 달라 공식 비교값으로 쓰지 않습니다.</p></article>
+        <article><strong>그래서 호환 업종표 대조군을 만들었습니다.</strong><p>현재 종목에는 기존 57개 업종표를 그대로 붙이고, 과거에만 존재한 종목만 당시 Morningstar 분류로 보완했습니다.</p></article>
+      </div>
+      <div class="caveat-box"><h3>이번 감사의 올바른 읽는 법</h3><ul><li>기존 웹 +520.0%와 PIT +187.8%의 차이를 모두 생존편향이라고 부르지 않습니다.</li><li>같은 QuantConnect 안에서 C형 고정 +270.6%와 PIT +187.8%의 차이 +82.8%포인트를 생존편향 추정치로 봅니다.</li><li>이 차이가 확인됐으므로 고정 유니버스 결과만으로 전략을 승격하지 않습니다.</li></ul></div>
+    </section>
+
+    <section class="report-section methodology-section" id="methodology">
+      <div class="section-heading">
+        <p class="section-kicker">05 · 검증 조건과 한계</p>
+        <h2>다시 실행할 수 있도록 조건을 남깁니다</h2>
+      </div>
+      <div class="method-grid" id="method-grid"></div>
+      <details class="detail-panel source-panel">
+        <summary>데이터 기능과 재현 자료 보기</summary>
+        <ol>
+          <li><a href="https://www.quantconnect.com/docs/v2/writing-algorithms/datasets/quantconnect/us-etf-constituents" target="_blank" rel="noreferrer">QuantConnect 미국 ETF 구성 종목 데이터 문서</a></li>
+          <li><a href="https://www.quantconnect.com/docs/v2/writing-algorithms/datasets/quantconnect/us-equity-security-master" target="_blank" rel="noreferrer">QuantConnect 미국 주식 Security Master 문서</a></li>
+          <li><a href="https://www.quantconnect.com/docs/v2/writing-algorithms/datasets/morningstar/us-fundamental-data" target="_blank" rel="noreferrer">Morningstar 시점별 펀더멘털 문서</a></li>
+          <li><a href="./quantconnect_point_in_time_audit.md" target="_blank" rel="noreferrer">계산 결과와 실행 이름을 적은 Markdown 보고서</a></li>
+        </ol>
+      </details>
+      <div class="caveat-box"><h3>남은 한계</h3><ul id="limitation-list"></ul></div>
+    </section>
+  </main>
+
+  <footer class="report-footer"><p>Investor Leader Screener · point-in-time 감사 보고서</p><p id="footer-meta"></p></footer>
+  <div class="loading-state" id="loading-state" role="status">감사 데이터를 불러오고 있습니다.</div>
+  <script type="module" src="point-in-time-audit.js"></script>
+</body>
+</html>

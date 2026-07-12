@@ -132,6 +132,9 @@ a { color: var(--navy); }
   font-size: 14px;
 }
 
+.audit-update { border-left-color: var(--red); background: var(--red-light); color: #6f3033; }
+.audit-update a { color: #6f3033; font-weight: 800; }
+
 .section-nav {
   position: sticky;
   top: 56px;

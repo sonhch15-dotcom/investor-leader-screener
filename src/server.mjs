@@ -21,7 +21,10 @@ function resolvePath(urlPath) {
   if ([
     "/us-strategy-history.html",
     "/us-strategy-history.css",
-    "/us-strategy-history.js"
+    "/us-strategy-history.js",
+    "/point-in-time-audit.html",
+    "/point-in-time-audit.css",
+    "/point-in-time-audit.js"
   ].includes(urlPath)) return path.join(ROOT, "dashboard", urlPath.slice(1));
   const normalized = path.normalize(urlPath).replace(/^(\.\.[/\\])+/, "");
   return path.join(ROOT, normalized);

@@ -43,6 +43,7 @@
     "verify:backtest": "node scripts/verify-corrected-backtest.mjs",
     "verify:us-candidates": "node scripts/verify-us-candidate-backtest.mjs",
     "verify:us-history": "node scripts/verify-us-strategy-history-report.mjs",
+    "verify:point-in-time": "node scripts/verify-point-in-time-audit.mjs",
     "build:app-assets": "node scripts/build-signal-package.mjs --app-assets",
     "build:us-history": "node src/us-strategy-history-report.mjs",
     "build:pages": "node src/us-strategy-history-report.mjs && node scripts/build-pages.mjs",

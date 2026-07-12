@@ -332,3 +332,21 @@ Public 영향:
 - 결론: 연구 관문을 통과한 후보는 0개다. 월 2종목, 업종 한도 없음, 6개월 50% 매도 규칙을 유지한다.
 - Public API, 전략 상태, 2026-08 A→C 전환 계약, Android 주문·알림 로직에는 변경이 없다.
 - 상세 파일: `data/us-backtest-candidate-study.json`, `us_backtest_candidate_study.md`.
+
+## 18. 2026-07-12 미국 시점별 구성 종목 감사
+
+- Run ID: `us-score-a-c-quantconnect-pit-20260712-v1`
+- QuantConnect Free에서 SPY·QQQ 시점별 구성 종목, 과거 상장폐지 종목 가격, 상장폐지 이벤트 접근을 확인했다.
+- 스모크 테스트: 2023-09-01 SPY 503개, QQQ 100개, ATVI 가격 92.04달러, 2023-10-13 경고와 2023-10-14 상장폐지 이벤트 확인.
+- 같은 QuantConnect 가격과 기존 업종표 호환 계약에서 현재 종목 517개 고정과 PIT 유니버스를 비교했다.
+  - 섹터 흐름형: 고정 +208.1%, PIT +156.9%, 차이 +51.3%포인트
+  - 종목 힘 중심형: 고정 +270.6%, PIT +187.8%, 차이 +82.8%포인트
+  - PIT QQQ +67.0%
+  - PIT MDD: 섹터 흐름형 -24.8%, 종목 힘 중심형 -25.4%
+- PIT에서도 종목 힘 중심형이 섹터 흐름형보다 +30.9%포인트 앞섰지만 기존 고정 명단의 우위 폭은 과장돼 있었다.
+- 현재 지수에서 빠진 추천은 각 방식 15건이다. 선택 뒤 상장폐지 이벤트는 PXD 한 종목이며 Exxon Mobil 인수에 따른 기업행위 상장폐지다. 파산 상장폐지 추천은 이번 표본에 없었다.
+- QuantConnect 마지막 사용 가능 가격은 2026-04-13이므로 2026년 4~6월 신호는 이번 감사에서 제외한다.
+- Morningstar 분류만 일관되게 쓴 민감도 값은 공식 비교가 아니라 업종 분류 영향 확인용으로만 보존한다.
+- 전략 상태와 운용 계약은 변경하지 않는다. A active/C candidate, 2026-08 전환 계약, Public API, Android 주문·알림 정책은 그대로다.
+- Android는 새 PIT 수익률을 주문 로직에 사용하지 않는다. 향후 Public이 C 승격을 다시 판단할 때 PIT 감사와 전진 신호 성과를 함께 검토한다.
+- 상세 파일: `quantconnect_point_in_time_audit.md`, `data/quantconnect-point-in-time-audit.json`, `research/quantconnect/us_point_in_time_audit.py`.
