@@ -81,6 +81,7 @@ async function main() {
     "early_exit_reentry_test.md",
     "us_backtest_candidate_study.md",
     "quantconnect_point_in_time_audit.md",
+    "quantconnect_c_robustness_audit.md",
   ];
 
   await copyDir(path.join(root, "dashboard"), dist);

@@ -1,0 +1,183 @@
+{
+  "generatedAt": "2026-07-12T08:05:00+09:00",
+  "runId": "us-score-a-c-quantconnect-long-robustness-20260712-v1",
+  "status": "promotion_gate_failed",
+  "provider": "QuantConnect Free / LEAN master v17914",
+  "projectId": 34043103,
+  "period": {
+    "firstSignal": "2010-08-27",
+    "lastSignal": "2026-03-27",
+    "lastPriceDate": "2026-04-13",
+    "signalMonths": 188,
+    "everConstituents": 966,
+    "currentConstituents": 518
+  },
+  "commonContract": {
+    "universe": "Point-in-time union of SPY and QQQ constituents",
+    "selectionsPerMonth": 2,
+    "initialCapital": 10000000,
+    "allocation": "Repeat + Theme Combo Cap27.5",
+    "exit": "Sell 50% at six months; extend the remainder only when weekly close >= MA10 and RSI14 >= 50; then exit on two weekly closes below MA10 or at 12 months",
+    "baseCostEachSide": 0.001
+  },
+  "classificationAudit": {
+    "frozenStockCount": 517,
+    "frozenLabels": 57,
+    "broadSectorLabels": 11,
+    "granularIndustryLabels": 46,
+    "finding": "The frozen 57-label field mixes broad GICS sectors and granular industry labels, so it is reproducible but not one coherent taxonomy."
+  },
+  "runs": {
+    "coherentMorningstar": {
+      "backtestName": "Emotional Light Brown Alligator",
+      "classification": "Morningstar sector for sector scoring and Morningstar industry group for Leader2 grouping, applied to every constituent",
+      "costEachSide": 0.001,
+      "executionDelayDays": 0,
+      "membershipLagDays": 0,
+      "a": {
+        "return": 2.0217,
+        "cagr": 0.0734,
+        "mdd": -0.2054,
+        "buys": 374,
+        "attempts": 376,
+        "skips": 2,
+        "finalEquity": 30216729
+      },
+      "c": {
+        "return": 2.0221,
+        "cagr": 0.0734,
+        "mdd": -0.3546,
+        "buys": 373,
+        "attempts": 376,
+        "skips": 3,
+        "finalEquity": 30220877
+      },
+      "qqqReturn": 15.2259
+    },
+    "productionCompatibleBase": {
+      "backtestName": "Virtual Apricot Wolf",
+      "classification": "Frozen legacy label for mapped current names and point-in-time Morningstar fallback for historical-only names",
+      "costEachSide": 0.001,
+      "executionDelayDays": 0,
+      "membershipLagDays": 0,
+      "a": {
+        "return": 2.4431,
+        "cagr": 0.0824,
+        "mdd": -0.5791,
+        "buys": 341,
+        "attempts": 376,
+        "skips": 35,
+        "finalEquity": 34430928
+      },
+      "c": {
+        "return": 2.4895,
+        "cagr": 0.0833,
+        "mdd": -0.5945,
+        "buys": 315,
+        "attempts": 376,
+        "skips": 61,
+        "finalEquity": 34894827
+      },
+      "qqqReturn": 15.2259,
+      "drawdownWindow": {
+        "aStart": "2021-07-23",
+        "cStart": "2021-07-22",
+        "end": "2023-11-09"
+      },
+      "tail": {
+        "a": {
+          "top1": { "lot": "STX@2025-07", "profit": 2534988 },
+          "top2": { "lot": "STX@2025-05", "profit": 2177435 },
+          "returnWithoutTop1": 2.1896,
+          "returnWithoutTop2": 1.9719
+        },
+        "c": {
+          "top1": { "lot": "STX@2025-07", "profit": 2534988 },
+          "top2": { "lot": "WDC@2025-08", "profit": 2043545 },
+          "returnWithoutTop1": 2.236,
+          "returnWithoutTop2": 2.0316
+        }
+      }
+    },
+    "costOnly": {
+      "backtestName": "Swimming Light Brown Termite",
+      "costEachSide": 0.0025,
+      "executionDelayDays": 0,
+      "membershipLagDays": 0,
+      "a": { "return": 2.5473, "cagr": 0.0844, "mdd": -0.5897, "buys": 342, "attempts": 376, "skips": 34 },
+      "c": { "return": 2.1071, "cagr": 0.0753, "mdd": -0.6284, "buys": 291, "attempts": 376, "skips": 85 },
+      "qqqReturn": 15.2015
+    },
+    "timingOnly": {
+      "backtestName": "Upgraded Orange Gorilla",
+      "costEachSide": 0.001,
+      "executionDelayDays": 1,
+      "membershipLagDays": 5,
+      "a": { "return": 2.4681, "cagr": 0.0829, "mdd": -0.5813, "buys": 339, "attempts": 376, "skips": 37 },
+      "c": { "return": 2.5487, "cagr": 0.0845, "mdd": -0.5999, "buys": 317, "attempts": 376, "skips": 59 },
+      "qqqReturn": 15.2557
+    },
+    "combinedStress": {
+      "backtestName": "Swimming Yellow Goshawk",
+      "costEachSide": 0.0025,
+      "executionDelayDays": 1,
+      "membershipLagDays": 5,
+      "a": { "return": 2.5457, "cagr": 0.0844, "mdd": -0.5879, "buys": 342, "attempts": 376, "skips": 34 },
+      "c": { "return": 2.3088, "cagr": 0.0796, "mdd": -0.6187, "buys": 304, "attempts": 376, "skips": 72 },
+      "qqqReturn": 15.2313
+    }
+  },
+  "annualProductionCompatibleBase": [
+    { "year": 2010, "a": 0.0605, "c": 0.0501 },
+    { "year": 2011, "a": 0.0161, "c": -0.0268 },
+    { "year": 2012, "a": 0.1745, "c": 0.1001 },
+    { "year": 2013, "a": 0.2453, "c": 0.1317 },
+    { "year": 2014, "a": 0.0226, "c": 0.0549 },
+    { "year": 2015, "a": 0.0068, "c": 0.0278 },
+    { "year": 2016, "a": 0.0383, "c": 0.029 },
+    { "year": 2017, "a": -0.0144, "c": 0.0632 },
+    { "year": 2018, "a": -0.0433, "c": -0.0433 },
+    { "year": 2019, "a": 0.0765, "c": 0.0708 },
+    { "year": 2020, "a": 0.1024, "c": 0.0215 },
+    { "year": 2021, "a": 0.6166, "c": 0.7978 },
+    { "year": 2022, "a": -0.3535, "c": -0.3769 },
+    { "year": 2023, "a": 0.0737, "c": 0.1083 },
+    { "year": 2024, "a": 0.1215, "c": 0.1404 },
+    { "year": 2025, "a": 0.1368, "c": 0.1544 },
+    { "year": 2026, "a": 0.2768, "c": 0.3521 }
+  ],
+  "selectedDelistings": [
+    "BCR@2017-12-28",
+    "CFN@2015-03-16",
+    "CSRA@2018-04-03",
+    "CTRX@2015-07-23",
+    "ESRX@2018-12-20",
+    "PXD@2024-05-03",
+    "TSS@2019-09-17"
+  ],
+  "decision": {
+    "promotionGatePassed": false,
+    "recommendedOperationalState": "Keep Score A active and Score C candidate; pause the planned automatic August promotion until taxonomy and capital-path fixes are retested.",
+    "operationalChangeApplied": false,
+    "reasons": [
+      "Under a coherent Morningstar taxonomy, C beat A by only 0.04 percentage points while its MDD was 14.92 points worse.",
+      "Under the production-compatible long baseline, C beat A by only 4.64 percentage points and its MDD was 1.54 points worse.",
+      "At 25 bps cost per side, C trailed A by 44.02 percentage points and skipped 85 of 376 intended buys.",
+      "With one extra execution day and a five-trading-day membership lag, C kept only an 8.06-point return edge and still had a deeper MDD.",
+      "Removing the two best lots did not erase C's small edge, so the main weakness is taxonomy and cash-path sensitivity rather than one isolated winner."
+    ]
+  },
+  "requiredBeforeReconsideration": [
+    "Replace the mixed frozen 57-label field with one versioned, coherent sector and industry taxonomy.",
+    "Reserve cash for future monthly slots and estimated fees so fee changes do not alter which signals can be executed.",
+    "Re-run the 2010-2026 PIT test with the repaired taxonomy and capital allocator before any parameter tuning.",
+    "After the repaired backtest passes, collect at least 6-12 months of A/C shadow fills before calling C fully validated."
+  ],
+  "limitations": [
+    "QuantConnect prices available in this run ended on 2026-04-13.",
+    "ETF constituent history is monthly before January 2015 and can be delayed by up to one week.",
+    "QQQ is a continuously invested benchmark while the strategy ramps cash and can skip buys, so the comparison is a practical opportunity-cost benchmark rather than a risk-matched portfolio.",
+    "No 6-12 month untouched forward shadow period exists yet.",
+    "This research result does not itself change the public API, Android execution policy, or current A/C status."
+  ]
+}

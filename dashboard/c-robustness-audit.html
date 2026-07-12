@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="2010년부터 실제 당시 SPY·QQQ 구성 종목으로 미국 종목 힘 중심 전략의 장기 안정성을 검증한 보고서">
+  <title>C 전략, 8월에 바로 바꿔도 될까?</title>
+  <link rel="stylesheet" href="us-strategy-history.css">
+  <link rel="stylesheet" href="point-in-time-audit.css">
+  <link rel="stylesheet" href="c-robustness-audit.css">
+</head>
+<body class="audit-report robustness-report">
+  <header class="report-header">
+    <div class="header-inner">
+      <a class="back-link" href="./?cb=c-robustness#us-score-c-backtest">대시보드로 돌아가기</a>
+      <div class="header-actions">
+        <span id="as-of-chip" class="status-chip">데이터 확인 중</span>
+        <button class="print-button" id="print-report" type="button">인쇄</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="report-shell">
+    <section class="hero" aria-labelledby="report-title">
+      <p class="eyebrow">미국 전략 장기 강건성 감사</p>
+      <h1 id="report-title">C 전략, 8월에<br>바로 바꿔도 될까?</h1>
+      <p class="hero-lede">최근 5년에는 종목 힘 중심형이 좋아 보였습니다. 이번에는 2010년까지 기간을 늘리고, 업종표와 거래비용, 매수 날짜를 흔들어도 같은 결론이 남는지 확인했습니다.</p>
+      <div class="decision-banner">
+        <span class="decision-badge">승격 관문 실패</span>
+        <p><strong>결론은 자동 승격 보류입니다.</strong> C를 버리는 것은 아니지만, 지금 증거로 A보다 확실히 좋은 공식 후계 전략이라고 부르기는 어렵습니다.</p>
+      </div>
+    </section>
+
+    <nav class="section-nav" aria-label="보고서 목차">
+      <a href="#conclusion">결론</a>
+      <a href="#taxonomy">업종표</a>
+      <a href="#stress">비용·시차</a>
+      <a href="#tail">대박 종목</a>
+      <a href="#decision">운용 판단</a>
+      <a href="#methodology">검증 조건</a>
+    </nav>
+
+    <section class="report-section" id="conclusion">
+      <div class="section-heading">
+        <p class="section-kicker">먼저 보는 결론</p>
+        <h2>장기로 늘리자 C의 우위가 거의 사라졌습니다</h2>
+        <p>같은 기간, 같은 가격, 같은 자금과 매도 규칙에서 종목을 고르는 방식만 비교했습니다.</p>
+      </div>
+      <div class="metric-strip" id="headline-metrics"></div>
+      <div class="finding-grid" id="key-findings"></div>
+
+      <article class="evidence-card wide-card">
+        <div class="card-heading"><div><p class="mini-label">2010-08 ~ 2026-04</p><h3>장기 기본 결과</h3></div><span class="unit-label">누적 수익률</span></div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>업종 분류</th><th>종목 선정</th><th>누적 수익</th><th>연평균</th><th>최대 하락</th><th>실제 매수</th><th>누락</th></tr></thead>
+            <tbody id="long-results"></tbody>
+          </table>
+        </div>
+        <p class="chart-note">최대 하락은 계좌가 앞선 최고점에서 가장 깊게 내려간 폭입니다. 같은 수익이라면 최대 하락이 얕은 쪽이 버티기 쉽습니다.</p>
+      </article>
+
+      <aside class="plain-language-note">
+        <h3>왜 최근 5년 결과와 다를까?</h3>
+        <p>최근 표본에는 AI와 저장장치, 반도체 강세가 크게 들어 있습니다. 기간을 2010년까지 늘리면 다른 주도 업종과 여러 하락장을 함께 통과하므로 최근 시장에만 잘 맞았던 부분이 희석됩니다.</p>
+      </aside>
+    </section>
+
+    <section class="report-section" id="taxonomy">
+      <div class="section-heading">
+        <p class="section-kicker">01 · 업종표를 바꿔 보니</p>
+        <h2>분류 기준 하나가 C의 위험을 크게 바꿨습니다</h2>
+        <p>현재 동결 업종표와 모든 종목에 같은 Morningstar 기준을 적용한 업종표를 따로 시험했습니다.</p>
+      </div>
+      <div class="two-column">
+        <article class="evidence-card">
+          <p class="mini-label">현재 동결 데이터</p>
+          <h3>57개 라벨이 한 수준이 아닙니다</h3>
+          <div class="taxonomy-counts" id="taxonomy-counts"></div>
+          <p>넓은 섹터와 세부 산업이 같은 열에 섞이면 그룹 크기와 주도력 점수가 달라집니다.</p>
+        </article>
+        <article class="evidence-card warning-card">
+          <p class="mini-label">Morningstar 일관 분류</p>
+          <h3>C의 수익 우위는 0.04%포인트</h3>
+          <div class="risk-compare" id="coherent-risk"></div>
+          <p>수익은 같았지만 C의 최대 하락이 14.92%포인트 더 깊었습니다.</p>
+        </article>
+      </div>
+      <div class="caveat-box">
+        <h3>분류를 억지로 과거에 붙이지 않는 이유</h3>
+        <ul>
+          <li>현재 57개 라벨 자체가 넓은 섹터와 세부 산업을 섞고 있습니다.</li>
+          <li>과거 종목만 이 표에 끼워 넣으면 재현은 가능해도 경제적으로 같은 그룹을 비교하지 못합니다.</li>
+          <li>다음 버전에서는 모든 종목의 <code>sector</code>와 <code>industryGroup</code>을 분리해 고정해야 합니다.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="report-section" id="stress">
+      <div class="section-heading">
+        <p class="section-kicker">02 · 실제보다 불리하게 시험</p>
+        <h2>높은 거래비용에서 C의 순위가 뒤집혔습니다</h2>
+        <p>비용, 매수 지연, 구성 종목 정보 지연을 각각 나눠 적용한 뒤 함께 적용했습니다.</p>
+      </div>
+      <div class="table-scroll">
+        <table class="stress-table">
+          <thead><tr><th>시험 조건</th><th>섹터 흐름형</th><th>종목 힘 중심형</th><th>C-A</th><th>A 최대 하락</th><th>C 최대 하락</th><th>C 매수 누락</th></tr></thead>
+          <tbody id="stress-results"></tbody>
+        </table>
+      </div>
+      <div class="two-column stress-notes">
+        <article class="evidence-card"><p class="mini-label">시차만 적용</p><h3>C의 작은 우위는 남았습니다</h3><p>매수 하루 지연과 구성 종목 5거래일 지연에서는 C가 8.06%포인트 앞섰습니다. 다만 최대 하락은 여전히 더 깊었습니다.</p></article>
+        <article class="evidence-card warning-card"><p class="mini-label">비용만 상승</p><h3>현금 부족이 추천 누락을 만들었습니다</h3><p>C는 계획된 376건 중 85건을 사지 못했습니다. 비용이 달라지면 이후 어떤 추천을 사는지도 달라지는 자금 경로 문제가 확인됐습니다.</p></article>
+      </div>
+    </section>
+
+    <section class="report-section" id="tail">
+      <div class="section-heading">
+        <p class="section-kicker">03 · 대박 종목 의존 확인</p>
+        <h2>한 종목 때문만은 아니었지만 최근 저장장치 강세 영향은 컸습니다</h2>
+        <p>추천 월마다 별도 lot으로 계산하고 가장 큰 수익 두 개를 하나씩 제외했습니다.</p>
+      </div>
+      <div class="tail-grid" id="tail-results"></div>
+      <p class="chart-note">최고 두 lot을 제외해도 C는 A보다 5.97%포인트 앞섰습니다. C의 작은 우위가 한 번의 행운으로만 만들어진 것은 아닙니다.</p>
+    </section>
+
+    <section class="report-section" id="decision">
+      <div class="section-heading">
+        <p class="section-kicker">04 · 실제 운용 판단</p>
+        <h2>지금은 A를 유지하고 C는 후보로 남기는 편이 안전합니다</h2>
+      </div>
+      <div class="gate-list" id="promotion-gates"></div>
+      <div class="decision-panel">
+        <h3>권장 결정</h3>
+        <ol>
+          <li>7월 A 운용과 기존 A lot의 매도 일정은 그대로 둡니다.</li>
+          <li>C는 candidate로 유지합니다.</li>
+          <li>8월 자동 C 승격은 분류표와 자금 배분 규칙을 고친 뒤 다시 판단합니다.</li>
+          <li>이 보고서만으로 Public API나 Android 실행 상태를 바꾸지 않습니다.</li>
+        </ol>
+      </div>
+      <article class="evidence-card wide-card next-work">
+        <div class="card-heading"><div><p class="mini-label">다시 검토하기 전에</p><h3>먼저 고칠 네 가지</h3></div></div>
+        <ol id="required-work"></ol>
+      </article>
+    </section>
+
+    <section class="report-section methodology-section" id="methodology">
+      <div class="section-heading">
+        <p class="section-kicker">05 · 검증 조건과 용어</p>
+        <h2>숫자를 다시 확인할 수 있도록 남깁니다</h2>
+      </div>
+      <div class="method-grid" id="method-grid"></div>
+      <details class="detail-panel">
+        <summary>연도별 A·C 결과 전체 보기</summary>
+        <div class="table-scroll detail-table-wrap">
+          <table><thead><tr><th>연도</th><th>섹터 흐름형</th><th>종목 힘 중심형</th><th>C-A</th></tr></thead><tbody id="annual-results"></tbody></table>
+        </div>
+      </details>
+      <details class="detail-panel source-panel">
+        <summary>용어와 재현 자료 보기</summary>
+        <div class="glossary-grid">
+          <p><strong>CAGR</strong> 전체 결과를 매년 같은 비율로 불어났다고 환산한 연평균 수익률입니다.</p>
+          <p><strong>MDD</strong> 계좌가 앞선 최고점에서 가장 깊게 떨어졌던 폭입니다.</p>
+          <p><strong>PIT</strong> 과거 그날 실제로 알 수 있었던 종목 명단과 정보를 쓴다는 뜻입니다.</p>
+          <p><strong>lot</strong> 같은 종목이라도 추천 월과 매수일이 다른 별도 보유 묶음입니다.</p>
+        </div>
+        <ol>
+          <li><a href="./quantconnect_c_robustness_audit.md" target="_blank" rel="noreferrer">계산과 해석을 적은 Markdown 보고서</a></li>
+          <li><a href="./data/quantconnect-c-robustness-audit.json" target="_blank" rel="noreferrer">구조화된 원본 결과 JSON</a></li>
+          <li><a href="https://www.quantconnect.com/docs/v2/writing-algorithms/datasets/quantconnect/us-etf-constituents" target="_blank" rel="noreferrer">QuantConnect ETF 구성 종목 문서</a></li>
+          <li><a href="https://www.quantconnect.com/docs/v2/writing-algorithms/reality-modeling/slippage/supported-models" target="_blank" rel="noreferrer">QuantConnect 슬리피지 모델 문서</a></li>
+        </ol>
+      </details>
+      <div class="caveat-box"><h3>남은 한계</h3><ul id="limitation-list"></ul></div>
+    </section>
+  </main>
+
+  <footer class="report-footer"><p>Investor Leader Screener · C 전략 장기 강건성 감사</p><p id="footer-meta"></p></footer>
+  <div class="loading-state" id="loading-state" role="status">장기 검증 데이터를 불러오고 있습니다.</div>
+  <script type="module" src="c-robustness-audit.js"></script>
+</body>
+</html>

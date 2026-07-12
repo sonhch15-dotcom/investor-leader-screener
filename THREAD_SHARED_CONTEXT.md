@@ -350,3 +350,31 @@ Public 영향:
 - 전략 상태와 운용 계약은 변경하지 않는다. A active/C candidate, 2026-08 전환 계약, Public API, Android 주문·알림 정책은 그대로다.
 - Android는 새 PIT 수익률을 주문 로직에 사용하지 않는다. 향후 Public이 C 승격을 다시 판단할 때 PIT 감사와 전진 신호 성과를 함께 검토한다.
 - 상세 파일: `quantconnect_point_in_time_audit.md`, `data/quantconnect-point-in-time-audit.json`, `research/quantconnect/us_point_in_time_audit.py`.
+
+## 19. 2026-07-12 미국 Score C 장기 강건성 감사
+
+- Run ID: `us-score-a-c-quantconnect-long-robustness-20260712-v1`
+- QuantConnect PIT 기간을 2010-08부터 2026-03까지 188개월로 확장했다.
+- Morningstar 섹터·산업군을 모든 종목에 일관되게 적용한 결과:
+  - Score A +202.17%, MDD -20.54%
+  - Score C +202.21%, MDD -35.46%
+  - 수익 차이는 +0.04%포인트뿐이고 C 위험이 크게 나빠 승격 관문 실패
+- 기존 동결 업종표 호환 장기 기본 결과:
+  - Score A +244.31%, MDD -57.91%, 실제 매수 341/376
+  - Score C +248.95%, MDD -59.45%, 실제 매수 315/376
+  - C 우위는 +4.64%포인트, CAGR 차이는 +0.09%포인트에 그침
+- 매수·매도 각각 25bp 비용에서는 A +254.73%, C +210.71%로 순위가 역전됐다. C는 현금 부족으로 85/376건을 건너뛰었다.
+- 매수 1일 지연과 구성 종목 5거래일 지연만 적용하면 A +246.81%, C +254.87%로 C의 작은 우위는 남지만 MDD는 C가 더 깊다.
+- 비용과 시차를 함께 적용하면 A +254.57%, C +230.88%로 다시 역전된다.
+- 최고 수익 lot 두 개를 제외한 결과는 A +197.19%, C +203.16%다. C의 작은 우위가 한 종목 하나에만 의존한 것은 아니다.
+- 데이터 감사: 동결 517종목의 `sector` 필드는 57개 라벨이지만 11개 넓은 GICS 섹터와 46개 세부 산업명이 섞여 있다. 새 버전에서는 `sector`와 `industryGroup`을 분리해야 한다.
+
+전략·Android 판단:
+
+- 장기 승격 관문 상태: `failed`
+- 권고 상태: Score A `active`, Score C `candidate` 유지
+- 2026-08 C 자동 승격은 분류 계약과 자금 배분 규칙 보정 후 재검증할 때까지 보류 권고
+- 이번 연구 커밋은 Public API active key, transition payload, `minAppVersionCode`, Android ExecutionPolicy를 직접 변경하지 않는다.
+- Android는 현재와 같이 API의 단일 active 전략만 주문 가능하게 유지한다. Public에서 별도 승인 없이 C를 active로 바꾸지 않는다.
+- 기존 A lot의 `strategyKey`, 매수일, 6개월·주봉·12개월 일정은 그대로 보존한다.
+- 상세 자료: `quantconnect_c_robustness_audit.md`, `data/quantconnect-c-robustness-audit.json`, `research/quantconnect/us_long_horizon_audit.py`

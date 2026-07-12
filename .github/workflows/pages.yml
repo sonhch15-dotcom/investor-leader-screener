@@ -60,6 +60,9 @@ jobs:
       - name: Verify point-in-time universe audit
         run: node scripts/verify-point-in-time-audit.mjs
 
+      - name: Verify Score C long robustness audit
+        run: node scripts/verify-c-robustness-audit.mjs
+
       - name: Build static site
         run: node scripts/build-pages.mjs
 
