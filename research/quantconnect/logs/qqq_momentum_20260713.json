@@ -1,0 +1,87 @@
+{
+  "asOf": "2026-07-13",
+  "dataThrough": "2026-04-13",
+  "status": "research_champion",
+  "activeStrategyChanged": false,
+  "universe": {
+    "name": "QQQ point-in-time constituents",
+    "membershipLagTradingDays": 5,
+    "sectorClassificationUsed": false
+  },
+  "signal": {
+    "frequency": "monthly_last_friday_after_close",
+    "execution": "next_trading_day",
+    "score": "12_to_1_month_cross_sectional_momentum",
+    "filters": [
+      "close_gte_ma200",
+      "six_month_return_gt_qqq",
+      "twelve_to_one_month_return_gt_zero"
+    ],
+    "selectionCount": 10
+  },
+  "allocation": {
+    "qqqCoreWeight": 0.25,
+    "satelliteWeight": 0.75,
+    "satelliteBaseWeight": "point_in_time_qqq_constituent_weight",
+    "singleStockTargetCap": 0.25,
+    "fractionalShares": true
+  },
+  "benchmark": {
+    "ticker": "QQQ",
+    "train": {
+      "cagr": 0.1971,
+      "mdd": -0.3512
+    },
+    "holdout": {
+      "return": 0.2165,
+      "cagr": 0.1660,
+      "mdd": -0.2277
+    }
+  },
+  "costStress": [
+    {
+      "oneWayCost": 0.001,
+      "trainCagr": 0.2343,
+      "trainMdd": -0.3665,
+      "holdoutReturn": 0.3187,
+      "holdoutCagr": 0.2421,
+      "holdoutMdd": -0.3189,
+      "accepted": true
+    },
+    {
+      "oneWayCost": 0.0025,
+      "trainCagr": 0.2226,
+      "trainMdd": -0.3742,
+      "holdoutReturn": 0.3017,
+      "holdoutCagr": 0.2295,
+      "holdoutMdd": -0.3217,
+      "accepted": true
+    },
+    {
+      "oneWayCost": 0.005,
+      "trainCagr": 0.2034,
+      "trainMdd": -0.3868,
+      "holdoutReturn": 0.2738,
+      "holdoutCagr": 0.2089,
+      "holdoutMdd": -0.3263,
+      "accepted": true
+    }
+  ],
+  "risk": {
+    "observedMaxPositionWeightAtBaseCost": 0.3161,
+    "holdoutMonthsApprox": 15,
+    "holdoutMddGapVsQqqAtBaseCost": -0.0912
+  },
+  "reproducibility": {
+    "baseCandidateExactRuns": 2,
+    "identical": true,
+    "sourceFiles": [
+      "research/quantconnect/qqq_momentum_stage1.py",
+      "research/quantconnect/qqq_momentum_stage2.py",
+      "research/quantconnect/qqq_momentum_stage3.py",
+      "research/quantconnect/qqq_momentum_stage4.py",
+      "research/quantconnect/qqq_momentum_stage5.py",
+      "research/quantconnect/qqq_momentum_stage6.py"
+    ]
+  }
+}
