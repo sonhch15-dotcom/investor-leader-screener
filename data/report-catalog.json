@@ -17,6 +17,15 @@
           "summary": "환전, 비용, 자금 배분, A·C 선정식을 같은 계좌 조건으로 비교합니다."
         },
         {
+          "id": "taxonomy-leader-group-audit",
+          "title": "업종표가 수익률을 만든 걸까?",
+          "source": "dashboard/taxonomy-leader-group-audit.html",
+          "href": "taxonomy-leader-group-audit.html",
+          "market": "미국",
+          "status": "최신",
+          "summary": "57개 혼합 분류의 생성 원인과 작은 업종 그룹의 성과 착시를 검증합니다."
+        },
+        {
           "id": "c-robustness-audit",
           "title": "종목 힘 중심형 장기 강건성 감사",
           "source": "dashboard/c-robustness-audit.html",
@@ -152,6 +161,14 @@
           "source": "sector_score_variant_test-corrected-frozen-20260711.md",
           "market": "미국",
           "href": "sector_score_variant_test-corrected-frozen-20260711.md"
+        },
+        {
+          "id": "taxonomy-leader-group-audit-raw",
+          "title": "업종 분류와 Leader2 구조 감사 원문",
+          "source": "taxonomy_leader_group_audit.md",
+          "market": "미국",
+          "status": "원문",
+          "href": "taxonomy_leader_group_audit.md"
         },
         {
           "id": "score-variant-final",
@@ -480,5 +497,5 @@
       ]
     }
   ],
-  "reportCount": 60
+  "reportCount": 62
 }

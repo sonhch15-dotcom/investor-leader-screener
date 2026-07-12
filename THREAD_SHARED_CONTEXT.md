@@ -423,3 +423,22 @@ Public 영향:
 - `data/quantconnect-us-100m-capital-audit.json`
 - `research/quantconnect/us_100m_coherent_capital_audit.py`
 - `strategy_validation_pipeline.md`
+
+## 21. 2026-07-12 미국 업종 분류와 Leader2 구조 감사
+
+- Run ID: `us-taxonomy-structure-frozen-20260712-v1`
+- 기존 517주식의 `sector` 필드는 의도적으로 설계한 57개 업종 체계가 아니다.
+- S&P 500에서는 넓은 GICS 섹터를 읽고 Nasdaq-100에서는 세부 분류를 읽은 뒤, 중복 종목의 나중 값을 덮어써 11개 넓은 섹터와 46개 세부 업종명이 섞였다.
+- 57개 라벨의 중앙 종목 수는 1개다. 40개 라벨은 2종목 이하, 44개는 8종목 미만이다.
+- 5년 고정 스냅샷에서 개별 점수와 가격을 고정하고 업종 처리만 바꿨다.
+  - 57개 혼합 원형: +919.5%, MDD -22.0%
+  - 소형 그룹 표본 보정 8: +680.7%, MDD -18.0%
+  - 8종목 미만 제외: +423.7%, MDD -22.2%
+  - 업종 단계 제거: +242.8%, MDD -37.3%
+- 원형에서 4종목짜리 `Electronic Components`가 25회 선택됐다. 8종목 미만을 제외하면 2025~2026 구간 수익은 +335.0%에서 +75.8%로 낮아졌다.
+- 이 5년 실험은 현재 구성 종목 고정이므로 공식 성과가 아니라 분류 구조 민감도 증거로만 사용한다.
+- 완료된 2010~2026 QuantConnect PIT에서는 Morningstar 일관 분류가 혼합 호환 분류보다 수익은 낮지만 MDD는 크게 얕았다. 두 분류 모두 QQQ를 크게 밑돌았다.
+- 판정: 57개 혼합 라벨을 새 공식 분류로 승격하지 않는다. Morningstar `sector`·`industryGroup` 일관 분류를 향후 연구 기준선으로 유지한다.
+- 표본 보정 강도 8은 다음 PIT 검증의 1순위 연구 후보이며 아직 추천·주문·알림에 연결하지 않는다.
+- Public API, A/C 상태, 월간 실행 잠금, Android ExecutionPolicy와 기존 lot 일정에는 변경이 없다.
+- 상세 자료: `dashboard/taxonomy-leader-group-audit.html`, `taxonomy_leader_group_audit.md`, `data/taxonomy-structure-audit.json`, `src/taxonomy-structure-audit.mjs`.

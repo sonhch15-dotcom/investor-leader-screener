@@ -8,6 +8,7 @@
       "description": "현재 전략을 판단할 때 먼저 읽을 보고서입니다.",
       "reports": [
         { "id": "us-100m-capital-audit", "title": "미국 전략 1억원 실계좌형 검증", "source": "dashboard/us-100m-capital-audit.html", "href": "us-100m-capital-audit.html", "market": "미국", "status": "최신", "summary": "환전, 비용, 자금 배분, A·C 선정식을 같은 계좌 조건으로 비교합니다." },
+        { "id": "taxonomy-leader-group-audit", "title": "업종표가 수익률을 만든 걸까?", "source": "dashboard/taxonomy-leader-group-audit.html", "href": "taxonomy-leader-group-audit.html", "market": "미국", "status": "최신", "summary": "57개 혼합 분류의 생성 원인과 작은 업종 그룹의 성과 착시를 검증합니다." },
         { "id": "c-robustness-audit", "title": "종목 힘 중심형 장기 강건성 감사", "source": "dashboard/c-robustness-audit.html", "href": "c-robustness-audit.html", "market": "미국", "status": "핵심", "summary": "2010년 이후 시점 구성 종목과 상장폐지를 포함해 후보 선정식의 승격 가능성을 점검합니다." },
         { "id": "point-in-time-audit", "title": "과거 실제 구성 종목 감사", "source": "dashboard/point-in-time-audit.html", "href": "point-in-time-audit.html", "market": "미국", "status": "핵심", "summary": "당시 지수 구성 종목만 사용했는지 확인한 생존편향 감사입니다." },
         { "id": "us-strategy-history", "title": "미국 전략 5년 복기", "source": "dashboard/us-strategy-history.html", "href": "us-strategy-history.html", "market": "미국", "status": "핵심", "summary": "좋았던 시기와 어려웠던 시기를 처음 투자하는 사람도 읽기 쉽게 정리했습니다." },
@@ -32,6 +33,7 @@
         { "id": "full-candidate-diversification", "title": "전체 후보 분산 검증", "source": "full_candidate_diversification_test.md", "market": "미국" },
         { "id": "sector-score-variants", "title": "섹터 점수 A·B·C 실험", "source": "sector_score_variant_test.md", "market": "미국" },
         { "id": "sector-score-frozen", "title": "고정 데이터 섹터 점수 재현", "source": "sector_score_variant_test-corrected-frozen-20260711.md", "market": "미국" },
+        { "id": "taxonomy-leader-group-audit-raw", "title": "업종 분류와 Leader2 구조 감사 원문", "source": "taxonomy_leader_group_audit.md", "market": "미국", "status": "원문" },
         { "id": "score-variant-final", "title": "점수 변형 최종 비교", "source": "score_variant_final_validation.md", "market": "미국" },
         { "id": "selection-strategy-lab", "title": "종목 선정 전략 연구실", "source": "selection_strategy_lab.md", "market": "미국" },
         { "id": "us-candidate-study", "title": "미국 후보 전략 추가 연구", "source": "us_backtest_candidate_study.md", "market": "미국" }

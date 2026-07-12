@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="미국 종목 선정 전략에서 57개 혼합 업종표와 Morningstar 일관 분류의 차이를 검증한 보고서">
+  <title>업종표가 수익률을 만든 걸까?</title>
+  <link rel="stylesheet" href="us-strategy-history.css">
+  <link rel="stylesheet" href="point-in-time-audit.css">
+  <link rel="stylesheet" href="c-robustness-audit.css">
+  <link rel="stylesheet" href="taxonomy-leader-group-audit.css">
+</head>
+<body class="audit-report taxonomy-report">
+  <header class="report-header">
+    <div class="header-inner">
+      <a class="back-link" href="./?cb=taxonomy-audit#report-library">대시보드로 돌아가기</a>
+      <div class="header-actions">
+        <span id="as-of-chip" class="status-chip">데이터 확인 중</span>
+        <button class="print-button" id="print-report" type="button">인쇄</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="report-shell">
+    <section class="hero" aria-labelledby="report-title">
+      <p class="eyebrow">미국 종목 선정 · 업종 분류 감사</p>
+      <h1 id="report-title">업종표가 수익률을<br>만든 걸까?</h1>
+      <p class="hero-lede">기존 57개 분류는 세밀해서 잘 된 것이 아니었습니다. 넓은 섹터와 세부 업종이 우연히 한 칸에 섞였고, 그 구조가 일부 작은 그룹을 유리하게 만들었습니다.</p>
+      <div class="decision-banner decision-hold">
+        <span class="decision-badge">운용 변경 없음</span>
+        <p><strong>과거 수익률이 높다는 이유로 57개 혼합 분류를 새 공식 체계로 승인하지 않습니다.</strong> Morningstar 일관 분류를 연구 기준선으로 유지하고, 그룹 크기 보정 방식은 별도 후보로 다시 검증합니다. 현재 추천 API는 바꾸지 않습니다.</p>
+      </div>
+    </section>
+
+    <nav class="section-nav" aria-label="보고서 목차">
+      <a href="#executive-summary">핵심 결론</a>
+      <a href="#origin">57개의 정체</a>
+      <a href="#local-test">구조 실험</a>
+      <a href="#pit-test">장기 검증</a>
+      <a href="#decision">권장안</a>
+      <a href="#methodology">조건·용어</a>
+    </nav>
+
+    <section class="report-section" id="executive-summary">
+      <div class="section-heading">
+        <p class="section-kicker">Executive Summary · 핵심 결론</p>
+        <h2>모닝스타가 나빠진 것이 아니라, 기존 분류의 착시가 드러났습니다</h2>
+        <p>두 종류의 증거를 함께 봤습니다. 저장된 5년 데이터에서는 분류 구조만 흔들었고, QuantConnect 장기 검증에서는 당시 실제 지수 종목과 상장폐지 종목까지 포함했습니다.</p>
+      </div>
+      <div class="metric-strip" id="headline-metrics"></div>
+      <div class="finding-grid" id="key-findings"></div>
+      <aside class="plain-language-note">
+        <h3>한 문장으로 말하면</h3>
+        <p>좋은 분류표는 과거 수익률을 가장 크게 만드는 표가 아니라, 모든 종목을 같은 기준으로 설명하고 다음 달에도 똑같이 만들 수 있는 표입니다.</p>
+      </aside>
+    </section>
+
+    <section class="report-section" id="origin">
+      <div class="section-heading">
+        <p class="section-kicker">01 · 57개 분류는 어떻게 생겼나</p>
+        <h2>의도적으로 설계한 57개 업종 체계가 아니었습니다</h2>
+        <p>S&amp;P 500 표에서는 넓은 GICS 섹터를 읽고, Nasdaq-100 표에서는 더 세부적인 분류를 읽었습니다. 두 지수에 함께 있는 종목은 나중에 읽은 Nasdaq 값으로 덮였습니다.</p>
+      </div>
+      <div class="origin-flow" aria-label="기존 업종 분류 생성 과정">
+        <article><span>1</span><h3>S&amp;P 500</h3><p>금융, 산업재, 헬스케어처럼 넓은 섹터를 저장</p></article>
+        <article><span>2</span><h3>Nasdaq-100</h3><p>반도체, 소프트웨어, 전자부품처럼 더 좁은 이름을 저장</p></article>
+        <article class="problem-step"><span>3</span><h3>나중 값으로 덮기</h3><p>같은 종목도 소속 지수에 따라 분류의 깊이가 달라짐</p></article>
+      </div>
+      <div class="two-column">
+        <article class="evidence-card">
+          <p class="mini-label">저장된 517개 미국 주식</p>
+          <h3>라벨 크기가 극단적으로 다릅니다</h3>
+          <div class="taxonomy-counts" id="taxonomy-counts"></div>
+          <p>57개 중 40개는 1~2종목뿐입니다. 현재 주도 업종 계산은 최소 3종목을 요구하므로 이 40개 라벨은 업종 경쟁에서 빠집니다.</p>
+        </article>
+        <article class="evidence-card warning-card">
+          <p class="mini-label">같은 열에 섞인 두 단계</p>
+          <h3>넓은 섹터 11개 + 세부 업종 46개</h3>
+          <div class="mixed-labels" id="mixed-labels"></div>
+          <p>금융 75종목과 전자부품 4종목이 같은 방식으로 경쟁합니다. 비율 중심 점수에서는 작은 그룹의 1종목 변화가 훨씬 크게 보일 수 있습니다.</p>
+        </article>
+      </div>
+      <details class="detail-panel">
+        <summary>57개 라벨과 종목 수 전체 보기</summary>
+        <div class="label-grid" id="label-grid"></div>
+      </details>
+    </section>
+
+    <section class="report-section" id="local-test">
+      <div class="section-heading">
+        <p class="section-kicker">02 · 분류 구조만 바꾼 5년 실험</p>
+        <h2>작은 업종의 영향만 줄여도 결과가 크게 달라졌습니다</h2>
+        <p>종목 점수, 가격, 매수 시점, 6개월 겹침 보유와 비용은 고정했습니다. 바꾼 것은 업종 그룹을 평가하는 방식뿐입니다.</p>
+      </div>
+      <article class="evidence-card wide-card">
+        <div class="card-heading"><div><p class="mini-label">2021-07 ~ 2026-07 · 탐색용 고정 스냅샷</p><h3>분류 구조별 누적 수익률</h3></div><span class="unit-label">QQQ +96.2%</span></div>
+        <div class="return-bars" id="variant-bars"></div>
+        <p class="chart-note">이 숫자는 현재 구성 종목을 과거에도 있었다고 놓은 탐색용 실험입니다. 공식 수익률로 쓰지 않고, 분류 구조에 얼마나 민감한지만 봅니다.</p>
+      </article>
+      <div class="table-scroll">
+        <table class="variant-table">
+          <thead><tr><th>시험 방식</th><th>누적 수익</th><th>최대 하락</th><th>작은 그룹 선택</th><th>원형과 종목 일치</th><th>판독</th></tr></thead>
+          <tbody id="variant-results"></tbody>
+        </table>
+      </div>
+      <article class="evidence-card wide-card period-card-wrap">
+        <div class="card-heading"><div><p class="mini-label">같은 실험을 세 구간으로 분리</p><h3>최근 구간에서 차이가 가장 컸습니다</h3></div></div>
+        <div class="period-compare" id="period-compare"></div>
+      </article>
+      <div class="two-column">
+        <article class="evidence-card warning-card"><p class="mini-label">가장 큰 의존</p><h3>전자부품 4종목 그룹이 25번 선택</h3><p>원형 분류에서 가장 자주 선택된 업종입니다. 8종목 미만 그룹을 제외하면 최근 구간 수익은 +335.0%에서 +75.8%로 낮아졌습니다.</p></article>
+        <article class="evidence-card"><p class="mini-label">위험을 덜어낸 후보</p><h3>표본 보정은 MDD를 4.0%p 낮춤</h3><p>작은 그룹의 비율을 전체 평균 쪽으로 보정하자 누적 수익은 낮아졌지만 최대 하락은 -22.0%에서 -18.0%로 완화됐습니다. 다음 PIT 시험의 1순위 후보입니다.</p></article>
+      </div>
+    </section>
+
+    <section class="report-section" id="pit-test">
+      <div class="section-heading">
+        <p class="section-kicker">03 · 당시 실제 종목으로 2010년부터 검증</p>
+        <h2>일관된 분류에서는 두 선정식 모두 QQQ를 따라가지 못했습니다</h2>
+        <p>여기서는 당시 SPY·QQQ 구성 종목, 상장폐지, 동일한 자금·매도 규칙을 사용했습니다. 앞의 5년 탐색 실험보다 신뢰도가 높은 결과입니다.</p>
+      </div>
+      <div class="pit-grid" id="pit-results"></div>
+      <aside class="plain-language-note important-note">
+        <h3>왜 이것이 Morningstar의 실패는 아닌가</h3>
+        <p>분류표는 종목의 경제적 성격을 일관되게 묶는 도구입니다. 수익률을 높이도록 업종 경계를 바꾸기 시작하면, 과거 정답을 보고 시험 문제를 고치는 것과 같아집니다. Morningstar 결과가 낮아진 것은 오히려 기존 전략의 실제 한계를 보여주는 중요한 경고입니다.</p>
+      </aside>
+      <div class="caveat-box">
+        <h3>두 결과를 섞어 읽지 않기</h3>
+        <ul>
+          <li>5년 구조 실험은 현재 종목 고정이라 생존편향이 있습니다. 분류 민감도만 판단합니다.</li>
+          <li>2010~2026 장기 결과는 당시 구성 종목을 사용했지만, 기존 57개 호환판은 과거 종목 일부에 Morningstar를 보충한 혼합판입니다.</li>
+          <li>따라서 “57개가 Morningstar보다 우수하다”가 아니라 “결과가 분류 계약에 크게 의존한다”가 안전한 결론입니다.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="report-section" id="decision">
+      <div class="section-heading">
+        <p class="section-kicker">04 · 앞으로의 분류 계약</p>
+        <h2>일관된 원본 + 표본 보정 후보로 다시 시작합니다</h2>
+        <p>분류표를 성과에 맞춰 고치지 않고, 분류 계약을 먼저 고정한 뒤 점수 계산을 검증합니다.</p>
+      </div>
+      <div class="decision-panel approved-panel">
+        <h3>이번 결론</h3>
+        <ol>
+          <li>57개 혼합 라벨은 공식 분류 체계로 승격하지 않습니다.</li>
+          <li>Morningstar <code>sector</code>와 <code>industryGroup</code>을 분리한 일관 분류를 향후 연구 기준선으로 유지합니다.</li>
+          <li>산업그룹 표본 보정 8종목 방식은 연구 후보로 등록하되, 아직 추천·주문·알림에는 쓰지 않습니다.</li>
+          <li>현재 Public API와 Android 운용 전략은 변경하지 않습니다.</li>
+        </ol>
+      </div>
+      <div class="rule-flow taxonomy-policy-flow">
+        <article><span>1</span><h3>월말 전 분류 동결</h3><p>종목별 섹터·산업그룹과 적용일을 저장하고 해시를 남깁니다.</p></article>
+        <article><span>2</span><h3>변경 내역만 검토</h3><p>신규 상장, 기업 분할, 사업 변화처럼 달라진 종목만 사람이 확인합니다.</p></article>
+        <article><span>3</span><h3>신호 생성 후 불변</h3><p>확정된 월 신호에는 그달 분류 버전을 붙이고 나중에 소급 수정하지 않습니다.</p></article>
+      </div>
+      <article class="evidence-card wide-card next-work">
+        <div class="card-heading"><div><p class="mini-label">다음 장기 PIT 시험</p><h3>한 번에 바꿀 것은 업종 그룹 처리 하나뿐</h3></div><span class="candidate-badge watch">연구 대기</span></div>
+        <ol>
+          <li>Morningstar 산업그룹 원형</li>
+          <li>산업그룹 표본 보정 8종목</li>
+          <li>5종목 미만이면 상위 섹터로 올리는 적응형 분류</li>
+          <li>업종 단계를 빼고 개별 점수 상위 2종목만 고르는 대조군</li>
+        </ol>
+        <p class="chart-note">설계 구간(2010~2018), 검증 구간(2019~2022), 최근 확인 구간(2023~2026)을 모두 통과해야 후보가 됩니다. 전체 누적 수익 하나만 보고 고르지 않습니다.</p>
+      </article>
+    </section>
+
+    <section class="report-section methodology-section" id="methodology">
+      <div class="section-heading">
+        <p class="section-kicker">05 · 검증 조건과 용어</p>
+        <h2>어디까지 믿어도 되는지 함께 적습니다</h2>
+      </div>
+      <div class="method-grid" id="method-grid"></div>
+      <details class="detail-panel source-panel">
+        <summary>용어와 재현 자료 보기</summary>
+        <div class="glossary-grid">
+          <p><strong>누적 수익률</strong> 시작부터 끝까지 계좌가 모두 얼마나 늘거나 줄었는지 보여줍니다.</p>
+          <p><strong>CAGR</strong> 전체 결과를 매년 같은 비율로 불어났다고 바꾼 연평균 수익률입니다.</p>
+          <p><strong>MDD</strong> 계좌가 이전 최고점에서 가장 깊게 떨어졌던 폭입니다.</p>
+          <p><strong>PIT</strong> 과거 그날 실제로 알 수 있었던 종목 명단과 정보만 썼다는 뜻입니다.</p>
+          <p><strong>표본 보정</strong> 종목 수가 적은 그룹의 극단적인 비율을 전체 평균 쪽으로 조심스럽게 당기는 계산입니다.</p>
+          <p><strong>생존편향</strong> 지금 살아남은 종목만 과거에도 투자했다고 가정해 성과가 좋아 보이는 문제입니다.</p>
+        </div>
+        <ol>
+          <li><a href="./taxonomy_leader_group_audit.md" target="_blank" rel="noreferrer">분석 결론과 재현 조건 Markdown</a></li>
+          <li><a href="./data/taxonomy-structure-audit.json" target="_blank" rel="noreferrer">5년 분류 구조 실험 JSON</a></li>
+          <li><a href="./data/quantconnect-c-robustness-audit.json" target="_blank" rel="noreferrer">2010~2026 PIT 장기 결과 JSON</a></li>
+          <li><a href="./c-robustness-audit.html" target="_blank" rel="noreferrer">종목 선정식 장기 강건성 보고서</a></li>
+          <li><a href="./point-in-time-audit.html" target="_blank" rel="noreferrer">과거 실제 구성 종목 감사 보고서</a></li>
+        </ol>
+      </details>
+      <div class="caveat-box"><h3>남은 한계</h3><ul id="limitation-list"></ul></div>
+    </section>
+  </main>
+
+  <footer class="report-footer"><p>Investor Leader Screener · 업종 분류 감사</p><p id="footer-meta"></p></footer>
+  <div class="loading-state" id="loading-state" role="status">업종 분류 검증 데이터를 불러오고 있습니다.</div>
+  <script type="module" src="taxonomy-leader-group-audit.js"></script>
+</body>
+</html>
