@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="미국 주도주 전략의 Morningstar 업종 분류 보정안을 2010년 이후 시점 데이터와 1억원 계좌로 검증한 보고서">
+  <title>작은 업종을 합치면 전략이 더 좋아질까?</title>
+  <link rel="stylesheet" href="us-strategy-history.css">
+  <link rel="stylesheet" href="point-in-time-audit.css">
+  <link rel="stylesheet" href="c-robustness-audit.css">
+  <link rel="stylesheet" href="taxonomy-pit-audit.css">
+</head>
+<body class="audit-report taxonomy-pit-report">
+  <header class="report-header">
+    <div class="header-inner">
+      <a class="back-link" href="./?cb=taxonomy-pit-audit#report-library">대시보드로 돌아가기</a>
+      <div class="header-actions">
+        <span id="as-of-chip" class="status-chip">결과 확인 중</span>
+        <button class="print-button" id="print-report" type="button">인쇄</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="report-shell">
+    <section class="hero" aria-labelledby="report-title">
+      <p class="eyebrow">미국 종목 선정 · 장기 업종 분류 검증</p>
+      <h1 id="report-title">작은 업종을 합치면<br>전략이 더 좋아질까?</h1>
+      <p class="hero-lede">전체 기간만 보면 좋아졌습니다. 하지만 초반 구간에서는 뒤졌고, 개선분 대부분이 한 번의 큰 수익에 기대고 있었습니다. 그래서 아이디어는 남기되 실제 추천 방식은 아직 바꾸지 않습니다.</p>
+      <div class="decision-banner decision-hold">
+        <span class="decision-badge">연구 후보 유지</span>
+        <p><strong>작은 업종을 상위 그룹으로 합치는 방식은 공식 전략으로 승격하지 않습니다.</strong> 현재 Public API, Android 주문 규칙, 기존 보유 lot의 매도 일정은 그대로 유지합니다. 6~12개월 미래 관찰과 큰 수익 lot의 종목 식별자 감사를 먼저 마쳐야 합니다.</p>
+      </div>
+    </section>
+
+    <nav class="section-nav" aria-label="보고서 목차">
+      <a href="#executive-summary">핵심 결론</a>
+      <a href="#contract">시험 조건</a>
+      <a href="#result">전체 결과</a>
+      <a href="#periods">기간별 결과</a>
+      <a href="#concentration">대박 의존도</a>
+      <a href="#structure">업종 크기</a>
+      <a href="#decision">최종 판단</a>
+      <a href="#methodology">용어·자료</a>
+    </nav>
+
+    <section class="report-section" id="executive-summary">
+      <div class="section-heading">
+        <p class="section-kicker">Executive Summary · 핵심 결론</p>
+        <h2>가능성은 보였지만, 지금 교체하면 결과에 맞춰 규칙을 고치는 셈이 됩니다</h2>
+        <p>기존 일관 업종 원형과 작은 업종 합치기를 같은 1억원 계좌, 같은 종목 점수, 같은 매수·매도 규칙으로 비교했습니다. 숫자는 좋아졌지만 승격 조건 일곱 개 중 핵심 세 개를 통과하지 못했습니다.</p>
+      </div>
+      <div class="metric-strip" id="headline-metrics"></div>
+      <div class="finding-grid" id="key-findings"></div>
+      <aside class="plain-language-note important-note">
+        <h3>한 문장으로 말하면</h3>
+        <p>좋은 후보는 찾았지만, 아직 좋은 공식 전략을 찾은 것은 아닙니다. 과거 전체 수익보다 여러 시기에서 반복됐는지와 한두 종목 없이도 남는지가 더 중요합니다.</p>
+      </aside>
+    </section>
+
+    <section class="report-section" id="contract">
+      <div class="section-heading">
+        <p class="section-kicker">01 · 무엇을 똑같이 두고 시험했나</p>
+        <h2>업종을 묶는 방법만 바꾸고 나머지는 고정했습니다</h2>
+        <p>그룹 방식의 효과만 보려면 계좌 크기, 종목 점수, 당시 투자 가능 종목, 거래 시차와 매도 규칙이 모두 같아야 합니다.</p>
+      </div>
+      <div class="method-grid" id="contract-grid"></div>
+      <div class="rule-flow contract-flow">
+        <article><span>1</span><h3>그달 실제 종목만 사용</h3><p>당시 SPY 또는 QQQ 구성 종목을 쓰고, 구성 정보는 5거래일 늦게 안다고 가정했습니다.</p></article>
+        <article><span>2</span><h3>한 달에 2종목 매수</h3><p>신호 다음 거래일에 사고, 매수와 매도마다 0.10% 비용을 반영했습니다.</p></article>
+        <article><span>3</span><h3>같은 청산 규칙</h3><p>6개월에 절반 매도 후 주봉 조건이 좋을 때만 나머지를 연장하고, 늦어도 12개월에 정리했습니다.</p></article>
+      </div>
+      <article class="evidence-card wide-card reproducibility-card">
+        <div class="card-heading">
+          <div><p class="mini-label">재현성 검사</p><h3>독립 실행 두 번의 결과 로그 93줄이 모두 같았습니다</h3></div>
+          <span class="candidate-badge pass">일치</span>
+        </div>
+        <p>처음에는 Python 집합 순서와 동점 종목 처리 때문에 실행할 때마다 일부 종목이 달라졌습니다. 종목, 업종, 동점 순서를 모두 고정한 뒤 다시 두 번 돌렸고 결과가 정확히 일치한 실행만 채택했습니다.</p>
+      </article>
+      <details class="detail-panel">
+        <summary>비교한 업종 처리 7가지 보기</summary>
+        <div class="variant-explainer" id="variant-explainer"></div>
+      </details>
+    </section>
+
+    <section class="report-section" id="result">
+      <div class="section-heading">
+        <p class="section-kicker">02 · 전체 기간 결과</p>
+        <h2>작은 업종 합치기는 원형보다 수익과 낙폭이 모두 좋아졌습니다</h2>
+        <p>다만 QQQ는 같은 기간 계속 투자했고 전략은 현금을 보유할 수 있어 완전히 같은 위험 비교는 아닙니다. 아래 QQQ 수치는 장기 기회비용을 보는 경고등으로 읽어야 합니다.</p>
+      </div>
+      <article class="evidence-card wide-card">
+        <div class="card-heading"><div><p class="mini-label">2010-08 ~ 2026-04 · 초기 1억원</p><h3>일관 분류 후보 네 가지</h3></div><span class="unit-label">누적 수익률</span></div>
+        <div class="strategy-bars" id="strategy-bars"></div>
+        <p class="chart-note">막대는 전략끼리 비교하기 위한 같은 눈금입니다. QQQ는 값이 너무 커서 별도 카드로 분리했습니다.</p>
+      </article>
+      <article class="benchmark-callout" id="benchmark-callout"></article>
+      <div class="two-column result-pair" id="baseline-candidate-pair"></div>
+      <details class="detail-panel">
+        <summary>점수 방식 2개 × 업종 처리 7개, 전체 14개 결과 보기</summary>
+        <div class="detail-table-wrap">
+          <div class="table-scroll">
+            <table class="full-result-table">
+              <thead><tr><th>순위</th><th>종목 점수</th><th>업종 처리</th><th>누적 수익</th><th>연평균 수익</th><th>최대 하락</th><th>실제 매수</th><th>용도</th></tr></thead>
+              <tbody id="all-results"></tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="report-section" id="periods">
+      <div class="section-heading">
+        <p class="section-kicker">03 · 시기를 나눠서 다시 보기</p>
+        <h2>최근에는 좋아졌지만, 전략을 만든 초반 시기에는 오히려 뒤졌습니다</h2>
+        <p>전체 기간 한 줄만 보면 우연한 특정 장세를 전략의 실력으로 착각할 수 있습니다. 그래서 설계, 중간 검증, 최근 확인의 세 구간으로 잘랐습니다.</p>
+      </div>
+      <div class="period-cards" id="period-cards"></div>
+      <aside class="plain-language-note">
+        <h3>왜 이것이 승격 실패인가</h3>
+        <p>좋아 보이는 최근 결과를 보고 업종 규칙을 만든 뒤, 같은 최근 구간에서 다시 칭찬하면 답을 미리 본 시험이 됩니다. 초반 독립 구간에서도 개선됐다는 증거가 없으므로 지금은 연구 후보가 맞습니다.</p>
+      </aside>
+    </section>
+
+    <section class="report-section" id="concentration">
+      <div class="section-heading">
+        <p class="section-kicker">04 · 한두 번의 대박을 빼면</p>
+        <h2>후보의 35.09%p 우위가 0.45%p로 거의 사라졌습니다</h2>
+        <p>가장 큰 수익 lot 두 개를 최종 자산에서 단순 차감해 본 집중도 스트레스입니다. 자금을 다시 배분해 재실행한 결과는 아니지만, 결론이 몇 건에 기대는지 빠르게 확인할 수 있습니다.</p>
+      </div>
+      <div class="tail-grid" id="winner-cards"></div>
+      <article class="evidence-card wide-card winner-warning">
+        <div class="card-heading"><div><p class="mini-label">추가 데이터 감사 필요</p><h3><code>CEG@2011-09</code> 표시는 종목 고유 식별자로 다시 확인해야 합니다</h3></div><span class="candidate-badge watch">미확인</span></div>
+        <p>티커는 기업 인수나 재사용으로 시간이 지나며 달라질 수 있습니다. 이 lot은 현재 티커 문자열만으로는 2011년의 정확한 증권을 확정할 수 없습니다. 다음 실행에서는 QuantConnect의 Security Identifier와 기업행위 내역을 함께 저장해 같은 종목인지 확인해야 합니다.</p>
+      </article>
+    </section>
+
+    <section class="report-section" id="structure">
+      <div class="section-heading">
+        <p class="section-kicker">05 · 작은 업종 문제는 실제로 줄었나</p>
+        <h2>4종목 이하 그룹 선택은 사라졌지만 종목 구성도 꽤 달라졌습니다</h2>
+        <p>후보는 8종목 미만의 세부 업종을 상위 산업그룹으로 올려서 평가합니다. 작은 표본의 과장을 줄였지만, 매달 고르는 두 종목이 원형과 완전히 같았던 달은 25%뿐입니다.</p>
+      </div>
+      <div class="two-column">
+        <article class="evidence-card"><p class="mini-label">선택된 업종 크기</p><h3>작은 그룹 노출</h3><div id="group-size-compare" class="group-size-compare"></div></article>
+        <article class="evidence-card"><p class="mini-label">월별 추천 188개월</p><h3>원형과 후보의 종목 겹침</h3><div id="overlap-summary" class="overlap-summary"></div></article>
+      </div>
+      <article class="evidence-card wide-card score-comparison">
+        <div class="card-heading"><div><p class="mini-label">같은 업종 합치기에서 종목 점수만 변경</p><h3>업종 흐름 반영형이 종목 힘 균형형보다 나았습니다</h3></div></div>
+        <div id="score-pair" class="score-pair"></div>
+        <p class="chart-note">이 결과는 현재 종목 힘 균형형을 자동으로 폐기한다는 뜻이 아닙니다. 업종 분류와 종목 점수를 동시에 바꾸면 서로 영향을 주므로, 각각의 공식 계약 안에서 따로 검증해야 합니다.</p>
+      </article>
+    </section>
+
+    <section class="report-section" id="decision">
+      <div class="section-heading">
+        <p class="section-kicker">06 · 승격 관문과 최종 판단</p>
+        <h2>연구 후보로 저장하고, 실제 운용은 그대로 둡니다</h2>
+        <p>수익과 낙폭 개선만 통과했습니다. 초반 구간, 대박 종목 의존, QQQ 기회비용, 미래 관찰에서 아직 부족합니다.</p>
+      </div>
+      <div class="gate-list" id="gate-list"></div>
+      <div class="decision-panel">
+        <h3>이번에 확정한 운영 원칙</h3>
+        <ol>
+          <li>작은 업종 합치기는 <strong>testing</strong> 상태로만 저장합니다.</li>
+          <li>현재 Public API의 active 전략과 2026년 7월 실행 잠금은 바꾸지 않습니다.</li>
+          <li>Android 앱은 이 연구 결과로 신규 주문이나 알림을 만들지 않습니다.</li>
+          <li>분류는 매월 새로 마음대로 만들지 않고, 제공처 필드와 적용 월, 버전 해시를 스냅샷으로 고정합니다.</li>
+          <li>최소 6개월, 권장 12개월의 미래 추천 기록을 모은 뒤 같은 관문으로 다시 판단합니다.</li>
+        </ol>
+      </div>
+      <div class="next-test-list">
+        <article><span>1</span><div><h3>큰 수익 lot의 고유 식별자 감사</h3><p>CEG 2011 lot과 상장폐지 18건을 SID, 기업행위, 실제 체결 가격으로 대조합니다.</p><small>승격 전에 반드시 완료</small></div></article>
+        <article><span>2</span><div><h3>분류 스냅샷을 월별로 저장</h3><p>종목, sector, industryGroup, 적용 월, 출처와 해시를 저장하고 과거 신호를 나중 정보로 고치지 않습니다.</p><small>다음 월간 신호부터 기록 가능</small></div></article>
+        <article><span>3</span><div><h3>6·8·10·12종목 경계 민감도</h3><p>8이라는 숫자 하나에만 맞춘 결과인지 확인하고, 어느 경계에서도 결론이 유지되는지 봅니다.</p><small>연구용 비교, 운용 미반영</small></div></article>
+        <article><span>4</span><div><h3>미래 추천 6~12개월 관찰</h3><p>규칙을 더 고치지 않은 채 매달 추천과 결과를 쌓아 과거 맞춤이 아닌지 확인합니다.</p><small>최종 승격 관문</small></div></article>
+      </div>
+    </section>
+
+    <section class="report-section methodology-section" id="methodology">
+      <div class="section-heading">
+        <p class="section-kicker">07 · 조건, 용어와 원자료</p>
+        <h2>처음 보는 사람도 숫자의 뜻을 확인할 수 있습니다</h2>
+      </div>
+      <div class="glossary-grid">
+        <p><strong>누적 수익률</strong>처음 자금이 전체 기간 끝에 얼마나 늘거나 줄었는지 보여줍니다.</p>
+        <p><strong>CAGR · 연평균 수익률</strong>전체 결과를 매년 같은 비율로 늘었다고 바꿔 본 평균입니다.</p>
+        <p><strong>MDD · 최대 하락</strong>계좌가 이전 최고점에서 가장 깊게 떨어졌던 폭입니다. -20%면 1억원이 한때 약 8천만원까지 내려간 경험에 가깝습니다.</p>
+        <p><strong>PIT · 당시 시점 데이터</strong>지금 살아남은 종목만 쓰지 않고, 과거 그날 실제로 알 수 있던 종목과 정보만 쓰는 방식입니다.</p>
+        <p><strong>lot · 매수 묶음</strong>같은 종목이어도 추천 월이 다르면 별도 매수 묶음으로 관리합니다.</p>
+        <p><strong>표본 보정</strong>종목 수가 너무 적은 업종의 점수가 우연히 튀지 않도록 더 큰 그룹 평균 쪽으로 완화하는 계산입니다.</p>
+      </div>
+      <details class="detail-panel source-panel">
+        <summary>원자료, 코드와 제공처 문서 보기</summary>
+        <ol>
+          <li><a href="./quantconnect_taxonomy_pit_audit.md" target="_blank" rel="noreferrer">이번 장기 업종 분류 검증 원문</a></li>
+          <li><a href="./data/quantconnect-taxonomy-leader-group-audit.json" target="_blank" rel="noreferrer">14개 결과와 승격 관문 JSON</a></li>
+          <li><a href="./taxonomy-leader-group-audit.html" target="_blank" rel="noreferrer">앞 단계: 기존 57개 혼합 분류 구조 감사</a></li>
+          <li><a href="https://www.quantconnect.com/docs/v2/writing-algorithms/datasets/morningstar/us-fundamental-data" target="_blank" rel="noreferrer">QuantConnect Morningstar US Fundamental Data 문서</a></li>
+          <li><a href="https://www.quantconnect.com/docs/v2/writing-algorithms/universes/equity/fundamental-universes" target="_blank" rel="noreferrer">QuantConnect Fundamental Universe 문서</a></li>
+        </ol>
+      </details>
+      <div class="caveat-box"><h3>이 결과를 읽을 때 꼭 남겨 둘 한계</h3><ul id="limitation-list"></ul></div>
+    </section>
+  </main>
+
+  <footer class="report-footer"><p>Investor Leader Screener · 장기 업종 분류 검증</p><p id="footer-meta"></p></footer>
+  <div class="loading-state" id="loading-state" role="status">장기 검증 데이터를 불러오고 있습니다.</div>
+  <script type="module" src="taxonomy-pit-audit.js"></script>
+</body>
+</html>

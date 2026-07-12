@@ -442,3 +442,36 @@ Public 영향:
 - 표본 보정 강도 8은 다음 PIT 검증의 1순위 연구 후보이며 아직 추천·주문·알림에 연결하지 않는다.
 - Public API, A/C 상태, 월간 실행 잠금, Android ExecutionPolicy와 기존 lot 일정에는 변경이 없다.
 - 상세 자료: `dashboard/taxonomy-leader-group-audit.html`, `taxonomy_leader_group_audit.md`, `data/taxonomy-structure-audit.json`, `src/taxonomy-structure-audit.mjs`.
+
+## 22. 2026-07-12 장기 PIT 업종 분류 보정 검증
+
+- Run ID: `us-taxonomy-leader-group-pit-100m-20260712-v1`
+- 기간: 2010-08-27 신호부터, QuantConnect 가격은 2026-04-13까지
+- 당시 SPY·QQQ 구성 종목 합집합, 한때 포함된 966종목, 188개월 신호를 사용했다.
+- 초기 1억원, 월 2종목, 편도 비용 0.10%, 신호 1거래일 지연, 구성 정보 5거래일 지연, 27.5% 종목 한도와 기존 6개월 절반 매도·주봉 연장·12개월 청산 계약을 고정했다.
+- 선택 후 상장폐지 이벤트 18건을 포함했다.
+- Python `set` 순서와 점수 동점 때문에 실행 간 선택이 달라질 수 있던 문제를 발견했다. 종목·업종·동점 순서를 고정한 뒤 QuantConnect 독립 실행 두 번의 결과 로그 93줄이 정확히 일치한 결과만 채택했다.
+
+핵심 비교:
+
+- 연구 기준선 `업종 흐름 반영형 + Morningstar 산업그룹 원형`: +213.30%, CAGR +7.59%, MDD -20.32%
+- 연구 후보 `업종 흐름 반영형 + 8종목 미만 업종을 상위 그룹으로 합치기`: +248.39%, CAGR +8.32%, MDD -18.86%
+- 전체 수익 차이 +35.09%p, MDD 1.46%p 개선
+- 설계 확인 구간 2010-08~2018-12에서는 후보가 -15.37%p 뒤졌다.
+- 검증 구간 2019~2022는 +15.94%p, 최근 구간 2023~2026-04는 +9.11%p 앞섰다.
+- 최고 수익 lot 두 개를 제외하면 후보 우위는 +0.45%p만 남았다.
+- 후보의 최고 수익은 `CEG@2011-09` +45,202,420원이다. 현재 ticker 문자열만으로 과거 증권을 확정하지 않고 SID와 기업행위를 추가 감사한다.
+- 같은 기간 QQQ 계속 보유는 +1,525.57%다. 위험을 맞춘 비교는 아니지만 현금 보유의 장기 기회비용 경고로 기록한다.
+- 작은 업종 합치기는 4종목 이하 그룹 선택을 22.07%에서 0%로 줄였으나 원형과 추천 두 종목이 모두 같은 달은 25.0%뿐이다.
+- 동일 적응형 분류에서 업종 흐름 반영형은 종목 힘 균형형보다 수익 +38.72%p, MDD 16.10%p 우수했다. 이 결과는 다른 분류 계약의 C를 자동 폐기하는 근거로 사용하지 않는다.
+- 이번 실행에서 Morningstar 분류 변경은 0건으로 관찰됐지만 완전한 과거 재분류 이력 제공을 증명하지 않는다.
+
+판정과 앱 영향:
+
+- 상태: `research_candidate_not_promoted`
+- `A + adaptive taxonomy`는 testing 연구 후보로만 보존한다.
+- 설계 구간, 최고 lot 의존도, QQQ 기회비용, 6~12개월 미래 관찰 관문을 통과하지 못했다.
+- Public API active key, transition metadata, minAppVersionCode를 변경하지 않는다.
+- Android 주문·알림·ExecutionPolicy와 기존 lot 일정 변경은 없다.
+- 다음 순서는 CEG와 상장폐지 lot SID 감사, 월별 분류 스냅샷 해시 저장, 적응형 경계 6·8·10·12 민감도, 6~12개월 미래 관찰이다.
+- 상세 자료: `dashboard/taxonomy-pit-audit.html`, `quantconnect_taxonomy_pit_audit.md`, `data/quantconnect-taxonomy-leader-group-audit.json`, `research/quantconnect/us_taxonomy_leader_group_audit.py`.

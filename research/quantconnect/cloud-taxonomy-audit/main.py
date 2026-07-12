@@ -70,12 +70,12 @@ class TaxonomyLeaderGroupAudit(QCAlgorithm):
 		rows = list(constituents)
 		self.spy_members = {row.symbol for row in rows}
 		self.ever_members.update(self.spy_members)
-		return list(self.spy_members)
+		return sort_symbols(self.spy_members)
 	def select_qqq(self, constituents):
 		rows = list(constituents)
 		self.qqq_members = {row.symbol for row in rows}
 		self.ever_members.update(self.qqq_members)
-		return list(self.qqq_members)
+		return sort_symbols(self.qqq_members)
 	def on_data(self, data):
 		current_date = self.time.date()
 		members = self.spy_members | self.qqq_members
@@ -168,7 +168,7 @@ class TaxonomyLeaderGroupAudit(QCAlgorithm):
 	def build_base_rows(self, members):
 		metric_symbols = set(members) | set(self.etfs.values())
 		metrics = {}
-		for symbol in metric_symbols:
+		for symbol in sort_symbols(metric_symbols):
 			metric = base_metrics(list(self.rows.get(symbol, [])))
 			if metric:
 				metrics[symbol] = metric
@@ -191,7 +191,7 @@ class TaxonomyLeaderGroupAudit(QCAlgorithm):
 		spy_values = list(spy_excess.values())
 		qqq_values = list(qqq_excess.values())
 		rows = []
-		for symbol in members:
+		for symbol in sort_symbols(members):
 			metric = metrics.get(symbol)
 			if not metric or not self.securities.contains_key(symbol):
 				continue
@@ -330,7 +330,7 @@ class TaxonomyLeaderGroupAudit(QCAlgorithm):
 			row["score"] = raw / maximum * 100 if normalize else raw
 			row["eligible"] = row["score"] >= 70 and row["dollar_score"] > 0
 			rows.append(row)
-		rows.sort(key=lambda row: row["score"], reverse=True)
+		rows.sort(key=lambda row: (-row["score"], row["ticker_key"]))
 		return rows
 	def select_no_group(self, rows):
 		eligible = [dict(row) for row in rows if row["eligible"]]
@@ -366,7 +366,7 @@ class TaxonomyLeaderGroupAudit(QCAlgorithm):
 			"score80": average(1 if row["score"] >= 80 else 0 for row in rows) or 0,
 		}
 		group_stats = []
-		for group in {row["group"] for row in rows}:
+		for group in sorted({row["group"] for row in rows}, key=str):
 			group_rows = [row for row in rows if row["group"] == group]
 			if len(group_rows) < spec["minimum"]:
 				continue
@@ -433,7 +433,7 @@ class TaxonomyLeaderGroupAudit(QCAlgorithm):
 				+ len(previous) * 4
 			)
 			group_stats.append(stat)
-		group_stats.sort(key=lambda row: row["leadership"], reverse=True)
+		group_stats.sort(key=lambda row: (-row["leadership"], str(row["group"])))
 		account["group_history"].append(group_stats)
 		selected = []
 		used = set()
@@ -483,12 +483,12 @@ class TaxonomyLeaderGroupAudit(QCAlgorithm):
 	def execute_buy(self, account, selected, cohort, signal_date, date):
 		account["attempted"] += 1
 		cash = account["cash"]
-		if cash <= 1_000_000:
-			base_amount = 500_000
-		elif account["buy_index"] < 6 and cash >= 3_000_000:
-			base_amount = 1_000_000
+		if cash <= 10_000_000:
+			base_amount = 5_000_000
+		elif account["buy_index"] < 6 and cash >= 30_000_000:
+			base_amount = 10_000_000
 		else:
-			base_amount = 750_000
+			base_amount = 7_500_000
 		prior_symbol = sum(
 			item["symbol"] == selected["symbol"] and (cohort - item["cohort"]) <= 12
 			for item in account["signal_history"]

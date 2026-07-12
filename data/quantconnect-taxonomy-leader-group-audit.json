@@ -1,0 +1,1363 @@
+{
+  "generatedAt": "2026-07-12T12:49:46.950Z",
+  "runId": "us-taxonomy-leader-group-pit-100m-20260712-v1",
+  "status": "research_candidate_not_promoted",
+  "provider": "QuantConnect Free / LEAN master v17914",
+  "projectId": 34043103,
+  "backtests": [
+    {
+      "name": "Sleepy Brown Bull",
+      "id": "dcacd8d01b3b98eb3007d95d341fbe0b"
+    },
+    {
+      "name": "Swimming Yellow Green Beaver",
+      "id": "64173920abc14bd159761164c52376ad"
+    }
+  ],
+  "reproducibility": {
+    "deterministicOrder": "symbol_group_tiebreak_v1",
+    "repeatedRuns": 2,
+    "rawLogLinesPerRun": 93,
+    "exactLogMatch": true,
+    "previousIssue": "Set iteration and score ties could change selections between processes; fixed before accepting results."
+  },
+  "period": {
+    "firstSignal": "2010-08-27",
+    "lastSignalRequested": "2026-06-26",
+    "lastPriceDate": "2026-04-13",
+    "signalMonths": 188,
+    "everConstituents": 966,
+    "currentConstituents": 518
+  },
+  "capitalContract": {
+    "initialKrw": 100000000,
+    "fractionalShares": true,
+    "costEachSide": 0.001,
+    "baseMonthlyAmountsKrw": [
+      5000000,
+      7500000,
+      10000000
+    ],
+    "maxPositionPct": 0.275,
+    "minimumOrderKrw": 1000000
+  },
+  "commonContract": {
+    "universe": "Point-in-time union of SPY and QQQ constituents",
+    "selectionsPerMonth": 2,
+    "executionDelayTradingDays": 1,
+    "membershipLagTradingDays": 5,
+    "exit": "Sell 50% at six months; extend only when weekly close >= MA10 and RSI14 >= 50; then exit on two weekly closes below MA10 or at 12 months",
+    "taxonomySource": "QuantConnect US Fundamentals Morningstar asset classification",
+    "shrinkStrength": 8,
+    "adaptiveIndustryMinimum": 8
+  },
+  "scoreCatalog": {
+    "A": {
+      "label": "기본 종목점수",
+      "description": "업종 흐름을 온전히 반영하는 현재 기본 점수 구조"
+    },
+    "C": {
+      "label": "균형 종목점수",
+      "description": "업종 비중을 절반으로 낮추고 개별 종목 힘을 더 반영"
+    }
+  },
+  "variantCatalog": {
+    "LEGACY_FULL": {
+      "label": "기존 57개 혼합 전체",
+      "family": "legacy",
+      "role": "diagnostic"
+    },
+    "LEGACY_GROUP": {
+      "label": "혼합 업종 묶음만 사용",
+      "family": "legacy",
+      "role": "diagnostic"
+    },
+    "MSTAR_GROUP_RAW": {
+      "label": "Morningstar 산업그룹 원형",
+      "family": "morningstar",
+      "role": "baseline"
+    },
+    "MSTAR_INDUSTRY_RAW": {
+      "label": "Morningstar 세부 산업 원형",
+      "family": "morningstar",
+      "role": "diagnostic"
+    },
+    "MSTAR_GROUP_SHRUNK": {
+      "label": "산업그룹 표본 보정",
+      "family": "morningstar",
+      "role": "candidate"
+    },
+    "MSTAR_ADAPTIVE": {
+      "label": "적응형 상위 분류",
+      "family": "morningstar",
+      "role": "candidate"
+    },
+    "NO_GROUP": {
+      "label": "업종 단계 제거",
+      "family": "control",
+      "role": "control"
+    }
+  },
+  "rankedResults": [
+    {
+      "key": "A__LEGACY_GROUP",
+      "scoreKey": "A",
+      "scoreLabel": "기본 종목점수",
+      "taxonomyKey": "LEGACY_GROUP",
+      "taxonomyLabel": "혼합 업종 묶음만 사용",
+      "family": "legacy",
+      "role": "diagnostic",
+      "totalReturn": 3.5033,
+      "cagr": 0.1011,
+      "maxDrawdown": -0.4612,
+      "qqqReturn": 15.2557,
+      "buys": {
+        "executed": 354,
+        "attempted": 376
+      },
+      "skippedBuys": 22,
+      "finalCashKrw": 122083567,
+      "finalEquityKrw": 450325218,
+      "openLots": 32,
+      "transactionCostKrw": 4897809,
+      "topWinners": [
+        {
+          "lot": "WDC@2025-06",
+          "profitKrw": 29329185
+        },
+        {
+          "lot": "WDC@2025-08",
+          "profitKrw": 29276287
+        }
+      ],
+      "returnWithoutTop1": 3.21,
+      "returnWithoutTop2": 2.9172,
+      "periods": {
+        "design": {
+          "strategy": 0.7088,
+          "qqq": 2.8298
+        },
+        "validation": {
+          "strategy": 0.4601,
+          "qqq": 0.7745
+        },
+        "holdout": {
+          "strategy": 0.8049,
+          "qqq": 1.3634
+        }
+      },
+      "rolling": {
+        "win36": 0.0784,
+        "observations36": 153,
+        "win60": 0,
+        "observations60": 129
+      },
+      "selectedGroupSize": {
+        "average": 15.79,
+        "median": 11,
+        "atMost4Rate": 0.3324,
+        "atMost7Rate": 0.4229,
+        "observations": 376
+      },
+      "selectionOverlap": {
+        "legacy": {
+          "averageMatches": 1.186,
+          "exactTwoRate": 0.287,
+          "months": 188
+        },
+        "morningstarRaw": {
+          "averageMatches": 0.67,
+          "exactTwoRate": 0.037,
+          "months": 188
+        }
+      }
+    },
+    {
+      "key": "C__LEGACY_GROUP",
+      "scoreKey": "C",
+      "scoreLabel": "균형 종목점수",
+      "taxonomyKey": "LEGACY_GROUP",
+      "taxonomyLabel": "혼합 업종 묶음만 사용",
+      "family": "legacy",
+      "role": "diagnostic",
+      "totalReturn": 3.2777,
+      "cagr": 0.0975,
+      "maxDrawdown": -0.4981,
+      "qqqReturn": 15.2557,
+      "buys": {
+        "executed": 351,
+        "attempted": 376
+      },
+      "skippedBuys": 25,
+      "finalCashKrw": 92922652,
+      "finalEquityKrw": 427766473,
+      "openLots": 33,
+      "transactionCostKrw": 4854915,
+      "topWinners": [
+        {
+          "lot": "WDC@2025-06",
+          "profitKrw": 29329185
+        },
+        {
+          "lot": "WDC@2025-08",
+          "profitKrw": 29276287
+        }
+      ],
+      "returnWithoutTop1": 2.9844,
+      "returnWithoutTop2": 2.6916,
+      "periods": {
+        "design": {
+          "strategy": 0.6285,
+          "qqq": 2.8298
+        },
+        "validation": {
+          "strategy": 0.3935,
+          "qqq": 0.7745
+        },
+        "holdout": {
+          "strategy": 0.885,
+          "qqq": 1.3634
+        }
+      },
+      "rolling": {
+        "win36": 0.0327,
+        "observations36": 153,
+        "win60": 0,
+        "observations60": 129
+      },
+      "selectedGroupSize": {
+        "average": 14.02,
+        "median": 7.5,
+        "atMost4Rate": 0.3856,
+        "atMost7Rate": 0.5,
+        "observations": 376
+      },
+      "selectionOverlap": {
+        "legacy": {
+          "averageMatches": 1.468,
+          "exactTwoRate": 0.505,
+          "months": 188
+        },
+        "morningstarRaw": {
+          "averageMatches": 0.564,
+          "exactTwoRate": 0.043,
+          "months": 188
+        }
+      }
+    },
+    {
+      "key": "A__MSTAR_GROUP_SHRUNK",
+      "scoreKey": "A",
+      "scoreLabel": "기본 종목점수",
+      "taxonomyKey": "MSTAR_GROUP_SHRUNK",
+      "taxonomyLabel": "산업그룹 표본 보정",
+      "family": "morningstar",
+      "role": "candidate",
+      "totalReturn": 2.6643,
+      "cagr": 0.0867,
+      "maxDrawdown": -0.2936,
+      "qqqReturn": 15.2557,
+      "buys": {
+        "executed": 376,
+        "attempted": 376
+      },
+      "skippedBuys": 0,
+      "finalCashKrw": 221827598,
+      "finalEquityKrw": 366428397,
+      "openLots": 20,
+      "transactionCostKrw": 5923178,
+      "topWinners": [
+        {
+          "lot": "S@2012-07",
+          "profitKrw": 14443301
+        },
+        {
+          "lot": "NVDA@2023-05",
+          "profitKrw": 13690616
+        }
+      ],
+      "returnWithoutTop1": 2.5199,
+      "returnWithoutTop2": 2.3829,
+      "periods": {
+        "design": {
+          "strategy": 1.2419,
+          "qqq": 2.8298
+        },
+        "validation": {
+          "strategy": 0.4037,
+          "qqq": 0.7745
+        },
+        "holdout": {
+          "strategy": 0.1644,
+          "qqq": 1.3634
+        }
+      },
+      "rolling": {
+        "win36": 0.0196,
+        "observations36": 153,
+        "win60": 0,
+        "observations60": 129
+      },
+      "selectedGroupSize": {
+        "average": 16.38,
+        "median": 15,
+        "atMost4Rate": 0.109,
+        "atMost7Rate": 0.2367,
+        "observations": 376
+      },
+      "selectionOverlap": {
+        "legacy": {
+          "averageMatches": 0.457,
+          "exactTwoRate": 0.016,
+          "months": 188
+        },
+        "morningstarRaw": {
+          "averageMatches": 1.606,
+          "exactTwoRate": 0.612,
+          "months": 188
+        }
+      }
+    },
+    {
+      "key": "A__MSTAR_ADAPTIVE",
+      "scoreKey": "A",
+      "scoreLabel": "기본 종목점수",
+      "taxonomyKey": "MSTAR_ADAPTIVE",
+      "taxonomyLabel": "적응형 상위 분류",
+      "family": "morningstar",
+      "role": "candidate",
+      "totalReturn": 2.4839,
+      "cagr": 0.0832,
+      "maxDrawdown": -0.1886,
+      "qqqReturn": 15.2557,
+      "buys": {
+        "executed": 376,
+        "attempted": 376
+      },
+      "skippedBuys": 0,
+      "finalCashKrw": 166651832,
+      "finalEquityKrw": 348394971,
+      "openLots": 22,
+      "transactionCostKrw": 5780076,
+      "topWinners": [
+        {
+          "lot": "CEG@2011-09",
+          "profitKrw": 45202420
+        },
+        {
+          "lot": "NVDA@2023-05",
+          "profitKrw": 13690616
+        }
+      ],
+      "returnWithoutTop1": 2.0319,
+      "returnWithoutTop2": 1.895,
+      "periods": {
+        "design": {
+          "strategy": 0.8166,
+          "qqq": 2.8298
+        },
+        "validation": {
+          "strategy": 0.4621,
+          "qqq": 0.7745
+        },
+        "holdout": {
+          "strategy": 0.3117,
+          "qqq": 1.3634
+        }
+      },
+      "rolling": {
+        "win36": 0.0196,
+        "observations36": 153,
+        "win60": 0,
+        "observations60": 129
+      },
+      "selectedGroupSize": {
+        "average": 12.43,
+        "median": 11,
+        "atMost4Rate": 0,
+        "atMost7Rate": 0.1941,
+        "observations": 376
+      },
+      "selectionOverlap": {
+        "legacy": {
+          "averageMatches": 0.441,
+          "exactTwoRate": 0.027,
+          "months": 188
+        },
+        "morningstarRaw": {
+          "averageMatches": 1.16,
+          "exactTwoRate": 0.25,
+          "months": 188
+        }
+      }
+    },
+    {
+      "key": "A__MSTAR_INDUSTRY_RAW",
+      "scoreKey": "A",
+      "scoreLabel": "기본 종목점수",
+      "taxonomyKey": "MSTAR_INDUSTRY_RAW",
+      "taxonomyLabel": "Morningstar 세부 산업 원형",
+      "family": "morningstar",
+      "role": "diagnostic",
+      "totalReturn": 2.3323,
+      "cagr": 0.0801,
+      "maxDrawdown": -0.5356,
+      "qqqReturn": 15.2557,
+      "buys": {
+        "executed": 374,
+        "attempted": 376
+      },
+      "skippedBuys": 2,
+      "finalCashKrw": 145989288,
+      "finalEquityKrw": 333231649,
+      "openLots": 24,
+      "transactionCostKrw": 5807258,
+      "topWinners": [
+        {
+          "lot": "NVDA@2019-11",
+          "profitKrw": 10558946
+        },
+        {
+          "lot": "TER@2025-10",
+          "profitKrw": 10393839
+        }
+      ],
+      "returnWithoutTop1": 2.2267,
+      "returnWithoutTop2": 2.1228,
+      "periods": {
+        "design": {
+          "strategy": 0.9062,
+          "qqq": 2.8298
+        },
+        "validation": {
+          "strategy": 0.3338,
+          "qqq": 0.7745
+        },
+        "holdout": {
+          "strategy": 0.3106,
+          "qqq": 1.3634
+        }
+      },
+      "rolling": {
+        "win36": 0.0784,
+        "observations36": 153,
+        "win60": 0,
+        "observations60": 129
+      },
+      "selectedGroupSize": {
+        "average": 6.77,
+        "median": 5,
+        "atMost4Rate": 0.492,
+        "atMost7Rate": 0.7207,
+        "observations": 376
+      },
+      "selectionOverlap": {
+        "legacy": {
+          "averageMatches": 0.367,
+          "exactTwoRate": 0.016,
+          "months": 188
+        },
+        "morningstarRaw": {
+          "averageMatches": 1.085,
+          "exactTwoRate": 0.223,
+          "months": 188
+        }
+      }
+    },
+    {
+      "key": "C__MSTAR_GROUP_SHRUNK",
+      "scoreKey": "C",
+      "scoreLabel": "균형 종목점수",
+      "taxonomyKey": "MSTAR_GROUP_SHRUNK",
+      "taxonomyLabel": "산업그룹 표본 보정",
+      "family": "morningstar",
+      "role": "candidate",
+      "totalReturn": 2.1629,
+      "cagr": 0.0765,
+      "maxDrawdown": -0.3566,
+      "qqqReturn": 15.2557,
+      "buys": {
+        "executed": 374,
+        "attempted": 376
+      },
+      "skippedBuys": 2,
+      "finalCashKrw": 119149692,
+      "finalEquityKrw": 316290754,
+      "openLots": 25,
+      "transactionCostKrw": 5576939,
+      "topWinners": [
+        {
+          "lot": "WDC@2025-09",
+          "profitKrw": 14868167
+        },
+        {
+          "lot": "PCS@2012-09",
+          "profitKrw": 14484364
+        }
+      ],
+      "returnWithoutTop1": 2.0142,
+      "returnWithoutTop2": 1.8694,
+      "periods": {
+        "design": {
+          "strategy": 0.7566,
+          "qqq": 2.8298
+        },
+        "validation": {
+          "strategy": 0.407,
+          "qqq": 0.7745
+        },
+        "holdout": {
+          "strategy": 0.2797,
+          "qqq": 1.3634
+        }
+      },
+      "rolling": {
+        "win36": 0.0327,
+        "observations36": 153,
+        "win60": 0,
+        "observations60": 129
+      },
+      "selectedGroupSize": {
+        "average": 15.15,
+        "median": 14,
+        "atMost4Rate": 0.1303,
+        "atMost7Rate": 0.2872,
+        "observations": 376
+      },
+      "selectionOverlap": {
+        "legacy": {
+          "averageMatches": 0.489,
+          "exactTwoRate": 0.016,
+          "months": 188
+        },
+        "morningstarRaw": {
+          "averageMatches": 1.521,
+          "exactTwoRate": 0.543,
+          "months": 188
+        }
+      }
+    },
+    {
+      "key": "A__MSTAR_GROUP_RAW",
+      "scoreKey": "A",
+      "scoreLabel": "기본 종목점수",
+      "taxonomyKey": "MSTAR_GROUP_RAW",
+      "taxonomyLabel": "Morningstar 산업그룹 원형",
+      "family": "morningstar",
+      "role": "baseline",
+      "totalReturn": 2.133,
+      "cagr": 0.0759,
+      "maxDrawdown": -0.2032,
+      "qqqReturn": 15.2557,
+      "buys": {
+        "executed": 373,
+        "attempted": 376
+      },
+      "skippedBuys": 3,
+      "finalCashKrw": 199644643,
+      "finalEquityKrw": 313300819,
+      "openLots": 18,
+      "transactionCostKrw": 5888392,
+      "topWinners": [
+        {
+          "lot": "NVDA@2023-05",
+          "profitKrw": 13690616
+        },
+        {
+          "lot": "NVDA@2019-11",
+          "profitKrw": 10558946
+        }
+      ],
+      "returnWithoutTop1": 1.9961,
+      "returnWithoutTop2": 1.8905,
+      "periods": {
+        "design": {
+          "strategy": 0.9703,
+          "qqq": 2.8298
+        },
+        "validation": {
+          "strategy": 0.3027,
+          "qqq": 0.7745
+        },
+        "holdout": {
+          "strategy": 0.2206,
+          "qqq": 1.3634
+        }
+      },
+      "rolling": {
+        "win36": 0.0131,
+        "observations36": 153,
+        "win60": 0,
+        "observations60": 129
+      },
+      "selectedGroupSize": {
+        "average": 14.93,
+        "median": 13,
+        "atMost4Rate": 0.2207,
+        "atMost7Rate": 0.359,
+        "observations": 376
+      },
+      "selectionOverlap": {
+        "legacy": {
+          "averageMatches": 0.457,
+          "exactTwoRate": 0.021,
+          "months": 188
+        },
+        "morningstarRaw": {
+          "averageMatches": 2,
+          "exactTwoRate": 1,
+          "months": 188
+        }
+      }
+    },
+    {
+      "key": "C__MSTAR_ADAPTIVE",
+      "scoreKey": "C",
+      "scoreLabel": "균형 종목점수",
+      "taxonomyKey": "MSTAR_ADAPTIVE",
+      "taxonomyLabel": "적응형 상위 분류",
+      "family": "morningstar",
+      "role": "candidate",
+      "totalReturn": 2.0967,
+      "cagr": 0.075,
+      "maxDrawdown": -0.3496,
+      "qqqReturn": 15.2557,
+      "buys": {
+        "executed": 373,
+        "attempted": 376
+      },
+      "skippedBuys": 3,
+      "finalCashKrw": 108499757,
+      "finalEquityKrw": 309665886,
+      "openLots": 26,
+      "transactionCostKrw": 5482992,
+      "topWinners": [
+        {
+          "lot": "WDC@2025-09",
+          "profitKrw": 14868167
+        },
+        {
+          "lot": "PCS@2012-09",
+          "profitKrw": 14484364
+        }
+      ],
+      "returnWithoutTop1": 1.948,
+      "returnWithoutTop2": 1.8031,
+      "periods": {
+        "design": {
+          "strategy": 0.7336,
+          "qqq": 2.8298
+        },
+        "validation": {
+          "strategy": 0.4072,
+          "qqq": 0.7745
+        },
+        "holdout": {
+          "strategy": 0.2693,
+          "qqq": 1.3634
+        }
+      },
+      "rolling": {
+        "win36": 0.0261,
+        "observations36": 153,
+        "win60": 0,
+        "observations60": 129
+      },
+      "selectedGroupSize": {
+        "average": 12.1,
+        "median": 11,
+        "atMost4Rate": 0,
+        "atMost7Rate": 0.2314,
+        "observations": 376
+      },
+      "selectionOverlap": {
+        "legacy": {
+          "averageMatches": 0.511,
+          "exactTwoRate": 0.037,
+          "months": 188
+        },
+        "morningstarRaw": {
+          "averageMatches": 1.096,
+          "exactTwoRate": 0.213,
+          "months": 188
+        }
+      }
+    },
+    {
+      "key": "C__MSTAR_GROUP_RAW",
+      "scoreKey": "C",
+      "scoreLabel": "균형 종목점수",
+      "taxonomyKey": "MSTAR_GROUP_RAW",
+      "taxonomyLabel": "Morningstar 산업그룹 원형",
+      "family": "morningstar",
+      "role": "baseline",
+      "totalReturn": 2.0123,
+      "cagr": 0.0731,
+      "maxDrawdown": -0.3604,
+      "qqqReturn": 15.2557,
+      "buys": {
+        "executed": 373,
+        "attempted": 376
+      },
+      "skippedBuys": 3,
+      "finalCashKrw": 138999061,
+      "finalEquityKrw": 301228276,
+      "openLots": 22,
+      "transactionCostKrw": 5885510,
+      "topWinners": [
+        {
+          "lot": "PCS@2012-09",
+          "profitKrw": 14484364
+        },
+        {
+          "lot": "S@2012-07",
+          "profitKrw": 14443301
+        }
+      ],
+      "returnWithoutTop1": 1.8674,
+      "returnWithoutTop2": 1.723,
+      "periods": {
+        "design": {
+          "strategy": 0.7867,
+          "qqq": 2.8298
+        },
+        "validation": {
+          "strategy": 0.4163,
+          "qqq": 0.7745
+        },
+        "holdout": {
+          "strategy": 0.1904,
+          "qqq": 1.3634
+        }
+      },
+      "rolling": {
+        "win36": 0.0196,
+        "observations36": 153,
+        "win60": 0,
+        "observations60": 129
+      },
+      "selectedGroupSize": {
+        "average": 13.02,
+        "median": 10,
+        "atMost4Rate": 0.266,
+        "atMost7Rate": 0.4521,
+        "observations": 376
+      },
+      "selectionOverlap": {
+        "legacy": {
+          "averageMatches": 0.495,
+          "exactTwoRate": 0.021,
+          "months": 188
+        },
+        "morningstarRaw": {
+          "averageMatches": 2,
+          "exactTwoRate": 1,
+          "months": 188
+        }
+      }
+    },
+    {
+      "key": "C__LEGACY_FULL",
+      "scoreKey": "C",
+      "scoreLabel": "균형 종목점수",
+      "taxonomyKey": "LEGACY_FULL",
+      "taxonomyLabel": "기존 57개 혼합 전체",
+      "family": "legacy",
+      "role": "diagnostic",
+      "totalReturn": 1.9571,
+      "cagr": 0.0719,
+      "maxDrawdown": -0.5966,
+      "qqqReturn": 15.2557,
+      "buys": {
+        "executed": 299,
+        "attempted": 376
+      },
+      "skippedBuys": 77,
+      "finalCashKrw": 12819342,
+      "finalEquityKrw": 295709955,
+      "openLots": 35,
+      "transactionCostKrw": 3154817,
+      "topWinners": [
+        {
+          "lot": "STX@2025-07",
+          "profitKrw": 23275875
+        },
+        {
+          "lot": "WDC@2025-11",
+          "profitKrw": 15734782
+        }
+      ],
+      "returnWithoutTop1": 1.7243,
+      "returnWithoutTop2": 1.567,
+      "periods": {
+        "design": {
+          "strategy": 0.4451,
+          "qqq": 2.8298
+        },
+        "validation": {
+          "strategy": 0.0651,
+          "qqq": 0.7745
+        },
+        "holdout": {
+          "strategy": 0.9213,
+          "qqq": 1.3634
+        }
+      },
+      "rolling": {
+        "win36": 0.0327,
+        "observations36": 153,
+        "win60": 0,
+        "observations60": 129
+      },
+      "selectedGroupSize": {
+        "average": 10.43,
+        "median": 5,
+        "atMost4Rate": 0.4574,
+        "atMost7Rate": 0.609,
+        "observations": 376
+      },
+      "selectionOverlap": {
+        "legacy": {
+          "averageMatches": 2,
+          "exactTwoRate": 1,
+          "months": 188
+        },
+        "morningstarRaw": {
+          "averageMatches": 0.495,
+          "exactTwoRate": 0.021,
+          "months": 188
+        }
+      }
+    },
+    {
+      "key": "C__MSTAR_INDUSTRY_RAW",
+      "scoreKey": "C",
+      "scoreLabel": "균형 종목점수",
+      "taxonomyKey": "MSTAR_INDUSTRY_RAW",
+      "taxonomyLabel": "Morningstar 세부 산업 원형",
+      "family": "morningstar",
+      "role": "diagnostic",
+      "totalReturn": 1.9248,
+      "cagr": 0.0711,
+      "maxDrawdown": -0.6078,
+      "qqqReturn": 15.2557,
+      "buys": {
+        "executed": 367,
+        "attempted": 376
+      },
+      "skippedBuys": 9,
+      "finalCashKrw": 74186434,
+      "finalEquityKrw": 292484627,
+      "openLots": 26,
+      "transactionCostKrw": 5117244,
+      "topWinners": [
+        {
+          "lot": "SPLS@2014-12",
+          "profitKrw": 10401934
+        },
+        {
+          "lot": "TER@2025-10",
+          "profitKrw": 10393839
+        }
+      ],
+      "returnWithoutTop1": 1.8208,
+      "returnWithoutTop2": 1.7169,
+      "periods": {
+        "design": {
+          "strategy": 0.6242,
+          "qqq": 2.8298
+        },
+        "validation": {
+          "strategy": 0.1968,
+          "qqq": 0.7745
+        },
+        "holdout": {
+          "strategy": 0.5046,
+          "qqq": 1.3634
+        }
+      },
+      "rolling": {
+        "win36": 0.0392,
+        "observations36": 153,
+        "win60": 0,
+        "observations60": 129
+      },
+      "selectedGroupSize": {
+        "average": 6.08,
+        "median": 4,
+        "atMost4Rate": 0.5559,
+        "atMost7Rate": 0.7739,
+        "observations": 376
+      },
+      "selectionOverlap": {
+        "legacy": {
+          "averageMatches": 0.42,
+          "exactTwoRate": 0.027,
+          "months": 188
+        },
+        "morningstarRaw": {
+          "averageMatches": 0.995,
+          "exactTwoRate": 0.186,
+          "months": 188
+        }
+      }
+    },
+    {
+      "key": "A__LEGACY_FULL",
+      "scoreKey": "A",
+      "scoreLabel": "기본 종목점수",
+      "taxonomyKey": "LEGACY_FULL",
+      "taxonomyLabel": "기존 57개 혼합 전체",
+      "family": "legacy",
+      "role": "diagnostic",
+      "totalReturn": 1.8559,
+      "cagr": 0.0695,
+      "maxDrawdown": -0.6283,
+      "qqqReturn": 15.2557,
+      "buys": {
+        "executed": 288,
+        "attempted": 376
+      },
+      "skippedBuys": 88,
+      "finalCashKrw": 8402989,
+      "finalEquityKrw": 285587155,
+      "openLots": 37,
+      "transactionCostKrw": 3016436,
+      "topWinners": [
+        {
+          "lot": "WDC@2025-06",
+          "profitKrw": 19552790
+        },
+        {
+          "lot": "WDC@2025-10",
+          "profitKrw": 14205788
+        }
+      ],
+      "returnWithoutTop1": 1.6603,
+      "returnWithoutTop2": 1.5183,
+      "periods": {
+        "design": {
+          "strategy": 0.5297,
+          "qqq": 2.8298
+        },
+        "validation": {
+          "strategy": 0.0305,
+          "qqq": 0.7745
+        },
+        "holdout": {
+          "strategy": 0.8116,
+          "qqq": 1.3634
+        }
+      },
+      "rolling": {
+        "win36": 0.0065,
+        "observations36": 153,
+        "win60": 0,
+        "observations60": 129
+      },
+      "selectedGroupSize": {
+        "average": 9.86,
+        "median": 5,
+        "atMost4Rate": 0.4707,
+        "atMost7Rate": 0.641,
+        "observations": 376
+      },
+      "selectionOverlap": {
+        "legacy": {
+          "averageMatches": 2,
+          "exactTwoRate": 1,
+          "months": 188
+        },
+        "morningstarRaw": {
+          "averageMatches": 0.457,
+          "exactTwoRate": 0.021,
+          "months": 188
+        }
+      }
+    },
+    {
+      "key": "A__NO_GROUP",
+      "scoreKey": "A",
+      "scoreLabel": "기본 종목점수",
+      "taxonomyKey": "NO_GROUP",
+      "taxonomyLabel": "업종 단계 제거",
+      "family": "control",
+      "role": "control",
+      "totalReturn": 1.1934,
+      "cagr": 0.0516,
+      "maxDrawdown": -0.5615,
+      "qqqReturn": 15.2557,
+      "buys": {
+        "executed": 356,
+        "attempted": 376
+      },
+      "skippedBuys": 20,
+      "finalCashKrw": 79052109,
+      "finalEquityKrw": 219336729,
+      "openLots": 28,
+      "transactionCostKrw": 4772876,
+      "topWinners": [
+        {
+          "lot": "NVDA@2023-05",
+          "profitKrw": 13690616
+        },
+        {
+          "lot": "NVDA@2020-02",
+          "profitKrw": 11557627
+        }
+      ],
+      "returnWithoutTop1": 1.0565,
+      "returnWithoutTop2": 0.9409,
+      "periods": {
+        "design": {
+          "strategy": 0.5604,
+          "qqq": 2.8298
+        },
+        "validation": {
+          "strategy": 0.121,
+          "qqq": 0.7745
+        },
+        "holdout": {
+          "strategy": 0.2539,
+          "qqq": 1.3634
+        }
+      },
+      "rolling": {
+        "win36": 0.0065,
+        "observations36": 153,
+        "win60": 0,
+        "observations60": 129
+      },
+      "selectedGroupSize": {
+        "average": 0,
+        "median": 0,
+        "atMost4Rate": 0,
+        "atMost7Rate": 0,
+        "observations": 0
+      },
+      "selectionOverlap": {
+        "legacy": {
+          "averageMatches": 0.511,
+          "exactTwoRate": 0.037,
+          "months": 188
+        },
+        "morningstarRaw": {
+          "averageMatches": 0.819,
+          "exactTwoRate": 0.09,
+          "months": 188
+        }
+      }
+    },
+    {
+      "key": "C__NO_GROUP",
+      "scoreKey": "C",
+      "scoreLabel": "균형 종목점수",
+      "taxonomyKey": "NO_GROUP",
+      "taxonomyLabel": "업종 단계 제거",
+      "family": "control",
+      "role": "control",
+      "totalReturn": 1.0009,
+      "cagr": 0.0454,
+      "maxDrawdown": -0.5287,
+      "qqqReturn": 15.2557,
+      "buys": {
+        "executed": 359,
+        "attempted": 376
+      },
+      "skippedBuys": 17,
+      "finalCashKrw": 53543886,
+      "finalEquityKrw": 200085465,
+      "openLots": 28,
+      "transactionCostKrw": 4778256,
+      "topWinners": [
+        {
+          "lot": "NVDA@2023-05",
+          "profitKrw": 13690616
+        },
+        {
+          "lot": "NVDA@2020-02",
+          "profitKrw": 9708774
+        }
+      ],
+      "returnWithoutTop1": 0.8639,
+      "returnWithoutTop2": 0.7669,
+      "periods": {
+        "design": {
+          "strategy": 0.6228,
+          "qqq": 2.8298
+        },
+        "validation": {
+          "strategy": 0.1185,
+          "qqq": 0.7745
+        },
+        "holdout": {
+          "strategy": 0.1024,
+          "qqq": 1.3634
+        }
+      },
+      "rolling": {
+        "win36": 0,
+        "observations36": 153,
+        "win60": 0,
+        "observations60": 129
+      },
+      "selectedGroupSize": {
+        "average": 0,
+        "median": 0,
+        "atMost4Rate": 0,
+        "atMost7Rate": 0,
+        "observations": 0
+      },
+      "selectionOverlap": {
+        "legacy": {
+          "averageMatches": 0.553,
+          "exactTwoRate": 0.032,
+          "months": 188
+        },
+        "morningstarRaw": {
+          "averageMatches": 0.638,
+          "exactTwoRate": 0.048,
+          "months": 188
+        }
+      }
+    }
+  ],
+  "topology": [
+    {
+      "taxonomyKey": "LEGACY_FULL",
+      "taxonomyLabel": "기존 57개 혼합 전체",
+      "averageGroups": 81.63,
+      "averageMedianSize": 2.04,
+      "smallGroupShare": 0.726,
+      "months": 188
+    },
+    {
+      "taxonomyKey": "LEGACY_GROUP",
+      "taxonomyLabel": "혼합 업종 묶음만 사용",
+      "averageGroups": 81.63,
+      "averageMedianSize": 2.04,
+      "smallGroupShare": 0.726,
+      "months": 188
+    },
+    {
+      "taxonomyKey": "MSTAR_GROUP_RAW",
+      "taxonomyLabel": "Morningstar 산업그룹 원형",
+      "averageGroups": 51.12,
+      "averageMedianSize": 7.2,
+      "smallGroupShare": 0.3525,
+      "months": 188
+    },
+    {
+      "taxonomyKey": "MSTAR_INDUSTRY_RAW",
+      "taxonomyLabel": "Morningstar 세부 산업 원형",
+      "averageGroups": 113.23,
+      "averageMedianSize": 3.1,
+      "smallGroupShare": 0.6526,
+      "months": 188
+    },
+    {
+      "taxonomyKey": "MSTAR_GROUP_SHRUNK",
+      "taxonomyLabel": "산업그룹 표본 보정",
+      "averageGroups": 51.12,
+      "averageMedianSize": 7.2,
+      "smallGroupShare": 0.3525,
+      "months": 188
+    },
+    {
+      "taxonomyKey": "MSTAR_ADAPTIVE",
+      "taxonomyLabel": "적응형 상위 분류",
+      "averageGroups": 63.26,
+      "averageMedianSize": 6.72,
+      "smallGroupShare": 0.3527,
+      "months": 188
+    }
+  ],
+  "classificationAudit": {
+    "observedChangeEvents": 0,
+    "observedChangedSymbols": 0,
+    "years": "-",
+    "interpretation": "No classification changes were observed in this run. This does not prove that the provider exposes complete historical reclassifications."
+  },
+  "selectedDelistings": {
+    "count": 18,
+    "visibleLogText": "ABMD@2022-12-22,ANDV@2018-09-28,BCR@2017-12-28,BXLT@2016-06-02,CERN@2022-06-08,CFN@2015-03-16,COV@2015-01-26,CSRA@2018-04-03,CTRX@2015-07-23,ESRX@2018-12-20,HCP@202...",
+    "completeListAvailable": false
+  },
+  "comparison": {
+    "baselineKey": "A__MSTAR_GROUP_RAW",
+    "candidateKey": "A__MSTAR_ADAPTIVE",
+    "returnDelta": 0.3509,
+    "cagrDelta": 0.0073,
+    "drawdownImprovement": 0.0146,
+    "periodDeltas": {
+      "design": -0.1537,
+      "validation": 0.1594,
+      "holdout": 0.0911
+    },
+    "returnWithoutTop2Delta": 0.0045,
+    "adaptiveAminusC": {
+      "returnDelta": 0.3872,
+      "drawdownImprovement": 0.161
+    },
+    "shrunkVsBaseline": {
+      "returnDelta": 0.5313,
+      "drawdownImprovement": -0.0904,
+      "holdoutDelta": -0.0562
+    }
+  },
+  "promotionGates": [
+    {
+      "key": "repeatability",
+      "label": "동일 코드 반복 실행",
+      "status": "passed",
+      "detail": "93개 결과 로그가 두 실행에서 모두 일치"
+    },
+    {
+      "key": "total_return",
+      "label": "원형보다 누적 수익 개선",
+      "status": "passed",
+      "detail": "+35.09%p"
+    },
+    {
+      "key": "drawdown",
+      "label": "MDD 3%p 이상 악화 금지",
+      "status": "passed",
+      "detail": "1.46%p 개선"
+    },
+    {
+      "key": "all_periods",
+      "label": "설계·검증·최근 구간 모두 개선",
+      "status": "failed",
+      "detail": "설계 구간 -15.37%p"
+    },
+    {
+      "key": "winner_dependence",
+      "label": "상위 2개 lot 제거 후 우위 유지",
+      "status": "warning",
+      "detail": "우위가 35.09%p에서 0.45%p로 축소"
+    },
+    {
+      "key": "benchmark",
+      "label": "QQQ 장기 기회비용 통과",
+      "status": "failed",
+      "detail": "전략 248.4%, QQQ 1525.6%"
+    },
+    {
+      "key": "forward",
+      "label": "6~12개월 미래 관찰",
+      "status": "failed",
+      "detail": "아직 관찰 기록 없음"
+    }
+  ],
+  "decision": {
+    "bestResearchCandidate": "A__MSTAR_ADAPTIVE",
+    "operationalChange": false,
+    "recommendedStatus": "testing",
+    "summary": "Keep the current public strategy unchanged. Track A + adaptive taxonomy as a research candidate, because its full-period return and MDD improved but its design-period result lagged and almost all excess disappeared after removing the top two lots.",
+    "androidImpact": "none"
+  },
+  "limitations": [
+    "QuantConnect price data in this run ended on 2026-04-13.",
+    "QQQ is continuously invested while the strategy can hold cash, so it is an opportunity-cost benchmark rather than a risk-matched portfolio.",
+    "No Morningstar classification changes were observed; complete point-in-time reclassification history remains unverified.",
+    "The top-winner diagnostic subtracts lot profit from final equity and is a concentration stress test, not a rerun with capital reallocated.",
+    "Winner labels use mapped ticker strings; CEG@2011-09 requires a Security Identifier and corporate-action audit before promotion.",
+    "No untouched 6-12 month forward observation period exists for the adaptive candidate.",
+    "This research result does not change the public API, Android execution policy, or existing lot schedules."
+  ],
+  "rawLogLines": [
+    "TAXONOMY_META|mode=PIT|signals=188|ever=966|current=518|last_data=2026-04-13|delist_selected=18|cost=0.0010|delay=1|membership_lag=5|shrink=8.0|adaptive_min=8",
+    "SUMMARY|A__LEGACY_FULL|ret=1.8559|cagr=0.0695|mdd=-0.6283|qqq=15.2557|buys=288/376|skip=88|cash=8402989|equity=285587155|open=37|cost=3016436",
+    "TAIL|A__LEGACY_FULL|top1=WDC@2025-06:19552790|top2=WDC@2025-10:14205788|ret_without1=1.6603|ret_without2=1.5183",
+    "PERIOD|A__LEGACY_FULL|DESIGN=0.5297/2.8298|VALIDATE=0.0305/0.7745|HOLDOUT=0.8116/1.3634",
+    "ROLLING|A__LEGACY_FULL|win36=0.0065|n36=153|win60=0.0000|n60=129",
+    "GROUP_DIAG|A__LEGACY_FULL|avg=9.86|median=5.00|le4=0.4707|le7=0.6410|n=376",
+    "SUMMARY|A__LEGACY_GROUP|ret=3.5033|cagr=0.1011|mdd=-0.4612|qqq=15.2557|buys=354/376|skip=22|cash=122083567|equity=450325218|open=32|cost=4897809",
+    "TAIL|A__LEGACY_GROUP|top1=WDC@2025-06:29329185|top2=WDC@2025-08:29276287|ret_without1=3.2100|ret_without2=2.9172",
+    "PERIOD|A__LEGACY_GROUP|DESIGN=0.7088/2.8298|VALIDATE=0.4601/0.7745|HOLDOUT=0.8049/1.3634",
+    "ROLLING|A__LEGACY_GROUP|win36=0.0784|n36=153|win60=0.0000|n60=129",
+    "GROUP_DIAG|A__LEGACY_GROUP|avg=15.79|median=11.00|le4=0.3324|le7=0.4229|n=376",
+    "SUMMARY|A__MSTAR_GROUP_RAW|ret=2.1330|cagr=0.0759|mdd=-0.2032|qqq=15.2557|buys=373/376|skip=3|cash=199644643|equity=313300819|open=18|cost=5888392",
+    "TAIL|A__MSTAR_GROUP_RAW|top1=NVDA@2023-05:13690616|top2=NVDA@2019-11:10558946|ret_without1=1.9961|ret_without2=1.8905",
+    "PERIOD|A__MSTAR_GROUP_RAW|DESIGN=0.9703/2.8298|VALIDATE=0.3027/0.7745|HOLDOUT=0.2206/1.3634",
+    "ROLLING|A__MSTAR_GROUP_RAW|win36=0.0131|n36=153|win60=0.0000|n60=129",
+    "GROUP_DIAG|A__MSTAR_GROUP_RAW|avg=14.93|median=13.00|le4=0.2207|le7=0.3590|n=376",
+    "SUMMARY|A__MSTAR_INDUSTRY_RAW|ret=2.3323|cagr=0.0801|mdd=-0.5356|qqq=15.2557|buys=374/376|skip=2|cash=145989288|equity=333231649|open=24|cost=5807258",
+    "TAIL|A__MSTAR_INDUSTRY_RAW|top1=NVDA@2019-11:10558946|top2=TER@2025-10:10393839|ret_without1=2.2267|ret_without2=2.1228",
+    "PERIOD|A__MSTAR_INDUSTRY_RAW|DESIGN=0.9062/2.8298|VALIDATE=0.3338/0.7745|HOLDOUT=0.3106/1.3634",
+    "ROLLING|A__MSTAR_INDUSTRY_RAW|win36=0.0784|n36=153|win60=0.0000|n60=129",
+    "GROUP_DIAG|A__MSTAR_INDUSTRY_RAW|avg=6.77|median=5.00|le4=0.4920|le7=0.7207|n=376",
+    "SUMMARY|A__MSTAR_GROUP_SHRUNK|ret=2.6643|cagr=0.0867|mdd=-0.2936|qqq=15.2557|buys=376/376|skip=0|cash=221827598|equity=366428397|open=20|cost=5923178",
+    "TAIL|A__MSTAR_GROUP_SHRUNK|top1=S@2012-07:14443301|top2=NVDA@2023-05:13690616|ret_without1=2.5199|ret_without2=2.3829",
+    "PERIOD|A__MSTAR_GROUP_SHRUNK|DESIGN=1.2419/2.8298|VALIDATE=0.4037/0.7745|HOLDOUT=0.1644/1.3634",
+    "ROLLING|A__MSTAR_GROUP_SHRUNK|win36=0.0196|n36=153|win60=0.0000|n60=129",
+    "GROUP_DIAG|A__MSTAR_GROUP_SHRUNK|avg=16.38|median=15.00|le4=0.1090|le7=0.2367|n=376",
+    "SUMMARY|A__MSTAR_ADAPTIVE|ret=2.4839|cagr=0.0832|mdd=-0.1886|qqq=15.2557|buys=376/376|skip=0|cash=166651832|equity=348394971|open=22|cost=5780076",
+    "TAIL|A__MSTAR_ADAPTIVE|top1=CEG@2011-09:45202420|top2=NVDA@2023-05:13690616|ret_without1=2.0319|ret_without2=1.8950",
+    "PERIOD|A__MSTAR_ADAPTIVE|DESIGN=0.8166/2.8298|VALIDATE=0.4621/0.7745|HOLDOUT=0.3117/1.3634",
+    "ROLLING|A__MSTAR_ADAPTIVE|win36=0.0196|n36=153|win60=0.0000|n60=129",
+    "GROUP_DIAG|A__MSTAR_ADAPTIVE|avg=12.43|median=11.00|le4=0.0000|le7=0.1941|n=376",
+    "SUMMARY|A__NO_GROUP|ret=1.1934|cagr=0.0516|mdd=-0.5615|qqq=15.2557|buys=356/376|skip=20|cash=79052109|equity=219336729|open=28|cost=4772876",
+    "TAIL|A__NO_GROUP|top1=NVDA@2023-05:13690616|top2=NVDA@2020-02:11557627|ret_without1=1.0565|ret_without2=0.9409",
+    "PERIOD|A__NO_GROUP|DESIGN=0.5604/2.8298|VALIDATE=0.1210/0.7745|HOLDOUT=0.2539/1.3634",
+    "ROLLING|A__NO_GROUP|win36=0.0065|n36=153|win60=0.0000|n60=129",
+    "GROUP_DIAG|A__NO_GROUP|avg=0.00|median=0.00|le4=0.0000|le7=0.0000|n=0",
+    "SUMMARY|C__LEGACY_FULL|ret=1.9571|cagr=0.0719|mdd=-0.5966|qqq=15.2557|buys=299/376|skip=77|cash=12819342|equity=295709955|open=35|cost=3154817",
+    "TAIL|C__LEGACY_FULL|top1=STX@2025-07:23275875|top2=WDC@2025-11:15734782|ret_without1=1.7243|ret_without2=1.5670",
+    "PERIOD|C__LEGACY_FULL|DESIGN=0.4451/2.8298|VALIDATE=0.0651/0.7745|HOLDOUT=0.9213/1.3634",
+    "ROLLING|C__LEGACY_FULL|win36=0.0327|n36=153|win60=0.0000|n60=129",
+    "GROUP_DIAG|C__LEGACY_FULL|avg=10.43|median=5.00|le4=0.4574|le7=0.6090|n=376",
+    "SUMMARY|C__LEGACY_GROUP|ret=3.2777|cagr=0.0975|mdd=-0.4981|qqq=15.2557|buys=351/376|skip=25|cash=92922652|equity=427766473|open=33|cost=4854915",
+    "TAIL|C__LEGACY_GROUP|top1=WDC@2025-06:29329185|top2=WDC@2025-08:29276287|ret_without1=2.9844|ret_without2=2.6916",
+    "PERIOD|C__LEGACY_GROUP|DESIGN=0.6285/2.8298|VALIDATE=0.3935/0.7745|HOLDOUT=0.8850/1.3634",
+    "ROLLING|C__LEGACY_GROUP|win36=0.0327|n36=153|win60=0.0000|n60=129",
+    "GROUP_DIAG|C__LEGACY_GROUP|avg=14.02|median=7.50|le4=0.3856|le7=0.5000|n=376",
+    "SUMMARY|C__MSTAR_GROUP_RAW|ret=2.0123|cagr=0.0731|mdd=-0.3604|qqq=15.2557|buys=373/376|skip=3|cash=138999061|equity=301228276|open=22|cost=5885510",
+    "TAIL|C__MSTAR_GROUP_RAW|top1=PCS@2012-09:14484364|top2=S@2012-07:14443301|ret_without1=1.8674|ret_without2=1.7230",
+    "PERIOD|C__MSTAR_GROUP_RAW|DESIGN=0.7867/2.8298|VALIDATE=0.4163/0.7745|HOLDOUT=0.1904/1.3634",
+    "ROLLING|C__MSTAR_GROUP_RAW|win36=0.0196|n36=153|win60=0.0000|n60=129",
+    "GROUP_DIAG|C__MSTAR_GROUP_RAW|avg=13.02|median=10.00|le4=0.2660|le7=0.4521|n=376",
+    "SUMMARY|C__MSTAR_INDUSTRY_RAW|ret=1.9248|cagr=0.0711|mdd=-0.6078|qqq=15.2557|buys=367/376|skip=9|cash=74186434|equity=292484627|open=26|cost=5117244",
+    "TAIL|C__MSTAR_INDUSTRY_RAW|top1=SPLS@2014-12:10401934|top2=TER@2025-10:10393839|ret_without1=1.8208|ret_without2=1.7169",
+    "PERIOD|C__MSTAR_INDUSTRY_RAW|DESIGN=0.6242/2.8298|VALIDATE=0.1968/0.7745|HOLDOUT=0.5046/1.3634",
+    "ROLLING|C__MSTAR_INDUSTRY_RAW|win36=0.0392|n36=153|win60=0.0000|n60=129",
+    "GROUP_DIAG|C__MSTAR_INDUSTRY_RAW|avg=6.08|median=4.00|le4=0.5559|le7=0.7739|n=376",
+    "SUMMARY|C__MSTAR_GROUP_SHRUNK|ret=2.1629|cagr=0.0765|mdd=-0.3566|qqq=15.2557|buys=374/376|skip=2|cash=119149692|equity=316290754|open=25|cost=5576939",
+    "TAIL|C__MSTAR_GROUP_SHRUNK|top1=WDC@2025-09:14868167|top2=PCS@2012-09:14484364|ret_without1=2.0142|ret_without2=1.8694",
+    "PERIOD|C__MSTAR_GROUP_SHRUNK|DESIGN=0.7566/2.8298|VALIDATE=0.4070/0.7745|HOLDOUT=0.2797/1.3634",
+    "ROLLING|C__MSTAR_GROUP_SHRUNK|win36=0.0327|n36=153|win60=0.0000|n60=129",
+    "GROUP_DIAG|C__MSTAR_GROUP_SHRUNK|avg=15.15|median=14.00|le4=0.1303|le7=0.2872|n=376",
+    "SUMMARY|C__MSTAR_ADAPTIVE|ret=2.0967|cagr=0.0750|mdd=-0.3496|qqq=15.2557|buys=373/376|skip=3|cash=108499757|equity=309665886|open=26|cost=5482992",
+    "TAIL|C__MSTAR_ADAPTIVE|top1=WDC@2025-09:14868167|top2=PCS@2012-09:14484364|ret_without1=1.9480|ret_without2=1.8031",
+    "PERIOD|C__MSTAR_ADAPTIVE|DESIGN=0.7336/2.8298|VALIDATE=0.4072/0.7745|HOLDOUT=0.2693/1.3634",
+    "ROLLING|C__MSTAR_ADAPTIVE|win36=0.0261|n36=153|win60=0.0000|n60=129",
+    "GROUP_DIAG|C__MSTAR_ADAPTIVE|avg=12.10|median=11.00|le4=0.0000|le7=0.2314|n=376",
+    "SUMMARY|C__NO_GROUP|ret=1.0009|cagr=0.0454|mdd=-0.5287|qqq=15.2557|buys=359/376|skip=17|cash=53543886|equity=200085465|open=28|cost=4778256",
+    "TAIL|C__NO_GROUP|top1=NVDA@2023-05:13690616|top2=NVDA@2020-02:9708774|ret_without1=0.8639|ret_without2=0.7669",
+    "PERIOD|C__NO_GROUP|DESIGN=0.6228/2.8298|VALIDATE=0.1185/0.7745|HOLDOUT=0.1024/1.3634",
+    "ROLLING|C__NO_GROUP|win36=0.0000|n36=153|win60=0.0000|n60=129",
+    "GROUP_DIAG|C__NO_GROUP|avg=0.00|median=0.00|le4=0.0000|le7=0.0000|n=0",
+    "OVERLAP|A__LEGACY_FULL|legacy=2.000/1.000/188|mstar=0.457/0.021/188",
+    "OVERLAP|A__LEGACY_GROUP|legacy=1.186/0.287/188|mstar=0.670/0.037/188",
+    "OVERLAP|A__MSTAR_GROUP_RAW|legacy=0.457/0.021/188|mstar=2.000/1.000/188",
+    "OVERLAP|A__MSTAR_INDUSTRY_RAW|legacy=0.367/0.016/188|mstar=1.085/0.223/188",
+    "OVERLAP|A__MSTAR_GROUP_SHRUNK|legacy=0.457/0.016/188|mstar=1.606/0.612/188",
+    "OVERLAP|A__MSTAR_ADAPTIVE|legacy=0.441/0.027/188|mstar=1.160/0.250/188",
+    "OVERLAP|A__NO_GROUP|legacy=0.511/0.037/188|mstar=0.819/0.090/188",
+    "OVERLAP|C__LEGACY_FULL|legacy=2.000/1.000/188|mstar=0.495/0.021/188",
+    "OVERLAP|C__LEGACY_GROUP|legacy=1.468/0.505/188|mstar=0.564/0.043/188",
+    "OVERLAP|C__MSTAR_GROUP_RAW|legacy=0.495/0.021/188|mstar=2.000/1.000/188",
+    "OVERLAP|C__MSTAR_INDUSTRY_RAW|legacy=0.420/0.027/188|mstar=0.995/0.186/188",
+    "OVERLAP|C__MSTAR_GROUP_SHRUNK|legacy=0.489/0.016/188|mstar=1.521/0.543/188",
+    "OVERLAP|C__MSTAR_ADAPTIVE|legacy=0.511/0.037/188|mstar=1.096/0.213/188",
+    "OVERLAP|C__NO_GROUP|legacy=0.553/0.032/188|mstar=0.638/0.048/188",
+    "TOPOLOGY|LEGACY_FULL|avg_groups=81.63|median_size=2.04|small_group_share=0.7260|months=188",
+    "TOPOLOGY|LEGACY_GROUP|avg_groups=81.63|median_size=2.04|small_group_share=0.7260|months=188",
+    "TOPOLOGY|MSTAR_GROUP_RAW|avg_groups=51.12|median_size=7.20|small_group_share=0.3525|months=188",
+    "TOPOLOGY|MSTAR_INDUSTRY_RAW|avg_groups=113.23|median_size=3.10|small_group_share=0.6526|months=188",
+    "TOPOLOGY|MSTAR_GROUP_SHRUNK|avg_groups=51.12|median_size=7.20|small_group_share=0.3525|months=188",
+    "TOPOLOGY|MSTAR_ADAPTIVE|avg_groups=63.26|median_size=6.72|small_group_share=0.3527|months=188",
+    "CLASS_CHANGE|events=0|symbols=0|years=-",
+    "SELECTED_DELIST|ABMD@2022-12-22,ANDV@2018-09-28,BCR@2017-12-28,BXLT@2016-06-02,CERN@2022-06-08,CFN@2015-03-16,COV@2015-01-26,CSRA@2018-04-03,CTRX@2015-07-23,ESRX@2018-12-20,HCP@202..."
+  ]
+}

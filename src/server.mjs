@@ -32,7 +32,10 @@ function resolvePath(urlPath) {
     "/us-100m-capital-audit.css",
     "/taxonomy-leader-group-audit.html",
     "/taxonomy-leader-group-audit.css",
-    "/taxonomy-leader-group-audit.js"
+    "/taxonomy-leader-group-audit.js",
+    "/taxonomy-pit-audit.html",
+    "/taxonomy-pit-audit.css",
+    "/taxonomy-pit-audit.js"
   ].includes(urlPath)) return path.join(ROOT, "dashboard", urlPath.slice(1));
   const normalized = path.normalize(urlPath).replace(/^(\.\.[/\\])+/, "");
   return path.join(ROOT, normalized);

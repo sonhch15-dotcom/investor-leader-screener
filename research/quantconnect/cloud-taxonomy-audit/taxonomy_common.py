@@ -3,9 +3,9 @@ from collections import defaultdict, deque
 from datetime import datetime
 import calendar
 import math
-INITIAL_CAPITAL = 10_000_000.0
+INITIAL_CAPITAL = 100_000_000.0
 COST_RATE = 0.001
-MIN_BUY = 100_000.0
+MIN_BUY = 1_000_000.0
 EXECUTION_DELAY_DAYS = 1
 MEMBERSHIP_LAG_DAYS = 5
 FIRST_SIGNAL = datetime(2010, 8, 27)
@@ -224,6 +224,8 @@ def weekly_rows(daily_rows):
 			rsi14 = 100.0 if losses == 0 else 100 - 100 / (1 + gains / losses)
 		result.append({"date": row["date"], "close": row["close"], "ma10": ma10, "rsi14": rsi14})
 	return result
+def sort_symbols(values):
+	return sorted(values, key=lambda symbol: symbol.value)
 def make_account(key, score, taxonomy):
 	return {
 		"key": key, "score": score, "taxonomy": taxonomy,

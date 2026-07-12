@@ -8,6 +8,15 @@
       "description": "현재 전략을 판단할 때 먼저 읽을 보고서입니다.",
       "reports": [
         {
+          "id": "taxonomy-pit-audit",
+          "title": "작은 업종을 합치면 전략이 더 좋아질까?",
+          "source": "dashboard/taxonomy-pit-audit.html",
+          "href": "taxonomy-pit-audit.html",
+          "market": "미국",
+          "status": "최신",
+          "summary": "2010년 이후 당시 종목과 1억원 계좌로 업종 분류 보정안을 검증하고, 승격을 보류한 이유를 설명합니다."
+        },
+        {
           "id": "us-100m-capital-audit",
           "title": "미국 전략 1억원 실계좌형 검증",
           "source": "dashboard/us-100m-capital-audit.html",
@@ -169,6 +178,14 @@
           "market": "미국",
           "status": "원문",
           "href": "taxonomy_leader_group_audit.md"
+        },
+        {
+          "id": "taxonomy-pit-audit-raw",
+          "title": "장기 업종 분류 보정 검증 원문",
+          "source": "quantconnect_taxonomy_pit_audit.md",
+          "market": "미국",
+          "status": "원문",
+          "href": "quantconnect_taxonomy_pit_audit.md"
         },
         {
           "id": "score-variant-final",
@@ -497,5 +514,5 @@
       ]
     }
   ],
-  "reportCount": 62
+  "reportCount": 64
 }
