@@ -79,6 +79,7 @@ async function main() {
     "score_variant_final_validation.md",
     "score_a_c_corrected_validation.md",
     "early_exit_reentry_test.md",
+    "us_backtest_candidate_study.md",
   ];
 
   await copyDir(path.join(root, "dashboard"), dist);

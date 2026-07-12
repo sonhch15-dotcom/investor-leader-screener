@@ -1,4 +1,5 @@
 const DATA_URL = "./data/us-strategy-history-report.json";
+const CANDIDATE_DATA_URL = "./data/us-backtest-candidate-study.json";
 const SECTOR_FLOW_NAME = "섹터 흐름형";
 const STOCK_STRENGTH_NAME = "종목 힘 중심형";
 
@@ -297,6 +298,96 @@ function renderMethodology(data) {
   document.getElementById("source-list").innerHTML = data.sources.map((source) => `<li><a href="${source.url}" target="_blank" rel="noreferrer">${escapeHtml(source.title)}</a> · ${escapeHtml(source.publisher)} · ${escapeHtml(source.date)}</li>`).join("");
 }
 
+function candidateBadge(label, tone = "neutral") {
+  return `<span class="candidate-badge ${tone}">${escapeHtml(label)}</span>`;
+}
+
+function candidateCard(index, title, verdict, tone, body, facts, sources = []) {
+  return `<article class="candidate-result-card">
+    <div class="candidate-result-number">${index}</div>
+    <div class="candidate-result-body">
+      <div class="candidate-result-head"><h3>${escapeHtml(title)}</h3>${candidateBadge(verdict, tone)}</div>
+      <p>${body}</p>
+      <div class="candidate-facts">${facts.map((fact) => `<span>${fact}</span>`).join("")}</div>
+      ${sources.length ? `<div class="candidate-sources">${sources.map((source) => `<a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">${escapeHtml(source.label)}</a>`).join("")}</div>` : ""}
+    </div>
+  </article>`;
+}
+
+function renderCandidateResults(data) {
+  const baseline = data.baseline;
+  const market50 = data.marketGate.rows.find((row) => row.key === "qqq_below_200_buy_50");
+  const sector25 = data.sectorCap.rows.find((row) => row.key === "sector_cost_cap_25");
+  const exit25 = data.exitSizing.rows.find((row) => row.key === "fixed_25");
+  const exitAdaptive = data.exitSizing.rows.find((row) => row.key === "adaptive_25_50_75");
+  const count3 = data.monthlyCount.rows.find((row) => row.key === "monthly_3_budget_matched");
+  const count4 = data.monthlyCount.rows.find((row) => row.key === "monthly_4_budget_matched");
+
+  document.getElementById("candidate-summary").innerHTML = [
+    metricCard("현재 전략", percent(baseline.totalReturn), `최대 하락 ${percent(baseline.maxDrawdown)}`),
+    metricCard("연구 관문 통과", `${data.passedCandidates.length}개`, "전체·극단값 제외·기간 분할 확인"),
+    metricCard("QQQ 200일선 아래", `${data.marketGate.below200Months}/${data.marketGate.signalMonths}개월`, "월말 신호 기준"),
+    metricCard("과거 실제 종목군", "계산 보류", "유효한 과거 구성 자료 필요")
+  ].join("");
+
+  const cards = [
+    candidateCard(
+      1,
+      "약세장에서 새 매수를 절반으로 줄이기",
+      "채택 안 함",
+      "reject",
+      `15개월에 적용했지만 누적 수익은 <strong>${percent(market50.totalReturn)}</strong>로 현재보다 ${plainPoints(Math.abs(market50.totalReturnChange))} 낮았습니다. 전체 기간의 최대 하락도 ${percent(market50.maxDrawdown)}로 줄지 않았습니다. 이미 들고 있던 종목이 하락하는 문제라 새 매수만 줄여서는 부족했습니다.`,
+      [`현재 ${percent(baseline.totalReturn)}`, `절반 매수 ${percent(market50.totalReturn)}`, `최대 하락 ${percent(market50.maxDrawdown)}`]
+    ),
+    candidateCard(
+      2,
+      "계좌 전체에서 한 업종의 원금을 제한하기",
+      "현재 유지",
+      "reject",
+      `월별 두 종목은 원래부터 서로 다른 업종입니다. 누적 보유분에 25% 한도를 걸면 최대 하락은 ${percent(sector25.maxDrawdown)}까지 줄었지만, 누적 수익도 <strong>${percent(sector25.totalReturn)}</strong>로 크게 낮아졌습니다. 전자부품·반도체의 긴 상승 흐름까지 너무 일찍 막았습니다.`,
+      [`현재 ${percent(baseline.totalReturn)}`, `25% 한도 ${percent(sector25.totalReturn)}`, `하락폭 ${percent(sector25.maxDrawdown)}`]
+    ),
+    candidateCard(
+      3,
+      "6개월 매도 비율을 25%·50%·75%로 바꾸기",
+      "추가 관찰",
+      "watch",
+      `25%만 팔면 누적 수익은 <strong>${percent(exit25.totalReturn)}</strong>, 주봉에 따라 바꾸면 ${percent(exitAdaptive.totalReturn)}로 높아졌습니다. 하지만 보유 중인 종목까지 포함해 +300% 넘은 거래를 빼면 각각 ${percent(exit25.strictOutlier.totalReturn)}와 ${percent(exitAdaptive.strictOutlier.totalReturn)}로 현재의 ${percent(baseline.strictOutlier.totalReturn)}보다 낮았습니다. 몇 개 큰 승자에 더 의존한 결과라 아직 규칙을 바꾸기 어렵습니다.`,
+      [`25% 매도 ${percent(exit25.totalReturn)}`, `가변 매도 ${percent(exitAdaptive.totalReturn)}`, `기간 우위 1/3구간`]
+    ),
+    candidateCard(
+      4,
+      "매달 3~4종목으로 늘리기",
+      "2종목 유지",
+      "reject",
+      `한 달 전체 매수 예정액을 같게 맞추면 3종목은 ${percent(count3.totalReturn)}, 4종목은 ${percent(count4.totalReturn)}였습니다. 종목 수가 늘면서 가장 강한 두 종목의 비중이 옅어졌고, 세 검증 구간 모두 현재 2종목보다 낮았습니다.`,
+      [`2종목 ${percent(baseline.totalReturn)}`, `3종목 ${percent(count3.totalReturn)}`, `4종목 ${percent(count4.totalReturn)}`]
+    ),
+    candidateCard(
+      5,
+      "그 당시 실제 종목만 사용하기",
+      "자료 확보 필요",
+      "blocked",
+      "현재 파일에는 지금 남아 있는 551종목만 있어 상장폐지·편출 종목을 포함한 정직한 수익률을 만들 수 없습니다. 월별 지수 구성, 당시 업종, 상장폐지 종목의 조정 가격이 함께 있는 자료를 확보하기 전까지는 숫자를 만들지 않는 것이 맞습니다.",
+      ["수익률 계산 안 함", "현재 생존자 편향 남음", "유료 데이터 경로 확인"],
+      data.pointInTimeUniverse.dataOptions
+    )
+  ];
+  document.getElementById("candidate-result-list").innerHTML = cards.join("");
+
+  const detailGroups = [
+    ["시장 약세", data.marketGate.rows],
+    ["업종 한도", data.sectorCap.rows],
+    ["매도 비율", data.exitSizing.rows],
+    ["종목 수", data.monthlyCount.rows]
+  ];
+  document.getElementById("candidate-detail-rows").innerHTML = detailGroups.flatMap(([experiment, rows]) => rows.map((row) => {
+    const isBaseline = Math.abs(row.totalReturnChange) < 0.00005;
+    const verdict = isBaseline ? "기준" : row.status.passedResearchGate ? "통과" : "미통과";
+    return `<tr><td>${escapeHtml(experiment)}</td><td>${escapeHtml(row.label)}</td><td class="numeric ${signedClass(row.totalReturn)}">${percent(row.totalReturn)}</td><td class="numeric ${signedClass(row.totalReturnChange)}">${points(row.totalReturnChange)}</td><td class="numeric negative-text">${percent(row.maxDrawdown)}</td><td>${candidateBadge(verdict, isBaseline ? "neutral" : row.status.passedResearchGate ? "pass" : "reject")}</td></tr>`;
+  })).join("");
+}
+
 function renderMeta(data) {
   document.getElementById("as-of-chip").textContent = `${data.provenance.priceAsOf} 주가 기준`;
   document.getElementById("footer-meta").textContent = `계산 기준 ${data.provenance.priceAsOf} · 보고서 갱신 ${data.generatedAt.slice(0, 10)}`;
@@ -306,9 +397,13 @@ function renderMeta(data) {
 async function main() {
   const loading = document.getElementById("loading-state");
   try {
-    const response = await fetch(DATA_URL, { cache: "no-store" });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const data = await response.json();
+    const [response, candidateResponse] = await Promise.all([
+      fetch(DATA_URL, { cache: "no-store" }),
+      fetch(CANDIDATE_DATA_URL, { cache: "no-store" })
+    ]);
+    if (!response.ok) throw new Error(`보고서 HTTP ${response.status}`);
+    if (!candidateResponse.ok) throw new Error(`후보 백테스트 HTTP ${candidateResponse.status}`);
+    const [data, candidateData] = await Promise.all([response.json(), candidateResponse.json()]);
     renderMeta(data);
     renderSummary(data);
     renderScoreWeights(data);
@@ -323,6 +418,7 @@ async function main() {
     renderExtensionImpact(data);
     renderPeriods(data);
     renderRegimes(data);
+    renderCandidateResults(candidateData);
     renderMethodology(data);
     let compactChart = window.innerWidth <= 560;
     window.addEventListener("resize", () => {

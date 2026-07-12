@@ -33,7 +33,7 @@
       <a href="#exit-rule">언제 팔까</a>
       <a href="#market-regimes">좋고 나빴던 때</a>
       <a href="#playbook">기억할 점</a>
-      <a href="#next-tests">다음 실험</a>
+      <a href="#next-tests">후보 결과</a>
       <a href="#methodology">알아둘 조건</a>
     </nav>
 
@@ -205,17 +205,22 @@
 
     <section class="report-section" id="next-tests">
       <div class="section-heading">
-        <p class="section-kicker">05 · 다음에 꼭 해볼 백테스트</p>
-        <h2>이번 결과를 보고 새로 확인해야 할 질문들</h2>
-        <p>아래 아이디어는 아직 쓰기로 정한 규칙이 아닙니다. 지금 전략을 바꾸기 전에 먼저 같은 데이터로 시험하고, 시작 시기나 검증 기간을 바꿔도 결과가 이어지는지 확인해야 합니다.</p>
+        <p class="section-kicker">05 · 다음 후보 백테스트 결과</p>
+        <h2>다섯 가지를 확인했지만, 아직 바꿀 규칙은 없습니다</h2>
+        <p>1천만원과 같은 거래비용으로 다시 계산하고, 기간을 나눠 보거나 초대형 상승 종목을 제외해도 결과가 이어지는지 함께 확인했습니다.</p>
       </div>
-      <div class="next-test-list">
-        <article><span>1</span><div><h3>시장이 크게 무너질 때 새 매수만 줄이면 손실이 덜할까?</h3><p>QQQ가 최근 200일 평균 가격 아래에 있을 때 새로 살 금액을 절반으로 줄이는 방법을 시험합니다. 2022년과 2025년의 최대 하락폭을 줄이면서 이후 반등을 놓치지 않는지가 핵심입니다.</p><small>비교할 것: 전체 수익, 최대 하락폭, 반등 초기에 놓친 수익</small></div></article>
-        <article><span>2</span><div><h3>같은 달 두 종목을 서로 다른 업종에서 고르면 더 안전할까?</h3><p>현재 방식은 강한 종목 두 개가 같은 업종에서 나올 수 있습니다. 한 업종당 한 종목만 허용했을 때 전자부품·반도체 쏠림과 계좌 흔들림이 줄어드는지 확인합니다.</p><small>비교할 것: 업종 제한 없음 vs 한 업종 한 종목</small></div></article>
-        <article><span>3</span><div><h3>6개월에 항상 50%를 팔지 말고, 추세에 따라 25%·50%·75%를 팔면?</h3><p>이번 결과는 큰 승자를 남겨두는 일이 중요하다는 점을 보여줬습니다. 다만 규칙을 복잡하게 만들수록 과거에만 잘 맞을 위험이 있으므로 미리 정한 단순 기준으로만 시험합니다.</p><small>비교할 것: 현재 50% 고정 vs 주봉 강도에 따른 세 단계 매도</small></div></article>
-        <article><span>4</span><div><h3>매달 2종목보다 3~4종목을 사면 결과가 더 안정적일까?</h3><p>종목 수를 늘리면 한 종목 실패의 충격은 줄지만, 크게 오른 한 종목의 효과도 옅어질 수 있습니다. 같은 1천만원과 같은 종목당 한도에서 비교해야 합니다.</p><small>비교할 것: 월 2·3·4종목의 수익, 최대 하락폭, 현금 부족, 거래비용</small></div></article>
-        <article><span>5</span><div><h3>그 당시 실제로 존재했던 종목만 써도 결과가 유지될까?</h3><p>현재 검증은 지금의 551개 종목을 과거에도 그대로 적용했습니다. 상장폐지 종목과 그 당시 시장에 포함됐던 종목까지 복원한 뒤에도 종목 힘 중심형의 우위가 남는지 확인해야, 이 방법을 공식 전략으로 쓸 때 더 믿을 수 있습니다.</p><small>비교할 것: 현재 종목 목록 vs 각 시점에 실제 존재했던 종목 목록</small></div></article>
-      </div>
+      <div class="candidate-summary" id="candidate-summary"></div>
+      <div class="candidate-result-list" id="candidate-result-list"></div>
+      <details class="detail-panel candidate-detail-panel">
+        <summary>모든 비교값 보기</summary>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>시험</th><th>방법</th><th>누적 수익</th><th>현재 대비</th><th>최대 하락</th><th>판정</th></tr></thead>
+            <tbody id="candidate-detail-rows"></tbody>
+          </table>
+        </div>
+      </details>
+      <p class="candidate-report-link"><a href="./us_backtest_candidate_study.md" target="_blank" rel="noreferrer">계산 조건과 전체 결과 원문 보기</a></p>
     </section>
 
     <section class="report-section methodology-section" id="methodology">

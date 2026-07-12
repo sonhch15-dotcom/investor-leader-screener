@@ -291,9 +291,9 @@ function makeEvents(trades) {
   ));
 }
 
-function baseRampAmount(cash, buySignalIndex) {
+function baseRampAmount(cash, buySignalIndex, rampSignalCount = 6) {
   if (cash <= 1_000_000) return 500_000;
-  if (buySignalIndex < 6 && cash >= 3_000_000) return 1_000_000;
+  if (buySignalIndex < rampSignalCount && cash >= 3_000_000) return 1_000_000;
   return 750_000;
 }
 
@@ -361,6 +361,12 @@ function benchmarkSummary(priceMap, curve, firstDate, lastDate) {
 function symbolOpenCost(positions, symbol) {
   return positions
     .filter((lot) => lot.symbol === symbol)
+    .reduce((sum, lot) => sum + lot.remainingShares * lot.entryPrice, 0);
+}
+
+function sectorOpenCost(positions, sector) {
+  return positions
+    .filter((lot) => lot.sector === sector)
     .reduce((sum, lot) => sum + lot.remainingShares * lot.entryPrice, 0);
 }
 
@@ -432,7 +438,7 @@ function simulateScenario(scenario, trades, valuation = null) {
       }
 
       attemptedBuys += 1;
-      const baseAmount = baseRampAmount(cash, buySignalIndex);
+      const baseAmount = baseRampAmount(cash, buySignalIndex, scenario.rampSignalCount ?? 6);
       const context = signalContext(event.trade, signalHistory);
       const wanted = scenario.size({ baseAmount, trade: event.trade, context });
       buySignalIndex += 1;
@@ -444,8 +450,12 @@ function simulateScenario(scenario, trades, valuation = null) {
 
       const cap = initialCapital * scenario.symbolCapPct;
       const capRoom = Math.max(0, cap - symbolOpenCost(positions, event.trade.symbol));
+      const sectorCap = Number.isFinite(scenario.sectorCapPct)
+        ? initialCapital * scenario.sectorCapPct
+        : Number.POSITIVE_INFINITY;
+      const sectorRoom = Math.max(0, sectorCap - sectorOpenCost(positions, event.trade.sector));
       const maxCashBuy = cash / (1 + costBps / 10_000);
-      const amount = Math.min(wanted, capRoom, maxCashBuy);
+      const amount = Math.min(wanted, capRoom, sectorRoom, maxCashBuy);
       if (amount < minBuy || !Number.isFinite(event.price) || event.price <= 0) {
         skipped.push({
           date: event.date,
@@ -453,9 +463,12 @@ function simulateScenario(scenario, trades, valuation = null) {
           wanted: round(wanted, 2),
           cash: round(cash, 2),
           capRoom: round(capRoom, 2),
+          sectorRoom: cleanAmount(sectorRoom),
           reason: !Number.isFinite(event.price) || event.price <= 0
             ? "missing_buy_price"
-            : capRoom < minBuy ? "symbol_cap" : "cash"
+            : capRoom < minBuy ? "symbol_cap"
+              : sectorRoom < minBuy ? "sector_cap"
+                : "cash"
         });
         continue;
       }
@@ -515,6 +528,10 @@ function simulateScenario(scenario, trades, valuation = null) {
   const buyLedger = ledger.filter((row) => row.type === "buy");
   const benchmark = effectiveValuation ? benchmarkSummary(priceMap, curve, firstDate, lastDate) : null;
   const remainingOpenValue = curve.at(-1)?.openMarketValue ?? 0;
+  const skipReasonCounts = Object.fromEntries(skipped.reduce((counts, row) => {
+    counts.set(row.reason, (counts.get(row.reason) ?? 0) + 1);
+    return counts;
+  }, new Map()));
   const bySector = Array.from(positions.reduce((map, lot) => {
     const current = map.get(lot.sector) ?? { sector: lot.sector, buyAmount: 0, profitProxy: 0, count: 0 };
     current.buyAmount += lot.buyAmount;
@@ -529,6 +546,8 @@ function simulateScenario(scenario, trades, valuation = null) {
     label: scenario.label,
     description: scenario.description,
     symbolCapPct: scenario.symbolCapPct,
+    sectorCapPct: scenario.sectorCapPct ?? null,
+    rampSignalCount: scenario.rampSignalCount ?? 6,
     initialCapital,
     finalCapital: round(finalCapital, 2),
     finalCash: round(cash, 2),
@@ -544,6 +563,7 @@ function simulateScenario(scenario, trades, valuation = null) {
     attemptedBuys,
     executedBuys,
     skippedBuys: skipped.length,
+    skipReasonCounts,
     sellEvents,
     minCash: cleanAmount(Math.min(...curve.map((row) => row.cash), initialCapital)),
     averageBuyAmount: round(buyLedger.reduce((sum, row) => sum + row.amount, 0) / Math.max(1, buyLedger.length), 2),
