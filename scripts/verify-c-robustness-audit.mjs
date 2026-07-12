@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 
 const data = JSON.parse(await fs.readFile("data/quantconnect-c-robustness-audit.json", "utf8"));
-const universe = JSON.parse(await fs.readFile("data/universe.json", "utf8"));
+const universe = JSON.parse(await fs.readFile("data/universe-corrected-frozen-20260711.json", "utf8"));
 const algorithm = await fs.readFile("research/quantconnect/us_long_horizon_audit.py", "utf8");
 const report = await fs.readFile("quantconnect_c_robustness_audit.md", "utf8");
 const html = await fs.readFile("dashboard/c-robustness-audit.html", "utf8");
