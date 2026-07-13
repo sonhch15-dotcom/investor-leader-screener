@@ -76,7 +76,12 @@
 
 다음 항목은 코드와 저장 로그에서 실행 기록을 찾지 못했다.
 
-1. `qqq_point_in_time_52week_high_volume_confirmation`
+1. `qqq_point_in_time_standardized_unexpected_earnings_momentum`
+   - 당시 공개된 Morningstar 분기 Basic EPS 12개로 SUE를 계산한다.
+   - 포트폴리오 조합 전에 5분위의 향후 3·6·12개월 수익 순서성을 검증한다.
+   - 데이터 시점성·중복·가용률 관문을 먼저 통과해야 하며, 상세 계약은 `studies/qqq-sue-signal-validation-20260713/study.json`에 사전등록했다.
+
+2. `qqq_point_in_time_52week_high_volume_confirmation`
    - 52주 신고가 근접도와 비정상 거래량을 하나의 신규 축으로 시험한다.
    - 52주 최고가 근접도 단독 순위가 먼저 탈락했으므로, 독립적인 경제적 근거와 새 사전등록 없이는 결합 실험을 시작하지 않는다.
 

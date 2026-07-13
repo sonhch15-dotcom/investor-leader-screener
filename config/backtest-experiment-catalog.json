@@ -481,6 +481,12 @@
   ],
   "unstartedHypotheses": [
     {
+      "hypothesisKey": "qqq_point_in_time_standardized_unexpected_earnings_momentum",
+      "title": "QQQ 표준화 이익 서프라이즈(SUE) 모멘텀",
+      "status": "preregistered_data_gate",
+      "dataGate": "Morningstar 분기 BasicEPS를 당시 공개 시점대로 중복 없이 재구성하고, 개발·검증 구간 70% 및 연도별 60% 가용률을 통과한 뒤에만 5분위 향후 수익 검증을 실행"
+    },
+    {
       "hypothesisKey": "qqq_point_in_time_52week_high_volume_confirmation",
       "title": "QQQ 52주 신고가 근접도와 비정상 거래량 확인",
       "status": "not_started",

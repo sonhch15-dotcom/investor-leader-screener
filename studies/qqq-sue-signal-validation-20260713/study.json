@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 2,
+  "id": "qqq-sue-signal-validation-20260713",
+  "title": "QQQ 표준화 이익 서프라이즈 신호 검증",
+  "market": "US_STOCK",
+  "status": "preregistered",
+  "createdAt": "2026-07-13",
+  "hypothesis": "과거 시점의 QQQ 구성 종목에서 최근 분기 EPS의 전년 동기 대비 변화가 과거 변동성보다 큰 종목일수록 이후 3·6·12개월 수익률이 더 높다.",
+  "noveltyContract": {
+    "priorArtReviewed": true,
+    "primaryConceptKey": "qqq_point_in_time_standardized_unexpected_earnings_momentum",
+    "primaryExperimentFingerprint": "us_stock|pit_qqq|morningstar_basic_eps_sue|quintile5|forward3_6_12|next_open|membership_lag5|holdout2025",
+    "nearestPriorExperimentIds": [
+      "qqq-estimize-surprise-veto-20260713",
+      "qqq-momentum-corrected-improvement-20260713"
+    ],
+    "novelDimension": "최근 발표 실적이 컨센서스보다 낮은 종목을 단순 제외한 이전 실험과 달리, 당시 공개된 분기 Basic EPS 12개로 SUE를 계산하고 전체 QQQ 구성 종목을 5분위로 나눠 신호의 순서성과 향후 수익을 먼저 검증한다.",
+    "rerunOf": null,
+    "rerunReason": null
+  },
+  "baselineStrategyKey": "qqq_total_return_benchmark",
+  "candidateStrategyKeys": [
+    "qqq_sue_quintile_signal"
+  ],
+  "dataContract": {
+    "source": "QuantConnect point-in-time QQQ ETF constituents, adjusted US Equity prices, and Morningstar US Fundamentals",
+    "start": "2006-01-01",
+    "end": "2024-12-31",
+    "evaluationStart": "2010-08-27",
+    "developmentEnd": "2021-12-31",
+    "validationStart": "2022-01-01",
+    "lockedHoldoutStart": "2025-01-01",
+    "universe": "Point-in-time QQQ constituents with a five-trading-day membership lag",
+    "membershipMode": "point_in_time",
+    "taxonomy": "none",
+    "survivorshipBiasControlled": true,
+    "lookAheadBiasControlled": true,
+    "fundamentalCapture": "Daily point-in-time Morningstar observations for the top 1500 US equities by dollar volume plus current QQQ members; duplicate fill-forward rows are collapsed by fiscal period end and the first publicly observed value is retained",
+    "sueFormula": "(EPS_q - EPS_q-4) / population_std(EPS_t - EPS_t-4 for t=q-7..q)",
+    "minimumHistory": "12 distinct consecutive quarterly BasicEPS observations",
+    "staleAfterDays": 180
+  },
+  "capitalContract": {
+    "initialKrw": 100000000,
+    "fxRate": null,
+    "fxAsOf": null,
+    "fxSource": "not applicable to signal monotonicity study",
+    "fractionalShares": true,
+    "transactionCostBpsPerSide": [
+      25
+    ],
+    "fxSpreadBps": [
+      0
+    ],
+    "maxPositionPct": 0.15
+  },
+  "executionContract": {
+    "signalTiming": "last_friday_close",
+    "entryTiming": "next_available_trading_day_open",
+    "membershipLagTradingDays": 5,
+    "quintileRule": "Sort every valid SUE value ascending with Symbol ID tie-breaks and split into five near-equal groups; Q1 is lowest and Q5 highest",
+    "forwardHorizonsTradingDays": [
+      63,
+      126,
+      252
+    ],
+    "returnRule": "Equal-weight adjusted total return from next open to the horizon close; compare every cohort with QQQ over identical dates",
+    "minimumEntryPriceCoverage": 0.95,
+    "delistingRule": "Use the QuantConnect delisting warning price, otherwise the last available adjusted close, and keep proceeds at zero return through the cohort horizon",
+    "incompleteCohortRule": "Do not use a cohort whose horizon extends beyond 2024-12-31"
+  },
+  "robustnessChecks": [
+    "fundamental_point_in_time_data_audit_before_signal_test",
+    "development_period_2010_08_2021",
+    "validation_period_2022_2024",
+    "three_forward_horizons",
+    "non_overlapping_month_offset_readout",
+    "exact_duplicate_signal_run",
+    "2025_and_later_locked"
+  ],
+  "promotionGates": {
+    "minimumPooledSueCoverage": 0.7,
+    "minimumCalendarYearSueCoverage": 0.6,
+    "minimumPassingHorizons": 2,
+    "minimumSpearmanByHorizon": 0.5,
+    "topQuintileMustBeatQqq": true,
+    "topMinusBottomMustBePositive": true,
+    "minimumPositiveNonOverlappingOffsetShare": 0.5,
+    "requiresDevelopmentAndValidationPass": true,
+    "requiresForwardShadow": true
+  },
+  "commands": [
+    "QuantConnect research/quantconnect/qqq_sue_data_audit.py",
+    "QuantConnect research/quantconnect/qqq_sue_signal_validation.py",
+    "node scripts/verify-strategy-studies.mjs"
+  ],
+  "artifacts": {
+    "resultJson": "research/quantconnect/logs/qqq_sue_signal_validation_20260713.json",
+    "report": "qqq_sue_signal_validation_result_20260713.md",
+    "dashboardHref": ""
+  },
+  "quantConnectRuns": [],
+  "decision": "pending_data_gate"
+}
