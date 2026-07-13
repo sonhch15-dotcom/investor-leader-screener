@@ -1,0 +1,466 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-13",
+  "purpose": "Prevent repeated strategy research by recording tested hypotheses, exact experiment fingerprints, validity, and allowed rerun conditions.",
+  "experiments": [
+    {
+      "id": "us-selection-diversification-current-universe-20260707",
+      "title": "미국 종목선정·섹터분산 탐색",
+      "market": "US_STOCK",
+      "date": "2026-07-07",
+      "status": "exploratory_only",
+      "validity": "survivorship_biased",
+      "hypothesisKey": "us_legacy_selection_and_sector_diversification",
+      "fingerprint": "us_stock|current_551|legacy57|leader_top2_top5_quality|sector_caps|basket_proxy",
+      "conceptKeys": [
+        "leader_group_count_2_3_5",
+        "sector_balanced_selection",
+        "sector_position_cap_2_3",
+        "full_candidate_top5_top10",
+        "quality_candidate_filter_legacy"
+      ],
+      "testedDimensions": [
+        "집중형과 섹터 균형형",
+        "그룹당 1~3종목 제한",
+        "Top5와 Top10",
+        "전체 후보와 품질 필터 후보"
+      ],
+      "conclusion": "구조 탐색 자료로만 사용한다. 현재 구성 종목과 혼합 57분류를 사용해 공식 성과 근거가 아니다.",
+      "repeatPolicy": "rerun_only_with_new_data_contract",
+      "artifacts": [
+        "sector_diversification_test.md",
+        "full_candidate_diversification_test.md",
+        "full_universe_group_test.md",
+        "group_leadership_test.md"
+      ]
+    },
+    {
+      "id": "us-holding-sizing-capital-current-universe-20260707",
+      "title": "미국 보유기간·종목수·포지션 한도·자금배분 탐색",
+      "market": "US_STOCK",
+      "date": "2026-07-07",
+      "status": "exploratory_only",
+      "validity": "survivorship_biased",
+      "hypothesisKey": "us_legacy_holding_sizing_and_capital_allocation",
+      "fingerprint": "us_stock|current_551|legacy57|holding_sleeves_caps|fixed_capital_proxy",
+      "conceptKeys": [
+        "holding_period_1_3_6_9_12_months",
+        "monthly_buy_count_sensitivity",
+        "maximum_position_count_sensitivity",
+        "overlapping_monthly_sleeves",
+        "cap27_5_ramp_aggressive_allocation"
+      ],
+      "testedDimensions": [
+        "1·3·6·9·12개월 보유",
+        "월 매수 종목 수",
+        "최대 보유 종목 수",
+        "겹침 매수",
+        "초기 램프와 종목별 27.5% 한도"
+      ],
+      "conclusion": "6개월 겹침과 제한된 포지션 수가 탐색 구간에서 유리했지만 PIT 장기 증거로 사용할 수 없다.",
+      "repeatPolicy": "rerun_only_with_new_data_contract",
+      "artifacts": [
+        "holding_period_test.md",
+        "sleeve_size_test.md",
+        "position_cap_test.md",
+        "capital_account_simulation.md",
+        "scale_execution_test.md"
+      ]
+    },
+    {
+      "id": "us-entry-stop-current-universe-20260708",
+      "title": "미국 진입 대기·손절 규칙 탐색",
+      "market": "US_STOCK",
+      "date": "2026-07-08",
+      "status": "exploratory_only",
+      "validity": "survivorship_biased",
+      "hypothesisKey": "us_legacy_entry_delay_and_stop_rules",
+      "fingerprint": "us_stock|current_551|leader2|daily_entry_waits|daily_stops|six_month",
+      "conceptKeys": [
+        "immediate_entry",
+        "ma20_ma50_entry_wait",
+        "ma20_reclaim_entry",
+        "ten_day_breakout_entry",
+        "pullback_strength_entry",
+        "fixed_percentage_stop",
+        "atr_stop",
+        "moving_average_stop"
+      ],
+      "testedDimensions": [
+        "즉시 진입",
+        "20·50일선 대기",
+        "20일선 회복",
+        "10일 돌파",
+        "강한 종목 눌림목",
+        "고정·ATR·이동평균 손절"
+      ],
+      "conclusion": "대기 진입은 참여율과 대형 승자 포착을 훼손했고, 손절은 무손절보다 낫지 않았다. 공식 증거는 아니다.",
+      "repeatPolicy": "rerun_only_with_new_data_contract",
+      "artifacts": [
+        "daily_entry_filter_test.md",
+        "stop_rule_test.md"
+      ]
+    },
+    {
+      "id": "us-weekly-exit-dropout-current-universe-20260708",
+      "title": "미국 6개월 이후 주봉 연장·주도주 탈락 매도",
+      "market": "US_STOCK",
+      "date": "2026-07-08",
+      "status": "retained_rule",
+      "validity": "limited_current_universe",
+      "hypothesisKey": "us_six_month_half_exit_weekly_extension",
+      "fingerprint": "us_stock|current_551|leader2|six_month_half|ma10_rsi_extension|max12|dropout_variants",
+      "conceptKeys": [
+        "fixed_six_month_exit",
+        "six_month_half_exit",
+        "weekly_ma10_rsi_extension",
+        "weekly_ma10_only_extension",
+        "symbol_rank_dropout_exit",
+        "group_top2_dropout_exit",
+        "group_top5_dropout_exit"
+      ],
+      "testedDimensions": [
+        "6개월 전량 매도",
+        "6개월 50% 매도 후 주봉 연장",
+        "10주선 단독과 RSI 결합",
+        "종목·그룹 주도 순위 탈락"
+      ],
+      "conclusion": "현재 운용 규칙은 6개월 50% 매도 후 MA10·RSI 조건으로 잔여분을 최대 12개월 연장한다. 순위 탈락 조기매도는 채택하지 않았다.",
+      "repeatPolicy": "baseline_only",
+      "artifacts": [
+        "weekly_exit_rule_test.md",
+        "weekly_dropout_rule_test.md"
+      ]
+    },
+    {
+      "id": "us-early-exit-reentry-score-c-20260711",
+      "title": "Score C 장기 약세 조기청산·재진입",
+      "market": "US_STOCK",
+      "date": "2026-07-11",
+      "status": "rejected",
+      "validity": "valid_rule_comparison",
+      "hypothesisKey": "us_score_c_early_exit_and_reentry",
+      "fingerprint": "us_stock|frozen_score_c|weekly_weakness|early_exit|reentry|six_month_baseline",
+      "conceptKeys": [
+        "weekly_price_weakness_early_exit",
+        "relative_strength_weakness_early_exit",
+        "market_confirmed_early_exit",
+        "drawdown_confirmed_early_exit",
+        "weekly_signal_reentry"
+      ],
+      "testedDimensions": [
+        "가격형",
+        "QQQ 상대강도형",
+        "시장 동반 약세형",
+        "고점 대비 낙폭형",
+        "신호 회복 후 재진입"
+      ],
+      "conclusion": "독립 시작 구간과 최근 구간을 함께 통과한 대안이 없어 기존 6개월 50/50 규칙을 유지했다.",
+      "repeatPolicy": "do_not_repeat",
+      "artifacts": [
+        "early_exit_reentry_test.md",
+        "data/early-exit-reentry-test.json"
+      ]
+    },
+    {
+      "id": "us-score-abc-current-universe-20260711",
+      "title": "미국 Leader2 Score A·B·C 고정 스냅샷 비교",
+      "market": "US_STOCK",
+      "date": "2026-07-11",
+      "status": "superseded",
+      "validity": "relative_only",
+      "hypothesisKey": "us_leader2_score_a_b_c_legacy57",
+      "fingerprint": "us_stock|current_551|legacy57|leader2|score_abc|cap27_5|six_month_extension",
+      "conceptKeys": [
+        "score_a_sector_first",
+        "score_b_individual_only",
+        "score_c_individual90_group10",
+        "leader2_two_names",
+        "score_c_cap27_5"
+      ],
+      "testedDimensions": [
+        "섹터 우선형 A",
+        "개별 점수형 B",
+        "개별 90%·그룹 10% C",
+        "월 2종목",
+        "Cap27.5 계좌"
+      ],
+      "conclusion": "같은 결함 입력 안에서는 C가 A보다 좋았지만 현재 구성 종목과 혼합 57분류 때문에 절대 성과와 공식 승격 근거로 사용할 수 없다.",
+      "repeatPolicy": "rerun_only_with_new_data_contract",
+      "artifacts": [
+        "score_a_c_corrected_validation.md",
+        "sector_score_variant_test-corrected-frozen-20260711.md"
+      ]
+    },
+    {
+      "id": "us-taxonomy-structure-current-universe-20260712",
+      "title": "57개 혼합 분류와 Morningstar 구조 감사",
+      "market": "US_STOCK",
+      "date": "2026-07-12",
+      "status": "exploratory_only",
+      "validity": "survivorship_biased",
+      "hypothesisKey": "us_taxonomy_structure_sensitivity",
+      "fingerprint": "us_stock|current_517|legacy57_vs_morningstar|raw_shrunk_adaptive_no_group|selection_proxy",
+      "conceptKeys": [
+        "legacy57_mixed_taxonomy",
+        "morningstar_industry_group_raw",
+        "morningstar_industry_group_shrink8",
+        "morningstar_adaptive_group",
+        "no_group_control",
+        "minimum_group_size_8"
+      ],
+      "testedDimensions": [
+        "57개 혼합 라벨",
+        "Morningstar 산업그룹",
+        "표본 보정 강도 8",
+        "최소 8종목 적응형",
+        "그룹 없음"
+      ],
+      "conclusion": "57개 분류는 공식 분류가 아니며 작은 그룹 처리에 성과가 과민했다. 구조 감사 결과만 유효하다.",
+      "repeatPolicy": "rerun_only_with_new_data_contract",
+      "artifacts": [
+        "taxonomy_leader_group_audit.md",
+        "data/taxonomy-structure-audit.json"
+      ]
+    },
+    {
+      "id": "us-100m-capital-audit",
+      "title": "PIT 유니버스·동적 1억원 계좌에서 A/C와 분류 비교",
+      "market": "US_STOCK",
+      "date": "2026-07-12",
+      "status": "rejected",
+      "validity": "valid",
+      "hypothesisKey": "us_pit_dynamic_capital_taxonomy_comparison",
+      "fingerprint": "us_stock|pit_spy_qqq|leader2|score_ac|taxonomy7|dynamic_cap|six_month_extension",
+      "conceptKeys": [
+        "pit_spy_qqq_union",
+        "delisting_included",
+        "score_a_vs_c_pit",
+        "legacy57_vs_morningstar_pit",
+        "morningstar_raw_shrunk_adaptive_pit",
+        "no_group_control_pit",
+        "dynamic_equity_capital_allocator",
+        "fully_invested_qqq_benchmark"
+      ],
+      "testedDimensions": [
+        "과거 시점별 SPY·QQQ 구성 종목 966개",
+        "A와 C",
+        "기존 57·Morningstar 원형·표본보정·적응형·그룹 없음",
+        "현재 평가액 기준 동적 자금 배분",
+        "상장폐지",
+        "QQQ 완전투자 비교"
+      ],
+      "conclusion": "현금 오류를 고친 장기 PIT에서도 최선 후보가 QQQ를 반복적으로 이기지 못했다. Score C와 분류 전략 승격 근거가 아니다.",
+      "repeatPolicy": "do_not_repeat",
+      "artifacts": [
+        "data/quantconnect-taxonomy-dynamic-capital-audit.json",
+        "dashboard/research-timeline.html"
+      ]
+    },
+    {
+      "id": "qqq-momentum-original-invalid-20260713",
+      "title": "QQQ 모멘텀 Stage 1~6 최초 실행",
+      "market": "US_STOCK",
+      "date": "2026-07-13",
+      "status": "invalidated",
+      "validity": "invalid_engine_symbol_mapping",
+      "hypothesisKey": "qqq_point_in_time_momentum_original",
+      "fingerprint": "us_stock|pit_qqq|momentum_multiscore|stage1_6|manual_symbol_registration_bug",
+      "conceptKeys": [
+        "qqq_momentum_3_6_12_1_blend",
+        "qqq_intermediate_momentum",
+        "qqq_low_volatility_score",
+        "qqq_beta_residual_momentum",
+        "qqq_information_discreteness_smoothness",
+        "qqq_strict_buffer_cohort3_cohort6",
+        "qqq_inverse_volatility_weight",
+        "qqq_core_and_position_cap",
+        "qqq_cost_stress_original"
+      ],
+      "testedDimensions": [
+        "3·6·12-1개월과 혼합 모멘텀",
+        "저변동성·시장잔차·상승경로 매끄러움",
+        "엄격·완충·3개월·6개월 보유",
+        "역변동성 비중",
+        "QQQ 코어와 종목 한도"
+      ],
+      "conclusion": "종목을 ticker로 다시 등록해 가격 계열이 섞인 공통 엔진 오류 때문에 모든 성과 수치를 폐기했다. 아이디어 시도 이력만 남긴다.",
+      "repeatPolicy": "rerun_only_for_engine_fix",
+      "artifacts": [
+        "qqq_momentum_research_20260713.md",
+        "research/quantconnect/qqq_momentum_stage1.py",
+        "research/quantconnect/qqq_momentum_stage6.py"
+      ]
+    },
+    {
+      "id": "qqq-momentum-corrected-improvement-20260713",
+      "title": "QQQ 9종목 장기 모멘텀 교정 검증",
+      "market": "US_STOCK",
+      "date": "2026-07-13",
+      "status": "rejected",
+      "validity": "valid",
+      "hypothesisKey": "qqq_point_in_time_momentum_corrected",
+      "fingerprint": "us_stock|pit_qqq|m12_1|n5_20|leader_equal|corr85|strict_buffer|ma200_weekly|cost25",
+      "conceptKeys": [
+        "qqq_stock_count_5_to_20",
+        "qqq_established_vs_emerging_momentum",
+        "qqq_equal_vs_index_weight_blend",
+        "qqq_pair_correlation_085",
+        "qqq_strict_vs_rank_buffer",
+        "qqq_immediate_vs_wait1_reentry",
+        "qqq_ma200_weekly_exit",
+        "qqq_vix_fixed_relative_regime",
+        "qqq_credit_hyg_lqd_regime",
+        "qqq_cash_bil_gld_psq_defense",
+        "qqq_volatility_target",
+        "qqq_min_quality_roic_revenue_debt",
+        "qqq_next_open_vs_close",
+        "qqq_cost_25_50_bps"
+      ],
+      "testedDimensions": [
+        "5~20종목",
+        "기존·신규 주도주",
+        "균등·QQQ 비중 혼합",
+        "상관 0.85",
+        "엄격·완충 교체와 재진입",
+        "VIX·신용·달러·채권·금·PSQ",
+        "변동성 목표",
+        "ROIC·매출성장·부채 최소 품질 필터",
+        "편도 0.25%·0.50%"
+      ],
+      "conclusion": "교정 후 9종목 후보가 네 구간 모두 QQQ를 웃돌았지만 CAGR +5%p 목표에 미달했고 비용 0.50%에서 검증 우위가 사라져 승격하지 않았다.",
+      "repeatPolicy": "baseline_only",
+      "artifacts": [
+        "qqq_strategy_improvement_result_20260713.md",
+        "qqq_strategy_improvement_protocol_20260713.md",
+        "research/quantconnect/logs/qqq_improvement_stage1_20260713.json",
+        "research/quantconnect/logs/qqq_improvement_stage4_stress_20260713.json"
+      ]
+    },
+    {
+      "id": "qqq-52week-high-proximity-20260713",
+      "title": "QQQ 52주 최고가 근접도 단독 순위 검증",
+      "market": "US_STOCK",
+      "date": "2026-07-13",
+      "status": "rejected",
+      "validity": "valid",
+      "hypothesisKey": "qqq_point_in_time_52week_high_proximity",
+      "fingerprint": "us_stock|pit_qqq|high52_proximity|n9|leader_blend|corr85|strict|ma200_weekly|cost25",
+      "conceptKeys": [
+        "qqq_52week_high_proximity_rank",
+        "qqq_m12_1_rank_control",
+        "qqq_high_proximity_drawdown_tradeoff"
+      ],
+      "testedDimensions": [
+        "12-1개월 모멘텀 순위",
+        "현재 종가와 최근 252거래일 최고가의 비율 순위",
+        "개발·검증·네 개 독립 구간",
+        "동일 소스 독립 재실행"
+      ],
+      "conclusion": "52주 최고가 근접도는 최대 낙폭을 줄였지만 개발·검증과 네 하위 구간 모두에서 QQQ보다 CAGR이 낮아 기존 장기 모멘텀 순위를 대체하지 못했다.",
+      "repeatPolicy": "do_not_repeat",
+      "artifacts": [
+        "qqq_52week_high_proximity_result_20260713.md",
+        "research/quantconnect/logs/qqq_52week_high_proximity_20260713.json",
+        "research/quantconnect/qqq_52week_high_proximity_test.py"
+      ]
+    },
+    {
+      "id": "kr-stock-score-variants-current-universe-20260710",
+      "title": "한국 우량주 Score A·B·C 비교",
+      "market": "KR_STOCK",
+      "date": "2026-07-10",
+      "status": "provisional",
+      "validity": "survivorship_biased",
+      "hypothesisKey": "kr_stock_score_a_b_c",
+      "fingerprint": "kr_stock|current_bluechip|local_groups|score_abc|leader2|five_year",
+      "conceptKeys": [
+        "kr_stock_group_first_a",
+        "kr_stock_individual_only_b",
+        "kr_stock_individual90_group10_c",
+        "kr_stock_two_names"
+      ],
+      "testedDimensions": [
+        "그룹 우선 A",
+        "개별 상위 2종목 B",
+        "개별 90%·그룹 10% C"
+      ],
+      "conclusion": "현재 우량주 목록을 과거에 적용해 생존편향이 있다. 공식 장기 우위 증거가 아니다.",
+      "repeatPolicy": "rerun_only_with_new_data_contract",
+      "artifacts": [
+        "korea_stock_score_variant_test.md",
+        "data/korea-stock-score-variant-test.json"
+      ]
+    },
+    {
+      "id": "kr-etf-score-variants-current-universe-20260710",
+      "title": "한국 ETF 월간 전략 변형 비교",
+      "market": "KR_ETF",
+      "date": "2026-07-10",
+      "status": "provisional",
+      "validity": "current_product_universe",
+      "hypothesisKey": "kr_etf_score_and_allocation_variants",
+      "fingerprint": "kr_etf|current_products|monthly|variants_a_i|one_to_three_etfs|five_year",
+      "conceptKeys": [
+        "kr_etf_core_satellite_defense_50_40_10",
+        "kr_etf_top3_equal",
+        "kr_etf_top2_equal",
+        "kr_etf_individual90_group10",
+        "kr_etf_one_name_momentum",
+        "kr_etf_monthly_rebalance"
+      ],
+      "testedDimensions": [
+        "코어·위성·방어 50/40/10",
+        "상위 1·2·3개 ETF",
+        "균등과 점수형",
+        "월간 리밸런싱"
+      ],
+      "conclusion": "현존 ETF만 사용한 5년 비교다. 상장 전·청산 ETF와 실제 연금계좌 제약을 포함한 공식 PIT 증거가 아니다.",
+      "repeatPolicy": "rerun_only_with_new_data_contract",
+      "artifacts": [
+        "korea_etf_score_variant_test.md",
+        "data/korea-etf-score-variant-test.json"
+      ]
+    },
+    {
+      "id": "kr-etf-ten-year-validation-current-universe-20260710",
+      "title": "한국 ETF 전략 10년 확장 검증",
+      "market": "KR_ETF",
+      "date": "2026-07-10",
+      "status": "provisional",
+      "validity": "current_product_universe",
+      "hypothesisKey": "kr_etf_ten_year_extension",
+      "fingerprint": "kr_etf|current_products|monthly|variants_a_i|one_to_three_etfs|ten_year",
+      "conceptKeys": [
+        "kr_etf_variants_a_i_ten_year",
+        "kr_etf_kospi200_benchmark",
+        "kr_etf_monthly_trade_ledger"
+      ],
+      "testedDimensions": [
+        "A~I 후보 10년 확장",
+        "KOSPI200 ETF 비교",
+        "월별 매수·매도·리밸런싱"
+      ],
+      "conclusion": "기간은 늘었지만 현재 판매 중인 ETF 목록을 소급 사용했으므로 생존편향과 출시 전 처리 문제를 해결한 최종 검증은 아니다.",
+      "repeatPolicy": "rerun_only_with_new_data_contract",
+      "artifacts": [
+        "korea_etf_10y_validation.md",
+        "data/korea-etf-10y-validation.json"
+      ]
+    }
+  ],
+  "unstartedHypotheses": [
+    {
+      "hypothesisKey": "qqq_point_in_time_earnings_revision_surprise",
+      "title": "QQQ 모멘텀과 실적 예상치 변화·실적 서프라이즈",
+      "status": "not_started",
+      "dataGate": "당시 공개된 예상치와 발표일을 보존한 point-in-time 데이터가 확보될 때만 시작"
+    },
+    {
+      "hypothesisKey": "qqq_point_in_time_52week_high_volume_confirmation",
+      "title": "QQQ 52주 신고가 근접도와 비정상 거래량 확인",
+      "status": "not_started",
+      "dataGate": "52주 최고가 근접도 단독 순위가 탈락했으므로 독립적인 경제적 근거와 새 사전등록 없이는 결합 실험을 시작하지 않음"
+    }
+  ]
+}

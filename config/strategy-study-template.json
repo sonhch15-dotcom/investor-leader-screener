@@ -1,11 +1,20 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "strategy-id",
   "title": "전략 이름",
   "market": "US_STOCK",
   "status": "research",
   "createdAt": "YYYY-MM-DD",
   "hypothesis": "이 전략이 기존 전략보다 나을 것으로 보는 이유",
+  "noveltyContract": {
+    "priorArtReviewed": false,
+    "primaryConceptKey": "TODO",
+    "primaryExperimentFingerprint": "TODO",
+    "nearestPriorExperimentIds": [],
+    "novelDimension": "기존 실험과 비교해 새로 바뀌는 단 하나의 핵심 요소",
+    "rerunOf": null,
+    "rerunReason": null
+  },
   "baselineStrategyKey": "baseline-key",
   "candidateStrategyKeys": ["candidate-key"],
   "dataContract": {

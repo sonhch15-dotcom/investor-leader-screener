@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 2,
+  "id": "qqq-52week-high-proximity-20260713",
+  "title": "QQQ 52주 최고가 근접도 단독 순위 검증",
+  "market": "US_STOCK",
+  "status": "completed",
+  "createdAt": "2026-07-13",
+  "hypothesis": "QQQ 구성 종목 중 52주 최고가에 더 가까운 종목을 우선하면 기존 12-1개월 모멘텀 순위보다 최근 리더십을 더 빠르게 포착할 수 있다.",
+  "noveltyContract": {
+    "priorArtReviewed": true,
+    "primaryConceptKey": "qqq_point_in_time_52week_high_proximity",
+    "primaryExperimentFingerprint": "us_stock|pit_qqq|high52_proximity|n9|leader_blend|corr85|strict|ma200_weekly|cost25",
+    "nearestPriorExperimentIds": [
+      "qqq-momentum-corrected-improvement-20260713",
+      "us-entry-stop-current-universe-20260708"
+    ],
+    "novelDimension": "기존 12-1개월 모멘텀 순위를 252거래일 최고가 대비 현재 종가 비율 순위로만 교체하고 나머지 규칙은 고정한다. 과거의 10일 돌파 진입 실험과 달리 이번 변수는 종목 선택 순위에 사용한다.",
+    "rerunOf": null,
+    "rerunReason": null
+  },
+  "baselineStrategyKey": "qqq_n9_m12_1_strict_immediate",
+  "candidateStrategyKeys": [
+    "qqq_n9_high52_proximity_strict_immediate"
+  ],
+  "dataContract": {
+    "source": "QuantConnect ETF Constituents and US Equity data",
+    "start": "2009-06-01",
+    "end": "2024-12-31",
+    "universe": "Point-in-time QQQ constituents with a five-trading-day membership lag",
+    "membershipMode": "point_in_time",
+    "taxonomy": "none",
+    "survivorshipBiasControlled": true
+  },
+  "capitalContract": {
+    "initialKrw": 100000000,
+    "fxRate": null,
+    "fxAsOf": null,
+    "fxSource": "not applicable to return comparison",
+    "fractionalShares": true,
+    "transactionCostBpsPerSide": [
+      25
+    ],
+    "fxSpreadBps": [
+      0
+    ],
+    "maxPositionPct": 0.15
+  },
+  "executionContract": {
+    "signalTiming": "last_friday_close",
+    "entryTiming": "next_available_trading_day_open",
+    "membershipLagTradingDays": 5,
+    "exitRule": "strict monthly reselection plus weekly close below MA200; proceeds move to QQQ; immediate reentry allowed",
+    "delistingRule": "liquidate_on_delisting_event"
+  },
+  "robustnessChecks": [
+    "development_period_2010_2021",
+    "validation_period_2022_2024",
+    "four_independent_subperiods",
+    "exact_duplicate_run",
+    "cost_stress_only_if_initial_candidate_passes"
+  ],
+  "promotionGates": {
+    "capitalCoverageMin": 0.95,
+    "maxMddDeteriorationPctPoint": 0.05,
+    "requiresIndependentPeriodWin": true,
+    "requiresForwardShadow": true
+  },
+  "commands": [
+    "QuantConnect research/quantconnect/qqq_52week_high_proximity_test.py",
+    "node scripts/verify-strategy-studies.mjs"
+  ],
+  "artifacts": {
+    "resultJson": "research/quantconnect/logs/qqq_52week_high_proximity_20260713.json",
+    "report": "qqq_52week_high_proximity_result_20260713.md",
+    "dashboardHref": ""
+  },
+  "quantConnectRuns": [
+    {
+      "name": "Smooth Brown Kangaroo",
+      "algorithmId": "0e97bde4e32ac43d62fc451d5f359b02",
+      "role": "primary"
+    },
+    {
+      "name": "Ugly Red Orange Dog",
+      "algorithmId": "9a360398ca437b24ee403b6f2ea05ce1",
+      "role": "exact_duplicate"
+    }
+  ],
+  "decision": "rejected_no_operational_change"
+}

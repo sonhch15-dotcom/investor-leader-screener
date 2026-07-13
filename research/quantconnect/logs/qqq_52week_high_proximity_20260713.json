@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "studyId": "qqq-52week-high-proximity-20260713",
+  "generatedAt": "2026-07-13",
+  "sourceSha256": "CC064F64979E11A7BF9E3E4B2ADD097176F74036344CC200C80F1F111155397B",
+  "source": "research/quantconnect/qqq_52week_high_proximity_test.py",
+  "dataEnd": "2024-12-31",
+  "lockedDataAfter": "2025-01-01",
+  "runs": [
+    {
+      "name": "Smooth Brown Kangaroo",
+      "algorithmId": "0e97bde4e32ac43d62fc451d5f359b02",
+      "role": "primary"
+    },
+    {
+      "name": "Ugly Red Orange Dog",
+      "algorithmId": "9a360398ca437b24ee403b6f2ea05ce1",
+      "role": "exact_duplicate"
+    }
+  ],
+  "engineAudit": {
+    "signalCount": 173,
+    "everConstituentCount": 247,
+    "membershipLagTradingDays": 5,
+    "transactionCostBpsPerSide": 25,
+    "execution": "next_available_open",
+    "cashRatio": 0,
+    "delistingEventCount": 9,
+    "exactDuplicateMatched": true
+  },
+  "periods": {
+    "DEV": {
+      "start": "2010-08-27",
+      "end": "2021-12-31"
+    },
+    "VAL": {
+      "start": "2022-01-01",
+      "end": "2024-12-31"
+    },
+    "W1": {
+      "start": "2010-08-27",
+      "end": "2014-12-31"
+    },
+    "W2": {
+      "start": "2015-01-01",
+      "end": "2018-12-31"
+    },
+    "W3": {
+      "start": "2019-01-01",
+      "end": "2021-12-31"
+    },
+    "W4": {
+      "start": "2022-01-01",
+      "end": "2024-12-31"
+    }
+  },
+  "results": {
+    "QQQ": {
+      "DEV": { "return": 9.054625, "cagr": 0.225598, "mdd": -0.285594 },
+      "VAL": { "return": 0.295411, "cagr": 0.090344, "mdd": -0.348280 },
+      "W1": { "return": 1.460108, "cagr": 0.230208, "mdd": -0.160570 },
+      "W2": { "return": 0.553681, "cagr": 0.116622, "mdd": -0.227970 },
+      "W3": { "return": 1.614838, "cagr": 0.378386, "mdd": -0.285594 },
+      "W4": { "return": 0.295411, "cagr": 0.090344, "mdd": -0.348280 }
+    },
+    "BASELINE_M12_1": {
+      "DEV": { "return": 12.920312, "cagr": 0.261248, "mdd": -0.334482 },
+      "VAL": { "return": 0.363190, "cagr": 0.109085, "mdd": -0.371180 },
+      "W1": { "return": 1.794533, "cagr": 0.266831, "mdd": -0.204665 },
+      "W2": { "return": 0.722916, "cagr": 0.145901, "mdd": -0.263562 },
+      "W3": { "return": 1.903330, "cagr": 0.427400, "mdd": -0.334482 },
+      "W4": { "return": 0.363190, "cagr": 0.109085, "mdd": -0.371180 }
+    },
+    "HIGH52_PROXIMITY": {
+      "DEV": { "return": 5.608148, "cagr": 0.181086, "mdd": -0.279866 },
+      "VAL": { "return": 0.182919, "cagr": 0.057741, "mdd": -0.239851 },
+      "W1": { "return": 1.412852, "cagr": 0.224729, "mdd": -0.193177 },
+      "W2": { "return": 0.133377, "cagr": 0.031840, "mdd": -0.209653 },
+      "W3": { "return": 1.431506, "cagr": 0.345336, "mdd": -0.279866 },
+      "W4": { "return": 0.182919, "cagr": 0.057741, "mdd": -0.239851 }
+    }
+  },
+  "candidateDiagnostics": {
+    "targetMet": false,
+    "cagrGapVsBaselinePctPoint": {
+      "DEV": -8.0162,
+      "VAL": -5.1344,
+      "W1": -4.2102,
+      "W2": -11.4061,
+      "W3": -8.2064,
+      "W4": -5.1344
+    },
+    "cagrGapVsQqqPctPoint": {
+      "DEV": -4.4512,
+      "VAL": -3.2603,
+      "W1": -0.5479,
+      "W2": -8.4782,
+      "W3": -3.3050,
+      "W4": -3.2603
+    },
+    "mddImprovementVsBaselinePctPoint": {
+      "DEV": 5.4616,
+      "VAL": 13.1329,
+      "W1": 1.1488,
+      "W2": 5.3909,
+      "W3": 5.4616,
+      "W4": 13.1329
+    }
+  },
+  "trading": {
+    "BASELINE_M12_1": {
+      "tradeCount": 2359,
+      "weeklyExitCount": 164,
+      "turnoverMultipleOfInitialCapital": 719.212724,
+      "lastSelection": ["APP", "NVDA", "CEG", "DASH", "NFLX", "TTD", "FTNT", "META", "ISRG"]
+    },
+    "HIGH52_PROXIMITY": {
+      "tradeCount": 2892,
+      "weeklyExitCount": 78,
+      "turnoverMultipleOfInitialCapital": 674.552805,
+      "lastSelection": ["CSCO", "GOOG", "AAPL", "TTWO", "ISRG", "AVGO", "MAR", "GILD", "NFLX"]
+    }
+  },
+  "decision": "rejected_no_operational_change"
+}

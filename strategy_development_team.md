@@ -209,6 +209,15 @@
 - 검증팀 판정
 - 대시보드 등록 상태
 
+## 중복 방지 규칙
+
+- 새 아이디어를 제안하기 전에 `backtest_experiment_catalog.md`와 `config/backtest-experiment-catalog.json`을 확인한다.
+- 실패·철회·무효 실험도 삭제하지 않고 카탈로그에 남긴다.
+- 새 연구는 `study.json`의 `noveltyContract`에 가장 가까운 과거 실험과 새로 바뀌는 단 하나의 요소를 기록한다.
+- 이미 사용한 중심 가설이나 실험 지문은 재현, 엔진 수정, 독립 데이터 추가, 비용 스트레스 목적이 아니면 다시 실행하지 않는다.
+- 기존 요소의 비중만 바꾼 조합은 새로운 전략 가설이 아니라 기존 가설의 재조합으로 표시한다.
+- 백테스트 실행 전에 `npm run study:verify`를 통과해야 한다.
+
 ## 현재 운영 방식과의 연결
 
 - 화면과 데이터 구조는 `strategy_common_template.md`를 따른다.

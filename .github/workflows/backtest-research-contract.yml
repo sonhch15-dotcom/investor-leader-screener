@@ -1,0 +1,39 @@
+name: Verify Backtest Research Contracts
+
+on:
+  pull_request:
+    paths:
+      - "backtest_experiment_catalog.md"
+      - "config/backtest-experiment-catalog.json"
+      - "config/strategy-study-template.json"
+      - "scripts/scaffold-strategy-study.mjs"
+      - "scripts/verify-strategy-studies.mjs"
+      - "studies/**"
+  push:
+    branches:
+      - main
+    paths:
+      - "backtest_experiment_catalog.md"
+      - "config/backtest-experiment-catalog.json"
+      - "config/strategy-study-template.json"
+      - "scripts/scaffold-strategy-study.mjs"
+      - "scripts/verify-strategy-studies.mjs"
+      - "studies/**"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Verify experiment catalog and study contracts
+        run: node scripts/verify-strategy-studies.mjs

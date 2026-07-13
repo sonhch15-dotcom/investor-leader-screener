@@ -1,11 +1,23 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "us-100m-capital-audit",
-  "title": "미국 전략 1억원 실계좌형 검증",
+  "title": "미국 PIT 분류·1억원 동적 자금 검증",
   "market": "US_STOCK",
   "status": "completed",
   "createdAt": "2026-07-12",
   "hypothesis": "일관된 업종 분류와 자금 예약 방식을 적용하면 C의 우위와 비용 스트레스 안정성이 유지될 수 있다.",
+  "noveltyContract": {
+    "priorArtReviewed": true,
+    "primaryConceptKey": "us_pit_dynamic_capital_taxonomy_comparison",
+    "primaryExperimentFingerprint": "us_stock|pit_spy_qqq|leader2|score_ac|taxonomy7|dynamic_cap|six_month_extension",
+    "nearestPriorExperimentIds": [
+      "us-score-abc-current-universe-20260711",
+      "us-taxonomy-structure-current-universe-20260712"
+    ],
+    "novelDimension": "현재 종목 고정과 정액 자금 배분을 당시 SPY·QQQ 구성 종목 및 현재 평가액 기준 동적 자금 배분으로 교체했다.",
+    "rerunOf": null,
+    "rerunReason": null
+  },
   "baselineStrategyKey": "us_leader2_repeat_theme_combo_cap27_5",
   "candidateStrategyKeys": ["us_leader2_score_c_cap27_5"],
   "dataContract": {
@@ -14,7 +26,7 @@
     "end": "2026-04-13",
     "universe": "Point-in-time union of SPY and QQQ constituents",
     "membershipMode": "point_in_time",
-    "taxonomy": "Morningstar sector plus Morningstar industry group v2",
+    "taxonomy": "Legacy mixed labels plus Morningstar raw, shrunk, adaptive, and no-group controls",
     "survivorshipBiasControlled": true
   },
   "capitalContract": {
@@ -41,11 +53,15 @@
     "requiresIndependentPeriodWin": true,
     "requiresForwardShadow": true
   },
-  "commands": ["QuantConnect research/quantconnect/us_100m_coherent_capital_audit.py", "node scripts/verify-us-100m-capital-audit.mjs"],
+  "commands": [
+    "QuantConnect research/quantconnect/cloud-taxonomy-audit/main.py",
+    "node scripts/parse-quantconnect-taxonomy-audit.mjs",
+    "node scripts/verify-research-timeline.mjs"
+  ],
   "artifacts": {
-    "resultJson": "data/quantconnect-us-100m-capital-audit.json",
-    "report": "dashboard/us-100m-capital-audit.html",
-    "dashboardHref": "us-100m-capital-audit.html"
+    "resultJson": "data/quantconnect-taxonomy-dynamic-capital-audit.json",
+    "report": "dashboard/research-timeline.html",
+    "dashboardHref": "research-timeline.html"
   },
-  "decision": "baseline_a_remains_active"
+  "decision": "research_rejected_no_operational_change"
 }
