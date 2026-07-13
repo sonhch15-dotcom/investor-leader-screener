@@ -1,0 +1,104 @@
+{
+  "recordedAt": "2026-07-13",
+  "valid": true,
+  "engineFix": "preserve_universe_symbol_v1",
+  "projectId": 34043103,
+  "runName": "Measured Tan Frog",
+  "backtestId": "dce3b1f1c6490aa485254d1d16391c14",
+  "codeHashSha256": "368756868873d0225678c836bf84b864eff1a99e6db00708ee1bc94e57c86ce1",
+  "results": [
+    {
+      "label": "I1 N19",
+      "row": "EMERGE__N19__LEADER__NONE; DEV 24.52%/-30.68%; VAL 7.12%/-33.56%"
+    },
+    {
+      "label": "I1 Top 2",
+      "row": "BASE__N9__LEADER__NONE; DEV 27.17%/-34.86%; VAL 10.91%/-34.01%"
+    },
+    {
+      "label": "I1 Top 3",
+      "row": "EMERGE__N12__LEADER__NONE; DEV 26.55%/-33.60%; VAL 10.34%/-32.15%"
+    },
+    {
+      "label": "I1 N20",
+      "row": "EMERGE__N20__LEADER__NONE; DEV 24.48%/-30.79%; VAL 7.19%/-34.25%"
+    },
+    {
+      "label": "I1 Top 5",
+      "row": "BASE__N10__LEADER__NONE; DEV 26.58%/-33.99%; VAL 9.97%/-34.48%"
+    },
+    {
+      "label": "I1 Top 1",
+      "row": "BASE__N9__LEADER__CORR85; DEV 28.30%/-33.54%; VAL 11.05%/-34.67%"
+    },
+    {
+      "label": "I1 Top 4",
+      "row": "EMERGE__N12__LEADER__CORR85; DEV 27.46%/-32.60%; VAL 10.28%/-32.63%"
+    },
+    {
+      "label": "I1 N11",
+      "row": "BASE__N11__LEADER__NONE; DEV 26.91%/-33.36%; VAL 9.26%/-34.62%"
+    },
+    {
+      "label": "I1 Benchmark",
+      "row": "DEV 22.56%/-28.56%; VAL 9.03%/-34.83%"
+    },
+    {
+      "label": "I1 N10",
+      "row": "BASE__N10__LEADER__NONE; DEV 26.58%/-33.99%; VAL 9.97%/-34.48%"
+    },
+    {
+      "label": "I1 N13",
+      "row": "EMERGE__N13__LEADER__CORR85; DEV 26.67%/-32.11%; VAL 9.24%/-32.24%"
+    },
+    {
+      "label": "I1 N16",
+      "row": "EMERGE__N16__LEADER__NONE; DEV 25.26%/-31.26%; VAL 7.90%/-32.88%"
+    },
+    {
+      "label": "I1 N06",
+      "row": "EMERGE__N6__LEADER__NONE; DEV 28.23%/-36.85%; VAL 5.61%/-36.90%"
+    },
+    {
+      "label": "I1 N12",
+      "row": "EMERGE__N12__LEADER__NONE; DEV 26.55%/-33.60%; VAL 10.34%/-32.15%"
+    },
+    {
+      "label": "I1 N09",
+      "row": "BASE__N9__LEADER__CORR85; DEV 28.30%/-33.54%; VAL 11.05%/-34.67%"
+    },
+    {
+      "label": "I1 N15",
+      "row": "EMERGE__N15__LEADER__NONE; DEV 25.76%/-32.57%; VAL 8.59%/-32.89%"
+    },
+    {
+      "label": "I1 N05",
+      "row": "EMERGE__N5__EQUAL__CORR85; DEV 30.42%/-37.48%; VAL 4.78%/-36.88%"
+    },
+    {
+      "label": "I1 N18",
+      "row": "EMERGE__N18__LEADER__NONE; DEV 24.97%/-30.44%; VAL 6.48%/-33.98%"
+    },
+    {
+      "label": "I1 N08",
+      "row": "BASE__N8__LEADER__NONE; DEV 27.86%/-34.75%; VAL 8.70%/-36.40%"
+    },
+    {
+      "label": "I1 N14",
+      "row": "EMERGE__N14__LEADER__CORR85; DEV 26.47%/-32.21%; VAL 9.06%/-32.37%"
+    },
+    {
+      "label": "I1 N17",
+      "row": "EMERGE__N17__LEADER__NONE; DEV 25.26%/-31.06%; VAL 7.56%/-33.46%"
+    },
+    {
+      "label": "I1 N07",
+      "row": "BASE__N7__LEADER__CORR85; DEV 27.90%/-35.22%; VAL 7.77%/-35.79%"
+    }
+  ],
+  "interpretation": [
+    "The pre-fix run was invalidated because ticker re-registration mixed price series.",
+    "BASE N9 LEADER CORR85 ranked first and passed the interim positive-excess/MDD gate.",
+    "No Stage 1 candidate met the +5 percentage-point CAGR target in both development and validation."
+  ]
+}

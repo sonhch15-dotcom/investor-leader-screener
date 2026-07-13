@@ -1,0 +1,28 @@
+{
+  "recordedAt": "2026-07-13",
+  "valid": true,
+  "engineFix": "preserve_universe_symbol_v1",
+  "projectId": 34043103,
+  "runName": "Adaptable Light Brown Jellyfish",
+  "backtestId": "61f2d8181d9b775994ebd3f9759bf7b3",
+  "codeHashSha256": "eb9b9f095641edd1b8d4ed3ae2aa3d3fe306f85b9f9e94fa775ad238a2f70754",
+  "results": [
+    {
+      "label": "I4Q Benchmark",
+      "row": "DEV 22.56%/-28.56%; VAL 9.03%/-34.83%"
+    },
+    {
+      "label": "I4Q 2",
+      "row": "MIN_QUALITY; ok=1; target=0; DEV 25.70%/-33.45%; VAL 11.50%/-36.68%; checked/rejected/missing 6471/33/552; turn 715.8x"
+    },
+    {
+      "label": "I4Q 1",
+      "row": "BASELINE; ok=1; target=0; DEV 26.12%/-33.45%; VAL 10.91%/-37.12%; checked/rejected/missing 0/0/0; turn 719.2x"
+    }
+  ],
+  "interpretation": [
+    "The minimum quality filter improved validation CAGR and MDD modestly but reduced development CAGR.",
+    "The gain was too small to justify the additional rule, so the baseline remains the research leader.",
+    "Neither case met the +5 percentage-point CAGR target in both periods."
+  ]
+}

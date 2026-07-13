@@ -1,0 +1,52 @@
+{
+  "recordedAt": "2026-07-13",
+  "valid": true,
+  "engineFix": "preserve_universe_symbol_v1",
+  "projectId": 34043103,
+  "runName": "Focused Black Salmon",
+  "backtestId": "5f7c4f19e894eb12503e3ea4ca2069f5",
+  "codeHashSha256": "ec84781806af0402b44de2dbc6b6edbe1aca017dbba27911755d076e9370e001",
+  "results": [
+    {
+      "label": "I3 Rank 7",
+      "row": "N12_EMERGE_STRICT__VOL__RELATIVE; ok=0; DEV 17.64%/-24.62%; VAL 14.16%/-24.73%; turn 481.5x; state 506/119/124; changes/vix 86/23"
+    },
+    {
+      "label": "I3 Rank 1",
+      "row": "N9_BASE_STRICT__CREDIT__FIXED; ok=0; DEV 18.15%/-23.06%; VAL 12.46%/-25.18%; turn 441.5x; state 342/253/154; changes/vix 82/30"
+    },
+    {
+      "label": "I3 Rank 6",
+      "row": "N12_EMERGE_STRICT__CREDIT__FIXED; ok=0; DEV 17.40%/-21.23%; VAL 10.40%/-24.74%; turn 436.5x; state 342/253/154; changes/vix 82/30"
+    },
+    {
+      "label": "I3 Rank 5",
+      "row": "N9_BASE_STRICT__VOL__RELATIVE; ok=0; DEV 17.94%/-24.16%; VAL 15.93%/-25.18%; turn 467.9x; state 506/119/124; changes/vix 86/23"
+    },
+    {
+      "label": "I3 Rank 4",
+      "row": "N12_EMERGE_STRICT__VOL__FIXED; ok=0; DEV 17.91%/-22.19%; VAL 14.16%/-24.73%; turn 489.5x; state 509/117/123; changes/vix 84/30"
+    },
+    {
+      "label": "I3 Benchmark",
+      "row": "DEV 22.56%/-28.56%; VAL 9.03%/-34.83%"
+    },
+    {
+      "label": "I3 Rank 8",
+      "row": "N12_EMERGE_STRICT__CREDIT__RELATIVE; ok=0; DEV 16.97%/-21.23%; VAL 10.40%/-24.74%; turn 433.9x; state 337/256/156; changes/vix 90/23"
+    },
+    {
+      "label": "I3 Rank 3",
+      "row": "N9_BASE_STRICT__CREDIT__RELATIVE; ok=0; DEV 17.81%/-23.06%; VAL 12.46%/-25.18%; turn 442.8x; state 337/256/156; changes/vix 90/23"
+    },
+    {
+      "label": "I3 Rank 2",
+      "row": "N9_BASE_STRICT__VOL__FIXED; ok=0; DEV 18.18%/-24.14%; VAL 15.93%/-25.18%; turn 474.3x; state 509/117/123; changes/vix 84/30"
+    }
+  ],
+  "interpretation": [
+    "All market-risk and VIX overlay variants underperformed QQQ in the development period.",
+    "The defense-asset and hedge branch was stopped under the staged protocol.",
+    "The corrected Stage 2 N9 strict/immediate profile remains the research leader."
+  ]
+}

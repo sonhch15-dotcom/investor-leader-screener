@@ -475,3 +475,24 @@ Public 영향:
 - Android 주문·알림·ExecutionPolicy와 기존 lot 일정 변경은 없다.
 - 다음 순서는 CEG와 상장폐지 lot SID 감사, 월별 분류 스냅샷 해시 저장, 적응형 경계 6·8·10·12 민감도, 6~12개월 미래 관찰이다.
 - 상세 자료: `dashboard/taxonomy-pit-audit.html`, `quantconnect_taxonomy_pit_audit.md`, `data/quantconnect-taxonomy-leader-group-audit.json`, `research/quantconnect/us_taxonomy_leader_group_audit.py`.
+
+## 23. 2026-07-13 QQQ 구성 종목 모멘텀 개선 연구
+
+- 초기자금 1억원 일시투자, 소수점 거래, 편도 비용 0.25%, 다음 거래일 시가 체결을 기준으로 했다.
+- 과거 시점 QQQ 구성 종목과 구성 정보 5거래일 지연을 사용했다.
+- 개발 2010-08~2021-12, 검증 2022-01~2024-12로 분리했고 2025년 이후 잠금 구간은 열지 않았다.
+- 실행 중 종목을 티커로 재등록하면서 가격 시계열이 섞여 하루 +52%/+96%의 가짜 수익이 생기는 공통 회계 오류를 발견했다.
+- 보정 전 Stage 1~3과 방어자산 결과는 전부 무효 처리했다.
+- 보정 계약: ETF 구성 데이터의 원본 `Symbol`을 매수·평가·매도까지 그대로 유지한다.
+- 보정 후 연구 1위는 `QQQ 9종목 장기 모멘텀`이다.
+- 규칙: MA200 위, 6개월 수익이 QQQ보다 높고 12-1개월 수익이 양수인 종목을 12-1개월 순으로 정렬한다. 120일 상관 0.85 제한을 적용해 최대 9종목을 고른다.
+- 배분: QQQ 25%, 선정 종목 75%. 종목은 균등·QQQ 구성 비중을 50:50 혼합하고 개별 15% 상한을 적용한다.
+- 매월 엄격 교체하며 보유 중 MA200 이탈은 주간 확인 후 다음 시가에 매도해 QQQ로 이동한다.
+- 개발: 전략 CAGR 26.12%, MDD -33.45%; QQQ 22.56%, -28.56%.
+- 검증: 전략 CAGR 10.91%, MDD -37.12%; QQQ 9.03%, -34.83%.
+- 네 독립 구간 모두 QQQ보다 CAGR이 높았지만 우위는 +1.88~+4.90%p로 목표 +5%p에 미달했다.
+- 편도 비용 0.50%에서는 검증 구간이 QQQ보다 낮아졌다.
+- 최소 품질 필터, 시장 위험·VIX·방어자산 조합은 채택하지 않았다.
+- 동일 최종 코드를 QuantConnect에서 두 번 실행해 모든 보고 수치가 정확히 일치했다.
+- 상태: `research_leader_not_promoted`. Public API와 Android 주문·알림은 변경하지 않는다.
+- 상세 문서: `qqq_strategy_improvement_result_20260713.md`, `qqq_strategy_improvement_protocol_20260713.md`.

@@ -1,0 +1,63 @@
+{
+  "recordedAt": "2026-07-13",
+  "valid": true,
+  "engineFix": "preserve_universe_symbol_v1",
+  "projectId": 34043103,
+  "codeHashSha256": "3255b30578bc88047277135cc65baf8c9803c85b3c0153bb589562b57d1c0aa5",
+  "reproducibility": {
+    "exactMatch": true,
+    "run1": {
+      "name": "Emotional Tan Caterpillar",
+      "backtestId": "8c1990f0f2f89f28a8e6adf8f9125bdf"
+    },
+    "run2": {
+      "name": "Crying Light Brown Rat",
+      "backtestId": "2966abeb136397ce387cd00806b47b0d"
+    }
+  },
+  "results": [
+    {
+      "label": "I4S Rank 3",
+      "row": "OPEN_50BP; ok=0; target=0; DEV 23.78%/-33.59%; VAL 8.17%/-39.45%; turn 588.6x; day 9.7%/-13.8%"
+    },
+    {
+      "label": "I4W W4",
+      "row": "STR 10.91%/-37.12%; QQQ 9.03%/-34.83%"
+    },
+    {
+      "label": "I4S Benchmark",
+      "row": "DEV 22.56%/-28.56%; VAL 9.03%/-34.83%"
+    },
+    {
+      "label": "I4W W3",
+      "row": "STR 42.74%/-33.45%; QQQ 37.84%/-28.56%"
+    },
+    {
+      "label": "I4W W2",
+      "row": "STR 14.59%/-26.36%; QQQ 11.66%/-22.80%"
+    },
+    {
+      "label": "I4W W1",
+      "row": "STR 26.68%/-20.47%; QQQ 23.02%/-16.06%"
+    },
+    {
+      "label": "I4S Rank 4",
+      "row": "CLOSE_50BP; ok=0; target=0; DEV 24.07%/-34.06%; VAL 7.83%/-40.11%; turn 602.6x; day 9.7%/-13.8%"
+    },
+    {
+      "label": "I4S Rank 2",
+      "row": "CLOSE_25BP; ok=0; target=0; DEV 26.42%/-33.92%; VAL 10.55%/-37.80%; turn 736.4x; day 9.7%/-13.8%"
+    },
+    {
+      "label": "I4S Rank 1",
+      "row": "OPEN_25BP; ok=1; target=0; DEV 26.12%/-33.45%; VAL 10.91%/-37.12%; turn 719.2x; day 9.7%/-13.7%"
+    }
+  ],
+  "interpretation": [
+    "The exact duplicate rerun matched every reported metric.",
+    "OPEN_25BP beat QQQ CAGR in all four subperiods but never by the required 5 percentage points.",
+    "The worst MDD gap stayed within 5 percentage points only for the base next-open case.",
+    "50 bp costs and next-close execution failed robustness gates.",
+    "The 2025+ locked holdout remains unopened because no candidate met the preregistered promotion target."
+  ]
+}

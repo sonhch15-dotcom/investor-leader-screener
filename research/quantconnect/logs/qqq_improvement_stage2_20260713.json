@@ -1,0 +1,52 @@
+{
+  "recordedAt": "2026-07-13",
+  "valid": true,
+  "engineFix": "preserve_universe_symbol_v1",
+  "projectId": 34043103,
+  "runName": "Measured Red Eagle",
+  "backtestId": "6f62283e8aabdf7b11d47587fb8b35e5",
+  "codeHashSha256": "c8db1e875db5f80fb7632c505b975da8c4487a62eda7bd11dd8320e2cd138275",
+  "results": [
+    {
+      "label": "I2 Benchmark",
+      "row": "DEV 22.56%/-28.56%; VAL 9.03%/-34.83%"
+    },
+    {
+      "label": "I2 Rank 8",
+      "row": "N9_BASE_CORR__BUFFER2__WAIT1; ok=0; DEV 25.05%/-30.53%; VAL 3.79%/-39.29%; turn 528.6x; cash 0.00%; weekly/rank/emerge 222/81/0"
+    },
+    {
+      "label": "I2 Rank 3",
+      "row": "N12_EMERGE_CORR__STRICT__WAIT1; ok=1; DEV 25.58%/-32.86%; VAL 9.20%/-34.94%; turn 733.0x; cash 0.00%; weekly/rank/emerge 175/0/98"
+    },
+    {
+      "label": "I2 Rank 2",
+      "row": "N12_EMERGE_CORR__STRICT__IMMEDIATE; ok=1; DEV 25.70%/-32.72%; VAL 9.90%/-35.47%; turn 750.1x; cash 0.00%; weekly/rank/emerge 180/0/86"
+    },
+    {
+      "label": "I2 Rank 7",
+      "row": "N12_EMERGE_CORR__BUFFER2__IMMEDIATE; ok=0; DEV 24.18%/-30.24%; VAL 3.79%/-39.04%; turn 513.8x; cash 0.00%; weekly/rank/emerge 283/90/51"
+    },
+    {
+      "label": "I2 Rank 1",
+      "row": "N9_BASE_CORR__STRICT__IMMEDIATE; ok=1; DEV 26.12%/-33.45%; VAL 10.91%/-37.12%; turn 719.2x; cash 0.00%; weekly/rank/emerge 164/0/0"
+    },
+    {
+      "label": "I2 Rank 6",
+      "row": "N12_EMERGE_CORR__BUFFER2__WAIT1; ok=0; DEV 23.75%/-30.37%; VAL 3.86%/-38.96%; turn 495.2x; cash 0.00%; weekly/rank/emerge 275/93/48"
+    },
+    {
+      "label": "I2 Rank 5",
+      "row": "N9_BASE_CORR__BUFFER2__IMMEDIATE; ok=0; DEV 25.16%/-30.53%; VAL 4.42%/-39.41%; turn 531.4x; cash 0.00%; weekly/rank/emerge 218/82/0"
+    },
+    {
+      "label": "I2 Rank 4",
+      "row": "N9_BASE_CORR__STRICT__WAIT1; ok=0; DEV 26.42%/-33.63%; VAL 8.63%/-37.95%; turn 711.8x; cash 0.00%; weekly/rank/emerge 156/0/0"
+    }
+  ],
+  "interpretation": [
+    "N9_BASE_CORR STRICT IMMEDIATE ranked first and passed the interim gate.",
+    "Buffered replacement rules failed validation and were rejected.",
+    "No Stage 2 candidate met the +5 percentage-point CAGR target in both development and validation."
+  ]
+}
