@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 2,
+  "id": "qqq-estimize-surprise-veto-20260713",
+  "title": "QQQ 모멘텀과 실적 미달 제외 규칙 검증",
+  "market": "US_STOCK",
+  "status": "preregistered",
+  "createdAt": "2026-07-13",
+  "hypothesis": "기존 QQQ 9종목 모멘텀 후보 중 최근 실적이 시장 기대에 미달한 종목만 제외하면 기존 전략과 QQQ보다 개발·검증 구간 성과가 함께 개선될 수 있다.",
+  "noveltyContract": {
+    "priorArtReviewed": true,
+    "primaryConceptKey": "qqq_point_in_time_earnings_revision_surprise",
+    "primaryExperimentFingerprint": "us_stock|pit_qqq|m12_1_negative_surprise_veto|n9|leader_blend|corr85|strict|ma200_weekly|cost25|estimize_release140",
+    "nearestPriorExperimentIds": [
+      "qqq-momentum-corrected-improvement-20260713",
+      "qqq-52week-high-proximity-20260713"
+    ],
+    "novelDimension": "가격 모멘텀·종목 수·비중·상관 제한·매매 규칙은 고정하고, 발표 시점에 제공된 실제 EPS가 당시 Estimize 컨센서스 EPS보다 낮았던 종목만 140일 동안 월간 후보에서 제외한다.",
+    "rerunOf": null,
+    "rerunReason": null
+  },
+  "baselineStrategyKey": "qqq_n9_m12_1_strict_immediate",
+  "candidateStrategyKeys": [
+    "qqq_n9_m12_1_negative_surprise_veto_140d"
+  ],
+  "dataContract": {
+    "source": "QuantConnect ETF Constituents, US Equity, ExtractAlpha EstimizeRelease",
+    "start": "2009-06-01",
+    "end": "2024-12-31",
+    "evaluationStart": "2019-01-25",
+    "universe": "Point-in-time QQQ constituents with a five-trading-day membership lag",
+    "membershipMode": "point_in_time",
+    "taxonomy": "none",
+    "survivorshipBiasControlled": true,
+    "lookAheadBiasControlled": true,
+    "estimateRevisionAvailable": false,
+    "releaseCoverageGate": "2019-2021 development and 2022-2024 validation only; stale or missing releases remain baseline-eligible"
+  },
+  "capitalContract": {
+    "initialKrw": 100000000,
+    "fxRate": null,
+    "fxAsOf": null,
+    "fxSource": "not applicable to return comparison",
+    "fractionalShares": true,
+    "transactionCostBpsPerSide": [
+      25
+    ],
+    "fxSpreadBps": [
+      0
+    ],
+    "maxPositionPct": 0.15
+  },
+  "executionContract": {
+    "signalTiming": "last_friday_close",
+    "entryTiming": "next_available_trading_day_open",
+    "membershipLagTradingDays": 5,
+    "surpriseRule": "(actual EPS - Estimize consensus EPS) / max(abs(consensus EPS), 0.05); values below zero are vetoed for 140 calendar days",
+    "missingDataRule": "missing, invalid, or older-than-140-day releases do not veto a stock",
+    "exitRule": "strict monthly reselection plus weekly close below MA200; proceeds move to QQQ; immediate reentry allowed",
+    "delistingRule": "liquidate_on_delisting_event"
+  },
+  "robustnessChecks": [
+    "development_period_2019_2021",
+    "validation_period_2022_2024",
+    "four_independent_subperiod_readouts",
+    "exact_duplicate_run",
+    "cost_stress_only_if_initial_candidate_passes"
+  ],
+  "promotionGates": {
+    "minimumCagrExcessVsQqqPctPoint": 0.05,
+    "mustBeatBaselineInDevelopmentAndValidation": true,
+    "maxMddDeteriorationPctPoint": 0.05,
+    "requiresIndependentPeriodWin": true,
+    "requiresForwardShadow": true
+  },
+  "commands": [
+    "QuantConnect research/quantconnect/qqq_estimize_surprise_veto_test.py",
+    "node scripts/verify-strategy-studies.mjs"
+  ],
+  "artifacts": {
+    "resultJson": "research/quantconnect/logs/qqq_estimize_surprise_veto_20260713.json",
+    "report": "qqq_estimize_surprise_veto_result_20260713.md",
+    "dashboardHref": ""
+  },
+  "quantConnectRuns": [],
+  "decision": "pending"
+}
