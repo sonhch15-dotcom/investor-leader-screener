@@ -5,11 +5,12 @@
   "market": "US_STOCK",
   "status": "preregistered",
   "createdAt": "2026-07-13",
+  "amendedAt": "2026-07-13",
   "hypothesis": "과거 시점의 QQQ 구성 종목에서 최근 분기 EPS의 전년 동기 대비 변화가 과거 변동성보다 큰 종목일수록 이후 3·6·12개월 수익률이 더 높다.",
   "noveltyContract": {
     "priorArtReviewed": true,
     "primaryConceptKey": "qqq_point_in_time_standardized_unexpected_earnings_momentum",
-    "primaryExperimentFingerprint": "us_stock|pit_qqq|morningstar_basic_eps_sue|quintile5|forward3_6_12|next_open|membership_lag5|holdout2025",
+    "primaryExperimentFingerprint": "us_stock|pit_qqq|morningstar_basic_eps_3m_monthly36_sue|quintile5|forward3_6_12|next_open|membership_lag5|holdout2025",
     "nearestPriorExperimentIds": [
       "qqq-estimize-surprise-veto-20260713",
       "qqq-momentum-corrected-improvement-20260713"
@@ -35,11 +36,20 @@
     "taxonomy": "none",
     "survivorshipBiasControlled": true,
     "lookAheadBiasControlled": true,
-    "fundamentalCapture": "Daily point-in-time Morningstar observations for the top 1500 US equities by dollar volume plus current QQQ members; duplicate fill-forward rows are collapsed by fiscal period end and the first publicly observed value is retained",
-    "sueFormula": "(EPS_q - EPS_q-4) / population_std(EPS_t - EPS_t-4 for t=q-7..q)",
-    "minimumHistory": "12 distinct consecutive quarterly BasicEPS observations",
-    "staleAfterDays": 180
+    "fundamentalCapture": "On the final Thursday and Friday window of each month, retain the latest point-in-time Morningstar BasicEPS ThreeMonths value for the top 1500 US equities by dollar volume plus current QQQ members; Friday replaces Thursday when both exist",
+    "sueFormula": "Using 36 consecutive monthly point-in-time EPS snapshots, divide the latest EPS minus the snapshot 12 months earlier by the population standard deviation of eight year-over-year EPS changes sampled every three months",
+    "minimumHistory": "36 consecutive monthly BasicEPS ThreeMonths snapshots",
+    "staleAfterDays": null
   },
+  "methodAmendments": [
+    {
+      "version": 2,
+      "date": "2026-07-13",
+      "trigger": "pre_return_data_gate_failure",
+      "reason": "The strict fiscal-period reconstruction produced 0.2484% DEV coverage and 0% validation coverage because Morningstar filing-period metadata did not form consecutive quarterly histories for QQQ constituents. No forward-return result was observed before this amendment.",
+      "replacement": "Use the official QuantConnect SUE tutorial's 36-month point-in-time BasicEPS ThreeMonths snapshot method while preserving the original universe, split, horizons, execution timing, and promotion thresholds."
+    }
+  ],
   "capitalContract": {
     "initialKrw": 100000000,
     "fxRate": null,
@@ -70,7 +80,7 @@
     "incompleteCohortRule": "Do not use a cohort whose horizon extends beyond 2024-12-31"
   },
   "robustnessChecks": [
-    "fundamental_point_in_time_data_audit_before_signal_test",
+    "monthly_point_in_time_fundamental_data_audit_before_signal_test",
     "development_period_2010_08_2021",
     "validation_period_2022_2024",
     "three_forward_horizons",
@@ -99,6 +109,18 @@
     "report": "qqq_sue_signal_validation_result_20260713.md",
     "dashboardHref": ""
   },
-  "quantConnectRuns": [],
-  "decision": "pending_data_gate"
+  "quantConnectRuns": [
+    {
+      "name": "Crying Apricot Owl",
+      "algorithmId": "55349425af329acdaadad8ccaeb523359",
+      "kind": "data_audit_v1_fiscal_period_reconstruction",
+      "status": "failed_data_gate",
+      "developmentCoverage": 0.002484,
+      "validationCoverage": 0.0,
+      "minimumCalendarYearCoverage": 0.0,
+      "qqqBadReportLagRecords": 1451,
+      "forwardReturnsObserved": false
+    }
+  ],
+  "decision": "pending_amended_data_gate"
 }

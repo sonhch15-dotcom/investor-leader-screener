@@ -1,6 +1,6 @@
 from AlgorithmImports import *
 from collections import defaultdict, deque
-from datetime import date as date_type, datetime
+from datetime import datetime
 import calendar
 import math
 
@@ -12,10 +12,6 @@ DEVELOP_END = datetime(2021, 12, 31).date()
 VALIDATE_START = datetime(2022, 1, 1).date()
 MEMBERSHIP_LAG_DAYS = 5
 FUNDAMENTAL_CAPTURE_SIZE = 1500
-STALE_DAYS = 180
-MIN_QUARTER_GAP_DAYS = 45
-MAX_QUARTER_GAP_DAYS = 150
-MAX_REPORT_LAG_DAYS = 250
 MIN_POOLED_COVERAGE = 0.70
 MIN_YEAR_COVERAGE = 0.60
 MIN_ENTRY_COVERAGE = 0.95
@@ -50,19 +46,6 @@ def population_stdev(values):
         return None
     mean = sum(clean) / len(clean)
     return math.sqrt(sum((value - mean) ** 2 for value in clean) / len(clean))
-
-
-def percentile(values, fraction):
-    clean = sorted(float(value) for value in values if finite(value))
-    if not clean:
-        return None
-    position = (len(clean) - 1) * fraction
-    lower = int(math.floor(position))
-    upper = int(math.ceil(position))
-    if lower == upper:
-        return clean[lower]
-    weight = position - lower
-    return clean[lower] * (1 - weight) + clean[upper] * weight
 
 
 def symbol_key(symbol):
@@ -114,8 +97,7 @@ class QqqSueBase(QCAlgorithm):
         self.qqq_members = set()
         self.ever_members = set()
         self.membership_history = deque(maxlen=20)
-        self.eps_events = defaultdict(dict)
-        self.latest_prices = {}
+        self.eps_snapshots = defaultdict(dict)
         self.pending = None
         self.open_cohorts = []
         self.cohort_results = []
@@ -125,15 +107,8 @@ class QqqSueBase(QCAlgorithm):
         self.entry_records = []
 
         self.fundamental_points = 0
-        self.unique_events = 0
-        self.duplicate_points = 0
-        self.period_lags = []
-        self.future_records = set()
-        self.qqq_future_records = set()
-        self.bad_lag_records = set()
-        self.qqq_bad_lag_records = set()
-        self.revision_conflicts = set()
-        self.qqq_revision_conflicts = set()
+        self.snapshot_updates = 0
+        self.snapshot_overwrites = 0
         self.forced_exit_records = set()
 
         self.qqq = self.add_equity(
@@ -177,65 +152,13 @@ class QqqSueBase(QCAlgorithm):
                 continue
         return None
 
-    def field_date(self, field):
-        if field is None:
-            return None
-        for attribute in ("three_months", "value"):
-            try:
-                value = getattr(field, attribute)
-                year = int(value.year)
-                month = int(value.month)
-                day = int(value.day)
-                if year >= 1990:
-                    return date_type(year, month, day)
-            except Exception:
-                continue
-        return None
-
-    def capture_event(self, fundamental, observed_date):
-        self.fundamental_points += 1
-        symbol = fundamental.symbol
-        reports = fundamental.earning_reports
-        eps = self.field_number(reports.basic_e_p_s)
-        file_date = self.field_date(reports.file_date)
-        period_end = self.field_date(reports.period_ending_date)
-        if eps is None or file_date is None or period_end is None:
-            return
-
-        record_key = (str(symbol.id), file_date.isoformat(), period_end.isoformat())
-        is_current_member = symbol in self.qqq_members
-        if file_date > observed_date:
-            self.future_records.add(record_key)
-            if is_current_member:
-                self.qqq_future_records.add(record_key)
-            return
-
-        report_lag = (file_date - period_end).days
-        if report_lag < 0 or report_lag > MAX_REPORT_LAG_DAYS:
-            self.bad_lag_records.add(record_key)
-            if is_current_member:
-                self.qqq_bad_lag_records.add(record_key)
-            return
-
-        existing = self.eps_events[symbol].get(period_end)
-        if existing is not None:
-            self.duplicate_points += 1
-            if abs(existing["eps"] - eps) > 1e-9:
-                conflict_key = (str(symbol.id), period_end.isoformat())
-                self.revision_conflicts.add(conflict_key)
-                if is_current_member:
-                    self.qqq_revision_conflicts.add(conflict_key)
-            return
-
-        self.eps_events[symbol][period_end] = {
-            "period_end": period_end,
-            "file_date": file_date,
-            "eps": eps,
-        }
-        self.unique_events += 1
-        self.period_lags.append(report_lag)
-
     def capture_fundamentals(self, fundamentals):
+        observed_date = self.time.date()
+        last_friday = self.last_friday(observed_date.year, observed_date.month)
+        days_to_signal = (last_friday - observed_date).days
+        if days_to_signal < 0 or days_to_signal > 1:
+            return []
+
         rows = list(fundamentals)
         valid = []
         current = []
@@ -253,40 +176,44 @@ class QqqSueBase(QCAlgorithm):
         selected = {row.symbol: row for row in valid[:FUNDAMENTAL_CAPTURE_SIZE]}
         for row in current:
             selected[row.symbol] = row
-        observed_date = self.time.date()
+        snapshot_month = (observed_date.year, observed_date.month)
         for symbol in sorted(selected, key=symbol_key):
-            self.capture_event(selected[symbol], observed_date)
+            eps = self.field_number(selected[symbol].earning_reports.basic_eps)
+            if eps is None:
+                continue
+            self.fundamental_points += 1
+            if snapshot_month in self.eps_snapshots[symbol]:
+                self.snapshot_overwrites += 1
+            self.eps_snapshots[symbol][snapshot_month] = eps
+            self.snapshot_updates += 1
         return []
 
     def sue_for(self, symbol, signal_date):
-        events = [
-            event for event in self.eps_events.get(symbol, {}).values()
-            if event["file_date"] <= signal_date
-        ]
-        events.sort(key=lambda event: (event["period_end"], event["file_date"]))
-        if len(events) < 12:
+        signal_month = (signal_date.year, signal_date.month)
+        months = sorted(
+            month for month in self.eps_snapshots.get(symbol, {})
+            if month <= signal_month
+        )
+        if len(months) < 36:
             return None, "history", None
-        events = events[-12:]
-        age = (signal_date - events[-1]["file_date"]).days
-        if age < 0:
-            return None, "future", age
-        if age > STALE_DAYS:
-            return None, "stale", age
-        gaps = [
-            (events[index]["period_end"] - events[index - 1]["period_end"]).days
-            for index in range(1, len(events))
+
+        months = months[-36:]
+        month_indexes = [year * 12 + month for year, month in months]
+        if month_indexes[-1] - month_indexes[0] != 35:
+            return None, "month_gap", None
+
+        eps = [self.eps_snapshots[symbol][month] for month in months]
+        changes = [
+            eps[35 - offset] - eps[23 - offset]
+            for offset in range(0, 24, 3)
         ]
-        if any(gap < MIN_QUARTER_GAP_DAYS or gap > MAX_QUARTER_GAP_DAYS for gap in gaps):
-            return None, "quarter_gap", age
-        eps = [event["eps"] for event in events]
-        changes = [eps[index] - eps[index - 4] for index in range(4, 12)]
         denominator = population_stdev(changes)
         if denominator is None or denominator <= 1e-9:
-            return None, "zero_std", age
-        value = changes[-1] / denominator
+            return None, "zero_std", 0
+        value = changes[0] / denominator
         if not finite(value):
-            return None, "invalid", age
-        return value, "valid", age
+            return None, "invalid", 0
+        return value, "valid", 0
 
     def signal_members(self):
         if len(self.membership_history) > MEMBERSHIP_LAG_DAYS:
@@ -354,12 +281,6 @@ class QqqSueBase(QCAlgorithm):
         ):
             self.membership_history.append((current, set(self.qqq_members)))
 
-        for symbol, bar in data.bars.items():
-            self.latest_prices[symbol] = {
-                "date": current,
-                "close": float(bar.close),
-            }
-
         if self.pending and current > self.pending["signal_date"] and self.qqq in data.bars:
             self.execute_pending(data, current)
         self.update_cohorts(data, current)
@@ -386,11 +307,16 @@ class QqqSueBase(QCAlgorithm):
         records = self.period_records(start, end)
         members = sum(record["members"] for record in records)
         valid = sum(record["valid"] for record in records)
+        reasons = defaultdict(int)
+        for record in records:
+            for reason, count in record["reasons"].items():
+                reasons[reason] += count
         return {
             "signals": len(records),
             "members": members,
             "valid": valid,
             "coverage": valid / members if members else 0.0,
+            "reasons": dict(reasons),
         }
 
     def year_summaries(self):
@@ -421,8 +347,6 @@ class QqqSueBase(QCAlgorithm):
             development["coverage"] >= MIN_POOLED_COVERAGE
             and validation["coverage"] >= MIN_POOLED_COVERAGE
             and year_gate
-            and len(self.qqq_future_records) == 0
-            and len(self.qqq_bad_lag_records) == 0
         )
         return passed, development, validation, year_rows
 
@@ -430,18 +354,18 @@ class QqqSueBase(QCAlgorithm):
         passed, development, validation, year_rows = self.data_gate()
         self.debug(
             f"{prefix}_DQ_META|signals={self.signal_count}|ever={len(self.ever_members)}|"
-            f"fundamental_points={self.fundamental_points}|events={self.unique_events}|"
-            f"duplicates={self.duplicate_points}|future={len(self.future_records)}|"
-            f"qqq_future={len(self.qqq_future_records)}|bad_lag={len(self.bad_lag_records)}|"
-            f"qqq_bad_lag={len(self.qqq_bad_lag_records)}|revisions={len(self.revision_conflicts)}|"
-            f"qqq_revisions={len(self.qqq_revision_conflicts)}|"
-            f"lag_median={median(self.period_lags) or 0:.1f}|"
-            f"lag_p95={percentile(self.period_lags, 0.95) or 0:.1f}"
+            f"fundamental_points={self.fundamental_points}|snapshots={self.snapshot_updates}|"
+            f"overwrites={self.snapshot_overwrites}|symbols={len(self.eps_snapshots)}"
         )
         for label, row in (("DEV", development), ("VAL", validation)):
+            reasons = ",".join(
+                f"{reason}:{count}"
+                for reason, count in sorted(row["reasons"].items())
+            )
             self.debug(
                 f"{prefix}_DQ_PERIOD|period={label}|signals={row['signals']}|"
-                f"members={row['members']}|valid={row['valid']}|coverage={row['coverage']:.6f}"
+                f"members={row['members']}|valid={row['valid']}|"
+                f"coverage={row['coverage']:.6f}|reasons={reasons}"
             )
         for row in year_rows:
             self.debug(
@@ -450,19 +374,19 @@ class QqqSueBase(QCAlgorithm):
                 f"coverage={row['coverage']:.6f}|median_age={row['age'] or 0:.1f}"
             )
         for ticker in ("AAPL", "MSFT", "NVDA"):
-            symbols = [symbol for symbol in self.eps_events if symbol.value == ticker]
+            symbols = [symbol for symbol in self.eps_snapshots if symbol.value == ticker]
             if not symbols:
                 continue
             symbol = sorted(symbols, key=symbol_key)[-1]
-            events = sorted(
-                self.eps_events[symbol].values(),
-                key=lambda event: (event["period_end"], event["file_date"]),
-            )[-4:]
+            months = sorted(self.eps_snapshots[symbol])[-4:]
             payload = ",".join(
-                f"{event['period_end']}@{event['file_date']}={event['eps']:.4f}"
-                for event in events
+                f"{year:04d}-{month:02d}={self.eps_snapshots[symbol][(year, month)]:.4f}"
+                for year, month in months
             )
-            self.debug(f"{prefix}_DQ_SAMPLE|ticker={ticker}|sid={symbol.id}|events={payload}")
+            self.debug(
+                f"{prefix}_DQ_SAMPLE|ticker={ticker}|sid={symbol.id}|"
+                f"months={len(self.eps_snapshots[symbol])}|values={payload}"
+            )
         self.debug(
             f"{prefix}_DQ_GATE|pass={int(passed)}|dev={development['coverage']:.6f}|"
             f"val={validation['coverage']:.6f}|year_min="
