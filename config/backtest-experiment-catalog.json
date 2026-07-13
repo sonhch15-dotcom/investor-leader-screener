@@ -366,6 +366,36 @@
       ]
     },
     {
+      "id": "qqq-estimize-surprise-veto-20260713",
+      "title": "QQQ 실적 미달 제외 규칙 검증",
+      "market": "US_STOCK",
+      "date": "2026-07-13",
+      "status": "rejected",
+      "validity": "valid_with_2019_data_coverage_gate",
+      "hypothesisKey": "qqq_point_in_time_earnings_revision_surprise",
+      "fingerprint": "us_stock|pit_qqq|m12_1_negative_surprise_veto|n9|leader_blend|corr85|strict|ma200_weekly|cost25|estimize_release140",
+      "conceptKeys": [
+        "qqq_estimize_release_surprise",
+        "qqq_negative_surprise_veto_140d",
+        "qqq_missing_release_neutral",
+        "qqq_earnings_revision_data_gate_failed"
+      ],
+      "testedDimensions": [
+        "발표 시점 실제 EPS와 Estimize 컨센서스 EPS의 차이",
+        "최근 140일 음수 서프라이즈 종목 제외",
+        "데이터 누락·경과 종목 중립 처리",
+        "2019~2021 개발과 2022~2024 검증",
+        "동일 소스 독립 재실행"
+      ],
+      "conclusion": "실적 미달 제외는 개발 구간 CAGR을 높였지만 검증 구간에서 기존 전략과 QQQ에 모두 뒤지고 MDD도 악화됐다. 예상치 수정 이력은 현재 계정에서 0건이라 검증하지 못했다.",
+      "repeatPolicy": "do_not_repeat_without_point_in_time_revision_history",
+      "artifacts": [
+        "qqq_estimize_surprise_veto_result_20260713.md",
+        "research/quantconnect/logs/qqq_estimize_surprise_veto_20260713.json",
+        "research/quantconnect/qqq_estimize_surprise_veto_test.py"
+      ]
+    },
+    {
       "id": "kr-stock-score-variants-current-universe-20260710",
       "title": "한국 우량주 Score A·B·C 비교",
       "market": "KR_STOCK",
@@ -450,12 +480,6 @@
     }
   ],
   "unstartedHypotheses": [
-    {
-      "hypothesisKey": "qqq_point_in_time_earnings_revision_surprise",
-      "title": "QQQ 모멘텀과 실적 예상치 변화·실적 서프라이즈",
-      "status": "not_started",
-      "dataGate": "당시 공개된 예상치와 발표일을 보존한 point-in-time 데이터가 확보될 때만 시작"
-    },
     {
       "hypothesisKey": "qqq_point_in_time_52week_high_volume_confirmation",
       "title": "QQQ 52주 신고가 근접도와 비정상 거래량 확인",

@@ -3,7 +3,7 @@
   "id": "qqq-estimize-surprise-veto-20260713",
   "title": "QQQ 모멘텀과 실적 미달 제외 규칙 검증",
   "market": "US_STOCK",
-  "status": "preregistered",
+  "status": "completed",
   "createdAt": "2026-07-13",
   "hypothesis": "기존 QQQ 9종목 모멘텀 후보 중 최근 실적이 시장 기대에 미달한 종목만 제외하면 기존 전략과 QQQ보다 개발·검증 구간 성과가 함께 개선될 수 있다.",
   "noveltyContract": {
@@ -81,6 +81,17 @@
     "report": "qqq_estimize_surprise_veto_result_20260713.md",
     "dashboardHref": ""
   },
-  "quantConnectRuns": [],
-  "decision": "pending"
+  "quantConnectRuns": [
+    {
+      "name": "Logical Asparagus Jellyfish",
+      "algorithmId": "cdf2179fb86b4f72d23fa12a80e44d74",
+      "role": "primary"
+    },
+    {
+      "name": "Crawling Magenta Guanaco",
+      "algorithmId": "cfd44af2e29f0ecc037bd133a1c1a056",
+      "role": "exact_duplicate"
+    }
+  ],
+  "decision": "rejected_no_operational_change"
 }

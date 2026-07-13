@@ -40,6 +40,7 @@
 | `qqq-momentum-original-invalid-20260713` | QQQ | 다중 모멘텀, 저변동성, 잔차, 매끄러움, 보유·비중 | 엔진 오류로 무효 | 원본 Symbol 보존 엔진에서만 재검증 |
 | `qqq-momentum-corrected-improvement-20260713` | QQQ | 5~20종목, 상관, 비중, 교체, VIX·신용·방어자산·품질·비용 | 탈락 | 후속 연구의 고정 기준선으로만 사용 |
 | `qqq-52week-high-proximity-20260713` | QQQ | 52주 최고가 근접도 단독 종목 순위 | 탈락 | 같은 가설 반복 금지 |
+| `qqq-estimize-surprise-veto-20260713` | QQQ | 최근 140일 실적 미달 종목 제외, 누락 자료 중립 처리 | 탈락 | PIT 예상치 수정 이력이 새로 확보될 때만 별도 가설로 시작 |
 | `kr-stock-score-variants-current-universe-20260710` | 한국 주식 | A·B·C와 월 2종목 | 잠정 | 과거 시점별 종목 데이터일 때만 |
 | `kr-etf-score-variants-current-universe-20260710` | 한국 ETF | 50/40/10, 상위 1·2·3개, 월간 리밸런싱 | 잠정 | 출시·청산 이력이 포함될 때만 |
 | `kr-etf-ten-year-validation-current-universe-20260710` | 한국 ETF | A~I 10년 확장과 KOSPI200 비교 | 잠정 | PIT ETF 상품 이력일 때만 |
@@ -66,17 +67,16 @@
 | ROIC·매출성장·부채 최소 품질 | 교정 품질 연구 | 정상 검증, 개선이 작아 미채택 |
 | 편도 비용 0.25%·0.50% | 교정 스트레스 | 정상 검증 완료 |
 | 52주 최고가 근접도 단독 순위 | `qqq-52week-high-proximity-20260713` | 낙폭은 줄었지만 모든 구간에서 QQQ보다 CAGR이 낮아 탈락 |
+| 최근 실적 미달 종목 140일 제외 | `qqq-estimize-surprise-veto-20260713` | 개발 구간만 개선되고 검증 구간에서 기존 전략·QQQ에 모두 뒤져 탈락 |
+| 실적 예상치 수정 | 같은 연구의 데이터 게이트 | 현재 계정의 Estimize consensus·estimate 이력이 0건이라 성과 실험은 시작하지 못함 |
 
 따라서 `모멘텀 + 매끄러운 추세 + 일반적인 품질 필터`는 새 가설이 아니다. 정확한 비중만 바꾸는 것은 새로운 경제적 아이디어가 아니라 파라미터 재조합으로 기록한다.
 
 ## 아직 시작하지 않은 가설
 
-다음 두 항목은 코드와 저장 로그에서 실행 기록을 찾지 못했다.
+다음 항목은 코드와 저장 로그에서 실행 기록을 찾지 못했다.
 
-1. `qqq_point_in_time_earnings_revision_surprise`
-   - 당시 공개된 이익 예상치 변화와 실적 서프라이즈를 QQQ 모멘텀에 결합한다.
-   - point-in-time 예상치 데이터가 없으면 시작하지 않는다.
-2. `qqq_point_in_time_52week_high_volume_confirmation`
+1. `qqq_point_in_time_52week_high_volume_confirmation`
    - 52주 신고가 근접도와 비정상 거래량을 하나의 신규 축으로 시험한다.
    - 52주 최고가 근접도 단독 순위가 먼저 탈락했으므로, 독립적인 경제적 근거와 새 사전등록 없이는 결합 실험을 시작하지 않는다.
 

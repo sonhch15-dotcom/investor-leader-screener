@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "studyId": "qqq-estimize-surprise-veto-20260713",
+  "generatedAt": "2026-07-13",
+  "sourceSha256": "062A9D287DCCB69F810BAAC6C721C793880D38A996C77E048CF035C5572F913F",
+  "source": "research/quantconnect/qqq_estimize_surprise_veto_test.py",
+  "dataEnd": "2024-12-31",
+  "lockedDataAfter": "2025-01-01",
+  "runs": [
+    {
+      "name": "Logical Asparagus Jellyfish",
+      "algorithmId": "cdf2179fb86b4f72d23fa12a80e44d74",
+      "role": "primary"
+    },
+    {
+      "name": "Crawling Magenta Guanaco",
+      "algorithmId": "cfd44af2e29f0ecc037bd133a1c1a056",
+      "role": "exact_duplicate"
+    }
+  ],
+  "dataAudit": {
+    "aapl2011To2024": {
+      "consensusEventCount": 0,
+      "individualEstimateEventCount": 0,
+      "releaseEventCount": 56
+    },
+    "qqqConstituentAuditRun": {
+      "name": "Calm Fluorescent Pink Sheep",
+      "algorithmId": "7c077ccf3a1eb7ea881b5a3f43e2d784",
+      "everConstituentCount": 239,
+      "releaseEventCount": 6318,
+      "recent140DayCoverage": {
+        "2011": 0.0492,
+        "2018": 0.7864,
+        "2019": 0.8262,
+        "2020": 0.8374,
+        "2021": 0.8806,
+        "2022": 0.9100,
+        "2023": 0.9076,
+        "2024": 0.9186
+      }
+    },
+    "evaluationRule": "Only 2019-2024 is used for performance evidence; missing or stale release data is neutral."
+  },
+  "engineAudit": {
+    "signalCount": 72,
+    "everConstituentCount": 247,
+    "releaseSubscriptionCount": 247,
+    "releaseEventCount": 5801,
+    "membershipLagTradingDays": 5,
+    "surpriseRecencyCalendarDays": 140,
+    "transactionCostBpsPerSide": 25,
+    "execution": "next_available_open",
+    "cashRatio": 0,
+    "exactDuplicateMatched": true
+  },
+  "eligibleCoverage": {
+    "DEV": {
+      "months": 36,
+      "eligibleObservations": 1348,
+      "recentReleaseObservations": 1187,
+      "coverage": 0.880564,
+      "negativeSurpriseObservations": 307,
+      "negativeShareOfKnown": 0.258635
+    },
+    "VAL": {
+      "months": 36,
+      "eligibleObservations": 1025,
+      "recentReleaseObservations": 954,
+      "coverage": 0.930732,
+      "negativeSurpriseObservations": 252,
+      "negativeShareOfKnown": 0.264151
+    }
+  },
+  "periods": {
+    "DEV": { "start": "2019-01-25", "end": "2021-12-31" },
+    "VAL": { "start": "2022-01-01", "end": "2024-12-31" },
+    "W1": { "start": "2019-01-25", "end": "2020-12-31" },
+    "W2": { "start": "2021-01-01", "end": "2021-12-31" },
+    "W3": { "start": "2022-01-01", "end": "2022-12-31" },
+    "W4": { "start": "2023-01-01", "end": "2024-12-31" }
+  },
+  "results": {
+    "QQQ": {
+      "DEV": { "return": 1.452232, "cagr": 0.357859, "mdd": -0.285594 },
+      "VAL": { "return": 0.295411, "cagr": 0.090344, "mdd": -0.348280 },
+      "W1": { "return": 0.924532, "cagr": 0.403124, "mdd": -0.285594 },
+      "W2": { "return": 0.289223, "cagr": 0.293084, "mdd": -0.108515 },
+      "W3": { "return": -0.333864, "cagr": -0.337042, "mdd": -0.348280 },
+      "W4": { "return": 0.953017, "cagr": 0.399111, "mdd": -0.135577 }
+    },
+    "BASELINE_M12_1": {
+      "DEV": { "return": 1.775713, "cagr": 0.416468, "mdd": -0.334353 },
+      "VAL": { "return": 0.362928, "cagr": 0.109014, "mdd": -0.371248 },
+      "W1": { "return": 1.307391, "cagr": 0.541208, "mdd": -0.334353 },
+      "W2": { "return": 0.200112, "cagr": 0.202693, "mdd": -0.230555 },
+      "W3": { "return": -0.338518, "cagr": -0.341729, "mdd": -0.371248 },
+      "W4": { "return": 1.094705, "cagr": 0.449148, "mdd": -0.192995 }
+    },
+    "NEGATIVE_SURPRISE_VETO": {
+      "DEV": { "return": 2.111602, "cagr": 0.472738, "mdd": -0.322267 },
+      "VAL": { "return": 0.192785, "cagr": 0.060681, "mdd": -0.410571 },
+      "W1": { "return": 1.378316, "cagr": 0.565538, "mdd": -0.322267 },
+      "W2": { "return": 0.308647, "cagr": 0.312797, "mdd": -0.224953 },
+      "W3": { "return": -0.374682, "cagr": -0.378129, "mdd": -0.410571 },
+      "W4": { "return": 0.940801, "cagr": 0.394713, "mdd": -0.183108 }
+    }
+  },
+  "candidateDiagnostics": {
+    "targetMet": false,
+    "beatsBaselineInDevelopmentAndValidation": false,
+    "cagrGapVsBaselinePctPoint": {
+      "DEV": 5.6270,
+      "VAL": -4.8333,
+      "W1": 2.4330,
+      "W2": 11.0104,
+      "W3": -3.6400,
+      "W4": -5.4435
+    },
+    "cagrGapVsQqqPctPoint": {
+      "DEV": 11.4879,
+      "VAL": -2.9663,
+      "W1": 16.2414,
+      "W2": 1.9713,
+      "W3": -4.1087,
+      "W4": -0.4398
+    },
+    "mddGapVsQqqPctPoint": {
+      "DEV": -3.6673,
+      "VAL": -6.2291,
+      "W1": -3.6673,
+      "W2": -11.6438,
+      "W3": -6.2291,
+      "W4": -4.7531
+    }
+  },
+  "trading": {
+    "BASELINE_M12_1": {
+      "tradeCount": 993,
+      "weeklyExitCount": 82,
+      "turnoverMultipleOfInitialCapital": 107.464967,
+      "totalFeesKrwEquivalent": 26866241.86
+    },
+    "NEGATIVE_SURPRISE_VETO": {
+      "tradeCount": 999,
+      "weeklyExitCount": 80,
+      "turnoverMultipleOfInitialCapital": 122.584446,
+      "totalFeesKrwEquivalent": 30646111.48
+    }
+  },
+  "decision": "rejected_no_operational_change"
+}
