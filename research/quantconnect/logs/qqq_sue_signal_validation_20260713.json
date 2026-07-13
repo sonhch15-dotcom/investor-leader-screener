@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "studyId": "qqq-sue-signal-validation-20260713",
+  "generatedAt": "2026-07-13",
+  "decision": "rejected_signal_gate",
+  "officialStrategyChanged": false,
+  "dataAudit": {
+    "initialFiscalPeriodMethod": {
+      "runName": "Crying Apricot Owl",
+      "algorithmId": "55349425af329acdaadad8ccaeb523359",
+      "status": "failed",
+      "developmentCoverage": 0.002484,
+      "validationCoverage": 0.0,
+      "minimumCalendarYearCoverage": 0.0,
+      "forwardReturnsObserved": false
+    },
+    "amendedMonthlySnapshotMethod": {
+      "runName": "Logical Magenta Termite",
+      "algorithmId": "ba02199c6dfb0dee8b39e97e54fc0593",
+      "status": "passed",
+      "signals": 173,
+      "everQqqMembers": 247,
+      "fundamentalSnapshots": 641584,
+      "symbolsWithSnapshots": 5467,
+      "developmentCoverage": 0.853169,
+      "validationCoverage": 0.909267,
+      "minimumCalendarYearCoverage": 0.79,
+      "calendarYearCoverage": {
+        "2010": 0.79,
+        "2011": 0.81,
+        "2012": 0.835,
+        "2013": 0.85272,
+        "2014": 0.831148,
+        "2015": 0.813756,
+        "2016": 0.843553,
+        "2017": 0.857366,
+        "2018": 0.883022,
+        "2019": 0.914309,
+        "2020": 0.902913,
+        "2021": 0.866721,
+        "2022": 0.889348,
+        "2023": 0.915,
+        "2024": 0.923588
+      }
+    }
+  },
+  "signalRuns": {
+    "primary": {
+      "runName": "Well Dressed Black Donkey",
+      "algorithmId": "80d0a52724182611a911a6e730708428",
+      "status": "completed"
+    },
+    "exactDuplicate": {
+      "runName": "Geeky Red Caterpillar",
+      "algorithmId": "4289e4f272d46e61871d7664fbb0b99a",
+      "status": "completed",
+      "matchesPrimaryToSixDecimals": true
+    },
+    "cohorts": 170,
+    "resultRows": 2490,
+    "entryCoverage": 0.999673,
+    "skippedEntryCohorts": 0,
+    "averageTopQuintileTurnover": 0.277067,
+    "forcedDelistingExits": 20
+  },
+  "horizons": [
+    {
+      "period": "DEV",
+      "months": 3,
+      "cohorts": 137,
+      "q1Return": 0.043974,
+      "q5Return": 0.044412,
+      "qqqReturn": 0.04953,
+      "q5MinusQ1": 0.000438,
+      "q5MinusQqq": -0.005118,
+      "spearman": 0.3,
+      "positiveOffsetShare": 0.666667,
+      "passed": false
+    },
+    {
+      "period": "DEV",
+      "months": 6,
+      "cohorts": 137,
+      "q1Return": 0.088138,
+      "q5Return": 0.082883,
+      "qqqReturn": 0.093879,
+      "q5MinusQ1": -0.005256,
+      "q5MinusQqq": -0.010996,
+      "spearman": -0.8,
+      "positiveOffsetShare": 0.166667,
+      "passed": false
+    },
+    {
+      "period": "DEV",
+      "months": 12,
+      "cohorts": 137,
+      "q1Return": 0.181867,
+      "q5Return": 0.148417,
+      "qqqReturn": 0.188787,
+      "q5MinusQ1": -0.03345,
+      "q5MinusQqq": -0.04037,
+      "spearman": -0.9,
+      "positiveOffsetShare": 0.083333,
+      "passed": false
+    },
+    {
+      "period": "VAL",
+      "months": 3,
+      "cohorts": 33,
+      "q1Return": 0.027584,
+      "q5Return": 0.039925,
+      "qqqReturn": 0.038053,
+      "q5MinusQ1": 0.012342,
+      "q5MinusQqq": 0.001873,
+      "spearman": 0.4,
+      "positiveOffsetShare": 1.0,
+      "passed": false
+    },
+    {
+      "period": "VAL",
+      "months": 6,
+      "cohorts": 30,
+      "q1Return": 0.070979,
+      "q5Return": 0.08512,
+      "qqqReturn": 0.098331,
+      "q5MinusQ1": 0.014142,
+      "q5MinusQqq": -0.013211,
+      "spearman": 0.3,
+      "positiveOffsetShare": 1.0,
+      "passed": false
+    },
+    {
+      "period": "VAL",
+      "months": 12,
+      "cohorts": 24,
+      "q1Return": 0.187455,
+      "q5Return": 0.201759,
+      "qqqReturn": 0.253881,
+      "q5MinusQ1": 0.014304,
+      "q5MinusQqq": -0.052122,
+      "spearman": 0.5,
+      "positiveOffsetShare": 0.583333,
+      "passed": false
+    }
+  ],
+  "gate": {
+    "dataPassed": true,
+    "passingHorizonsInDevelopmentAndValidation": [],
+    "minimumPassingHorizons": 2,
+    "signalPassed": false
+  }
+}

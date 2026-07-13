@@ -3,7 +3,7 @@
   "id": "qqq-sue-signal-validation-20260713",
   "title": "QQQ 표준화 이익 서프라이즈 신호 검증",
   "market": "US_STOCK",
-  "status": "preregistered",
+  "status": "completed",
   "createdAt": "2026-07-13",
   "amendedAt": "2026-07-13",
   "hypothesis": "과거 시점의 QQQ 구성 종목에서 최근 분기 EPS의 전년 동기 대비 변화가 과거 변동성보다 큰 종목일수록 이후 3·6·12개월 수익률이 더 높다.",
@@ -120,7 +120,46 @@
       "minimumCalendarYearCoverage": 0.0,
       "qqqBadReportLagRecords": 1451,
       "forwardReturnsObserved": false
+    },
+    {
+      "name": "Logical Magenta Termite",
+      "algorithmId": "ba02199c6dfb0dee8b39e97e54fc0593",
+      "kind": "data_audit_v2_monthly_snapshot",
+      "status": "passed_data_gate",
+      "developmentCoverage": 0.853169,
+      "validationCoverage": 0.909267,
+      "minimumCalendarYearCoverage": 0.79
+    },
+    {
+      "name": "Well Dressed Black Donkey",
+      "algorithmId": "80d0a52724182611a911a6e730708428",
+      "kind": "signal_validation_primary",
+      "status": "failed_signal_gate",
+      "passingHorizons": []
+    },
+    {
+      "name": "Geeky Red Caterpillar",
+      "algorithmId": "4289e4f272d46e61871d7664fbb0b99a",
+      "kind": "signal_validation_exact_duplicate",
+      "status": "failed_signal_gate_reproduced",
+      "matchesPrimaryToSixDecimals": true
     }
   ],
-  "decision": "pending_amended_data_gate"
+  "resultSummary": {
+    "dataGatePassed": true,
+    "signalGatePassed": false,
+    "passingHorizons": [],
+    "developmentTopQuintileExcess": {
+      "3": -0.005118,
+      "6": -0.010996,
+      "12": -0.04037
+    },
+    "validationTopQuintileExcess": {
+      "3": 0.001873,
+      "6": -0.013211,
+      "12": -0.052122
+    },
+    "officialStrategyChanged": false
+  },
+  "decision": "rejected_signal_gate"
 }

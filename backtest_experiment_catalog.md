@@ -41,6 +41,7 @@
 | `qqq-momentum-corrected-improvement-20260713` | QQQ | 5~20종목, 상관, 비중, 교체, VIX·신용·방어자산·품질·비용 | 탈락 | 후속 연구의 고정 기준선으로만 사용 |
 | `qqq-52week-high-proximity-20260713` | QQQ | 52주 최고가 근접도 단독 종목 순위 | 탈락 | 같은 가설 반복 금지 |
 | `qqq-estimize-surprise-veto-20260713` | QQQ | 최근 140일 실적 미달 종목 제외, 누락 자료 중립 처리 | 탈락 | PIT 예상치 수정 이력이 새로 확보될 때만 별도 가설로 시작 |
+| `qqq-sue-signal-validation-20260713` | QQQ | 월별 36개월 EPS로 SUE 5분위의 3·6·12개월 선행수익 검증 | 탈락 | 새 독립 데이터나 다른 경제적 신호 정의가 있을 때만 |
 | `kr-stock-score-variants-current-universe-20260710` | 한국 주식 | A·B·C와 월 2종목 | 잠정 | 과거 시점별 종목 데이터일 때만 |
 | `kr-etf-score-variants-current-universe-20260710` | 한국 ETF | 50/40/10, 상위 1·2·3개, 월간 리밸런싱 | 잠정 | 출시·청산 이력이 포함될 때만 |
 | `kr-etf-ten-year-validation-current-universe-20260710` | 한국 ETF | A~I 10년 확장과 KOSPI200 비교 | 잠정 | PIT ETF 상품 이력일 때만 |
@@ -69,6 +70,7 @@
 | 52주 최고가 근접도 단독 순위 | `qqq-52week-high-proximity-20260713` | 낙폭은 줄었지만 모든 구간에서 QQQ보다 CAGR이 낮아 탈락 |
 | 최근 실적 미달 종목 140일 제외 | `qqq-estimize-surprise-veto-20260713` | 개발 구간만 개선되고 검증 구간에서 기존 전략·QQQ에 모두 뒤져 탈락 |
 | 실적 예상치 수정 | 같은 연구의 데이터 게이트 | 현재 계정의 Estimize consensus·estimate 이력이 0건이라 성과 실험은 시작하지 못함 |
+| 표준화 이익 서프라이즈(SUE) 5분위 | `qqq-sue-signal-validation-20260713` | 자료 관문은 통과했지만 개발·검증을 함께 통과한 3·6·12개월 기간이 없어 탈락 |
 
 따라서 `모멘텀 + 매끄러운 추세 + 일반적인 품질 필터`는 새 가설이 아니다. 정확한 비중만 바꾸는 것은 새로운 경제적 아이디어가 아니라 파라미터 재조합으로 기록한다.
 
@@ -76,12 +78,7 @@
 
 다음 항목은 코드와 저장 로그에서 실행 기록을 찾지 못했다.
 
-1. `qqq_point_in_time_standardized_unexpected_earnings_momentum`
-   - 당시 공개된 Morningstar 분기 Basic EPS 12개로 SUE를 계산한다.
-   - 포트폴리오 조합 전에 5분위의 향후 3·6·12개월 수익 순서성을 검증한다.
-   - 데이터 시점성·중복·가용률 관문을 먼저 통과해야 하며, 상세 계약은 `studies/qqq-sue-signal-validation-20260713/study.json`에 사전등록했다.
-
-2. `qqq_point_in_time_52week_high_volume_confirmation`
+1. `qqq_point_in_time_52week_high_volume_confirmation`
    - 52주 신고가 근접도와 비정상 거래량을 하나의 신규 축으로 시험한다.
    - 52주 최고가 근접도 단독 순위가 먼저 탈락했으므로, 독립적인 경제적 근거와 새 사전등록 없이는 결합 실험을 시작하지 않는다.
 

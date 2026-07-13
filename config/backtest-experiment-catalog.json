@@ -477,15 +477,40 @@
         "korea_etf_10y_validation.md",
         "data/korea-etf-10y-validation.json"
       ]
+    },
+    {
+      "id": "qqq-sue-signal-validation-20260713",
+      "title": "QQQ 표준화 이익 서프라이즈(SUE) 신호 검증",
+      "market": "US_STOCK",
+      "date": "2026-07-13",
+      "status": "rejected",
+      "validity": "valid_point_in_time_signal_study",
+      "hypothesisKey": "qqq_point_in_time_standardized_unexpected_earnings_momentum",
+      "fingerprint": "us_stock|pit_qqq|morningstar_basic_eps_3m_monthly36_sue|quintile5|forward3_6_12|next_open|membership_lag5|holdout2025",
+      "conceptKeys": [
+        "qqq_monthly_basic_eps_sue",
+        "qqq_sue_quintile_monotonicity",
+        "qqq_sue_forward_3_6_12_months"
+      ],
+      "testedDimensions": [
+        "당시 QQQ 구성 종목과 5거래일 지연",
+        "월별 36개월 3개월 EPS 스냅샷",
+        "SUE 5분위",
+        "3·6·12개월 선행수익",
+        "동일 날짜 QQQ 비교",
+        "동일 코드 재실행"
+      ],
+      "conclusion": "자료 가용률과 재현성은 통과했지만 개발·검증 구간을 함께 통과한 선행 기간이 0개였다. 검증 구간 3개월의 작은 초과성과는 개발 구간에서 재현되지 않았고 6·12개월은 QQQ보다 낮아 채택하지 않는다.",
+      "repeatPolicy": "do_not_repeat_without_new_independent_data_or_distinct_signal_definition",
+      "artifacts": [
+        "qqq_sue_signal_validation_result_20260713.md",
+        "research/quantconnect/logs/qqq_sue_signal_validation_20260713.json",
+        "studies/qqq-sue-signal-validation-20260713/study.json",
+        "studies/qqq-sue-signal-validation-20260713/amendment-02.md"
+      ]
     }
   ],
   "unstartedHypotheses": [
-    {
-      "hypothesisKey": "qqq_point_in_time_standardized_unexpected_earnings_momentum",
-      "title": "QQQ 표준화 이익 서프라이즈(SUE) 모멘텀",
-      "status": "preregistered_data_gate_v2",
-      "dataGate": "Morningstar 3개월 BasicEPS를 당시 공개된 값으로 36개월 연속 저장하고, 개발·검증 구간 70% 및 연도별 60% 가용률을 통과한 뒤에만 5분위 향후 수익 검증을 실행"
-    },
     {
       "hypothesisKey": "qqq_point_in_time_52week_high_volume_confirmation",
       "title": "QQQ 52주 신고가 근접도와 비정상 거래량 확인",
