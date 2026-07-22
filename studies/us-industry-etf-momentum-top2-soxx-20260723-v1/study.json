@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 2,
+  "id": "us-industry-etf-momentum-top2-soxx-20260723-v1",
+  "title": "미국 세부 산업 ETF 모멘텀 상위 2종과 QQQ 비교",
+  "market": "US_ETF",
+  "status": "rejected",
+  "createdAt": "2026-07-23",
+  "hypothesis": "서로 겹치는 상위 섹터 ETF 대신 세부 산업 ETF 20개를 고정하고, SOXX와 XLC를 포함한 모멘텀 상위 2종을 기존 계좌·매도 규칙으로 운용하면 11개 섹터 ETF 전략과 QQQ 계속 보유보다 성과가 개선될 수 있다.",
+  "noveltyContract": {
+    "priorArtReviewed": true,
+    "primaryConceptKey": "us_industry_etf_momentum_top2_soxx_overlapping_base_exit",
+    "primaryExperimentFingerprint": "us_etf|fixed_20_industry_etfs_soxx_xlc|last_friday|mom_1m40_3m35_6m25|top2|overlapping_lots|base_6m_half_weekly_12m|dynamic_100m|cost25bp|qqq_hold|2018_2026",
+    "nearestPriorExperimentIds": [
+      "us-sector-etf-momentum-top2-20260723-v1",
+      "us-holding-sizing-capital-current-universe-20260707",
+      "us-weekly-exit-dropout-current-universe-20260708"
+    ],
+    "novelDimension": "기존 11개 상위 섹터를 기술·금융·헬스케어·에너지·산업재·소비재의 세부 산업 ETF로 분해하고, 반도체 대표는 SOXX, 통신·플랫폼 대표는 XLC로 사전 고정한다.",
+    "rerunOf": null,
+    "rerunReason": null
+  },
+  "baselineStrategyKey": "qqq_adjusted_close_buy_and_hold",
+  "candidateStrategyKeys": [
+    "us_industry_etf_momentum_top2_soxx_overlapping"
+  ],
+  "dataContract": {
+    "source": "Yahoo Finance adjusted daily close frozen in price-snapshot.json.gz",
+    "start": "2016-07-22",
+    "end": "2026-07-22",
+    "evaluationStart": "2018-12-28",
+    "universe": "SOXX, XSW, XLC, KRE, KCE, KIE, XBI, XPH, XHE, XHS, XOP, XES, XAR, XTN, XRT, XHB, XME, RWR, XLP, XLU",
+    "membershipMode": "fixed_currently_investable_industry_etf_universe_after_common_history",
+    "taxonomy": "Mostly S&P Select Industry ETFs plus SOXX and residual broad XLC, XLP, XLU; no individual-company taxonomy",
+    "survivorshipBiasControlled": false,
+    "survivorshipNote": "The test asks how today's fixed ETF menu behaved historically and does not reconstruct closed or historically available competing ETFs.",
+    "lookAheadBiasControlled": true,
+    "minimumHistoryTradingDays": 126,
+    "incompleteMonthRule": "Do not create a signal until the calendar month's last Friday has occurred"
+  },
+  "capitalContract": {
+    "initialKrw": 100000000,
+    "fxRate": null,
+    "fxAsOf": null,
+    "fxSource": "Returns are measured in the USD account before KRW/USD changes",
+    "fractionalShares": true,
+    "transactionCostBpsPerSide": [10, 25, 50],
+    "maxPositionPct": 0.275,
+    "minimumOrderKrw": 1000000,
+    "allocation": "First six buy signals use 10% of current equity per ETF; then 7.5%; use 5% when cash ratio is 10% or lower"
+  },
+  "executionContract": {
+    "signalTiming": "last tradable close on or before each calendar month's last Friday",
+    "entryTiming": "next_available_trading_day_adjusted_close",
+    "momentumFormula": "1-month return 40% + 3-month return 35% + 6-month return 25%",
+    "selectionsPerMonth": 2,
+    "holdingMode": "overlapping monthly lots",
+    "exitRule": "Sell 50% at cohort month 6; extend the remainder only when weekly close is at or above MA10 and RSI14 is at least 50; sell after two confirmed weekly closes below MA10 or at cohort month 12",
+    "weeklyExitExecution": "next trading day after the second weekly close confirms the break",
+    "benchmarkRule": "Invest the full account in QQQ on the candidate strategy's first entry date and hold through the identical last valuation date"
+  },
+  "robustnessChecks": [
+    "frozen_adjusted_price_snapshot_with_sha256",
+    "exact_duplicate_local_run_with_matching_reproducibility_hash",
+    "fresh_account_start_year_sensitivity_2019_through_2024",
+    "transaction_cost_sensitivity_10_25_50_bps_per_side",
+    "no_negative_cash_and_position_cap_execution_assertions",
+    "all_20_etfs_have_126_trading_days_before_each_signal",
+    "open_lots_marked_to_market_at_the_common_as_of_date",
+    "same_period_comparison_to_prior_11_sector_etf_study"
+  ],
+  "promotionGates": {
+    "mustBeatQqqTotalReturn": true,
+    "mustBeatQqqAcrossMostFreshStartYears": true,
+    "maximumMddWorseningPctPoints": 5,
+    "requiresAuditChecks": true,
+    "requiresForwardShadow": true
+  },
+  "commands": [
+    "node studies/us-industry-etf-momentum-top2-soxx-20260723-v1/backtest.mjs --refresh",
+    "node studies/us-industry-etf-momentum-top2-soxx-20260723-v1/backtest.mjs",
+    "node studies/us-industry-etf-momentum-top2-soxx-20260723-v1/verify.mjs",
+    "node scripts/verify-strategy-studies.mjs studies/us-industry-etf-momentum-top2-soxx-20260723-v1/study.json"
+  ],
+  "artifacts": {
+    "priceSnapshot": "studies/us-industry-etf-momentum-top2-soxx-20260723-v1/price-snapshot.json.gz",
+    "resultJson": "studies/us-industry-etf-momentum-top2-soxx-20260723-v1/result.json",
+    "report": "studies/us-industry-etf-momentum-top2-soxx-20260723-v1/report.md",
+    "runner": "studies/us-industry-etf-momentum-top2-soxx-20260723-v1/backtest.mjs",
+    "verifier": "studies/us-industry-etf-momentum-top2-soxx-20260723-v1/verify.mjs",
+    "dashboardHref": ""
+  },
+  "resultSummary": {
+    "evaluationPeriod": "2018-12-31 through 2026-07-22",
+    "candidateTotalReturn": 1.5885,
+    "broadSectorControlTotalReturn": 1.2715,
+    "qqqTotalReturn": 3.8031,
+    "candidateCagr": 0.1341,
+    "broadSectorControlCagr": 0.1147,
+    "qqqCagr": 0.2308,
+    "candidateMaxDrawdown": -0.3307,
+    "broadSectorControlMaxDrawdown": -0.3041,
+    "qqqMaxDrawdown": -0.3512,
+    "candidateImprovementVsBroadSectorPctPoints": 31.7,
+    "freshStartYearsBeatingQqq": 0,
+    "freshStartYearsTested": 6,
+    "promotionGatePassed": false,
+    "officialStrategyChanged": false
+  },
+  "decision": "rejected_for_promotion_improves_broad_sector_control_but_not_qqq"
+}

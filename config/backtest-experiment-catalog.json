@@ -541,6 +541,40 @@
         "studies/us-sector-etf-momentum-top2-20260723-v1/backtest.mjs",
         "studies/us-sector-etf-momentum-top2-20260723-v1/verify.mjs"
       ]
+    },
+    {
+      "id": "us-industry-etf-momentum-top2-soxx-20260723-v1",
+      "title": "미국 세부 산업 ETF 모멘텀 상위 2종과 QQQ 비교",
+      "market": "US_ETF",
+      "date": "2026-07-23",
+      "status": "rejected",
+      "validity": "valid_fixed_current_product_universe_with_survivorship_limitation",
+      "hypothesisKey": "us_industry_etf_momentum_top2_soxx_overlapping_base_exit",
+      "fingerprint": "us_etf|fixed_20_industry_etfs_soxx_xlc|last_friday|mom_1m40_3m35_6m25|top2|overlapping_lots|base_6m_half_weekly_12m|dynamic_100m|cost25bp|qqq_hold|2018_2026",
+      "conceptKeys": [
+        "us_industry_etf_top2_weighted_momentum",
+        "us_industry_etf_soxx_semiconductor_proxy",
+        "us_industry_etf_xlc_communication_proxy",
+        "us_industry_etf_vs_broad_sector_and_qqq"
+      ],
+      "testedDimensions": [
+        "현재 투자 가능한 세부 산업 ETF 20개의 1·3·6개월 복합 모멘텀",
+        "반도체 SOXX와 통신·플랫폼 XLC",
+        "월별 상위 2종 겹침 매수",
+        "6개월 50% 매도와 잔여 주봉 연장",
+        "1억원 동적 자금 배분과 종목당 27.5% 한도",
+        "같은 가격 스냅샷의 기존 11개 섹터 전략과 QQQ 비교",
+        "편도 비용 0.10%·0.25%·0.50%와 2019~2024 시작연도 민감도"
+      ],
+      "conclusion": "2018-12-31~2026-07-22에 세부 산업 전략은 +158.85%로 기존 11개 섹터 전략 +127.15%보다 31.70%p 개선됐지만 QQQ +380.31%에는 크게 뒤졌다. 여섯 독립 시작연도 모두 QQQ보다 낮아 공식 전략으로 승격하지 않는다.",
+      "repeatPolicy": "do_not_repeat_without_distinct_universe_selection_or_holding_contract_or_new_out_of_sample_period",
+      "artifacts": [
+        "studies/us-industry-etf-momentum-top2-soxx-20260723-v1/study.json",
+        "studies/us-industry-etf-momentum-top2-soxx-20260723-v1/result.json",
+        "studies/us-industry-etf-momentum-top2-soxx-20260723-v1/report.md",
+        "studies/us-industry-etf-momentum-top2-soxx-20260723-v1/backtest.mjs",
+        "studies/us-industry-etf-momentum-top2-soxx-20260723-v1/verify.mjs"
+      ]
     }
   ],
   "unstartedHypotheses": [

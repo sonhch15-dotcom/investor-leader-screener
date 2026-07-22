@@ -1,0 +1,2722 @@
+{
+  "generatedAt": "2026-07-22T16:18:52.548Z",
+  "studyId": "us-industry-etf-momentum-top2-soxx-20260723-v1",
+  "status": "research_only",
+  "contract": {
+    "universe": [
+      "SOXX",
+      "XSW",
+      "XLC",
+      "KRE",
+      "KCE",
+      "KIE",
+      "XBI",
+      "XPH",
+      "XHE",
+      "XHS",
+      "XOP",
+      "XES",
+      "XAR",
+      "XTN",
+      "XRT",
+      "XHB",
+      "XME",
+      "RWR",
+      "XLP",
+      "XLU"
+    ],
+    "benchmark": "QQQ buy and hold",
+    "signalTiming": "last tradable session on or before each calendar month's last Friday",
+    "executionTiming": "next trading day",
+    "momentum": "1M 40% + 3M 35% + 6M 25% using adjusted close",
+    "selectionsPerMonth": 2,
+    "holding": "overlapping monthly lots",
+    "exit": "sell 50% at 6 months; extend remainder only when weekly close >= MA10 and RSI14 >= 50; then exit after two weekly closes below MA10 or at 12 months",
+    "initialCapitalKrw": 100000000,
+    "fractionalShares": true,
+    "costEachSide": 0.0025,
+    "ramp": "first six buy signals 10% of current equity per pick; then 7.5%; use 5% when cash ratio <= 10%",
+    "positionCap": 0.275,
+    "minimumOrderKrw": 1000000
+  },
+  "data": {
+    "source": "yahoo-adjusted-close-10y",
+    "snapshotHash": "1fe5c46345ffb7e58b28d257b9d17ded605d356835bca565ef34288078500e26",
+    "snapshotAsOf": "2026-07-22",
+    "commonAsOf": "2026-07-22",
+    "symbolCoverage": {
+      "QQQ": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "SOXX": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XSW": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XLC": {
+        "firstDate": "2018-06-19",
+        "lastDate": "2026-07-22",
+        "rows": 2033
+      },
+      "KRE": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "KCE": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "KIE": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XBI": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XPH": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XHE": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XHS": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XOP": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XES": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XAR": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XTN": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XRT": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XHB": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XME": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "RWR": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XLP": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XLU": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XLK": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XLF": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XLE": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XLV": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XLI": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XLY": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XLRE": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      },
+      "XLB": {
+        "firstDate": "2016-07-22",
+        "lastDate": "2026-07-22",
+        "rows": 2513
+      }
+    }
+  },
+  "cohorts": {
+    "count": 91,
+    "firstSignal": "2018-12-28",
+    "lastSignal": "2026-06-26",
+    "selectionCount": 182
+  },
+  "main": {
+    "strategy": {
+      "costRate": 0.0025,
+      "firstDate": "2018-12-31",
+      "lastDate": "2026-07-22",
+      "initialCapital": 100000000,
+      "finalCapital": 258849797.21,
+      "totalReturn": 1.5885,
+      "cagr": 0.1341,
+      "maxDrawdown": {
+        "value": -0.3307,
+        "peakDate": "2020-02-19",
+        "troughDate": "2020-03-23"
+      },
+      "averageCashRatio": 0.0794,
+      "finalCashRatio": 0,
+      "maxObservedCostBasisRatio": 0.275524,
+      "maxObservedCostBasisDetail": {
+        "date": "2023-02-27",
+        "symbol": "XES",
+        "costBasis": 46368642.41,
+        "preBuyEquity": 168355422.23,
+        "postBuyEquity": 168292288.95,
+        "ratio": 0.275524
+      },
+      "maxExecutedBuyCapRatio": 0.275,
+      "capViolationCount": 0,
+      "totalTransactionCosts": 10377727.14,
+      "attemptedBuys": 182,
+      "executedBuys": 178,
+      "skippedBuys": 4,
+      "sellEvents": 329,
+      "openLots": 15,
+      "selectionCounts": {
+        "SOXX": 32,
+        "XES": 21,
+        "XHB": 18,
+        "XOP": 18,
+        "XME": 15,
+        "XAR": 10,
+        "XBI": 9,
+        "XSW": 9,
+        "XLU": 8,
+        "KRE": 6,
+        "XLC": 6,
+        "KCE": 5,
+        "XLP": 5,
+        "KIE": 4,
+        "XHS": 4,
+        "XRT": 4,
+        "RWR": 3,
+        "XPH": 3,
+        "XHE": 1,
+        "XTN": 1
+      },
+      "exitReasonCounts": {
+        "half_fixed_6m": 166,
+        "two_week_10w_break": 79,
+        "trend_not_alive_at_6m": 78,
+        "max_12m": 6
+      },
+      "annualReturns": [
+        {
+          "year": "2018",
+          "return": -0.0005,
+          "endEquity": 99950000
+        },
+        {
+          "year": "2019",
+          "return": 0.1971,
+          "endEquity": 119648338.95
+        },
+        {
+          "year": "2020",
+          "return": 0.245,
+          "endEquity": 148960261.63
+        },
+        {
+          "year": "2021",
+          "return": 0.2361,
+          "endEquity": 184132607.56
+        },
+        {
+          "year": "2022",
+          "return": -0.1223,
+          "endEquity": 161620046.65
+        },
+        {
+          "year": "2023",
+          "return": 0.0875,
+          "endEquity": 175768931.3
+        },
+        {
+          "year": "2024",
+          "return": 0.1055,
+          "endEquity": 194312374.25
+        },
+        {
+          "year": "2025",
+          "return": 0.1448,
+          "endEquity": 222454278.66
+        },
+        {
+          "year": "2026",
+          "return": 0.1636,
+          "endEquity": 258849797.21
+        }
+      ],
+      "skipped": [
+        {
+          "date": "2019-07-01",
+          "symbol": "SOXX",
+          "signalMonth": "2019-06",
+          "reason": "position_cap",
+          "wanted": 8184394.73,
+          "available": 0
+        },
+        {
+          "date": "2019-09-03",
+          "symbol": "XAR",
+          "signalMonth": "2019-08",
+          "reason": "position_cap",
+          "wanted": 8280325.41,
+          "available": 512430.05
+        },
+        {
+          "date": "2023-02-27",
+          "symbol": "XES",
+          "signalMonth": "2023-02",
+          "reason": "position_cap",
+          "wanted": 12626656.67,
+          "available": 0
+        },
+        {
+          "date": "2024-07-01",
+          "symbol": "SOXX",
+          "signalMonth": "2024-06",
+          "reason": "position_cap",
+          "wanted": 14305887.43,
+          "available": 15760.93
+        }
+      ]
+    },
+    "benchmark": {
+      "costRate": 0.0025,
+      "firstDate": "2018-12-31",
+      "lastDate": "2026-07-22",
+      "initialCapital": 100000000,
+      "finalCapital": 480307158.62,
+      "totalReturn": 3.8031,
+      "cagr": 0.2308,
+      "maxDrawdown": {
+        "value": -0.3512,
+        "peakDate": "2021-12-27",
+        "troughDate": "2022-11-03"
+      },
+      "annualReturns": [
+        {
+          "year": "2018",
+          "return": -0.0025,
+          "endEquity": 99750000
+        },
+        {
+          "year": "2019",
+          "return": 0.3896,
+          "endEquity": 138614146.22
+        },
+        {
+          "year": "2020",
+          "return": 0.4841,
+          "endEquity": 205711815.78
+        },
+        {
+          "year": "2021",
+          "return": 0.2742,
+          "endEquity": 262117519.55
+        },
+        {
+          "year": "2022",
+          "return": -0.3258,
+          "endEquity": 176727441.32
+        },
+        {
+          "year": "2023",
+          "return": 0.5486,
+          "endEquity": 273672367.85
+        },
+        {
+          "year": "2024",
+          "return": 0.2558,
+          "endEquity": 343672984.63
+        },
+        {
+          "year": "2025",
+          "return": 0.2077,
+          "endEquity": 415062621.21
+        },
+        {
+          "year": "2026",
+          "return": 0.1572,
+          "endEquity": 480307158.62
+        }
+      ]
+    },
+    "referenceBroadSector": {
+      "studyId": "us-sector-etf-momentum-top2-same-snapshot-control",
+      "firstDate": "2018-12-31",
+      "lastDate": "2026-07-22",
+      "initialCapital": 100000000,
+      "finalCapital": 227154995.35,
+      "totalReturn": 1.2715,
+      "cagr": 0.1147,
+      "maxDrawdown": -0.3041,
+      "cohortCount": 91,
+      "selectionCount": 182
+    },
+    "annualComparison": [
+      {
+        "year": "2018",
+        "strategy": -0.0005,
+        "qqq": -0.0025
+      },
+      {
+        "year": "2019",
+        "strategy": 0.1971,
+        "qqq": 0.3896
+      },
+      {
+        "year": "2020",
+        "strategy": 0.245,
+        "qqq": 0.4841
+      },
+      {
+        "year": "2021",
+        "strategy": 0.2361,
+        "qqq": 0.2742
+      },
+      {
+        "year": "2022",
+        "strategy": -0.1223,
+        "qqq": -0.3258
+      },
+      {
+        "year": "2023",
+        "strategy": 0.0875,
+        "qqq": 0.5486
+      },
+      {
+        "year": "2024",
+        "strategy": 0.1055,
+        "qqq": 0.2558
+      },
+      {
+        "year": "2025",
+        "strategy": 0.1448,
+        "qqq": 0.2077
+      },
+      {
+        "year": "2026",
+        "strategy": 0.1636,
+        "qqq": 0.1572
+      }
+    ],
+    "feeSensitivity": [
+      {
+        "costEachSide": 0.001,
+        "strategyReturn": 1.6846,
+        "qqqReturn": 3.8103,
+        "excessReturn": -2.1257
+      },
+      {
+        "costEachSide": 0.0025,
+        "strategyReturn": 1.5885,
+        "qqqReturn": 3.8031,
+        "excessReturn": -2.2146
+      },
+      {
+        "costEachSide": 0.005,
+        "strategyReturn": 1.4358,
+        "qqqReturn": 3.791,
+        "excessReturn": -2.3552
+      }
+    ],
+    "startDateSensitivity": [
+      {
+        "startYear": 2019,
+        "firstDate": "2019-01-28",
+        "strategyReturn": 1.4873,
+        "qqqReturn": 3.5425,
+        "excessReturn": -2.0552,
+        "strategyMdd": -0.3351,
+        "qqqMdd": -0.3512
+      },
+      {
+        "startYear": 2020,
+        "firstDate": "2020-02-03",
+        "strategyReturn": 1.3443,
+        "qqqReturn": 2.3046,
+        "excessReturn": -0.9603,
+        "strategyMdd": -0.2923,
+        "qqqMdd": -0.3512
+      },
+      {
+        "startYear": 2021,
+        "firstDate": "2021-02-01",
+        "strategyReturn": 0.4815,
+        "qqqReturn": 1.2663,
+        "excessReturn": -0.7848,
+        "strategyMdd": -0.2937,
+        "qqqMdd": -0.3512
+      },
+      {
+        "startYear": 2022,
+        "firstDate": "2022-01-31",
+        "strategyReturn": 0.5186,
+        "qqqReturn": 1.003,
+        "excessReturn": -0.4844,
+        "strategyMdd": -0.2947,
+        "qqqMdd": -0.2956
+      },
+      {
+        "startYear": 2023,
+        "firstDate": "2023-01-30",
+        "strategyReturn": 0.6391,
+        "qqqReturn": 1.4869,
+        "excessReturn": -0.8478,
+        "strategyMdd": -0.2175,
+        "qqqMdd": -0.2277
+      },
+      {
+        "startYear": 2024,
+        "firstDate": "2024-01-29",
+        "strategyReturn": 0.4208,
+        "qqqReturn": 0.6745,
+        "excessReturn": -0.2537,
+        "strategyMdd": -0.208,
+        "qqqMdd": -0.2277
+      }
+    ]
+  },
+  "recentCohorts": [
+    {
+      "signalMonth": "2025-07",
+      "signalDate": "2025-07-25",
+      "entryDate": "2025-07-28",
+      "picks": [
+        {
+          "symbol": "XME",
+          "momentum": 0.269,
+          "r1m": 0.1842,
+          "r3m": 0.3585,
+          "r6m": 0.2794
+        },
+        {
+          "symbol": "XAR",
+          "momentum": 0.2028,
+          "r1m": 0.0936,
+          "r3m": 0.314,
+          "r6m": 0.2219
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-08",
+      "signalDate": "2025-08-29",
+      "entryDate": "2025-09-02",
+      "picks": [
+        {
+          "symbol": "XME",
+          "momentum": 0.2844,
+          "r1m": 0.1229,
+          "r3m": 0.3718,
+          "r6m": 0.4207
+        },
+        {
+          "symbol": "XHB",
+          "momentum": 0.1539,
+          "r1m": 0.1186,
+          "r3m": 0.2113,
+          "r6m": 0.1298
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-09",
+      "signalDate": "2025-09-26",
+      "entryDate": "2025-09-29",
+      "picks": [
+        {
+          "symbol": "XME",
+          "momentum": 0.338,
+          "r1m": 0.1391,
+          "r3m": 0.3905,
+          "r6m": 0.5827
+        },
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1704,
+          "r1m": 0.0718,
+          "r3m": 0.1278,
+          "r6m": 0.3877
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-10",
+      "signalDate": "2025-10-31",
+      "entryDate": "2025-11-03",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.2876,
+          "r1m": 0.0883,
+          "r3m": 0.2778,
+          "r6m": 0.6201
+        },
+        {
+          "symbol": "XME",
+          "momentum": 0.2791,
+          "r1m": -0.0008,
+          "r3m": 0.3101,
+          "r6m": 0.6834
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-11",
+      "signalDate": "2025-11-28",
+      "entryDate": "2025-12-01",
+      "picks": [
+        {
+          "symbol": "XBI",
+          "momentum": 0.3128,
+          "r1m": 0.1099,
+          "r3m": 0.3711,
+          "r6m": 0.5558
+        },
+        {
+          "symbol": "XME",
+          "momentum": 0.2138,
+          "r1m": -0.0108,
+          "r3m": 0.1806,
+          "r6m": 0.6195
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-12",
+      "signalDate": "2025-12-26",
+      "entryDate": "2025-12-29",
+      "picks": [
+        {
+          "symbol": "XME",
+          "momentum": 0.2819,
+          "r1m": 0.1624,
+          "r3m": 0.1711,
+          "r6m": 0.6284
+        },
+        {
+          "symbol": "XBI",
+          "momentum": 0.2391,
+          "r1m": 0.0332,
+          "r3m": 0.2802,
+          "r6m": 0.511
+        }
+      ]
+    },
+    {
+      "signalMonth": "2026-01",
+      "signalDate": "2026-01-30",
+      "entryDate": "2026-02-02",
+      "picks": [
+        {
+          "symbol": "XME",
+          "momentum": 0.2831,
+          "r1m": 0.1336,
+          "r3m": 0.2111,
+          "r6m": 0.623
+        },
+        {
+          "symbol": "XES",
+          "momentum": 0.282,
+          "r1m": 0.2008,
+          "r3m": 0.222,
+          "r6m": 0.4961
+        }
+      ]
+    },
+    {
+      "signalMonth": "2026-02",
+      "signalDate": "2026-02-27",
+      "entryDate": "2026-03-02",
+      "picks": [
+        {
+          "symbol": "XES",
+          "momentum": 0.3753,
+          "r1m": 0.1722,
+          "r3m": 0.4234,
+          "r6m": 0.6328
+        },
+        {
+          "symbol": "XME",
+          "momentum": 0.1902,
+          "r1m": -0.0728,
+          "r3m": 0.2864,
+          "r6m": 0.4764
+        }
+      ]
+    },
+    {
+      "signalMonth": "2026-03",
+      "signalDate": "2026-03-27",
+      "entryDate": "2026-03-30",
+      "picks": [
+        {
+          "symbol": "XOP",
+          "momentum": 0.3793,
+          "r1m": 0.2613,
+          "r3m": 0.5004,
+          "r6m": 0.3985
+        },
+        {
+          "symbol": "XES",
+          "momentum": 0.3496,
+          "r1m": 0.0644,
+          "r3m": 0.4714,
+          "r6m": 0.6354
+        }
+      ]
+    },
+    {
+      "signalMonth": "2026-04",
+      "signalDate": "2026-04-24",
+      "entryDate": "2026-04-27",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.4108,
+          "r1m": 0.337,
+          "r3m": 0.3399,
+          "r6m": 0.628
+        },
+        {
+          "symbol": "XES",
+          "momentum": 0.3132,
+          "r1m": 0.0658,
+          "r3m": 0.3205,
+          "r6m": 0.6987
+        }
+      ]
+    },
+    {
+      "signalMonth": "2026-05",
+      "signalDate": "2026-05-29",
+      "entryDate": "2026-06-01",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.5743,
+          "r1m": 0.2647,
+          "r3m": 0.6164,
+          "r6m": 1.0109
+        },
+        {
+          "symbol": "XTN",
+          "momentum": 0.1455,
+          "r1m": 0.0858,
+          "r3m": 0.0931,
+          "r6m": 0.3145
+        }
+      ]
+    },
+    {
+      "signalMonth": "2026-06",
+      "signalDate": "2026-06-26",
+      "entryDate": "2026-06-29",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.5309,
+          "r1m": 0.0465,
+          "r3m": 0.7948,
+          "r6m": 0.9366
+        },
+        {
+          "symbol": "XHS",
+          "momentum": 0.2165,
+          "r1m": 0.1463,
+          "r3m": 0.2985,
+          "r6m": 0.2141
+        }
+      ]
+    }
+  ],
+  "allCohorts": [
+    {
+      "signalMonth": "2018-12",
+      "signalDate": "2018-12-28",
+      "entryDate": "2018-12-31",
+      "picks": [
+        {
+          "symbol": "XLU",
+          "momentum": 0.007,
+          "r1m": -0.0285,
+          "r3m": 0.0268,
+          "r6m": 0.0362
+        },
+        {
+          "symbol": "XLP",
+          "momentum": -0.0503,
+          "r1m": -0.078,
+          "r3m": -0.0523,
+          "r6m": -0.0032
+        }
+      ]
+    },
+    {
+      "signalMonth": "2019-01",
+      "signalDate": "2019-01-25",
+      "entryDate": "2019-01-28",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.0844,
+          "r1m": 0.1986,
+          "r3m": 0.0471,
+          "r6m": -0.0459
+        },
+        {
+          "symbol": "XSW",
+          "momentum": 0.0798,
+          "r1m": 0.1947,
+          "r3m": 0.0279,
+          "r6m": -0.0312
+        }
+      ]
+    },
+    {
+      "signalMonth": "2019-02",
+      "signalDate": "2019-02-22",
+      "entryDate": "2019-02-25",
+      "picks": [
+        {
+          "symbol": "XSW",
+          "momentum": 0.1426,
+          "r1m": 0.131,
+          "r3m": 0.2147,
+          "r6m": 0.0602
+        },
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1247,
+          "r1m": 0.1528,
+          "r3m": 0.1673,
+          "r6m": 0.02
+        }
+      ]
+    },
+    {
+      "signalMonth": "2019-03",
+      "signalDate": "2019-03-29",
+      "entryDate": "2019-04-01",
+      "picks": [
+        {
+          "symbol": "XSW",
+          "momentum": 0.1155,
+          "r1m": 0.0213,
+          "r3m": 0.2743,
+          "r6m": 0.044
+        },
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1036,
+          "r1m": 0.0344,
+          "r3m": 0.2285,
+          "r6m": 0.0396
+        }
+      ]
+    },
+    {
+      "signalMonth": "2019-04",
+      "signalDate": "2019-04-26",
+      "entryDate": "2019-04-29",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1911,
+          "r1m": 0.1233,
+          "r3m": 0.2125,
+          "r6m": 0.2696
+        },
+        {
+          "symbol": "XSW",
+          "momentum": 0.1329,
+          "r1m": 0.057,
+          "r3m": 0.1698,
+          "r6m": 0.2025
+        }
+      ]
+    },
+    {
+      "signalMonth": "2019-05",
+      "signalDate": "2019-05-31",
+      "entryDate": "2019-06-03",
+      "picks": [
+        {
+          "symbol": "XAR",
+          "momentum": 0.0342,
+          "r1m": -0.0083,
+          "r3m": 0.0112,
+          "r6m": 0.1346
+        },
+        {
+          "symbol": "XLU",
+          "momentum": 0.0303,
+          "r1m": 0.0024,
+          "r3m": 0.0272,
+          "r6m": 0.0791
+        }
+      ]
+    },
+    {
+      "signalMonth": "2019-06",
+      "signalDate": "2019-06-28",
+      "entryDate": "2019-07-01",
+      "picks": [
+        {
+          "symbol": "XAR",
+          "momentum": 0.1578,
+          "r1m": 0.0685,
+          "r3m": 0.1335,
+          "r6m": 0.3345
+        },
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1354,
+          "r1m": 0.1118,
+          "r3m": 0.0511,
+          "r6m": 0.2912
+        }
+      ]
+    },
+    {
+      "signalMonth": "2019-07",
+      "signalDate": "2019-07-26",
+      "entryDate": "2019-07-29",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1199,
+          "r1m": 0.1093,
+          "r3m": 0.0353,
+          "r6m": 0.2553
+        },
+        {
+          "symbol": "XAR",
+          "momentum": 0.1113,
+          "r1m": 0.0417,
+          "r3m": 0.1043,
+          "r6m": 0.2323
+        }
+      ]
+    },
+    {
+      "signalMonth": "2019-08",
+      "signalDate": "2019-08-30",
+      "entryDate": "2019-09-03",
+      "picks": [
+        {
+          "symbol": "XAR",
+          "momentum": 0.0866,
+          "r1m": 0.0313,
+          "r3m": 0.1068,
+          "r6m": 0.1469
+        },
+        {
+          "symbol": "SOXX",
+          "momentum": 0.0832,
+          "r1m": -0.0035,
+          "r3m": 0.1618,
+          "r6m": 0.1119
+        }
+      ]
+    },
+    {
+      "signalMonth": "2019-09",
+      "signalDate": "2019-09-27",
+      "entryDate": "2019-09-30",
+      "picks": [
+        {
+          "symbol": "XLU",
+          "momentum": 0.0849,
+          "r1m": 0.0494,
+          "r3m": 0.0934,
+          "r6m": 0.1298
+        },
+        {
+          "symbol": "KIE",
+          "momentum": 0.0757,
+          "r1m": 0.0606,
+          "r3m": 0.0403,
+          "r6m": 0.1492
+        }
+      ]
+    },
+    {
+      "signalMonth": "2019-10",
+      "signalDate": "2019-10-25",
+      "entryDate": "2019-10-28",
+      "picks": [
+        {
+          "symbol": "XHB",
+          "momentum": 0.0969,
+          "r1m": 0.0538,
+          "r3m": 0.1189,
+          "r6m": 0.135
+        },
+        {
+          "symbol": "XLU",
+          "momentum": 0.0527,
+          "r1m": -0.0119,
+          "r3m": 0.0724,
+          "r6m": 0.1283
+        }
+      ]
+    },
+    {
+      "signalMonth": "2019-11",
+      "signalDate": "2019-11-29",
+      "entryDate": "2019-12-02",
+      "picks": [
+        {
+          "symbol": "XBI",
+          "momentum": 0.1571,
+          "r1m": 0.1449,
+          "r3m": 0.1653,
+          "r6m": 0.1654
+        },
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1478,
+          "r1m": 0.0354,
+          "r3m": 0.1455,
+          "r6m": 0.3308
+        }
+      ]
+    },
+    {
+      "signalMonth": "2019-12",
+      "signalDate": "2019-12-27",
+      "entryDate": "2019-12-30",
+      "picks": [
+        {
+          "symbol": "XPH",
+          "momentum": 0.1934,
+          "r1m": 0.1385,
+          "r3m": 0.2837,
+          "r6m": 0.1548
+        },
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1757,
+          "r1m": 0.0807,
+          "r3m": 0.2083,
+          "r6m": 0.2819
+        }
+      ]
+    },
+    {
+      "signalMonth": "2020-01",
+      "signalDate": "2020-01-31",
+      "entryDate": "2020-02-03",
+      "picks": [
+        {
+          "symbol": "XPH",
+          "momentum": 0.1094,
+          "r1m": -0.0057,
+          "r3m": 0.1755,
+          "r6m": 0.2011
+        },
+        {
+          "symbol": "XLU",
+          "momentum": 0.0989,
+          "r1m": 0.0675,
+          "r3m": 0.0879,
+          "r6m": 0.1645
+        }
+      ]
+    },
+    {
+      "signalMonth": "2020-02",
+      "signalDate": "2020-02-28",
+      "entryDate": "2020-03-02",
+      "picks": [
+        {
+          "symbol": "XPH",
+          "momentum": 0.0098,
+          "r1m": -0.1066,
+          "r3m": 0.0242,
+          "r6m": 0.1758
+        },
+        {
+          "symbol": "SOXX",
+          "momentum": 0.0089,
+          "r1m": -0.0803,
+          "r3m": -0.0073,
+          "r6m": 0.1742
+        }
+      ]
+    },
+    {
+      "signalMonth": "2020-03",
+      "signalDate": "2020-03-27",
+      "entryDate": "2020-03-30",
+      "picks": [
+        {
+          "symbol": "XLP",
+          "momentum": -0.1153,
+          "r1m": -0.0903,
+          "r3m": -0.1454,
+          "r6m": -0.1133
+        },
+        {
+          "symbol": "SOXX",
+          "momentum": -0.1235,
+          "r1m": -0.1046,
+          "r3m": -0.1971,
+          "r6m": -0.0507
+        }
+      ]
+    },
+    {
+      "signalMonth": "2020-04",
+      "signalDate": "2020-04-24",
+      "entryDate": "2020-04-27",
+      "picks": [
+        {
+          "symbol": "XBI",
+          "momentum": 0.1914,
+          "r1m": 0.2893,
+          "r3m": 0.069,
+          "r6m": 0.2062
+        },
+        {
+          "symbol": "XHE",
+          "momentum": 0.0856,
+          "r1m": 0.2293,
+          "r3m": -0.0608,
+          "r6m": 0.0605
+        }
+      ]
+    },
+    {
+      "signalMonth": "2020-05",
+      "signalDate": "2020-05-29",
+      "entryDate": "2020-06-01",
+      "picks": [
+        {
+          "symbol": "XBI",
+          "momentum": 0.1202,
+          "r1m": 0.081,
+          "r3m": 0.1612,
+          "r6m": 0.1253
+        },
+        {
+          "symbol": "XSW",
+          "momentum": 0.087,
+          "r1m": 0.1123,
+          "r3m": 0.0846,
+          "r6m": 0.0501
+        }
+      ]
+    },
+    {
+      "signalMonth": "2020-06",
+      "signalDate": "2020-06-26",
+      "entryDate": "2020-06-29",
+      "picks": [
+        {
+          "symbol": "XBI",
+          "momentum": 0.2225,
+          "r1m": 0.077,
+          "r3m": 0.4539,
+          "r6m": 0.1314
+        },
+        {
+          "symbol": "XSW",
+          "momentum": 0.1542,
+          "r1m": 0.0467,
+          "r3m": 0.3366,
+          "r6m": 0.0708
+        }
+      ]
+    },
+    {
+      "signalMonth": "2020-07",
+      "signalDate": "2020-07-31",
+      "entryDate": "2020-08-03",
+      "picks": [
+        {
+          "symbol": "XHB",
+          "momentum": 0.2167,
+          "r1m": 0.1471,
+          "r3m": 0.406,
+          "r6m": 0.0631
+        },
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1903,
+          "r1m": 0.086,
+          "r3m": 0.3016,
+          "r6m": 0.2015
+        }
+      ]
+    },
+    {
+      "signalMonth": "2020-08",
+      "signalDate": "2020-08-28",
+      "entryDate": "2020-08-31",
+      "picks": [
+        {
+          "symbol": "XRT",
+          "momentum": 0.2136,
+          "r1m": 0.103,
+          "r3m": 0.2817,
+          "r6m": 0.2954
+        },
+        {
+          "symbol": "XHB",
+          "momentum": 0.1768,
+          "r1m": 0.0718,
+          "r3m": 0.268,
+          "r6m": 0.2172
+        }
+      ]
+    },
+    {
+      "signalMonth": "2020-09",
+      "signalDate": "2020-09-25",
+      "entryDate": "2020-09-28",
+      "picks": [
+        {
+          "symbol": "XHB",
+          "momentum": 0.2475,
+          "r1m": -0.037,
+          "r3m": 0.246,
+          "r6m": 0.7048
+        },
+        {
+          "symbol": "XRT",
+          "momentum": 0.1955,
+          "r1m": -0.0733,
+          "r3m": 0.1883,
+          "r6m": 0.6355
+        }
+      ]
+    },
+    {
+      "signalMonth": "2020-10",
+      "signalDate": "2020-10-30",
+      "entryDate": "2020-11-02",
+      "picks": [
+        {
+          "symbol": "KRE",
+          "momentum": 0.1376,
+          "r1m": 0.1456,
+          "r3m": 0.1087,
+          "r6m": 0.1653
+        },
+        {
+          "symbol": "XHB",
+          "momentum": 0.1099,
+          "r1m": -0.0496,
+          "r3m": 0.0358,
+          "r6m": 0.4686
+        }
+      ]
+    },
+    {
+      "signalMonth": "2020-11",
+      "signalDate": "2020-11-27",
+      "entryDate": "2020-11-30",
+      "picks": [
+        {
+          "symbol": "XES",
+          "momentum": 0.3913,
+          "r1m": 0.6235,
+          "r3m": 0.1906,
+          "r6m": 0.3007
+        },
+        {
+          "symbol": "XME",
+          "momentum": 0.2874,
+          "r1m": 0.2719,
+          "r3m": 0.2074,
+          "r6m": 0.4243
+        }
+      ]
+    },
+    {
+      "signalMonth": "2020-12",
+      "signalDate": "2020-12-24",
+      "entryDate": "2020-12-28",
+      "picks": [
+        {
+          "symbol": "XES",
+          "momentum": 0.3484,
+          "r1m": 0.0293,
+          "r3m": 0.6557,
+          "r6m": 0.4286
+        },
+        {
+          "symbol": "XME",
+          "momentum": 0.3346,
+          "r1m": 0.0797,
+          "r3m": 0.4191,
+          "r6m": 0.6242
+        }
+      ]
+    },
+    {
+      "signalMonth": "2021-01",
+      "signalDate": "2021-01-29",
+      "entryDate": "2021-02-01",
+      "picks": [
+        {
+          "symbol": "XRT",
+          "momentum": 0.6123,
+          "r1m": 0.3694,
+          "r3m": 0.7137,
+          "r6m": 0.8592
+        },
+        {
+          "symbol": "XES",
+          "momentum": 0.4352,
+          "r1m": 0.0893,
+          "r3m": 0.8609,
+          "r6m": 0.3925
+        }
+      ]
+    },
+    {
+      "signalMonth": "2021-02",
+      "signalDate": "2021-02-26",
+      "entryDate": "2021-03-01",
+      "picks": [
+        {
+          "symbol": "XES",
+          "momentum": 0.3567,
+          "r1m": 0.1899,
+          "r3m": 0.3157,
+          "r6m": 0.6809
+        },
+        {
+          "symbol": "XOP",
+          "momentum": 0.3502,
+          "r1m": 0.2045,
+          "r3m": 0.3572,
+          "r6m": 0.5734
+        }
+      ]
+    },
+    {
+      "signalMonth": "2021-03",
+      "signalDate": "2021-03-26",
+      "entryDate": "2021-03-29",
+      "picks": [
+        {
+          "symbol": "XRT",
+          "momentum": 0.3869,
+          "r1m": 0.1167,
+          "r3m": 0.3726,
+          "r6m": 0.8392
+        },
+        {
+          "symbol": "XOP",
+          "momentum": 0.3858,
+          "r1m": 0.0162,
+          "r3m": 0.3977,
+          "r6m": 0.9605
+        }
+      ]
+    },
+    {
+      "signalMonth": "2021-04",
+      "signalDate": "2021-04-30",
+      "entryDate": "2021-05-03",
+      "picks": [
+        {
+          "symbol": "XOP",
+          "momentum": 0.3431,
+          "r1m": -0.014,
+          "r3m": 0.2523,
+          "r6m": 1.0418
+        },
+        {
+          "symbol": "KRE",
+          "momentum": 0.2932,
+          "r1m": 0.0309,
+          "r3m": 0.264,
+          "r6m": 0.7536
+        }
+      ]
+    },
+    {
+      "signalMonth": "2021-05",
+      "signalDate": "2021-05-28",
+      "entryDate": "2021-06-01",
+      "picks": [
+        {
+          "symbol": "XME",
+          "momentum": 0.2733,
+          "r1m": 0.1298,
+          "r3m": 0.2396,
+          "r6m": 0.5501
+        },
+        {
+          "symbol": "XOP",
+          "momentum": 0.1924,
+          "r1m": 0.0785,
+          "r3m": 0.0806,
+          "r6m": 0.5312
+        }
+      ]
+    },
+    {
+      "signalMonth": "2021-06",
+      "signalDate": "2021-06-25",
+      "entryDate": "2021-06-28",
+      "picks": [
+        {
+          "symbol": "XOP",
+          "momentum": 0.2974,
+          "r1m": 0.1422,
+          "r3m": 0.2018,
+          "r6m": 0.6797
+        },
+        {
+          "symbol": "XES",
+          "momentum": 0.2182,
+          "r1m": 0.1147,
+          "r3m": 0.1829,
+          "r6m": 0.4332
+        }
+      ]
+    },
+    {
+      "signalMonth": "2021-07",
+      "signalDate": "2021-07-30",
+      "entryDate": "2021-08-02",
+      "picks": [
+        {
+          "symbol": "XME",
+          "momentum": 0.1568,
+          "r1m": 0.0446,
+          "r3m": 0.114,
+          "r6m": 0.396
+        },
+        {
+          "symbol": "RWR",
+          "momentum": 0.125,
+          "r1m": 0.0524,
+          "r3m": 0.0868,
+          "r6m": 0.2947
+        }
+      ]
+    },
+    {
+      "signalMonth": "2021-08",
+      "signalDate": "2021-08-27",
+      "entryDate": "2021-08-30",
+      "picks": [
+        {
+          "symbol": "KCE",
+          "momentum": 0.1044,
+          "r1m": 0.0502,
+          "r3m": 0.0867,
+          "r6m": 0.2159
+        },
+        {
+          "symbol": "XHB",
+          "momentum": 0.0955,
+          "r1m": 0.0413,
+          "r3m": 0.0504,
+          "r6m": 0.2452
+        }
+      ]
+    },
+    {
+      "signalMonth": "2021-09",
+      "signalDate": "2021-09-24",
+      "entryDate": "2021-09-27",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.0693,
+          "r1m": 0.0264,
+          "r3m": 0.0776,
+          "r6m": 0.1262
+        },
+        {
+          "symbol": "XOP",
+          "momentum": 0.0613,
+          "r1m": 0.1467,
+          "r3m": -0.0736,
+          "r6m": 0.1134
+        }
+      ]
+    },
+    {
+      "signalMonth": "2021-10",
+      "signalDate": "2021-10-29",
+      "entryDate": "2021-11-01",
+      "picks": [
+        {
+          "symbol": "XOP",
+          "momentum": 0.2235,
+          "r1m": 0.0997,
+          "r3m": 0.3158,
+          "r6m": 0.2924
+        },
+        {
+          "symbol": "KCE",
+          "momentum": 0.1369,
+          "r1m": 0.1187,
+          "r3m": 0.1194,
+          "r6m": 0.1904
+        }
+      ]
+    },
+    {
+      "signalMonth": "2021-11",
+      "signalDate": "2021-11-26",
+      "entryDate": "2021-11-29",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1362,
+          "r1m": 0.1226,
+          "r3m": 0.104,
+          "r6m": 0.2033
+        },
+        {
+          "symbol": "XHB",
+          "momentum": 0.0724,
+          "r1m": 0.0761,
+          "r3m": 0.0479,
+          "r6m": 0.1007
+        }
+      ]
+    },
+    {
+      "signalMonth": "2021-12",
+      "signalDate": "2021-12-31",
+      "entryDate": "2022-01-03",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1425,
+          "r1m": 0.0349,
+          "r3m": 0.2178,
+          "r6m": 0.2092
+        },
+        {
+          "symbol": "RWR",
+          "momentum": 0.1382,
+          "r1m": 0.1085,
+          "r3m": 0.1525,
+          "r6m": 0.1657
+        }
+      ]
+    },
+    {
+      "signalMonth": "2022-01",
+      "signalDate": "2022-01-28",
+      "entryDate": "2022-01-31",
+      "picks": [
+        {
+          "symbol": "XOP",
+          "momentum": 0.1042,
+          "r1m": 0.0815,
+          "r3m": -0.0042,
+          "r6m": 0.2922
+        },
+        {
+          "symbol": "XES",
+          "momentum": 0.0911,
+          "r1m": 0.1704,
+          "r3m": -0.0084,
+          "r6m": 0.1036
+        }
+      ]
+    },
+    {
+      "signalMonth": "2022-02",
+      "signalDate": "2022-02-25",
+      "entryDate": "2022-02-28",
+      "picks": [
+        {
+          "symbol": "XME",
+          "momentum": 0.2068,
+          "r1m": 0.2424,
+          "r3m": 0.163,
+          "r6m": 0.2113
+        },
+        {
+          "symbol": "XES",
+          "momentum": 0.1504,
+          "r1m": 0.0448,
+          "r3m": 0.1989,
+          "r6m": 0.2515
+        }
+      ]
+    },
+    {
+      "signalMonth": "2022-03",
+      "signalDate": "2022-03-25",
+      "entryDate": "2022-03-28",
+      "picks": [
+        {
+          "symbol": "XES",
+          "momentum": 0.4136,
+          "r1m": 0.2674,
+          "r3m": 0.5355,
+          "r6m": 0.4769
+        },
+        {
+          "symbol": "XME",
+          "momentum": 0.4014,
+          "r1m": 0.2937,
+          "r3m": 0.4287,
+          "r6m": 0.5356
+        }
+      ]
+    },
+    {
+      "signalMonth": "2022-04",
+      "signalDate": "2022-04-29",
+      "entryDate": "2022-05-02",
+      "picks": [
+        {
+          "symbol": "XME",
+          "momentum": 0.1613,
+          "r1m": -0.0884,
+          "r3m": 0.36,
+          "r6m": 0.2826
+        },
+        {
+          "symbol": "XOP",
+          "momentum": 0.1338,
+          "r1m": -0.0344,
+          "r3m": 0.2481,
+          "r6m": 0.2428
+        }
+      ]
+    },
+    {
+      "signalMonth": "2022-05",
+      "signalDate": "2022-05-27",
+      "entryDate": "2022-05-31",
+      "picks": [
+        {
+          "symbol": "XOP",
+          "momentum": 0.3371,
+          "r1m": 0.1605,
+          "r3m": 0.3484,
+          "r6m": 0.604
+        },
+        {
+          "symbol": "XES",
+          "momentum": 0.2536,
+          "r1m": 0.0748,
+          "r3m": 0.2183,
+          "r6m": 0.589
+        }
+      ]
+    },
+    {
+      "signalMonth": "2022-06",
+      "signalDate": "2022-06-24",
+      "entryDate": "2022-06-27",
+      "picks": [
+        {
+          "symbol": "XOP",
+          "momentum": -0.008,
+          "r1m": -0.1354,
+          "r3m": -0.0725,
+          "r6m": 0.286
+        },
+        {
+          "symbol": "XLP",
+          "momentum": -0.009,
+          "r1m": 0.0008,
+          "r3m": -0.0137,
+          "r6m": -0.018
+        }
+      ]
+    },
+    {
+      "signalMonth": "2022-07",
+      "signalDate": "2022-07-29",
+      "entryDate": "2022-08-01",
+      "picks": [
+        {
+          "symbol": "XOP",
+          "momentum": 0.1281,
+          "r1m": 0.1048,
+          "r3m": 0.0186,
+          "r6m": 0.3188
+        },
+        {
+          "symbol": "XHS",
+          "momentum": 0.0927,
+          "r1m": 0.1307,
+          "r3m": 0.0513,
+          "r6m": 0.0899
+        }
+      ]
+    },
+    {
+      "signalMonth": "2022-08",
+      "signalDate": "2022-08-26",
+      "entryDate": "2022-08-29",
+      "picks": [
+        {
+          "symbol": "XOP",
+          "momentum": 0.1356,
+          "r1m": 0.1238,
+          "r3m": -0.0074,
+          "r6m": 0.3548
+        },
+        {
+          "symbol": "XBI",
+          "momentum": 0.0838,
+          "r1m": 0.0308,
+          "r3m": 0.242,
+          "r6m": -0.053
+        }
+      ]
+    },
+    {
+      "signalMonth": "2022-09",
+      "signalDate": "2022-09-30",
+      "entryDate": "2022-10-03",
+      "picks": [
+        {
+          "symbol": "XBI",
+          "momentum": -0.0376,
+          "r1m": -0.0523,
+          "r3m": 0.0363,
+          "r6m": -0.1175
+        },
+        {
+          "symbol": "XHS",
+          "momentum": -0.044,
+          "r1m": -0.0537,
+          "r3m": 0.0304,
+          "r6m": -0.1328
+        }
+      ]
+    },
+    {
+      "signalMonth": "2022-10",
+      "signalDate": "2022-10-28",
+      "entryDate": "2022-10-31",
+      "picks": [
+        {
+          "symbol": "XES",
+          "momentum": 0.2457,
+          "r1m": 0.3672,
+          "r3m": 0.2218,
+          "r6m": 0.0848
+        },
+        {
+          "symbol": "XOP",
+          "momentum": 0.1589,
+          "r1m": 0.1967,
+          "r3m": 0.1228,
+          "r6m": 0.1489
+        }
+      ]
+    },
+    {
+      "signalMonth": "2022-11",
+      "signalDate": "2022-11-25",
+      "entryDate": "2022-11-28",
+      "picks": [
+        {
+          "symbol": "KIE",
+          "momentum": 0.0811,
+          "r1m": 0.077,
+          "r3m": 0.0886,
+          "r6m": 0.0772
+        },
+        {
+          "symbol": "XES",
+          "momentum": 0.0718,
+          "r1m": 0.0155,
+          "r3m": 0.1835,
+          "r6m": 0.0054
+        }
+      ]
+    },
+    {
+      "signalMonth": "2022-12",
+      "signalDate": "2022-12-30",
+      "entryDate": "2023-01-03",
+      "picks": [
+        {
+          "symbol": "XES",
+          "momentum": 0.2481,
+          "r1m": 0.0148,
+          "r3m": 0.447,
+          "r6m": 0.3428
+        },
+        {
+          "symbol": "XAR",
+          "momentum": 0.0907,
+          "r1m": -0.0015,
+          "r3m": 0.2015,
+          "r6m": 0.083
+        }
+      ]
+    },
+    {
+      "signalMonth": "2023-01",
+      "signalDate": "2023-01-27",
+      "entryDate": "2023-01-30",
+      "picks": [
+        {
+          "symbol": "XES",
+          "momentum": 0.189,
+          "r1m": 0.0912,
+          "r3m": 0.1338,
+          "r6m": 0.4227
+        },
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1662,
+          "r1m": 0.1883,
+          "r3m": 0.2486,
+          "r6m": 0.0154
+        }
+      ]
+    },
+    {
+      "signalMonth": "2023-02",
+      "signalDate": "2023-02-24",
+      "entryDate": "2023-02-27",
+      "picks": [
+        {
+          "symbol": "XES",
+          "momentum": 0.0702,
+          "r1m": -0.0316,
+          "r3m": 0.0495,
+          "r6m": 0.2619
+        },
+        {
+          "symbol": "XAR",
+          "momentum": 0.0651,
+          "r1m": 0.0323,
+          "r3m": 0.0834,
+          "r6m": 0.0919
+        }
+      ]
+    },
+    {
+      "signalMonth": "2023-03",
+      "signalDate": "2023-03-31",
+      "entryDate": "2023-04-03",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.2241,
+          "r1m": 0.0788,
+          "r3m": 0.2799,
+          "r6m": 0.3785
+        },
+        {
+          "symbol": "XLC",
+          "momentum": 0.1585,
+          "r1m": 0.0847,
+          "r3m": 0.2118,
+          "r6m": 0.202
+        }
+      ]
+    },
+    {
+      "signalMonth": "2023-04",
+      "signalDate": "2023-04-28",
+      "entryDate": "2023-05-01",
+      "picks": [
+        {
+          "symbol": "XHB",
+          "momentum": 0.1079,
+          "r1m": 0.0711,
+          "r3m": 0.0591,
+          "r6m": 0.235
+        },
+        {
+          "symbol": "XLC",
+          "momentum": 0.1033,
+          "r1m": 0.0581,
+          "r3m": 0.0863,
+          "r6m": 0.1994
+        }
+      ]
+    },
+    {
+      "signalMonth": "2023-05",
+      "signalDate": "2023-05-26",
+      "entryDate": "2023-05-30",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.2267,
+          "r1m": 0.2095,
+          "r3m": 0.2019,
+          "r6m": 0.2887
+        },
+        {
+          "symbol": "XLC",
+          "momentum": 0.1366,
+          "r1m": 0.0466,
+          "r3m": 0.167,
+          "r6m": 0.2378
+        }
+      ]
+    },
+    {
+      "signalMonth": "2023-06",
+      "signalDate": "2023-06-30",
+      "entryDate": "2023-07-03",
+      "picks": [
+        {
+          "symbol": "XHB",
+          "momentum": 0.2328,
+          "r1m": 0.1684,
+          "r3m": 0.2173,
+          "r6m": 0.3574
+        },
+        {
+          "symbol": "SOXX",
+          "momentum": 0.2057,
+          "r1m": 0.0655,
+          "r3m": 0.1494,
+          "r6m": 0.5087
+        }
+      ]
+    },
+    {
+      "signalMonth": "2023-07",
+      "signalDate": "2023-07-28",
+      "entryDate": "2023-07-31",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.215,
+          "r1m": 0.0675,
+          "r3m": 0.3186,
+          "r6m": 0.3062
+        },
+        {
+          "symbol": "XES",
+          "momentum": 0.2092,
+          "r1m": 0.2365,
+          "r3m": 0.2807,
+          "r6m": 0.0654
+        }
+      ]
+    },
+    {
+      "signalMonth": "2023-08",
+      "signalDate": "2023-08-25",
+      "entryDate": "2023-08-28",
+      "picks": [
+        {
+          "symbol": "XOP",
+          "momentum": 0.1174,
+          "r1m": 0.0566,
+          "r3m": 0.1968,
+          "r6m": 0.1037
+        },
+        {
+          "symbol": "XES",
+          "momentum": 0.1111,
+          "r1m": -0.0088,
+          "r3m": 0.2695,
+          "r6m": 0.0812
+        }
+      ]
+    },
+    {
+      "signalMonth": "2023-09",
+      "signalDate": "2023-09-29",
+      "entryDate": "2023-10-02",
+      "picks": [
+        {
+          "symbol": "XES",
+          "momentum": 0.1658,
+          "r1m": 0.0333,
+          "r3m": 0.2272,
+          "r6m": 0.2919
+        },
+        {
+          "symbol": "XOP",
+          "momentum": 0.1012,
+          "r1m": 0.0008,
+          "r3m": 0.154,
+          "r6m": 0.1877
+        }
+      ]
+    },
+    {
+      "signalMonth": "2023-10",
+      "signalDate": "2023-10-27",
+      "entryDate": "2023-10-30",
+      "picks": [
+        {
+          "symbol": "XOP",
+          "momentum": 0.0227,
+          "r1m": -0.0441,
+          "r3m": 0.0113,
+          "r6m": 0.1454
+        },
+        {
+          "symbol": "KIE",
+          "momentum": -0.0066,
+          "r1m": -0.03,
+          "r3m": -0.0134,
+          "r6m": 0.0403
+        }
+      ]
+    },
+    {
+      "signalMonth": "2023-11",
+      "signalDate": "2023-11-24",
+      "entryDate": "2023-11-27",
+      "picks": [
+        {
+          "symbol": "XHB",
+          "momentum": 0.1385,
+          "r1m": 0.1903,
+          "r3m": 0.0432,
+          "r6m": 0.1888
+        },
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1207,
+          "r1m": 0.1655,
+          "r3m": 0.065,
+          "r6m": 0.1269
+        }
+      ]
+    },
+    {
+      "signalMonth": "2023-12",
+      "signalDate": "2023-12-29",
+      "entryDate": "2024-01-02",
+      "picks": [
+        {
+          "symbol": "KRE",
+          "momentum": 0.2389,
+          "r1m": 0.1739,
+          "r3m": 0.2655,
+          "r6m": 0.3058
+        },
+        {
+          "symbol": "XHB",
+          "momentum": 0.2006,
+          "r1m": 0.1583,
+          "r3m": 0.2518,
+          "r6m": 0.1965
+        }
+      ]
+    },
+    {
+      "signalMonth": "2024-01",
+      "signalDate": "2024-01-26",
+      "entryDate": "2024-01-29",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1744,
+          "r1m": 0.0307,
+          "r3m": 0.3544,
+          "r6m": 0.1522
+        },
+        {
+          "symbol": "XHB",
+          "momentum": 0.1571,
+          "r1m": -0.015,
+          "r3m": 0.3681,
+          "r6m": 0.137
+        }
+      ]
+    },
+    {
+      "signalMonth": "2024-02",
+      "signalDate": "2024-02-23",
+      "entryDate": "2024-02-26",
+      "picks": [
+        {
+          "symbol": "XBI",
+          "momentum": 0.1931,
+          "r1m": 0.0801,
+          "r3m": 0.3162,
+          "r6m": 0.2017
+        },
+        {
+          "symbol": "XHB",
+          "momentum": 0.1874,
+          "r1m": 0.0931,
+          "r3m": 0.243,
+          "r6m": 0.2605
+        }
+      ]
+    },
+    {
+      "signalMonth": "2024-03",
+      "signalDate": "2024-03-28",
+      "entryDate": "2024-04-01",
+      "picks": [
+        {
+          "symbol": "XHB",
+          "momentum": 0.2104,
+          "r1m": 0.093,
+          "r3m": 0.1586,
+          "r6m": 0.4709
+        },
+        {
+          "symbol": "SOXX",
+          "momentum": 0.2026,
+          "r1m": 0.0686,
+          "r3m": 0.1668,
+          "r6m": 0.4671
+        }
+      ]
+    },
+    {
+      "signalMonth": "2024-04",
+      "signalDate": "2024-04-26",
+      "entryDate": "2024-04-29",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1348,
+          "r1m": -0.0389,
+          "r3m": 0.0897,
+          "r6m": 0.4758
+        },
+        {
+          "symbol": "XHB",
+          "momentum": 0.1341,
+          "r1m": -0.0626,
+          "r3m": 0.097,
+          "r6m": 0.5008
+        }
+      ]
+    },
+    {
+      "signalMonth": "2024-05",
+      "signalDate": "2024-05-31",
+      "entryDate": "2024-06-03",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1548,
+          "r1m": 0.1318,
+          "r3m": 0.0337,
+          "r6m": 0.3613
+        },
+        {
+          "symbol": "XLU",
+          "momentum": 0.1427,
+          "r1m": 0.0772,
+          "r3m": 0.188,
+          "r6m": 0.1844
+        }
+      ]
+    },
+    {
+      "signalMonth": "2024-06",
+      "signalDate": "2024-06-28",
+      "entryDate": "2024-07-01",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1172,
+          "r1m": 0.0394,
+          "r3m": 0.0931,
+          "r6m": 0.2754
+        },
+        {
+          "symbol": "XLC",
+          "momentum": 0.0791,
+          "r1m": 0.0392,
+          "r3m": 0.0518,
+          "r6m": 0.1813
+        }
+      ]
+    },
+    {
+      "signalMonth": "2024-07",
+      "signalDate": "2024-07-26",
+      "entryDate": "2024-07-29",
+      "picks": [
+        {
+          "symbol": "KRE",
+          "momentum": 0.2238,
+          "r1m": 0.2567,
+          "r3m": 0.2323,
+          "r6m": 0.1591
+        },
+        {
+          "symbol": "XHB",
+          "momentum": 0.1734,
+          "r1m": 0.16,
+          "r3m": 0.1424,
+          "r6m": 0.2383
+        }
+      ]
+    },
+    {
+      "signalMonth": "2024-08",
+      "signalDate": "2024-08-30",
+      "entryDate": "2024-09-03",
+      "picks": [
+        {
+          "symbol": "KRE",
+          "momentum": 0.142,
+          "r1m": 0.0388,
+          "r3m": 0.1938,
+          "r6m": 0.2347
+        },
+        {
+          "symbol": "RWR",
+          "momentum": 0.1083,
+          "r1m": 0.0515,
+          "r3m": 0.1556,
+          "r6m": 0.1329
+        }
+      ]
+    },
+    {
+      "signalMonth": "2024-09",
+      "signalDate": "2024-09-27",
+      "entryDate": "2024-09-30",
+      "picks": [
+        {
+          "symbol": "XLU",
+          "momentum": 0.1567,
+          "r1m": 0.0751,
+          "r3m": 0.1882,
+          "r6m": 0.2432
+        },
+        {
+          "symbol": "XHB",
+          "momentum": 0.1386,
+          "r1m": 0.072,
+          "r3m": 0.2307,
+          "r6m": 0.1164
+        }
+      ]
+    },
+    {
+      "signalMonth": "2024-10",
+      "signalDate": "2024-10-25",
+      "entryDate": "2024-10-28",
+      "picks": [
+        {
+          "symbol": "KCE",
+          "momentum": 0.1213,
+          "r1m": 0.0613,
+          "r3m": 0.1088,
+          "r6m": 0.2349
+        },
+        {
+          "symbol": "XLU",
+          "momentum": 0.1081,
+          "r1m": 0.0094,
+          "r3m": 0.132,
+          "r6m": 0.2325
+        }
+      ]
+    },
+    {
+      "signalMonth": "2024-11",
+      "signalDate": "2024-11-29",
+      "entryDate": "2024-12-02",
+      "picks": [
+        {
+          "symbol": "XSW",
+          "momentum": 0.2311,
+          "r1m": 0.1531,
+          "r3m": 0.2404,
+          "r6m": 0.3427
+        },
+        {
+          "symbol": "KRE",
+          "momentum": 0.2175,
+          "r1m": 0.1324,
+          "r3m": 0.179,
+          "r6m": 0.4075
+        }
+      ]
+    },
+    {
+      "signalMonth": "2024-12",
+      "signalDate": "2024-12-27",
+      "entryDate": "2024-12-30",
+      "picks": [
+        {
+          "symbol": "XSW",
+          "momentum": 0.1379,
+          "r1m": -0.0047,
+          "r3m": 0.201,
+          "r6m": 0.2777
+        },
+        {
+          "symbol": "KCE",
+          "momentum": 0.0876,
+          "r1m": -0.0557,
+          "r3m": 0.1178,
+          "r6m": 0.2748
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-01",
+      "signalDate": "2025-01-31",
+      "entryDate": "2025-02-03",
+      "picks": [
+        {
+          "symbol": "XSW",
+          "momentum": 0.118,
+          "r1m": 0.0192,
+          "r3m": 0.1419,
+          "r6m": 0.2426
+        },
+        {
+          "symbol": "KCE",
+          "momentum": 0.1115,
+          "r1m": 0.0606,
+          "r3m": 0.0934,
+          "r6m": 0.2182
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-02",
+      "signalDate": "2025-02-28",
+      "entryDate": "2025-03-03",
+      "picks": [
+        {
+          "symbol": "XLC",
+          "momentum": 0.0611,
+          "r1m": 0.0013,
+          "r3m": 0.0502,
+          "r6m": 0.1723
+        },
+        {
+          "symbol": "XLP",
+          "momentum": 0.0316,
+          "r1m": 0.0523,
+          "r3m": 0.0173,
+          "r6m": 0.0186
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-03",
+      "signalDate": "2025-03-28",
+      "entryDate": "2025-03-31",
+      "picks": [
+        {
+          "symbol": "KIE",
+          "momentum": 0.0497,
+          "r1m": 0.0217,
+          "r3m": 0.0611,
+          "r6m": 0.0786
+        },
+        {
+          "symbol": "XHS",
+          "momentum": 0.0278,
+          "r1m": -0.0077,
+          "r3m": 0.0728,
+          "r6m": 0.0215
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-04",
+      "signalDate": "2025-04-25",
+      "entryDate": "2025-04-28",
+      "picks": [
+        {
+          "symbol": "XLP",
+          "momentum": 0.0195,
+          "r1m": 0.0118,
+          "r3m": 0.0432,
+          "r6m": -0.0015
+        },
+        {
+          "symbol": "XAR",
+          "momentum": 0.0042,
+          "r1m": 0.0179,
+          "r3m": -0.0505,
+          "r6m": 0.0589
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-05",
+      "signalDate": "2025-05-30",
+      "entryDate": "2025-06-02",
+      "picks": [
+        {
+          "symbol": "XAR",
+          "momentum": 0.1292,
+          "r1m": 0.1189,
+          "r3m": 0.1518,
+          "r6m": 0.114
+        },
+        {
+          "symbol": "XLC",
+          "momentum": 0.0357,
+          "r1m": 0.0624,
+          "r3m": -0.0029,
+          "r6m": 0.0471
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-06",
+      "signalDate": "2025-06-27",
+      "entryDate": "2025-06-30",
+      "picks": [
+        {
+          "symbol": "XAR",
+          "momentum": 0.1982,
+          "r1m": 0.0905,
+          "r3m": 0.2712,
+          "r6m": 0.2683
+        },
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1612,
+          "r1m": 0.1496,
+          "r3m": 0.2304,
+          "r6m": 0.083
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-07",
+      "signalDate": "2025-07-25",
+      "entryDate": "2025-07-28",
+      "picks": [
+        {
+          "symbol": "XME",
+          "momentum": 0.269,
+          "r1m": 0.1842,
+          "r3m": 0.3585,
+          "r6m": 0.2794
+        },
+        {
+          "symbol": "XAR",
+          "momentum": 0.2028,
+          "r1m": 0.0936,
+          "r3m": 0.314,
+          "r6m": 0.2219
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-08",
+      "signalDate": "2025-08-29",
+      "entryDate": "2025-09-02",
+      "picks": [
+        {
+          "symbol": "XME",
+          "momentum": 0.2844,
+          "r1m": 0.1229,
+          "r3m": 0.3718,
+          "r6m": 0.4207
+        },
+        {
+          "symbol": "XHB",
+          "momentum": 0.1539,
+          "r1m": 0.1186,
+          "r3m": 0.2113,
+          "r6m": 0.1298
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-09",
+      "signalDate": "2025-09-26",
+      "entryDate": "2025-09-29",
+      "picks": [
+        {
+          "symbol": "XME",
+          "momentum": 0.338,
+          "r1m": 0.1391,
+          "r3m": 0.3905,
+          "r6m": 0.5827
+        },
+        {
+          "symbol": "SOXX",
+          "momentum": 0.1704,
+          "r1m": 0.0718,
+          "r3m": 0.1278,
+          "r6m": 0.3877
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-10",
+      "signalDate": "2025-10-31",
+      "entryDate": "2025-11-03",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.2876,
+          "r1m": 0.0883,
+          "r3m": 0.2778,
+          "r6m": 0.6201
+        },
+        {
+          "symbol": "XME",
+          "momentum": 0.2791,
+          "r1m": -0.0008,
+          "r3m": 0.3101,
+          "r6m": 0.6834
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-11",
+      "signalDate": "2025-11-28",
+      "entryDate": "2025-12-01",
+      "picks": [
+        {
+          "symbol": "XBI",
+          "momentum": 0.3128,
+          "r1m": 0.1099,
+          "r3m": 0.3711,
+          "r6m": 0.5558
+        },
+        {
+          "symbol": "XME",
+          "momentum": 0.2138,
+          "r1m": -0.0108,
+          "r3m": 0.1806,
+          "r6m": 0.6195
+        }
+      ]
+    },
+    {
+      "signalMonth": "2025-12",
+      "signalDate": "2025-12-26",
+      "entryDate": "2025-12-29",
+      "picks": [
+        {
+          "symbol": "XME",
+          "momentum": 0.2819,
+          "r1m": 0.1624,
+          "r3m": 0.1711,
+          "r6m": 0.6284
+        },
+        {
+          "symbol": "XBI",
+          "momentum": 0.2391,
+          "r1m": 0.0332,
+          "r3m": 0.2802,
+          "r6m": 0.511
+        }
+      ]
+    },
+    {
+      "signalMonth": "2026-01",
+      "signalDate": "2026-01-30",
+      "entryDate": "2026-02-02",
+      "picks": [
+        {
+          "symbol": "XME",
+          "momentum": 0.2831,
+          "r1m": 0.1336,
+          "r3m": 0.2111,
+          "r6m": 0.623
+        },
+        {
+          "symbol": "XES",
+          "momentum": 0.282,
+          "r1m": 0.2008,
+          "r3m": 0.222,
+          "r6m": 0.4961
+        }
+      ]
+    },
+    {
+      "signalMonth": "2026-02",
+      "signalDate": "2026-02-27",
+      "entryDate": "2026-03-02",
+      "picks": [
+        {
+          "symbol": "XES",
+          "momentum": 0.3753,
+          "r1m": 0.1722,
+          "r3m": 0.4234,
+          "r6m": 0.6328
+        },
+        {
+          "symbol": "XME",
+          "momentum": 0.1902,
+          "r1m": -0.0728,
+          "r3m": 0.2864,
+          "r6m": 0.4764
+        }
+      ]
+    },
+    {
+      "signalMonth": "2026-03",
+      "signalDate": "2026-03-27",
+      "entryDate": "2026-03-30",
+      "picks": [
+        {
+          "symbol": "XOP",
+          "momentum": 0.3793,
+          "r1m": 0.2613,
+          "r3m": 0.5004,
+          "r6m": 0.3985
+        },
+        {
+          "symbol": "XES",
+          "momentum": 0.3496,
+          "r1m": 0.0644,
+          "r3m": 0.4714,
+          "r6m": 0.6354
+        }
+      ]
+    },
+    {
+      "signalMonth": "2026-04",
+      "signalDate": "2026-04-24",
+      "entryDate": "2026-04-27",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.4108,
+          "r1m": 0.337,
+          "r3m": 0.3399,
+          "r6m": 0.628
+        },
+        {
+          "symbol": "XES",
+          "momentum": 0.3132,
+          "r1m": 0.0658,
+          "r3m": 0.3205,
+          "r6m": 0.6987
+        }
+      ]
+    },
+    {
+      "signalMonth": "2026-05",
+      "signalDate": "2026-05-29",
+      "entryDate": "2026-06-01",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.5743,
+          "r1m": 0.2647,
+          "r3m": 0.6164,
+          "r6m": 1.0109
+        },
+        {
+          "symbol": "XTN",
+          "momentum": 0.1455,
+          "r1m": 0.0858,
+          "r3m": 0.0931,
+          "r6m": 0.3145
+        }
+      ]
+    },
+    {
+      "signalMonth": "2026-06",
+      "signalDate": "2026-06-26",
+      "entryDate": "2026-06-29",
+      "picks": [
+        {
+          "symbol": "SOXX",
+          "momentum": 0.5309,
+          "r1m": 0.0465,
+          "r3m": 0.7948,
+          "r6m": 0.9366
+        },
+        {
+          "symbol": "XHS",
+          "momentum": 0.2165,
+          "r1m": 0.1463,
+          "r3m": 0.2985,
+          "r6m": 0.2141
+        }
+      ]
+    }
+  ],
+  "audit": {
+    "allCohortsHaveTwoPicks": true,
+    "allRankingsHaveFullUniverse": true,
+    "noNegativeCash": true,
+    "passivePositionRatioObserved": 0.275524,
+    "positionCapLimit": 0.275,
+    "maxExecutedBuyCapRatio": 0.275,
+    "allExecutedBuysWithinPositionCap": true,
+    "broadControlNoNegativeCash": true,
+    "broadControlWithinPositionCap": true,
+    "latestSignalUsesCompletedLastFriday": true,
+    "openLotsMarkedAtAsOf": true
+  },
+  "reproducibilityHash": "03307ce1745754b4391f185a5a51c9a5c2fec95a6a3776d9b040d1bc7ce2724c"
+}
