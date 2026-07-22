@@ -42,6 +42,7 @@
 | `qqq-52week-high-proximity-20260713` | QQQ | 52주 최고가 근접도 단독 종목 순위 | 탈락 | 같은 가설 반복 금지 |
 | `qqq-estimize-surprise-veto-20260713` | QQQ | 최근 140일 실적 미달 종목 제외, 누락 자료 중립 처리 | 탈락 | PIT 예상치 수정 이력이 새로 확보될 때만 별도 가설로 시작 |
 | `qqq-sue-signal-validation-20260713` | QQQ | 월별 36개월 EPS로 SUE 5분위의 3·6·12개월 선행수익 검증 | 탈락 | 새 독립 데이터나 다른 경제적 신호 정의가 있을 때만 |
+| `us-sector-etf-momentum-top2-20260723-v1` | 미국 섹터 ETF | 11개 섹터 ETF 복합 모멘텀 상위 2종, 월별 겹침 매수, 기본 6~12개월 매도 | 탈락 | 모멘텀·보유 계약이 달라지거나 새로운 독립 표본이 생길 때만 |
 | `kr-stock-score-variants-current-universe-20260710` | 한국 주식 | A·B·C와 월 2종목 | 잠정 | 과거 시점별 종목 데이터일 때만 |
 | `kr-etf-score-variants-current-universe-20260710` | 한국 ETF | 50/40/10, 상위 1·2·3개, 월간 리밸런싱 | 잠정 | 출시·청산 이력이 포함될 때만 |
 | `kr-etf-ten-year-validation-current-universe-20260710` | 한국 ETF | A~I 10년 확장과 KOSPI200 비교 | 잠정 | PIT ETF 상품 이력일 때만 |

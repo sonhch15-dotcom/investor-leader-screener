@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-13",
+  "updatedAt": "2026-07-23",
   "purpose": "Prevent repeated strategy research by recording tested hypotheses, exact experiment fingerprints, validity, and allowed rerun conditions.",
   "experiments": [
     {
@@ -507,6 +507,39 @@
         "research/quantconnect/logs/qqq_sue_signal_validation_20260713.json",
         "studies/qqq-sue-signal-validation-20260713/study.json",
         "studies/qqq-sue-signal-validation-20260713/amendment-02.md"
+      ]
+    },
+    {
+      "id": "us-sector-etf-momentum-top2-20260723-v1",
+      "title": "미국 섹터 ETF 모멘텀 상위 2종과 QQQ 계속 보유 비교",
+      "market": "US_ETF",
+      "date": "2026-07-23",
+      "status": "rejected",
+      "validity": "valid_fixed_sector_etf_universe",
+      "hypothesisKey": "us_sector_etf_momentum_top2_overlapping_base_exit",
+      "fingerprint": "us_etf|fixed_11_gics_sector_etfs|last_friday|mom_1m40_3m35_6m25|top2|overlapping_lots|base_6m_half_weekly_12m|dynamic_100m|cost25bp|qqq_hold|2018_2026",
+      "conceptKeys": [
+        "us_sector_etf_top2_weighted_momentum",
+        "us_sector_etf_overlapping_monthly_lots",
+        "us_sector_etf_base_exit_contract",
+        "us_sector_etf_vs_qqq_buy_hold"
+      ],
+      "testedDimensions": [
+        "11개 미국 섹터 ETF의 1·3·6개월 복합 모멘텀",
+        "월별 상위 2종 겹침 매수",
+        "6개월 50% 매도와 잔여 주봉 연장",
+        "1억원 동적 자금 배분과 종목당 27.5% 한도",
+        "편도 비용 0.10%·0.25%·0.50%",
+        "2019~2024 독립 시작연도 민감도"
+      ],
+      "conclusion": "2018-12-31~2026-07-22에 전략 +127.19%, QQQ 계속 보유 +379.99%였다. 전략 MDD는 -30.41%로 QQQ -35.12%보다 작았지만, 2019~2024의 여섯 독립 시작연도 모두 QQQ보다 낮아 공식 전략으로 승격하지 않는다.",
+      "repeatPolicy": "do_not_repeat_without_distinct_momentum_or_holding_contract_or_new_out_of_sample_period",
+      "artifacts": [
+        "studies/us-sector-etf-momentum-top2-20260723-v1/study.json",
+        "studies/us-sector-etf-momentum-top2-20260723-v1/result.json",
+        "studies/us-sector-etf-momentum-top2-20260723-v1/report.md",
+        "studies/us-sector-etf-momentum-top2-20260723-v1/backtest.mjs",
+        "studies/us-sector-etf-momentum-top2-20260723-v1/verify.mjs"
       ]
     }
   ],

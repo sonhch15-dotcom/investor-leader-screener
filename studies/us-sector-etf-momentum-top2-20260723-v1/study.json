@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 2,
+  "id": "us-sector-etf-momentum-top2-20260723-v1",
+  "title": "미국 섹터 ETF 모멘텀 상위 2종 전략 검증",
+  "market": "US_ETF",
+  "status": "completed",
+  "createdAt": "2026-07-23",
+  "hypothesis": "미국 11개 섹터 ETF 중 단기와 중기 모멘텀이 가장 강한 2개를 매월 겹침 매수하고 기존 6개월 절반 매도와 주봉 연장 규칙을 적용하면 QQQ 계속 보유보다 높은 계좌 수익을 얻을 수 있다.",
+  "noveltyContract": {
+    "priorArtReviewed": true,
+    "primaryConceptKey": "us_sector_etf_momentum_top2_overlapping_base_exit",
+    "primaryExperimentFingerprint": "us_etf|fixed_11_gics_sector_etfs|last_friday|mom_1m40_3m35_6m25|top2|overlapping_lots|base_6m_half_weekly_12m|dynamic_100m|cost25bp|qqq_hold|2018_2026",
+    "nearestPriorExperimentIds": [
+      "us-holding-sizing-capital-current-universe-20260707",
+      "us-weekly-exit-dropout-current-universe-20260708",
+      "qqq-momentum-corrected-improvement-20260713"
+    ],
+    "novelDimension": "개별주나 QQQ 구성 종목을 고르는 기존 연구와 달리, 분류 변경이 필요 없는 11개 공식 섹터 ETF 자체를 모멘텀 순으로 골라 기존 월별 겹침 매수와 장기 매도 계약에 연결한다.",
+    "rerunOf": null,
+    "rerunReason": null
+  },
+  "baselineStrategyKey": "qqq_adjusted_close_buy_and_hold",
+  "candidateStrategyKeys": [
+    "us_sector_etf_momentum_top2_overlapping"
+  ],
+  "dataContract": {
+    "source": "Yahoo Finance adjusted daily close frozen in price-snapshot.json.gz",
+    "start": "2016-07-22",
+    "end": "2026-07-22",
+    "evaluationStart": "2018-12-28",
+    "universe": "XLK, XLF, XLE, XLV, XLI, XLY, XLP, XLU, XLC, XLRE, XLB",
+    "membershipMode": "fixed_structural_sector_etf_universe_after_common_history",
+    "taxonomy": "GICS 11-sector Select Sector ETF product mapping; no individual-company taxonomy",
+    "survivorshipBiasControlled": true,
+    "lookAheadBiasControlled": true,
+    "minimumHistoryTradingDays": 126,
+    "incompleteMonthRule": "Do not create a signal until the calendar month's last Friday has occurred"
+  },
+  "capitalContract": {
+    "initialKrw": 100000000,
+    "fxRate": null,
+    "fxAsOf": null,
+    "fxSource": "Returns are measured in the USD account before KRW/USD changes",
+    "fractionalShares": true,
+    "transactionCostBpsPerSide": [10, 25, 50],
+    "maxPositionPct": 0.275,
+    "minimumOrderKrw": 1000000,
+    "allocation": "First six buy signals use 10% of current equity per ETF; then 7.5%; use 5% when cash ratio is 10% or lower"
+  },
+  "executionContract": {
+    "signalTiming": "last tradable close on or before each calendar month's last Friday",
+    "entryTiming": "next_available_trading_day_adjusted_close",
+    "momentumFormula": "1-month return 40% + 3-month return 35% + 6-month return 25%",
+    "selectionsPerMonth": 2,
+    "holdingMode": "overlapping monthly lots",
+    "exitRule": "Sell 50% at cohort month 6; extend the remainder only when weekly close is at or above MA10 and RSI14 is at least 50; sell after two confirmed weekly closes below MA10 or at cohort month 12",
+    "weeklyExitExecution": "next trading day after the second weekly close confirms the break",
+    "benchmarkRule": "Invest the full account in QQQ on the candidate strategy's first entry date and hold through the identical last valuation date"
+  },
+  "robustnessChecks": [
+    "frozen_adjusted_price_snapshot_with_sha256",
+    "exact_duplicate_local_run_with_matching_reproducibility_hash",
+    "fresh_account_start_year_sensitivity_2019_through_2024",
+    "transaction_cost_sensitivity_10_25_50_bps_per_side",
+    "no_negative_cash_and_position_cap_execution_assertions",
+    "all_11_etfs_have_126_trading_days_before_each_signal",
+    "open_lots_marked_to_market_at_the_common_as_of_date"
+  ],
+  "promotionGates": {
+    "mustBeatQqqTotalReturn": true,
+    "mustBeatQqqAcrossMostFreshStartYears": true,
+    "maximumMddWorseningPctPoints": 5,
+    "requiresAuditChecks": true,
+    "requiresForwardShadow": true
+  },
+  "commands": [
+    "node studies/us-sector-etf-momentum-top2-20260723-v1/backtest.mjs --refresh",
+    "node studies/us-sector-etf-momentum-top2-20260723-v1/backtest.mjs",
+    "node studies/us-sector-etf-momentum-top2-20260723-v1/verify.mjs",
+    "node scripts/verify-strategy-studies.mjs studies/us-sector-etf-momentum-top2-20260723-v1/study.json"
+  ],
+  "artifacts": {
+    "priceSnapshot": "studies/us-sector-etf-momentum-top2-20260723-v1/price-snapshot.json.gz",
+    "resultJson": "studies/us-sector-etf-momentum-top2-20260723-v1/result.json",
+    "report": "studies/us-sector-etf-momentum-top2-20260723-v1/report.md",
+    "runner": "studies/us-sector-etf-momentum-top2-20260723-v1/backtest.mjs",
+    "verifier": "studies/us-sector-etf-momentum-top2-20260723-v1/verify.mjs",
+    "dashboardHref": ""
+  },
+  "resultSummary": {
+    "evaluationPeriod": "2018-12-31 through 2026-07-22",
+    "candidateTotalReturn": 1.2719,
+    "qqqTotalReturn": 3.7999,
+    "candidateCagr": 0.1147,
+    "qqqCagr": 0.2307,
+    "candidateMaxDrawdown": -0.3041,
+    "qqqMaxDrawdown": -0.3512,
+    "freshStartYearsBeatingQqq": 0,
+    "freshStartYearsTested": 6,
+    "promotionGatePassed": false,
+    "officialStrategyChanged": false
+  },
+  "decision": "rejected_for_promotion_keep_as_research_history"
+}
