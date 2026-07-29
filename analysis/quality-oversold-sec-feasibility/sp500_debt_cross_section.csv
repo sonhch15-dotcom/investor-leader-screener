@@ -1,0 +1,363 @@
+﻿symbols,name,sector,financial_cik,current_cik,lineage_override,status,end,age_days,debt,equity,debt_to_equity,debt_formula
+ABT,Abbott Laboratories,Health Care,0000001800,0000001800,False,incomplete_debt_definition,,,,,,
+AMD,Advanced Micro Devices,Information Technology,0000002488,0000002488,False,incomplete_debt_definition,,,,,,
+APD,Air Products,Materials,0000002969,0000002969,False,incomplete_debt_definition,,,,,,
+SWKS,Skyworks Solutions,Information Technology,0000004127,0000004127,False,incomplete_debt_definition,,,,,,
+HWM,Howmet Aerospace,Industrials,0000004281,0000004281,False,incomplete_debt_definition,,,,,,
+ADI,Analog Devices,Information Technology,0000006281,0000006281,False,incomplete_debt_definition,,,,,,
+AMAT,Applied Materials,Information Technology,0000006951,0000006951,False,incomplete_debt_definition,,,,,,
+ADM,Archer Daniels Midland,Consumer Staples,0000007084,0000007084,False,incomplete_debt_definition,,,,,,
+ADP,Automatic Data Processing,Industrials,0000008670,0000008670,False,incomplete_debt_definition,,,,,,
+AVY,Avery Dennison,Materials,0000008818,0000008818,False,complete,2026-03-31,120,3790100000,2300500000,1.6475114105629212,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+BALL,Ball Corporation,Materials,0000009389,0000009389,False,complete,2026-03-31,120,7807000000,5600000000,1.3941071428571428,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+BAX,Baxter International,Health Care,0000010456,0000010456,False,incomplete_debt_definition,,,,,,
+BDX,Becton Dickinson,Health Care,0000010795,0000010795,False,incomplete_debt_definition,,,,,,
+BA,Boeing,Industrials,0000012927,0000012927,False,complete,2026-06-30,29,45900000000,6100000000,7.524590163934426,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+BMY,Bristol Myers Squibb,Health Care,0000014272,0000014272,False,incomplete_debt_definition,,,,,,
+BF.B,Brown–Forman,Consumer Staples,0000014693,0000014693,False,incomplete_debt_definition,,,,,,
+STZ,Constellation Brands,Consumer Staples,0000016918,0000016918,False,complete,2026-02-28,151,10579700000,8082400000,1.3089800059388301,ShortTermBorrowings+LongTermDebtCurrent+LongTermDebtNoncurrent+FinanceLeaseLiability
+CAT,Caterpillar Inc.,Industrials,0000018230,0000018230,False,incomplete_debt_definition,,,,,,
+CLX,Clorox,Consumer Staples,0000021076,0000021076,False,nonpositive_equity,,,,,,
+KO,Coca-Cola Company (The),Consumer Staples,0000021344,0000021344,False,incomplete_debt_definition,,,,,,
+CL,Colgate-Palmolive,Consumer Staples,0000021665,0000021665,False,incomplete_debt_definition,,,,,,
+TAP,Molson Coors Beverage Company,Consumer Staples,0000024545,0000024545,False,missing_or_stale_equity,,,,,,
+GLW,Corning Inc.,Information Technology,0000024741,0000024741,False,complete,2026-03-31,120,8973000000,11812000000,0.7596512021672875,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+CMI,Cummins,Industrials,0000026172,0000026172,False,complete,2026-03-31,120,6886000000,12351000000,0.5575257064205328,DebtAndCapitalLeaseObligations
+TGT,Target Corporation,Consumer Staples,0000027419,0000027419,False,incomplete_debt_definition,,,,,,
+DAL,Delta Air Lines,Industrials,0000027904,0000027904,False,incomplete_debt_definition,,,,,,
+DG,Dollar General,Consumer Staples,0000029534,0000029534,False,incomplete_debt_definition,,,,,,
+DOV,Dover Corporation,Industrials,0000029905,0000029905,False,incomplete_debt_definition,,,,,,
+OMC,Omnicom Group,Communication Services,0000029989,0000029989,False,incomplete_debt_definition,,,,,,
+ECL,Ecolab,Materials,0000031462,0000031462,False,complete,2026-03-31,120,8187100000,10003900000,0.8183908275772449,DebtAndCapitalLeaseObligations
+RVTY,Revvity,Health Care,0000031791,0000031791,False,incomplete_debt_definition,,,,,,
+EMR,Emerson Electric,Industrials,0000032604,0000032604,False,incomplete_debt_definition,,,,,,
+EFX,Equifax,Industrials,0000033185,0000033185,False,incomplete_debt_definition,,,,,,
+EQT,EQT Corporation,Energy,0000033213,0000033213,False,incomplete_debt_definition,,,,,,
+XOM,ExxonMobil,Energy,0000034088,0002115436,True,complete,2026-03-31,120,47661000000,254381000000,0.18736069124659468,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+F,Ford Motor Company,Consumer Discretionary,0000037996,0000037996,False,incomplete_debt_definition,,,,,,
+GD,General Dynamics,Industrials,0000040533,0000040533,False,incomplete_debt_definition,,,,,,
+GE,GE Aerospace,Industrials,0000040545,0000040545,False,complete,2026-06-30,29,19157000000,17640000000,1.085997732426304,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+GIS,General Mills,Consumer Staples,0000040704,0000040704,False,complete,2026-05-31,59,13538000000,7368400000,1.8373052494435698,ShortTermBorrowings+LongTermDebtAndCapitalLeaseObligationsCurrent+LongTermDebtAndCapitalLeaseObligations
+GPC,Genuine Parts Company,Consumer Discretionary,0000040987,0000040987,False,incomplete_debt_definition,,,,,,
+HAL,Halliburton,Energy,0000045012,0000045012,False,incomplete_debt_definition,,,,,,
+HAS,Hasbro,Consumer Discretionary,0000046080,0000046080,False,incomplete_debt_definition,,,,,,
+HSY,Hershey Company (The),Consumer Staples,0000047111,0000047111,False,complete,2026-03-29,122,5434040000,4733848000,1.1479118045192833,ShortTermBorrowings+LongTermDebtCurrent+LongTermDebtNoncurrent+FinanceLeaseLiability
+HPQ,HP Inc.,Information Technology,0000047217,0000047217,False,nonpositive_equity,,,,,,
+HRL,Hormel Foods,Consumer Staples,0000048465,0000048465,False,incomplete_debt_definition,,,,,,
+HUBB,Hubbell Incorporated,Industrials,0000048898,0000048898,False,incomplete_debt_definition,,,,,,
+HUM,Humana,Health Care,0000049071,0000049071,False,incomplete_debt_definition,,,,,,
+ITW,Illinois Tool Works,Industrials,0000049826,0000049826,False,incomplete_debt_definition,,,,,,
+INTC,Intel,Information Technology,0000050863,0000050863,False,incomplete_debt_definition,,,,,,
+IBM,IBM,Information Technology,0000051143,0000051143,False,complete,2026-06-30,29,67759000000,34452000000,1.9667653546963892,ShortTermBorrowings+LongTermDebtAndCapitalLeaseObligationsCurrent+LongTermDebtAndCapitalLeaseObligations
+IFF,International Flavors & Fragrances,Materials,0000051253,0000051253,False,incomplete_debt_definition,,,,,,
+IP,International Paper,Materials,0000051434,0000051434,False,complete,2026-03-31,120,9100000000,14808000000,0.6145326850351162,DebtAndCapitalLeaseObligations
+J,Jacobs Solutions,Industrials,0000052988,0000052988,False,incomplete_debt_definition,,,,,,
+KMB,Kimberly-Clark,Consumer Staples,0000055785,0000055785,False,complete,2026-03-31,120,7084000000,1796000000,3.9443207126948776,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+KR,Kroger,Consumer Staples,0000056873,0000056873,False,incomplete_debt_definition,,,,,,
+LLY,Lilly (Eli),Health Care,0000059478,0000059478,False,incomplete_debt_definition,,,,,,
+LOW,Lowe's,Consumer Discretionary,0000060667,0000060667,False,nonpositive_equity,,,,,,
+MAS,Masco,Industrials,0000062996,0000062996,False,nonpositive_equity,,,,,,
+MKC,McCormick & Company,Consumer Staples,0000063754,0000063754,False,incomplete_debt_definition,,,,,,
+MCD,McDonald's,Consumer Discretionary,0000063908,0000063908,False,nonpositive_equity,,,,,,
+CVS,CVS Health,Health Care,0000064803,0000064803,False,incomplete_debt_definition,,,,,,
+MMM,3M,Industrials,0000066740,0000066740,False,incomplete_debt_definition,,,,,,
+MSI,Motorola Solutions,Information Technology,0000068505,0000068505,False,incomplete_debt_definition,,,,,,
+NDSN,Nordson Corporation,Industrials,0000072331,0000072331,False,incomplete_debt_definition,,,,,,
+NUE,Nucor,Materials,0000073309,0000073309,False,complete,2026-04-04,116,7124000000,21453000000,0.332074768097702,ShortTermBorrowings+LongTermDebtAndCapitalLeaseObligationsCurrent+LongTermDebtAndCapitalLeaseObligations
+PCAR,Paccar,Industrials,0000075362,0000075362,False,incomplete_debt_definition,,,,,,
+PKG,Packaging Corporation of America,Materials,0000075677,0000075677,False,incomplete_debt_definition,,,,,,
+PH,Parker Hannifin,Industrials,0000076334,0000076334,False,incomplete_debt_definition,,,,,,
+PNR,Pentair,Industrials,0000077360,0000077360,False,incomplete_debt_definition,,,,,,
+PEP,PepsiCo,Consumer Staples,0000077476,0000077476,False,incomplete_debt_definition,,,,,,
+PFE,Pfizer,Health Care,0000078003,0000078003,False,incomplete_debt_definition,,,,,,
+PPG,PPG Industries,Materials,0000079879,0000079879,False,incomplete_debt_definition,,,,,,
+PG,Procter & Gamble,Consumer Staples,0000080424,0000080424,False,incomplete_debt_definition,,,,,,
+ROL,"Rollins, Inc.",Industrials,0000084839,0000084839,False,incomplete_debt_definition,,,,,,
+SLB,Schlumberger,Energy,0000087347,0000087347,False,incomplete_debt_definition,,,,,,
+SHW,Sherwin-Williams,Materials,0000089800,0000089800,False,incomplete_debt_definition,,,,,,
+AOS,A. O. Smith,Industrials,0000091142,0000091142,False,incomplete_debt_definition,,,,,,
+SJM,J.M. Smucker Company (The),Consumer Staples,0000091419,0000091419,False,complete,2026-04-30,90,6974100000,5543800000,1.2579999278473248,ShortTermBorrowings+LongTermDebtCurrent+LongTermDebtNoncurrent+FinanceLeaseLiability
+SNA,Snap-on,Industrials,0000091440,0000091440,False,incomplete_debt_definition,,,,,,
+LUV,Southwest Airlines,Industrials,0000092380,0000092380,False,incomplete_debt_definition,,,,,,
+CVX,Chevron Corporation,Energy,0000093410,0000093410,False,incomplete_debt_definition,,,,,,
+SWK,Stanley Black & Decker,Industrials,0000093556,0000093556,False,incomplete_debt_definition,,,,,,
+SYY,Sysco,Consumer Staples,0000096021,0000096021,False,incomplete_debt_definition,,,,,,
+TER,Teradyne,Information Technology,0000097210,0000097210,False,incomplete_debt_definition,,,,,,
+TXN,Texas Instruments,Information Technology,0000097476,0000097476,False,incomplete_debt_definition,,,,,,
+TMO,Thermo Fisher Scientific,Health Care,0000097745,0000097745,False,complete,2026-03-28,123,43161000000,51934000000,0.8310740555320214,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+TSN,Tyson Foods,Consumer Staples,0000100493,0000100493,False,complete,2026-03-28,123,8083000000,18098000000,0.4466239363465576,DebtAndCapitalLeaseObligations
+UAL,United Airlines Holdings,Industrials,0000100517,0000100517,False,incomplete_debt_definition,,,,,,
+UNP,Union Pacific Corporation,Industrials,0000100885,0000100885,False,incomplete_debt_definition,,,,,,
+RTX,RTX Corporation,Industrials,0000101829,0000101829,False,complete,2026-06-30,29,37383000000,66377000000,0.5631920695421607,ShortTermBorrowings+LongTermDebtAndCapitalLeaseObligationsCurrent+LongTermDebtAndCapitalLeaseObligations
+WMT,Walmart,Consumer Staples,0000104169,0000104169,False,complete,2026-04-30,90,47456000000,94330000000,0.5030849146612955,DebtLongtermAndShorttermCombinedAmount+FinanceLeaseLiability
+EME,Emcor,Industrials,0000105634,0000105634,False,incomplete_debt_definition,,,,,,
+WST,West Pharmaceutical Services,Health Care,0000105770,0000105770,False,incomplete_debt_definition,,,,,,
+WDC,Western Digital,Information Technology,0000106040,0000106040,False,incomplete_debt_definition,,,,,,
+WMB,Williams Companies,Energy,0000107263,0000107263,False,incomplete_debt_definition,,,,,,
+TJX,TJX Companies,Consumer Discretionary,0000109198,0000109198,False,incomplete_debt_definition,,,,,,
+JNJ,Johnson & Johnson,Health Care,0000200406,0000200406,False,incomplete_debt_definition,,,,,,
+LHX,L3Harris,Industrials,0000202058,0000202058,False,complete,2026-04-03,117,11357000000,19680000000,0.5770833333333333,ShortTermBorrowings+LongTermDebtAndCapitalLeaseObligationsCurrent+LongTermDebtAndCapitalLeaseObligations
+TXT,Textron,Industrials,0000217346,0000217346,False,incomplete_debt_definition,,,,,,
+GWW,W. W. Grainger,Industrials,0000277135,0000277135,False,incomplete_debt_definition,,,,,,
+CSX,CSX Corporation,Industrials,0000277948,0000277948,False,complete,2026-06-30,29,18864000000,14088000000,1.3390119250425894,DebtAndCapitalLeaseObligations
+MRK,Merck & Co.,Health Care,0000310158,0000310158,False,incomplete_debt_definition,,,,,,
+SYK,Stryker Corporation,Health Care,0000310764,0000310764,False,incomplete_debt_definition,,,,,,
+DHR,Danaher Corporation,Health Care,0000313616,0000313616,False,incomplete_debt_definition,,,,,,
+CHD,Church & Dwight,Consumer Staples,0000313927,0000313927,False,incomplete_debt_definition,,,,,,
+DE,Deere & Company,Industrials,0000315189,0000315189,False,incomplete_debt_definition,,,,,,
+AMGN,Amgen,Health Care,0000318154,0000318154,False,incomplete_debt_definition,,,,,,
+KLAC,KLA Corporation,Information Technology,0000319201,0000319201,False,incomplete_debt_definition,,,,,,
+NKE,"Nike, Inc.",Consumer Discretionary,0000320187,0000320187,False,incomplete_debt_definition,,,,,,
+AAPL,Apple Inc.,Information Technology,0000320193,0000320193,False,incomplete_debt_definition,,,,,,
+UHS,Universal Health Services,Health Care,0000352915,0000352915,False,incomplete_debt_definition,,,,,,
+HD,Home Depot (The),Consumer Discretionary,0000354950,0000354950,False,complete,2026-02-01,178,51308000000,12813000000,4.004370561148833,DebtAndCapitalLeaseObligations
+NSC,Norfolk Southern,Industrials,0000702165,0000702165,False,incomplete_debt_definition,,,,,,
+LRCX,Lam Research,Information Technology,0000707549,0000707549,False,incomplete_debt_definition,,,,,,
+COO,Cooper Companies (The),Health Care,0000711404,0000711404,False,complete,2026-04-30,90,2460200000,8238900000,0.2986078238599813,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+EA,Electronic Arts,Communication Services,0000712515,0000712515,False,incomplete_debt_definition,,,,,,
+WSM,"Williams-Sonoma, Inc.",Consumer Discretionary,0000719955,0000719955,False,incomplete_debt_definition,,,,,,
+CAH,Cardinal Health,Health Care,0000721371,0000721371,False,missing_or_stale_equity,,,,,,
+MU,Micron Technology,Information Technology,0000723125,0000723125,False,complete,2026-05-28,62,5722000000,100724000000,0.05680870497597395,DebtAndCapitalLeaseObligations
+CTAS,Cintas,Industrials,0000723254,0000723254,False,incomplete_debt_definition,,,,,,
+PAYX,Paychex,Industrials,0000723531,0000723531,False,incomplete_debt_definition,,,,,,
+CASY,Casey's,Consumer Staples,0000726958,0000726958,False,incomplete_debt_definition,,,,,,
+JBHT,J.B. Hunt,Industrials,0000728535,0000728535,False,incomplete_debt_definition,,,,,,
+UNH,UnitedHealth Group,Health Care,0000731766,0000731766,False,incomplete_debt_definition,,,,,,
+VZ,Verizon,Communication Services,0000732712,0000732712,False,incomplete_debt_definition,,,,,,
+T,AT&T,Communication Services,0000732717,0000732717,False,complete,2026-06-30,29,143954000000,126434000000,1.1385703212743408,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+ROST,Ross Stores,Consumer Discretionary,0000745732,0000745732,False,incomplete_debt_definition,,,,,,
+EXPD,Expeditors International,Industrials,0000746515,0000746515,False,incomplete_debt_definition,,,,,,
+IT,Gartner,Information Technology,0000749251,0000749251,False,incomplete_debt_definition,,,,,,
+MO,Altria,Consumer Staples,0000764180,0000764180,False,nonpositive_equity,,,,,,
+BBY,Best Buy,Consumer Discretionary,0000764478,0000764478,False,complete,2026-05-02,88,1169000000,3083000000,0.37917612714888094,DebtAndCapitalLeaseObligations
+ADSK,Autodesk,Information Technology,0000769397,0000769397,False,incomplete_debt_definition,,,,,,
+HON,Honeywell Technologies,Industrials,0000773840,0000773840,False,complete,2026-06-30,29,33988000000,18537000000,1.8335221448993904,ShortTermBorrowings+LongTermDebtAndCapitalLeaseObligationsCurrent+LongTermDebtAndCapitalLeaseObligations
+MSFT,Microsoft,Information Technology,0000789019,0000789019,False,incomplete_debt_definition,,,,,,
+MGM,MGM Resorts,Consumer Discretionary,0000789570,0000789570,False,incomplete_debt_definition,,,,,,
+ADBE,Adobe Inc.,Information Technology,0000796343,0000796343,False,incomplete_debt_definition,,,,,,
+OXY,Occidental Petroleum,Energy,0000797468,0000797468,False,incomplete_debt_definition,,,,,,
+QCOM,Qualcomm,Information Technology,0000804328,0000804328,False,incomplete_debt_definition,,,,,,
+CDNS,Cadence Design Systems,Information Technology,0000813672,0000813672,False,incomplete_debt_definition,,,,,,
+FICO,Fair Isaac,Information Technology,0000814547,0000814547,False,nonpositive_equity,,,,,,
+CCL,Carnival Corporation,Consumer Discretionary,0000815097,0000815097,False,incomplete_debt_definition,,,,,,
+FAST,Fastenal,Industrials,0000815556,0000815556,False,incomplete_debt_definition,,,,,,
+APH,Amphenol,Information Technology,0000820313,0000820313,False,incomplete_debt_definition,,,,,,
+COHR,Coherent Corp.,Information Technology,0000820318,0000820318,False,incomplete_debt_definition,,,,,,
+EOG,EOG Resources,Energy,0000821189,0000821189,False,incomplete_debt_definition,,,,,,
+PHM,PulteGroup,Consumer Discretionary,0000822416,0000822416,False,incomplete_debt_definition,,,,,,
+WM,Waste Management,Industrials,0000823768,0000823768,False,complete,2026-03-31,120,22891000000,10021000000,2.2843029637760703,DebtAndCapitalLeaseObligations
+MCHP,Microchip Technology,Information Technology,0000827054,0000827054,False,incomplete_debt_definition,,,,,,
+SBUX,Starbucks,Consumer Discretionary,0000829224,0000829224,False,nonpositive_equity,,,,,,
+FCX,Freeport-McMoRan,Materials,0000831259,0000831259,False,incomplete_debt_definition,,,,,,
+IEX,IDEX Corporation,Industrials,0000832101,0000832101,False,incomplete_debt_definition,,,,,,
+JCI,Johnson Controls,Industrials,0000833444,0000833444,False,complete,2026-03-31,120,9523000000,13518000000,0.7044681165852937,ShortTermBorrowings+LongTermDebtAndCapitalLeaseObligationsCurrent+LongTermDebtAndCapitalLeaseObligations
+TECH,Bio-Techne,Health Care,0000842023,0000842023,False,incomplete_debt_definition,,,,,,
+CRH,CRH plc,Materials,0000849395,0000849395,False,complete,2026-03-31,120,18997000000,23071000000,0.823414676433618,DebtCurrent+LongTermDebtNoncurrent+FinanceLeaseLiabilityNoncurrent
+GEN,Gen Digital,Information Technology,0000849399,0000849399,False,incomplete_debt_definition,,,,,,
+PTC,PTC Inc.,Information Technology,0000857005,0000857005,False,incomplete_debt_definition,,,,,,
+CSCO,Cisco,Information Technology,0000858877,0000858877,False,incomplete_debt_definition,,,,,,
+HCA,HCA Healthcare,Health Care,0000860730,0000860730,False,nonpositive_equity,,,,,,
+TYL,Tyler Technologies,Information Technology,0000860731,0000860731,False,incomplete_debt_definition,,,,,,
+TRMB,Trimble Inc.,Information Technology,0000864749,0000864749,False,incomplete_debt_definition,,,,,,
+MNST,Monster Beverage,Consumer Staples,0000865752,0000865752,False,incomplete_debt_definition,,,,,,
+FLEX,Flex Ltd.,Information Technology,0000866374,0000866374,False,incomplete_debt_definition,,,,,,
+AZO,AutoZone,Consumer Discretionary,0000866787,0000866787,False,nonpositive_equity,,,,,,
+REGN,Regeneron Pharmaceuticals,Health Care,0000872589,0000872589,False,incomplete_debt_definition,,,,,,
+IDXX,Idexx Laboratories,Health Care,0000874716,0000874716,False,incomplete_debt_definition,,,,,,
+BIIB,Biogen,Health Care,0000875045,0000875045,False,incomplete_debt_definition,,,,,,
+VRTX,Vertex Pharmaceuticals,Health Care,0000875320,0000875320,False,incomplete_debt_definition,,,,,,
+ZBRA,Zebra Technologies,Information Technology,0000877212,0000877212,False,incomplete_debt_definition,,,,,,
+ODFL,Old Dominion,Industrials,0000878927,0000878927,False,incomplete_debt_definition,,,,,,
+INCY,Incyte,Health Care,0000879169,0000879169,False,incomplete_debt_definition,,,,,,
+GILD,Gilead Sciences,Health Care,0000882095,0000882095,False,incomplete_debt_definition,,,,,,
+DHI,D. R. Horton,Consumer Discretionary,0000882184,0000882184,False,incomplete_debt_definition,,,,,,
+ROP,Roper Technologies,Information Technology,0000882835,0000882835,False,incomplete_debt_definition,,,,,,
+SNPS,Synopsys,Information Technology,0000883241,0000883241,False,incomplete_debt_definition,,,,,,
+RCL,Royal Caribbean Group,Consumer Discretionary,0000884887,0000884887,False,complete,2026-03-31,120,21114000000,9810000000,2.152293577981651,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+BSX,Boston Scientific,Health Care,0000885725,0000885725,False,complete,2026-03-31,120,11029000000,25864000000,0.4264228270955769,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+EXE,Expand Energy,Energy,0000895126,0000895126,False,incomplete_debt_definition,,,,,,
+INTU,Intuit,Information Technology,0000896878,0000896878,False,incomplete_debt_definition,,,,,,
+ORLY,O’Reilly Automotive,Consumer Discretionary,0000898173,0000898173,False,nonpositive_equity,,,,,,
+JBL,Jabil,Information Technology,0000898293,0000898293,False,incomplete_debt_definition,,,,,,
+CPRT,Copart,Industrials,0000900075,0000900075,False,incomplete_debt_definition,,,,,,
+NVR,"NVR, Inc.",Consumer Discretionary,0000906163,0000906163,False,incomplete_debt_definition,,,,,,
+COST,Costco,Consumer Staples,0000909832,0000909832,False,incomplete_debt_definition,,,,,,
+DECK,Deckers Brands,Consumer Discretionary,0000910521,0000910521,False,incomplete_debt_definition,,,,,,
+ALB,Albemarle Corporation,Materials,0000915913,0000915913,False,incomplete_debt_definition,,,,,,
+MLM,Martin Marietta Materials,Materials,0000916076,0000916076,False,incomplete_debt_definition,,,,,,
+TSCO,Tractor Supply,Consumer Discretionary,0000916365,0000916365,False,incomplete_debt_definition,,,,,,
+LH,Labcorp,Health Care,0000920148,0000920148,False,incomplete_debt_definition,,,,,,
+LEN,Lennar,Consumer Discretionary,0000920760,0000920760,False,incomplete_debt_definition,,,,,,
+DVA,DaVita,Health Care,0000927066,0000927066,False,nonpositive_equity,,,,,,
+MCK,McKesson Corporation,Health Care,0000927653,0000927653,False,nonpositive_equity,,,,,,
+DLTR,Dollar Tree,Consumer Staples,0000935703,0000935703,False,incomplete_debt_definition,,,,,,
+CIEN,Ciena,Information Technology,0000936395,0000936395,False,incomplete_debt_definition,,,,,,
+LMT,Lockheed Martin,Industrials,0000936468,0000936468,False,incomplete_debt_definition,,,,,,
+DRI,Darden Restaurants,Consumer Discretionary,0000940944,0000940944,False,incomplete_debt_definition,,,,,,
+WAB,Wabtec,Industrials,0000943452,0000943452,False,incomplete_debt_definition,,,,,,
+RMD,ResMed,Health Care,0000943819,0000943819,False,incomplete_debt_definition,,,,,,
+TTWO,Take-Two Interactive,Communication Services,0000946581,0000946581,False,incomplete_debt_definition,,,,,,
+HSIC,Henry Schein,Health Care,0001000228,0001000228,False,complete,2026-03-28,123,3408000000,3266000000,1.0434782608695652,ShortTermBorrowings+LongTermDebtAndCapitalLeaseObligationsCurrent+LongTermDebtAndCapitalLeaseObligations
+WAT,Waters Corporation,Health Care,0001000697,0001000697,False,complete,2026-04-04,116,5215000000,15292000000,0.3410279884907141,DebtAndCapitalLeaseObligations
+EL,Estée Lauder Companies (The),Consumer Staples,0001001250,0001001250,False,incomplete_debt_definition,,,,,,
+NTAP,NetApp,Information Technology,0001002047,0001002047,False,incomplete_debt_definition,,,,,,
+VRSN,Verisign,Information Technology,0001014473,0001014473,False,nonpositive_equity,,,,,,
+AMZN,Amazon,Consumer Discretionary,0001018724,0001018724,False,complete,2026-03-31,120,135383000000,441914000000,0.306355987816634,ShortTermBorrowings+LongTermDebtCurrent+LongTermDebtNoncurrent+FinanceLeaseLiability
+DGX,Quest Diagnostics,Health Care,0001022079,0001022079,False,incomplete_debt_definition,,,,,,
+STLD,Steel Dynamics,Materials,0001022671,0001022671,False,incomplete_debt_definition,,,,,,
+ROK,Rockwell Automation,Industrials,0001024478,0001024478,False,incomplete_debt_definition,,,,,,
+VLO,Valero Energy,Energy,0001035002,0001035002,False,complete,2026-03-31,120,11491000000,23870000000,0.481399245915375,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+ISRG,Intuitive Surgical,Health Care,0001035267,0001035267,False,incomplete_debt_definition,,,,,,
+FIX,Comfort Systems USA,Industrials,0001035983,0001035983,False,incomplete_debt_definition,,,,,,
+RL,Ralph Lauren Corporation,Consumer Discretionary,0001037038,0001037038,False,complete,2026-03-28,123,1471900000,2841400000,0.518019286267333,DebtLongtermAndShorttermCombinedAmount+FinanceLeaseLiability
+MTD,Mettler Toledo,Health Care,0001037646,0001037646,False,nonpositive_equity,,,,,,
+AME,Ametek,Industrials,0001037868,0001037868,False,incomplete_debt_definition,,,,,,
+OKE,Oneok,Energy,0001039684,0001039684,False,incomplete_debt_definition,,,,,,
+YUM,Yum! Brands,Consumer Discretionary,0001041061,0001041061,False,nonpositive_equity,,,,,,
+CHRW,C.H. Robinson,Industrials,0001043277,0001043277,False,incomplete_debt_definition,,,,,,
+NVDA,Nvidia,Information Technology,0001045810,0001045810,False,incomplete_debt_definition,,,,,,
+MAR,Marriott International,Consumer Discretionary,0001048286,0001048286,False,nonpositive_equity,,,,,,
+FFIV,"F5, Inc.",Information Technology,0001048695,0001048695,False,incomplete_debt_definition,,,,,,
+FDX,FedEx,Industrials,0001048911,0001048911,False,complete,2026-05-31,59,24969000000,31647000000,0.7889847378898474,DebtAndCapitalLeaseObligations
+PWR,Quanta Services,Industrials,0001050915,0001050915,False,complete,2026-03-31,120,5891614000,9044569000,0.6513979825904364,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+CMG,Chipotle Mexican Grill,Consumer Discretionary,0001058090,0001058090,False,incomplete_debt_definition,,,,,,
+CTSH,Cognizant,Information Technology,0001058290,0001058290,False,incomplete_debt_definition,,,,,,
+RSG,Republic Services,Industrials,0001060391,0001060391,False,incomplete_debt_definition,,,,,,
+EBAY,eBay Inc.,Consumer Discretionary,0001065088,0001065088,False,complete,2026-03-31,120,6744000000,4412000000,1.528558476881233,DebtAndCapitalLeaseObligations
+NFLX,Netflix,Communication Services,0001065280,0001065280,False,incomplete_debt_definition,,,,,,
+URI,United Rentals,Industrials,0001067701,0001067701,False,complete,2026-03-31,120,13886000000,8968000000,1.5483942908117752,DebtAndCapitalLeaseObligations
+AXON,Axon Enterprise,Industrials,0001069183,0001069183,False,incomplete_debt_definition,,,,,,
+LII,Lennox International,Industrials,0001069202,0001069202,False,complete,2026-03-31,120,1523300000,1213900000,1.254880962187989,DebtAndCapitalLeaseObligations
+CNC,Centene Corporation,Health Care,0001071739,0001071739,False,complete,2026-06-30,29,16105000000,22562000000,0.7138108323730166,DebtAndCapitalLeaseObligations
+BKNG,Booking Holdings,Consumer Discretionary,0001075531,0001075531,False,nonpositive_equity,,,,,,
+AKAM,Akamai Technologies,Information Technology,0001086222,0001086222,False,incomplete_debt_definition,,,,,,
+DVN,Devon Energy,Energy,0001090012,0001090012,False,complete,2026-03-31,120,9414000000,15428000000,0.6101892662691211,ShortTermBorrowings+LongTermDebtCurrent+LongTermDebtNoncurrent+FinanceLeaseLiability
+UPS,United Parcel Service,Industrials,0001090727,0001090727,False,complete,2026-03-31,120,24386000000,15763000000,1.5470405379686607,DebtAndCapitalLeaseObligations
+A,Agilent Technologies,Health Care,0001090872,0001090872,False,incomplete_debt_definition,,,,,,
+CHTR,Charter Communications,Communication Services,0001091667,0001091667,False,incomplete_debt_definition,,,,,,
+DXCM,Dexcom,Health Care,0001093557,0001093557,False,incomplete_debt_definition,,,,,,
+TDY,Teledyne Technologies,Information Technology,0001094285,0001094285,False,incomplete_debt_definition,,,,,,
+ALGN,Align Technology,Health Care,0001097149,0001097149,False,incomplete_debt_definition,,,,,,
+ON,ON Semiconductor,Information Technology,0001097864,0001097864,False,complete,2026-04-03,117,1600000,7301700000,0.00021912705260418807,DebtAndCapitalLeaseObligations
+EW,Edwards Lifesciences,Health Care,0001099800,0001099800,False,incomplete_debt_definition,,,,,,
+CRL,Charles River Laboratories,Health Care,0001100682,0001100682,False,incomplete_debt_definition,,,,,,
+MDLZ,Mondelez International,Consumer Staples,0001103982,0001103982,False,complete,2026-03-31,120,21024000000,25750000000,0.8164660194174758,ShortTermBorrowings+LongTermDebtAndCapitalLeaseObligationsCurrent+LongTermDebtAndCapitalLeaseObligations
+CRM,Salesforce,Information Technology,0001108524,0001108524,False,incomplete_debt_definition,,,,,,
+TPR,"Tapestry, Inc.",Consumer Discretionary,0001116132,0001116132,False,incomplete_debt_definition,,,,,,
+GRMN,Garmin,Consumer Discretionary,0001121788,0001121788,False,incomplete_debt_definition,,,,,,
+NOC,Northrop Grumman,Industrials,0001133421,0001133421,False,incomplete_debt_definition,,,,,,
+ZBH,Zimmer Biomet,Health Care,0001136869,0001136869,False,incomplete_debt_definition,,,,,,
+STX,Seagate Technology,Information Technology,0001137789,0001137789,False,incomplete_debt_definition,,,,,,
+COR,Cencora,Health Care,0001140859,0001140859,False,incomplete_debt_definition,,,,,,
+PODD,Insulet Corporation,Health Care,0001145197,0001145197,False,incomplete_debt_definition,,,,,,
+ELV,Elevance Health,Health Care,0001156039,0001156039,False,incomplete_debt_definition,,,,,,
+COP,ConocoPhillips,Energy,0001163165,0001163165,False,complete,2026-03-31,120,23327000000,64541000000,0.3614291690553292,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+NEM,Newmont,Materials,0001164727,0001164727,False,incomplete_debt_definition,,,,,,
+CMCSA,Comcast,Communication Services,0001166691,0001166691,False,complete,2026-06-30,29,90400000000,89763000000,1.007096465135969,DebtAndCapitalLeaseObligations
+WYNN,Wynn Resorts,Consumer Discretionary,0001174922,0001174922,False,nonpositive_equity,,,,,,
+TDG,TransDigm Group,Industrials,0001260221,0001260221,False,nonpositive_equity,,,,,,
+FTNT,Fortinet,Information Technology,0001262039,0001262039,False,incomplete_debt_definition,,,,,,
+FSLR,First Solar,Information Technology,0001274494,0001274494,False,complete,2026-03-31,120,468443000,9878568000,0.047420132148708195,DebtLongtermAndShorttermCombinedAmount+FinanceLeaseLiability
+MPWR,Monolithic Power Systems,Information Technology,0001280452,0001280452,False,incomplete_debt_definition,,,,,,
+TMUS,T-Mobile US,Communication Services,0001283699,0001283699,False,incomplete_debt_definition,,,,,,
+MOS,Mosaic Company (The),Materials,0001285785,0001285785,False,incomplete_debt_definition,,,,,,
+DPZ,Domino's,Consumer Discretionary,0001286681,0001286681,False,nonpositive_equity,,,,,,
+LVS,Las Vegas Sands,Consumer Discretionary,0001300514,0001300514,False,incomplete_debt_definition,,,,,,
+BLDR,Builders FirstSource,Industrials,0001316835,0001316835,False,incomplete_debt_definition,,,,,,
+TSLA,"Tesla, Inc.",Consumer Discretionary,0001318605,0001318605,False,incomplete_debt_definition,,,,,,
+PLTR,Palantir Technologies,Information Technology,0001321655,0001321655,False,incomplete_debt_definition,,,,,,
+CF,CF Industries,Materials,0001324404,0001324404,False,incomplete_debt_definition,,,,,,
+EXPE,Expedia Group,Consumer Discretionary,0001324424,0001324424,False,incomplete_debt_definition,,,,,,
+META,Meta Platforms,Communication Services,0001326801,0001326801,False,incomplete_debt_definition,,,,,,
+PANW,Palo Alto Networks,Information Technology,0001327567,0001327567,False,incomplete_debt_definition,,,,,,
+WDAY,"Workday, Inc.",Information Technology,0001327811,0001327811,False,incomplete_debt_definition,,,,,,
+LYV,Live Nation Entertainment,Communication Services,0001335258,0001335258,False,nonpositive_equity,,,,,,
+LDOS,Leidos,Industrials,0001336920,0001336920,False,complete,2026-04-03,117,6334000000,5013000000,1.2635148613604628,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+ORCL,Oracle Corporation,Information Technology,0001341439,0001341439,False,complete,2026-05-31,59,137242000000,42508000000,3.228615789968947,DebtLongtermAndShorttermCombinedAmount+FinanceLeaseLiability
+NOW,ServiceNow,Information Technology,0001373715,0001373715,False,incomplete_debt_definition,,,,,,
+SMCI,Supermicro,Information Technology,0001375365,0001375365,False,incomplete_debt_definition,,,,,,
+BR,Broadridge Financial Solutions,Industrials,0001383312,0001383312,False,incomplete_debt_definition,,,,,,
+TEL,TE Connectivity,Information Technology,0001385157,0001385157,False,incomplete_debt_definition,,,,,,
+TRGP,Targa Resources,Energy,0001389170,0001389170,False,incomplete_debt_definition,,,,,,
+VEEV,Veeva Systems,Health Care,0001393052,0001393052,False,incomplete_debt_definition,,,,,,
+VMC,Vulcan Materials Company,Materials,0001396009,0001396009,False,complete,2026-03-31,120,4450000000,8451300000,0.5265462118253996,DebtLongtermAndShorttermCombinedAmount+FinanceLeaseLiability
+LULU,Lululemon Athletica,Consumer Discretionary,0001397187,0001397187,False,incomplete_debt_definition,,,,,,
+CDW,CDW Corporation,Information Technology,0001402057,0001402057,False,incomplete_debt_definition,,,,,,
+ULTA,Ulta Beauty,Consumer Discretionary,0001403568,0001403568,False,incomplete_debt_definition,,,,,,
+PM,Philip Morris International,Consumer Staples,0001413329,0001413329,False,nonpositive_equity,,,,,,
+NXPI,NXP Semiconductors,Information Technology,0001413447,0001413447,False,complete,2026-03-29,122,11724000000,10927000000,1.0729385924773498,DebtAndCapitalLeaseObligations
+ECHO,EchoStar,Communication Services,0001415404,0001415404,False,complete,2026-03-31,120,24252580000,5631310000,4.3067385741505975,DebtAndCapitalLeaseObligations
+KDP,Keurig Dr Pepper,Consumer Staples,0001418135,0001418135,False,complete,2026-03-31,120,26522000000,25261000000,1.049918847234868,DebtCurrent+LongTermDebtNoncurrent+FinanceLeaseLiabilityNoncurrent
+WBD,Warner Bros. Discovery,Communication Services,0001437107,0001437107,False,incomplete_debt_definition,,,,,,
+VRSK,Verisk Analytics,Industrials,0001442145,0001442145,False,nonpositive_equity,,,,,,
+TT,Trane Technologies,Industrials,0001466258,0001466258,False,incomplete_debt_definition,,,,,,
+ACN,Accenture,Information Technology,0001467373,0001467373,False,complete,2026-05-31,59,5142265000,31890566000,0.16124721649656515,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+GM,General Motors,Consumer Discretionary,0001467858,0001467858,False,incomplete_debt_definition,,,,,,
+GNRC,Generac,Industrials,0001474735,0001474735,False,complete,2026-03-31,120,1279927000,2674692000,0.47853248149693495,DebtAndCapitalLeaseObligations
+IQV,IQVIA,Health Care,0001478242,0001478242,False,incomplete_debt_definition,,,,,,
+LYB,LyondellBasell,Materials,0001489393,0001489393,False,complete,2026-03-31,120,12921000000,10040000000,1.2869521912350597,ShortTermBorrowings+LongTermDebtAndCapitalLeaseObligationsCurrent+LongTermDebtAndCapitalLeaseObligations
+HII,Huntington Ingalls Industries,Industrials,0001501585,0001501585,False,incomplete_debt_definition,,,,,,
+KMI,Kinder Morgan,Energy,0001506307,0001506307,False,incomplete_debt_definition,,,,,,
+MPC,Marathon Petroleum,Energy,0001510295,0001510295,False,complete,2026-03-31,120,33272000000,16753000000,1.986032352414493,DebtAndCapitalLeaseObligations
+NCLH,Norwegian Cruise Line Holdings,Consumer Discretionary,0001513761,0001513761,False,incomplete_debt_definition,,,,,,
+APTV,Aptiv,Consumer Discretionary,0001521332,0001521332,False,complete,2026-03-31,120,9350000000,9233000000,1.0126719376150763,DebtAndCapitalLeaseObligations
+XYL,Xylem Inc.,Industrials,0001524472,0001524472,False,incomplete_debt_definition,,,,,,
+PSX,Phillips 66,Energy,0001534701,0001534701,False,complete,2026-03-31,120,27124000000,28528000000,0.9507851934941111,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+CRWD,CrowdStrike,Information Technology,0001535527,0001535527,False,incomplete_debt_definition,,,,,,
+FANG,Diamondback Energy,Energy,0001539838,0001539838,False,incomplete_debt_definition,,,,,,
+UBER,Uber,Industrials,0001543151,0001543151,False,incomplete_debt_definition,,,,,,
+ABBV,AbbVie,Health Care,0001551152,0001551152,False,nonpositive_equity,,,,,,
+ETN,Eaton Corporation,Industrials,0001551182,0001551182,False,complete,2026-03-31,120,21129000000,19721000000,1.0713959738349983,ShortTermBorrowings+LongTermDebtAndCapitalLeaseObligationsCurrent+LongTermDebtAndCapitalLeaseObligations
+ZTS,Zoetis,Health Care,0001555280,0001555280,False,incomplete_debt_definition,,,,,,
+ABNB,Airbnb,Consumer Discretionary,0001559720,0001559720,False,incomplete_debt_definition,,,,,,
+DDOG,Datadog,Information Technology,0001561550,0001561550,False,incomplete_debt_definition,,,,,,
+"NWS,NWSA",News Corp (Class B),Communication Services,0001564708,0001564708,False,incomplete_debt_definition,,,,,,
+DELL,Dell Technologies,Information Technology,0001571996,0001571996,False,nonpositive_equity,,,,,,
+ALLE,Allegion,Industrials,0001579241,0001579241,False,incomplete_debt_definition,,,,,,
+HLT,Hilton Worldwide,Consumer Discretionary,0001585689,0001585689,False,nonpositive_equity,,,,,,
+ANET,Arista Networks,Information Technology,0001596532,0001596532,False,incomplete_debt_definition,,,,,,
+KEYS,Keysight Technologies,Information Technology,0001601046,0001601046,False,incomplete_debt_definition,,,,,,
+GDDY,GoDaddy,Information Technology,0001609711,0001609711,False,incomplete_debt_definition,,,,,,
+MDT,Medtronic,Health Care,0001613103,0001613103,False,complete,2026-04-24,96,27961000000,49463000000,0.5652912277864263,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+LITE,Lumentum,Information Technology,0001633978,0001633978,False,incomplete_debt_definition,,,,,,
+KHC,Kraft Heinz,Consumer Staples,0001637459,0001637459,False,incomplete_debt_definition,,,,,,
+HPE,Hewlett Packard Enterprise,Information Technology,0001645590,0001645590,False,complete,2026-04-30,90,21246000000,25292000000,0.8400284674996046,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+"GOOG,GOOGL",Alphabet Inc. (Class C),Communication Services,0001652044,0001652044,False,incomplete_debt_definition,,,,,,
+FTV,Fortive,Industrials,0001659166,0001659166,False,incomplete_debt_definition,,,,,,
+DD,DuPont,Materials,0001666700,0001666700,False,complete,2026-03-31,120,3172000000,14040000000,0.22592592592592592,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+TTD,Trade Desk (The),Communication Services,0001671933,0001671933,False,incomplete_debt_definition,,,,,,
+VRT,Vertiv,Industrials,0001674101,0001674101,False,incomplete_debt_definition,,,,,,
+MRNA,Moderna,Health Care,0001682852,0001682852,False,incomplete_debt_definition,,,,,,
+CVNA,Carvana,Consumer Discretionary,0001690820,0001690820,False,incomplete_debt_definition,,,,,,
+IR,Ingersoll Rand,Industrials,0001699150,0001699150,False,complete,2026-03-31,120,4778800000,10175100000,0.4696563178740258,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+BKR,Baker Hughes,Energy,0001701605,0001701605,False,complete,2026-06-30,29,16253000000,19908000000,0.8164054651396424,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+LIN,Linde plc,Materials,0001707925,0001707925,False,complete,2026-03-31,120,26317000000,38566000000,0.6823886324742001,ShortTermBorrowings+LongTermDebtAndCapitalLeaseObligationsCurrent+LongTermDebtAndCapitalLeaseObligations
+AVGO,Broadcom,Information Technology,0001730168,0001730168,False,complete,2026-05-03,87,64907000000,87691000000,0.7401785816104275,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+CI,Cigna,Health Care,0001739940,0001739940,False,complete,2026-03-31,120,30900000000,42210000000,0.7320540156361052,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+DIS,Walt Disney Company (The),Communication Services,0001744489,0001744489,False,incomplete_debt_definition,,,,,,
+AMCR,Amcor,Materials,0001748790,0001748790,False,incomplete_debt_definition,,,,,,
+APP,AppLovin,Information Technology,0001751008,0001751008,False,incomplete_debt_definition,,,,,,
+DOW,Dow Inc.,Materials,0001751788,0001751788,False,incomplete_debt_definition,,,,,,
+"FOX,FOXA",Fox Corporation (Class B),Communication Services,0001754301,0001754301,False,incomplete_debt_definition,,,,,,
+CTVA,Corteva,Materials,0001755672,0001755672,False,complete,2026-03-31,120,3356000000,24362000000,0.13775552089319432,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+STE,Steris,Health Care,0001757898,0001757898,False,incomplete_debt_definition,,,,,,
+OTIS,Otis Worldwide,Industrials,0001781335,0001781335,False,nonpositive_equity,,,,,,
+CARR,Carrier Global,Industrials,0001783180,0001783180,False,complete,2026-03-31,120,11427000000,13801000000,0.8279834794580103,DebtAndCapitalLeaseObligations
+VTRS,Viatris,Health Care,0001792044,0001792044,False,incomplete_debt_definition,,,,,,
+DASH,DoorDash,Consumer Discretionary,0001792789,0001792789,False,incomplete_debt_definition,,,,,,
+TPL,Texas Pacific Land Corporation,Energy,0001811074,0001811074,False,incomplete_debt_definition,,,,,,
+MRVL,Marvell Technology,Information Technology,0001835632,0001835632,False,incomplete_debt_definition,,,,,,
+APA,APA Corporation,Energy,0001841666,0001841666,False,complete,2026-03-31,120,4414000000,6456000000,0.6837050805452293,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+GEHC,GE HealthCare,Health Care,0001932393,0001932393,False,incomplete_debt_definition,,,,,,
+KVUE,Kenvue,Consumer Staples,0001944048,0001944048,False,incomplete_debt_definition,,,,,,
+SOLV,Solventum,Health Care,0001964738,0001964738,False,complete,2026-03-31,120,5288000000,4969000000,1.0641980277721876,DebtLongtermAndShorttermCombinedAmount+FinanceLeaseLiability
+VLTO,Veralto,Industrials,0001967680,0001967680,False,incomplete_debt_definition,,,,,,
+TKO,TKO Group Holdings,Communication Services,0001973266,0001973266,False,incomplete_debt_definition,,,,,,
+GEV,GE Vernova,Industrials,0001996810,0001996810,False,incomplete_debt_definition,,,,,,
+BG,Bunge Global,Consumer Staples,0001996862,0001996862,False,incomplete_debt_definition,,,,,,
+SW,Smurfit Westrock,Materials,0002005951,0002005951,False,complete,2026-03-31,120,14255000000,18058000000,0.789400819581349,DebtAndCapitalLeaseObligations
+SNDK,Sandisk,Information Technology,0002023554,0002023554,False,incomplete_debt_definition,,,,,,
+PSKY,Paramount Skydance Corporation,Communication Services,0002041610,0002041610,False,complete,2026-03-31,120,15483000000,11705000000,1.3227680478428023,DebtAndCapitalLeaseObligations
+Q,Qnity Electronics,Information Technology,0002058873,0002058873,False,complete,2026-03-31,120,4023000000,7186000000,0.559838575006958,DebtCurrent+LongTermDebtAndCapitalLeaseObligations
+FDXF,FedEx Freight,Industrials,0002082247,0002082247,False,missing_or_stale_equity,,,,,,
+HONA,Honeywell Aerospace,Industrials,0002089271,0002089271,False,missing_or_stale_equity,,,,,,

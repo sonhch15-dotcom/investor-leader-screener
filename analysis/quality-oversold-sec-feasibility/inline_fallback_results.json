@@ -1,0 +1,600 @@
+{
+  "as_of": "2026-07-29",
+  "definition": "short-term interest-bearing borrowings + current long-term debt + noncurrent interest-bearing debt; CAT tags include finance leases",
+  "periods": [
+    {
+      "symbol": "CAT",
+      "report_date": "2026-03-31",
+      "filed": "2026-05-06",
+      "accession": "0000018230-26-000021",
+      "form": "10-Q",
+      "url": "https://www.sec.gov/Archives/edgar/data/18230/000001823026000021/cat-20260331.htm",
+      "group_totals": {
+        "short_term": 4729000000,
+        "current_long_term": 7695000000,
+        "noncurrent_long_term": 30642000000
+      },
+      "total_debt": 43066000000,
+      "narrative_total_debt_candidates": [
+        43066000000
+      ],
+      "narrative_gap": 0,
+      "matches_narrative": true,
+      "sources": [
+        {
+          "concept": "us-gaap:ShortTermBorrowings",
+          "context_ref": "c-13",
+          "value": 4729000000,
+          "instant": "2026-03-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "short_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent",
+          "context_ref": "c-15",
+          "value": 35000000,
+          "instant": "2026-03-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryPowerEnergyMember"
+          },
+          "group": "current_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent",
+          "context_ref": "c-13",
+          "value": 7660000000,
+          "instant": "2026-03-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "current_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_ref": "c-15",
+          "value": 10671000000,
+          "instant": "2026-03-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryPowerEnergyMember"
+          },
+          "group": "noncurrent_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_ref": "c-13",
+          "value": 19971000000,
+          "instant": "2026-03-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "noncurrent_long_term"
+        }
+      ]
+    },
+    {
+      "symbol": "CAT",
+      "report_date": "2025-12-31",
+      "filed": "2026-02-13",
+      "accession": "0000018230-26-000008",
+      "form": "10-K",
+      "url": "https://www.sec.gov/Archives/edgar/data/18230/000001823026000008/cat-20251231.htm",
+      "group_totals": {
+        "short_term": 5514000000,
+        "current_long_term": 7120000000,
+        "noncurrent_long_term": 30696000000
+      },
+      "total_debt": 43330000000,
+      "narrative_total_debt_candidates": [
+        43330000000
+      ],
+      "narrative_gap": 0,
+      "matches_narrative": true,
+      "sources": [
+        {
+          "concept": "us-gaap:ShortTermBorrowings",
+          "context_ref": "c-17",
+          "value": 5514000000,
+          "instant": "2025-12-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "short_term"
+        },
+        {
+          "concept": "us-gaap:ShortTermBorrowings",
+          "context_ref": "c-19",
+          "value": 0,
+          "instant": "2025-12-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryPowerEnergyMember"
+          },
+          "group": "short_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent",
+          "context_ref": "c-19",
+          "value": 35000000,
+          "instant": "2025-12-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryPowerEnergyMember"
+          },
+          "group": "current_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent",
+          "context_ref": "c-17",
+          "value": 7085000000,
+          "instant": "2025-12-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "current_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_ref": "c-19",
+          "value": 10678000000,
+          "instant": "2025-12-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryPowerEnergyMember"
+          },
+          "group": "noncurrent_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_ref": "c-17",
+          "value": 20018000000,
+          "instant": "2025-12-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "noncurrent_long_term"
+        }
+      ]
+    },
+    {
+      "symbol": "CAT",
+      "report_date": "2025-09-30",
+      "filed": "2025-11-03",
+      "accession": "0000018230-25-000048",
+      "form": "10-Q",
+      "url": "https://www.sec.gov/Archives/edgar/data/18230/000001823025000048/cat-20250930.htm",
+      "group_totals": {
+        "short_term": 4509000000,
+        "current_long_term": 9289000000,
+        "noncurrent_long_term": 27736000000
+      },
+      "total_debt": 41534000000,
+      "narrative_total_debt_candidates": [
+        41534000000
+      ],
+      "narrative_gap": 0,
+      "matches_narrative": true,
+      "sources": [
+        {
+          "concept": "us-gaap:ShortTermBorrowings",
+          "context_ref": "c-21",
+          "value": 4509000000,
+          "instant": "2025-09-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "short_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent",
+          "context_ref": "c-23",
+          "value": 32000000,
+          "instant": "2025-09-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryEnergyTransportationMember"
+          },
+          "group": "current_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent",
+          "context_ref": "c-21",
+          "value": 9257000000,
+          "instant": "2025-09-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "current_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_ref": "c-23",
+          "value": 10669000000,
+          "instant": "2025-09-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryEnergyTransportationMember"
+          },
+          "group": "noncurrent_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_ref": "c-21",
+          "value": 17067000000,
+          "instant": "2025-09-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "noncurrent_long_term"
+        }
+      ]
+    },
+    {
+      "symbol": "CAT",
+      "report_date": "2025-06-30",
+      "filed": "2025-08-06",
+      "accession": "0000018230-25-000040",
+      "form": "10-Q",
+      "url": "https://www.sec.gov/Archives/edgar/data/18230/000001823025000040/cat-20250630.htm",
+      "group_totals": {
+        "short_term": 4485000000,
+        "current_long_term": 8315000000,
+        "noncurrent_long_term": 27948000000
+      },
+      "total_debt": 40748000000,
+      "narrative_total_debt_candidates": [
+        40748000000
+      ],
+      "narrative_gap": 0,
+      "matches_narrative": true,
+      "sources": [
+        {
+          "concept": "us-gaap:ShortTermBorrowings",
+          "context_ref": "c-21",
+          "value": 4485000000,
+          "instant": "2025-06-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "short_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent",
+          "context_ref": "c-23",
+          "value": 30000000,
+          "instant": "2025-06-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryEnergyTransportationMember"
+          },
+          "group": "current_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent",
+          "context_ref": "c-21",
+          "value": 8285000000,
+          "instant": "2025-06-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "current_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_ref": "c-23",
+          "value": 10654000000,
+          "instant": "2025-06-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryEnergyTransportationMember"
+          },
+          "group": "noncurrent_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_ref": "c-21",
+          "value": 17294000000,
+          "instant": "2025-06-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "noncurrent_long_term"
+        }
+      ]
+    },
+    {
+      "symbol": "CAT",
+      "report_date": "2025-03-31",
+      "filed": "2025-05-07",
+      "accession": "0000018230-25-000016",
+      "form": "10-Q",
+      "url": "https://www.sec.gov/Archives/edgar/data/18230/000001823025000016/cat-20250331.htm",
+      "group_totals": {
+        "short_term": 3454000000,
+        "current_long_term": 9315000000,
+        "noncurrent_long_term": 25819000000
+      },
+      "total_debt": 38588000000,
+      "narrative_total_debt_candidates": [
+        38588000000
+      ],
+      "narrative_gap": 0,
+      "matches_narrative": true,
+      "sources": [
+        {
+          "concept": "us-gaap:ShortTermBorrowings",
+          "context_ref": "c-13",
+          "value": 3454000000,
+          "instant": "2025-03-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "short_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent",
+          "context_ref": "c-15",
+          "value": 29000000,
+          "instant": "2025-03-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryEnergyTransportationMember"
+          },
+          "group": "current_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent",
+          "context_ref": "c-13",
+          "value": 9286000000,
+          "instant": "2025-03-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "current_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_ref": "c-15",
+          "value": 8618000000,
+          "instant": "2025-03-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryEnergyTransportationMember"
+          },
+          "group": "noncurrent_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_ref": "c-13",
+          "value": 17201000000,
+          "instant": "2025-03-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "noncurrent_long_term"
+        }
+      ]
+    },
+    {
+      "symbol": "CAT",
+      "report_date": "2024-12-31",
+      "filed": "2025-02-14",
+      "accession": "0000018230-25-000008",
+      "form": "10-K",
+      "url": "https://www.sec.gov/Archives/edgar/data/18230/000001823025000008/cat-20241231.htm",
+      "group_totals": {
+        "short_term": 4393000000,
+        "current_long_term": 6665000000,
+        "noncurrent_long_term": 27351000000
+      },
+      "total_debt": 38409000000,
+      "narrative_total_debt_candidates": [
+        38410000000
+      ],
+      "narrative_gap": 1000000,
+      "matches_narrative": true,
+      "sources": [
+        {
+          "concept": "us-gaap:ShortTermBorrowings",
+          "context_ref": "c-17",
+          "value": 4393000000,
+          "instant": "2024-12-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "short_term"
+        },
+        {
+          "concept": "us-gaap:ShortTermBorrowings",
+          "context_ref": "c-19",
+          "value": 0,
+          "instant": "2024-12-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryEnergyTransportationMember"
+          },
+          "group": "short_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent",
+          "context_ref": "c-19",
+          "value": 46000000,
+          "instant": "2024-12-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryEnergyTransportationMember"
+          },
+          "group": "current_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent",
+          "context_ref": "c-17",
+          "value": 6619000000,
+          "instant": "2024-12-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "current_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_ref": "c-19",
+          "value": 8564000000,
+          "instant": "2024-12-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryEnergyTransportationMember"
+          },
+          "group": "noncurrent_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_ref": "c-17",
+          "value": 18787000000,
+          "instant": "2024-12-31",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "noncurrent_long_term"
+        }
+      ]
+    },
+    {
+      "symbol": "CAT",
+      "report_date": "2024-09-30",
+      "filed": "2024-11-06",
+      "accession": "0000018230-24-000053",
+      "form": "10-Q",
+      "url": "https://www.sec.gov/Archives/edgar/data/18230/000001823024000053/cat-20240930.htm",
+      "group_totals": {
+        "short_term": 3725000000,
+        "current_long_term": 8392000000,
+        "noncurrent_long_term": 25784000000
+      },
+      "total_debt": 37901000000,
+      "narrative_total_debt_candidates": [
+        37900000000
+      ],
+      "narrative_gap": 1000000,
+      "matches_narrative": true,
+      "sources": [
+        {
+          "concept": "us-gaap:ShortTermBorrowings",
+          "context_ref": "c-21",
+          "value": 3725000000,
+          "instant": "2024-09-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "short_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent",
+          "context_ref": "c-23",
+          "value": 46000000,
+          "instant": "2024-09-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryEnergyTransportationMember"
+          },
+          "group": "current_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent",
+          "context_ref": "c-21",
+          "value": 8346000000,
+          "instant": "2024-09-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "current_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_ref": "c-23",
+          "value": 8634000000,
+          "instant": "2024-09-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryEnergyTransportationMember"
+          },
+          "group": "noncurrent_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_ref": "c-21",
+          "value": 17150000000,
+          "instant": "2024-09-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "noncurrent_long_term"
+        }
+      ]
+    },
+    {
+      "symbol": "CAT",
+      "report_date": "2024-06-30",
+      "filed": "2024-08-07",
+      "accession": "0000018230-24-000045",
+      "form": "10-Q",
+      "url": "https://www.sec.gov/Archives/edgar/data/18230/000001823024000045/cat-20240630.htm",
+      "group_totals": {
+        "short_term": 5298000000,
+        "current_long_term": 8177000000,
+        "noncurrent_long_term": 23836000000
+      },
+      "total_debt": 37311000000,
+      "narrative_total_debt_candidates": [
+        37310000000
+      ],
+      "narrative_gap": 1000000,
+      "matches_narrative": true,
+      "sources": [
+        {
+          "concept": "us-gaap:ShortTermBorrowings",
+          "context_ref": "c-21",
+          "value": 5298000000,
+          "instant": "2024-06-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "short_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent",
+          "context_ref": "c-23",
+          "value": 45000000,
+          "instant": "2024-06-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryEnergyTransportationMember"
+          },
+          "group": "current_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent",
+          "context_ref": "c-21",
+          "value": 8132000000,
+          "instant": "2024-06-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "current_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_ref": "c-23",
+          "value": 8537000000,
+          "instant": "2024-06-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:MachineryEnergyTransportationMember"
+          },
+          "group": "noncurrent_long_term"
+        },
+        {
+          "concept": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_ref": "c-21",
+          "value": 15299000000,
+          "instant": "2024-06-30",
+          "dimensions": {
+            "srt:ProductOrServiceAxis": "cat:FinancialProductsMember"
+          },
+          "group": "noncurrent_long_term"
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "available": 8,
+    "expected": 8,
+    "narrative_matches": 8,
+    "narrative_available": 8
+  }
+}

@@ -1,0 +1,1248 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "S&P 500 품질 스크리너 재무 안정 지표 검증",
+    "description": "연결 총부채 ÷ 비지배지분 포함 자기자본의 커버리지와 현재 진단 분포",
+    "generatedAt": "2026-07-30T00:34:50+09:00",
+    "cards": [],
+    "charts": [
+      {
+        "id": "debt-coverage-chart",
+        "title": "재무 안정 지표별 판정 가능 비율",
+        "subtitle": "Financials·Real Estate·Utilities 제외 362개 발행사; 자기자본 0 이하는 자동 미통과로 판정 가능에 포함",
+        "showDescription": true,
+        "intent": "comparison",
+        "question": "연결 총부채 비율이 사전등록한 전체 90% 커버리지 최소선을 충족했는가?",
+        "rationale": "철회한 이자부 D/E, 새 총부채비율, 사전 최소선을 같은 분모에서 비교한다.",
+        "type": "bar",
+        "dataset": "debt_coverage_comparison",
+        "sourceId": "debt-coverage-query",
+        "encodings": {
+          "x": {
+            "field": "method",
+            "type": "nominal",
+            "label": "지표 또는 기준"
+          },
+          "y": {
+            "field": "coverage",
+            "type": "quantitative",
+            "format": "percent",
+            "label": "판정 가능 비율"
+          },
+          "tooltip": [
+            {
+              "field": "resolved_issuers",
+              "type": "quantitative",
+              "label": "판정 가능 발행사"
+            },
+            {
+              "field": "population",
+              "type": "quantitative",
+              "label": "모집단"
+            }
+          ]
+        },
+        "valueFormat": "percent",
+        "layout": "full",
+        "maxRows": 3
+      },
+      {
+        "id": "gross-sector-chart",
+        "title": "섹터별 직접 매출총이익 8분기 커버리지",
+        "subtitle": "Financials, Real Estate, Utilities 제외; 검증하지 않은 매출-원가 차감은 포함하지 않음",
+        "showDescription": true,
+        "intent": "comparison",
+        "question": "총이익 결측이 특정 섹터에 구조적으로 집중되는가?",
+        "rationale": "결측을 종목 제외로 처리할 때 발생하는 섹터 편향을 비교한다.",
+        "type": "bar",
+        "dataset": "gross_sector_coverage",
+        "sourceId": "gross-sector-query",
+        "encodings": {
+          "x": {
+            "field": "sector",
+            "type": "nominal",
+            "label": "GICS 섹터"
+          },
+          "y": {
+            "field": "direct_coverage",
+            "type": "quantitative",
+            "format": "percent",
+            "label": "직접 GrossProfit 8/8 비율"
+          },
+          "tooltip": [
+            {
+              "field": "direct_issuers",
+              "type": "quantitative",
+              "label": "직접 8/8 발행사"
+            },
+            {
+              "field": "issuers",
+              "type": "quantitative",
+              "label": "섹터 발행사"
+            },
+            {
+              "field": "upper_bound_coverage",
+              "type": "quantitative",
+              "format": "percent",
+              "label": "무검증 차감 포함 상한"
+            }
+          ]
+        },
+        "valueFormat": "percent",
+        "layout": "full",
+        "maxRows": 8
+      },
+      {
+        "id": "total-liabilities-distribution-chart",
+        "showDescription": true,
+        "intent": "distribution",
+        "type": "bar",
+        "dataset": "total_liabilities_histogram",
+        "sourceId": "total-liabilities-histogram-query",
+        "valueFormat": "number",
+        "layout": "full",
+        "maxRows": 8,
+        "title": "현재 연결 총부채비율 분포",
+        "subtitle": "SEC FSDS 2026 Q1, 양수 자기자본 320개 발행사; 현재 분포는 임계값 산정에 사용하지 않음",
+        "question": "새 지표의 현재 횡단면은 어디에 집중되고 얼마나 긴 오른쪽 꼬리를 가지는가?",
+        "rationale": "임계값을 제안하지 않고 분포의 집중 구간과 극단 꼬리를 보여준다.",
+        "encodings": {
+          "x": {
+            "field": "bin",
+            "type": "nominal",
+            "label": "총부채 ÷ 총자기자본 구간"
+          },
+          "y": {
+            "field": "issuer_count",
+            "type": "quantitative",
+            "format": "number",
+            "label": "발행사 수"
+          },
+          "tooltip": [
+            {
+              "field": "share",
+              "type": "quantitative",
+              "format": "percent",
+              "label": "양수 자기자본 표본 비중"
+            },
+            {
+              "field": "sample_size",
+              "type": "quantitative",
+              "label": "표본 수"
+            }
+          ]
+        }
+      }
+    ],
+    "tables": [
+      {
+        "id": "debt-sector-coverage-table",
+        "title": "섹터별 연결 총부채비율 판정 가능 비율",
+        "subtitle": "SEC FSDS 2026 Q1; 모든 포함 섹터가 사전 최소선 80% 통과",
+        "showDescription": true,
+        "dataset": "debt_sector_coverage",
+        "defaultSort": {
+          "field": "coverage",
+          "direction": "asc"
+        },
+        "density": "spacious",
+        "sourceId": "total-liabilities-sector-query",
+        "layout": "full",
+        "columns": [
+          {
+            "field": "sector",
+            "label": "GICS 섹터",
+            "type": "text"
+          },
+          {
+            "field": "population",
+            "label": "발행사",
+            "format": "number"
+          },
+          {
+            "field": "resolved",
+            "label": "판정 가능",
+            "format": "number"
+          },
+          {
+            "field": "coverage",
+            "label": "판정 가능 비율",
+            "format": "percent"
+          },
+          {
+            "field": "minimum",
+            "label": "최소선",
+            "format": "percent"
+          },
+          {
+            "field": "status",
+            "label": "판정",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "id": "gross-rule-table",
+        "title": "매출총이익률 적신호 상태 규칙",
+        "subtitle": "직접 사실, 검증된 차감, 평가 불가를 서로 다른 상태로 보존",
+        "showDescription": true,
+        "dataset": "gross_rule",
+        "defaultSort": {
+          "field": "order",
+          "direction": "asc"
+        },
+        "density": "spacious",
+        "sourceId": "gross-rule-query",
+        "layout": "full",
+        "columns": [
+          {
+            "field": "order",
+            "label": "순서",
+            "format": "number"
+          },
+          {
+            "field": "state",
+            "label": "상태",
+            "type": "text"
+          },
+          {
+            "field": "condition",
+            "label": "조건",
+            "type": "text"
+          },
+          {
+            "field": "action",
+            "label": "처리",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "id": "total-liabilities-quantiles-table",
+        "layout": "full",
+        "density": "spacious",
+        "title": "현재 연결 총부채비율 분위수",
+        "subtitle": "양수 자기자본 320개 발행사; P90 5.94는 진단값이며 백테스트 임계값이 아님",
+        "showDescription": true,
+        "dataset": "total_liabilities_quantiles",
+        "defaultSort": {
+          "field": "order",
+          "direction": "asc"
+        },
+        "sourceId": "total-liabilities-quantiles-query",
+        "columns": [
+          {
+            "field": "order",
+            "label": "순서",
+            "format": "number"
+          },
+          {
+            "field": "statistic",
+            "label": "통계량",
+            "type": "text"
+          },
+          {
+            "field": "ratio",
+            "label": "총부채 ÷ 총자기자본",
+            "format": "number"
+          },
+          {
+            "field": "interpretation",
+            "label": "용도",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "id": "nonpositive-equity-exclusions-table",
+        "layout": "full",
+        "density": "dense",
+        "title": "자기자본 0 이하 자동 미통과 발행사",
+        "subtitle": "SEC FSDS 2026 Q1 현재 스냅샷 22개; 과거 고정 제외 목록이 아니라 각 신호일에 재판정",
+        "showDescription": true,
+        "dataset": "nonpositive_equity_exclusions",
+        "defaultSort": {
+          "field": "symbols",
+          "direction": "asc"
+        },
+        "sourceId": "nonpositive-equity-query",
+        "columns": [
+          {
+            "field": "symbols",
+            "label": "종목",
+            "type": "text"
+          },
+          {
+            "field": "name",
+            "label": "회사",
+            "type": "text"
+          },
+          {
+            "field": "sector",
+            "label": "섹터",
+            "type": "text"
+          },
+          {
+            "field": "equity",
+            "label": "연결 자기자본(USD)",
+            "format": "number"
+          },
+          {
+            "field": "financial_period_end",
+            "label": "재무기간 말",
+            "type": "text"
+          },
+          {
+            "field": "filed",
+            "label": "공시일",
+            "type": "text"
+          },
+          {
+            "field": "accession",
+            "label": "접수번호",
+            "type": "text"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "id": "companyfacts-debt-results",
+        "label": "SEC Companyfacts 엄격 D/E 횡단면",
+        "path": "sp500_debt_results.json"
+      },
+      {
+        "id": "fsds-debt-results",
+        "label": "SEC 렌더링 재무제표 결합 D/E 횡단면",
+        "path": "fsds_debt_results_2026q1.json",
+        "href": "https://www.sec.gov/data-research/sec-markets-data/financial-statement-data-sets"
+      },
+      {
+        "id": "debt-coverage-comparison",
+        "label": "D/E 커버리지 비교",
+        "path": "debt_coverage_comparison.csv"
+      },
+      {
+        "id": "debt-coverage-query",
+        "label": "D/E 커버리지 차트 SQL",
+        "path": "report_debt_coverage.sql"
+      },
+      {
+        "id": "gross-profit-results",
+        "label": "S&P 500 매출총이익 8분기 커버리지",
+        "path": "sp500_gross_profit_results.json"
+      },
+      {
+        "id": "gross-sector-query",
+        "label": "섹터별 총이익 커버리지 차트 SQL",
+        "path": "report_gross_sector_coverage.sql"
+      },
+      {
+        "id": "gross-rule-query",
+        "label": "총이익 적신호 상태 표 SQL",
+        "path": "report_gross_rule.sql"
+      },
+      {
+        "id": "cat-inline-results",
+        "label": "CAT inline XBRL 부채 대사",
+        "path": "inline_fallback_results.json"
+      },
+      {
+        "id": "preregistration-v02",
+        "label": "사전등록 v0.2",
+        "path": "PREREGISTRATION.v0.2.md"
+      },
+      {
+        "id": "fsds-instance-fallback",
+        "label": "공식 XBRL instance fallback 전체 결과",
+        "path": "fsds_instance_fallback_results.json",
+        "href": "https://www.sec.gov/edgar/sec-api-documentation"
+      },
+      {
+        "id": "debt-sector-coverage",
+        "label": "fallback 후 섹터별 커버리지",
+        "path": "fsds_instance_fallback_sector_coverage.csv"
+      },
+      {
+        "id": "debt-sector-coverage-query",
+        "label": "섹터별 커버리지 표 SQL",
+        "path": "report_debt_sector_coverage.sql"
+      },
+      {
+        "id": "audit-correction",
+        "label": "엄격 커버리지 계산 정정 기록",
+        "path": "DATA_AUDIT_CORRECTION.md"
+      },
+      {
+        "id": "preregistration-v03",
+        "label": "fallback 행동 규칙 사전등록 v0.3",
+        "path": "PREREGISTRATION.v0.3.md"
+      },
+      {
+        "id": "total-liabilities-results",
+        "label": "연결 총부채비율 FSDS 횡단면 결과",
+        "path": "total_liabilities_equity_fsds_results.json",
+        "href": "https://www.sec.gov/data-research/sec-markets-data/financial-statement-data-sets"
+      },
+      {
+        "id": "total-liabilities-cross-section",
+        "label": "연결 총부채비율 발행사별 횡단면",
+        "path": "total_liabilities_equity_fsds_cross_section.csv"
+      },
+      {
+        "id": "total-liabilities-sector-query",
+        "label": "연결 총부채비율 섹터 커버리지 SQL",
+        "path": "report_total_liabilities_sector_coverage.sql"
+      },
+      {
+        "id": "total-liabilities-histogram-query",
+        "label": "연결 총부채비율 진단 분포 SQL",
+        "path": "report_total_liabilities_histogram.sql"
+      },
+      {
+        "id": "total-liabilities-quantiles-query",
+        "label": "연결 총부채비율 분위수 SQL",
+        "path": "report_total_liabilities_quantiles.sql"
+      },
+      {
+        "id": "preregistration-v04",
+        "label": "연결 총부채비율 사전등록 v0.4",
+        "path": "PREREGISTRATION.v0.4.md"
+      },
+      {
+        "id": "preregistration-v041",
+        "label": "공식 presentation 매핑 사전등록 v0.4.1",
+        "path": "PREREGISTRATION.v0.4.1.md"
+      },
+      {
+        "id": "companyfacts-liabilities-pilot",
+        "label": "Companyfacts 단독 매핑 예비 결과",
+        "path": "total_liabilities_equity_results.json"
+      },
+      {
+        "id": "preregistration-v05",
+        "label": "P50 임계값 및 음수 자기자본 한계 사전등록 v0.5",
+        "path": "PREREGISTRATION.v0.5.md"
+      },
+      {
+        "id": "nonpositive-equity-list",
+        "label": "자기자본 0 이하 자동 미통과 발행사",
+        "path": "nonpositive_equity_auto_fail_2026q1.csv"
+      },
+      {
+        "id": "nonpositive-equity-query",
+        "label": "자기자본 0 이하 자동 미통과 SQL",
+        "path": "report_nonpositive_equity_exclusions.sql"
+      }
+    ],
+    "blocks": [
+      {
+        "id": "title",
+        "type": "markdown",
+        "layout": "full",
+        "body": "# S&P 500 품질 스크리너 재무 안정 지표 검증"
+      },
+      {
+        "id": "technical-summary",
+        "type": "markdown",
+        "layout": "full",
+        "body": "## 기술 요약: 총부채비율은 커버리지를 통과했지만 임계값은 아직 없다\n\n연결 총부채 ÷ 비지배지분 포함 연결 자기자본은 342/362(94.5%)에서 판정 가능했고, 8개 포함 섹터가 모두 80% 최소선을 통과했다. 사용 수치의 공시일·접수번호 존재율도 100%다.\n\n양수 자기자본 320개의 현재 분포는 중앙값 1.39, 진단용 P90 5.94였다. 이 값은 2026년 분포의 기술통계일 뿐이며 백테스트나 실전 임계값으로 사용하지 않는다. P90은 품질 선별이 아니라 이상치 제거에 가까워 폐기했다. 절대 임계값은 최초 백테스트 신호일 직전 60개 월말의 point-in-time 분포에서 P50을 한 번 계산해 고정한다.",
+        "sourceId": "total-liabilities-results"
+      },
+      {
+        "id": "debt-coverage-heading",
+        "type": "markdown",
+        "layout": "full",
+        "sourceId": "total-liabilities-results",
+        "body": "## 정확도를 양보한 총부채비율은 94.5% 커버리지를 확보했다\n\n이자부 D/E는 공식 XBRL fallback 후에도 36.7%에 그쳤다. 새 지표는 매입채무·미지급금·충당부채와 운용리스까지 포함해 업종 간 비교 정확도가 낮아지는 대신, 사전등록 전체 최소선 90%를 4.5%p 웃돌았다."
+      },
+      {
+        "id": "debt-coverage-visual",
+        "type": "chart",
+        "layout": "full",
+        "chartId": "debt-coverage-chart"
+      },
+      {
+        "id": "debt-coverage-interpretation",
+        "type": "markdown",
+        "layout": "full",
+        "sourceId": "total-liabilities-results",
+        "body": "**판정.** 새 정의는 v1 품질 게이트의 재무 안정 지표 후보로 유지할 수 있다. 다만 20개 미해결 기업을 임의로 채우지 않으며, 양수 자기자본 기업만 분위수 분포에 포함한다. 자기자본 0 이하 22개는 비율 계산 대신 품질 게이트 자동 미통과로 처리한다."
+      },
+      {
+        "id": "debt-sector-heading",
+        "type": "markdown",
+        "layout": "full",
+        "sourceId": "total-liabilities-results",
+        "body": "## 최저 커버리지 Materials도 88.5%로 섹터 최소선을 통과했다\n\n섹터별 판정 가능 비율은 88.5%~100%다. Materials 23/26, Health Care 54/59, Industrials 75/81로 상대적으로 낮지만 모두 사전등록 80% 이상이다. 추가 섹터 제외나 종목별 예외는 필요하지 않다."
+      },
+      {
+        "id": "debt-sector-evidence",
+        "type": "table",
+        "layout": "full",
+        "tableId": "debt-sector-coverage-table"
+      },
+      {
+        "id": "total-liabilities-distribution-heading",
+        "type": "markdown",
+        "layout": "full",
+        "sourceId": "total-liabilities-results",
+        "body": "## 현재 분포는 1~2배에 집중되지만 오른쪽 꼬리가 매우 길다\n\n320개 중 111개가 1~2배 구간에 있고 215개(67.2%)가 2배 미만이다. 반면 20배 이상도 8개이며 최대값은 159.37배다. 극단값은 주로 부채가 비정상적으로 큰 것보다 자기자본이 매우 작은 기업에서 발생한다."
+      },
+      {
+        "id": "total-liabilities-distribution-visual",
+        "type": "chart",
+        "layout": "full",
+        "chartId": "total-liabilities-distribution-chart"
+      },
+      {
+        "id": "total-liabilities-distribution-interpretation",
+        "type": "markdown",
+        "layout": "full",
+        "sourceId": "total-liabilities-results",
+        "body": "**해석 주의.** 현재 P90 5.94를 임계값으로 고정하면 2018년 같은 과거 신호에 2026년 레버리지 분포 정보를 주입하게 된다. 따라서 이 표와 차트는 구현 검증과 분포 형태 확인에만 사용하고, 코드의 임계값은 계속 `None`으로 둔다."
+      },
+      {
+        "id": "total-liabilities-quantiles-evidence",
+        "type": "table",
+        "layout": "full",
+        "tableId": "total-liabilities-quantiles-table"
+      },
+      {
+        "id": "nonpositive-equity-heading",
+        "type": "markdown",
+        "layout": "full",
+        "sourceId": "nonpositive-equity-list",
+        "body": "## 음수 자기자본 22개는 일관되게 제외하되 위음성 비용을 공개한다\n\nMCD·SBUX를 포함한 22개는 현재 연결 자기자본이 0 이하여서 총부채비율을 정의할 수 없다. 종목별 대체 지표를 허용하지 않고 재무 안정 게이트 자동 미통과를 유지한다. 다만 누적 자사주 매입과 자본환원 때문에 현금창출력이 좋은 기업도 제외될 수 있으므로, 이는 재무 부실과 동일한 의미가 아닌 알려진 위음성이다."
+      },
+      {
+        "id": "nonpositive-equity-evidence",
+        "type": "table",
+        "layout": "full",
+        "tableId": "nonpositive-equity-exclusions-table"
+      },
+      {
+        "id": "nonpositive-equity-interpretation",
+        "type": "markdown",
+        "layout": "full",
+        "sourceId": "preregistration-v05",
+        "body": "**감사 규칙.** 이 22개는 현재 스냅샷이지 과거 전체의 고정 제외 목록이 아니다. 각 신호일에 당시 공시자료로 다시 판정하고 종목·자기자본·재무기간 말·공시일·접수번호와 `NONPOSITIVE_EQUITY_AUTO_FAIL` 사유를 로그에 남긴다. 원인을 자동으로 자사주 매입이라고 분류하지 않는다."
+      },
+      {
+        "id": "gross-heading",
+        "type": "markdown",
+        "layout": "full",
+        "sourceId": "gross-profit-results",
+        "body": "## 매출총이익 결측을 제외로 처리하면 섹터 편향이 된다\n\n최근 8개 분기 직접 `GrossProfit`이 모두 있는 기업은 173/362다. Energy는 0/21, Communication Services는 2/20이다. 범위를 검증하지 않은 `매출-원가` 후보까지 넣어도 전체 상한은 264/362이며, CAT처럼 두 태그의 범위가 달라 잘못 계산되는 반례가 있다."
+      },
+      {
+        "id": "gross-sector-visual",
+        "type": "chart",
+        "layout": "full",
+        "chartId": "gross-sector-chart"
+      },
+      {
+        "id": "gross-sector-interpretation",
+        "type": "markdown",
+        "layout": "full",
+        "sourceId": "gross-profit-results",
+        "body": "**시각화 해석.** 결측률은 무작위가 아니다. 특히 Energy 전체가 직접 사실 기준에서 빠진다. 따라서 `데이터 없음=적신호` 규칙은 재무 위험을 찾는 것이 아니라 공시 형식이 다른 섹터를 제외하게 된다."
+      },
+      {
+        "id": "gross-rule-heading",
+        "type": "markdown",
+        "layout": "full",
+        "sourceId": "preregistration-v02",
+        "body": "## 적신호는 통과·발동·평가 불가의 세 상태로 기록한다\n\n품질 게이트의 필수 항목은 결측이면 계속 통과할 수 없다. 예외는 적신호 중 매출총이익률 하나뿐이다. 평가 불가는 적신호가 없다는 뜻이 아니므로 통과와 별도 집계하고, 현재 스크리너와 백테스트에서 동일하게 적용한다."
+      },
+      {
+        "id": "gross-rule-evidence",
+        "type": "table",
+        "layout": "full",
+        "tableId": "gross-rule-table"
+      },
+      {
+        "id": "scope-definitions",
+        "type": "markdown",
+        "layout": "full",
+        "sourceId": "preregistration-v041",
+        "body": "## 지표와 범위\n\n`총부채비율 = 연결 총부채 ÷ 비지배지분 포함 연결 자기자본`이다. 연결 총부채에는 이자부 차입금뿐 아니라 영업·회계상 모든 부채가 포함된다.\n\n모집단은 Financials, Real Estate, Utilities를 제외하고 동일 CIK의 복수 주식종류를 합친 S&P 500 발행사 362개다. 현재 점검은 SEC FSDS 2026 Q1을 사용하며 재무기간 말은 2025년 11월 30일~2026년 2월 28일, 공시일은 2026년 1월 7일~3월 31일이다."
+      },
+      {
+        "id": "methodology",
+        "type": "markdown",
+        "layout": "full",
+        "sourceId": "preregistration-v041",
+        "body": "## 방법: 공식 재무상태표 총계와 presentation을 함께 사용했다\n\n1. `Liabilities`, 비지배지분 포함 총자기자본, `LiabilitiesAndStockholdersEquity` 중 두 개 이상을 동일 접수번호·보고기간에서 확인했다.\n2. 직접 총자기자본이 없으면 `StockholdersEquity + MinorityInterest`를 사용했다.\n3. 비지배지분이 없는 발행사는 공식 라벨이 `Total`이고 재무상태표의 마지막 자기자본 총계로 제시된 entity-wide `StockholdersEquity`만 허용했다.\n4. 세 총계가 모두 있으면 `T = L + E`의 0.5% 일치 검사를 적용했다.\n5. 차원별 구성요소, custom 태그, 결측 0 대입과 종목별 예외는 사용하지 않았다.\n\nCompanyfacts 단독 예비 매핑은 차원 문맥 손실 때문에 84.0%에 그쳤다. 이 값은 최종 커버리지로 쓰지 않고 SEC FSDS의 entity-wide 사실과 공식 표시 순서로 재검증했다."
+      },
+      {
+        "id": "limitations",
+        "type": "markdown",
+        "layout": "full",
+        "body": "## 한계와 강건성 점검\n\n- **업종 특성 혼입:** 총부채에는 운전자본과 충당부채가 포함되어 차입 위험만 측정하지 않는다.\n- **회계등식 불일치:** 13개는 총계 간 0.5% 불일치로 제외했다. 임계값을 늘려 복원하지 않았다.\n- **미해결:** 필수 총계 부족 4개와 최신 제출자료 미연결 3개를 포함해 총 20개가 판정 불가다.\n- **긴 오른쪽 꼬리:** 최대 159.37배는 자기자본이 작은 기업에서 발생한다. 현재 P90은 실전 기준이 아니다.\n- **음수 자기자본 위음성:** 22개 자동 미통과에는 누적 자사주 매입 등 재무 부실이 아닌 원인이 섞일 수 있다. 종목별 예외 대신 제외 로그를 보존한다.\n- **시점:** 현재 분포는 SEC FSDS 2026 Q1 스냅샷이며 7월 말 실시간 재무상태를 뜻하지 않는다.",
+        "sourceId": "preregistration-v05"
+      },
+      {
+        "id": "next-steps",
+        "type": "markdown",
+        "layout": "full",
+        "body": "## 다음 단계\n\n1. 최초 백테스트 신호일을 수익률 계산 전에 확정한다.\n2. 그 직전 60개 연속 월말의 과거 구성 종목과 당시 공시 사실을 복원한다.\n3. 60개 월말 모두 전체 90%, 섹터별 80%, provenance 100%를 통과하는지 먼저 확인한다.\n4. 통과할 때만 유효 발행사-월 분포의 P50을 한 번 계산해 절대 임계값으로 고정한다.\n5. 임계값과 백테스트 성공 기준을 최종 사전등록한 뒤에만 수익률을 계산한다.",
+        "sourceId": "preregistration-v05"
+      },
+      {
+        "id": "further-questions",
+        "type": "markdown",
+        "layout": "full",
+        "body": "## 남은 확정 질문\n\n60개월 사전 보정기간을 정하려면 **최초 백테스트 신호일**을 확정해야 한다. 예를 들어 2016년 1월을 시작점으로 택하면 2011년 1월~2015년 12월이 보정기간이 된다. 이 날짜는 과거 커버리지나 수익률을 열기 전에 확정해야 한다.",
+        "sourceId": "preregistration-v05"
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-07-30T00:34:50+09:00",
+    "status": "ready",
+    "datasets": {
+      "headline_metrics": [
+        {
+          "total_liabilities_coverage": 0.9447513812154696,
+          "coverage_target": 0.9,
+          "positive_equity_ratios": 320,
+          "current_p90_diagnostic": 5.939310051753948,
+          "calibration_quantile": 0.5,
+          "backtest_threshold": null
+        }
+      ],
+      "debt_coverage_comparison": [
+        {
+          "method": "이자부 D/E",
+          "resolved_issuers": 133,
+          "population": 362,
+          "coverage": 0.3674033149
+        },
+        {
+          "method": "연결 총부채비율",
+          "resolved_issuers": 342,
+          "population": 362,
+          "coverage": 0.9447513812
+        },
+        {
+          "method": "사전등록 최소선",
+          "resolved_issuers": 326,
+          "population": 362,
+          "coverage": 0.9
+        }
+      ],
+      "gross_sector_coverage": [
+        {
+          "sector": "Energy",
+          "issuers": 21,
+          "direct_issuers": 0,
+          "direct_coverage": 0.0,
+          "upper_bound_coverage": 0.380952381
+        },
+        {
+          "sector": "Communication Services",
+          "issuers": 20,
+          "direct_issuers": 2,
+          "direct_coverage": 0.1,
+          "upper_bound_coverage": 0.35
+        },
+        {
+          "sector": "Industrials",
+          "issuers": 81,
+          "direct_issuers": 30,
+          "direct_coverage": 0.3703703704,
+          "upper_bound_coverage": 0.6296296296
+        },
+        {
+          "sector": "Consumer Discretionary",
+          "issuers": 47,
+          "direct_issuers": 21,
+          "direct_coverage": 0.4468085106,
+          "upper_bound_coverage": 0.6382978723
+        },
+        {
+          "sector": "Health Care",
+          "issuers": 59,
+          "direct_issuers": 27,
+          "direct_coverage": 0.4576271186,
+          "upper_bound_coverage": 0.8305084746
+        },
+        {
+          "sector": "Materials",
+          "issuers": 26,
+          "direct_issuers": 14,
+          "direct_coverage": 0.5384615385,
+          "upper_bound_coverage": 0.9230769231
+        },
+        {
+          "sector": "Information Technology",
+          "issuers": 74,
+          "direct_issuers": 54,
+          "direct_coverage": 0.7297297297,
+          "upper_bound_coverage": 0.8783783784
+        },
+        {
+          "sector": "Consumer Staples",
+          "issuers": 34,
+          "direct_issuers": 25,
+          "direct_coverage": 0.7352941176,
+          "upper_bound_coverage": 0.8823529412
+        }
+      ],
+      "gross_rule": [
+        {
+          "order": 1,
+          "state": "평가 가능",
+          "condition": "GrossProfit 직접 사실 또는 범위가 검증된 매출-원가",
+          "action": "YoY 5%p 하락 여부를 계산"
+        },
+        {
+          "order": 2,
+          "state": "적신호 발동",
+          "condition": "비교 가능한 총이익률이 전년 동기보다 5%p 이상 하락",
+          "action": "종목 제외 및 사유 로그"
+        },
+        {
+          "order": 3,
+          "state": "평가 불가",
+          "condition": "비교 가능한 총이익률을 복원할 수 없음",
+          "action": "해당 적신호만 미적용하고 GROSS_MARGIN_NOT_EVALUABLE 태그"
+        }
+      ],
+      "debt_sector_coverage": [
+        {
+          "sector": "Materials",
+          "population": 26,
+          "resolved": 23,
+          "coverage": 0.8846153846,
+          "minimum": 0.8,
+          "status": "통과"
+        },
+        {
+          "sector": "Health Care",
+          "population": 59,
+          "resolved": 54,
+          "coverage": 0.9152542373,
+          "minimum": 0.8,
+          "status": "통과"
+        },
+        {
+          "sector": "Industrials",
+          "population": 81,
+          "resolved": 75,
+          "coverage": 0.9259259259,
+          "minimum": 0.8,
+          "status": "통과"
+        },
+        {
+          "sector": "Consumer Discretionary",
+          "population": 47,
+          "resolved": 45,
+          "coverage": 0.9574468085,
+          "minimum": 0.8,
+          "status": "통과"
+        },
+        {
+          "sector": "Information Technology",
+          "population": 74,
+          "resolved": 71,
+          "coverage": 0.9594594595,
+          "minimum": 0.8,
+          "status": "통과"
+        },
+        {
+          "sector": "Consumer Staples",
+          "population": 34,
+          "resolved": 33,
+          "coverage": 0.9705882353,
+          "minimum": 0.8,
+          "status": "통과"
+        },
+        {
+          "sector": "Communication Services",
+          "population": 20,
+          "resolved": 20,
+          "coverage": 1.0,
+          "minimum": 0.8,
+          "status": "통과"
+        },
+        {
+          "sector": "Energy",
+          "population": 21,
+          "resolved": 21,
+          "coverage": 1.0,
+          "minimum": 0.8,
+          "status": "통과"
+        }
+      ],
+      "total_liabilities_histogram": [
+        {
+          "order": 1,
+          "bin": "0–0.5",
+          "issuer_count": 34,
+          "share": 0.10625,
+          "sample_size": 320,
+          "lower_bound": 0.0,
+          "upper_bound": 0.5
+        },
+        {
+          "order": 2,
+          "bin": "0.5–1",
+          "issuer_count": 70,
+          "share": 0.21875,
+          "sample_size": 320,
+          "lower_bound": 0.5,
+          "upper_bound": 1.0
+        },
+        {
+          "order": 3,
+          "bin": "1–2",
+          "issuer_count": 111,
+          "share": 0.346875,
+          "sample_size": 320,
+          "lower_bound": 1.0,
+          "upper_bound": 2.0
+        },
+        {
+          "order": 4,
+          "bin": "2–3",
+          "issuer_count": 41,
+          "share": 0.128125,
+          "sample_size": 320,
+          "lower_bound": 2.0,
+          "upper_bound": 3.0
+        },
+        {
+          "order": 5,
+          "bin": "3–5",
+          "issuer_count": 27,
+          "share": 0.084375,
+          "sample_size": 320,
+          "lower_bound": 3.0,
+          "upper_bound": 5.0
+        },
+        {
+          "order": 6,
+          "bin": "5–10",
+          "issuer_count": 21,
+          "share": 0.065625,
+          "sample_size": 320,
+          "lower_bound": 5.0,
+          "upper_bound": 10.0
+        },
+        {
+          "order": 7,
+          "bin": "10–20",
+          "issuer_count": 8,
+          "share": 0.025,
+          "sample_size": 320,
+          "lower_bound": 10.0,
+          "upper_bound": 20.0
+        },
+        {
+          "order": 8,
+          "bin": "20+",
+          "issuer_count": 8,
+          "share": 0.025,
+          "sample_size": 320,
+          "lower_bound": 20.0,
+          "upper_bound": null
+        }
+      ],
+      "total_liabilities_quantiles": [
+        {
+          "order": 1,
+          "statistic": "P25",
+          "ratio": 0.8,
+          "interpretation": "현재 분포 진단"
+        },
+        {
+          "order": 2,
+          "statistic": "중앙값",
+          "ratio": 1.3931,
+          "interpretation": "현재 분포 진단"
+        },
+        {
+          "order": 3,
+          "statistic": "P75",
+          "ratio": 2.5291,
+          "interpretation": "현재 분포 진단"
+        },
+        {
+          "order": 4,
+          "statistic": "P90",
+          "ratio": 5.9393,
+          "interpretation": "진단값·임계값 아님"
+        },
+        {
+          "order": 5,
+          "statistic": "P95",
+          "ratio": 9.5318,
+          "interpretation": "현재 분포 진단"
+        },
+        {
+          "order": 6,
+          "statistic": "최대",
+          "ratio": 159.3714,
+          "interpretation": "극단값 점검"
+        }
+      ],
+      "nonpositive_equity_exclusions": [
+        {
+          "symbols": "ABBV",
+          "name": "AbbVie",
+          "sector": "Health Care",
+          "equity": -3228000000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260220",
+          "accession": "0001551152-26-000008",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "AZO",
+          "name": "AutoZone",
+          "sector": "Consumer Discretionary",
+          "equity": -2908770000.0,
+          "financial_period_end": "20260131",
+          "filed": "20260320",
+          "accession": "0001104659-26-032757",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "BKNG",
+          "name": "Booking Holdings",
+          "sector": "Consumer Discretionary",
+          "equity": -5578000000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260218",
+          "accession": "0001075531-26-000009",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "CAH",
+          "name": "Cardinal Health",
+          "sector": "Health Care",
+          "equity": -2700000000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260205",
+          "accession": "0000721371-26-000006",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "DELL",
+          "name": "Dell Technologies",
+          "sector": "Information Technology",
+          "equity": -2470000000.0,
+          "financial_period_end": "20260131",
+          "filed": "20260316",
+          "accession": "0001571996-26-000008",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "DPZ",
+          "name": "Domino's",
+          "sector": "Consumer Discretionary",
+          "equity": -3901142000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260223",
+          "accession": "0001193125-26-062321",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "FICO",
+          "name": "Fair Isaac",
+          "sector": "Information Technology",
+          "equity": -1808134000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260128",
+          "accession": "0000814547-26-000011",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "HCA",
+          "name": "HCA Healthcare",
+          "sector": "Health Care",
+          "equity": -2771000000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260210",
+          "accession": "0001193125-26-044769",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "HLT",
+          "name": "Hilton Worldwide",
+          "sector": "Consumer Discretionary",
+          "equity": -5359000000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260211",
+          "accession": "0001585689-26-000007",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "HPQ",
+          "name": "HP Inc.",
+          "sector": "Information Technology",
+          "equity": -766000000.0,
+          "financial_period_end": "20260131",
+          "filed": "20260225",
+          "accession": "0000047217-26-000011",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "LOW",
+          "name": "Lowe's",
+          "sector": "Consumer Discretionary",
+          "equity": -9917000000.0,
+          "financial_period_end": "20260131",
+          "filed": "20260323",
+          "accession": "0000060667-26-000029",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "MCD",
+          "name": "McDonald's",
+          "sector": "Consumer Discretionary",
+          "equity": -1791000000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260224",
+          "accession": "0000063908-26-000035",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "MCK",
+          "name": "McKesson Corporation",
+          "sector": "Health Care",
+          "equity": -901000000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260204",
+          "accession": "0000927653-26-000017",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "MO",
+          "name": "Altria",
+          "sector": "Consumer Staples",
+          "equity": -3452000000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260225",
+          "accession": "0000764180-26-000017",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "MTD",
+          "name": "Mettler Toledo",
+          "sector": "Health Care",
+          "equity": -23636000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260206",
+          "accession": "0001037646-26-000011",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "ORLY",
+          "name": "O’Reilly Automotive",
+          "sector": "Consumer Discretionary",
+          "equity": -763352000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260227",
+          "accession": "0000898173-26-000009",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "PM",
+          "name": "Philip Morris International",
+          "sector": "Consumer Staples",
+          "equity": -8028000000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260206",
+          "accession": "0001628280-26-005939",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "SBUX",
+          "name": "Starbucks",
+          "sector": "Consumer Discretionary",
+          "equity": -8381300000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260128",
+          "accession": "0000829224-26-000011",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "TDG",
+          "name": "TransDigm Group",
+          "sector": "Industrials",
+          "equity": -9263000000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260203",
+          "accession": "0001260221-26-000017",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "VRSN",
+          "name": "Verisign",
+          "sector": "Information Technology",
+          "equity": -2154200000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260205",
+          "accession": "0001014473-26-000006",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "WYNN",
+          "name": "Wynn Resorts",
+          "sector": "Consumer Discretionary",
+          "equity": -1031279000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260302",
+          "accession": "0001174922-26-000013",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        },
+        {
+          "symbols": "YUM",
+          "name": "Yum! Brands",
+          "sector": "Consumer Discretionary",
+          "equity": -7325000000.0,
+          "financial_period_end": "20251231",
+          "filed": "20260220",
+          "accession": "0001041061-26-000084",
+          "exclusion_reason": "NONPOSITIVE_EQUITY_AUTO_FAIL"
+        }
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "companyfacts-debt-results",
+      "label": "SEC Companyfacts 엄격 D/E 횡단면",
+      "path": "sp500_debt_results.json"
+    },
+    {
+      "id": "fsds-debt-results",
+      "label": "SEC 렌더링 재무제표 결합 D/E 횡단면",
+      "path": "fsds_debt_results_2026q1.json",
+      "href": "https://www.sec.gov/data-research/sec-markets-data/financial-statement-data-sets"
+    },
+    {
+      "id": "debt-coverage-comparison",
+      "label": "D/E 커버리지 비교",
+      "path": "debt_coverage_comparison.csv"
+    },
+    {
+      "id": "debt-coverage-query",
+      "label": "D/E 커버리지 차트 SQL",
+      "path": "report_debt_coverage.sql"
+    },
+    {
+      "id": "gross-profit-results",
+      "label": "S&P 500 매출총이익 8분기 커버리지",
+      "path": "sp500_gross_profit_results.json"
+    },
+    {
+      "id": "gross-sector-query",
+      "label": "섹터별 총이익 커버리지 차트 SQL",
+      "path": "report_gross_sector_coverage.sql"
+    },
+    {
+      "id": "gross-rule-query",
+      "label": "총이익 적신호 상태 표 SQL",
+      "path": "report_gross_rule.sql"
+    },
+    {
+      "id": "cat-inline-results",
+      "label": "CAT inline XBRL 부채 대사",
+      "path": "inline_fallback_results.json"
+    },
+    {
+      "id": "preregistration-v02",
+      "label": "사전등록 v0.2",
+      "path": "PREREGISTRATION.v0.2.md"
+    },
+    {
+      "id": "fsds-instance-fallback",
+      "label": "공식 XBRL instance fallback 전체 결과",
+      "path": "fsds_instance_fallback_results.json",
+      "href": "https://www.sec.gov/edgar/sec-api-documentation"
+    },
+    {
+      "id": "debt-sector-coverage",
+      "label": "fallback 후 섹터별 커버리지",
+      "path": "fsds_instance_fallback_sector_coverage.csv"
+    },
+    {
+      "id": "debt-sector-coverage-query",
+      "label": "섹터별 커버리지 표 SQL",
+      "path": "report_debt_sector_coverage.sql"
+    },
+    {
+      "id": "audit-correction",
+      "label": "엄격 커버리지 계산 정정 기록",
+      "path": "DATA_AUDIT_CORRECTION.md"
+    },
+    {
+      "id": "preregistration-v03",
+      "label": "fallback 행동 규칙 사전등록 v0.3",
+      "path": "PREREGISTRATION.v0.3.md"
+    },
+    {
+      "id": "total-liabilities-results",
+      "label": "연결 총부채비율 FSDS 횡단면 결과",
+      "path": "total_liabilities_equity_fsds_results.json",
+      "href": "https://www.sec.gov/data-research/sec-markets-data/financial-statement-data-sets"
+    },
+    {
+      "id": "total-liabilities-cross-section",
+      "label": "연결 총부채비율 발행사별 횡단면",
+      "path": "total_liabilities_equity_fsds_cross_section.csv"
+    },
+    {
+      "id": "total-liabilities-sector-query",
+      "label": "연결 총부채비율 섹터 커버리지 SQL",
+      "path": "report_total_liabilities_sector_coverage.sql"
+    },
+    {
+      "id": "total-liabilities-histogram-query",
+      "label": "연결 총부채비율 진단 분포 SQL",
+      "path": "report_total_liabilities_histogram.sql"
+    },
+    {
+      "id": "total-liabilities-quantiles-query",
+      "label": "연결 총부채비율 분위수 SQL",
+      "path": "report_total_liabilities_quantiles.sql"
+    },
+    {
+      "id": "preregistration-v04",
+      "label": "연결 총부채비율 사전등록 v0.4",
+      "path": "PREREGISTRATION.v0.4.md"
+    },
+    {
+      "id": "preregistration-v041",
+      "label": "공식 presentation 매핑 사전등록 v0.4.1",
+      "path": "PREREGISTRATION.v0.4.1.md"
+    },
+    {
+      "id": "companyfacts-liabilities-pilot",
+      "label": "Companyfacts 단독 매핑 예비 결과",
+      "path": "total_liabilities_equity_results.json"
+    },
+    {
+      "id": "preregistration-v05",
+      "label": "P50 임계값 및 음수 자기자본 한계 사전등록 v0.5",
+      "path": "PREREGISTRATION.v0.5.md"
+    },
+    {
+      "id": "nonpositive-equity-list",
+      "label": "자기자본 0 이하 자동 미통과 발행사",
+      "path": "nonpositive_equity_auto_fail_2026q1.csv"
+    },
+    {
+      "id": "nonpositive-equity-query",
+      "label": "자기자본 0 이하 자동 미통과 SQL",
+      "path": "report_nonpositive_equity_exclusions.sql"
+    }
+  ]
+}

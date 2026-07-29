@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "as_of": "2026-07-29",
+  "policy": {
+    "auto_stitch": false,
+    "detection": "Flag any ticker-to-CIK change between mapping snapshots.",
+    "approval": "Require an SEC filing that explicitly identifies predecessor, successor, and effective date."
+  },
+  "lineages": [
+    {
+      "symbol": "XOM",
+      "effective_date": "2026-07-01",
+      "predecessor_cik": "0000034088",
+      "successor_cik": "0002115436",
+      "relationship": "successor_registrant_after_redomiciliation_merger",
+      "share_exchange": "1 predecessor common share to 1 successor common share",
+      "evidence": {
+        "form": "8-K12B",
+        "filed": "2026-07-01",
+        "accession": "0001193125-26-291990",
+        "url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068d8k12b.htm"
+      }
+    }
+  ]
+}
