@@ -300,6 +300,16 @@ def main() -> None:
                 "P50 임계값 및 음수 자기자본 한계 사전등록 v0.5",
                 "PREREGISTRATION.v0.5.md",
             ),
+            "preregistration-v06": source(
+                "preregistration-v06",
+                "백테스트 기간·우측 검열·프로세스 분리 사전등록 v0.6",
+                "PREREGISTRATION.v0.6.md",
+            ),
+            "historical-coverage-window": source(
+                "historical-coverage-window",
+                "커버리지 전용 최초 신호월 산출 모듈",
+                "historical_coverage_window.py",
+            ),
             "nonpositive-equity-list": source(
                 "nonpositive-equity-list",
                 "자기자본 0 이하 자동 미통과 발행사",
@@ -340,7 +350,10 @@ def main() -> None:
                 "뿐이며 백테스트나 실전 임계값으로 사용하지 않는다. "
                 "P90은 품질 선별이 아니라 이상치 제거에 가까워 폐기했다. "
                 "절대 임계값은 최초 백테스트 신호일 직전 60개 월말의 "
-                "point-in-time 분포에서 P50을 한 번 계산해 고정한다."
+                "point-in-time 분포에서 P50을 한 번 계산해 고정한다. "
+                "최초 신호월은 사람이 고르지 않고, 직전 60개 연속 "
+                "월말이 커버리지 최소선을 통과하는 가장 이른 달로 "
+                "기계적으로 정한다."
             ),
         }
     )
@@ -494,6 +507,60 @@ def main() -> None:
         ) + 1
         blocks[insertion_index:insertion_index] = nonpositive_blocks
 
+    window_rule_blocks = [
+        {
+            "id": "backtest-window-rules",
+            "type": "markdown",
+            "layout": "full",
+            "sourceId": "preregistration-v06",
+            "body": (
+                "## 백테스트 시작과 종료는 날짜 선택이 아니라 규칙의 "
+                "출력이다\n\n"
+                "최초 신호월은 직전 60개 연속 월말이 전체 90%, "
+                "섹터별 80%, provenance 100%를 모두 충족하는 가장 "
+                "이른 달이다. 중간 결측이나 미달 월은 연속 구간을 "
+                "끊으며, 더 늦은 기간의 커버리지가 좋아도 시작점을 "
+                "옮기지 않는다.\n\n"
+                "직전 60개월은 P50 임계값 보정에만 사용하고 성과 "
+                "표본에서는 제외한다. 마지막 신호월은 63·126·252 "
+                "거래일 트랙별로 H번째 거래일 종가가 데이터 기준일 "
+                "이내에 존재할 수 있는 가장 늦은 월로 각각 정한다. "
+                "미완결 신호는 `RIGHT_CENSORED`로 기록한다."
+            ),
+        },
+        {
+            "id": "coverage-return-separation",
+            "type": "markdown",
+            "layout": "full",
+            "sourceId": "historical-coverage-window",
+            "body": (
+                "## 커버리지 조회는 가격과 수익률을 읽지 않는다\n\n"
+                "`historical_coverage_window.py`는 월별 전체·최저 섹터 "
+                "커버리지와 provenance만 입력받아 최초 신호월을 "
+                "산출한다. CLI에는 가격 입력이 없고 yfinance 등 시장 "
+                "데이터 모듈을 import하지 않는다. 출력에는 "
+                "`prices_accessed = false`와 "
+                "`returns_calculated = false`를 기록한다. 커버리지 "
+                "결과를 원격에 고정한 뒤에만 별도 가격 프로세스를 "
+                "시작한다."
+            ),
+        },
+    ]
+    existing_ids = {block["id"] for block in blocks}
+    if not any(
+        block_id in existing_ids
+        for block_id in {
+            "backtest-window-rules",
+            "coverage-return-separation",
+        }
+    ):
+        insertion_index = next(
+            index
+            for index, block in enumerate(blocks)
+            if block["id"] == "scope-definitions"
+        )
+        blocks[insertion_index:insertion_index] = window_rule_blocks
+
     block_by_id = {block["id"]: block for block in blocks}
     block_by_id["scope-definitions"].update(
         {
@@ -558,31 +625,32 @@ def main() -> None:
     )
     block_by_id["next-steps"].update(
         {
-            "sourceId": "preregistration-v05",
+            "sourceId": "preregistration-v06",
             "body": (
                 "## 다음 단계\n\n"
-                "1. 최초 백테스트 신호일을 수익률 계산 전에 확정한다.\n"
-                "2. 그 직전 60개 연속 월말의 과거 구성 종목과 당시 "
-                "공시 사실을 복원한다.\n"
-                "3. 60개 월말 모두 전체 90%, 섹터별 80%, provenance "
-                "100%를 통과하는지 먼저 확인한다.\n"
-                "4. 통과할 때만 유효 발행사-월 분포의 P50을 한 번 "
+                "1. 가격을 읽지 않는 별도 프로세스로 가장 이른 가용 "
+                "월부터 월별 SEC·구성종목 커버리지를 계산한다.\n"
+                "2. 60개 연속 적격 월을 처음 완성한 다음 달을 최초 "
+                "신호월로 자동 산출한다.\n"
+                "3. 그 60개월의 유효 발행사-월 분포에서 P50을 한 번 "
                 "계산해 절대 임계값으로 고정한다.\n"
-                "5. 임계값과 백테스트 성공 기준을 최종 사전등록한 뒤에만 "
-                "수익률을 계산한다."
+                "4. 커버리지 결과·최초 신호월·P50을 원격 커밋과 "
+                "태그로 고정한다.\n"
+                "5. 그 이후에만 별도 가격 프로세스로 보유기간별 마지막 "
+                "신호월과 수익률을 계산한다."
             ),
         }
     )
     block_by_id["further-questions"].update(
         {
-            "sourceId": "preregistration-v05",
+            "sourceId": "preregistration-v06",
             "body": (
-                "## 남은 확정 질문\n\n"
-                "60개월 사전 보정기간을 정하려면 **최초 백테스트 "
-                "신호일**을 확정해야 한다. 예를 들어 2016년 1월을 "
-                "시작점으로 택하면 2011년 1월~2015년 12월이 보정기간이 "
-                "된다. 이 날짜는 과거 커버리지나 수익률을 열기 전에 "
-                "확정해야 한다."
+                "## 남은 데이터 관문\n\n"
+                "사람이 확정할 시작 날짜는 없다. 다음 관문은 과거 "
+                "S&P 500 구성 복원과 SEC point-in-time 월별 커버리지 "
+                "자체가 60개월 연속 최소선을 통과하는지다. 적격 구간이 "
+                "없으면 `NO_VALID_BACKTEST_START`로 종료하며, 기간이나 "
+                "최소선을 완화하지 않는다."
             ),
         }
     )

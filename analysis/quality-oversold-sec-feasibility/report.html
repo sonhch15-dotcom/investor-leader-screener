@@ -34,10 +34,10 @@ html:not([data-portable-source-tooltips-ready]) .portable-chart-summary>.portabl
 </style>
 </head>
 <body>
-<main id="data-analytics-portable-fallback" class="portable-fallback" data-portable-fallback="true" data-portable-surface="report"><header class="portable-page-header"><div class="portable-page-heading"><p class="portable-surface-label">Data Analytics report</p><h1>S&amp;P 500 품질 스크리너 재무 안정 지표 검증</h1><p class="portable-description">연결 총부채 ÷ 비지배지분 포함 자기자본의 커버리지와 현재 진단 분포</p></div><div class="portable-page-meta"><time datetime="2026-07-30T00:34:50+09:00">Jul 29, 2026, 3:34 PM UTC</time></div></header><div class="portable-block-stack">
+<main id="data-analytics-portable-fallback" class="portable-fallback" data-portable-fallback="true" data-portable-surface="report"><header class="portable-page-header"><div class="portable-page-heading"><p class="portable-surface-label">Data Analytics report</p><h1>S&amp;P 500 품질 스크리너 재무 안정 지표 검증</h1><p class="portable-description">연결 총부채 ÷ 비지배지분 포함 자기자본의 커버리지와 현재 진단 분포</p></div><div class="portable-page-meta"><time datetime="2026-07-30T00:45:53+09:00">Jul 29, 2026, 3:45 PM UTC</time></div></header><div class="portable-block-stack">
 <div class="portable-block portable-layout-full" data-artifact-block-id="technical-summary" data-artifact-block-type="markdown" data-layout="full"><section class="portable-markdown"><h2>기술 요약: 총부채비율은 커버리지를 통과했지만 임계값은 아직 없다</h2>
 <p>연결 총부채 ÷ 비지배지분 포함 연결 자기자본은 342/362(<span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-1"><span class="portable-source-value-text">94.5%</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-1" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 94.5%</span><strong>Source: 연결 총부채비율 FSDS 횡단면 결과</strong><span class="portable-source-meta">File: total_liabilities_equity_fsds_results.json</span></span></span>)에서 판정 가능했고, 8개 포함 섹터가 모두 <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-2"><span class="portable-source-value-text">80%</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-2" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 80%</span><strong>Source: 연결 총부채비율 FSDS 횡단면 결과</strong><span class="portable-source-meta">File: total_liabilities_equity_fsds_results.json</span></span></span> 최소선을 통과했다. 사용 수치의 공시일·접수번호 존재율도 100%다.</p>
-<p>양수 자기자본 320개의 현재 분포는 중앙값 <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-3"><span class="portable-source-value-text">1.39</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-3" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 1.39</span><strong>Source: 연결 총부채비율 FSDS 횡단면 결과</strong><span class="portable-source-meta">File: total_liabilities_equity_fsds_results.json</span></span></span>, 진단용 P90 5.94였다. 이 값은 2026년 분포의 기술통계일 뿐이며 백테스트나 실전 임계값으로 사용하지 않는다. P90은 품질 선별이 아니라 이상치 제거에 가까워 폐기했다. 절대 임계값은 최초 백테스트 신호일 직전 60개 월말의 point-in-time 분포에서 P50을 한 번 계산해 고정한다.</p></section><div class="portable-inline-source portable-source-summary" data-source-id="total-liabilities-results"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 기술 요약: 총부채비율은 커버리지를 통과했지만 임계값은 아직 없다</span><strong>Source: 연결 총부채비율 FSDS 횡단면 결과</strong><span class="portable-source-meta">File: total_liabilities_equity_fsds_results.json</span></div></div></div>
+<p>양수 자기자본 320개의 현재 분포는 중앙값 <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-3"><span class="portable-source-value-text">1.39</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-3" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 1.39</span><strong>Source: 연결 총부채비율 FSDS 횡단면 결과</strong><span class="portable-source-meta">File: total_liabilities_equity_fsds_results.json</span></span></span>, 진단용 P90 5.94였다. 이 값은 2026년 분포의 기술통계일 뿐이며 백테스트나 실전 임계값으로 사용하지 않는다. P90은 품질 선별이 아니라 이상치 제거에 가까워 폐기했다. 절대 임계값은 최초 백테스트 신호일 직전 60개 월말의 point-in-time 분포에서 P50을 한 번 계산해 고정한다. 최초 신호월은 사람이 고르지 않고, 직전 60개 연속 월말이 커버리지 최소선을 통과하는 가장 이른 달로 기계적으로 정한다.</p></section><div class="portable-inline-source portable-source-summary" data-source-id="total-liabilities-results"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 기술 요약: 총부채비율은 커버리지를 통과했지만 임계값은 아직 없다</span><strong>Source: 연결 총부채비율 FSDS 횡단면 결과</strong><span class="portable-source-meta">File: total_liabilities_equity_fsds_results.json</span></div></div></div>
 <div class="portable-block portable-layout-full" data-artifact-block-id="debt-coverage-heading" data-artifact-block-type="markdown" data-layout="full"><section class="portable-markdown"><h2>정확도를 양보한 총부채비율은 <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-4"><span class="portable-source-value-text">94.5%</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-4" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 94.5%</span><strong>Source: 연결 총부채비율 FSDS 횡단면 결과</strong><span class="portable-source-meta">File: total_liabilities_equity_fsds_results.json</span></span></span> 커버리지를 확보했다</h2>
 <p>이자부 D/E는 공식 XBRL fallback 후에도 36.7%에 그쳤다. 새 지표는 매입채무·미지급금·충당부채와 운용리스까지 포함해 업종 간 비교 정확도가 낮아지는 대신, 사전등록 전체 최소선 90%를 4.5%p 웃돌았다.</p></section><div class="portable-inline-source portable-source-summary" data-source-id="total-liabilities-results"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 정확도를 양보한 총부채비율은 94.5% 커버리지를 확보했다</span><strong>Source: 연결 총부채비율 FSDS 횡단면 결과</strong><span class="portable-source-meta">File: total_liabilities_equity_fsds_results.json</span></div></div></div>
 <div class="portable-block portable-layout-full" data-artifact-block-id="debt-coverage-visual" data-artifact-block-type="chart" data-layout="full"><figure class="portable-content-card portable-chart-summary" data-artifact-id="debt-coverage-chart" data-artifact-kind="chart" data-chart-id="debt-coverage-chart" data-portable-visual-title="재무 안정 지표별 판정 가능 비율" data-portable-source-host="true" tabindex="0" aria-label="재무 안정 지표별 판정 가능 비율" aria-describedby="portable-source-tooltip-5"><figcaption class="portable-visual-header"><strong>재무 안정 지표별 판정 가능 비율</strong><span>Financials·Real Estate·Utilities 제외 362개 발행사; 자기자본 0 이하는 자동 미통과로 판정 가능에 포함</span></figcaption><div class="portable-inline-source" data-source-id="debt-coverage-query"><div class="portable-inline-source-content portable-source-tooltip-content" id="portable-source-tooltip-5" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 재무 안정 지표별 판정 가능 비율</span><strong>Source: D/E 커버리지 차트 SQL</strong><span class="portable-source-meta">File: report_debt_coverage.sql</span></div></div><div class="portable-table-scroll"><table><caption>재무 안정 지표별 판정 가능 비율 data</caption><thead><tr><th scope="col">지표 또는 기준</th><th scope="col" class="portable-table-number">판정 가능 비율</th><th scope="col" class="portable-table-number">판정 가능 발행사</th><th scope="col" class="portable-table-number">모집단</th></tr></thead><tbody><tr><td>이자부 D/E</td><td class="portable-table-number">36.7%</td><td class="portable-table-number">133</td><td class="portable-table-number">362</td></tr><tr><td>연결 총부채비율</td><td class="portable-table-number">94.5%</td><td class="portable-table-number">342</td><td class="portable-table-number">362</td></tr><tr><td>사전등록 최소선</td><td class="portable-table-number">90%</td><td class="portable-table-number">326</td><td class="portable-table-number">362</td></tr></tbody></table></div></figure></div>
@@ -61,18 +61,23 @@ html:not([data-portable-source-tooltips-ready]) .portable-chart-summary>.portabl
 <div class="portable-block portable-layout-full" data-artifact-block-id="gross-rule-heading" data-artifact-block-type="markdown" data-layout="full"><section class="portable-markdown"><h2>적신호는 통과·발동·평가 불가의 세 상태로 기록한다</h2>
 <p>품질 게이트의 필수 항목은 결측이면 계속 통과할 수 없다. 예외는 적신호 중 매출총이익률 하나뿐이다. 평가 불가는 적신호가 없다는 뜻이 아니므로 통과와 별도 집계하고, 현재 스크리너와 백테스트에서 동일하게 적용한다.</p></section><div class="portable-inline-source portable-source-summary" data-source-id="preregistration-v02"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 적신호는 통과·발동·평가 불가의 세 상태로 기록한다</span><strong>Source: 사전등록 v0.2</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.2.md</span></div></div></div>
 <div class="portable-block portable-layout-full" data-artifact-block-id="gross-rule-evidence" data-artifact-block-type="table" data-layout="full"><section class="portable-content-card portable-table-card" data-artifact-id="gross-rule-table" data-artifact-kind="table" data-table-id="gross-rule-table" data-portable-visual-title="매출총이익률 적신호 상태 규칙"><header class="portable-visual-header"><h2>매출총이익률 적신호 상태 규칙</h2><p>직접 사실, 검증된 차감, 평가 불가를 서로 다른 상태로 보존</p></header><div class="portable-inline-source portable-source-summary" data-source-id="gross-rule-query"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 매출총이익률 적신호 상태 규칙</span><strong>Source: 총이익 적신호 상태 표 SQL</strong><span class="portable-source-meta">File: report_gross_rule.sql</span></div></div><div class="portable-table-source-region"><div class="portable-table-scroll"><table><caption>매출총이익률 적신호 상태 규칙</caption><thead><tr><th scope="col" class="portable-table-number">순서</th><th scope="col">상태</th><th scope="col">조건</th><th scope="col">처리</th></tr></thead><tbody><tr><td class="portable-table-source-cell portable-table-number"><span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-104"><span class="portable-source-value-text">1</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-104" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 1</span><strong>Source: 총이익 적신호 상태 표 SQL</strong><span class="portable-source-meta">File: report_gross_rule.sql</span></span></span></td><td>평가 가능</td><td>GrossProfit 직접 사실 또는 범위가 검증된 매출-원가</td><td>YoY 5%p 하락 여부를 계산</td></tr><tr><td class="portable-table-source-cell portable-table-number"><span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-105"><span class="portable-source-value-text">2</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-105" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 2</span><strong>Source: 총이익 적신호 상태 표 SQL</strong><span class="portable-source-meta">File: report_gross_rule.sql</span></span></span></td><td>적신호 발동</td><td>비교 가능한 총이익률이 전년 동기보다 5%p 이상 하락</td><td>종목 제외 및 사유 로그</td></tr><tr><td class="portable-table-source-cell portable-table-number"><span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-106"><span class="portable-source-value-text">3</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-106" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 3</span><strong>Source: 총이익 적신호 상태 표 SQL</strong><span class="portable-source-meta">File: report_gross_rule.sql</span></span></span></td><td>평가 불가</td><td>비교 가능한 총이익률을 복원할 수 없음</td><td>해당 적신호만 미적용하고 GROSS_MARGIN_NOT_EVALUABLE 태그</td></tr></tbody></table></div></div></section></div>
+<div class="portable-block portable-layout-full" data-artifact-block-id="backtest-window-rules" data-artifact-block-type="markdown" data-layout="full"><section class="portable-markdown"><h2>백테스트 시작과 종료는 날짜 선택이 아니라 규칙의 출력이다</h2>
+<p>최초 신호월은 직전 60개 연속 월말이 전체 <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-107"><span class="portable-source-value-text">90%</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-107" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 90%</span><strong>Source: 백테스트 기간·우측 검열·프로세스 분리 사전등록 v0.6</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.6.md</span></span></span>, 섹터별 <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-108"><span class="portable-source-value-text">80%</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-108" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 80%</span><strong>Source: 백테스트 기간·우측 검열·프로세스 분리 사전등록 v0.6</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.6.md</span></span></span>, provenance 100%를 모두 충족하는 가장 이른 달이다. 중간 결측이나 미달 월은 연속 구간을 끊으며, 더 늦은 기간의 커버리지가 좋아도 시작점을 옮기지 않는다.</p>
+<p>직전 60개월은 P50 임계값 보정에만 사용하고 성과 표본에서는 제외한다. 마지막 신호월은 <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-109"><span class="portable-source-value-text">63</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-109" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 63</span><strong>Source: 백테스트 기간·우측 검열·프로세스 분리 사전등록 v0.6</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.6.md</span></span></span>·<span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-110"><span class="portable-source-value-text">126</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-110" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 126</span><strong>Source: 백테스트 기간·우측 검열·프로세스 분리 사전등록 v0.6</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.6.md</span></span></span>·<span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-111"><span class="portable-source-value-text">252</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-111" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 252</span><strong>Source: 백테스트 기간·우측 검열·프로세스 분리 사전등록 v0.6</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.6.md</span></span></span> 거래일 트랙별로 H번째 거래일 종가가 데이터 기준일 이내에 존재할 수 있는 가장 늦은 월로 각각 정한다. 미완결 신호는 <code>RIGHT_CENSORED</code>로 기록한다.</p></section><div class="portable-inline-source portable-source-summary" data-source-id="preregistration-v06"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 백테스트 시작과 종료는 날짜 선택이 아니라 규칙의 출력이다</span><strong>Source: 백테스트 기간·우측 검열·프로세스 분리 사전등록 v0.6</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.6.md</span></div></div></div>
+<div class="portable-block portable-layout-full" data-artifact-block-id="coverage-return-separation" data-artifact-block-type="markdown" data-layout="full"><section class="portable-markdown"><h2>커버리지 조회는 가격과 수익률을 읽지 않는다</h2>
+<p><code>historical_coverage_window.py</code>는 월별 전체·최저 섹터 커버리지와 provenance만 입력받아 최초 신호월을 산출한다. CLI에는 가격 입력이 없고 yfinance 등 시장 데이터 모듈을 import하지 않는다. 출력에는 <code>prices_accessed = false</code>와 <code>returns_calculated = false</code>를 기록한다. 커버리지 결과를 원격에 고정한 뒤에만 별도 가격 프로세스를 시작한다.</p></section><div class="portable-inline-source portable-source-summary" data-source-id="historical-coverage-window"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 커버리지 조회는 가격과 수익률을 읽지 않는다</span><strong>Source: 커버리지 전용 최초 신호월 산출 모듈</strong><span class="portable-source-meta">File: historical_coverage_window.py</span></div></div></div>
 <div class="portable-block portable-layout-full" data-artifact-block-id="scope-definitions" data-artifact-block-type="markdown" data-layout="full"><section class="portable-markdown"><h2>지표와 범위</h2>
 <p><code>총부채비율 = 연결 총부채 ÷ 비지배지분 포함 연결 자기자본</code>이다. 연결 총부채에는 이자부 차입금뿐 아니라 영업·회계상 모든 부채가 포함된다.</p>
-<p>모집단은 Financials, Real Estate, Utilities를 제외하고 동일 CIK의 복수 주식종류를 합친 S&amp;P <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-107"><span class="portable-source-value-text">500</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-107" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 500</span><strong>Source: 공식 presentation 매핑 사전등록 v0.4.1</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.4.1.md</span></span></span> 발행사 362개다. 현재 점검은 SEC FSDS 2026 Q1을 사용하며 재무기간 말은 2025년 11월 30일~2026년 2월 28일, 공시일은 2026년 1월 7일~3월 31일이다.</p></section><div class="portable-inline-source portable-source-summary" data-source-id="preregistration-v041"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 지표와 범위</span><strong>Source: 공식 presentation 매핑 사전등록 v0.4.1</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.4.1.md</span></div></div></div>
+<p>모집단은 Financials, Real Estate, Utilities를 제외하고 동일 CIK의 복수 주식종류를 합친 S&amp;P <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-112"><span class="portable-source-value-text">500</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-112" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 500</span><strong>Source: 공식 presentation 매핑 사전등록 v0.4.1</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.4.1.md</span></span></span> 발행사 362개다. 현재 점검은 SEC FSDS 2026 Q1을 사용하며 재무기간 말은 2025년 11월 30일~2026년 2월 28일, 공시일은 2026년 1월 7일~3월 31일이다.</p></section><div class="portable-inline-source portable-source-summary" data-source-id="preregistration-v041"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 지표와 범위</span><strong>Source: 공식 presentation 매핑 사전등록 v0.4.1</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.4.1.md</span></div></div></div>
 <div class="portable-block portable-layout-full" data-artifact-block-id="methodology" data-artifact-block-type="markdown" data-layout="full"><section class="portable-markdown"><h2>방법: 공식 재무상태표 총계와 presentation을 함께 사용했다</h2>
-<ol><li><code>Liabilities</code>, 비지배지분 포함 총자기자본, <code>LiabilitiesAndStockholdersEquity</code> 중 두 개 이상을 동일 접수번호·보고기간에서 확인했다.</li><li>직접 총자기자본이 없으면 <code>StockholdersEquity + MinorityInterest</code>를 사용했다.</li><li>비지배지분이 없는 발행사는 공식 라벨이 <code>Total</code>이고 재무상태표의 마지막 자기자본 총계로 제시된 entity-wide <code>StockholdersEquity</code>만 허용했다.</li><li>세 총계가 모두 있으면 <code>T = L + E</code>의 <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-108"><span class="portable-source-value-text">0.5%</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-108" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 0.5%</span><strong>Source: 공식 presentation 매핑 사전등록 v0.4.1</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.4.1.md</span></span></span> 일치 검사를 적용했다.</li><li>차원별 구성요소, custom 태그, 결측 <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-109"><span class="portable-source-value-text">0</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-109" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 0</span><strong>Source: 공식 presentation 매핑 사전등록 v0.4.1</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.4.1.md</span></span></span> 대입과 종목별 예외는 사용하지 않았다.</li></ol>
+<ol><li><code>Liabilities</code>, 비지배지분 포함 총자기자본, <code>LiabilitiesAndStockholdersEquity</code> 중 두 개 이상을 동일 접수번호·보고기간에서 확인했다.</li><li>직접 총자기자본이 없으면 <code>StockholdersEquity + MinorityInterest</code>를 사용했다.</li><li>비지배지분이 없는 발행사는 공식 라벨이 <code>Total</code>이고 재무상태표의 마지막 자기자본 총계로 제시된 entity-wide <code>StockholdersEquity</code>만 허용했다.</li><li>세 총계가 모두 있으면 <code>T = L + E</code>의 <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-113"><span class="portable-source-value-text">0.5%</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-113" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 0.5%</span><strong>Source: 공식 presentation 매핑 사전등록 v0.4.1</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.4.1.md</span></span></span> 일치 검사를 적용했다.</li><li>차원별 구성요소, custom 태그, 결측 <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-114"><span class="portable-source-value-text">0</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-114" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 0</span><strong>Source: 공식 presentation 매핑 사전등록 v0.4.1</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.4.1.md</span></span></span> 대입과 종목별 예외는 사용하지 않았다.</li></ol>
 <p>Companyfacts 단독 예비 매핑은 차원 문맥 손실 때문에 84.0%에 그쳤다. 이 값은 최종 커버리지로 쓰지 않고 SEC FSDS의 entity-wide 사실과 공식 표시 순서로 재검증했다.</p></section><div class="portable-inline-source portable-source-summary" data-source-id="preregistration-v041"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 방법: 공식 재무상태표 총계와 presentation을 함께 사용했다</span><strong>Source: 공식 presentation 매핑 사전등록 v0.4.1</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.4.1.md</span></div></div></div>
 <div class="portable-block portable-layout-full" data-artifact-block-id="limitations" data-artifact-block-type="markdown" data-layout="full"><section class="portable-markdown"><h2>한계와 강건성 점검</h2>
-<ul><li><strong>업종 특성 혼입:</strong> 총부채에는 운전자본과 충당부채가 포함되어 차입 위험만 측정하지 않는다.</li><li><strong>회계등식 불일치:</strong> 13개는 총계 간 <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-110"><span class="portable-source-value-text">0.5%</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-110" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 0.5%</span><strong>Source: P50 임계값 및 음수 자기자본 한계 사전등록 v0.5</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.5.md</span></span></span> 불일치로 제외했다. 임계값을 늘려 복원하지 않았다.</li><li><strong>미해결:</strong> 필수 총계 부족 4개와 최신 제출자료 미연결 3개를 포함해 총 20개가 판정 불가다.</li><li><strong>긴 오른쪽 꼬리:</strong> 최대 159.37배는 자기자본이 작은 기업에서 발생한다. 현재 P90은 실전 기준이 아니다.</li><li><strong>음수 자기자본 위음성:</strong> 22개 자동 미통과에는 누적 자사주 매입 등 재무 부실이 아닌 원인이 섞일 수 있다. 종목별 예외 대신 제외 로그를 보존한다.</li><li><strong>시점:</strong> 현재 분포는 SEC FSDS 2026 Q1 스냅샷이며 7월 말 실시간 재무상태를 뜻하지 않는다.</li></ul></section><div class="portable-inline-source portable-source-summary" data-source-id="preregistration-v05"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 한계와 강건성 점검</span><strong>Source: P50 임계값 및 음수 자기자본 한계 사전등록 v0.5</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.5.md</span></div></div></div>
+<ul><li><strong>업종 특성 혼입:</strong> 총부채에는 운전자본과 충당부채가 포함되어 차입 위험만 측정하지 않는다.</li><li><strong>회계등식 불일치:</strong> 13개는 총계 간 <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-115"><span class="portable-source-value-text">0.5%</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-115" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 0.5%</span><strong>Source: P50 임계값 및 음수 자기자본 한계 사전등록 v0.5</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.5.md</span></span></span> 불일치로 제외했다. 임계값을 늘려 복원하지 않았다.</li><li><strong>미해결:</strong> 필수 총계 부족 4개와 최신 제출자료 미연결 3개를 포함해 총 20개가 판정 불가다.</li><li><strong>긴 오른쪽 꼬리:</strong> 최대 159.37배는 자기자본이 작은 기업에서 발생한다. 현재 P90은 실전 기준이 아니다.</li><li><strong>음수 자기자본 위음성:</strong> 22개 자동 미통과에는 누적 자사주 매입 등 재무 부실이 아닌 원인이 섞일 수 있다. 종목별 예외 대신 제외 로그를 보존한다.</li><li><strong>시점:</strong> 현재 분포는 SEC FSDS 2026 Q1 스냅샷이며 7월 말 실시간 재무상태를 뜻하지 않는다.</li></ul></section><div class="portable-inline-source portable-source-summary" data-source-id="preregistration-v05"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 한계와 강건성 점검</span><strong>Source: P50 임계값 및 음수 자기자본 한계 사전등록 v0.5</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.5.md</span></div></div></div>
 <div class="portable-block portable-layout-full" data-artifact-block-id="next-steps" data-artifact-block-type="markdown" data-layout="full"><section class="portable-markdown"><h2>다음 단계</h2>
-<ol><li>최초 백테스트 신호일을 수익률 계산 전에 확정한다.</li><li>그 직전 60개 연속 월말의 과거 구성 종목과 당시 공시 사실을 복원한다.</li><li>60개 월말 모두 전체 <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-111"><span class="portable-source-value-text">90%</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-111" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 90%</span><strong>Source: P50 임계값 및 음수 자기자본 한계 사전등록 v0.5</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.5.md</span></span></span>, 섹터별 <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-112"><span class="portable-source-value-text">80%</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-112" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 80%</span><strong>Source: P50 임계값 및 음수 자기자본 한계 사전등록 v0.5</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.5.md</span></span></span>, provenance 100%를 통과하는지 먼저 확인한다.</li><li>통과할 때만 유효 발행사-월 분포의 P50을 한 번 계산해 절대 임계값으로 고정한다.</li><li>임계값과 백테스트 성공 기준을 최종 사전등록한 뒤에만 수익률을 계산한다.</li></ol></section><div class="portable-inline-source portable-source-summary" data-source-id="preregistration-v05"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 다음 단계</span><strong>Source: P50 임계값 및 음수 자기자본 한계 사전등록 v0.5</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.5.md</span></div></div></div>
-<div class="portable-block portable-layout-full" data-artifact-block-id="further-questions" data-artifact-block-type="markdown" data-layout="full"><section class="portable-markdown"><h2>남은 확정 질문</h2>
-<p>60개월 사전 보정기간을 정하려면 <strong>최초 백테스트 신호일</strong>을 확정해야 한다. 예를 들어 2016년 1월을 시작점으로 택하면 2011년 1월~2015년 12월이 보정기간이 된다. 이 날짜는 과거 커버리지나 수익률을 열기 전에 확정해야 한다.</p></section><div class="portable-inline-source portable-source-summary" data-source-id="preregistration-v05"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 남은 확정 질문</span><strong>Source: P50 임계값 및 음수 자기자본 한계 사전등록 v0.5</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.5.md</span></div></div></div></div><section class="portable-sources" aria-labelledby="portable-sources-heading"><h2 id="portable-sources-heading">Sources</h2><ol><li><strong>SEC Companyfacts 엄격 D/E 횡단면</strong><span class="portable-source-meta">sp500_debt_results.json</span></li><li><strong>SEC 렌더링 재무제표 결합 D/E 횡단면</strong><span class="portable-source-meta">fsds_debt_results_2026q1.json</span></li><li><strong>D/E 커버리지 비교</strong><span class="portable-source-meta">debt_coverage_comparison.csv</span></li><li><strong>D/E 커버리지 차트 SQL</strong><span class="portable-source-meta">report_debt_coverage.sql</span></li><li><strong>S&amp;P 500 매출총이익 8분기 커버리지</strong><span class="portable-source-meta">sp500_gross_profit_results.json</span></li><li><strong>섹터별 총이익 커버리지 차트 SQL</strong><span class="portable-source-meta">report_gross_sector_coverage.sql</span></li><li><strong>총이익 적신호 상태 표 SQL</strong><span class="portable-source-meta">report_gross_rule.sql</span></li><li><strong>CAT inline XBRL 부채 대사</strong><span class="portable-source-meta">inline_fallback_results.json</span></li><li><strong>사전등록 v0.2</strong><span class="portable-source-meta">PREREGISTRATION.v0.2.md</span></li><li><strong>공식 XBRL instance fallback 전체 결과</strong><span class="portable-source-meta">fsds_instance_fallback_results.json</span></li><li><strong>fallback 후 섹터별 커버리지</strong><span class="portable-source-meta">fsds_instance_fallback_sector_coverage.csv</span></li><li><strong>섹터별 커버리지 표 SQL</strong><span class="portable-source-meta">report_debt_sector_coverage.sql</span></li><li><strong>엄격 커버리지 계산 정정 기록</strong><span class="portable-source-meta">DATA_AUDIT_CORRECTION.md</span></li><li><strong>fallback 행동 규칙 사전등록 v0.3</strong><span class="portable-source-meta">PREREGISTRATION.v0.3.md</span></li><li><strong>연결 총부채비율 FSDS 횡단면 결과</strong><span class="portable-source-meta">total_liabilities_equity_fsds_results.json</span></li><li><strong>연결 총부채비율 발행사별 횡단면</strong><span class="portable-source-meta">total_liabilities_equity_fsds_cross_section.csv</span></li><li><strong>연결 총부채비율 섹터 커버리지 SQL</strong><span class="portable-source-meta">report_total_liabilities_sector_coverage.sql</span></li><li><strong>연결 총부채비율 진단 분포 SQL</strong><span class="portable-source-meta">report_total_liabilities_histogram.sql</span></li><li><strong>연결 총부채비율 분위수 SQL</strong><span class="portable-source-meta">report_total_liabilities_quantiles.sql</span></li><li><strong>연결 총부채비율 사전등록 v0.4</strong><span class="portable-source-meta">PREREGISTRATION.v0.4.md</span></li><li><strong>공식 presentation 매핑 사전등록 v0.4.1</strong><span class="portable-source-meta">PREREGISTRATION.v0.4.1.md</span></li><li><strong>Companyfacts 단독 매핑 예비 결과</strong><span class="portable-source-meta">total_liabilities_equity_results.json</span></li><li><strong>P50 임계값 및 음수 자기자본 한계 사전등록 v0.5</strong><span class="portable-source-meta">PREREGISTRATION.v0.5.md</span></li><li><strong>자기자본 0 이하 자동 미통과 발행사</strong><span class="portable-source-meta">nonpositive_equity_auto_fail_2026q1.csv</span></li><li><strong>자기자본 0 이하 자동 미통과 SQL</strong><span class="portable-source-meta">report_nonpositive_equity_exclusions.sql</span></li></ol></section></main>
+<ol><li>가격을 읽지 않는 별도 프로세스로 가장 이른 가용 월부터 월별 SEC·구성종목 커버리지를 계산한다.</li><li>60개 연속 적격 월을 처음 완성한 다음 달을 최초 신호월로 자동 산출한다.</li><li>그 60개월의 유효 발행사-월 분포에서 P50을 한 번 계산해 절대 임계값으로 고정한다.</li><li>커버리지 결과·최초 신호월·P50을 원격 커밋과 태그로 고정한다.</li><li>그 이후에만 별도 가격 프로세스로 보유기간별 마지막 신호월과 수익률을 계산한다.</li></ol></section><div class="portable-inline-source portable-source-summary" data-source-id="preregistration-v06"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 다음 단계</span><strong>Source: 백테스트 기간·우측 검열·프로세스 분리 사전등록 v0.6</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.6.md</span></div></div></div>
+<div class="portable-block portable-layout-full" data-artifact-block-id="further-questions" data-artifact-block-type="markdown" data-layout="full"><section class="portable-markdown"><h2>남은 데이터 관문</h2>
+<p>사람이 확정할 시작 날짜는 없다. 다음 관문은 과거 S&amp;P <span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-116"><span class="portable-source-value-text">500</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-116" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 500</span><strong>Source: 백테스트 기간·우측 검열·프로세스 분리 사전등록 v0.6</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.6.md</span></span></span> 구성 복원과 SEC point-in-time 월별 커버리지 자체가 60개월 연속 최소선을 통과하는지다. 적격 구간이 없으면 <code>NO_VALID_BACKTEST_START</code>로 종료하며, 기간이나 최소선을 완화하지 않는다.</p></section><div class="portable-inline-source portable-source-summary" data-source-id="preregistration-v06"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 남은 데이터 관문</span><strong>Source: 백테스트 기간·우측 검열·프로세스 분리 사전등록 v0.6</strong><span class="portable-source-meta">File: PREREGISTRATION.v0.6.md</span></div></div></div></div><section class="portable-sources" aria-labelledby="portable-sources-heading"><h2 id="portable-sources-heading">Sources</h2><ol><li><strong>SEC Companyfacts 엄격 D/E 횡단면</strong><span class="portable-source-meta">sp500_debt_results.json</span></li><li><strong>SEC 렌더링 재무제표 결합 D/E 횡단면</strong><span class="portable-source-meta">fsds_debt_results_2026q1.json</span></li><li><strong>D/E 커버리지 비교</strong><span class="portable-source-meta">debt_coverage_comparison.csv</span></li><li><strong>D/E 커버리지 차트 SQL</strong><span class="portable-source-meta">report_debt_coverage.sql</span></li><li><strong>S&amp;P 500 매출총이익 8분기 커버리지</strong><span class="portable-source-meta">sp500_gross_profit_results.json</span></li><li><strong>섹터별 총이익 커버리지 차트 SQL</strong><span class="portable-source-meta">report_gross_sector_coverage.sql</span></li><li><strong>총이익 적신호 상태 표 SQL</strong><span class="portable-source-meta">report_gross_rule.sql</span></li><li><strong>CAT inline XBRL 부채 대사</strong><span class="portable-source-meta">inline_fallback_results.json</span></li><li><strong>사전등록 v0.2</strong><span class="portable-source-meta">PREREGISTRATION.v0.2.md</span></li><li><strong>공식 XBRL instance fallback 전체 결과</strong><span class="portable-source-meta">fsds_instance_fallback_results.json</span></li><li><strong>fallback 후 섹터별 커버리지</strong><span class="portable-source-meta">fsds_instance_fallback_sector_coverage.csv</span></li><li><strong>섹터별 커버리지 표 SQL</strong><span class="portable-source-meta">report_debt_sector_coverage.sql</span></li><li><strong>엄격 커버리지 계산 정정 기록</strong><span class="portable-source-meta">DATA_AUDIT_CORRECTION.md</span></li><li><strong>fallback 행동 규칙 사전등록 v0.3</strong><span class="portable-source-meta">PREREGISTRATION.v0.3.md</span></li><li><strong>연결 총부채비율 FSDS 횡단면 결과</strong><span class="portable-source-meta">total_liabilities_equity_fsds_results.json</span></li><li><strong>연결 총부채비율 발행사별 횡단면</strong><span class="portable-source-meta">total_liabilities_equity_fsds_cross_section.csv</span></li><li><strong>연결 총부채비율 섹터 커버리지 SQL</strong><span class="portable-source-meta">report_total_liabilities_sector_coverage.sql</span></li><li><strong>연결 총부채비율 진단 분포 SQL</strong><span class="portable-source-meta">report_total_liabilities_histogram.sql</span></li><li><strong>연결 총부채비율 분위수 SQL</strong><span class="portable-source-meta">report_total_liabilities_quantiles.sql</span></li><li><strong>연결 총부채비율 사전등록 v0.4</strong><span class="portable-source-meta">PREREGISTRATION.v0.4.md</span></li><li><strong>공식 presentation 매핑 사전등록 v0.4.1</strong><span class="portable-source-meta">PREREGISTRATION.v0.4.1.md</span></li><li><strong>Companyfacts 단독 매핑 예비 결과</strong><span class="portable-source-meta">total_liabilities_equity_results.json</span></li><li><strong>P50 임계값 및 음수 자기자본 한계 사전등록 v0.5</strong><span class="portable-source-meta">PREREGISTRATION.v0.5.md</span></li><li><strong>자기자본 0 이하 자동 미통과 발행사</strong><span class="portable-source-meta">nonpositive_equity_auto_fail_2026q1.csv</span></li><li><strong>자기자본 0 이하 자동 미통과 SQL</strong><span class="portable-source-meta">report_nonpositive_equity_exclusions.sql</span></li><li><strong>백테스트 기간·우측 검열·프로세스 분리 사전등록 v0.6</strong><span class="portable-source-meta">PREREGISTRATION.v0.6.md</span></li><li><strong>커버리지 전용 최초 신호월 산출 모듈</strong><span class="portable-source-meta">historical_coverage_window.py</span></li></ol></section></main>
 <script data-data-analytics-portable-source-tooltips="true">(() => {
   const RUNTIME_FLAG = "__dataAnalyticsPortableSourceTooltipsInitialized";
   const READY_ATTRIBUTE = "data-portable-source-tooltips-ready";
@@ -413,157 +418,169 @@ html:not([data-portable-source-tooltips-ready]) .portable-chart-summary>.portabl
 })();</script>
 <div id="data-analytics-portable-reader" aria-hidden="true" inert></div>
 <template id="data-analytics-portable-artifact-payload-source" data-compression="gzip-base64">
-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
-sN9ZyxP5DUJVthkT7/fi//deXP8vX8MGmsyCAAA=
+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
+77248V+9yE/8gIsAAA==
 </template>
 <template id="data-analytics-portable-reader-runtime-source" data-compression="gzip-base64">
 H4sIAAAAAAACCuy9a3fjNrYg+v38CilTV0MeQ4pk15MyyqfiR6e665VyVdLVjseESUhCTIEKCNnl
