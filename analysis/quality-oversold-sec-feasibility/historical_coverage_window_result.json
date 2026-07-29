@@ -1,0 +1,17 @@
+{
+  "status": "VALID_BACKTEST_START",
+  "calibration_months": 60,
+  "calibration_start_month": "2010-10",
+  "calibration_end_month": "2015-09",
+  "first_signal_month": "2015-10",
+  "prices_accessed": false,
+  "returns_calculated": false,
+  "data_scope": "coverage_only_no_prices_no_returns",
+  "coverage_input": "analysis\\quality-oversold-sec-feasibility\\historical_fsds_monthly_coverage_2009_2016.csv",
+  "coverage_input_sha256": "6248cdada9f72eb8b5f90117f24adc6857c219ca54731015e92399cfb1a8cbb7",
+  "scan_start_month": "2009-01",
+  "scan_end_month": "2016-12",
+  "minimum_overall_coverage": 0.9,
+  "minimum_sector_coverage": 0.8,
+  "required_provenance_rate": 1.0
+}

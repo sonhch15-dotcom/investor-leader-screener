@@ -4,18 +4,16 @@ import argparse
 import hashlib
 import json
 import time
-import urllib.request
 from pathlib import Path
+
+import requests
 
 
 BASE_URL = (
     "https://www.sec.gov/files/dera/data/"
     "financial-statement-data-sets/{quarter}.zip"
 )
-USER_AGENT = (
-    "quality-oversold-research "
-    "github.com/sonhch15-dotcom/investor-leader-screener"
-)
+USER_AGENT = "quality-oversold-research contact@example.com"
 
 
 def parse_quarter(value: str) -> tuple[int, int]:
@@ -56,14 +54,17 @@ def download(quarter: str, output_dir: Path) -> dict[str, object]:
     url = BASE_URL.format(quarter=quarter)
     if not destination.exists():
         temporary = destination.with_suffix(".zip.part")
-        request = urllib.request.Request(
+        with requests.get(
             url,
             headers={"User-Agent": USER_AGENT},
-        )
-        with urllib.request.urlopen(request, timeout=120) as response:
+            stream=True,
+            timeout=120,
+        ) as response:
+            response.raise_for_status()
             with temporary.open("wb") as handle:
-                while chunk := response.read(1024 * 1024):
-                    handle.write(chunk)
+                for chunk in response.iter_content(1024 * 1024):
+                    if chunk:
+                        handle.write(chunk)
         temporary.replace(destination)
     return {
         "quarter": quarter,
@@ -121,4 +122,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
