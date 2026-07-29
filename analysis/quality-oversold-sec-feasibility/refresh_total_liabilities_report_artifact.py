@@ -30,13 +30,43 @@ def main() -> None:
             encoding="utf-8"
         )
     )
+    historical_detail = json.loads(
+        (ROOT / "historical_fsds_monthly_detail_2009_2016.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    historical_window = json.loads(
+        (ROOT / "historical_coverage_window_result.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    historical_p50 = json.loads(
+        (ROOT / "historical_calibration_p50_result.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    calibration_months = [
+        row
+        for row in historical_detail["months"]
+        if historical_window["calibration_start_month"]
+        <= row["month"]
+        <= historical_window["calibration_end_month"]
+    ]
+    calibration_min_overall = min(
+        calibration_months, key=lambda row: row["overall_coverage"]
+    )
+    calibration_min_sector = min(
+        calibration_months,
+        key=lambda row: row["minimum_sector_coverage"],
+    )
     manifest = artifact["manifest"]
     snapshot = artifact["snapshot"]
     now = datetime.now(ZoneInfo("Asia/Seoul")).isoformat(timespec="seconds")
 
     manifest["title"] = "S&P 500 품질 스크리너 재무 안정 지표 검증"
     manifest["description"] = (
-        "연결 총부채 ÷ 비지배지분 포함 자기자본의 커버리지와 현재 진단 분포"
+        "연결 총부채비율의 현재 및 2009~2016 과거 커버리지, 최초 "
+        "신호월과 사전 보정 P50"
     )
     manifest["generatedAt"] = now
     snapshot["generatedAt"] = now
@@ -305,10 +335,37 @@ def main() -> None:
                 "백테스트 기간·우측 검열·프로세스 분리 사전등록 v0.6",
                 "PREREGISTRATION.v0.6.md",
             ),
+            "preregistration-v07": source(
+                "preregistration-v07",
+                "과거 CIK 연결·월말 이월 규칙 사전등록 v0.7",
+                "PREREGISTRATION.v0.7.md",
+            ),
             "historical-coverage-window": source(
                 "historical-coverage-window",
                 "커버리지 전용 최초 신호월 산출 모듈",
                 "historical_coverage_window.py",
+            ),
+            "historical-coverage-detail": source(
+                "historical-coverage-detail",
+                "2009~2016 월별 SEC 커버리지 상세",
+                "historical_fsds_monthly_detail_2009_2016.json",
+                "https://www.sec.gov/data-research/sec-markets-data/financial-statement-data-sets",
+            ),
+            "historical-coverage-result": source(
+                "historical-coverage-result",
+                "최초 60개월 연속 적격 창 결과",
+                "historical_coverage_window_result.json",
+            ),
+            "historical-p50-result": source(
+                "historical-p50-result",
+                "사전 보정기간 연결 총부채비율 P50 결과",
+                "historical_calibration_p50_result.json",
+            ),
+            "historical-coverage-commit": source(
+                "historical-coverage-commit",
+                "가격 없는 과거 커버리지 결과 커밋",
+                "c84c67a4f363576250a7c8b37461d6db04ad4466",
+                "https://github.com/sonhch15-dotcom/investor-leader-screener/commit/c84c67a4f363576250a7c8b37461d6db04ad4466",
             ),
             "nonpositive-equity-list": source(
                 "nonpositive-equity-list",
@@ -337,26 +394,97 @@ def main() -> None:
     )
     block_by_id["technical-summary"].update(
         {
-            "sourceId": "total-liabilities-results",
+            "sourceId": "historical-p50-result",
             "body": (
-                "## 기술 요약: 총부채비율은 커버리지를 통과했지만 "
-                "임계값은 아직 없다\n\n"
+                "## 기술 요약: 최초 신호월은 2015년 10월, 고정 "
+                "임계값은 1.2688919796이다\n\n"
                 "연결 총부채 ÷ 비지배지분 포함 연결 자기자본은 "
                 "342/362(94.5%)에서 판정 가능했고, 8개 포함 섹터가 "
                 "모두 80% 최소선을 통과했다. 사용 수치의 공시일·"
                 "접수번호 존재율도 100%다.\n\n"
-                "양수 자기자본 320개의 현재 분포는 중앙값 1.39, "
-                "진단용 P90 5.94였다. 이 값은 2026년 분포의 기술통계일 "
-                "뿐이며 백테스트나 실전 임계값으로 사용하지 않는다. "
-                "P90은 품질 선별이 아니라 이상치 제거에 가까워 폐기했다. "
-                "절대 임계값은 최초 백테스트 신호일 직전 60개 월말의 "
-                "point-in-time 분포에서 P50을 한 번 계산해 고정한다. "
-                "최초 신호월은 사람이 고르지 않고, 직전 60개 연속 "
-                "월말이 커버리지 최소선을 통과하는 가장 이른 달로 "
-                "기계적으로 정한다."
+                "가격을 읽지 않은 별도 실행에서 첫 적격 월은 "
+                "2010년 10월이었다. 이후 60개월이 연속 통과해 "
+                "보정기간은 2010-10~2015-09, 최초 신호월은 "
+                "2015-10으로 기계적으로 정해졌다. 이 60개월의 양수 "
+                "자기자본 발행사-월 20,904개를 합친 선형보간 P50은 "
+                "1.268891979601298이다. 현재 2026년 중앙값 1.3931은 "
+                "임계값 계산에 사용하지 않았다."
             ),
         }
     )
+    historical_blocks = [
+        {
+            "id": "historical-window-result",
+            "type": "markdown",
+            "layout": "full",
+            "sourceId": "historical-coverage-result",
+            "body": (
+                "## 가장 이른 60개월 연속 통과 창이 실제로 존재한다\n\n"
+                "2009년 1월부터 2016년 12월까지 96개월을 빠짐없이 "
+                "조회했다. XBRL 도입 초기에는 커버리지가 낮았고, "
+                "처음 세 기준을 모두 넘은 달은 2010년 10월이다. "
+                "그달부터 2015년 9월까지 60개월이 끊김 없이 통과해 "
+                "최초 신호월은 그 다음 달인 **2015년 10월**로 "
+                "확정됐다.\n\n"
+                f"보정기간 최저 전체 커버리지는 "
+                f"{calibration_min_overall['month']}의 "
+                f"{calibration_min_overall['overall_coverage']:.1%}, "
+                f"최저 섹터 커버리지는 "
+                f"{calibration_min_sector['month']}의 "
+                f"{calibration_min_sector['minimum_sector_coverage']:.1%}"
+                "였고 provenance는 모든 달 100%였다."
+            ),
+        },
+        {
+            "id": "historical-p50-result",
+            "type": "markdown",
+            "layout": "full",
+            "sourceId": "historical-p50-result",
+            "body": (
+                "## 재무 안정 게이트의 절대 임계값은 "
+                "1.268891979601298이다\n\n"
+                "보정기간 60개월의 `ratio_available` 발행사-월 "
+                "20,904개만 합쳐 선형보간 P50을 계산했다. 월별 "
+                "양수 자기자본 관측치는 341~355개였다. 자기자본 0 "
+                "이하 자동 미통과는 판정 가능 커버리지에는 포함하지만 "
+                "비율 분포에는 넣지 않았다.\n\n"
+                "이 값은 성과나 후보 수를 보고 고른 값이 아니다. "
+                "이후 모든 신호일에 원시 정밀도 그대로 적용하고 "
+                "보고서 표시만 반올림한다."
+            ),
+        },
+        {
+            "id": "historical-coverage-record",
+            "type": "markdown",
+            "layout": "full",
+            "sourceId": "historical-coverage-commit",
+            "body": (
+                "## 결과 이전 규칙과 가격 없는 산출물을 원격 기록으로 "
+                "분리했다\n\n"
+                "전체 실행 전 규칙은 2026년 7월 30일 원격 태그 "
+                "`quality-oversold-prereg-v0.7`의 커밋 `9bffbc4`에 "
+                "고정했다. 가격 없는 월별 원장·최초 신호월·P50 결과는 "
+                "같은 날 커밋 "
+                "`c84c67a4f363576250a7c8b37461d6db04ad4466`에 "
+                "별도로 기록했다. 최종 보고서는 원격 태그 "
+                "`quality-oversold-coverage-v0.1`로 고정한다."
+            ),
+        },
+    ]
+    historical_by_id = {block["id"]: block for block in historical_blocks}
+    for block in blocks:
+        replacement = historical_by_id.pop(block["id"], None)
+        if replacement:
+            block.update(replacement)
+    if historical_by_id:
+        insertion_index = next(
+            index
+            for index, block in enumerate(blocks)
+            if block["id"] == "historical-p50-result"
+        ) + 1
+        blocks[insertion_index:insertion_index] = list(
+            historical_by_id.values()
+        )
     block_by_id["debt-coverage-heading"].update(
         {
             "sourceId": "total-liabilities-results",
@@ -424,9 +552,9 @@ def main() -> None:
                 "2018년 같은 과거 신호에 2026년 레버리지 분포 정보를 "
                 "주입하게 된다. 따라서 이 표와 차트는 구현 검증과 "
                 "분포 형태 확인에만 사용한다. v0.5는 사전 보정분포의 "
-                "P50 이하만 통과시키지만, 최초 신호일과 60개월 "
-                "보정기간이 확정될 때까지 코드의 임계값은 계속 "
-                "`None`으로 둔다."
+                "P50 이하만 통과시킨다. 과거 커버리지 실행으로 "
+                "보정기간이 확정됐으므로 절대 임계값은 "
+                "`1.268891979601298`로 고정한다."
             ),
         },
         {
@@ -512,37 +640,33 @@ def main() -> None:
             "id": "backtest-window-rules",
             "type": "markdown",
             "layout": "full",
-            "sourceId": "preregistration-v06",
+            "sourceId": "historical-coverage-result",
             "body": (
-                "## 백테스트 시작과 종료는 날짜 선택이 아니라 규칙의 "
-                "출력이다\n\n"
-                "최초 신호월은 직전 60개 연속 월말이 전체 90%, "
-                "섹터별 80%, provenance 100%를 모두 충족하는 가장 "
-                "이른 달이다. 중간 결측이나 미달 월은 연속 구간을 "
-                "끊으며, 더 늦은 기간의 커버리지가 좋아도 시작점을 "
-                "옮기지 않는다.\n\n"
-                "직전 60개월은 P50 임계값 보정에만 사용하고 성과 "
-                "표본에서는 제외한다. 마지막 신호월은 63·126·252 "
-                "거래일 트랙별로 H번째 거래일 종가가 데이터 기준일 "
-                "이내에 존재할 수 있는 가장 늦은 월로 각각 정한다. "
-                "미완결 신호는 `RIGHT_CENSORED`로 기록한다."
+                "## 백테스트 시작은 규칙의 출력으로 2015년 10월이 됐다\n\n"
+                "실제 조회에서 2010-10~2015-09가 전체 90%, 섹터별 "
+                "80%, provenance 100%를 모두 충족한 가장 이른 60개 "
+                "연속 월말이었다. 따라서 그 다음 달인 2015-10을 "
+                "최초 신호월로 확정했다.\n\n"
+                "이 60개월은 P50 보정에만 사용하고 성과 표본에서는 "
+                "제외한다. 마지막 신호월은 향후 가격 기준일로부터 "
+                "63·126·252거래일을 완결할 수 있는 가장 늦은 월로 "
+                "트랙별 산출한다."
             ),
         },
         {
             "id": "coverage-return-separation",
             "type": "markdown",
             "layout": "full",
-            "sourceId": "historical-coverage-window",
+            "sourceId": "historical-coverage-result",
             "body": (
-                "## 커버리지 조회는 가격과 수익률을 읽지 않는다\n\n"
-                "`historical_coverage_window.py`는 월별 전체·최저 섹터 "
-                "커버리지와 provenance만 입력받아 최초 신호월을 "
-                "산출한다. CLI에는 가격 입력이 없고 yfinance 등 시장 "
-                "데이터 모듈을 import하지 않는다. 출력에는 "
-                "`prices_accessed = false`와 "
-                "`returns_calculated = false`를 기록한다. 커버리지 "
-                "결과를 원격에 고정한 뒤에만 별도 가격 프로세스를 "
-                "시작한다."
+                "## 커버리지 조회는 가격과 수익률을 읽지 않았다\n\n"
+                "월별 출력은 전체 커버리지, 최저 섹터 커버리지, "
+                "provenance와 공시 상태만 가진다. CSV 헤더는 "
+                "`month`, `overall_coverage`, "
+                "`minimum_sector_coverage`, `provenance_rate`뿐이다. "
+                "결과 파일은 `prices_accessed = false`, "
+                "`returns_calculated = false`를 기록하며 38개 테스트가 "
+                "가격 모듈 import와 가격 CLI 입력 부재를 확인한다."
             ),
         },
     ]
@@ -562,9 +686,52 @@ def main() -> None:
         blocks[insertion_index:insertion_index] = window_rule_blocks
 
     block_by_id = {block["id"]: block for block in blocks}
+    block_by_id["total-liabilities-distribution-interpretation"].update(
+        {
+            "sourceId": "historical-p50-result",
+            "body": (
+                "**해석 주의.** 현재 P90 5.94를 임계값으로 고정하면 "
+                "과거 신호에 2026년 레버리지 분포 정보를 주입하게 "
+                "된다. 따라서 현재 표와 차트는 구현 검증과 분포 형태 "
+                "확인에만 사용한다. 과거 보정기간의 P50으로 확정한 "
+                "절대 임계값은 `1.268891979601298`이다."
+            ),
+        }
+    )
+    block_by_id["backtest-window-rules"].update(
+        {
+            "sourceId": "historical-coverage-result",
+            "body": (
+                "## 백테스트 시작은 규칙의 출력으로 2015년 10월이 됐다\n\n"
+                "실제 조회에서 2010-10~2015-09가 전체 90%, 섹터별 "
+                "80%, provenance 100%를 모두 충족한 가장 이른 60개 "
+                "연속 월말이었다. 따라서 그 다음 달인 2015-10을 "
+                "최초 신호월로 확정했다.\n\n"
+                "이 60개월은 P50 보정에만 사용하고 성과 표본에서는 "
+                "제외한다. 마지막 신호월은 향후 가격 기준일로부터 "
+                "63·126·252거래일을 완결할 수 있는 가장 늦은 월로 "
+                "트랙별 산출한다."
+            ),
+        }
+    )
+    block_by_id["coverage-return-separation"].update(
+        {
+            "sourceId": "historical-coverage-result",
+            "body": (
+                "## 커버리지 조회는 가격과 수익률을 읽지 않았다\n\n"
+                "월별 출력은 전체 커버리지, 최저 섹터 커버리지, "
+                "provenance와 공시 상태만 가진다. CSV 헤더는 "
+                "`month`, `overall_coverage`, "
+                "`minimum_sector_coverage`, `provenance_rate`뿐이다. "
+                "결과 파일은 `prices_accessed = false`, "
+                "`returns_calculated = false`를 기록하며 38개 테스트가 "
+                "가격 모듈 import와 가격 CLI 입력 부재를 확인한다."
+            ),
+        }
+    )
     block_by_id["scope-definitions"].update(
         {
-            "sourceId": "preregistration-v041",
+            "sourceId": "preregistration-v07",
             "body": (
                 "## 지표와 범위\n\n"
                 "`총부채비율 = 연결 총부채 ÷ 비지배지분 포함 연결 "
@@ -572,9 +739,11 @@ def main() -> None:
                 "영업·회계상 모든 부채가 포함된다.\n\n"
                 "모집단은 Financials, Real Estate, Utilities를 제외하고 "
                 "동일 CIK의 복수 주식종류를 합친 S&P 500 발행사 "
-                "362개다. 현재 점검은 SEC FSDS 2026 Q1을 사용하며 "
+                "기준이다. 현재 점검은 SEC FSDS 2026 Q1을 사용하며 "
                 "재무기간 말은 2025년 11월 30일~2026년 2월 28일, "
-                "공시일은 2026년 1월 7일~3월 31일이다."
+                "공시일은 2026년 1월 7일~3월 31일이다. 과거 점검은 "
+                "위키피디아 월말 리비전과 SEC FSDS 2009Q1~2016Q4 "
+                "32개 분기를 사용했다."
             ),
         }
     )
@@ -604,7 +773,7 @@ def main() -> None:
     )
     block_by_id["limitations"].update(
         {
-            "sourceId": "preregistration-v05",
+            "sourceId": "preregistration-v07",
             "body": (
                 "## 한계와 강건성 점검\n\n"
                 "- **업종 특성 혼입:** 총부채에는 운전자본과 충당부채가 "
@@ -619,38 +788,43 @@ def main() -> None:
                 "누적 자사주 매입 등 재무 부실이 아닌 원인이 섞일 수 "
                 "있다. 종목별 예외 대신 제외 로그를 보존한다.\n"
                 "- **시점:** 현재 분포는 SEC FSDS 2026 Q1 스냅샷이며 "
-                "7월 말 실시간 재무상태를 뜻하지 않는다."
+                "7월 말 실시간 재무상태를 뜻하지 않는다.\n"
+                "- **구성 이력 근사:** 과거 S&P 500은 위키피디아 "
+                "월말 리비전으로 복원했다. 실제 지수 효력일과 편집 "
+                "시각이 다를 수 있다.\n"
+                "- **원천 CIK 오류:** 2015년 3월 리비전은 HBI에 AVY의 "
+                "CIK 8818을 중복 기재했다. 해당 한 건은 "
+                "`CIK_SECTOR_CONFLICT`로 미해결 처리했으며 수동 "
+                "보정하지 않았다."
             ),
         }
     )
     block_by_id["next-steps"].update(
         {
-            "sourceId": "preregistration-v06",
+            "sourceId": "historical-p50-result",
             "body": (
                 "## 다음 단계\n\n"
-                "1. 가격을 읽지 않는 별도 프로세스로 가장 이른 가용 "
-                "월부터 월별 SEC·구성종목 커버리지를 계산한다.\n"
-                "2. 60개 연속 적격 월을 처음 완성한 다음 달을 최초 "
-                "신호월로 자동 산출한다.\n"
-                "3. 그 60개월의 유효 발행사-월 분포에서 P50을 한 번 "
-                "계산해 절대 임계값으로 고정한다.\n"
-                "4. 커버리지 결과·최초 신호월·P50을 원격 커밋과 "
-                "태그로 고정한다.\n"
-                "5. 그 이후에만 별도 가격 프로세스로 보유기간별 마지막 "
-                "신호월과 수익률을 계산한다."
+                "1. 이번 커버리지 결과·최초 신호월·P50을 별도 원격 "
+                "커밋과 태그로 고정한다.\n"
+                "2. 현재 시점 스크리너의 나머지 품질 게이트와 적신호 "
+                "필드를 SEC 원장으로 구현해 단계별 퍼널을 보고한다.\n"
+                "3. 백테스트 성공 기준과 블록 부트스트랩 명세 전체를 "
+                "수익률 계산 전에 최종 사전등록한다.\n"
+                "4. 그 이후에만 독립 가격 프로세스로 트랙별 종료일과 "
+                "수익률을 계산한다."
             ),
         }
     )
     block_by_id["further-questions"].update(
         {
-            "sourceId": "preregistration-v06",
+            "sourceId": "historical-coverage-result",
             "body": (
-                "## 남은 데이터 관문\n\n"
-                "사람이 확정할 시작 날짜는 없다. 다음 관문은 과거 "
-                "S&P 500 구성 복원과 SEC point-in-time 월별 커버리지 "
-                "자체가 60개월 연속 최소선을 통과하는지다. 적격 구간이 "
-                "없으면 `NO_VALID_BACKTEST_START`로 종료하며, 기간이나 "
-                "최소선을 완화하지 않는다."
+                "## 남은 검증 관문\n\n"
+                "재무 안정 지표의 과거 커버리지 관문은 통과했다. "
+                "이는 전략 성과가 검증됐다는 뜻이 아니다. 다음 관문은 "
+                "나머지 품질·적신호 항목의 point-in-time 커버리지와 "
+                "최종 사전등록을 통과한 뒤 별도 수익률 검증에서 "
+                "사전 성공 기준을 충족하는지다."
             ),
         }
     )
@@ -704,7 +878,19 @@ def main() -> None:
                 "p90_diagnostic_only"
             ],
             "calibration_quantile": 0.50,
-            "backtest_threshold": None,
+            "backtest_threshold": historical_p50[
+                "max_total_liabilities_to_equity"
+            ],
+            "calibration_start_month": historical_window[
+                "calibration_start_month"
+            ],
+            "calibration_end_month": historical_window[
+                "calibration_end_month"
+            ],
+            "first_signal_month": historical_window["first_signal_month"],
+            "calibration_ratio_observations": historical_p50[
+                "ratio_observations"
+            ],
         }
     ]
     snapshot["datasets"]["debt_coverage_comparison"] = [

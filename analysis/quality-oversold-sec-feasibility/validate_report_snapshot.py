@@ -33,6 +33,16 @@ def main() -> None:
     gross = json.loads(
         (ROOT / "sp500_gross_profit_results.json").read_text(encoding="utf-8")
     )
+    historical_window = json.loads(
+        (ROOT / "historical_coverage_window_result.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    historical_p50 = json.loads(
+        (ROOT / "historical_calibration_p50_result.json").read_text(
+            encoding="utf-8"
+        )
+    )
     connection = sqlite3.connect(":memory:")
 
     population = liabilities["population"]
@@ -205,7 +215,21 @@ def main() -> None:
                     "p90_diagnostic_only"
                 ],
                 "calibration_quantile": 0.50,
-                "backtest_threshold": None,
+                "backtest_threshold": historical_p50[
+                    "max_total_liabilities_to_equity"
+                ],
+                "calibration_start_month": historical_window[
+                    "calibration_start_month"
+                ],
+                "calibration_end_month": historical_window[
+                    "calibration_end_month"
+                ],
+                "first_signal_month": historical_window[
+                    "first_signal_month"
+                ],
+                "calibration_ratio_observations": historical_p50[
+                    "ratio_observations"
+                ],
             }
         ],
         "debt_coverage_comparison": execute(
