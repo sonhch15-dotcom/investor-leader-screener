@@ -1,0 +1,395 @@
+{
+  "generated_at_utc": "2026-07-29T12:00:54.874597+00:00",
+  "sec_api_docs": "https://www.sec.gov/search-filings/edgar-application-programming-interfaces",
+  "fair_access_docs": "https://www.sec.gov/about/developer-resources",
+  "request_rate_limit_observed": "4.00 requests/sec maximum",
+  "symbols": [
+    "AAPL",
+    "MSFT",
+    "GOOGL",
+    "HD",
+    "JNJ",
+    "PG",
+    "COST",
+    "CAT",
+    "XOM",
+    "LIN"
+  ],
+  "companies": [
+    {
+      "symbol": "AAPL",
+      "current_cik": "0000320193",
+      "sec_title": "Apple Inc.",
+      "registrants": [
+        {
+          "role": "current",
+          "cik": "0000320193",
+          "entity_name": "Apple Inc.",
+          "taxonomies": [
+            "dei",
+            "us-gaap"
+          ],
+          "companyfacts_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000320193-companyfacts.json.gz",
+          "submissions_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000320193-submissions.json.gz",
+          "recent_submission_count": 1000
+        }
+      ]
+    },
+    {
+      "symbol": "MSFT",
+      "current_cik": "0000789019",
+      "sec_title": "MICROSOFT CORP",
+      "registrants": [
+        {
+          "role": "current",
+          "cik": "0000789019",
+          "entity_name": "MICROSOFT CORPORATION",
+          "taxonomies": [
+            "dei",
+            "us-gaap"
+          ],
+          "companyfacts_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000789019-companyfacts.json.gz",
+          "submissions_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000789019-submissions.json.gz",
+          "recent_submission_count": 1000
+        }
+      ]
+    },
+    {
+      "symbol": "GOOGL",
+      "current_cik": "0001652044",
+      "sec_title": "Alphabet Inc.",
+      "registrants": [
+        {
+          "role": "current",
+          "cik": "0001652044",
+          "entity_name": "Alphabet Inc.",
+          "taxonomies": [
+            "dei",
+            "ecd",
+            "ffd",
+            "us-gaap"
+          ],
+          "companyfacts_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0001652044-companyfacts.json.gz",
+          "submissions_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0001652044-submissions.json.gz",
+          "recent_submission_count": 1000
+        }
+      ]
+    },
+    {
+      "symbol": "HD",
+      "current_cik": "0000354950",
+      "sec_title": "HOME DEPOT, INC.",
+      "registrants": [
+        {
+          "role": "current",
+          "cik": "0000354950",
+          "entity_name": "HOME DEPOT, INC.",
+          "taxonomies": [
+            "dei",
+            "ecd",
+            "us-gaap"
+          ],
+          "companyfacts_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000354950-companyfacts.json.gz",
+          "submissions_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000354950-submissions.json.gz",
+          "recent_submission_count": 1001
+        }
+      ]
+    },
+    {
+      "symbol": "JNJ",
+      "current_cik": "0000200406",
+      "sec_title": "JOHNSON & JOHNSON",
+      "registrants": [
+        {
+          "role": "current",
+          "cik": "0000200406",
+          "entity_name": "Johnson & Johnson",
+          "taxonomies": [
+            "dei",
+            "us-gaap"
+          ],
+          "companyfacts_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000200406-companyfacts.json.gz",
+          "submissions_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000200406-submissions.json.gz",
+          "recent_submission_count": 1000
+        }
+      ]
+    },
+    {
+      "symbol": "PG",
+      "current_cik": "0000080424",
+      "sec_title": "PROCTER & GAMBLE Co",
+      "registrants": [
+        {
+          "role": "current",
+          "cik": "0000080424",
+          "entity_name": "PROCTER & GAMBLE CO",
+          "taxonomies": [
+            "dei",
+            "invest",
+            "us-gaap"
+          ],
+          "companyfacts_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000080424-companyfacts.json.gz",
+          "submissions_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000080424-submissions.json.gz",
+          "recent_submission_count": 1004
+        }
+      ]
+    },
+    {
+      "symbol": "COST",
+      "current_cik": "0000909832",
+      "sec_title": "COSTCO WHOLESALE CORP /NEW",
+      "registrants": [
+        {
+          "role": "current",
+          "cik": "0000909832",
+          "entity_name": "COSTCO WHOLESALE CORP /NEW",
+          "taxonomies": [
+            "dei",
+            "ffd",
+            "srt",
+            "us-gaap"
+          ],
+          "companyfacts_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000909832-companyfacts.json.gz",
+          "submissions_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000909832-submissions.json.gz",
+          "recent_submission_count": 1004
+        }
+      ]
+    },
+    {
+      "symbol": "CAT",
+      "current_cik": "0000018230",
+      "sec_title": "CATERPILLAR INC",
+      "registrants": [
+        {
+          "role": "current",
+          "cik": "0000018230",
+          "entity_name": "CATERPILLAR INC",
+          "taxonomies": [
+            "dei",
+            "ecd",
+            "us-gaap"
+          ],
+          "companyfacts_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000018230-companyfacts.json.gz",
+          "submissions_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000018230-submissions.json.gz",
+          "recent_submission_count": 1005
+        }
+      ]
+    },
+    {
+      "symbol": "XOM",
+      "current_cik": "0002115436",
+      "sec_title": "ExxonMobil Holdings Corp",
+      "registrants": [
+        {
+          "role": "current",
+          "cik": "0002115436",
+          "entity_name": "EXXON MOBIL CORP",
+          "taxonomies": [
+            "ffd"
+          ],
+          "companyfacts_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0002115436-companyfacts.json.gz",
+          "submissions_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0002115436-submissions.json.gz",
+          "recent_submission_count": 26
+        },
+        {
+          "role": "predecessor",
+          "cik": "0000034088",
+          "entity_name": "Exxon Mobil Corporation",
+          "taxonomies": [
+            "dei",
+            "ecd",
+            "us-gaap"
+          ],
+          "companyfacts_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000034088-companyfacts.json.gz",
+          "submissions_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000034088-submissions.json.gz",
+          "recent_submission_count": 1001
+        }
+      ]
+    },
+    {
+      "symbol": "LIN",
+      "current_cik": "0001707925",
+      "sec_title": "LINDE PLC",
+      "registrants": [
+        {
+          "role": "current",
+          "cik": "0001707925",
+          "entity_name": "LINDE PLC",
+          "taxonomies": [
+            "dei",
+            "ecd",
+            "ffd",
+            "invest",
+            "us-gaap"
+          ],
+          "companyfacts_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0001707925-companyfacts.json.gz",
+          "submissions_path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0001707925-submissions.json.gz",
+          "recent_submission_count": 749
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "url": "https://www.sec.gov/files/company_tickers.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\company_tickers.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "6a4f83335f24e07200fe7a323fb9b16811ee4967ca881035e1d78dd16e387955",
+      "bytes_uncompressed": 798160
+    },
+    {
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000320193-companyfacts.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "31f9ab4398402faabc733178497af89dbf94dd5038c6e36d4c894317de8a4647",
+      "bytes_uncompressed": 3748682
+    },
+    {
+      "url": "https://data.sec.gov/submissions/CIK0000320193.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000320193-submissions.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "ea2aa552e984a29e920cf80e0827cf32b632563935f029b6ec9de7f4fa3c026d",
+      "bytes_uncompressed": 164394
+    },
+    {
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000789019-companyfacts.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "352bbb036cbf65b74e126bb7ac040d2a8f9538dc0a85a0363a9a28a22039c4c3",
+      "bytes_uncompressed": 4788959
+    },
+    {
+      "url": "https://data.sec.gov/submissions/CIK0000789019.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000789019-submissions.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "6ee8ee055cf483729d458f2fd4200d0f8e167dc3bff463fd600ff62d4ae26d14",
+      "bytes_uncompressed": 183559
+    },
+    {
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001652044.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0001652044-companyfacts.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "979c75696954e42c634836a54399506d5d548cbfaa37824932e5bca6c6d2ab6c",
+      "bytes_uncompressed": 3163789
+    },
+    {
+      "url": "https://data.sec.gov/submissions/CIK0001652044.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0001652044-submissions.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "640a0fac5103e5abfb40e0e673d8361e590dbf0628ac65dc839197a527a401a1",
+      "bytes_uncompressed": 153065
+    },
+    {
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000354950.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000354950-companyfacts.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "0f1881180df72a4c46894616cf661f3e7e78116ee5d9cfcac203a3d93ef953dd",
+      "bytes_uncompressed": 3176362
+    },
+    {
+      "url": "https://data.sec.gov/submissions/CIK0000354950.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000354950-submissions.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "a9b8da7ac7cb8e8c5cd519ec587c9cdb0d9381db8f5f04d4c4970c71cb11ad8f",
+      "bytes_uncompressed": 161031
+    },
+    {
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000200406.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000200406-companyfacts.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "7141c0c988fa1d30f779687b4c78ab561e19aa5990a58ad86a66467d0a783980",
+      "bytes_uncompressed": 4168526
+    },
+    {
+      "url": "https://data.sec.gov/submissions/CIK0000200406.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000200406-submissions.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "057e1049c2afad2d7894b98ab37403a64fbce272fbaba02c3c9eadfaec148473",
+      "bytes_uncompressed": 154241
+    },
+    {
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000080424.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000080424-companyfacts.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "e2190e9a82675c206af6bac230fd0d97e52ef38976b305faa6a646e56fbfc576",
+      "bytes_uncompressed": 3806193
+    },
+    {
+      "url": "https://data.sec.gov/submissions/CIK0000080424.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000080424-submissions.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "ccee57a982b8578e6faefc83abdb5cf57e6b595a2393a22ffa01f94fc8c73084",
+      "bytes_uncompressed": 161995
+    },
+    {
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000909832.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000909832-companyfacts.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "71a4fd99c86f27c3aa27b8f05b3a9705c16f0060b425395bb1a367ce239b7d1f",
+      "bytes_uncompressed": 3617189
+    },
+    {
+      "url": "https://data.sec.gov/submissions/CIK0000909832.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000909832-submissions.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "0e77534d3aaf301a91769a2f1d26c5c7b4a5f4039c2c44ce6ec0877a0d2bb92c",
+      "bytes_uncompressed": 158811
+    },
+    {
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000018230.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000018230-companyfacts.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "ffa4cb931156956e6f8dffbeefe822da6bfdc1b38df32c717e5fa342efa243ed",
+      "bytes_uncompressed": 5799696
+    },
+    {
+      "url": "https://data.sec.gov/submissions/CIK0000018230.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000018230-submissions.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "6a3193eb523214117726517e9ec38d62c3fc8e28649b98c21ae2b766d468fbd2",
+      "bytes_uncompressed": 168049
+    },
+    {
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0002115436.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0002115436-companyfacts.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "a45324dc460fbafd1705a27a46faf919486865662a95998d113c7e09c5e0d252",
+      "bytes_uncompressed": 1061
+    },
+    {
+      "url": "https://data.sec.gov/submissions/CIK0002115436.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0002115436-submissions.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "eb4e978d70786506908b995e2304be6cb97ea431415b76fe2798c4cdb89c31d6",
+      "bytes_uncompressed": 5620
+    },
+    {
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000034088.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000034088-companyfacts.json.gz",
+      "source": "network",
+      "sha256_uncompressed": "9b95535419e5662e3deed01de803e83deead477a4c81316e1c45186368fdd8b8",
+      "bytes_uncompressed": 3122723
+    },
+    {
+      "url": "https://data.sec.gov/submissions/CIK0000034088.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0000034088-submissions.json.gz",
+      "source": "network",
+      "sha256_uncompressed": "960c928097ca9f0324d1b79da320e22c8df09e8a05d2224fc652fae925e1fe67",
+      "bytes_uncompressed": 162352
+    },
+    {
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001707925.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0001707925-companyfacts.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "cbd744a08550618c688896d3dc05e3faf906528dcc834fbd471785697c3b414e",
+      "bytes_uncompressed": 2170670
+    },
+    {
+      "url": "https://data.sec.gov/submissions/CIK0001707925.json",
+      "path": "analysis\\quality-oversold-sec-feasibility\\raw\\CIK0001707925-submissions.json.gz",
+      "source": "cache",
+      "sha256_uncompressed": "ead55e06f2f53a3cb18545997d62a03b32909a71fa4515c4aaf1e5b7c2f2ce44",
+      "bytes_uncompressed": 124797
+    }
+  ]
+}

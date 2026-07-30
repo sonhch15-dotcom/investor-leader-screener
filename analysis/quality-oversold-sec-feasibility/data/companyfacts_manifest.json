@@ -1,0 +1,4717 @@
+{
+  "disclaimer": "검증된 성과 우위 없음 · 조사 후보 목록",
+  "generated_at_utc": "2026-07-30T04:04:55.184181+00:00",
+  "source": "https://data.sec.gov/api/xbrl/companyfacts",
+  "request_pause_seconds": 0.25,
+  "issuers": [
+    {
+      "issuer_id": "0000001800",
+      "symbols": [
+        "ABT"
+      ],
+      "financial_cik": "0000001800",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000001800.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000001800.json",
+      "sha256_uncompressed": "5d751f73769f5c0a1f9bee0de16cb39d8961cf3f1ebb5558d555bb2678afb4ff"
+    },
+    {
+      "issuer_id": "0000002488",
+      "symbols": [
+        "AMD"
+      ],
+      "financial_cik": "0000002488",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000002488.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000002488.json",
+      "sha256_uncompressed": "6faede2afdeecd258272c4d0d89cc7a6fb1d79a07360f3eb545a9752e696354c"
+    },
+    {
+      "issuer_id": "0000002969",
+      "symbols": [
+        "APD"
+      ],
+      "financial_cik": "0000002969",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000002969.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000002969.json",
+      "sha256_uncompressed": "a289fc1ba646a043a5a14d69447dbdd5def22a1a4ad1c0f5d2e3fbd33fbb5391"
+    },
+    {
+      "issuer_id": "0000004127",
+      "symbols": [
+        "SWKS"
+      ],
+      "financial_cik": "0000004127",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000004127.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000004127.json",
+      "sha256_uncompressed": "33708628e12b062880cd14ccec259fcd85b63112c5489f86679a9bda67cf1fe9"
+    },
+    {
+      "issuer_id": "0000004281",
+      "symbols": [
+        "HWM"
+      ],
+      "financial_cik": "0000004281",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000004281.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000004281.json",
+      "sha256_uncompressed": "a0945c953965345dbcd4a5d1266d2c6e7d66ee1f13986494115a7b2ff46bd02a"
+    },
+    {
+      "issuer_id": "0000006281",
+      "symbols": [
+        "ADI"
+      ],
+      "financial_cik": "0000006281",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000006281.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000006281.json",
+      "sha256_uncompressed": "174a1a044122e316313ec7efcc54cda4dd6a7fe8497207ad5cbdf93f8501f7f3"
+    },
+    {
+      "issuer_id": "0000006951",
+      "symbols": [
+        "AMAT"
+      ],
+      "financial_cik": "0000006951",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000006951.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000006951.json",
+      "sha256_uncompressed": "c62fe3d98dd9a1b6452c40a16c48e92015875d615758b6f67d9a91d553f12cd6"
+    },
+    {
+      "issuer_id": "0000007084",
+      "symbols": [
+        "ADM"
+      ],
+      "financial_cik": "0000007084",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000007084.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000007084.json",
+      "sha256_uncompressed": "50f26e0c327fe4f6ec2d62d289cce871d0d55bd03bc09b83f10ee7f34cfa8979"
+    },
+    {
+      "issuer_id": "0000008670",
+      "symbols": [
+        "ADP"
+      ],
+      "financial_cik": "0000008670",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000008670.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000008670.json",
+      "sha256_uncompressed": "d743082c1f38cbca72140dd86f460538891f339e66a69ab488ec18bbf7e757a4"
+    },
+    {
+      "issuer_id": "0000008818",
+      "symbols": [
+        "AVY"
+      ],
+      "financial_cik": "0000008818",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000008818.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000008818.json",
+      "sha256_uncompressed": "6153d69e8efb8a404c0f8879c19ae461a43d986b8ce1563a1ba5e264419707df"
+    },
+    {
+      "issuer_id": "0000009389",
+      "symbols": [
+        "BALL"
+      ],
+      "financial_cik": "0000009389",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000009389.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000009389.json",
+      "sha256_uncompressed": "a60cb3862e5fef034778a37b0028c222a102ddfb399b2d6505a6769dfd744372"
+    },
+    {
+      "issuer_id": "0000010456",
+      "symbols": [
+        "BAX"
+      ],
+      "financial_cik": "0000010456",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000010456.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000010456.json",
+      "sha256_uncompressed": "fe4fac332d479bc36242322eb2b3b7454f7af9b6918cb42fd97169e7a9d7befd"
+    },
+    {
+      "issuer_id": "0000010795",
+      "symbols": [
+        "BDX"
+      ],
+      "financial_cik": "0000010795",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000010795.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000010795.json",
+      "sha256_uncompressed": "7d2b1f74782160ce66f968ab9156d3716287c36341ca537cc4dedba7a823e36b"
+    },
+    {
+      "issuer_id": "0000012927",
+      "symbols": [
+        "BA"
+      ],
+      "financial_cik": "0000012927",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000012927.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000012927.json",
+      "sha256_uncompressed": "0c63f1ae7cc10b3c27e0c94f2add0c461e6293036dd4e52e52ae6dbb6f206e15"
+    },
+    {
+      "issuer_id": "0000014272",
+      "symbols": [
+        "BMY"
+      ],
+      "financial_cik": "0000014272",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000014272.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000014272.json",
+      "sha256_uncompressed": "ddf576a2cdb7f70f911da93b0e8a87cea25b2baa1b1b0aca66b166cc411aa703"
+    },
+    {
+      "issuer_id": "0000014693",
+      "symbols": [
+        "BF.B"
+      ],
+      "financial_cik": "0000014693",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000014693.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000014693.json",
+      "sha256_uncompressed": "76b1fe8562bab1287f4dca3cb17e464e6eb0c34c79e30fd519e2670f33220508"
+    },
+    {
+      "issuer_id": "0000016918",
+      "symbols": [
+        "STZ"
+      ],
+      "financial_cik": "0000016918",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000016918.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000016918.json",
+      "sha256_uncompressed": "d9d8d3d23f255afc4fc6c38eb72a4b3c83d0f51046cb9c6cb2f2cbdf26e2a35f"
+    },
+    {
+      "issuer_id": "0000018230",
+      "symbols": [
+        "CAT"
+      ],
+      "financial_cik": "0000018230",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000018230.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000018230.json",
+      "sha256_uncompressed": "ffa4cb931156956e6f8dffbeefe822da6bfdc1b38df32c717e5fa342efa243ed"
+    },
+    {
+      "issuer_id": "0000021076",
+      "symbols": [
+        "CLX"
+      ],
+      "financial_cik": "0000021076",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000021076.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000021076.json",
+      "sha256_uncompressed": "ca18495c5ee7465ad58862a368813a9f2aeb8880344c014f6188c36ffc38976f"
+    },
+    {
+      "issuer_id": "0000021344",
+      "symbols": [
+        "KO"
+      ],
+      "financial_cik": "0000021344",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000021344.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000021344.json",
+      "sha256_uncompressed": "53d363a9aa3071406cda9857654358f4dca42e174a1defb8cc1ce9ad2a4c9e40"
+    },
+    {
+      "issuer_id": "0000021665",
+      "symbols": [
+        "CL"
+      ],
+      "financial_cik": "0000021665",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000021665.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000021665.json",
+      "sha256_uncompressed": "aed18675d7ae6c9e2a29cd2cdd373d8b55ae5dbdfc827e5232add174f3fc0e05"
+    },
+    {
+      "issuer_id": "0000024545",
+      "symbols": [
+        "TAP"
+      ],
+      "financial_cik": "0000024545",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000024545.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000024545.json",
+      "sha256_uncompressed": "741e094c266c0c8d1c74efb94b0d5fe5c90e3266d292c00ee8a4e60f46c6d300"
+    },
+    {
+      "issuer_id": "0000024741",
+      "symbols": [
+        "GLW"
+      ],
+      "financial_cik": "0000024741",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000024741.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000024741.json",
+      "sha256_uncompressed": "024d80faa83a89b7b73d16e3a0914f9f8a65eda0c90c7f93bd4974fa7d5e9411"
+    },
+    {
+      "issuer_id": "0000026172",
+      "symbols": [
+        "CMI"
+      ],
+      "financial_cik": "0000026172",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000026172.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000026172.json",
+      "sha256_uncompressed": "62a4f8de9ff8d64d418031e304411f1700932fd421fc2e2619d8301e1d328e58"
+    },
+    {
+      "issuer_id": "0000027419",
+      "symbols": [
+        "TGT"
+      ],
+      "financial_cik": "0000027419",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000027419.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000027419.json",
+      "sha256_uncompressed": "00c1508fb4210c6086cdc05c274027362dce61d12ef3136d480895f1ef716156"
+    },
+    {
+      "issuer_id": "0000027904",
+      "symbols": [
+        "DAL"
+      ],
+      "financial_cik": "0000027904",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000027904.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000027904.json",
+      "sha256_uncompressed": "9cee00021ec9032b910b0a1f69f66eb1a73bab9ca8427f8aae9030be3a0225b0"
+    },
+    {
+      "issuer_id": "0000029534",
+      "symbols": [
+        "DG"
+      ],
+      "financial_cik": "0000029534",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000029534.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000029534.json",
+      "sha256_uncompressed": "32c13adcccc2e1666429bf9a053c4dd9e5c9eb32c7ad8c3547b3d6b1c107d5e2"
+    },
+    {
+      "issuer_id": "0000029905",
+      "symbols": [
+        "DOV"
+      ],
+      "financial_cik": "0000029905",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000029905.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000029905.json",
+      "sha256_uncompressed": "a91cc758b810966dc29303a97a401b26ab5a5467973cff6c8c61472536abdc4c"
+    },
+    {
+      "issuer_id": "0000029989",
+      "symbols": [
+        "OMC"
+      ],
+      "financial_cik": "0000029989",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000029989.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000029989.json",
+      "sha256_uncompressed": "cc26e81446aac32f6ead772b0fe8a783e2936fce7bb4c6f1c255878ba436acad"
+    },
+    {
+      "issuer_id": "0000031462",
+      "symbols": [
+        "ECL"
+      ],
+      "financial_cik": "0000031462",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000031462.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000031462.json",
+      "sha256_uncompressed": "e6886580411526505defd7ab633a1f6afa3bbfef6cee5c965106d27e203abcce"
+    },
+    {
+      "issuer_id": "0000031791",
+      "symbols": [
+        "RVTY"
+      ],
+      "financial_cik": "0000031791",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000031791.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000031791.json",
+      "sha256_uncompressed": "490577dd18f3b43bb13b7e30ce769903b70a2036734d2e30f79fe1c3195940d2"
+    },
+    {
+      "issuer_id": "0000032604",
+      "symbols": [
+        "EMR"
+      ],
+      "financial_cik": "0000032604",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000032604.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000032604.json",
+      "sha256_uncompressed": "b1a650ec33349be15dae260da4ff82b53d4a064b6624d962ff982baf73c789e7"
+    },
+    {
+      "issuer_id": "0000033185",
+      "symbols": [
+        "EFX"
+      ],
+      "financial_cik": "0000033185",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000033185.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000033185.json",
+      "sha256_uncompressed": "9d076a05576d41f09d86dd2b3a54843a67188bbd040442861b559b80c8c7558d"
+    },
+    {
+      "issuer_id": "0000033213",
+      "symbols": [
+        "EQT"
+      ],
+      "financial_cik": "0000033213",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000033213.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000033213.json",
+      "sha256_uncompressed": "47cbea53d7e22ddf4866dcae819856c46fabe057a9646cc9b8f39b03b027f082"
+    },
+    {
+      "issuer_id": "0000034088",
+      "symbols": [
+        "XOM"
+      ],
+      "financial_cik": "0000034088",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000034088.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000034088.json",
+      "sha256_uncompressed": "9b95535419e5662e3deed01de803e83deead477a4c81316e1c45186368fdd8b8"
+    },
+    {
+      "issuer_id": "0000037996",
+      "symbols": [
+        "F"
+      ],
+      "financial_cik": "0000037996",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000037996.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000037996.json",
+      "sha256_uncompressed": "db9621054cffb365bcb65cde1f53e4161fb26ac56ebf8a95b9066b3d2375203e"
+    },
+    {
+      "issuer_id": "0000040533",
+      "symbols": [
+        "GD"
+      ],
+      "financial_cik": "0000040533",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000040533.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000040533.json",
+      "sha256_uncompressed": "7fff513c1ae0c64ca16a673a15823a850bcb4d097506eaea38c8b540fa4708ff"
+    },
+    {
+      "issuer_id": "0000040545",
+      "symbols": [
+        "GE"
+      ],
+      "financial_cik": "0000040545",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000040545.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000040545.json",
+      "sha256_uncompressed": "8c18acb17bbe0760fae6205c5df75b805480c58d4d1dbbabeba206d9ca36e1e3"
+    },
+    {
+      "issuer_id": "0000040704",
+      "symbols": [
+        "GIS"
+      ],
+      "financial_cik": "0000040704",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000040704.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000040704.json",
+      "sha256_uncompressed": "0e8284b6c34e2e668216b43c3eb25f919ffb30a599d69bde6687146c54e52ac2"
+    },
+    {
+      "issuer_id": "0000040987",
+      "symbols": [
+        "GPC"
+      ],
+      "financial_cik": "0000040987",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000040987.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000040987.json",
+      "sha256_uncompressed": "d683bb80d340a8e8e77d2b1069a5df9fb984ba0a77ccf31d3124d4952e597c8a"
+    },
+    {
+      "issuer_id": "0000045012",
+      "symbols": [
+        "HAL"
+      ],
+      "financial_cik": "0000045012",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000045012.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000045012.json",
+      "sha256_uncompressed": "586e132869fe199342468488d1d9d9cd61b51b292dab063b5dd5d11ac70d79c5"
+    },
+    {
+      "issuer_id": "0000046080",
+      "symbols": [
+        "HAS"
+      ],
+      "financial_cik": "0000046080",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000046080.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000046080.json",
+      "sha256_uncompressed": "1ba0b7b25d88aa1bf3249bb0beed8a47c8238b036283e099fba74866601d5b83"
+    },
+    {
+      "issuer_id": "0000047111",
+      "symbols": [
+        "HSY"
+      ],
+      "financial_cik": "0000047111",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000047111.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000047111.json",
+      "sha256_uncompressed": "6234926c37d3abd27ff3b65be631a4bddfa2d2eb4f6981296d9038e3ed17e501"
+    },
+    {
+      "issuer_id": "0000047217",
+      "symbols": [
+        "HPQ"
+      ],
+      "financial_cik": "0000047217",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000047217.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000047217.json",
+      "sha256_uncompressed": "390c1daddd0fd0fa63c9642d34b9cfbc760e086c91ac97b96448431fbcd8cb1c"
+    },
+    {
+      "issuer_id": "0000048465",
+      "symbols": [
+        "HRL"
+      ],
+      "financial_cik": "0000048465",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000048465.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000048465.json",
+      "sha256_uncompressed": "42e6a62caff68652dd3e6d87af579141d1e043af2022e07a56a5aa88f4773340"
+    },
+    {
+      "issuer_id": "0000048898",
+      "symbols": [
+        "HUBB"
+      ],
+      "financial_cik": "0000048898",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000048898.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000048898.json",
+      "sha256_uncompressed": "cbad7cc261333e5397faf635864ab61db830df38d6e5540afb19bc8e2b60cfc2"
+    },
+    {
+      "issuer_id": "0000049071",
+      "symbols": [
+        "HUM"
+      ],
+      "financial_cik": "0000049071",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000049071.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000049071.json",
+      "sha256_uncompressed": "3de80abe289855e19c6a0e9391e064ac0ab98360cd394d602873a0ae9ae2d326"
+    },
+    {
+      "issuer_id": "0000049826",
+      "symbols": [
+        "ITW"
+      ],
+      "financial_cik": "0000049826",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000049826.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000049826.json",
+      "sha256_uncompressed": "d9043d27fbc9154eeac1a758f8050b6214d8a6e674d204e2479dfcee8cb55f94"
+    },
+    {
+      "issuer_id": "0000050863",
+      "symbols": [
+        "INTC"
+      ],
+      "financial_cik": "0000050863",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000050863.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000050863.json",
+      "sha256_uncompressed": "0f36c9aa3daa52bf1c4f70510349f35df6ea8e602aac79bc23480354cf29d9b7"
+    },
+    {
+      "issuer_id": "0000051143",
+      "symbols": [
+        "IBM"
+      ],
+      "financial_cik": "0000051143",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000051143.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000051143.json",
+      "sha256_uncompressed": "bf70dc822bef1467ccf33538b7266af06fcb8bb3846f39b22fa7b1da1974ca40"
+    },
+    {
+      "issuer_id": "0000051253",
+      "symbols": [
+        "IFF"
+      ],
+      "financial_cik": "0000051253",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000051253.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000051253.json",
+      "sha256_uncompressed": "ea1d358cd6c4f3941324de1e9106b7dd60ecbbc0a7c5fc54b7e98c9f2ed2ba56"
+    },
+    {
+      "issuer_id": "0000051434",
+      "symbols": [
+        "IP"
+      ],
+      "financial_cik": "0000051434",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000051434.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000051434.json",
+      "sha256_uncompressed": "4df06a35885153a259efc5ed85314a7c251d3d1f952e68dc53454f6c8d29816b"
+    },
+    {
+      "issuer_id": "0000052988",
+      "symbols": [
+        "J"
+      ],
+      "financial_cik": "0000052988",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000052988.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000052988.json",
+      "sha256_uncompressed": "355c1d8cb390e334a44aa7ee2104d43ed7def7678ce4df7ef492cb41b7be87fd"
+    },
+    {
+      "issuer_id": "0000055785",
+      "symbols": [
+        "KMB"
+      ],
+      "financial_cik": "0000055785",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000055785.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000055785.json",
+      "sha256_uncompressed": "56e7412ad3ca98809d0e8d17772b77a0fc2762ebfe816ec1d01ab66d8ad679d3"
+    },
+    {
+      "issuer_id": "0000056873",
+      "symbols": [
+        "KR"
+      ],
+      "financial_cik": "0000056873",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000056873.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000056873.json",
+      "sha256_uncompressed": "d95bbf178b6c38a18289b38c860abaea5b7fa39a7225a3a45fdbdd33f8351440"
+    },
+    {
+      "issuer_id": "0000059478",
+      "symbols": [
+        "LLY"
+      ],
+      "financial_cik": "0000059478",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000059478.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000059478.json",
+      "sha256_uncompressed": "15c63048f2d84685a422a91c1e116827a9ec4759dfea96d1f1db479ec6d5e079"
+    },
+    {
+      "issuer_id": "0000060667",
+      "symbols": [
+        "LOW"
+      ],
+      "financial_cik": "0000060667",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000060667.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000060667.json",
+      "sha256_uncompressed": "ebcebe72d620ba25542fd4191de3df8c76247a6e61b2b425276867281f88d1a7"
+    },
+    {
+      "issuer_id": "0000062996",
+      "symbols": [
+        "MAS"
+      ],
+      "financial_cik": "0000062996",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000062996.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000062996.json",
+      "sha256_uncompressed": "0950e285020bb21be21e10ffc025db404f88f2fd8784d0f6ba647def57f66f0e"
+    },
+    {
+      "issuer_id": "0000063754",
+      "symbols": [
+        "MKC"
+      ],
+      "financial_cik": "0000063754",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000063754.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000063754.json",
+      "sha256_uncompressed": "e8eb70bdbde4381137bfd778076bc1dec3b82e7ef00a41f7f321463955957e2e"
+    },
+    {
+      "issuer_id": "0000063908",
+      "symbols": [
+        "MCD"
+      ],
+      "financial_cik": "0000063908",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000063908.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000063908.json",
+      "sha256_uncompressed": "401915a332d0443bf558d533f1b7356763e3728b1141bb47d2118145a130eb87"
+    },
+    {
+      "issuer_id": "0000064803",
+      "symbols": [
+        "CVS"
+      ],
+      "financial_cik": "0000064803",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000064803.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000064803.json",
+      "sha256_uncompressed": "8308b52ac0a61f24e8b4d138a5833aba28665147fcc4032a5b0c76e83eb698a2"
+    },
+    {
+      "issuer_id": "0000066740",
+      "symbols": [
+        "MMM"
+      ],
+      "financial_cik": "0000066740",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000066740.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000066740.json",
+      "sha256_uncompressed": "ce370ee480566f5ab829c6d57f3398d989998ab67e967629100bec5579315128"
+    },
+    {
+      "issuer_id": "0000068505",
+      "symbols": [
+        "MSI"
+      ],
+      "financial_cik": "0000068505",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000068505.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000068505.json",
+      "sha256_uncompressed": "427c39ebde00be659344e16b5f8986d283e4d053ef5b348e4c83b37f832df081"
+    },
+    {
+      "issuer_id": "0000072331",
+      "symbols": [
+        "NDSN"
+      ],
+      "financial_cik": "0000072331",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000072331.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000072331.json",
+      "sha256_uncompressed": "e19c4f76dae589ddab63f06d21fca9a28f90b389620c1c1e22c0723bba0a2b36"
+    },
+    {
+      "issuer_id": "0000073309",
+      "symbols": [
+        "NUE"
+      ],
+      "financial_cik": "0000073309",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000073309.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000073309.json",
+      "sha256_uncompressed": "392c3795d8415234ed4424cf369e9a7129b5ef16c97406b560f662973fdcc1d2"
+    },
+    {
+      "issuer_id": "0000075362",
+      "symbols": [
+        "PCAR"
+      ],
+      "financial_cik": "0000075362",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000075362.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000075362.json",
+      "sha256_uncompressed": "bdfaab49160ead388203df5f35ae036b2c1dd61fc73bde65b46ee07706a4c891"
+    },
+    {
+      "issuer_id": "0000075677",
+      "symbols": [
+        "PKG"
+      ],
+      "financial_cik": "0000075677",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000075677.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000075677.json",
+      "sha256_uncompressed": "fb3e3160c683071acfde48b3589900b03157e27302b757e107a4a0dc3d9f62b3"
+    },
+    {
+      "issuer_id": "0000076334",
+      "symbols": [
+        "PH"
+      ],
+      "financial_cik": "0000076334",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000076334.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000076334.json",
+      "sha256_uncompressed": "118afc21dbf005a68fe571a7d490628565c73b528bdc491430b2de168becdebe"
+    },
+    {
+      "issuer_id": "0000077360",
+      "symbols": [
+        "PNR"
+      ],
+      "financial_cik": "0000077360",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000077360.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000077360.json",
+      "sha256_uncompressed": "6e53bdf7b8d6c97ab74ccf05b0546ac311908ea094021bab8dd19bce2b336e1c"
+    },
+    {
+      "issuer_id": "0000077476",
+      "symbols": [
+        "PEP"
+      ],
+      "financial_cik": "0000077476",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000077476.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000077476.json",
+      "sha256_uncompressed": "7694c322779ef273d15b3791729e5f2d261ce6ed1839be8ff014a33f537375be"
+    },
+    {
+      "issuer_id": "0000078003",
+      "symbols": [
+        "PFE"
+      ],
+      "financial_cik": "0000078003",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000078003.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000078003.json",
+      "sha256_uncompressed": "358a57d5cd09cfee182aa0d48aea2330d689d1de1f04fba6d23b4d9da57025f5"
+    },
+    {
+      "issuer_id": "0000079879",
+      "symbols": [
+        "PPG"
+      ],
+      "financial_cik": "0000079879",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000079879.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000079879.json",
+      "sha256_uncompressed": "d2115215c7b5332e873631ef48ba58e08b126192b275c4f6043c31c439948a74"
+    },
+    {
+      "issuer_id": "0000080424",
+      "symbols": [
+        "PG"
+      ],
+      "financial_cik": "0000080424",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000080424.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000080424.json",
+      "sha256_uncompressed": "e2190e9a82675c206af6bac230fd0d97e52ef38976b305faa6a646e56fbfc576"
+    },
+    {
+      "issuer_id": "0000084839",
+      "symbols": [
+        "ROL"
+      ],
+      "financial_cik": "0000084839",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000084839.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000084839.json",
+      "sha256_uncompressed": "ae4b8c87e5f58268ddf496d1e7eef6e01c40e4c1f9a6a5ab970f46e2b018263e"
+    },
+    {
+      "issuer_id": "0000087347",
+      "symbols": [
+        "SLB"
+      ],
+      "financial_cik": "0000087347",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000087347.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000087347.json",
+      "sha256_uncompressed": "a141def66abb2571f96c8467f8fc0411c2b2bf6259c3055f9fb4aaccc1547e3e"
+    },
+    {
+      "issuer_id": "0000089800",
+      "symbols": [
+        "SHW"
+      ],
+      "financial_cik": "0000089800",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000089800.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000089800.json",
+      "sha256_uncompressed": "75ef555a24c3fad594f062ed70e1c36a9163efc4f86d0ae7b77281686593fad3"
+    },
+    {
+      "issuer_id": "0000091142",
+      "symbols": [
+        "AOS"
+      ],
+      "financial_cik": "0000091142",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000091142.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000091142.json",
+      "sha256_uncompressed": "a8c8aabbece7b26e5a980cd2946298849fd140135ca1c154a3a45f0633effa35"
+    },
+    {
+      "issuer_id": "0000091419",
+      "symbols": [
+        "SJM"
+      ],
+      "financial_cik": "0000091419",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000091419.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000091419.json",
+      "sha256_uncompressed": "c8de90fb1b2ae970434d74f6a02a9fef6cc188bc70a3357c5d9f1e1956ff9b66"
+    },
+    {
+      "issuer_id": "0000091440",
+      "symbols": [
+        "SNA"
+      ],
+      "financial_cik": "0000091440",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000091440.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000091440.json",
+      "sha256_uncompressed": "c8771eeadfa1e6d7568627e43bbefa431815e951d93c3fe4cf9b9d275483c9bc"
+    },
+    {
+      "issuer_id": "0000092380",
+      "symbols": [
+        "LUV"
+      ],
+      "financial_cik": "0000092380",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000092380.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000092380.json",
+      "sha256_uncompressed": "7c2768fa2d6bfc2aee4a9f17ac6e0814434a45623283a8a8da8218ddc6cf678b"
+    },
+    {
+      "issuer_id": "0000093410",
+      "symbols": [
+        "CVX"
+      ],
+      "financial_cik": "0000093410",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000093410.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000093410.json",
+      "sha256_uncompressed": "9b5ff46caef6821ecfe450bc7909cad3dbb872111c61518655e3cc3936ad1cb6"
+    },
+    {
+      "issuer_id": "0000093556",
+      "symbols": [
+        "SWK"
+      ],
+      "financial_cik": "0000093556",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000093556.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000093556.json",
+      "sha256_uncompressed": "63a55694d2d46597c3e460e71c41164115e3b96dd585af6150863b099611b476"
+    },
+    {
+      "issuer_id": "0000096021",
+      "symbols": [
+        "SYY"
+      ],
+      "financial_cik": "0000096021",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000096021.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000096021.json",
+      "sha256_uncompressed": "2ea4c5ede906222d164b643a7827ab20950e3b27fb25354b21c550b3cc407685"
+    },
+    {
+      "issuer_id": "0000097210",
+      "symbols": [
+        "TER"
+      ],
+      "financial_cik": "0000097210",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000097210.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000097210.json",
+      "sha256_uncompressed": "7d320a2cedc328a176ec83ce1ed4ba2c7d3ac1388948aed55148ce94d4c3914f"
+    },
+    {
+      "issuer_id": "0000097476",
+      "symbols": [
+        "TXN"
+      ],
+      "financial_cik": "0000097476",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000097476.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000097476.json",
+      "sha256_uncompressed": "5ee95bf56949988a4beaf0598e3acb0a012867228760cd9462a1c9e72526446f"
+    },
+    {
+      "issuer_id": "0000097745",
+      "symbols": [
+        "TMO"
+      ],
+      "financial_cik": "0000097745",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000097745.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000097745.json",
+      "sha256_uncompressed": "1e08cd3bfd2d0d93c53afa76d8aa82ddaafc8048868087fc1bc2f2973ab58da0"
+    },
+    {
+      "issuer_id": "0000100493",
+      "symbols": [
+        "TSN"
+      ],
+      "financial_cik": "0000100493",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000100493.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000100493.json",
+      "sha256_uncompressed": "892026fd2f58726718afd87704f4f7f467cc6bbc1c30d083fdc33f2429465824"
+    },
+    {
+      "issuer_id": "0000100517",
+      "symbols": [
+        "UAL"
+      ],
+      "financial_cik": "0000100517",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000100517.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000100517.json",
+      "sha256_uncompressed": "6621f43f61efe96e02f2aada43fbed7ea989332e4fad2c6c453f9abe139e6d32"
+    },
+    {
+      "issuer_id": "0000100885",
+      "symbols": [
+        "UNP"
+      ],
+      "financial_cik": "0000100885",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000100885.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000100885.json",
+      "sha256_uncompressed": "99d22f8aa6dd31f102b2691ce5c53ef872908bb7b50860d153e6efbc6eef2b61"
+    },
+    {
+      "issuer_id": "0000101829",
+      "symbols": [
+        "RTX"
+      ],
+      "financial_cik": "0000101829",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000101829.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000101829.json",
+      "sha256_uncompressed": "6d08f320c9fff931eb211602c6025869e4353fa548d495d8814b4c4842d26f8a"
+    },
+    {
+      "issuer_id": "0000104169",
+      "symbols": [
+        "WMT"
+      ],
+      "financial_cik": "0000104169",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000104169.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000104169.json",
+      "sha256_uncompressed": "8f3d9abe26f7f7842a070f4b639dbd39296144349270eeb0df5659e7510e9cec"
+    },
+    {
+      "issuer_id": "0000105634",
+      "symbols": [
+        "EME"
+      ],
+      "financial_cik": "0000105634",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000105634.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000105634.json",
+      "sha256_uncompressed": "5eb829338fb25a59036385437e9b6b2cb16c138941a41436882fe8dc112761e0"
+    },
+    {
+      "issuer_id": "0000105770",
+      "symbols": [
+        "WST"
+      ],
+      "financial_cik": "0000105770",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000105770.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000105770.json",
+      "sha256_uncompressed": "c3a7f52d8bbdb9a06145973d83c1f4190a4d6619d572e4e3ede7677b74c530b5"
+    },
+    {
+      "issuer_id": "0000106040",
+      "symbols": [
+        "WDC"
+      ],
+      "financial_cik": "0000106040",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000106040.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000106040.json",
+      "sha256_uncompressed": "02e91f8477c76e64fe8ad61128ff1352f48c01ba53acf5e52f37aa7f1b3fda79"
+    },
+    {
+      "issuer_id": "0000107263",
+      "symbols": [
+        "WMB"
+      ],
+      "financial_cik": "0000107263",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000107263.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000107263.json",
+      "sha256_uncompressed": "a395d99fd0ea8ccdea951995e77802282b87879b0cfc386e85e78de290b14e5d"
+    },
+    {
+      "issuer_id": "0000109198",
+      "symbols": [
+        "TJX"
+      ],
+      "financial_cik": "0000109198",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000109198.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000109198.json",
+      "sha256_uncompressed": "b8722c7395aded43793e90f0e61e7c13a0b006905924045a94a211a77a695e67"
+    },
+    {
+      "issuer_id": "0000200406",
+      "symbols": [
+        "JNJ"
+      ],
+      "financial_cik": "0000200406",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000200406.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000200406.json",
+      "sha256_uncompressed": "7141c0c988fa1d30f779687b4c78ab561e19aa5990a58ad86a66467d0a783980"
+    },
+    {
+      "issuer_id": "0000202058",
+      "symbols": [
+        "LHX"
+      ],
+      "financial_cik": "0000202058",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000202058.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000202058.json",
+      "sha256_uncompressed": "ec53a074cfebfc8bc322f3a1cb83acf5ac59719b1ef4f2d303219519e0004de3"
+    },
+    {
+      "issuer_id": "0000217346",
+      "symbols": [
+        "TXT"
+      ],
+      "financial_cik": "0000217346",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000217346.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000217346.json",
+      "sha256_uncompressed": "75148505b22932b44af59187e898df45196a3a3fe59eb71c4c5f6818bf0810da"
+    },
+    {
+      "issuer_id": "0000277135",
+      "symbols": [
+        "GWW"
+      ],
+      "financial_cik": "0000277135",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000277135.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000277135.json",
+      "sha256_uncompressed": "8eab5988415c90873b7c61d909690e6c54601cc6c1366491fa2fa12302f59d2c"
+    },
+    {
+      "issuer_id": "0000277948",
+      "symbols": [
+        "CSX"
+      ],
+      "financial_cik": "0000277948",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000277948.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000277948.json",
+      "sha256_uncompressed": "85aa75ecd9ce76a5596f7973f2b41e953e022e056f9883bf9aec2190b7f43d0e"
+    },
+    {
+      "issuer_id": "0000310158",
+      "symbols": [
+        "MRK"
+      ],
+      "financial_cik": "0000310158",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000310158.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000310158.json",
+      "sha256_uncompressed": "339a4d2a81ffd376e214ae6221491800300fbac3a83e90cf43315ef6cfe9eb34"
+    },
+    {
+      "issuer_id": "0000310764",
+      "symbols": [
+        "SYK"
+      ],
+      "financial_cik": "0000310764",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000310764.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000310764.json",
+      "sha256_uncompressed": "6f674e696d855842776b4c115f6f9ffdb0f93dac55cbf7a26410854929d8dc43"
+    },
+    {
+      "issuer_id": "0000313616",
+      "symbols": [
+        "DHR"
+      ],
+      "financial_cik": "0000313616",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000313616.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000313616.json",
+      "sha256_uncompressed": "4a686be88c501054fa141624a0b0cf61d46be16390113a430631f8f11f5a1cf0"
+    },
+    {
+      "issuer_id": "0000313927",
+      "symbols": [
+        "CHD"
+      ],
+      "financial_cik": "0000313927",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000313927.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000313927.json",
+      "sha256_uncompressed": "6067570ab3b3f391c82506be5da3d30a15a6554750fe8c0f5b3c29c2a1b1fa2a"
+    },
+    {
+      "issuer_id": "0000315189",
+      "symbols": [
+        "DE"
+      ],
+      "financial_cik": "0000315189",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000315189.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000315189.json",
+      "sha256_uncompressed": "6f4813e48df62d9f29f4cfc9e7a5609ea6908ed7ee8c7e52adfa46cd81a21090"
+    },
+    {
+      "issuer_id": "0000318154",
+      "symbols": [
+        "AMGN"
+      ],
+      "financial_cik": "0000318154",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000318154.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000318154.json",
+      "sha256_uncompressed": "94fb6706092faa58e5a84600fc33684f30d87206e5cdb1cc4f9fd653b8a84f1d"
+    },
+    {
+      "issuer_id": "0000319201",
+      "symbols": [
+        "KLAC"
+      ],
+      "financial_cik": "0000319201",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000319201.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000319201.json",
+      "sha256_uncompressed": "548752ff8f6fc6da58db2bf04778dbf920701f68d4f598345d37800f6eede558"
+    },
+    {
+      "issuer_id": "0000320187",
+      "symbols": [
+        "NKE"
+      ],
+      "financial_cik": "0000320187",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000320187.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320187.json",
+      "sha256_uncompressed": "54abad8b001c9e08bb81b83c12f30e36867f6462a12e040cc329e94d46e6fc5c"
+    },
+    {
+      "issuer_id": "0000320193",
+      "symbols": [
+        "AAPL"
+      ],
+      "financial_cik": "0000320193",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000320193.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+      "sha256_uncompressed": "31f9ab4398402faabc733178497af89dbf94dd5038c6e36d4c894317de8a4647"
+    },
+    {
+      "issuer_id": "0000352915",
+      "symbols": [
+        "UHS"
+      ],
+      "financial_cik": "0000352915",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000352915.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000352915.json",
+      "sha256_uncompressed": "6b13002290b6c1e93b04c29aaef9e65ddba55d5bc1a2c296868a1b93c4fed059"
+    },
+    {
+      "issuer_id": "0000354950",
+      "symbols": [
+        "HD"
+      ],
+      "financial_cik": "0000354950",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000354950.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000354950.json",
+      "sha256_uncompressed": "0f1881180df72a4c46894616cf661f3e7e78116ee5d9cfcac203a3d93ef953dd"
+    },
+    {
+      "issuer_id": "0000702165",
+      "symbols": [
+        "NSC"
+      ],
+      "financial_cik": "0000702165",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000702165.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000702165.json",
+      "sha256_uncompressed": "19e2b893fa81e7209a06aa2c2c327b0ca912a9a6bcb5c535439c80475eed4759"
+    },
+    {
+      "issuer_id": "0000707549",
+      "symbols": [
+        "LRCX"
+      ],
+      "financial_cik": "0000707549",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000707549.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000707549.json",
+      "sha256_uncompressed": "906a429f294ab93a4307182a4b75462d1af8305d48c6688f002d33305dd99805"
+    },
+    {
+      "issuer_id": "0000711404",
+      "symbols": [
+        "COO"
+      ],
+      "financial_cik": "0000711404",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000711404.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000711404.json",
+      "sha256_uncompressed": "f8347719b952c8049a91d82c88274e3f741b2ab28e4d06b95df12b8f387d24fe"
+    },
+    {
+      "issuer_id": "0000712515",
+      "symbols": [
+        "EA"
+      ],
+      "financial_cik": "0000712515",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000712515.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000712515.json",
+      "sha256_uncompressed": "30895e955779aa0d0fdde5739cb05a7c8ac4156b594e60bc5ea114476b016f54"
+    },
+    {
+      "issuer_id": "0000719955",
+      "symbols": [
+        "WSM"
+      ],
+      "financial_cik": "0000719955",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000719955.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000719955.json",
+      "sha256_uncompressed": "4437c9514120d7c96584f56cbbfbfd6a69231f73f58de30bfe2e06867ad5b086"
+    },
+    {
+      "issuer_id": "0000721371",
+      "symbols": [
+        "CAH"
+      ],
+      "financial_cik": "0000721371",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000721371.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000721371.json",
+      "sha256_uncompressed": "871e1330231f7a84945660e4182b2027f34596574000c8209159d06904144769"
+    },
+    {
+      "issuer_id": "0000723125",
+      "symbols": [
+        "MU"
+      ],
+      "financial_cik": "0000723125",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000723125.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000723125.json",
+      "sha256_uncompressed": "a8b088c2111daef36536e53c81fef4c0f01220c64933e126a665b00a9257f882"
+    },
+    {
+      "issuer_id": "0000723254",
+      "symbols": [
+        "CTAS"
+      ],
+      "financial_cik": "0000723254",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000723254.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000723254.json",
+      "sha256_uncompressed": "4fe107784de17dab660565eac3d7f029fc414c256c3c6905667a455e42cc8dd6"
+    },
+    {
+      "issuer_id": "0000723531",
+      "symbols": [
+        "PAYX"
+      ],
+      "financial_cik": "0000723531",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000723531.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000723531.json",
+      "sha256_uncompressed": "6341acf40f2fafdc9beea6c84dc94657cc4c782b445b81d460df44a81d3b5100"
+    },
+    {
+      "issuer_id": "0000726958",
+      "symbols": [
+        "CASY"
+      ],
+      "financial_cik": "0000726958",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000726958.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000726958.json",
+      "sha256_uncompressed": "e852b306a2e187eac38bf4e4588c32c060632ff20af89b71b81587832fbd8dcd"
+    },
+    {
+      "issuer_id": "0000728535",
+      "symbols": [
+        "JBHT"
+      ],
+      "financial_cik": "0000728535",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000728535.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000728535.json",
+      "sha256_uncompressed": "eccf1a7b1d2d22679ccf882106106a1c5f28a54537256e4d13f32d6554b1f788"
+    },
+    {
+      "issuer_id": "0000731766",
+      "symbols": [
+        "UNH"
+      ],
+      "financial_cik": "0000731766",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000731766.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000731766.json",
+      "sha256_uncompressed": "8967e89d464acb5a62b6ab8ed3e4fcf4d49e861401dba1cd6e63638c7154a1b9"
+    },
+    {
+      "issuer_id": "0000732712",
+      "symbols": [
+        "VZ"
+      ],
+      "financial_cik": "0000732712",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000732712.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000732712.json",
+      "sha256_uncompressed": "79c0af0718aba1d1c658fe24787debcc1623159f4f3640adde303d74a4610a9f"
+    },
+    {
+      "issuer_id": "0000732717",
+      "symbols": [
+        "T"
+      ],
+      "financial_cik": "0000732717",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000732717.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000732717.json",
+      "sha256_uncompressed": "5c630d0511f6b90675b0bced5b3e414556e2a13664525cbf432bde7baf3dd855"
+    },
+    {
+      "issuer_id": "0000745732",
+      "symbols": [
+        "ROST"
+      ],
+      "financial_cik": "0000745732",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000745732.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000745732.json",
+      "sha256_uncompressed": "d55821f115a606a17dab93c18c6e2af68f2ac3db17c87d8ce0fa12c3ccf61648"
+    },
+    {
+      "issuer_id": "0000746515",
+      "symbols": [
+        "EXPD"
+      ],
+      "financial_cik": "0000746515",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000746515.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000746515.json",
+      "sha256_uncompressed": "c2b1972314432cebc0931dffdfc9ce987c259ca16da699cfb15acf3e09a68053"
+    },
+    {
+      "issuer_id": "0000749251",
+      "symbols": [
+        "IT"
+      ],
+      "financial_cik": "0000749251",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000749251.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000749251.json",
+      "sha256_uncompressed": "b9ed183e2835201d5444869a290bf51565577c32f6be75f95fe924efafca54fe"
+    },
+    {
+      "issuer_id": "0000764180",
+      "symbols": [
+        "MO"
+      ],
+      "financial_cik": "0000764180",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000764180.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000764180.json",
+      "sha256_uncompressed": "7bd7dca69ceb5270703b56ece70334499b8ecd59c82c4e27feb16ea3f5139ae6"
+    },
+    {
+      "issuer_id": "0000764478",
+      "symbols": [
+        "BBY"
+      ],
+      "financial_cik": "0000764478",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000764478.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000764478.json",
+      "sha256_uncompressed": "9ad719bb8490017afb4d1950b80f1d7e8acefa17ae5f01afa5c565631ce50e2a"
+    },
+    {
+      "issuer_id": "0000769397",
+      "symbols": [
+        "ADSK"
+      ],
+      "financial_cik": "0000769397",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000769397.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000769397.json",
+      "sha256_uncompressed": "4eccd67fef57f49398e1ca95a9b97deaf7eb57a9641dc52753bc9a570e81281d"
+    },
+    {
+      "issuer_id": "0000773840",
+      "symbols": [
+        "HON"
+      ],
+      "financial_cik": "0000773840",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000773840.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000773840.json",
+      "sha256_uncompressed": "3ec36b94bcfb6c163227a5568ea524a2d714baae79e205929933cdb69ae3bcf7"
+    },
+    {
+      "issuer_id": "0000789019",
+      "symbols": [
+        "MSFT"
+      ],
+      "financial_cik": "0000789019",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000789019.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json",
+      "sha256_uncompressed": "f8aae2965b20ad0df44bdf7ccbedf797d275b6b8dc030154a7a311361bb7246f"
+    },
+    {
+      "issuer_id": "0000789570",
+      "symbols": [
+        "MGM"
+      ],
+      "financial_cik": "0000789570",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000789570.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000789570.json",
+      "sha256_uncompressed": "747e845ac11195975d04f811c36604ce2d4eec32f1b8a948dd222884c182d2a8"
+    },
+    {
+      "issuer_id": "0000796343",
+      "symbols": [
+        "ADBE"
+      ],
+      "financial_cik": "0000796343",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000796343.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000796343.json",
+      "sha256_uncompressed": "75f3829c00b3e8c669b84dcefefe66bc6e0cefd25379b0f0528abd08064df62b"
+    },
+    {
+      "issuer_id": "0000797468",
+      "symbols": [
+        "OXY"
+      ],
+      "financial_cik": "0000797468",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000797468.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000797468.json",
+      "sha256_uncompressed": "5ab0a22170304be3f7ecf0c1ec4772fc1165359e148371b5bb14ed0a888aeae5"
+    },
+    {
+      "issuer_id": "0000804328",
+      "symbols": [
+        "QCOM"
+      ],
+      "financial_cik": "0000804328",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000804328.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000804328.json",
+      "sha256_uncompressed": "9ead50043fbe46eb24c63d9390014abccafbc76409913ca6fe2e94ff5584bc27"
+    },
+    {
+      "issuer_id": "0000813672",
+      "symbols": [
+        "CDNS"
+      ],
+      "financial_cik": "0000813672",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000813672.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000813672.json",
+      "sha256_uncompressed": "0bfb80dcfb082f1368b0f19c256ca5b35585e20bda411cea2163627b55f0955b"
+    },
+    {
+      "issuer_id": "0000814547",
+      "symbols": [
+        "FICO"
+      ],
+      "financial_cik": "0000814547",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000814547.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000814547.json",
+      "sha256_uncompressed": "164900f63f418ba0aa023d98fc2088055279c33419ed413f5c17f48b380b97dc"
+    },
+    {
+      "issuer_id": "0000815097",
+      "symbols": [
+        "CCL"
+      ],
+      "financial_cik": "0000815097",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000815097.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000815097.json",
+      "sha256_uncompressed": "261b8d59e592337dd2775456e5b57b32e0c63c53f3fcbc5bdfcdab32b0d8a288"
+    },
+    {
+      "issuer_id": "0000815556",
+      "symbols": [
+        "FAST"
+      ],
+      "financial_cik": "0000815556",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000815556.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000815556.json",
+      "sha256_uncompressed": "d2fa9f1d63d2647f81b2e1c9c080efffd9b37c2c7e56f933502b6f6b2d724a6e"
+    },
+    {
+      "issuer_id": "0000820313",
+      "symbols": [
+        "APH"
+      ],
+      "financial_cik": "0000820313",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000820313.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000820313.json",
+      "sha256_uncompressed": "5ed411ec7c683653ae08ba22f207f14e373263c3688e0104bbfba536550e0cef"
+    },
+    {
+      "issuer_id": "0000820318",
+      "symbols": [
+        "COHR"
+      ],
+      "financial_cik": "0000820318",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000820318.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000820318.json",
+      "sha256_uncompressed": "a7246c2a272e370b18380ada6a1fb9d1a0608aa27538522a36a281b5680828f7"
+    },
+    {
+      "issuer_id": "0000821189",
+      "symbols": [
+        "EOG"
+      ],
+      "financial_cik": "0000821189",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000821189.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000821189.json",
+      "sha256_uncompressed": "c0bec496669a6714cd112343e24e33b7e512b5c27efb790410d203bcc4829ee4"
+    },
+    {
+      "issuer_id": "0000822416",
+      "symbols": [
+        "PHM"
+      ],
+      "financial_cik": "0000822416",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000822416.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000822416.json",
+      "sha256_uncompressed": "270f1d3f97ce3e72b5ca00c5416d1544ef9cdd72c09fcee63497c8e3e173dc14"
+    },
+    {
+      "issuer_id": "0000823768",
+      "symbols": [
+        "WM"
+      ],
+      "financial_cik": "0000823768",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000823768.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000823768.json",
+      "sha256_uncompressed": "0e9a33b6e09346d5c2a8bee224307ce9365f5871c1bc9aeb690e8d2d37b7da84"
+    },
+    {
+      "issuer_id": "0000827054",
+      "symbols": [
+        "MCHP"
+      ],
+      "financial_cik": "0000827054",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000827054.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000827054.json",
+      "sha256_uncompressed": "352547b2435bd2165d7b58403ba0842b7c96bdd3cb32725f380c44253b74bf60"
+    },
+    {
+      "issuer_id": "0000829224",
+      "symbols": [
+        "SBUX"
+      ],
+      "financial_cik": "0000829224",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000829224.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000829224.json",
+      "sha256_uncompressed": "2488674b57020c5281665b0ff271a29da71da64a2c9fa66bec6a9118772970bb"
+    },
+    {
+      "issuer_id": "0000831259",
+      "symbols": [
+        "FCX"
+      ],
+      "financial_cik": "0000831259",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000831259.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000831259.json",
+      "sha256_uncompressed": "db336b48b0a26d37e322f7c2ee6c7b4d68fe2dcc50e3710b778a8b4790f83828"
+    },
+    {
+      "issuer_id": "0000832101",
+      "symbols": [
+        "IEX"
+      ],
+      "financial_cik": "0000832101",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000832101.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000832101.json",
+      "sha256_uncompressed": "ab2e6f7015eab31153b1783a6d2594497c7c35579e2466fb5b7f1995c4afda96"
+    },
+    {
+      "issuer_id": "0000833444",
+      "symbols": [
+        "JCI"
+      ],
+      "financial_cik": "0000833444",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000833444.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000833444.json",
+      "sha256_uncompressed": "3c0ad147e5626029fe80ae5e25c85c43cb27a4b1f2d620a8e1b4e6e896fd910f"
+    },
+    {
+      "issuer_id": "0000842023",
+      "symbols": [
+        "TECH"
+      ],
+      "financial_cik": "0000842023",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000842023.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000842023.json",
+      "sha256_uncompressed": "82cabe6c840ebf4ec511e80656924bdf3f33b53d09b92ae9e18c27e73875435d"
+    },
+    {
+      "issuer_id": "0000849395",
+      "symbols": [
+        "CRH"
+      ],
+      "financial_cik": "0000849395",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000849395.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000849395.json",
+      "sha256_uncompressed": "39d3d4a2ae9237dc44d90c66f4de82cd7d135efe565fc4343254a7df682afdfd"
+    },
+    {
+      "issuer_id": "0000849399",
+      "symbols": [
+        "GEN"
+      ],
+      "financial_cik": "0000849399",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000849399.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000849399.json",
+      "sha256_uncompressed": "6a73630186122dbf51809a256d1e85baceb0275aa44f735b3d5054ab431f0dbe"
+    },
+    {
+      "issuer_id": "0000857005",
+      "symbols": [
+        "PTC"
+      ],
+      "financial_cik": "0000857005",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000857005.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000857005.json",
+      "sha256_uncompressed": "301e5d89cfdca05df2c829b8151b100e6ccf5595a9df9217e9fcd6a2496bcbac"
+    },
+    {
+      "issuer_id": "0000858877",
+      "symbols": [
+        "CSCO"
+      ],
+      "financial_cik": "0000858877",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000858877.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000858877.json",
+      "sha256_uncompressed": "7d45a349ddedf38636c5b2924026bf187c2f9749dbc2aae4b082b54f06d17d61"
+    },
+    {
+      "issuer_id": "0000860730",
+      "symbols": [
+        "HCA"
+      ],
+      "financial_cik": "0000860730",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000860730.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000860730.json",
+      "sha256_uncompressed": "1dd9e5ce23f330228b212385f04a44a5a303622fc026c82d9edda66092dcb49a"
+    },
+    {
+      "issuer_id": "0000860731",
+      "symbols": [
+        "TYL"
+      ],
+      "financial_cik": "0000860731",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000860731.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000860731.json",
+      "sha256_uncompressed": "2a4ec793c0bf7f9da9d3133f93327d4f328746f361fc9ef0a3c52acc4b9ae922"
+    },
+    {
+      "issuer_id": "0000864749",
+      "symbols": [
+        "TRMB"
+      ],
+      "financial_cik": "0000864749",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000864749.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000864749.json",
+      "sha256_uncompressed": "789b5a7ef503d843664885c291473d21b4cd554e71320d3e1351509e6a37af4c"
+    },
+    {
+      "issuer_id": "0000865752",
+      "symbols": [
+        "MNST"
+      ],
+      "financial_cik": "0000865752",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000865752.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000865752.json",
+      "sha256_uncompressed": "1552197a94fbd93cebfbf74aa161b035548adf8465d194b339a438d74263cc5b"
+    },
+    {
+      "issuer_id": "0000866374",
+      "symbols": [
+        "FLEX"
+      ],
+      "financial_cik": "0000866374",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000866374.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000866374.json",
+      "sha256_uncompressed": "e03d9962514fdedf40bb797d7e95630f7ec4da0aed4a7e084b957ba1ae1e5b8e"
+    },
+    {
+      "issuer_id": "0000866787",
+      "symbols": [
+        "AZO"
+      ],
+      "financial_cik": "0000866787",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000866787.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000866787.json",
+      "sha256_uncompressed": "0e652965cdc4fd7aa88190116e50474ffbf31ea6b4451b50b3b784af0eadc4d6"
+    },
+    {
+      "issuer_id": "0000872589",
+      "symbols": [
+        "REGN"
+      ],
+      "financial_cik": "0000872589",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000872589.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000872589.json",
+      "sha256_uncompressed": "a6f8affcc690bcd53c9a4e61799de3ea83b3fa2ae4c2d75f9cd61fdbcd3fa624"
+    },
+    {
+      "issuer_id": "0000874716",
+      "symbols": [
+        "IDXX"
+      ],
+      "financial_cik": "0000874716",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000874716.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000874716.json",
+      "sha256_uncompressed": "51c9c7033e93f0385936ed991eb6e6e93ae42f67d93e80abac2a4927640b6035"
+    },
+    {
+      "issuer_id": "0000875045",
+      "symbols": [
+        "BIIB"
+      ],
+      "financial_cik": "0000875045",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000875045.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000875045.json",
+      "sha256_uncompressed": "e49b5a3bbf14de0fb7d239cc7824bd2fd0df6e7d76ccea2ef08421f0f26763e0"
+    },
+    {
+      "issuer_id": "0000875320",
+      "symbols": [
+        "VRTX"
+      ],
+      "financial_cik": "0000875320",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000875320.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000875320.json",
+      "sha256_uncompressed": "3194af806b85229093834ac94f495b716bcd50ae9fd0bb8ecf65af4052df566a"
+    },
+    {
+      "issuer_id": "0000877212",
+      "symbols": [
+        "ZBRA"
+      ],
+      "financial_cik": "0000877212",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000877212.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000877212.json",
+      "sha256_uncompressed": "4f116fb10bbb40e77aa4784502d49b3afe7af18f4af9ebc73969bb5887852eb6"
+    },
+    {
+      "issuer_id": "0000878927",
+      "symbols": [
+        "ODFL"
+      ],
+      "financial_cik": "0000878927",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000878927.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000878927.json",
+      "sha256_uncompressed": "46880c123b635647a20e5af96fa5b922bbe85bafbe4fb049afa5303504e50430"
+    },
+    {
+      "issuer_id": "0000879169",
+      "symbols": [
+        "INCY"
+      ],
+      "financial_cik": "0000879169",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000879169.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000879169.json",
+      "sha256_uncompressed": "9bbd2db86b80214c3617ff9f7074d096505585c04e7f1cb88ed756d013c45641"
+    },
+    {
+      "issuer_id": "0000882095",
+      "symbols": [
+        "GILD"
+      ],
+      "financial_cik": "0000882095",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000882095.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000882095.json",
+      "sha256_uncompressed": "106ac9c728b3ab1e2fa153141d23bf8e4729a2340cd1513ebfaba1073b80e21b"
+    },
+    {
+      "issuer_id": "0000882184",
+      "symbols": [
+        "DHI"
+      ],
+      "financial_cik": "0000882184",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000882184.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000882184.json",
+      "sha256_uncompressed": "d354326179bcea875450e68de79204f60b14ba93a6fb679d0ed9c8b70e3322f7"
+    },
+    {
+      "issuer_id": "0000882835",
+      "symbols": [
+        "ROP"
+      ],
+      "financial_cik": "0000882835",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000882835.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000882835.json",
+      "sha256_uncompressed": "4f628aa7b5690b4706a83f27bdd5b3430eb2e7873f1d3a59de53fec4672a0669"
+    },
+    {
+      "issuer_id": "0000883241",
+      "symbols": [
+        "SNPS"
+      ],
+      "financial_cik": "0000883241",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000883241.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000883241.json",
+      "sha256_uncompressed": "53b6ddcfb8f39f68c471fbb7cb4887d3ef5ed1a8c28968ad85c58d0bac8b1604"
+    },
+    {
+      "issuer_id": "0000884887",
+      "symbols": [
+        "RCL"
+      ],
+      "financial_cik": "0000884887",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000884887.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000884887.json",
+      "sha256_uncompressed": "81af4a106c0254f17fdb100169eb40cffd3c560ecbbb5d053d2995c187111c8d"
+    },
+    {
+      "issuer_id": "0000885725",
+      "symbols": [
+        "BSX"
+      ],
+      "financial_cik": "0000885725",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000885725.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000885725.json",
+      "sha256_uncompressed": "f467c9cc179857999201ed494b5443bcfb95ddbe32bd0d4c75900cef8be3fb61"
+    },
+    {
+      "issuer_id": "0000895126",
+      "symbols": [
+        "EXE"
+      ],
+      "financial_cik": "0000895126",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000895126.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000895126.json",
+      "sha256_uncompressed": "7be33d67b29e586bacbccda265854bb70deb3149a1e653aacc665722aef7c337"
+    },
+    {
+      "issuer_id": "0000896878",
+      "symbols": [
+        "INTU"
+      ],
+      "financial_cik": "0000896878",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000896878.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000896878.json",
+      "sha256_uncompressed": "d85658a5e5e43eafffbbb4c04c17c26d8729b62dc57e7995ff8de43f7f963b61"
+    },
+    {
+      "issuer_id": "0000898173",
+      "symbols": [
+        "ORLY"
+      ],
+      "financial_cik": "0000898173",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000898173.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000898173.json",
+      "sha256_uncompressed": "e80c40f5fbdd3f55f2e76eba08cf6caa42e984c990e50e1c2550e301c90a188e"
+    },
+    {
+      "issuer_id": "0000898293",
+      "symbols": [
+        "JBL"
+      ],
+      "financial_cik": "0000898293",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000898293.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000898293.json",
+      "sha256_uncompressed": "7cca1f8abe8ecb3e3055922f1fbfc8e148b559c07efe695f0efe5de33aa0d3fb"
+    },
+    {
+      "issuer_id": "0000900075",
+      "symbols": [
+        "CPRT"
+      ],
+      "financial_cik": "0000900075",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000900075.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000900075.json",
+      "sha256_uncompressed": "820b593560ae7951965697b19422e43b05b3352f6f2b0d8900ec49d591810d0a"
+    },
+    {
+      "issuer_id": "0000906163",
+      "symbols": [
+        "NVR"
+      ],
+      "financial_cik": "0000906163",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000906163.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000906163.json",
+      "sha256_uncompressed": "9794a6d10f1840ba95830d0990595d17d0b8fc78b311e5bbccabba6c15f9857f"
+    },
+    {
+      "issuer_id": "0000909832",
+      "symbols": [
+        "COST"
+      ],
+      "financial_cik": "0000909832",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000909832.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000909832.json",
+      "sha256_uncompressed": "71a4fd99c86f27c3aa27b8f05b3a9705c16f0060b425395bb1a367ce239b7d1f"
+    },
+    {
+      "issuer_id": "0000910521",
+      "symbols": [
+        "DECK"
+      ],
+      "financial_cik": "0000910521",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000910521.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000910521.json",
+      "sha256_uncompressed": "4739a9ff6d248add496007477e4158c350454fc0a1f32e3c7988e55908a137bb"
+    },
+    {
+      "issuer_id": "0000915913",
+      "symbols": [
+        "ALB"
+      ],
+      "financial_cik": "0000915913",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000915913.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000915913.json",
+      "sha256_uncompressed": "7f89037759b6d320f338e4b37a0e66c562e68438bae3b63accfafc4f3107ec1f"
+    },
+    {
+      "issuer_id": "0000916076",
+      "symbols": [
+        "MLM"
+      ],
+      "financial_cik": "0000916076",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000916076.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000916076.json",
+      "sha256_uncompressed": "431f94bcc5f4fea06da3ed13dc93b81ea4be7ca2b51d44a0990964548d830086"
+    },
+    {
+      "issuer_id": "0000916365",
+      "symbols": [
+        "TSCO"
+      ],
+      "financial_cik": "0000916365",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000916365.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000916365.json",
+      "sha256_uncompressed": "471caa0af751b6002f1ac2ea99c6a46ad46a1d6495d42b8a46a367e9222332f2"
+    },
+    {
+      "issuer_id": "0000920148",
+      "symbols": [
+        "LH"
+      ],
+      "financial_cik": "0000920148",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000920148.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000920148.json",
+      "sha256_uncompressed": "1e8b19cd8b76306123ac11a1e3ccf70f4a584fb9313eb017e18bb1b6abf0ae90"
+    },
+    {
+      "issuer_id": "0000920760",
+      "symbols": [
+        "LEN"
+      ],
+      "financial_cik": "0000920760",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000920760.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000920760.json",
+      "sha256_uncompressed": "cb10c886bc492bab4461cc6a2d86b08eda2e5714ef2ed29e38fccbb8bea87a56"
+    },
+    {
+      "issuer_id": "0000927066",
+      "symbols": [
+        "DVA"
+      ],
+      "financial_cik": "0000927066",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000927066.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000927066.json",
+      "sha256_uncompressed": "0d1569979aff034841da342a6361e404f4b78c31b57d3eb74296cc234338e8c4"
+    },
+    {
+      "issuer_id": "0000927653",
+      "symbols": [
+        "MCK"
+      ],
+      "financial_cik": "0000927653",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000927653.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000927653.json",
+      "sha256_uncompressed": "bdce70c079cc574834bd9d54df23c3ec82f99fea05774e89dfc1700573ccf172"
+    },
+    {
+      "issuer_id": "0000935703",
+      "symbols": [
+        "DLTR"
+      ],
+      "financial_cik": "0000935703",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000935703.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000935703.json",
+      "sha256_uncompressed": "b60b56f311fc6f2893d9e8689af24fa7aca0fc5d572d447777cfe29fbb376349"
+    },
+    {
+      "issuer_id": "0000936395",
+      "symbols": [
+        "CIEN"
+      ],
+      "financial_cik": "0000936395",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000936395.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000936395.json",
+      "sha256_uncompressed": "3713bf7aafb805cfb2c9c0fa3fba6a030bd968af5d5d827ff71aa16c353ce37d"
+    },
+    {
+      "issuer_id": "0000936468",
+      "symbols": [
+        "LMT"
+      ],
+      "financial_cik": "0000936468",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000936468.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000936468.json",
+      "sha256_uncompressed": "aedb683271d2c57451a89db5afa42af45eaaa74c57bc544ddfb427762f785c01"
+    },
+    {
+      "issuer_id": "0000940944",
+      "symbols": [
+        "DRI"
+      ],
+      "financial_cik": "0000940944",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000940944.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000940944.json",
+      "sha256_uncompressed": "2d45bf941cfdbca5c7f55de3fd0a616810c343d20bf46d1556a4b26e5909812e"
+    },
+    {
+      "issuer_id": "0000943452",
+      "symbols": [
+        "WAB"
+      ],
+      "financial_cik": "0000943452",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000943452.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000943452.json",
+      "sha256_uncompressed": "5804f76a2be77d3b70aaf2fd1d6576d7c14423657e3d5c4e426475baca4c07a2"
+    },
+    {
+      "issuer_id": "0000943819",
+      "symbols": [
+        "RMD"
+      ],
+      "financial_cik": "0000943819",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000943819.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000943819.json",
+      "sha256_uncompressed": "63268fe43b63982b90252db3355d2526e98e0ea5c85384c3e67d90a1e7232fa1"
+    },
+    {
+      "issuer_id": "0000946581",
+      "symbols": [
+        "TTWO"
+      ],
+      "financial_cik": "0000946581",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0000946581.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000946581.json",
+      "sha256_uncompressed": "09ada91067c129325fe3e0b5e26f23b2f2d9b54f5d0f9942f5eb628140198d29"
+    },
+    {
+      "issuer_id": "0001000228",
+      "symbols": [
+        "HSIC"
+      ],
+      "financial_cik": "0001000228",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001000228.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001000228.json",
+      "sha256_uncompressed": "9e76256f0870cb8455183cc2a7144b442b47d09d2d2d3995a009c39f86a2d17d"
+    },
+    {
+      "issuer_id": "0001000697",
+      "symbols": [
+        "WAT"
+      ],
+      "financial_cik": "0001000697",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001000697.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001000697.json",
+      "sha256_uncompressed": "910a22cb75aa5ded4bb84e0545cfa70e18319a6728ee8630c141e7a4e95e4138"
+    },
+    {
+      "issuer_id": "0001001250",
+      "symbols": [
+        "EL"
+      ],
+      "financial_cik": "0001001250",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001001250.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001001250.json",
+      "sha256_uncompressed": "c4102662b3f5b2fc03e639fa3ac5ba54ffc7cc5ebf63f2595a8ed899c5adff39"
+    },
+    {
+      "issuer_id": "0001002047",
+      "symbols": [
+        "NTAP"
+      ],
+      "financial_cik": "0001002047",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001002047.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001002047.json",
+      "sha256_uncompressed": "59597c50fd456aa0eedda001f3665d798a5e036623841277e900c34da8d4ce2f"
+    },
+    {
+      "issuer_id": "0001014473",
+      "symbols": [
+        "VRSN"
+      ],
+      "financial_cik": "0001014473",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001014473.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001014473.json",
+      "sha256_uncompressed": "0daf9f81f407ada0f94b564eddb47e9307f0c327426afef91d9cbfd4307af530"
+    },
+    {
+      "issuer_id": "0001018724",
+      "symbols": [
+        "AMZN"
+      ],
+      "financial_cik": "0001018724",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001018724.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001018724.json",
+      "sha256_uncompressed": "c991e221b9e1956e53c1e7c05f6a6683f926e43b23e2c800f626e997a268cc93"
+    },
+    {
+      "issuer_id": "0001022079",
+      "symbols": [
+        "DGX"
+      ],
+      "financial_cik": "0001022079",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001022079.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001022079.json",
+      "sha256_uncompressed": "adbcd1ab76a0f4e97550d23fe491dd7925c24a4e382bdc83c78850bdff87d14f"
+    },
+    {
+      "issuer_id": "0001022671",
+      "symbols": [
+        "STLD"
+      ],
+      "financial_cik": "0001022671",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001022671.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001022671.json",
+      "sha256_uncompressed": "05faeb3700549a72e77fc8cdb107ba5bc36b73512de61c7a9a9c0e305a5d5943"
+    },
+    {
+      "issuer_id": "0001024478",
+      "symbols": [
+        "ROK"
+      ],
+      "financial_cik": "0001024478",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001024478.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001024478.json",
+      "sha256_uncompressed": "542fd9f12ec8d59abf9fa3289d307f078b20702b9dde2b53d5f651b74ee4e8a5"
+    },
+    {
+      "issuer_id": "0001035002",
+      "symbols": [
+        "VLO"
+      ],
+      "financial_cik": "0001035002",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001035002.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001035002.json",
+      "sha256_uncompressed": "833f0e53d75b26f7fc001f1e8fb02e622414835f72e4f4598853ce001babb35c"
+    },
+    {
+      "issuer_id": "0001035267",
+      "symbols": [
+        "ISRG"
+      ],
+      "financial_cik": "0001035267",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001035267.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001035267.json",
+      "sha256_uncompressed": "b386a39dc2989008a01e4be5e12444e330e3a98b86c714e3b063b246235db44b"
+    },
+    {
+      "issuer_id": "0001035983",
+      "symbols": [
+        "FIX"
+      ],
+      "financial_cik": "0001035983",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001035983.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001035983.json",
+      "sha256_uncompressed": "7c39703c55f5115c89b1922f0f5ec74210bf703e0ddd4b34cba0fa695472c62e"
+    },
+    {
+      "issuer_id": "0001037038",
+      "symbols": [
+        "RL"
+      ],
+      "financial_cik": "0001037038",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001037038.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001037038.json",
+      "sha256_uncompressed": "a4052d4264c3adaeebe2db73fed33f560d5546caeb350d9fd162a94c9319df84"
+    },
+    {
+      "issuer_id": "0001037646",
+      "symbols": [
+        "MTD"
+      ],
+      "financial_cik": "0001037646",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001037646.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001037646.json",
+      "sha256_uncompressed": "897aa9eae5ca279bc32e75ee3a795e04c67967935b15ad98db340cc9a631891e"
+    },
+    {
+      "issuer_id": "0001037868",
+      "symbols": [
+        "AME"
+      ],
+      "financial_cik": "0001037868",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001037868.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001037868.json",
+      "sha256_uncompressed": "7d0f5179343f7eddc51260087f0d7343dc205d4ab315862ea0bf584508d954db"
+    },
+    {
+      "issuer_id": "0001039684",
+      "symbols": [
+        "OKE"
+      ],
+      "financial_cik": "0001039684",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001039684.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001039684.json",
+      "sha256_uncompressed": "7edb59fac828075128f86760da474f2831a6aff67144b5f04ae0be74d3b5377d"
+    },
+    {
+      "issuer_id": "0001041061",
+      "symbols": [
+        "YUM"
+      ],
+      "financial_cik": "0001041061",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001041061.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001041061.json",
+      "sha256_uncompressed": "83f759af88c98c05df4af68fab13b165766ef33ddb78381798b0518c85685b80"
+    },
+    {
+      "issuer_id": "0001043277",
+      "symbols": [
+        "CHRW"
+      ],
+      "financial_cik": "0001043277",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001043277.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001043277.json",
+      "sha256_uncompressed": "42052a7b94109b170c3237282d70bc3bf140209ef7920a21dd03139331d269ed"
+    },
+    {
+      "issuer_id": "0001045810",
+      "symbols": [
+        "NVDA"
+      ],
+      "financial_cik": "0001045810",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001045810.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001045810.json",
+      "sha256_uncompressed": "93edcffe24f55d08284ff1736e41aa1a8e743ab6e4a6eea52cb8e9392b0ae6be"
+    },
+    {
+      "issuer_id": "0001048286",
+      "symbols": [
+        "MAR"
+      ],
+      "financial_cik": "0001048286",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001048286.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001048286.json",
+      "sha256_uncompressed": "8767de512c8459483681137b5e9e5c97d3e16adea30d5345028e0ce75577599d"
+    },
+    {
+      "issuer_id": "0001048695",
+      "symbols": [
+        "FFIV"
+      ],
+      "financial_cik": "0001048695",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001048695.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001048695.json",
+      "sha256_uncompressed": "337232b5965656649d4d7b1ae049d1f57574cad9df97b5d1a29cf5ebe10f19f4"
+    },
+    {
+      "issuer_id": "0001048911",
+      "symbols": [
+        "FDX"
+      ],
+      "financial_cik": "0001048911",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001048911.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001048911.json",
+      "sha256_uncompressed": "c6d7d6058d6e57e74acdbed986bc3d36118851a366a0ff2438d1be062b050f28"
+    },
+    {
+      "issuer_id": "0001050915",
+      "symbols": [
+        "PWR"
+      ],
+      "financial_cik": "0001050915",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001050915.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001050915.json",
+      "sha256_uncompressed": "5e2bfc25ea25a91a6c8a27e02b83828dbe7b5a9eaea8a4023a970a8cddc5d259"
+    },
+    {
+      "issuer_id": "0001058090",
+      "symbols": [
+        "CMG"
+      ],
+      "financial_cik": "0001058090",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001058090.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001058090.json",
+      "sha256_uncompressed": "796aaf8f01b561750d3f68ee57c4ff3e14a358676434ff7348d63e293396016f"
+    },
+    {
+      "issuer_id": "0001058290",
+      "symbols": [
+        "CTSH"
+      ],
+      "financial_cik": "0001058290",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001058290.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001058290.json",
+      "sha256_uncompressed": "64a285f6a2f6c49fe7f4b138cfbeedab076c49a3f213ca8c5d53fdd1b43678fc"
+    },
+    {
+      "issuer_id": "0001060391",
+      "symbols": [
+        "RSG"
+      ],
+      "financial_cik": "0001060391",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001060391.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001060391.json",
+      "sha256_uncompressed": "7082cce4b6f4514bcecde4416c08540b18148cce491db601cf58bfb7cfbe138f"
+    },
+    {
+      "issuer_id": "0001065088",
+      "symbols": [
+        "EBAY"
+      ],
+      "financial_cik": "0001065088",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001065088.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001065088.json",
+      "sha256_uncompressed": "71656da6850741bdb62e28b2ffab0ec6985168d238a7ce40ff679a04d132d251"
+    },
+    {
+      "issuer_id": "0001065280",
+      "symbols": [
+        "NFLX"
+      ],
+      "financial_cik": "0001065280",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001065280.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001065280.json",
+      "sha256_uncompressed": "00f3449073d90dfa3aec4e384de24b70d92d897f90c67d6bca61f23e33d38634"
+    },
+    {
+      "issuer_id": "0001067701",
+      "symbols": [
+        "URI"
+      ],
+      "financial_cik": "0001067701",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001067701.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001067701.json",
+      "sha256_uncompressed": "5ddcf2df8f2e74caa52a12353f0481cab3474d4886857cc84e286855752a1d9a"
+    },
+    {
+      "issuer_id": "0001069183",
+      "symbols": [
+        "AXON"
+      ],
+      "financial_cik": "0001069183",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001069183.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001069183.json",
+      "sha256_uncompressed": "0c605443f50d53d73c55867e1da39a46b0959cfd21bca586e2aa6c2d10739c1a"
+    },
+    {
+      "issuer_id": "0001069202",
+      "symbols": [
+        "LII"
+      ],
+      "financial_cik": "0001069202",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001069202.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001069202.json",
+      "sha256_uncompressed": "f0291f411002ac66080e7ba074fa848d602589552e6e3d48f26e8ca7c431d4dc"
+    },
+    {
+      "issuer_id": "0001071739",
+      "symbols": [
+        "CNC"
+      ],
+      "financial_cik": "0001071739",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001071739.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001071739.json",
+      "sha256_uncompressed": "f060d4edfcc65500cb96b3dbb7b96910f905abb8bfaa2674ec2b95a5fc325412"
+    },
+    {
+      "issuer_id": "0001075531",
+      "symbols": [
+        "BKNG"
+      ],
+      "financial_cik": "0001075531",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001075531.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001075531.json",
+      "sha256_uncompressed": "4f4ba6aaa1f77e808721bb1e02c8721cf696d51ea9edfcfb285c61de1a86bce4"
+    },
+    {
+      "issuer_id": "0001086222",
+      "symbols": [
+        "AKAM"
+      ],
+      "financial_cik": "0001086222",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001086222.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001086222.json",
+      "sha256_uncompressed": "996bce27cb8dcb9581a4dbff7f12a11d497ad902e1a45e57c68080de5ae1de63"
+    },
+    {
+      "issuer_id": "0001090012",
+      "symbols": [
+        "DVN"
+      ],
+      "financial_cik": "0001090012",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001090012.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001090012.json",
+      "sha256_uncompressed": "e6280636d7b94818d806286beed498d947d8051af993176dd78a920228ea5337"
+    },
+    {
+      "issuer_id": "0001090727",
+      "symbols": [
+        "UPS"
+      ],
+      "financial_cik": "0001090727",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001090727.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001090727.json",
+      "sha256_uncompressed": "6dc49f515f21282f33d44b2e7d4bada13cc574121cabebdcb162663e1bd86992"
+    },
+    {
+      "issuer_id": "0001090872",
+      "symbols": [
+        "A"
+      ],
+      "financial_cik": "0001090872",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001090872.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001090872.json",
+      "sha256_uncompressed": "a782d953c7f45eceb7e2f14e5aadf6d27f1836fb652fa32d40c0812f92dc719d"
+    },
+    {
+      "issuer_id": "0001091667",
+      "symbols": [
+        "CHTR"
+      ],
+      "financial_cik": "0001091667",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001091667.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001091667.json",
+      "sha256_uncompressed": "57117166ffdbd8ad488ad0dda5cc92a3645da7fc957c4e4365cadd123bce0421"
+    },
+    {
+      "issuer_id": "0001093557",
+      "symbols": [
+        "DXCM"
+      ],
+      "financial_cik": "0001093557",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001093557.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001093557.json",
+      "sha256_uncompressed": "da2def45610368df932e2a8bfbfa5f526fd30d187ff2438bf1c8e98dff29ae76"
+    },
+    {
+      "issuer_id": "0001094285",
+      "symbols": [
+        "TDY"
+      ],
+      "financial_cik": "0001094285",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001094285.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001094285.json",
+      "sha256_uncompressed": "8f802c6a2c4459044b5700272d1b207342555516a18ccdf754027cd65ec9fc8c"
+    },
+    {
+      "issuer_id": "0001097149",
+      "symbols": [
+        "ALGN"
+      ],
+      "financial_cik": "0001097149",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001097149.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001097149.json",
+      "sha256_uncompressed": "35ed7bc27f7435347e066013038e6f335aeefa3cfefe705d18dcb3c92d284f28"
+    },
+    {
+      "issuer_id": "0001097864",
+      "symbols": [
+        "ON"
+      ],
+      "financial_cik": "0001097864",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001097864.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001097864.json",
+      "sha256_uncompressed": "6832c20a6029f2d90c0204a0fc7d759fcdc1f2cb112e8f35717ec06cb890a052"
+    },
+    {
+      "issuer_id": "0001099800",
+      "symbols": [
+        "EW"
+      ],
+      "financial_cik": "0001099800",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001099800.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001099800.json",
+      "sha256_uncompressed": "358ee2b646af9b145c6cac3bd963db8a9f0de4e5532fa98cd71ec543ec13a7e2"
+    },
+    {
+      "issuer_id": "0001100682",
+      "symbols": [
+        "CRL"
+      ],
+      "financial_cik": "0001100682",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001100682.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001100682.json",
+      "sha256_uncompressed": "e86e5782a045c43c1ef742610a02f33ab54e4ab02f1744470a48c36f00eed513"
+    },
+    {
+      "issuer_id": "0001103982",
+      "symbols": [
+        "MDLZ"
+      ],
+      "financial_cik": "0001103982",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001103982.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001103982.json",
+      "sha256_uncompressed": "c66054b213ead15f0a177910e8d265dc12e917fa82b51c99c2eb5b20c6acf8df"
+    },
+    {
+      "issuer_id": "0001108524",
+      "symbols": [
+        "CRM"
+      ],
+      "financial_cik": "0001108524",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001108524.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001108524.json",
+      "sha256_uncompressed": "07c432de58f0536b73226c24d4baed3edf4ad8718c3f736d3d8d1bd657c55d82"
+    },
+    {
+      "issuer_id": "0001116132",
+      "symbols": [
+        "TPR"
+      ],
+      "financial_cik": "0001116132",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001116132.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001116132.json",
+      "sha256_uncompressed": "18f30809572a2b75ff17da3e6a40c7a83e361eeec703f3c730b26de5b412e5ee"
+    },
+    {
+      "issuer_id": "0001121788",
+      "symbols": [
+        "GRMN"
+      ],
+      "financial_cik": "0001121788",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001121788.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001121788.json",
+      "sha256_uncompressed": "f132e5d872392f477b3b4f7e7f3e558fd35c4f5bb10547a94ed208bd01156dd5"
+    },
+    {
+      "issuer_id": "0001133421",
+      "symbols": [
+        "NOC"
+      ],
+      "financial_cik": "0001133421",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001133421.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001133421.json",
+      "sha256_uncompressed": "5d35e456d5a983567698b3053fa7440a7eea6a8de698d9de9be041e4a6d6d6b7"
+    },
+    {
+      "issuer_id": "0001136869",
+      "symbols": [
+        "ZBH"
+      ],
+      "financial_cik": "0001136869",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001136869.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001136869.json",
+      "sha256_uncompressed": "6d0c1345bc76086891f784bdf9d412ca2e8f5047afc5b38a680b8c9d01fccc1e"
+    },
+    {
+      "issuer_id": "0001137789",
+      "symbols": [
+        "STX"
+      ],
+      "financial_cik": "0001137789",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001137789.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001137789.json",
+      "sha256_uncompressed": "f3faeb16a335f52db1a023ec91240535f873b13f3a31754a00447568b539b350"
+    },
+    {
+      "issuer_id": "0001140859",
+      "symbols": [
+        "COR"
+      ],
+      "financial_cik": "0001140859",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001140859.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001140859.json",
+      "sha256_uncompressed": "7c5ef663912bb6276a1cd6ede1f693ab32ec99d97efe179f2923c0a35876f9dc"
+    },
+    {
+      "issuer_id": "0001145197",
+      "symbols": [
+        "PODD"
+      ],
+      "financial_cik": "0001145197",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001145197.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001145197.json",
+      "sha256_uncompressed": "685b3f2b295d15387f564e153d462eba9eb511ea928a320ef9e92cfe7cf2d827"
+    },
+    {
+      "issuer_id": "0001156039",
+      "symbols": [
+        "ELV"
+      ],
+      "financial_cik": "0001156039",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001156039.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001156039.json",
+      "sha256_uncompressed": "91c27b3776dfc6c81092359fbf01b326e9805832cf55ebe91c96e9d57f5481a0"
+    },
+    {
+      "issuer_id": "0001163165",
+      "symbols": [
+        "COP"
+      ],
+      "financial_cik": "0001163165",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001163165.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001163165.json",
+      "sha256_uncompressed": "a010737221b1986259d42327a966a311a8f61f3feaf80e5f587f5d0e6f47e440"
+    },
+    {
+      "issuer_id": "0001164727",
+      "symbols": [
+        "NEM"
+      ],
+      "financial_cik": "0001164727",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001164727.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001164727.json",
+      "sha256_uncompressed": "ea025dc937baa0c5647ad84941e423225c6c59485d9b7b27c4f1d87305739e77"
+    },
+    {
+      "issuer_id": "0001166691",
+      "symbols": [
+        "CMCSA"
+      ],
+      "financial_cik": "0001166691",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001166691.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001166691.json",
+      "sha256_uncompressed": "4931cbdeb5c78061844fd07853321766ae28733a65d5aab5b39175943ce45dfc"
+    },
+    {
+      "issuer_id": "0001174922",
+      "symbols": [
+        "WYNN"
+      ],
+      "financial_cik": "0001174922",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001174922.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001174922.json",
+      "sha256_uncompressed": "1e4b257485bc311b34829358bc8296fc17e0079cf4ec563dcdb8609788913fbb"
+    },
+    {
+      "issuer_id": "0001260221",
+      "symbols": [
+        "TDG"
+      ],
+      "financial_cik": "0001260221",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001260221.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001260221.json",
+      "sha256_uncompressed": "329e526b02672a16d076292d191133b1013aaa33e2ace350bb9d4a45af3903dc"
+    },
+    {
+      "issuer_id": "0001262039",
+      "symbols": [
+        "FTNT"
+      ],
+      "financial_cik": "0001262039",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001262039.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001262039.json",
+      "sha256_uncompressed": "d7e094f86bfff8c6bb79cda74775afd483c5d36865fa3c66b18b648f79c9b728"
+    },
+    {
+      "issuer_id": "0001274494",
+      "symbols": [
+        "FSLR"
+      ],
+      "financial_cik": "0001274494",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001274494.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001274494.json",
+      "sha256_uncompressed": "ff5450d2065b30879f9532358c55b7393c64439255660f38df1577c97955b382"
+    },
+    {
+      "issuer_id": "0001280452",
+      "symbols": [
+        "MPWR"
+      ],
+      "financial_cik": "0001280452",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001280452.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001280452.json",
+      "sha256_uncompressed": "a263ee83d8dafab55c33858562b5dbf3427a90bd6c948bc70c59e334a7e6ce1e"
+    },
+    {
+      "issuer_id": "0001283699",
+      "symbols": [
+        "TMUS"
+      ],
+      "financial_cik": "0001283699",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001283699.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001283699.json",
+      "sha256_uncompressed": "a215b5c2834cf16e8a065a5eb16bfe2c4ba2fb0f93422437b2215c8b371ec052"
+    },
+    {
+      "issuer_id": "0001285785",
+      "symbols": [
+        "MOS"
+      ],
+      "financial_cik": "0001285785",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001285785.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001285785.json",
+      "sha256_uncompressed": "7f06dac749f119bd0e84704fb6d948a4d071cc1b6dbcc3169c989f336a65c7c9"
+    },
+    {
+      "issuer_id": "0001286681",
+      "symbols": [
+        "DPZ"
+      ],
+      "financial_cik": "0001286681",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001286681.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001286681.json",
+      "sha256_uncompressed": "69ca22ba2b925d469a31bdf914596abe060e4e9eeb53da9a9a15a7750c5bfc24"
+    },
+    {
+      "issuer_id": "0001300514",
+      "symbols": [
+        "LVS"
+      ],
+      "financial_cik": "0001300514",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001300514.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001300514.json",
+      "sha256_uncompressed": "e358569f68f3e18106d3d7fdb181edd9f7ec8216760e734bf0365e8f5b709883"
+    },
+    {
+      "issuer_id": "0001316835",
+      "symbols": [
+        "BLDR"
+      ],
+      "financial_cik": "0001316835",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001316835.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001316835.json",
+      "sha256_uncompressed": "b76a6d82af52f82df6b520a449a122ad79e37d3564736136afc0b390698edbfe"
+    },
+    {
+      "issuer_id": "0001318605",
+      "symbols": [
+        "TSLA"
+      ],
+      "financial_cik": "0001318605",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001318605.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001318605.json",
+      "sha256_uncompressed": "d0c2b9288d027a6d735039a6fe874a348b65a7fdbc6c133130666c777c885204"
+    },
+    {
+      "issuer_id": "0001321655",
+      "symbols": [
+        "PLTR"
+      ],
+      "financial_cik": "0001321655",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001321655.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001321655.json",
+      "sha256_uncompressed": "18b1eb5a14cf2f6c1e7bd94093a87fdd475f92080dd60c489b138dd60c6598be"
+    },
+    {
+      "issuer_id": "0001324404",
+      "symbols": [
+        "CF"
+      ],
+      "financial_cik": "0001324404",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001324404.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001324404.json",
+      "sha256_uncompressed": "8a8e5da6269fc5473e12d4919f05c581af206e780115919acf18659468f8c8cc"
+    },
+    {
+      "issuer_id": "0001324424",
+      "symbols": [
+        "EXPE"
+      ],
+      "financial_cik": "0001324424",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001324424.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001324424.json",
+      "sha256_uncompressed": "e610ec77fb6957c80077001cd8e3ea5c21701cd80409d315ae064b50192d5a29"
+    },
+    {
+      "issuer_id": "0001326801",
+      "symbols": [
+        "META"
+      ],
+      "financial_cik": "0001326801",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001326801.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001326801.json",
+      "sha256_uncompressed": "ded9a9be1ed9c81cf94a4c1828a076438df6d43045a84f40ef392140ff638ccd"
+    },
+    {
+      "issuer_id": "0001327567",
+      "symbols": [
+        "PANW"
+      ],
+      "financial_cik": "0001327567",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001327567.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001327567.json",
+      "sha256_uncompressed": "59969ecb0bfe1989359fef430eccab5ef44eb6ec4f69cff34c023d45168a4276"
+    },
+    {
+      "issuer_id": "0001327811",
+      "symbols": [
+        "WDAY"
+      ],
+      "financial_cik": "0001327811",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001327811.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001327811.json",
+      "sha256_uncompressed": "9ae8992b98f4766c56fc302879d931d68c1b8bec8e7c12e4deb31b3ef456e39f"
+    },
+    {
+      "issuer_id": "0001335258",
+      "symbols": [
+        "LYV"
+      ],
+      "financial_cik": "0001335258",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001335258.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001335258.json",
+      "sha256_uncompressed": "64def9831bfcd22723e73893800ae40bce5f300e67ca427c5ff875e32a3c8526"
+    },
+    {
+      "issuer_id": "0001336920",
+      "symbols": [
+        "LDOS"
+      ],
+      "financial_cik": "0001336920",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001336920.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001336920.json",
+      "sha256_uncompressed": "18ae6f1884a3986f2b4605c8cffc3ae0b519c101e940bfa7635b19fdd8a4fdd5"
+    },
+    {
+      "issuer_id": "0001341439",
+      "symbols": [
+        "ORCL"
+      ],
+      "financial_cik": "0001341439",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001341439.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001341439.json",
+      "sha256_uncompressed": "60e4f8db39c9a84106bd02677f578db14a54c8bccabcdba2b828e595c32edeca"
+    },
+    {
+      "issuer_id": "0001373715",
+      "symbols": [
+        "NOW"
+      ],
+      "financial_cik": "0001373715",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001373715.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001373715.json",
+      "sha256_uncompressed": "668f1b8214a8cfed1f46869e09d7762b9701723c74faf9802c5ff66a774a1b77"
+    },
+    {
+      "issuer_id": "0001375365",
+      "symbols": [
+        "SMCI"
+      ],
+      "financial_cik": "0001375365",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001375365.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001375365.json",
+      "sha256_uncompressed": "4ba5cff1c8a265677b325ab95bc9233c1c1c3d525fefdceddecbe8f7496ae1b5"
+    },
+    {
+      "issuer_id": "0001383312",
+      "symbols": [
+        "BR"
+      ],
+      "financial_cik": "0001383312",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001383312.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001383312.json",
+      "sha256_uncompressed": "89e571df14e45b9b677087a6b0490357975caaa00a156a86ff85022ef12394d6"
+    },
+    {
+      "issuer_id": "0001385157",
+      "symbols": [
+        "TEL"
+      ],
+      "financial_cik": "0001385157",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001385157.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001385157.json",
+      "sha256_uncompressed": "1797fe441ae96b35b5c39c78cdbe7668e293f52cf332cf9b15086a29ed6c67bc"
+    },
+    {
+      "issuer_id": "0001389170",
+      "symbols": [
+        "TRGP"
+      ],
+      "financial_cik": "0001389170",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001389170.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001389170.json",
+      "sha256_uncompressed": "05f4d545d988a6acfa08594f8a3d17ce1c67e23999bd713779124b507cb3cb50"
+    },
+    {
+      "issuer_id": "0001393052",
+      "symbols": [
+        "VEEV"
+      ],
+      "financial_cik": "0001393052",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001393052.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001393052.json",
+      "sha256_uncompressed": "420e632e52e772d8663e5154d4bd5e7e05efda172df20929bbeaad03954847e9"
+    },
+    {
+      "issuer_id": "0001396009",
+      "symbols": [
+        "VMC"
+      ],
+      "financial_cik": "0001396009",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001396009.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001396009.json",
+      "sha256_uncompressed": "de76d44410d152213a10eacbbe63ef8cd32c330665614a88fe25ce432e1d4d01"
+    },
+    {
+      "issuer_id": "0001397187",
+      "symbols": [
+        "LULU"
+      ],
+      "financial_cik": "0001397187",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001397187.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001397187.json",
+      "sha256_uncompressed": "34df33a1438d0de83e13b4ef20b78199f5959d23d72892450638fd5c87ced671"
+    },
+    {
+      "issuer_id": "0001402057",
+      "symbols": [
+        "CDW"
+      ],
+      "financial_cik": "0001402057",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001402057.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001402057.json",
+      "sha256_uncompressed": "5225ad280889e2d62cbf9230b37df73919ad044f3867ebd99e15770e999da714"
+    },
+    {
+      "issuer_id": "0001403568",
+      "symbols": [
+        "ULTA"
+      ],
+      "financial_cik": "0001403568",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001403568.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001403568.json",
+      "sha256_uncompressed": "c5fac1b32e27474a7e85bb25a037a51256a1a1cd6da743639fc1bd0d270e5333"
+    },
+    {
+      "issuer_id": "0001413329",
+      "symbols": [
+        "PM"
+      ],
+      "financial_cik": "0001413329",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001413329.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001413329.json",
+      "sha256_uncompressed": "5388c14226952dd9d1f0d193f5915164425afa76ff09b69203e3b66b609026bc"
+    },
+    {
+      "issuer_id": "0001413447",
+      "symbols": [
+        "NXPI"
+      ],
+      "financial_cik": "0001413447",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001413447.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001413447.json",
+      "sha256_uncompressed": "a069c3704f51d391209f1bf8c496dabfc6f8c86ac587da6b50cf255b79feedfc"
+    },
+    {
+      "issuer_id": "0001415404",
+      "symbols": [
+        "ECHO"
+      ],
+      "financial_cik": "0001415404",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001415404.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001415404.json",
+      "sha256_uncompressed": "f468f2238d267437e6c29f253f4f2457bca447ff9457706f7a462ef16402faa2"
+    },
+    {
+      "issuer_id": "0001418135",
+      "symbols": [
+        "KDP"
+      ],
+      "financial_cik": "0001418135",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001418135.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001418135.json",
+      "sha256_uncompressed": "fb5bf4ddb0066c3023b71b00a4ab72e6509d7defc35562e8435685d848afd4db"
+    },
+    {
+      "issuer_id": "0001437107",
+      "symbols": [
+        "WBD"
+      ],
+      "financial_cik": "0001437107",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001437107.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001437107.json",
+      "sha256_uncompressed": "2178e8e05cd98c96d0f7e99c34d48049c91206aca29475cec124aac2dd4f6881"
+    },
+    {
+      "issuer_id": "0001442145",
+      "symbols": [
+        "VRSK"
+      ],
+      "financial_cik": "0001442145",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001442145.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001442145.json",
+      "sha256_uncompressed": "7ff151fb537fe40bd72f3e304b894f10371a6edefbbb18e8ab97766dc9fa9e4a"
+    },
+    {
+      "issuer_id": "0001466258",
+      "symbols": [
+        "TT"
+      ],
+      "financial_cik": "0001466258",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001466258.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001466258.json",
+      "sha256_uncompressed": "0c7678c48e35a60ba21a4b0604f07950b3aae4fa2f55f528c7fc25e02d24af9c"
+    },
+    {
+      "issuer_id": "0001467373",
+      "symbols": [
+        "ACN"
+      ],
+      "financial_cik": "0001467373",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001467373.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001467373.json",
+      "sha256_uncompressed": "3344df347f78eef6b760f2a9160190d35dd225079775f573d341b94e9b82e783"
+    },
+    {
+      "issuer_id": "0001467858",
+      "symbols": [
+        "GM"
+      ],
+      "financial_cik": "0001467858",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001467858.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001467858.json",
+      "sha256_uncompressed": "0aadbfd12c0d97ba9743acec6b3ad5b0b6082fab7fbc8f1edbbb7d38fe050e38"
+    },
+    {
+      "issuer_id": "0001474735",
+      "symbols": [
+        "GNRC"
+      ],
+      "financial_cik": "0001474735",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001474735.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001474735.json",
+      "sha256_uncompressed": "2cbe29ed13f7871e19d2764c8369e7c2f28d455216fa4d91c3c84ca7d98679ae"
+    },
+    {
+      "issuer_id": "0001478242",
+      "symbols": [
+        "IQV"
+      ],
+      "financial_cik": "0001478242",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001478242.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001478242.json",
+      "sha256_uncompressed": "70859cc9dcf4dfc30768c753d394b5f5bd69800d5e7753308315302240f9d56e"
+    },
+    {
+      "issuer_id": "0001489393",
+      "symbols": [
+        "LYB"
+      ],
+      "financial_cik": "0001489393",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001489393.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001489393.json",
+      "sha256_uncompressed": "ade4bb35cbeea652e0079a9d245f9bc42e1777ff528d1ffbceb948f9c76d461f"
+    },
+    {
+      "issuer_id": "0001501585",
+      "symbols": [
+        "HII"
+      ],
+      "financial_cik": "0001501585",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001501585.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001501585.json",
+      "sha256_uncompressed": "5d26dd1065986323b9db3b173682e1435c46ec4b6fea29f2f9058ecfa2f1aefa"
+    },
+    {
+      "issuer_id": "0001506307",
+      "symbols": [
+        "KMI"
+      ],
+      "financial_cik": "0001506307",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001506307.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001506307.json",
+      "sha256_uncompressed": "1a60fc0f9776bfc713f1569c0d588be4a28901044e47de75c24e1a6a9b4369c7"
+    },
+    {
+      "issuer_id": "0001510295",
+      "symbols": [
+        "MPC"
+      ],
+      "financial_cik": "0001510295",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001510295.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001510295.json",
+      "sha256_uncompressed": "9016434693986fcc443109646b95cf0a6865ca443ce0cfb2699598ba3c72a648"
+    },
+    {
+      "issuer_id": "0001513761",
+      "symbols": [
+        "NCLH"
+      ],
+      "financial_cik": "0001513761",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001513761.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001513761.json",
+      "sha256_uncompressed": "8d176cc12bd910c0e0595e5112debcd99e08e6ce4377ab6ce81ad1d09c6c9a79"
+    },
+    {
+      "issuer_id": "0001521332",
+      "symbols": [
+        "APTV"
+      ],
+      "financial_cik": "0001521332",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001521332.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001521332.json",
+      "sha256_uncompressed": "88d820d0166968c37d0863d161aaedef83053709ff20fcaad2c2a6b39f2f68e3"
+    },
+    {
+      "issuer_id": "0001524472",
+      "symbols": [
+        "XYL"
+      ],
+      "financial_cik": "0001524472",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001524472.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001524472.json",
+      "sha256_uncompressed": "ec4dfb62beb15a1ee2a000f252e45720b1abe1e1cfbf71f82f38c52d09eab009"
+    },
+    {
+      "issuer_id": "0001534701",
+      "symbols": [
+        "PSX"
+      ],
+      "financial_cik": "0001534701",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001534701.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001534701.json",
+      "sha256_uncompressed": "e26cbcc5668b8fcf5b5298fff852386d928917e9354aabd419348aefb3e7de59"
+    },
+    {
+      "issuer_id": "0001535527",
+      "symbols": [
+        "CRWD"
+      ],
+      "financial_cik": "0001535527",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001535527.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001535527.json",
+      "sha256_uncompressed": "3deef70cc849e70954e6b21dd46f38cb5c6ca887a9a49443d831ea6a568bbdec"
+    },
+    {
+      "issuer_id": "0001539838",
+      "symbols": [
+        "FANG"
+      ],
+      "financial_cik": "0001539838",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001539838.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001539838.json",
+      "sha256_uncompressed": "4d621e930d028b5cb23c1ca6eb77e7095ecbd4ee60d9f351689887e7c80f7cc4"
+    },
+    {
+      "issuer_id": "0001543151",
+      "symbols": [
+        "UBER"
+      ],
+      "financial_cik": "0001543151",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001543151.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001543151.json",
+      "sha256_uncompressed": "db6b2eaa128d91c3d97d91915a7761d3aefc9f90f550dd34683a359a102bd769"
+    },
+    {
+      "issuer_id": "0001551152",
+      "symbols": [
+        "ABBV"
+      ],
+      "financial_cik": "0001551152",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001551152.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001551152.json",
+      "sha256_uncompressed": "aa9759bbc4bafe2f91cfd95435ce07afe3bfb00e0d2c1c16c848799aa9855cfc"
+    },
+    {
+      "issuer_id": "0001551182",
+      "symbols": [
+        "ETN"
+      ],
+      "financial_cik": "0001551182",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001551182.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001551182.json",
+      "sha256_uncompressed": "7bbb10963bbba40f990d90b2f5cbf2da0a70004b66af80acee72566d52dce343"
+    },
+    {
+      "issuer_id": "0001555280",
+      "symbols": [
+        "ZTS"
+      ],
+      "financial_cik": "0001555280",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001555280.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001555280.json",
+      "sha256_uncompressed": "33d94f35fb45e81779f67ace46f7907fb0a7e29fc7a8f49a21aa06c111e0f393"
+    },
+    {
+      "issuer_id": "0001559720",
+      "symbols": [
+        "ABNB"
+      ],
+      "financial_cik": "0001559720",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001559720.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001559720.json",
+      "sha256_uncompressed": "efe6b76467c929013fd1c752adda574b57bb64e2dc01cd99575f8d4b374fd15c"
+    },
+    {
+      "issuer_id": "0001561550",
+      "symbols": [
+        "DDOG"
+      ],
+      "financial_cik": "0001561550",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001561550.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001561550.json",
+      "sha256_uncompressed": "4854a0f2fe7d8bde5b9f192b10f25fd0a2c4dfdfabf167f99f301511bf0e44f1"
+    },
+    {
+      "issuer_id": "0001564708",
+      "symbols": [
+        "NWS",
+        "NWSA"
+      ],
+      "financial_cik": "0001564708",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001564708.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001564708.json",
+      "sha256_uncompressed": "4200c986f7212447ba3251d11e33bbdaa67ef021f612732fca5bb756f3f61ac8"
+    },
+    {
+      "issuer_id": "0001571996",
+      "symbols": [
+        "DELL"
+      ],
+      "financial_cik": "0001571996",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001571996.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001571996.json",
+      "sha256_uncompressed": "0edcfd98c805c1b678d34159ad8b6643f33aff8f5a894f2f617cd413ff84c1a9"
+    },
+    {
+      "issuer_id": "0001579241",
+      "symbols": [
+        "ALLE"
+      ],
+      "financial_cik": "0001579241",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001579241.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001579241.json",
+      "sha256_uncompressed": "838a936033f9e2ceb5a60bbb42a6e41e4d4977a2cd263d0a55e2327b0094b80c"
+    },
+    {
+      "issuer_id": "0001585689",
+      "symbols": [
+        "HLT"
+      ],
+      "financial_cik": "0001585689",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001585689.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001585689.json",
+      "sha256_uncompressed": "a7ea3c8478a4585a74b82cad81b3125472c10ae74ce54ec25d08e4de33007e9e"
+    },
+    {
+      "issuer_id": "0001596532",
+      "symbols": [
+        "ANET"
+      ],
+      "financial_cik": "0001596532",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001596532.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001596532.json",
+      "sha256_uncompressed": "5a2c61d8cccbe1c36f00423dfb381d2ca009ec4ef7c49ea69b703360c9634e95"
+    },
+    {
+      "issuer_id": "0001601046",
+      "symbols": [
+        "KEYS"
+      ],
+      "financial_cik": "0001601046",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001601046.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001601046.json",
+      "sha256_uncompressed": "21ecdbaec66d8e0c646fba3238cc2493803a35c11f14f61e258cc2646ab8eefc"
+    },
+    {
+      "issuer_id": "0001609711",
+      "symbols": [
+        "GDDY"
+      ],
+      "financial_cik": "0001609711",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001609711.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001609711.json",
+      "sha256_uncompressed": "09ee81683f9c2b7cb658b4b08d5ce223f2f02086dc0b368493e3612b299f738a"
+    },
+    {
+      "issuer_id": "0001613103",
+      "symbols": [
+        "MDT"
+      ],
+      "financial_cik": "0001613103",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001613103.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001613103.json",
+      "sha256_uncompressed": "94e4876cc0fd1613e02a98577ea00e0c716fd7a56a48fa2d8553f67058127aff"
+    },
+    {
+      "issuer_id": "0001633978",
+      "symbols": [
+        "LITE"
+      ],
+      "financial_cik": "0001633978",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001633978.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001633978.json",
+      "sha256_uncompressed": "60fdb891668761cac9738a9f410077b9a6cdafe176980dc3cc1f62de8c954766"
+    },
+    {
+      "issuer_id": "0001637459",
+      "symbols": [
+        "KHC"
+      ],
+      "financial_cik": "0001637459",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001637459.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001637459.json",
+      "sha256_uncompressed": "7b4991942dc84af91020c6368b3861a84403ef80a1c19d8de2c0b1a577b7c907"
+    },
+    {
+      "issuer_id": "0001645590",
+      "symbols": [
+        "HPE"
+      ],
+      "financial_cik": "0001645590",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001645590.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001645590.json",
+      "sha256_uncompressed": "29ca98ac50d6c786a69c65a7530f0bf9ddd94836dbe1e984e3956f252eda61ea"
+    },
+    {
+      "issuer_id": "0001652044",
+      "symbols": [
+        "GOOG",
+        "GOOGL"
+      ],
+      "financial_cik": "0001652044",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001652044.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001652044.json",
+      "sha256_uncompressed": "979c75696954e42c634836a54399506d5d548cbfaa37824932e5bca6c6d2ab6c"
+    },
+    {
+      "issuer_id": "0001659166",
+      "symbols": [
+        "FTV"
+      ],
+      "financial_cik": "0001659166",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001659166.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001659166.json",
+      "sha256_uncompressed": "72a6e059559aea01c3b820dae1519cdde8c9240ee3d5021034596953e9b613c4"
+    },
+    {
+      "issuer_id": "0001666700",
+      "symbols": [
+        "DD"
+      ],
+      "financial_cik": "0001666700",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001666700.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001666700.json",
+      "sha256_uncompressed": "ea7ccfada48967f585a0fc41e5d2a9525a3e9d5cc4087cb70a11552f2a8513e1"
+    },
+    {
+      "issuer_id": "0001671933",
+      "symbols": [
+        "TTD"
+      ],
+      "financial_cik": "0001671933",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001671933.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001671933.json",
+      "sha256_uncompressed": "a50bf3f7aec40898f335eb847ceb2cefbcfa7638b3c7da4a5f0aa31a206bfc24"
+    },
+    {
+      "issuer_id": "0001674101",
+      "symbols": [
+        "VRT"
+      ],
+      "financial_cik": "0001674101",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001674101.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001674101.json",
+      "sha256_uncompressed": "bd014465e4ffacad9de91c1c4afa057a4ec69ca9d2bded7fd660044be38a3ed3"
+    },
+    {
+      "issuer_id": "0001682852",
+      "symbols": [
+        "MRNA"
+      ],
+      "financial_cik": "0001682852",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001682852.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001682852.json",
+      "sha256_uncompressed": "df4b148719d77d8bf3604e422382660c977165e75b789b6e8399b1795d99da25"
+    },
+    {
+      "issuer_id": "0001690820",
+      "symbols": [
+        "CVNA"
+      ],
+      "financial_cik": "0001690820",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001690820.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001690820.json",
+      "sha256_uncompressed": "d03b53550afaeb6950840e99d4bd65137691cb390f975dc393344eb58e7c82aa"
+    },
+    {
+      "issuer_id": "0001699150",
+      "symbols": [
+        "IR"
+      ],
+      "financial_cik": "0001699150",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001699150.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001699150.json",
+      "sha256_uncompressed": "c6a86c50484ae7e909dc3f56267476f7df5fc5f462c4fd5745481c9ae1f2622d"
+    },
+    {
+      "issuer_id": "0001701605",
+      "symbols": [
+        "BKR"
+      ],
+      "financial_cik": "0001701605",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001701605.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001701605.json",
+      "sha256_uncompressed": "987c100407bbbfa22e4a753baf8a903b0e4820079a6502acd13b3aab48a36fd3"
+    },
+    {
+      "issuer_id": "0001707925",
+      "symbols": [
+        "LIN"
+      ],
+      "financial_cik": "0001707925",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001707925.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001707925.json",
+      "sha256_uncompressed": "cbd744a08550618c688896d3dc05e3faf906528dcc834fbd471785697c3b414e"
+    },
+    {
+      "issuer_id": "0001730168",
+      "symbols": [
+        "AVGO"
+      ],
+      "financial_cik": "0001730168",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001730168.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001730168.json",
+      "sha256_uncompressed": "b6399ff9bc3e4047dfe955ad7866ca51208a9f617457e7b917cbfc2effcbc916"
+    },
+    {
+      "issuer_id": "0001739940",
+      "symbols": [
+        "CI"
+      ],
+      "financial_cik": "0001739940",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001739940.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001739940.json",
+      "sha256_uncompressed": "44be4819e1c2fdb839984ba65aa260544656fe265e096711716504fddfef72cc"
+    },
+    {
+      "issuer_id": "0001744489",
+      "symbols": [
+        "DIS"
+      ],
+      "financial_cik": "0001744489",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001744489.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001744489.json",
+      "sha256_uncompressed": "5a76e792d5e542700fecb08fcab1121daf4416af59c9e7f1dcdec8cc0704f15a"
+    },
+    {
+      "issuer_id": "0001748790",
+      "symbols": [
+        "AMCR"
+      ],
+      "financial_cik": "0001748790",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001748790.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001748790.json",
+      "sha256_uncompressed": "79bddcad7126a5ce1bb5790975a2b26a175609176bc470dd814b084b6a587926"
+    },
+    {
+      "issuer_id": "0001751008",
+      "symbols": [
+        "APP"
+      ],
+      "financial_cik": "0001751008",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001751008.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001751008.json",
+      "sha256_uncompressed": "c18d863119fdfebb03c51c11b1f06a144dc1660adfaf09c141682e08acfe4876"
+    },
+    {
+      "issuer_id": "0001751788",
+      "symbols": [
+        "DOW"
+      ],
+      "financial_cik": "0001751788",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001751788.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001751788.json",
+      "sha256_uncompressed": "ff212d1e276fc1525ccac4101dadeadea5bb44ba5237a584a53d06d89535b823"
+    },
+    {
+      "issuer_id": "0001754301",
+      "symbols": [
+        "FOX",
+        "FOXA"
+      ],
+      "financial_cik": "0001754301",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001754301.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001754301.json",
+      "sha256_uncompressed": "f5551e3bbf5cae6eee76f0c9b331add45dd47eac8ae16afbdd489565fa832801"
+    },
+    {
+      "issuer_id": "0001755672",
+      "symbols": [
+        "CTVA"
+      ],
+      "financial_cik": "0001755672",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001755672.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001755672.json",
+      "sha256_uncompressed": "7c4b19b6acb1a7ab282d992b8dbd8ccf7b035af792fef96b6675a7b7a5d4b989"
+    },
+    {
+      "issuer_id": "0001757898",
+      "symbols": [
+        "STE"
+      ],
+      "financial_cik": "0001757898",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001757898.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001757898.json",
+      "sha256_uncompressed": "d0ebd7ac0511208c80c4719714e90a176d1000ff5604f352aac2b3966d663211"
+    },
+    {
+      "issuer_id": "0001781335",
+      "symbols": [
+        "OTIS"
+      ],
+      "financial_cik": "0001781335",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001781335.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001781335.json",
+      "sha256_uncompressed": "eb01d08b99b774ec766d6d2fbe6f30e834660d9e5e6b36a8ce539ff316f4522f"
+    },
+    {
+      "issuer_id": "0001783180",
+      "symbols": [
+        "CARR"
+      ],
+      "financial_cik": "0001783180",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001783180.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001783180.json",
+      "sha256_uncompressed": "5a87741e4307b6b623aa04d570499324bc5b73358061782a33130a9e93e2efe6"
+    },
+    {
+      "issuer_id": "0001792044",
+      "symbols": [
+        "VTRS"
+      ],
+      "financial_cik": "0001792044",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001792044.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001792044.json",
+      "sha256_uncompressed": "8c94584d42b5a4bc235cf2601ef4108189264673e128c3d7d33bfb81a4d4e94d"
+    },
+    {
+      "issuer_id": "0001792789",
+      "symbols": [
+        "DASH"
+      ],
+      "financial_cik": "0001792789",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001792789.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001792789.json",
+      "sha256_uncompressed": "b3e8a831d92c4749253b7d024400c545576d3741262ad80b1087d5709df16aee"
+    },
+    {
+      "issuer_id": "0001811074",
+      "symbols": [
+        "TPL"
+      ],
+      "financial_cik": "0001811074",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001811074.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001811074.json",
+      "sha256_uncompressed": "01a323a8a9f95efe349a95ff2fed5519d2138a4ab4b01b85e32a0cb8c35b420f"
+    },
+    {
+      "issuer_id": "0001835632",
+      "symbols": [
+        "MRVL"
+      ],
+      "financial_cik": "0001835632",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001835632.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001835632.json",
+      "sha256_uncompressed": "b38039a8afeb8ef288e095f4c5beb7157f2a2c02a325045b2dc50afdbc40e3a0"
+    },
+    {
+      "issuer_id": "0001841666",
+      "symbols": [
+        "APA"
+      ],
+      "financial_cik": "0001841666",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001841666.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001841666.json",
+      "sha256_uncompressed": "1208db72c5a88ced8075640637a727367178b8efc62263eb7dcae21d834ed75c"
+    },
+    {
+      "issuer_id": "0001932393",
+      "symbols": [
+        "GEHC"
+      ],
+      "financial_cik": "0001932393",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001932393.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001932393.json",
+      "sha256_uncompressed": "670aeb159a39f3b0c930fc2b13b5fdc5907dd1dd696ac74e900838717cbbee57"
+    },
+    {
+      "issuer_id": "0001944048",
+      "symbols": [
+        "KVUE"
+      ],
+      "financial_cik": "0001944048",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001944048.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001944048.json",
+      "sha256_uncompressed": "a2978bb0b8617894e22a69e1cd7f2843023e490c4d26254f14baf3fb99098ebc"
+    },
+    {
+      "issuer_id": "0001964738",
+      "symbols": [
+        "SOLV"
+      ],
+      "financial_cik": "0001964738",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001964738.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001964738.json",
+      "sha256_uncompressed": "31246f090b5c0ebe0399aeef2c92deef4008cc7045d81b47045384edc4d3ba22"
+    },
+    {
+      "issuer_id": "0001967680",
+      "symbols": [
+        "VLTO"
+      ],
+      "financial_cik": "0001967680",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001967680.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001967680.json",
+      "sha256_uncompressed": "44b7f37ee0fd81caef6109ecb945a3337800b2a57371e2075840bb04f4e4c258"
+    },
+    {
+      "issuer_id": "0001973266",
+      "symbols": [
+        "TKO"
+      ],
+      "financial_cik": "0001973266",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001973266.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001973266.json",
+      "sha256_uncompressed": "00d255b7ff7a425651c1110cdd5feb5f1a0030050995ec25cc64049ebceb5953"
+    },
+    {
+      "issuer_id": "0001996810",
+      "symbols": [
+        "GEV"
+      ],
+      "financial_cik": "0001996810",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001996810.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001996810.json",
+      "sha256_uncompressed": "415f0708adf7da6b46d636a2ee1ef3aae173800a4be1d2b5a493fdfa59b1a453"
+    },
+    {
+      "issuer_id": "0001996862",
+      "symbols": [
+        "BG"
+      ],
+      "financial_cik": "0001996862",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0001996862.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001996862.json",
+      "sha256_uncompressed": "cee7c90b69f2443b108661eccdfe914dfa7b9a80f04f59802590ad6292f556e9"
+    },
+    {
+      "issuer_id": "0002005951",
+      "symbols": [
+        "SW"
+      ],
+      "financial_cik": "0002005951",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0002005951.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0002005951.json",
+      "sha256_uncompressed": "ef428aab430dc865d77de40b390884162f2c301ec1cc0ec5498a5c5406ee3512"
+    },
+    {
+      "issuer_id": "0002023554",
+      "symbols": [
+        "SNDK"
+      ],
+      "financial_cik": "0002023554",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0002023554.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0002023554.json",
+      "sha256_uncompressed": "0401a5ee2a2bd20330bc017aecc7726ece85a6ecd259e7e7a65d51c032c83342"
+    },
+    {
+      "issuer_id": "0002041610",
+      "symbols": [
+        "PSKY"
+      ],
+      "financial_cik": "0002041610",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0002041610.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0002041610.json",
+      "sha256_uncompressed": "0ce41226bb46b65cfafb8486d876a2612b4c666927f26996b618336fc4f9cf67"
+    },
+    {
+      "issuer_id": "0002058873",
+      "symbols": [
+        "Q"
+      ],
+      "financial_cik": "0002058873",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0002058873.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0002058873.json",
+      "sha256_uncompressed": "a3cb051a3db3c877ee6f67688e5e853f6b2272103488ac4707ceee639c7369d2"
+    },
+    {
+      "issuer_id": "0002082247",
+      "symbols": [
+        "FDXF"
+      ],
+      "financial_cik": "0002082247",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0002082247.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0002082247.json",
+      "sha256_uncompressed": "84281b7fcb028beb9c5a143b4cc86f2d56c856b60adf014af551cf2140a1eff5"
+    },
+    {
+      "issuer_id": "0002089271",
+      "symbols": [
+        "HONA"
+      ],
+      "financial_cik": "0002089271",
+      "status": "AVAILABLE",
+      "source": "cache",
+      "error": null,
+      "path": "raw\\watchlist_companyfacts\\CIK0002089271.json.gz",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0002089271.json",
+      "sha256_uncompressed": "16516fa414576328410581f04531640da1257b6fdf48d7490c3ec8ad6e43ee4f"
+    }
+  ]
+}

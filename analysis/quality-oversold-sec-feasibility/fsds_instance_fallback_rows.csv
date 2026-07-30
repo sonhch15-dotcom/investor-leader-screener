@@ -1,0 +1,363 @@
+﻿symbols,name,sector,cik,status,resolved,provenance_complete,strict_debt_to_equity,strict_formula,financial_period_end,filed,accession,fallback_custom_candidate_count
+ABT,Abbott Laboratories,Health Care,0000001800,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-20,0001628280-26-010185,0
+AMD,Advanced Micro Devices,Information Technology,0000002488,unresolved_interest_bearing_debt,False,False,,,2025-12-27,2026-02-04,0000002488-26-000018,0
+APD,Air Products,Materials,0000002969,strict_complete_rendered_statement,True,True,1.1375938434784865,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-01-30,0000002969-26-000008,0
+SWKS,Skyworks Solutions,Information Technology,0000004127,unresolved_interest_bearing_debt,False,False,,,2026-01-02,2026-02-05,0000004127-26-000008,0
+HWM,Howmet Aerospace,Industrials,0000004281,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-12,0000004281-26-000012,0
+ADI,Analog Devices,Information Technology,0000006281,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-02-18,0000006281-26-000016,0
+AMAT,Applied Materials,Information Technology,0000006951,unresolved_interest_bearing_debt,False,False,,,2026-01-25,2026-02-19,0001628280-26-009694,0
+ADM,Archer Daniels Midland,Consumer Staples,0000007084,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-17,0000007084-26-000011,0
+ADP,Automatic Data Processing,Industrials,0000008670,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-01-29,0000008670-26-000011,0
+AVY,Avery Dennison,Materials,0000008818,strict_complete_rendered_statement,True,True,1.6649123589491994,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-25,0000008818-26-000015,0
+BALL,Ball Corporation,Materials,0000009389,strict_complete_rendered_statement,True,True,1.2934882862940418,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-19,0001104659-26-017410,0
+BAX,Baxter International,Health Care,0000010456,strict_complete_rendered_statement,True,True,1.5460923478544624,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-12,0001628280-26-007733,0
+BDX,Becton Dickinson,Health Care,0000010795,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-09,0000010795-26-000005,0
+BA,Boeing,Industrials,0000012927,strict_complete_rendered_statement,True,True,9.918958562522919,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-01-30,0001628280-26-004357,0
+BMY,Bristol Myers Squibb,Health Care,0000014272,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-11,0000014272-26-000004,0
+BF.B,Brown–Forman,Consumer Staples,0000014693,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-04,0000014693-26-000010,0
+STZ,Constellation Brands,Consumer Staples,0000016918,unresolved_interest_bearing_debt,False,False,,,2025-11-30,2026-01-08,0000016918-26-000005,0
+CAT,Caterpillar Inc.,Industrials,0000018230,strict_complete_rendered_statement,True,True,2.03255464865372,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-13,0000018230-26-000008,0
+CLX,Clorox,Consumer Staples,0000021076,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-03,0000021076-26-000010,0
+KO,Coca-Cola Company (The),Consumer Staples,0000021344,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-20,0001628280-26-010047,1
+CL,Colgate-Palmolive,Consumer Staples,0000021665,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-23,0000021665-26-000006,0
+TAP,Molson Coors Beverage Company,Consumer Staples,0000024545,strict_complete_rendered_statement,True,True,0.6210472811159008,current_debt+noncurrent_debt+reported_noncurrent_finance_lease,2025-12-31,2026-02-18,0000024545-26-000006,0
+GLW,Corning Inc.,Information Technology,0000024741,strict_complete_rendered_statement,True,True,0.7143220123655458,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-12,0000024741-26-000124,0
+CMI,Cummins,Industrials,0000026172,strict_complete_instance_fallback,True,True,0.5576160012956515,DebtAndCapitalLeaseObligations,2025-12-31,2026-02-10,0000026172-26-000009,2
+TGT,Target Corporation,Consumer Staples,0000027419,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-11,0000027419-26-000016,0
+DAL,Delta Air Lines,Industrials,0000027904,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-11,0000027904-26-000013,0
+DG,Dollar General,Consumer Staples,0000029534,unresolved_interest_bearing_debt,False,False,,,2026-01-30,2026-03-20,0001104659-26-032325,2
+DOV,Dover Corporation,Industrials,0000029905,strict_complete_instance_fallback,True,True,0.4531761844302508,pure_total_debt+reported_finance_lease,2025-12-31,2026-02-13,0000029905-26-000009,0
+OMC,Omnicom Group,Communication Services,0000029989,strict_complete_instance_fallback,True,True,0.7836258280894586,short_term_debt+all_long_term_debt+reported_finance_lease,2025-12-31,2026-02-20,0000029989-26-000006,2
+ECL,Ecolab,Materials,0000031462,strict_complete_rendered_statement,True,True,0.8429504237114668,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-23,0001104659-26-018357,0
+RVTY,Revvity,Health Care,0000031791,unresolved_interest_bearing_debt,False,False,,,2025-12-28,2026-02-24,0000031791-26-000012,0
+EMR,Emerson Electric,Industrials,0000032604,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-03,0000032604-26-000007,0
+EFX,Equifax,Industrials,0000033185,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-19,0000033185-26-000010,0
+EQT,EQT Corporation,Energy,0000033213,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-18,0000033213-26-000018,4
+XOM,ExxonMobil,Energy,0000034088,strict_complete_rendered_statement,True,True,0.16784637567177874,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-18,0000034088-26-000045,0
+F,Ford Motor Company,Consumer Discretionary,0000037996,strict_complete_rendered_statement,True,True,4.543168669336894,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-11,0000037996-26-000015,0
+GD,General Dynamics,Industrials,0000040533,strict_complete_rendered_statement,True,True,0.3265162750761065,current_debt+noncurrent_debt+reported_noncurrent_finance_lease,2025-12-31,2026-01-30,0000040533-26-000006,0
+GE,GE Aerospace,Industrials,0000040545,strict_complete_rendered_statement,True,True,1.0972854312791134,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-01-29,0000040545-26-000008,0
+GIS,General Mills,Consumer Staples,0000040704,strict_complete_rendered_statement,True,True,1.4949429002600794,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2026-02-28,2026-03-18,0001628280-26-019398,0
+GPC,Genuine Parts Company,Consumer Discretionary,0000040987,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-20,0000040987-26-000003,1
+HAL,Halliburton,Energy,0000045012,strict_complete_instance_fallback,True,True,0.7017493547462001,pure_total_debt+reported_finance_lease,2025-12-31,2026-02-06,0000045012-26-000015,0
+HAS,Hasbro,Consumer Discretionary,0000046080,unresolved_interest_bearing_debt,False,False,,,2025-12-28,2026-02-25,0000046080-26-000011,0
+HSY,Hershey Company (The),Consumer Staples,0000047111,strict_complete_rendered_statement,True,True,1.165270286299671,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-17,0001628280-26-008586,0
+HPQ,HP Inc.,Information Technology,0000047217,nonpositive_equity_auto_fail,True,True,,,2026-01-31,2026-02-25,0000047217-26-000011,0
+HRL,Hormel Foods,Consumer Staples,0000048465,unresolved_interest_bearing_debt,False,False,,,2026-01-25,2026-02-26,0000048465-26-000020,0
+HUBB,Hubbell Incorporated,Industrials,0000048898,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-12,0001628280-26-007500,0
+HUM,Humana,Health Care,0000049071,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-19,0000049071-26-000009,0
+ITW,Illinois Tool Works,Industrials,0000049826,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-13,0000049826-26-000008,0
+INTC,Intel,Information Technology,0000050863,unresolved_interest_bearing_debt,False,False,,,2025-12-27,2026-01-23,0000050863-26-000011,0
+IBM,IBM,Information Technology,0000051143,strict_complete_instance_fallback,True,True,2.0731438372947806,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-24,0000051143-26-000010,2
+IFF,International Flavors & Fragrances,Materials,0000051253,strict_complete_rendered_statement,True,True,0.42489755546135366,current_debt+noncurrent_debt+reported_noncurrent_finance_lease,2025-12-31,2026-02-27,0000051253-26-000006,0
+IP,International Paper,Materials,0000051434,strict_complete_rendered_statement,True,True,0.6630471437242867,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-27,0000051434-26-000055,0
+J,Jacobs Solutions,Industrials,0000052988,unresolved_interest_bearing_debt,False,False,,,2025-12-26,2026-02-03,0001628280-26-005006,0
+KMB,Kimberly-Clark,Consumer Staples,0000055785,strict_complete_rendered_statement,True,True,4.772303595206392,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-12,0001628280-26-007567,0
+KR,Kroger,Consumer Staples,0000056873,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-31,0001104659-26-037723,2
+LLY,Lilly (Eli),Health Care,0000059478,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-12,0000059478-26-000013,0
+LOW,Lowe's,Consumer Discretionary,0000060667,nonpositive_equity_auto_fail,True,True,,,2026-01-31,2026-03-23,0000060667-26-000029,0
+MAS,Masco,Industrials,0000062996,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-10,0000062996-26-000005,0
+MKC,McCormick & Company,Consumer Staples,0000063754,unresolved_interest_bearing_debt,False,False,,,2026-02-28,2026-03-31,0000063754-26-000192,0
+MCD,McDonald's,Consumer Discretionary,0000063908,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-24,0000063908-26-000035,0
+CVS,CVS Health,Health Care,0000064803,strict_complete_rendered_statement,True,True,0.8584837929108943,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-10,0000064803-26-000010,0
+MMM,3M,Industrials,0000066740,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-03,0000066740-26-000014,0
+MSI,Motorola Solutions,Information Technology,0000068505,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-12,0000068505-26-000010,0
+NDSN,Nordson Corporation,Industrials,0000072331,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-02-19,0000072331-26-000014,0
+NUE,Nucor,Materials,0000073309,strict_complete_rendered_statement,True,True,0.34013183034008404,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-25,0001193125-26-071575,0
+PCAR,Paccar,Industrials,0000075362,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-18,0001193125-26-057025,2
+PKG,Packaging Corporation of America,Materials,0000075677,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-26,0001193125-26-074129,4
+PH,Parker Hannifin,Industrials,0000076334,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-01-30,0000076334-26-000008,0
+PNR,Pentair,Industrials,0000077360,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-24,0000077360-26-000007,0
+PEP,PepsiCo,Consumer Staples,0000077476,unresolved_interest_bearing_debt,False,False,,,2025-12-27,2026-02-03,0000077476-26-000007,0
+PFE,Pfizer,Health Care,0000078003,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-26,0000078003-26-000026,0
+PPG,PPG Industries,Materials,0000079879,strict_complete_rendered_statement,True,True,0.92091676111321,current_debt+noncurrent_debt+reported_noncurrent_finance_lease,2025-12-31,2026-02-19,0000079879-26-000046,0
+PG,Procter & Gamble,Consumer Staples,0000080424,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-01-23,0000080424-26-000011,0
+ROL,"Rollins, Inc.",Industrials,0000084839,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-12,0000084839-26-000008,0
+SLB,Schlumberger,Energy,0000087347,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-01-23,0001193125-26-021017,0
+SHW,Sherwin-Williams,Materials,0000089800,strict_complete_rendered_statement,True,True,2.4066937781353976,short_term_debt+current_long_term+noncurrent_debt+reported_finance_lease,2025-12-31,2026-02-19,0000089800-26-000008,0
+AOS,A. O. Smith,Industrials,0000091142,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-10,0000091142-26-000008,0
+SJM,J.M. Smucker Company (The),Consumer Staples,0000091419,strict_complete_instance_fallback,True,True,1.4015393136112755,short_term_debt+all_long_term_debt+reported_finance_lease,2026-01-31,2026-02-26,0000091419-26-000016,0
+SNA,Snap-on,Industrials,0000091440,unresolved_interest_bearing_debt,False,False,,,2026-01-03,2026-02-12,0000091440-26-000045,0
+LUV,Southwest Airlines,Industrials,0000092380,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-05,0000092380-26-000004,0
+CVX,Chevron Corporation,Energy,0000093410,strict_complete_rendered_statement,True,True,0.21860016090104586,short_term_debt+all_long_term_debt_and_finance_lease,2025-12-31,2026-02-24,0000093410-26-000078,0
+SWK,Stanley Black & Decker,Industrials,0000093556,unresolved_interest_bearing_debt,False,False,,,2026-01-03,2026-02-24,0000093556-26-000009,0
+SYY,Sysco,Consumer Staples,0000096021,unresolved_interest_bearing_debt,False,False,,,2025-12-27,2026-01-28,0000096021-26-000009,2
+TER,Teradyne,Information Technology,0000097210,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-19,0001193125-26-059002,0
+TXN,Texas Instruments,Information Technology,0000097476,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-06,0000097476-26-000059,0
+TMO,Thermo Fisher Scientific,Health Care,0000097745,strict_complete_rendered_statement,True,True,0.7374501469844776,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-26,0000097745-26-000018,0
+TSN,Tyson Foods,Consumer Staples,0000100493,strict_complete_rendered_statement,True,True,0.46396271430949343,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-02,0000100493-26-000007,0
+UAL,United Airlines Holdings,Industrials,0000100517,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-12,0000100517-26-000023,2
+UNP,Union Pacific Corporation,Industrials,0000100885,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-06,0000100885-26-000037,0
+RTX,RTX Corporation,Industrials,0000101829,strict_complete_rendered_statement,True,True,0.5809487317035789,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-06,0000101829-26-000006,0
+WMT,Walmart,Consumer Staples,0000104169,strict_complete_rendered_statement,True,True,0.5172109178152323,short_term_debt+current_long_term+noncurrent_debt+reported_finance_lease,2026-01-31,2026-03-13,0000104169-26-000055,0
+EME,Emcor,Industrials,0000105634,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-26,0000105634-26-000025,1
+WST,West Pharmaceutical Services,Health Care,0000105770,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-17,0000105770-26-000010,0
+WDC,Western Digital,Information Technology,0000106040,unresolved_interest_bearing_debt,False,False,,,2026-01-02,2026-01-30,0001628280-26-004207,0
+WMB,Williams Companies,Energy,0000107263,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-24,0000107263-26-000006,7
+TJX,TJX Companies,Consumer Discretionary,0000109198,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-31,0000109198-26-000008,0
+JNJ,Johnson & Johnson,Health Care,0000200406,unresolved_interest_bearing_debt,False,False,,,2025-12-28,2026-02-11,0000200406-26-000016,0
+LHX,L3Harris,Industrials,0000202058,strict_complete_instance_fallback,True,True,0.5661319073083779,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2026-01-02,2026-02-12,0000202058-26-000015,0
+TXT,Textron,Industrials,0000217346,unresolved_interest_bearing_debt,False,False,,,2026-01-03,2026-02-11,0000217346-26-000006,2
+GWW,W. W. Grainger,Industrials,0000277135,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-19,0000277135-26-000011,0
+CSX,CSX Corporation,Industrials,0000277948,strict_complete_instance_fallback,True,True,1.4341185410334347,DebtAndCapitalLeaseObligations,2025-12-31,2026-02-12,0000277948-26-000006,4
+MRK,Merck & Co.,Health Care,0000310158,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-24,0000310158-26-000063,0
+SYK,Stryker Corporation,Health Care,0000310764,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-11,0000310764-26-000010,0
+DHR,Danaher Corporation,Health Care,0000313616,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-24,0000313616-26-000062,0
+CHD,Church & Dwight,Consumer Staples,0000313927,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-12,0001193125-26-048139,0
+DE,Deere & Company,Industrials,0000315189,strict_complete_rendered_statement,True,True,2.136730038022814,current_debt+combined_noncurrent_debt_and_finance_lease,2026-01-31,2026-02-26,0001104659-26-020158,0
+AMGN,Amgen,Health Care,0000318154,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-13,0000318154-26-000010,0
+KLAC,KLA Corporation,Information Technology,0000319201,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-01-30,0000319201-26-000008,0
+NKE,"Nike, Inc.",Consumer Discretionary,0000320187,missing_latest_submission,False,False,,,,,,0
+AAPL,Apple Inc.,Information Technology,0000320193,unresolved_interest_bearing_debt,False,False,,,2025-12-27,2026-01-30,0000320193-26-000006,0
+UHS,Universal Health Services,Health Care,0000352915,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-25,0001193125-26-071676,2
+HD,Home Depot (The),Consumer Discretionary,0000354950,strict_complete_instance_fallback,True,True,4.004370561148833,DebtAndCapitalLeaseObligations,2026-02-01,2026-03-18,0001628280-26-019436,1
+NSC,Norfolk Southern,Industrials,0000702165,strict_complete_instance_fallback,True,True,1.09905447996398,DebtAndCapitalLeaseObligations,2025-12-31,2026-02-09,0001628280-26-006268,0
+LRCX,Lam Research,Information Technology,0000707549,unresolved_interest_bearing_debt,False,False,,,2025-12-28,2026-01-29,0000707549-26-000009,0
+COO,Cooper Companies (The),Health Care,0000711404,strict_complete_rendered_statement,True,True,0.29887132643056985,current_debt+combined_noncurrent_debt_and_finance_lease,2026-01-31,2026-03-06,0001628280-26-015620,0
+EA,Electronic Arts,Communication Services,0000712515,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-03,0001628280-26-005101,0
+WSM,"Williams-Sonoma, Inc.",Consumer Discretionary,0000719955,unresolved_interest_bearing_debt,False,False,,,2026-02-01,2026-03-26,0000719955-26-000059,0
+CAH,Cardinal Health,Health Care,0000721371,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-05,0000721371-26-000006,0
+MU,Micron Technology,Information Technology,0000723125,strict_complete_rendered_statement,True,True,0.13996880994769456,current_debt+combined_noncurrent_debt_and_finance_lease,2026-02-28,2026-03-19,0000723125-26-000006,0
+CTAS,Cintas,Industrials,0000723254,unresolved_interest_bearing_debt,False,False,,,2025-11-30,2026-01-07,0000723254-26-000002,0
+PAYX,Paychex,Industrials,0000723531,unresolved_interest_bearing_debt,False,False,,,2026-02-28,2026-03-26,0001193125-26-126204,0
+CASY,Casey's,Consumer Staples,0000726958,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-09,0000726958-26-000010,0
+JBHT,J.B. Hunt,Industrials,0000728535,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-24,0001437749-26-005294,0
+UNH,UnitedHealth Group,Health Care,0000731766,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-03-02,0000731766-26-000062,0
+VZ,Verizon,Communication Services,0000732712,strict_complete_instance_fallback,True,True,1.4956355623646458,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-17,0000732712-26-000007,3
+T,AT&T,Communication Services,0000732717,strict_complete_rendered_statement,True,True,1.0759658789953435,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-09,0000732717-26-000120,0
+ROST,Ross Stores,Consumer Discretionary,0000745732,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-31,0000745732-26-000006,0
+EXPD,Expeditors International,Industrials,0000746515,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-25,0001193125-26-071569,0
+IT,Gartner,Information Technology,0000749251,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-12,0000749251-26-000112,0
+MO,Altria,Consumer Staples,0000764180,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-25,0000764180-26-000017,0
+BBY,Best Buy,Consumer Discretionary,0000764478,strict_complete_instance_fallback,True,True,0.3967611336032389,DebtAndCapitalLeaseObligations,2026-01-31,2026-03-18,0000764478-26-000009,1
+ADSK,Autodesk,Information Technology,0000769397,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-03,0000769397-26-000015,0
+HON,Honeywell Technologies,Industrials,0000773840,strict_complete_rendered_statement,True,True,2.487054085155351,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-17,0000773840-26-000013,0
+MSFT,Microsoft,Information Technology,0000789019,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-01-28,0001193125-26-027207,2
+MGM,MGM Resorts,Consumer Discretionary,0000789570,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-11,0000789570-26-000018,0
+ADBE,Adobe Inc.,Information Technology,0000796343,unresolved_interest_bearing_debt,False,False,,,2026-02-27,2026-03-25,0000796343-26-000056,0
+OXY,Occidental Petroleum,Energy,0000797468,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-18,0001628280-26-009059,2
+QCOM,Qualcomm,Information Technology,0000804328,unresolved_interest_bearing_debt,False,False,,,2025-12-28,2026-02-04,0000804328-26-000017,0
+CDNS,Cadence Design Systems,Information Technology,0000813672,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-19,0000813672-26-000016,0
+FICO,Fair Isaac,Information Technology,0000814547,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-01-28,0000814547-26-000011,0
+CCL,Carnival Corporation,Consumer Discretionary,0000815097,unresolved_interest_bearing_debt,False,False,,,2026-02-28,2026-03-27,0000815097-26-000037,0
+FAST,Fastenal,Industrials,0000815556,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-05,0000815556-26-000009,0
+APH,Amphenol,Information Technology,0000820313,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-11,0001104659-26-013549,0
+COHR,Coherent Corp.,Information Technology,0000820318,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-04,0000820318-26-000006,0
+EOG,EOG Resources,Energy,0000821189,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-24,0000821189-26-000054,0
+PHM,PulteGroup,Consumer Discretionary,0000822416,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-04,0000822416-26-000007,0
+WM,Waste Management,Industrials,0000823768,strict_complete_rendered_statement,True,True,2.292992992992993,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-09,0001104659-26-012049,0
+MCHP,Microchip Technology,Information Technology,0000827054,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-05,0000827054-26-000009,0
+SBUX,Starbucks,Consumer Discretionary,0000829224,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-01-28,0000829224-26-000011,0
+FCX,Freeport-McMoRan,Materials,0000831259,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-13,0000831259-26-000012,3
+IEX,IDEX Corporation,Industrials,0000832101,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-19,0000832101-26-000003,0
+JCI,Johnson Controls,Industrials,0000833444,strict_complete_rendered_statement,True,True,0.7350045440775522,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-04,0000833444-26-000019,0
+TECH,Bio-Techne,Health Care,0000842023,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-04,0001104659-26-010335,0
+CRH,CRH plc,Materials,0000849395,strict_complete_rendered_statement,True,True,0.7528328611898017,current_debt+noncurrent_debt+reported_noncurrent_finance_lease,2025-12-31,2026-02-18,0001628280-26-009043,0
+GEN,Gen Digital,Information Technology,0000849399,unresolved_interest_bearing_debt,False,False,,,2026-01-02,2026-02-06,0000849399-26-000004,0
+PTC,PTC Inc.,Information Technology,0000857005,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-05,0001193125-26-039347,0
+CSCO,Cisco,Information Technology,0000858877,unresolved_interest_bearing_debt,False,False,,,2026-01-24,2026-02-17,0000858877-26-000021,0
+HCA,HCA Healthcare,Health Care,0000860730,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-10,0001193125-26-044769,0
+TYL,Tyler Technologies,Information Technology,0000860731,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-18,0000860731-26-000016,0
+TRMB,Trimble Inc.,Information Technology,0000864749,unresolved_interest_bearing_debt,False,False,,,2026-01-02,2026-02-25,0000864749-26-000015,0
+MNST,Monster Beverage,Consumer Staples,0000865752,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-27,0001104659-26-020831,0
+FLEX,Flex Ltd.,Information Technology,0000866374,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-06,0000866374-26-000005,0
+AZO,AutoZone,Consumer Discretionary,0000866787,nonpositive_equity_auto_fail,True,True,,,2026-01-31,2026-03-20,0001104659-26-032757,0
+REGN,Regeneron Pharmaceuticals,Health Care,0000872589,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-04,0000872589-26-000008,0
+IDXX,Idexx Laboratories,Health Care,0000874716,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-20,0000874716-26-000038,0
+BIIB,Biogen,Health Care,0000875045,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-06,0000875045-26-000013,0
+VRTX,Vertex Pharmaceuticals,Health Care,0000875320,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-13,0000875320-26-000056,1
+ZBRA,Zebra Technologies,Information Technology,0000877212,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-12,0001628280-26-007668,0
+ODFL,Old Dominion,Industrials,0000878927,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-24,0001193125-26-067161,0
+INCY,Incyte,Health Care,0000879169,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-10,0000879169-26-000010,1
+GILD,Gilead Sciences,Health Care,0000882095,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-24,0000882095-26-000006,0
+DHI,D. R. Horton,Consumer Discretionary,0000882184,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-01-22,0000882184-26-000014,0
+ROP,Roper Technologies,Information Technology,0000882835,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-24,0000882835-26-000009,0
+SNPS,Synopsys,Information Technology,0000883241,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-02-25,0000883241-26-000014,0
+RCL,Royal Caribbean Group,Consumer Discretionary,0000884887,strict_complete_instance_fallback,True,True,2.1266314635847365,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-11,0000884887-26-000007,2
+BSX,Boston Scientific,Health Care,0000885725,strict_complete_rendered_statement,True,True,0.47191845830066437,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-17,0000885725-26-000010,0
+EXE,Expand Energy,Energy,0000895126,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-18,0000895126-26-000011,0
+INTU,Intuit,Information Technology,0000896878,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-02-26,0000896878-26-000014,0
+ORLY,O’Reilly Automotive,Consumer Discretionary,0000898173,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-27,0000898173-26-000009,0
+JBL,Jabil,Information Technology,0000898293,unresolved_interest_bearing_debt,False,False,,,2025-11-30,2026-01-09,0001628280-26-001450,0
+CPRT,Copart,Industrials,0000900075,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-03,0001193125-26-088593,2
+NVR,"NVR, Inc.",Consumer Discretionary,0000906163,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-11,0000906163-26-000018,0
+COST,Costco,Consumer Staples,0000909832,unresolved_interest_bearing_debt,False,False,,,2026-02-15,2026-03-11,0000909832-26-000029,0
+DECK,Deckers Brands,Consumer Discretionary,0000910521,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-03,0000910521-26-000005,0
+ALB,Albemarle Corporation,Materials,0000915913,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-11,0000915913-26-000018,0
+MLM,Martin Marietta Materials,Materials,0000916076,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-19,0001193125-26-059193,4
+TSCO,Tractor Supply,Consumer Discretionary,0000916365,unresolved_interest_bearing_debt,False,False,,,2025-12-27,2026-02-19,0000916365-26-000014,0
+LH,Labcorp,Health Care,0000920148,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-24,0000920148-26-000111,4
+LEN,Lennar,Consumer Discretionary,0000920760,unresolved_interest_bearing_debt,False,False,,,2025-11-30,2026-01-28,0001628280-26-003870,0
+DVA,DaVita,Health Care,0000927066,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-11,0000927066-26-000012,0
+MCK,McKesson Corporation,Health Care,0000927653,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-04,0000927653-26-000017,0
+DLTR,Dollar Tree,Consumer Staples,0000935703,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-16,0000935703-26-000025,0
+CIEN,Ciena,Information Technology,0000936395,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-05,0001628280-26-015152,0
+LMT,Lockheed Martin,Industrials,0000936468,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-01-29,0001628280-26-004195,0
+DRI,Darden Restaurants,Consumer Discretionary,0000940944,strict_complete_rendered_statement,True,True,1.9740494296577946,short_term_debt+all_long_term_debt+reported_finance_lease,2026-02-28,2026-03-27,0000940944-26-000009,0
+WAB,Wabtec,Industrials,0000943452,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-13,0001628280-26-008067,0
+RMD,ResMed,Health Care,0000943819,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-01-30,0000943819-26-000007,0
+TTWO,Take-Two Interactive,Communication Services,0000946581,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-04,0001628280-26-005119,0
+HSIC,Henry Schein,Health Care,0001000228,strict_complete_rendered_statement,True,True,0.9574730354391371,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-24,0001000228-26-000013,0
+WAT,Waters Corporation,Health Care,0001000697,strict_complete_instance_fallback,True,True,0.5495166017112011,DebtAndCapitalLeaseObligations,2025-12-31,2026-02-23,0001193125-26-062604,0
+EL,Estée Lauder Companies (The),Consumer Staples,0001001250,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-05,0001001250-26-000006,0
+NTAP,NetApp,Information Technology,0001002047,unresolved_interest_bearing_debt,False,False,,,2026-01-23,2026-02-26,0001193125-26-076622,0
+VRSN,Verisign,Information Technology,0001014473,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-05,0001014473-26-000006,0
+AMZN,Amazon,Consumer Discretionary,0001018724,strict_complete_instance_fallback,True,True,0.1973824091080486,short_term_debt+current_long_term+noncurrent_debt+reported_finance_lease,2025-12-31,2026-02-06,0001018724-26-000004,0
+DGX,Quest Diagnostics,Health Care,0001022079,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-26,0001022079-26-000015,1
+STLD,Steel Dynamics,Materials,0001022671,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-27,0001104659-26-021395,0
+ROK,Rockwell Automation,Industrials,0001024478,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-05,0001024478-26-000005,0
+VLO,Valero Energy,Energy,0001035002,strict_complete_rendered_statement,True,True,0.4475869336143309,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-25,0001628280-26-011499,0
+ISRG,Intuitive Surgical,Health Care,0001035267,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-03,0001035267-26-000010,0
+FIX,Comfort Systems USA,Industrials,0001035983,strict_complete_instance_fallback,True,True,0.059305595371398095,DebtAndCapitalLeaseObligations,2025-12-31,2026-02-19,0001104659-26-017530,0
+RL,Ralph Lauren Corporation,Consumer Discretionary,0001037038,strict_complete_instance_fallback,True,True,0.5114250103863731,pure_total_debt+reported_finance_lease,2025-12-27,2026-02-05,0001628280-26-005784,0
+MTD,Mettler Toledo,Health Care,0001037646,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-06,0001037646-26-000011,0
+AME,Ametek,Industrials,0001037868,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-17,0001037868-26-000016,0
+OKE,Oneok,Energy,0001039684,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-24,0001039684-26-000006,0
+YUM,Yum! Brands,Consumer Discretionary,0001041061,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-20,0001041061-26-000084,0
+CHRW,C.H. Robinson,Industrials,0001043277,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-13,0001043277-26-000009,0
+NVDA,Nvidia,Information Technology,0001045810,unresolved_interest_bearing_debt,False,False,,,2026-01-25,2026-02-25,0001045810-26-000021,0
+MAR,Marriott International,Consumer Discretionary,0001048286,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-10,0001048286-26-000007,0
+FFIV,"F5, Inc.",Information Technology,0001048695,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-05,0001048695-26-000023,0
+FDX,FedEx,Industrials,0001048911,unresolved_interest_bearing_debt,False,False,,,2026-02-28,2026-03-19,0001048911-26-000011,1
+PWR,Quanta Services,Industrials,0001050915,strict_complete_rendered_statement,True,True,0.6707025056026074,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-19,0001050915-26-000006,0
+CMG,Chipotle Mexican Grill,Consumer Discretionary,0001058090,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-04,0001058090-26-000009,0
+CTSH,Cognizant,Information Technology,0001058290,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-12,0001058290-26-000008,0
+RSG,Republic Services,Industrials,0001060391,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-18,0001060391-26-000094,4
+EBAY,eBay Inc.,Consumer Discretionary,0001065088,strict_complete_rendered_statement,True,True,1.4617551462621885,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-19,0001065088-26-000027,0
+NFLX,Netflix,Communication Services,0001065280,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-01-23,0001065280-26-000034,0
+URI,United Rentals,Industrials,0001067701,strict_complete_rendered_statement,True,True,1.5866413916146298,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-01-28,0001067701-26-000007,0
+AXON,Axon Enterprise,Industrials,0001069183,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-25,0001628280-26-011360,0
+LII,Lennox International,Industrials,0001069202,strict_complete_instance_fallback,True,True,1.1937064740778953,DebtAndCapitalLeaseObligations,2025-12-31,2026-02-17,0001069202-26-000028,2
+CNC,Centene Corporation,Health Care,0001071739,strict_complete_instance_fallback,True,True,0.8720994336691225,DebtAndCapitalLeaseObligations,2025-12-31,2026-02-17,0001071739-26-000049,0
+BKNG,Booking Holdings,Consumer Discretionary,0001075531,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-18,0001075531-26-000009,0
+AKAM,Akamai Technologies,Information Technology,0001086222,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-20,0001086222-26-000022,0
+DVN,Devon Energy,Energy,0001090012,strict_complete_instance_fallback,True,True,0.6060020607934055,short_term_debt+current_long_term+noncurrent_debt+reported_finance_lease,2025-12-31,2026-02-18,0001193125-26-056485,1
+UPS,United Parcel Service,Industrials,0001090727,strict_complete_rendered_statement,True,True,1.486842916127442,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-17,0001628280-26-008432,0
+A,Agilent Technologies,Health Care,0001090872,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-03,0001090872-26-000023,0
+CHTR,Charter Communications,Communication Services,0001091667,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-01-30,0001091667-26-000017,1
+DXCM,Dexcom,Health Care,0001093557,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-12,0001093557-26-000027,0
+TDY,Teledyne Technologies,Information Technology,0001094285,unresolved_interest_bearing_debt,False,False,,,2025-12-28,2026-02-20,0001094285-26-000017,0
+ALGN,Align Technology,Health Care,0001097149,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-27,0001097149-26-000014,0
+ON,ON Semiconductor,Information Technology,0001097864,strict_complete_instance_fallback,True,True,0.0001172898231530111,DebtAndCapitalLeaseObligations,2025-12-31,2026-02-09,0001097864-26-000006,0
+EW,Edwards Lifesciences,Health Care,0001099800,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-25,0001099800-26-000009,0
+CRL,Charles River Laboratories,Health Care,0001100682,unresolved_interest_bearing_debt,False,False,,,2025-12-27,2026-02-18,0001100682-26-000022,0
+MDLZ,Mondelez International,Consumer Staples,0001103982,strict_complete_rendered_statement,True,True,0.8206904559176407,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-04,0001628280-26-005345,0
+CRM,Salesforce,Information Technology,0001108524,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-02,0001108524-26-000060,0
+TPR,"Tapestry, Inc.",Consumer Discretionary,0001116132,unresolved_interest_bearing_debt,False,False,,,2025-12-27,2026-02-05,0001116132-26-000005,0
+GRMN,Garmin,Consumer Discretionary,0001121788,unresolved_interest_bearing_debt,False,False,,,2025-12-27,2026-02-18,0001193125-26-056028,0
+NOC,Northrop Grumman,Industrials,0001133421,strict_complete_instance_fallback,True,True,0.9413458078445484,DebtAndCapitalLeaseObligations,2025-12-31,2026-01-27,0001133421-26-000003,0
+ZBH,Zimmer Biomet,Health Care,0001136869,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-20,0001193125-26-059853,0
+STX,Seagate Technology,Information Technology,0001137789,unresolved_interest_bearing_debt,False,False,,,2026-01-02,2026-01-30,0001137789-26-000026,0
+COR,Cencora,Health Care,0001140859,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-04,0001140859-26-000006,0
+PODD,Insulet Corporation,Health Care,0001145197,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-18,0001145197-26-000028,0
+ELV,Elevance Health,Health Care,0001156039,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-06,0001156039-26-000013,0
+COP,ConocoPhillips,Energy,0001163165,strict_complete_rendered_statement,True,True,0.36354614108269884,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-17,0001163165-26-000009,0
+NEM,Newmont,Materials,0001164727,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-19,0001164727-26-000010,0
+CMCSA,Comcast,Communication Services,0001166691,strict_complete_rendered_statement,True,True,1.0209900622271757,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-03,0001628280-26-004994,0
+WYNN,Wynn Resorts,Consumer Discretionary,0001174922,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-03-02,0001174922-26-000013,0
+TDG,TransDigm Group,Industrials,0001260221,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-03,0001260221-26-000017,0
+FTNT,Fortinet,Information Technology,0001262039,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-25,0001262039-26-000007,0
+FSLR,First Solar,Information Technology,0001274494,strict_complete_rendered_statement,True,True,0.05593336040401791,current_debt+noncurrent_debt+reported_noncurrent_finance_lease,2025-12-31,2026-02-24,0001274494-26-000021,0
+MPWR,Monolithic Power Systems,Information Technology,0001280452,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-27,0001437749-26-006113,0
+TMUS,T-Mobile US,Communication Services,0001283699,strict_complete_instance_fallback,True,True,1.5824704829147171,short_term_debt+all_long_term_debt+reported_finance_lease,2025-12-31,2026-02-11,0001283699-26-000010,0
+MOS,Mosaic Company (The),Materials,0001285785,strict_complete_instance_fallback,True,True,0.41819957136591945,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-27,0001285785-26-000017,0
+DPZ,Domino's,Consumer Discretionary,0001286681,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-23,0001193125-26-062321,0
+LVS,Las Vegas Sands,Consumer Discretionary,0001300514,strict_complete_instance_fallback,True,True,10.016981132075472,pure_total_debt+reported_finance_lease,2025-12-31,2026-02-06,0001300514-26-000013,4
+BLDR,Builders FirstSource,Industrials,0001316835,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-17,0001193125-26-054643,7
+TSLA,"Tesla, Inc.",Consumer Discretionary,0001318605,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-01-29,0001628280-26-003952,0
+PLTR,Palantir Technologies,Information Technology,0001321655,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-17,0001321655-26-000011,0
+CF,CF Industries,Materials,0001324404,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-25,0001324404-26-000007,0
+EXPE,Expedia Group,Consumer Discretionary,0001324424,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-13,0001324424-26-000008,0
+META,Meta Platforms,Communication Services,0001326801,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-01-29,0001628280-26-003942,0
+PANW,Palo Alto Networks,Information Technology,0001327567,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-02-18,0001327567-26-000005,0
+WDAY,"Workday, Inc.",Information Technology,0001327811,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-06,0001327811-26-000014,0
+LYV,Live Nation Entertainment,Communication Services,0001335258,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-19,0001335258-26-000009,1
+LDOS,Leidos,Industrials,0001336920,strict_complete_rendered_statement,True,True,0.9454841334418226,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-17,0001336920-26-000030,0
+ORCL,Oracle Corporation,Information Technology,0001341439,unresolved_interest_bearing_debt,False,False,,,2026-02-28,2026-03-11,0001193125-26-101045,0
+NOW,ServiceNow,Information Technology,0001373715,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-01-29,0001373715-26-000007,0
+SMCI,Supermicro,Information Technology,0001375365,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-06,0001375365-26-000007,0
+BR,Broadridge Financial Solutions,Industrials,0001383312,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-03,0001628280-26-004859,0
+TEL,TE Connectivity,Information Technology,0001385157,unresolved_interest_bearing_debt,False,False,,,2025-12-26,2026-01-23,0001104659-26-006062,0
+TRGP,Targa Resources,Energy,0001389170,strict_complete_rendered_statement,True,True,5.682225626650151,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-19,0001193125-26-059296,0
+VEEV,Veeva Systems,Health Care,0001393052,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-20,0001393052-26-000014,0
+VMC,Vulcan Materials Company,Materials,0001396009,strict_complete_instance_fallback,True,True,0.5129441296876283,short_term_debt+current_long_term+noncurrent_debt+reported_finance_lease,2025-12-31,2026-02-19,0001628280-26-009546,2
+LULU,Lululemon Athletica,Consumer Discretionary,0001397187,unresolved_interest_bearing_debt,False,False,,,2026-02-01,2026-03-17,0001397187-26-000020,0
+CDW,CDW Corporation,Information Technology,0001402057,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-20,0001402057-26-000011,0
+ULTA,Ulta Beauty,Consumer Discretionary,0001403568,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-26,0001104659-26-035243,0
+PM,Philip Morris International,Consumer Staples,0001413329,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-06,0001628280-26-005939,0
+NXPI,NXP Semiconductors,Information Technology,0001413447,strict_complete_rendered_statement,True,True,1.2153937947494033,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-19,0001413447-26-000008,0
+ECHO,EchoStar,Communication Services,0001415404,strict_complete_instance_fallback,True,True,4.5058696267498055,DebtAndCapitalLeaseObligations,2025-12-31,2026-03-02,0001104659-26-021817,8
+KDP,Keurig Dr Pepper,Consumer Staples,0001418135,strict_complete_rendered_statement,True,True,0.6617808433923813,current_debt+noncurrent_debt+reported_noncurrent_finance_lease,2025-12-31,2026-02-24,0001418135-26-000016,0
+WBD,Warner Bros. Discovery,Communication Services,0001437107,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-27,0001437107-26-000020,0
+VRSK,Verisk Analytics,Industrials,0001442145,strict_complete_rendered_statement,True,True,15.330744336569579,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-18,0001437749-26-004452,0
+TT,Trane Technologies,Industrials,0001466258,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-05,0001628280-26-005731,0
+ACN,Accenture,Information Technology,0001467373,strict_complete_rendered_statement,True,True,0.16482773394591005,current_debt+combined_noncurrent_debt_and_finance_lease,2026-02-28,2026-03-19,0001467373-26-000014,0
+GM,General Motors,Consumer Discretionary,0001467858,strict_complete_rendered_statement,True,True,2.1315302933621294,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-01-27,0001467858-26-000013,0
+GNRC,Generac,Industrials,0001474735,strict_complete_rendered_statement,True,True,0.5064028487833637,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-18,0001437749-26-004568,0
+IQV,IQVIA,Health Care,0001478242,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-17,0001628280-26-008322,0
+LYB,LyondellBasell,Materials,0001489393,strict_complete_rendered_statement,True,True,1.2832771275540567,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-20,0001489393-26-000012,0
+HII,Huntington Ingalls Industries,Industrials,0001501585,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-05,0001501585-26-000006,0
+KMI,Kinder Morgan,Energy,0001506307,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-13,0001506307-26-000011,0
+MPC,Marathon Petroleum,Energy,0001510295,strict_complete_instance_fallback,True,True,1.9235878479842903,DebtAndCapitalLeaseObligations,2025-12-31,2026-02-26,0001510295-26-000009,7
+NCLH,Norwegian Cruise Line Holdings,Consumer Discretionary,0001513761,strict_complete_instance_fallback,True,True,6.609464371045048,DebtAndCapitalLeaseObligations,2025-12-31,2026-03-02,0001104659-26-022067,1
+APTV,Aptiv,Consumer Discretionary,0001521332,strict_complete_instance_fallback,True,True,0.820136852394917,DebtAndCapitalLeaseObligations,2025-12-31,2026-02-06,0001521332-26-000009,2
+XYL,Xylem Inc.,Industrials,0001524472,strict_complete_instance_fallback,True,True,0.18005226480836237,pure_total_debt+reported_finance_lease,2025-12-31,2026-02-25,0001524472-26-000012,1
+PSX,Phillips 66,Energy,0001534701,strict_complete_rendered_statement,True,True,0.6776887911181384,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-20,0001534701-26-000006,0
+CRWD,CrowdStrike,Information Technology,0001535527,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-05,0001535527-26-000010,0
+FANG,Diamondback Energy,Energy,0001539838,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-25,0001539838-26-000010,0
+UBER,Uber,Industrials,0001543151,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-13,0001543151-26-000015,0
+ABBV,AbbVie,Health Care,0001551152,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-20,0001551152-26-000008,0
+ETN,Eaton Corporation,Industrials,0001551182,strict_complete_rendered_statement,True,True,0.5093951093951093,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-26,0001551182-26-000007,0
+ZTS,Zoetis,Health Care,0001555280,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-12,0001555280-26-000011,0
+ABNB,Airbnb,Consumer Discretionary,0001559720,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-12,0001559720-26-000004,0
+DDOG,Datadog,Information Technology,0001561550,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-18,0001628280-26-008819,0
+"NWS,NWSA","News Corp (Class B),News Corp (Class A)",Communication Services,0001564708,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-06,0001564708-26-000029,0
+DELL,Dell Technologies,Information Technology,0001571996,nonpositive_equity_auto_fail,True,True,,,2026-01-31,2026-03-16,0001571996-26-000008,0
+ALLE,Allegion,Industrials,0001579241,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-17,0001579241-26-000007,0
+HLT,Hilton Worldwide,Consumer Discretionary,0001585689,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-11,0001585689-26-000007,0
+ANET,Arista Networks,Information Technology,0001596532,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-17,0001596532-26-000013,0
+KEYS,Keysight Technologies,Information Technology,0001601046,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-05,0001601046-26-000008,0
+GDDY,GoDaddy,Information Technology,0001609711,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-25,0001609711-26-000010,0
+MDT,Medtronic,Health Care,0001613103,strict_complete_rendered_statement,True,True,0.5730529754006328,current_debt+combined_noncurrent_debt_and_finance_lease,2026-01-31,2026-02-24,0001628280-26-011107,0
+LITE,Lumentum,Information Technology,0001633978,unresolved_interest_bearing_debt,False,False,,,2025-12-27,2026-02-04,0001628280-26-005129,0
+KHC,Kraft Heinz,Consumer Staples,0001637459,unresolved_interest_bearing_debt,False,False,,,2025-12-27,2026-02-12,0001637459-26-000009,0
+HPE,Hewlett Packard Enterprise,Information Technology,0001645590,strict_complete_rendered_statement,True,True,0.8723258254621781,current_debt+combined_noncurrent_debt_and_finance_lease,2026-01-31,2026-03-10,0001645590-26-000032,0
+"GOOG,GOOGL","Alphabet Inc. (Class C),Alphabet Inc. (Class A)",Communication Services,0001652044,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-05,0001652044-26-000018,0
+FTV,Fortive,Industrials,0001659166,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-25,0001659166-26-000007,0
+DD,DuPont,Materials,0001666700,strict_complete_rendered_statement,True,True,0.2294705079387887,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-17,0001666700-26-000013,0
+TTD,Trade Desk (The),Communication Services,0001671933,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-27,0001671933-26-000014,0
+VRT,Vertiv,Industrials,0001674101,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-13,0001674101-26-000008,1
+MRNA,Moderna,Health Care,0001682852,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-20,0001682852-26-000033,3
+CVNA,Carvana,Consumer Discretionary,0001690820,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-18,0001690820-26-000009,1
+IR,Ingersoll Rand,Industrials,0001699150,strict_complete_rendered_statement,True,True,0.47421158001149677,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-17,0001628280-26-008617,0
+BKR,Baker Hughes,Energy,0001701605,strict_complete_rendered_statement,True,True,0.3231920993947117,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-05,0001701605-26-000007,0
+LIN,Linde plc,Materials,0001707925,strict_complete_rendered_statement,True,True,0.705687017910838,short_term_debt+current_long_term+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-25,0001628280-26-011430,0
+AVGO,Broadcom,Information Technology,0001730168,strict_complete_instance_fallback,True,True,0.8270357572115384,current_debt+combined_noncurrent_debt_and_finance_lease,2026-02-01,2026-03-11,0001730168-26-000016,0
+CI,Cigna,Health Care,0001739940,strict_complete_rendered_statement,True,True,0.7542732481480594,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-26,0001739940-26-000006,0
+DIS,Walt Disney Company (The),Communication Services,0001744489,unresolved_interest_bearing_debt,False,False,,,2025-12-27,2026-02-02,0001744489-26-000019,0
+AMCR,Amcor,Materials,0001748790,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-04,0001748790-26-000006,0
+APP,AppLovin,Information Technology,0001751008,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-19,0001751008-26-000010,0
+DOW,Dow Inc.,Materials,0001751788,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-03,0001751788-26-000018,8
+"FOX,FOXA","Fox Corporation (Class B),Fox Corporation (Class A)",Communication Services,0001754301,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-04,0001628280-26-005285,0
+CTVA,Corteva,Materials,0001755672,strict_complete_rendered_statement,True,True,0.10685884691848907,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-12,0001755672-26-000004,0
+STE,Steris,Health Care,0001757898,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-06,0001628280-26-006055,1
+OTIS,Otis Worldwide,Industrials,0001781335,nonpositive_equity_auto_fail,True,True,,,2025-12-31,2026-02-05,0001781335-26-000011,0
+CARR,Carrier Global,Industrials,0001783180,strict_complete_instance_fallback,True,True,0.8120753114382786,DebtAndCapitalLeaseObligations,2025-12-31,2026-02-05,0001783180-26-000008,0
+VTRS,Viatris,Health Care,0001792044,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-26,0001792044-26-000013,0
+DASH,DoorDash,Consumer Discretionary,0001792789,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-18,0001792789-26-000013,0
+TPL,Texas Pacific Land Corporation,Energy,0001811074,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-18,0001811074-26-000018,0
+MRVL,Marvell Technology,Information Technology,0001835632,unresolved_interest_bearing_debt,False,False,,,2026-01-31,2026-03-11,0001835632-26-000011,0
+APA,APA Corporation,Energy,0001841666,strict_complete_rendered_statement,True,True,0.7374035778762514,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-26,0001841666-26-000015,0
+GEHC,GE HealthCare,Health Care,0001932393,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-04,0001932393-26-000007,0
+KVUE,Kenvue,Consumer Staples,0001944048,strict_complete_rendered_statement,True,True,0.7918253599628425,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-20,0001944048-26-000030,0
+SOLV,Solventum,Health Care,0001964738,strict_complete_rendered_statement,True,True,0.9972271736977619,current_debt+noncurrent_debt+reported_noncurrent_finance_lease,2025-12-31,2026-02-27,0001964738-26-000007,0
+VLTO,Veralto,Industrials,0001967680,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-20,0001967680-26-000011,0
+TKO,TKO Group Holdings,Communication Services,0001973266,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-02-25,0001193125-26-071651,0
+GEV,GE Vernova,Industrials,0001996810,unresolved_interest_bearing_debt,False,False,,,2025-12-31,2026-01-29,0001996810-26-000015,1
+BG,Bunge Global,Consumer Staples,0001996862,strict_complete_rendered_statement,True,True,0.894806338028169,short_term_debt+current_long_term+noncurrent_debt+reported_finance_lease,2025-12-31,2026-02-19,0001628280-26-009842,0
+SW,Smurfit Westrock,Materials,0002005951,strict_complete_instance_fallback,True,True,0.7515141594368964,DebtAndCapitalLeaseObligations,2025-12-31,2026-02-27,0001628280-26-012555,4
+SNDK,Sandisk,Information Technology,0002023554,unresolved_interest_bearing_debt,False,False,,,2026-01-02,2026-01-30,0001628280-26-004407,0
+PSKY,Paramount Skydance Corporation,Communication Services,0002041610,strict_complete_instance_fallback,True,True,1.1680492602411698,DebtAndCapitalLeaseObligations,2025-12-31,2026-02-25,0002041610-26-000011,1
+Q,Qnity Electronics,Information Technology,0002058873,strict_complete_rendered_statement,True,True,0.5675828047921071,current_debt+combined_noncurrent_debt_and_finance_lease,2025-12-31,2026-02-26,0002058873-26-000010,0
+FDXF,FedEx Freight,Industrials,0002082247,missing_latest_submission,False,False,,,,,,0
+HONA,Honeywell Aerospace,Industrials,0002089271,missing_latest_submission,False,False,,,,,,0

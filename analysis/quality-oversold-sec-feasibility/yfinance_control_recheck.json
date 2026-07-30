@@ -1,0 +1,17 @@
+{
+  "purpose": "Distinguish a broad Yahoo session failure from symbol-specific empty history during the legacy price audit.",
+  "recorded_at": "2026-07-30T08:55:55+09:00",
+  "window_start": "2025-01-01",
+  "window_end_exclusive": "2025-07-01",
+  "source": "yfinance Yahoo daily Close",
+  "observed_session_counts": {
+    "AAPL": 122,
+    "BK": 0,
+    "HOLX": 0,
+    "K": 0
+  },
+  "interpretation": "The live control AAPL returned data in the same request. Empty responses for the three legacy symbols were therefore not treated as evidence of a broad session outage.",
+  "prices_accessed": true,
+  "returns_calculated": false,
+  "price_levels_reported": false
+}

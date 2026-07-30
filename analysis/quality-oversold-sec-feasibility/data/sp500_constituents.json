@@ -1,0 +1,3529 @@
+{
+  "generated_at_utc": "2026-07-30T00:39:29.664033+00:00",
+  "source": "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies",
+  "count": 503,
+  "constituents": [
+    {
+      "symbol": "A",
+      "yahoo_ticker": "A",
+      "name": "Agilent Technologies",
+      "sector": "Health Care",
+      "cik": "0001090872"
+    },
+    {
+      "symbol": "AAPL",
+      "yahoo_ticker": "AAPL",
+      "name": "Apple Inc.",
+      "sector": "Information Technology",
+      "cik": "0000320193"
+    },
+    {
+      "symbol": "ABBV",
+      "yahoo_ticker": "ABBV",
+      "name": "AbbVie",
+      "sector": "Health Care",
+      "cik": "0001551152"
+    },
+    {
+      "symbol": "ABNB",
+      "yahoo_ticker": "ABNB",
+      "name": "Airbnb",
+      "sector": "Consumer Discretionary",
+      "cik": "0001559720"
+    },
+    {
+      "symbol": "ABT",
+      "yahoo_ticker": "ABT",
+      "name": "Abbott Laboratories",
+      "sector": "Health Care",
+      "cik": "0000001800"
+    },
+    {
+      "symbol": "ACGL",
+      "yahoo_ticker": "ACGL",
+      "name": "Arch Capital Group",
+      "sector": "Financials",
+      "cik": "0000947484"
+    },
+    {
+      "symbol": "ACN",
+      "yahoo_ticker": "ACN",
+      "name": "Accenture",
+      "sector": "Information Technology",
+      "cik": "0001467373"
+    },
+    {
+      "symbol": "ADBE",
+      "yahoo_ticker": "ADBE",
+      "name": "Adobe Inc.",
+      "sector": "Information Technology",
+      "cik": "0000796343"
+    },
+    {
+      "symbol": "ADI",
+      "yahoo_ticker": "ADI",
+      "name": "Analog Devices",
+      "sector": "Information Technology",
+      "cik": "0000006281"
+    },
+    {
+      "symbol": "ADM",
+      "yahoo_ticker": "ADM",
+      "name": "Archer Daniels Midland",
+      "sector": "Consumer Staples",
+      "cik": "0000007084"
+    },
+    {
+      "symbol": "ADP",
+      "yahoo_ticker": "ADP",
+      "name": "Automatic Data Processing",
+      "sector": "Industrials",
+      "cik": "0000008670"
+    },
+    {
+      "symbol": "ADSK",
+      "yahoo_ticker": "ADSK",
+      "name": "Autodesk",
+      "sector": "Information Technology",
+      "cik": "0000769397"
+    },
+    {
+      "symbol": "AEE",
+      "yahoo_ticker": "AEE",
+      "name": "Ameren",
+      "sector": "Utilities",
+      "cik": "0001002910"
+    },
+    {
+      "symbol": "AEP",
+      "yahoo_ticker": "AEP",
+      "name": "American Electric Power",
+      "sector": "Utilities",
+      "cik": "0000004904"
+    },
+    {
+      "symbol": "AES",
+      "yahoo_ticker": "AES",
+      "name": "AES Corporation",
+      "sector": "Utilities",
+      "cik": "0000874761"
+    },
+    {
+      "symbol": "AFL",
+      "yahoo_ticker": "AFL",
+      "name": "Aflac",
+      "sector": "Financials",
+      "cik": "0000004977"
+    },
+    {
+      "symbol": "AIG",
+      "yahoo_ticker": "AIG",
+      "name": "American International Group",
+      "sector": "Financials",
+      "cik": "0000005272"
+    },
+    {
+      "symbol": "AIZ",
+      "yahoo_ticker": "AIZ",
+      "name": "Assurant",
+      "sector": "Financials",
+      "cik": "0001267238"
+    },
+    {
+      "symbol": "AJG",
+      "yahoo_ticker": "AJG",
+      "name": "Arthur J. Gallagher & Co.",
+      "sector": "Financials",
+      "cik": "0000354190"
+    },
+    {
+      "symbol": "AKAM",
+      "yahoo_ticker": "AKAM",
+      "name": "Akamai Technologies",
+      "sector": "Information Technology",
+      "cik": "0001086222"
+    },
+    {
+      "symbol": "ALB",
+      "yahoo_ticker": "ALB",
+      "name": "Albemarle Corporation",
+      "sector": "Materials",
+      "cik": "0000915913"
+    },
+    {
+      "symbol": "ALGN",
+      "yahoo_ticker": "ALGN",
+      "name": "Align Technology",
+      "sector": "Health Care",
+      "cik": "0001097149"
+    },
+    {
+      "symbol": "ALL",
+      "yahoo_ticker": "ALL",
+      "name": "Allstate",
+      "sector": "Financials",
+      "cik": "0000899051"
+    },
+    {
+      "symbol": "ALLE",
+      "yahoo_ticker": "ALLE",
+      "name": "Allegion",
+      "sector": "Industrials",
+      "cik": "0001579241"
+    },
+    {
+      "symbol": "AMAT",
+      "yahoo_ticker": "AMAT",
+      "name": "Applied Materials",
+      "sector": "Information Technology",
+      "cik": "0000006951"
+    },
+    {
+      "symbol": "AMCR",
+      "yahoo_ticker": "AMCR",
+      "name": "Amcor",
+      "sector": "Materials",
+      "cik": "0001748790"
+    },
+    {
+      "symbol": "AMD",
+      "yahoo_ticker": "AMD",
+      "name": "Advanced Micro Devices",
+      "sector": "Information Technology",
+      "cik": "0000002488"
+    },
+    {
+      "symbol": "AME",
+      "yahoo_ticker": "AME",
+      "name": "Ametek",
+      "sector": "Industrials",
+      "cik": "0001037868"
+    },
+    {
+      "symbol": "AMGN",
+      "yahoo_ticker": "AMGN",
+      "name": "Amgen",
+      "sector": "Health Care",
+      "cik": "0000318154"
+    },
+    {
+      "symbol": "AMP",
+      "yahoo_ticker": "AMP",
+      "name": "Ameriprise Financial",
+      "sector": "Financials",
+      "cik": "0000820027"
+    },
+    {
+      "symbol": "AMT",
+      "yahoo_ticker": "AMT",
+      "name": "American Tower",
+      "sector": "Real Estate",
+      "cik": "0001053507"
+    },
+    {
+      "symbol": "AMZN",
+      "yahoo_ticker": "AMZN",
+      "name": "Amazon",
+      "sector": "Consumer Discretionary",
+      "cik": "0001018724"
+    },
+    {
+      "symbol": "ANET",
+      "yahoo_ticker": "ANET",
+      "name": "Arista Networks",
+      "sector": "Information Technology",
+      "cik": "0001596532"
+    },
+    {
+      "symbol": "AON",
+      "yahoo_ticker": "AON",
+      "name": "Aon plc",
+      "sector": "Financials",
+      "cik": "0000315293"
+    },
+    {
+      "symbol": "AOS",
+      "yahoo_ticker": "AOS",
+      "name": "A. O. Smith",
+      "sector": "Industrials",
+      "cik": "0000091142"
+    },
+    {
+      "symbol": "APA",
+      "yahoo_ticker": "APA",
+      "name": "APA Corporation",
+      "sector": "Energy",
+      "cik": "0001841666"
+    },
+    {
+      "symbol": "APD",
+      "yahoo_ticker": "APD",
+      "name": "Air Products",
+      "sector": "Materials",
+      "cik": "0000002969"
+    },
+    {
+      "symbol": "APH",
+      "yahoo_ticker": "APH",
+      "name": "Amphenol",
+      "sector": "Information Technology",
+      "cik": "0000820313"
+    },
+    {
+      "symbol": "APO",
+      "yahoo_ticker": "APO",
+      "name": "Apollo Global Management",
+      "sector": "Financials",
+      "cik": "0001858681"
+    },
+    {
+      "symbol": "APP",
+      "yahoo_ticker": "APP",
+      "name": "AppLovin",
+      "sector": "Information Technology",
+      "cik": "0001751008"
+    },
+    {
+      "symbol": "APTV",
+      "yahoo_ticker": "APTV",
+      "name": "Aptiv",
+      "sector": "Consumer Discretionary",
+      "cik": "0001521332"
+    },
+    {
+      "symbol": "ARE",
+      "yahoo_ticker": "ARE",
+      "name": "Alexandria Real Estate Equities",
+      "sector": "Real Estate",
+      "cik": "0001035443"
+    },
+    {
+      "symbol": "ARES",
+      "yahoo_ticker": "ARES",
+      "name": "Ares Management",
+      "sector": "Financials",
+      "cik": "0001176948"
+    },
+    {
+      "symbol": "ATO",
+      "yahoo_ticker": "ATO",
+      "name": "Atmos Energy",
+      "sector": "Utilities",
+      "cik": "0000731802"
+    },
+    {
+      "symbol": "AVB",
+      "yahoo_ticker": "AVB",
+      "name": "AvalonBay Communities",
+      "sector": "Real Estate",
+      "cik": "0000915912"
+    },
+    {
+      "symbol": "AVGO",
+      "yahoo_ticker": "AVGO",
+      "name": "Broadcom",
+      "sector": "Information Technology",
+      "cik": "0001730168"
+    },
+    {
+      "symbol": "AVY",
+      "yahoo_ticker": "AVY",
+      "name": "Avery Dennison",
+      "sector": "Materials",
+      "cik": "0000008818"
+    },
+    {
+      "symbol": "AWK",
+      "yahoo_ticker": "AWK",
+      "name": "American Water Works",
+      "sector": "Utilities",
+      "cik": "0001410636"
+    },
+    {
+      "symbol": "AXON",
+      "yahoo_ticker": "AXON",
+      "name": "Axon Enterprise",
+      "sector": "Industrials",
+      "cik": "0001069183"
+    },
+    {
+      "symbol": "AXP",
+      "yahoo_ticker": "AXP",
+      "name": "American Express",
+      "sector": "Financials",
+      "cik": "0000004962"
+    },
+    {
+      "symbol": "AZO",
+      "yahoo_ticker": "AZO",
+      "name": "AutoZone",
+      "sector": "Consumer Discretionary",
+      "cik": "0000866787"
+    },
+    {
+      "symbol": "BA",
+      "yahoo_ticker": "BA",
+      "name": "Boeing",
+      "sector": "Industrials",
+      "cik": "0000012927"
+    },
+    {
+      "symbol": "BAC",
+      "yahoo_ticker": "BAC",
+      "name": "Bank of America",
+      "sector": "Financials",
+      "cik": "0000070858"
+    },
+    {
+      "symbol": "BALL",
+      "yahoo_ticker": "BALL",
+      "name": "Ball Corporation",
+      "sector": "Materials",
+      "cik": "0000009389"
+    },
+    {
+      "symbol": "BAX",
+      "yahoo_ticker": "BAX",
+      "name": "Baxter International",
+      "sector": "Health Care",
+      "cik": "0000010456"
+    },
+    {
+      "symbol": "BBY",
+      "yahoo_ticker": "BBY",
+      "name": "Best Buy",
+      "sector": "Consumer Discretionary",
+      "cik": "0000764478"
+    },
+    {
+      "symbol": "BDX",
+      "yahoo_ticker": "BDX",
+      "name": "Becton Dickinson",
+      "sector": "Health Care",
+      "cik": "0000010795"
+    },
+    {
+      "symbol": "BEN",
+      "yahoo_ticker": "BEN",
+      "name": "Franklin Resources",
+      "sector": "Financials",
+      "cik": "0000038777"
+    },
+    {
+      "symbol": "BF.B",
+      "yahoo_ticker": "BF-B",
+      "name": "Brown–Forman",
+      "sector": "Consumer Staples",
+      "cik": "0000014693"
+    },
+    {
+      "symbol": "BG",
+      "yahoo_ticker": "BG",
+      "name": "Bunge Global",
+      "sector": "Consumer Staples",
+      "cik": "0001996862"
+    },
+    {
+      "symbol": "BIIB",
+      "yahoo_ticker": "BIIB",
+      "name": "Biogen",
+      "sector": "Health Care",
+      "cik": "0000875045"
+    },
+    {
+      "symbol": "BKNG",
+      "yahoo_ticker": "BKNG",
+      "name": "Booking Holdings",
+      "sector": "Consumer Discretionary",
+      "cik": "0001075531"
+    },
+    {
+      "symbol": "BKR",
+      "yahoo_ticker": "BKR",
+      "name": "Baker Hughes",
+      "sector": "Energy",
+      "cik": "0001701605"
+    },
+    {
+      "symbol": "BLDR",
+      "yahoo_ticker": "BLDR",
+      "name": "Builders FirstSource",
+      "sector": "Industrials",
+      "cik": "0001316835"
+    },
+    {
+      "symbol": "BLK",
+      "yahoo_ticker": "BLK",
+      "name": "BlackRock",
+      "sector": "Financials",
+      "cik": "0002012383"
+    },
+    {
+      "symbol": "BMY",
+      "yahoo_ticker": "BMY",
+      "name": "Bristol Myers Squibb",
+      "sector": "Health Care",
+      "cik": "0000014272"
+    },
+    {
+      "symbol": "BNY",
+      "yahoo_ticker": "BNY",
+      "name": "BNY Mellon",
+      "sector": "Financials",
+      "cik": "0001390777"
+    },
+    {
+      "symbol": "BR",
+      "yahoo_ticker": "BR",
+      "name": "Broadridge Financial Solutions",
+      "sector": "Industrials",
+      "cik": "0001383312"
+    },
+    {
+      "symbol": "BRK.B",
+      "yahoo_ticker": "BRK-B",
+      "name": "Berkshire Hathaway",
+      "sector": "Financials",
+      "cik": "0001067983"
+    },
+    {
+      "symbol": "BRO",
+      "yahoo_ticker": "BRO",
+      "name": "Brown & Brown",
+      "sector": "Financials",
+      "cik": "0000079282"
+    },
+    {
+      "symbol": "BSX",
+      "yahoo_ticker": "BSX",
+      "name": "Boston Scientific",
+      "sector": "Health Care",
+      "cik": "0000885725"
+    },
+    {
+      "symbol": "BX",
+      "yahoo_ticker": "BX",
+      "name": "Blackstone Inc.",
+      "sector": "Financials",
+      "cik": "0001393818"
+    },
+    {
+      "symbol": "BXP",
+      "yahoo_ticker": "BXP",
+      "name": "BXP, Inc.",
+      "sector": "Real Estate",
+      "cik": "0001037540"
+    },
+    {
+      "symbol": "C",
+      "yahoo_ticker": "C",
+      "name": "Citigroup",
+      "sector": "Financials",
+      "cik": "0000831001"
+    },
+    {
+      "symbol": "CAH",
+      "yahoo_ticker": "CAH",
+      "name": "Cardinal Health",
+      "sector": "Health Care",
+      "cik": "0000721371"
+    },
+    {
+      "symbol": "CARR",
+      "yahoo_ticker": "CARR",
+      "name": "Carrier Global",
+      "sector": "Industrials",
+      "cik": "0001783180"
+    },
+    {
+      "symbol": "CASY",
+      "yahoo_ticker": "CASY",
+      "name": "Casey's",
+      "sector": "Consumer Staples",
+      "cik": "0000726958"
+    },
+    {
+      "symbol": "CAT",
+      "yahoo_ticker": "CAT",
+      "name": "Caterpillar Inc.",
+      "sector": "Industrials",
+      "cik": "0000018230"
+    },
+    {
+      "symbol": "CB",
+      "yahoo_ticker": "CB",
+      "name": "Chubb Limited",
+      "sector": "Financials",
+      "cik": "0000896159"
+    },
+    {
+      "symbol": "CBOE",
+      "yahoo_ticker": "CBOE",
+      "name": "Cboe Global Markets",
+      "sector": "Financials",
+      "cik": "0001374310"
+    },
+    {
+      "symbol": "CBRE",
+      "yahoo_ticker": "CBRE",
+      "name": "CBRE Group",
+      "sector": "Real Estate",
+      "cik": "0001138118"
+    },
+    {
+      "symbol": "CCI",
+      "yahoo_ticker": "CCI",
+      "name": "Crown Castle",
+      "sector": "Real Estate",
+      "cik": "0001051470"
+    },
+    {
+      "symbol": "CCL",
+      "yahoo_ticker": "CCL",
+      "name": "Carnival Corporation",
+      "sector": "Consumer Discretionary",
+      "cik": "0000815097"
+    },
+    {
+      "symbol": "CDNS",
+      "yahoo_ticker": "CDNS",
+      "name": "Cadence Design Systems",
+      "sector": "Information Technology",
+      "cik": "0000813672"
+    },
+    {
+      "symbol": "CDW",
+      "yahoo_ticker": "CDW",
+      "name": "CDW Corporation",
+      "sector": "Information Technology",
+      "cik": "0001402057"
+    },
+    {
+      "symbol": "CEG",
+      "yahoo_ticker": "CEG",
+      "name": "Constellation Energy",
+      "sector": "Utilities",
+      "cik": "0001868275"
+    },
+    {
+      "symbol": "CF",
+      "yahoo_ticker": "CF",
+      "name": "CF Industries",
+      "sector": "Materials",
+      "cik": "0001324404"
+    },
+    {
+      "symbol": "CFG",
+      "yahoo_ticker": "CFG",
+      "name": "Citizens Financial Group",
+      "sector": "Financials",
+      "cik": "0000759944"
+    },
+    {
+      "symbol": "CHD",
+      "yahoo_ticker": "CHD",
+      "name": "Church & Dwight",
+      "sector": "Consumer Staples",
+      "cik": "0000313927"
+    },
+    {
+      "symbol": "CHRW",
+      "yahoo_ticker": "CHRW",
+      "name": "C.H. Robinson",
+      "sector": "Industrials",
+      "cik": "0001043277"
+    },
+    {
+      "symbol": "CHTR",
+      "yahoo_ticker": "CHTR",
+      "name": "Charter Communications",
+      "sector": "Communication Services",
+      "cik": "0001091667"
+    },
+    {
+      "symbol": "CI",
+      "yahoo_ticker": "CI",
+      "name": "Cigna",
+      "sector": "Health Care",
+      "cik": "0001739940"
+    },
+    {
+      "symbol": "CIEN",
+      "yahoo_ticker": "CIEN",
+      "name": "Ciena",
+      "sector": "Information Technology",
+      "cik": "0000936395"
+    },
+    {
+      "symbol": "CINF",
+      "yahoo_ticker": "CINF",
+      "name": "Cincinnati Financial",
+      "sector": "Financials",
+      "cik": "0000020286"
+    },
+    {
+      "symbol": "CL",
+      "yahoo_ticker": "CL",
+      "name": "Colgate-Palmolive",
+      "sector": "Consumer Staples",
+      "cik": "0000021665"
+    },
+    {
+      "symbol": "CLX",
+      "yahoo_ticker": "CLX",
+      "name": "Clorox",
+      "sector": "Consumer Staples",
+      "cik": "0000021076"
+    },
+    {
+      "symbol": "CMCSA",
+      "yahoo_ticker": "CMCSA",
+      "name": "Comcast",
+      "sector": "Communication Services",
+      "cik": "0001166691"
+    },
+    {
+      "symbol": "CME",
+      "yahoo_ticker": "CME",
+      "name": "CME Group",
+      "sector": "Financials",
+      "cik": "0001156375"
+    },
+    {
+      "symbol": "CMG",
+      "yahoo_ticker": "CMG",
+      "name": "Chipotle Mexican Grill",
+      "sector": "Consumer Discretionary",
+      "cik": "0001058090"
+    },
+    {
+      "symbol": "CMI",
+      "yahoo_ticker": "CMI",
+      "name": "Cummins",
+      "sector": "Industrials",
+      "cik": "0000026172"
+    },
+    {
+      "symbol": "CMS",
+      "yahoo_ticker": "CMS",
+      "name": "CMS Energy",
+      "sector": "Utilities",
+      "cik": "0000811156"
+    },
+    {
+      "symbol": "CNC",
+      "yahoo_ticker": "CNC",
+      "name": "Centene Corporation",
+      "sector": "Health Care",
+      "cik": "0001071739"
+    },
+    {
+      "symbol": "CNP",
+      "yahoo_ticker": "CNP",
+      "name": "CenterPoint Energy",
+      "sector": "Utilities",
+      "cik": "0001130310"
+    },
+    {
+      "symbol": "COF",
+      "yahoo_ticker": "COF",
+      "name": "Capital One",
+      "sector": "Financials",
+      "cik": "0000927628"
+    },
+    {
+      "symbol": "COHR",
+      "yahoo_ticker": "COHR",
+      "name": "Coherent Corp.",
+      "sector": "Information Technology",
+      "cik": "0000820318"
+    },
+    {
+      "symbol": "COIN",
+      "yahoo_ticker": "COIN",
+      "name": "Coinbase",
+      "sector": "Financials",
+      "cik": "0001679788"
+    },
+    {
+      "symbol": "COO",
+      "yahoo_ticker": "COO",
+      "name": "Cooper Companies (The)",
+      "sector": "Health Care",
+      "cik": "0000711404"
+    },
+    {
+      "symbol": "COP",
+      "yahoo_ticker": "COP",
+      "name": "ConocoPhillips",
+      "sector": "Energy",
+      "cik": "0001163165"
+    },
+    {
+      "symbol": "COR",
+      "yahoo_ticker": "COR",
+      "name": "Cencora",
+      "sector": "Health Care",
+      "cik": "0001140859"
+    },
+    {
+      "symbol": "COST",
+      "yahoo_ticker": "COST",
+      "name": "Costco",
+      "sector": "Consumer Staples",
+      "cik": "0000909832"
+    },
+    {
+      "symbol": "CPAY",
+      "yahoo_ticker": "CPAY",
+      "name": "Corpay",
+      "sector": "Financials",
+      "cik": "0001175454"
+    },
+    {
+      "symbol": "CPRT",
+      "yahoo_ticker": "CPRT",
+      "name": "Copart",
+      "sector": "Industrials",
+      "cik": "0000900075"
+    },
+    {
+      "symbol": "CPT",
+      "yahoo_ticker": "CPT",
+      "name": "Camden Property Trust",
+      "sector": "Real Estate",
+      "cik": "0000906345"
+    },
+    {
+      "symbol": "CRH",
+      "yahoo_ticker": "CRH",
+      "name": "CRH plc",
+      "sector": "Materials",
+      "cik": "0000849395"
+    },
+    {
+      "symbol": "CRL",
+      "yahoo_ticker": "CRL",
+      "name": "Charles River Laboratories",
+      "sector": "Health Care",
+      "cik": "0001100682"
+    },
+    {
+      "symbol": "CRM",
+      "yahoo_ticker": "CRM",
+      "name": "Salesforce",
+      "sector": "Information Technology",
+      "cik": "0001108524"
+    },
+    {
+      "symbol": "CRWD",
+      "yahoo_ticker": "CRWD",
+      "name": "CrowdStrike",
+      "sector": "Information Technology",
+      "cik": "0001535527"
+    },
+    {
+      "symbol": "CSCO",
+      "yahoo_ticker": "CSCO",
+      "name": "Cisco",
+      "sector": "Information Technology",
+      "cik": "0000858877"
+    },
+    {
+      "symbol": "CSGP",
+      "yahoo_ticker": "CSGP",
+      "name": "CoStar Group",
+      "sector": "Real Estate",
+      "cik": "0001057352"
+    },
+    {
+      "symbol": "CSX",
+      "yahoo_ticker": "CSX",
+      "name": "CSX Corporation",
+      "sector": "Industrials",
+      "cik": "0000277948"
+    },
+    {
+      "symbol": "CTAS",
+      "yahoo_ticker": "CTAS",
+      "name": "Cintas",
+      "sector": "Industrials",
+      "cik": "0000723254"
+    },
+    {
+      "symbol": "CTSH",
+      "yahoo_ticker": "CTSH",
+      "name": "Cognizant",
+      "sector": "Information Technology",
+      "cik": "0001058290"
+    },
+    {
+      "symbol": "CTVA",
+      "yahoo_ticker": "CTVA",
+      "name": "Corteva",
+      "sector": "Materials",
+      "cik": "0001755672"
+    },
+    {
+      "symbol": "CVNA",
+      "yahoo_ticker": "CVNA",
+      "name": "Carvana",
+      "sector": "Consumer Discretionary",
+      "cik": "0001690820"
+    },
+    {
+      "symbol": "CVS",
+      "yahoo_ticker": "CVS",
+      "name": "CVS Health",
+      "sector": "Health Care",
+      "cik": "0000064803"
+    },
+    {
+      "symbol": "CVX",
+      "yahoo_ticker": "CVX",
+      "name": "Chevron Corporation",
+      "sector": "Energy",
+      "cik": "0000093410"
+    },
+    {
+      "symbol": "D",
+      "yahoo_ticker": "D",
+      "name": "Dominion Energy",
+      "sector": "Utilities",
+      "cik": "0000715957"
+    },
+    {
+      "symbol": "DAL",
+      "yahoo_ticker": "DAL",
+      "name": "Delta Air Lines",
+      "sector": "Industrials",
+      "cik": "0000027904"
+    },
+    {
+      "symbol": "DASH",
+      "yahoo_ticker": "DASH",
+      "name": "DoorDash",
+      "sector": "Consumer Discretionary",
+      "cik": "0001792789"
+    },
+    {
+      "symbol": "DD",
+      "yahoo_ticker": "DD",
+      "name": "DuPont",
+      "sector": "Materials",
+      "cik": "0001666700"
+    },
+    {
+      "symbol": "DDOG",
+      "yahoo_ticker": "DDOG",
+      "name": "Datadog",
+      "sector": "Information Technology",
+      "cik": "0001561550"
+    },
+    {
+      "symbol": "DE",
+      "yahoo_ticker": "DE",
+      "name": "Deere & Company",
+      "sector": "Industrials",
+      "cik": "0000315189"
+    },
+    {
+      "symbol": "DECK",
+      "yahoo_ticker": "DECK",
+      "name": "Deckers Brands",
+      "sector": "Consumer Discretionary",
+      "cik": "0000910521"
+    },
+    {
+      "symbol": "DELL",
+      "yahoo_ticker": "DELL",
+      "name": "Dell Technologies",
+      "sector": "Information Technology",
+      "cik": "0001571996"
+    },
+    {
+      "symbol": "DG",
+      "yahoo_ticker": "DG",
+      "name": "Dollar General",
+      "sector": "Consumer Staples",
+      "cik": "0000029534"
+    },
+    {
+      "symbol": "DGX",
+      "yahoo_ticker": "DGX",
+      "name": "Quest Diagnostics",
+      "sector": "Health Care",
+      "cik": "0001022079"
+    },
+    {
+      "symbol": "DHI",
+      "yahoo_ticker": "DHI",
+      "name": "D. R. Horton",
+      "sector": "Consumer Discretionary",
+      "cik": "0000882184"
+    },
+    {
+      "symbol": "DHR",
+      "yahoo_ticker": "DHR",
+      "name": "Danaher Corporation",
+      "sector": "Health Care",
+      "cik": "0000313616"
+    },
+    {
+      "symbol": "DIS",
+      "yahoo_ticker": "DIS",
+      "name": "Walt Disney Company (The)",
+      "sector": "Communication Services",
+      "cik": "0001744489"
+    },
+    {
+      "symbol": "DLR",
+      "yahoo_ticker": "DLR",
+      "name": "Digital Realty",
+      "sector": "Real Estate",
+      "cik": "0001297996"
+    },
+    {
+      "symbol": "DLTR",
+      "yahoo_ticker": "DLTR",
+      "name": "Dollar Tree",
+      "sector": "Consumer Staples",
+      "cik": "0000935703"
+    },
+    {
+      "symbol": "DOC",
+      "yahoo_ticker": "DOC",
+      "name": "Healthpeak Properties",
+      "sector": "Real Estate",
+      "cik": "0000765880"
+    },
+    {
+      "symbol": "DOV",
+      "yahoo_ticker": "DOV",
+      "name": "Dover Corporation",
+      "sector": "Industrials",
+      "cik": "0000029905"
+    },
+    {
+      "symbol": "DOW",
+      "yahoo_ticker": "DOW",
+      "name": "Dow Inc.",
+      "sector": "Materials",
+      "cik": "0001751788"
+    },
+    {
+      "symbol": "DPZ",
+      "yahoo_ticker": "DPZ",
+      "name": "Domino's",
+      "sector": "Consumer Discretionary",
+      "cik": "0001286681"
+    },
+    {
+      "symbol": "DRI",
+      "yahoo_ticker": "DRI",
+      "name": "Darden Restaurants",
+      "sector": "Consumer Discretionary",
+      "cik": "0000940944"
+    },
+    {
+      "symbol": "DTE",
+      "yahoo_ticker": "DTE",
+      "name": "DTE Energy",
+      "sector": "Utilities",
+      "cik": "0000936340"
+    },
+    {
+      "symbol": "DUK",
+      "yahoo_ticker": "DUK",
+      "name": "Duke Energy",
+      "sector": "Utilities",
+      "cik": "0001326160"
+    },
+    {
+      "symbol": "DVA",
+      "yahoo_ticker": "DVA",
+      "name": "DaVita",
+      "sector": "Health Care",
+      "cik": "0000927066"
+    },
+    {
+      "symbol": "DVN",
+      "yahoo_ticker": "DVN",
+      "name": "Devon Energy",
+      "sector": "Energy",
+      "cik": "0001090012"
+    },
+    {
+      "symbol": "DXCM",
+      "yahoo_ticker": "DXCM",
+      "name": "Dexcom",
+      "sector": "Health Care",
+      "cik": "0001093557"
+    },
+    {
+      "symbol": "EA",
+      "yahoo_ticker": "EA",
+      "name": "Electronic Arts",
+      "sector": "Communication Services",
+      "cik": "0000712515"
+    },
+    {
+      "symbol": "EBAY",
+      "yahoo_ticker": "EBAY",
+      "name": "eBay Inc.",
+      "sector": "Consumer Discretionary",
+      "cik": "0001065088"
+    },
+    {
+      "symbol": "ECHO",
+      "yahoo_ticker": "ECHO",
+      "name": "EchoStar",
+      "sector": "Communication Services",
+      "cik": "0001415404"
+    },
+    {
+      "symbol": "ECL",
+      "yahoo_ticker": "ECL",
+      "name": "Ecolab",
+      "sector": "Materials",
+      "cik": "0000031462"
+    },
+    {
+      "symbol": "ED",
+      "yahoo_ticker": "ED",
+      "name": "Consolidated Edison",
+      "sector": "Utilities",
+      "cik": "0001047862"
+    },
+    {
+      "symbol": "EFX",
+      "yahoo_ticker": "EFX",
+      "name": "Equifax",
+      "sector": "Industrials",
+      "cik": "0000033185"
+    },
+    {
+      "symbol": "EG",
+      "yahoo_ticker": "EG",
+      "name": "Everest Group",
+      "sector": "Financials",
+      "cik": "0001095073"
+    },
+    {
+      "symbol": "EIX",
+      "yahoo_ticker": "EIX",
+      "name": "Edison International",
+      "sector": "Utilities",
+      "cik": "0000827052"
+    },
+    {
+      "symbol": "EL",
+      "yahoo_ticker": "EL",
+      "name": "Estée Lauder Companies (The)",
+      "sector": "Consumer Staples",
+      "cik": "0001001250"
+    },
+    {
+      "symbol": "ELV",
+      "yahoo_ticker": "ELV",
+      "name": "Elevance Health",
+      "sector": "Health Care",
+      "cik": "0001156039"
+    },
+    {
+      "symbol": "EME",
+      "yahoo_ticker": "EME",
+      "name": "Emcor",
+      "sector": "Industrials",
+      "cik": "0000105634"
+    },
+    {
+      "symbol": "EMR",
+      "yahoo_ticker": "EMR",
+      "name": "Emerson Electric",
+      "sector": "Industrials",
+      "cik": "0000032604"
+    },
+    {
+      "symbol": "EOG",
+      "yahoo_ticker": "EOG",
+      "name": "EOG Resources",
+      "sector": "Energy",
+      "cik": "0000821189"
+    },
+    {
+      "symbol": "EQIX",
+      "yahoo_ticker": "EQIX",
+      "name": "Equinix",
+      "sector": "Real Estate",
+      "cik": "0001101239"
+    },
+    {
+      "symbol": "EQR",
+      "yahoo_ticker": "EQR",
+      "name": "Equity Residential",
+      "sector": "Real Estate",
+      "cik": "0000906107"
+    },
+    {
+      "symbol": "EQT",
+      "yahoo_ticker": "EQT",
+      "name": "EQT Corporation",
+      "sector": "Energy",
+      "cik": "0000033213"
+    },
+    {
+      "symbol": "ERIE",
+      "yahoo_ticker": "ERIE",
+      "name": "Erie Indemnity",
+      "sector": "Financials",
+      "cik": "0000922621"
+    },
+    {
+      "symbol": "ES",
+      "yahoo_ticker": "ES",
+      "name": "Eversource Energy",
+      "sector": "Utilities",
+      "cik": "0000072741"
+    },
+    {
+      "symbol": "ESS",
+      "yahoo_ticker": "ESS",
+      "name": "Essex Property Trust",
+      "sector": "Real Estate",
+      "cik": "0000920522"
+    },
+    {
+      "symbol": "ETN",
+      "yahoo_ticker": "ETN",
+      "name": "Eaton Corporation",
+      "sector": "Industrials",
+      "cik": "0001551182"
+    },
+    {
+      "symbol": "ETR",
+      "yahoo_ticker": "ETR",
+      "name": "Entergy",
+      "sector": "Utilities",
+      "cik": "0000065984"
+    },
+    {
+      "symbol": "EVRG",
+      "yahoo_ticker": "EVRG",
+      "name": "Evergy",
+      "sector": "Utilities",
+      "cik": "0001711269"
+    },
+    {
+      "symbol": "EW",
+      "yahoo_ticker": "EW",
+      "name": "Edwards Lifesciences",
+      "sector": "Health Care",
+      "cik": "0001099800"
+    },
+    {
+      "symbol": "EXC",
+      "yahoo_ticker": "EXC",
+      "name": "Exelon",
+      "sector": "Utilities",
+      "cik": "0001109357"
+    },
+    {
+      "symbol": "EXE",
+      "yahoo_ticker": "EXE",
+      "name": "Expand Energy",
+      "sector": "Energy",
+      "cik": "0000895126"
+    },
+    {
+      "symbol": "EXPD",
+      "yahoo_ticker": "EXPD",
+      "name": "Expeditors International",
+      "sector": "Industrials",
+      "cik": "0000746515"
+    },
+    {
+      "symbol": "EXPE",
+      "yahoo_ticker": "EXPE",
+      "name": "Expedia Group",
+      "sector": "Consumer Discretionary",
+      "cik": "0001324424"
+    },
+    {
+      "symbol": "EXR",
+      "yahoo_ticker": "EXR",
+      "name": "Extra Space Storage",
+      "sector": "Real Estate",
+      "cik": "0001289490"
+    },
+    {
+      "symbol": "F",
+      "yahoo_ticker": "F",
+      "name": "Ford Motor Company",
+      "sector": "Consumer Discretionary",
+      "cik": "0000037996"
+    },
+    {
+      "symbol": "FANG",
+      "yahoo_ticker": "FANG",
+      "name": "Diamondback Energy",
+      "sector": "Energy",
+      "cik": "0001539838"
+    },
+    {
+      "symbol": "FAST",
+      "yahoo_ticker": "FAST",
+      "name": "Fastenal",
+      "sector": "Industrials",
+      "cik": "0000815556"
+    },
+    {
+      "symbol": "FCX",
+      "yahoo_ticker": "FCX",
+      "name": "Freeport-McMoRan",
+      "sector": "Materials",
+      "cik": "0000831259"
+    },
+    {
+      "symbol": "FDS",
+      "yahoo_ticker": "FDS",
+      "name": "FactSet",
+      "sector": "Financials",
+      "cik": "0001013237"
+    },
+    {
+      "symbol": "FDX",
+      "yahoo_ticker": "FDX",
+      "name": "FedEx",
+      "sector": "Industrials",
+      "cik": "0001048911"
+    },
+    {
+      "symbol": "FDXF",
+      "yahoo_ticker": "FDXF",
+      "name": "FedEx Freight",
+      "sector": "Industrials",
+      "cik": "0002082247"
+    },
+    {
+      "symbol": "FE",
+      "yahoo_ticker": "FE",
+      "name": "FirstEnergy",
+      "sector": "Utilities",
+      "cik": "0001031296"
+    },
+    {
+      "symbol": "FFIV",
+      "yahoo_ticker": "FFIV",
+      "name": "F5, Inc.",
+      "sector": "Information Technology",
+      "cik": "0001048695"
+    },
+    {
+      "symbol": "FICO",
+      "yahoo_ticker": "FICO",
+      "name": "Fair Isaac",
+      "sector": "Information Technology",
+      "cik": "0000814547"
+    },
+    {
+      "symbol": "FIS",
+      "yahoo_ticker": "FIS",
+      "name": "Fidelity National Information Services",
+      "sector": "Financials",
+      "cik": "0001136893"
+    },
+    {
+      "symbol": "FISV",
+      "yahoo_ticker": "FISV",
+      "name": "Fiserv",
+      "sector": "Financials",
+      "cik": "0000798354"
+    },
+    {
+      "symbol": "FITB",
+      "yahoo_ticker": "FITB",
+      "name": "Fifth Third Bancorp",
+      "sector": "Financials",
+      "cik": "0000035527"
+    },
+    {
+      "symbol": "FIX",
+      "yahoo_ticker": "FIX",
+      "name": "Comfort Systems USA",
+      "sector": "Industrials",
+      "cik": "0001035983"
+    },
+    {
+      "symbol": "FLEX",
+      "yahoo_ticker": "FLEX",
+      "name": "Flex Ltd.",
+      "sector": "Information Technology",
+      "cik": "0000866374"
+    },
+    {
+      "symbol": "FOX",
+      "yahoo_ticker": "FOX",
+      "name": "Fox Corporation (Class B)",
+      "sector": "Communication Services",
+      "cik": "0001754301"
+    },
+    {
+      "symbol": "FOXA",
+      "yahoo_ticker": "FOXA",
+      "name": "Fox Corporation (Class A)",
+      "sector": "Communication Services",
+      "cik": "0001754301"
+    },
+    {
+      "symbol": "FRT",
+      "yahoo_ticker": "FRT",
+      "name": "Federal Realty Investment Trust",
+      "sector": "Real Estate",
+      "cik": "0000034903"
+    },
+    {
+      "symbol": "FSLR",
+      "yahoo_ticker": "FSLR",
+      "name": "First Solar",
+      "sector": "Information Technology",
+      "cik": "0001274494"
+    },
+    {
+      "symbol": "FTNT",
+      "yahoo_ticker": "FTNT",
+      "name": "Fortinet",
+      "sector": "Information Technology",
+      "cik": "0001262039"
+    },
+    {
+      "symbol": "FTV",
+      "yahoo_ticker": "FTV",
+      "name": "Fortive",
+      "sector": "Industrials",
+      "cik": "0001659166"
+    },
+    {
+      "symbol": "GD",
+      "yahoo_ticker": "GD",
+      "name": "General Dynamics",
+      "sector": "Industrials",
+      "cik": "0000040533"
+    },
+    {
+      "symbol": "GDDY",
+      "yahoo_ticker": "GDDY",
+      "name": "GoDaddy",
+      "sector": "Information Technology",
+      "cik": "0001609711"
+    },
+    {
+      "symbol": "GE",
+      "yahoo_ticker": "GE",
+      "name": "GE Aerospace",
+      "sector": "Industrials",
+      "cik": "0000040545"
+    },
+    {
+      "symbol": "GEHC",
+      "yahoo_ticker": "GEHC",
+      "name": "GE HealthCare",
+      "sector": "Health Care",
+      "cik": "0001932393"
+    },
+    {
+      "symbol": "GEN",
+      "yahoo_ticker": "GEN",
+      "name": "Gen Digital",
+      "sector": "Information Technology",
+      "cik": "0000849399"
+    },
+    {
+      "symbol": "GEV",
+      "yahoo_ticker": "GEV",
+      "name": "GE Vernova",
+      "sector": "Industrials",
+      "cik": "0001996810"
+    },
+    {
+      "symbol": "GILD",
+      "yahoo_ticker": "GILD",
+      "name": "Gilead Sciences",
+      "sector": "Health Care",
+      "cik": "0000882095"
+    },
+    {
+      "symbol": "GIS",
+      "yahoo_ticker": "GIS",
+      "name": "General Mills",
+      "sector": "Consumer Staples",
+      "cik": "0000040704"
+    },
+    {
+      "symbol": "GL",
+      "yahoo_ticker": "GL",
+      "name": "Globe Life",
+      "sector": "Financials",
+      "cik": "0000320335"
+    },
+    {
+      "symbol": "GLW",
+      "yahoo_ticker": "GLW",
+      "name": "Corning Inc.",
+      "sector": "Information Technology",
+      "cik": "0000024741"
+    },
+    {
+      "symbol": "GM",
+      "yahoo_ticker": "GM",
+      "name": "General Motors",
+      "sector": "Consumer Discretionary",
+      "cik": "0001467858"
+    },
+    {
+      "symbol": "GNRC",
+      "yahoo_ticker": "GNRC",
+      "name": "Generac",
+      "sector": "Industrials",
+      "cik": "0001474735"
+    },
+    {
+      "symbol": "GOOG",
+      "yahoo_ticker": "GOOG",
+      "name": "Alphabet Inc. (Class C)",
+      "sector": "Communication Services",
+      "cik": "0001652044"
+    },
+    {
+      "symbol": "GOOGL",
+      "yahoo_ticker": "GOOGL",
+      "name": "Alphabet Inc. (Class A)",
+      "sector": "Communication Services",
+      "cik": "0001652044"
+    },
+    {
+      "symbol": "GPC",
+      "yahoo_ticker": "GPC",
+      "name": "Genuine Parts Company",
+      "sector": "Consumer Discretionary",
+      "cik": "0000040987"
+    },
+    {
+      "symbol": "GPN",
+      "yahoo_ticker": "GPN",
+      "name": "Global Payments",
+      "sector": "Financials",
+      "cik": "0001123360"
+    },
+    {
+      "symbol": "GRMN",
+      "yahoo_ticker": "GRMN",
+      "name": "Garmin",
+      "sector": "Consumer Discretionary",
+      "cik": "0001121788"
+    },
+    {
+      "symbol": "GS",
+      "yahoo_ticker": "GS",
+      "name": "Goldman Sachs",
+      "sector": "Financials",
+      "cik": "0000886982"
+    },
+    {
+      "symbol": "GWW",
+      "yahoo_ticker": "GWW",
+      "name": "W. W. Grainger",
+      "sector": "Industrials",
+      "cik": "0000277135"
+    },
+    {
+      "symbol": "HAL",
+      "yahoo_ticker": "HAL",
+      "name": "Halliburton",
+      "sector": "Energy",
+      "cik": "0000045012"
+    },
+    {
+      "symbol": "HAS",
+      "yahoo_ticker": "HAS",
+      "name": "Hasbro",
+      "sector": "Consumer Discretionary",
+      "cik": "0000046080"
+    },
+    {
+      "symbol": "HBAN",
+      "yahoo_ticker": "HBAN",
+      "name": "Huntington Bancshares",
+      "sector": "Financials",
+      "cik": "0000049196"
+    },
+    {
+      "symbol": "HCA",
+      "yahoo_ticker": "HCA",
+      "name": "HCA Healthcare",
+      "sector": "Health Care",
+      "cik": "0000860730"
+    },
+    {
+      "symbol": "HD",
+      "yahoo_ticker": "HD",
+      "name": "Home Depot (The)",
+      "sector": "Consumer Discretionary",
+      "cik": "0000354950"
+    },
+    {
+      "symbol": "HIG",
+      "yahoo_ticker": "HIG",
+      "name": "Hartford (The)",
+      "sector": "Financials",
+      "cik": "0000874766"
+    },
+    {
+      "symbol": "HII",
+      "yahoo_ticker": "HII",
+      "name": "Huntington Ingalls Industries",
+      "sector": "Industrials",
+      "cik": "0001501585"
+    },
+    {
+      "symbol": "HLT",
+      "yahoo_ticker": "HLT",
+      "name": "Hilton Worldwide",
+      "sector": "Consumer Discretionary",
+      "cik": "0001585689"
+    },
+    {
+      "symbol": "HON",
+      "yahoo_ticker": "HON",
+      "name": "Honeywell Technologies",
+      "sector": "Industrials",
+      "cik": "0000773840"
+    },
+    {
+      "symbol": "HONA",
+      "yahoo_ticker": "HONA",
+      "name": "Honeywell Aerospace",
+      "sector": "Industrials",
+      "cik": "0002089271"
+    },
+    {
+      "symbol": "HOOD",
+      "yahoo_ticker": "HOOD",
+      "name": "Robinhood Markets",
+      "sector": "Financials",
+      "cik": "0001783879"
+    },
+    {
+      "symbol": "HPE",
+      "yahoo_ticker": "HPE",
+      "name": "Hewlett Packard Enterprise",
+      "sector": "Information Technology",
+      "cik": "0001645590"
+    },
+    {
+      "symbol": "HPQ",
+      "yahoo_ticker": "HPQ",
+      "name": "HP Inc.",
+      "sector": "Information Technology",
+      "cik": "0000047217"
+    },
+    {
+      "symbol": "HRL",
+      "yahoo_ticker": "HRL",
+      "name": "Hormel Foods",
+      "sector": "Consumer Staples",
+      "cik": "0000048465"
+    },
+    {
+      "symbol": "HSIC",
+      "yahoo_ticker": "HSIC",
+      "name": "Henry Schein",
+      "sector": "Health Care",
+      "cik": "0001000228"
+    },
+    {
+      "symbol": "HST",
+      "yahoo_ticker": "HST",
+      "name": "Host Hotels & Resorts",
+      "sector": "Real Estate",
+      "cik": "0001070750"
+    },
+    {
+      "symbol": "HSY",
+      "yahoo_ticker": "HSY",
+      "name": "Hershey Company (The)",
+      "sector": "Consumer Staples",
+      "cik": "0000047111"
+    },
+    {
+      "symbol": "HUBB",
+      "yahoo_ticker": "HUBB",
+      "name": "Hubbell Incorporated",
+      "sector": "Industrials",
+      "cik": "0000048898"
+    },
+    {
+      "symbol": "HUM",
+      "yahoo_ticker": "HUM",
+      "name": "Humana",
+      "sector": "Health Care",
+      "cik": "0000049071"
+    },
+    {
+      "symbol": "HWM",
+      "yahoo_ticker": "HWM",
+      "name": "Howmet Aerospace",
+      "sector": "Industrials",
+      "cik": "0000004281"
+    },
+    {
+      "symbol": "IBKR",
+      "yahoo_ticker": "IBKR",
+      "name": "Interactive Brokers",
+      "sector": "Financials",
+      "cik": "0001381197"
+    },
+    {
+      "symbol": "IBM",
+      "yahoo_ticker": "IBM",
+      "name": "IBM",
+      "sector": "Information Technology",
+      "cik": "0000051143"
+    },
+    {
+      "symbol": "ICE",
+      "yahoo_ticker": "ICE",
+      "name": "Intercontinental Exchange",
+      "sector": "Financials",
+      "cik": "0001571949"
+    },
+    {
+      "symbol": "IDXX",
+      "yahoo_ticker": "IDXX",
+      "name": "Idexx Laboratories",
+      "sector": "Health Care",
+      "cik": "0000874716"
+    },
+    {
+      "symbol": "IEX",
+      "yahoo_ticker": "IEX",
+      "name": "IDEX Corporation",
+      "sector": "Industrials",
+      "cik": "0000832101"
+    },
+    {
+      "symbol": "IFF",
+      "yahoo_ticker": "IFF",
+      "name": "International Flavors & Fragrances",
+      "sector": "Materials",
+      "cik": "0000051253"
+    },
+    {
+      "symbol": "INCY",
+      "yahoo_ticker": "INCY",
+      "name": "Incyte",
+      "sector": "Health Care",
+      "cik": "0000879169"
+    },
+    {
+      "symbol": "INTC",
+      "yahoo_ticker": "INTC",
+      "name": "Intel",
+      "sector": "Information Technology",
+      "cik": "0000050863"
+    },
+    {
+      "symbol": "INTU",
+      "yahoo_ticker": "INTU",
+      "name": "Intuit",
+      "sector": "Information Technology",
+      "cik": "0000896878"
+    },
+    {
+      "symbol": "INVH",
+      "yahoo_ticker": "INVH",
+      "name": "Invitation Homes",
+      "sector": "Real Estate",
+      "cik": "0001687229"
+    },
+    {
+      "symbol": "IP",
+      "yahoo_ticker": "IP",
+      "name": "International Paper",
+      "sector": "Materials",
+      "cik": "0000051434"
+    },
+    {
+      "symbol": "IQV",
+      "yahoo_ticker": "IQV",
+      "name": "IQVIA",
+      "sector": "Health Care",
+      "cik": "0001478242"
+    },
+    {
+      "symbol": "IR",
+      "yahoo_ticker": "IR",
+      "name": "Ingersoll Rand",
+      "sector": "Industrials",
+      "cik": "0001699150"
+    },
+    {
+      "symbol": "IRM",
+      "yahoo_ticker": "IRM",
+      "name": "Iron Mountain",
+      "sector": "Real Estate",
+      "cik": "0001020569"
+    },
+    {
+      "symbol": "ISRG",
+      "yahoo_ticker": "ISRG",
+      "name": "Intuitive Surgical",
+      "sector": "Health Care",
+      "cik": "0001035267"
+    },
+    {
+      "symbol": "IT",
+      "yahoo_ticker": "IT",
+      "name": "Gartner",
+      "sector": "Information Technology",
+      "cik": "0000749251"
+    },
+    {
+      "symbol": "ITW",
+      "yahoo_ticker": "ITW",
+      "name": "Illinois Tool Works",
+      "sector": "Industrials",
+      "cik": "0000049826"
+    },
+    {
+      "symbol": "IVZ",
+      "yahoo_ticker": "IVZ",
+      "name": "Invesco",
+      "sector": "Financials",
+      "cik": "0000914208"
+    },
+    {
+      "symbol": "J",
+      "yahoo_ticker": "J",
+      "name": "Jacobs Solutions",
+      "sector": "Industrials",
+      "cik": "0000052988"
+    },
+    {
+      "symbol": "JBHT",
+      "yahoo_ticker": "JBHT",
+      "name": "J.B. Hunt",
+      "sector": "Industrials",
+      "cik": "0000728535"
+    },
+    {
+      "symbol": "JBL",
+      "yahoo_ticker": "JBL",
+      "name": "Jabil",
+      "sector": "Information Technology",
+      "cik": "0000898293"
+    },
+    {
+      "symbol": "JCI",
+      "yahoo_ticker": "JCI",
+      "name": "Johnson Controls",
+      "sector": "Industrials",
+      "cik": "0000833444"
+    },
+    {
+      "symbol": "JKHY",
+      "yahoo_ticker": "JKHY",
+      "name": "Jack Henry & Associates",
+      "sector": "Financials",
+      "cik": "0000779152"
+    },
+    {
+      "symbol": "JNJ",
+      "yahoo_ticker": "JNJ",
+      "name": "Johnson & Johnson",
+      "sector": "Health Care",
+      "cik": "0000200406"
+    },
+    {
+      "symbol": "JPM",
+      "yahoo_ticker": "JPM",
+      "name": "JPMorgan Chase",
+      "sector": "Financials",
+      "cik": "0000019617"
+    },
+    {
+      "symbol": "KDP",
+      "yahoo_ticker": "KDP",
+      "name": "Keurig Dr Pepper",
+      "sector": "Consumer Staples",
+      "cik": "0001418135"
+    },
+    {
+      "symbol": "KEY",
+      "yahoo_ticker": "KEY",
+      "name": "KeyCorp",
+      "sector": "Financials",
+      "cik": "0000091576"
+    },
+    {
+      "symbol": "KEYS",
+      "yahoo_ticker": "KEYS",
+      "name": "Keysight Technologies",
+      "sector": "Information Technology",
+      "cik": "0001601046"
+    },
+    {
+      "symbol": "KHC",
+      "yahoo_ticker": "KHC",
+      "name": "Kraft Heinz",
+      "sector": "Consumer Staples",
+      "cik": "0001637459"
+    },
+    {
+      "symbol": "KIM",
+      "yahoo_ticker": "KIM",
+      "name": "Kimco Realty",
+      "sector": "Real Estate",
+      "cik": "0000879101"
+    },
+    {
+      "symbol": "KKR",
+      "yahoo_ticker": "KKR",
+      "name": "KKR & Co.",
+      "sector": "Financials",
+      "cik": "0001404912"
+    },
+    {
+      "symbol": "KLAC",
+      "yahoo_ticker": "KLAC",
+      "name": "KLA Corporation",
+      "sector": "Information Technology",
+      "cik": "0000319201"
+    },
+    {
+      "symbol": "KMB",
+      "yahoo_ticker": "KMB",
+      "name": "Kimberly-Clark",
+      "sector": "Consumer Staples",
+      "cik": "0000055785"
+    },
+    {
+      "symbol": "KMI",
+      "yahoo_ticker": "KMI",
+      "name": "Kinder Morgan",
+      "sector": "Energy",
+      "cik": "0001506307"
+    },
+    {
+      "symbol": "KO",
+      "yahoo_ticker": "KO",
+      "name": "Coca-Cola Company (The)",
+      "sector": "Consumer Staples",
+      "cik": "0000021344"
+    },
+    {
+      "symbol": "KR",
+      "yahoo_ticker": "KR",
+      "name": "Kroger",
+      "sector": "Consumer Staples",
+      "cik": "0000056873"
+    },
+    {
+      "symbol": "KVUE",
+      "yahoo_ticker": "KVUE",
+      "name": "Kenvue",
+      "sector": "Consumer Staples",
+      "cik": "0001944048"
+    },
+    {
+      "symbol": "L",
+      "yahoo_ticker": "L",
+      "name": "Loews Corporation",
+      "sector": "Financials",
+      "cik": "0000060086"
+    },
+    {
+      "symbol": "LDOS",
+      "yahoo_ticker": "LDOS",
+      "name": "Leidos",
+      "sector": "Industrials",
+      "cik": "0001336920"
+    },
+    {
+      "symbol": "LEN",
+      "yahoo_ticker": "LEN",
+      "name": "Lennar",
+      "sector": "Consumer Discretionary",
+      "cik": "0000920760"
+    },
+    {
+      "symbol": "LH",
+      "yahoo_ticker": "LH",
+      "name": "Labcorp",
+      "sector": "Health Care",
+      "cik": "0000920148"
+    },
+    {
+      "symbol": "LHX",
+      "yahoo_ticker": "LHX",
+      "name": "L3Harris",
+      "sector": "Industrials",
+      "cik": "0000202058"
+    },
+    {
+      "symbol": "LII",
+      "yahoo_ticker": "LII",
+      "name": "Lennox International",
+      "sector": "Industrials",
+      "cik": "0001069202"
+    },
+    {
+      "symbol": "LIN",
+      "yahoo_ticker": "LIN",
+      "name": "Linde plc",
+      "sector": "Materials",
+      "cik": "0001707925"
+    },
+    {
+      "symbol": "LITE",
+      "yahoo_ticker": "LITE",
+      "name": "Lumentum",
+      "sector": "Information Technology",
+      "cik": "0001633978"
+    },
+    {
+      "symbol": "LLY",
+      "yahoo_ticker": "LLY",
+      "name": "Lilly (Eli)",
+      "sector": "Health Care",
+      "cik": "0000059478"
+    },
+    {
+      "symbol": "LMT",
+      "yahoo_ticker": "LMT",
+      "name": "Lockheed Martin",
+      "sector": "Industrials",
+      "cik": "0000936468"
+    },
+    {
+      "symbol": "LNT",
+      "yahoo_ticker": "LNT",
+      "name": "Alliant Energy",
+      "sector": "Utilities",
+      "cik": "0000352541"
+    },
+    {
+      "symbol": "LOW",
+      "yahoo_ticker": "LOW",
+      "name": "Lowe's",
+      "sector": "Consumer Discretionary",
+      "cik": "0000060667"
+    },
+    {
+      "symbol": "LRCX",
+      "yahoo_ticker": "LRCX",
+      "name": "Lam Research",
+      "sector": "Information Technology",
+      "cik": "0000707549"
+    },
+    {
+      "symbol": "LULU",
+      "yahoo_ticker": "LULU",
+      "name": "Lululemon Athletica",
+      "sector": "Consumer Discretionary",
+      "cik": "0001397187"
+    },
+    {
+      "symbol": "LUV",
+      "yahoo_ticker": "LUV",
+      "name": "Southwest Airlines",
+      "sector": "Industrials",
+      "cik": "0000092380"
+    },
+    {
+      "symbol": "LVS",
+      "yahoo_ticker": "LVS",
+      "name": "Las Vegas Sands",
+      "sector": "Consumer Discretionary",
+      "cik": "0001300514"
+    },
+    {
+      "symbol": "LYB",
+      "yahoo_ticker": "LYB",
+      "name": "LyondellBasell",
+      "sector": "Materials",
+      "cik": "0001489393"
+    },
+    {
+      "symbol": "LYV",
+      "yahoo_ticker": "LYV",
+      "name": "Live Nation Entertainment",
+      "sector": "Communication Services",
+      "cik": "0001335258"
+    },
+    {
+      "symbol": "MA",
+      "yahoo_ticker": "MA",
+      "name": "Mastercard",
+      "sector": "Financials",
+      "cik": "0001141391"
+    },
+    {
+      "symbol": "MAA",
+      "yahoo_ticker": "MAA",
+      "name": "Mid-America Apartment Communities",
+      "sector": "Real Estate",
+      "cik": "0000912595"
+    },
+    {
+      "symbol": "MAR",
+      "yahoo_ticker": "MAR",
+      "name": "Marriott International",
+      "sector": "Consumer Discretionary",
+      "cik": "0001048286"
+    },
+    {
+      "symbol": "MAS",
+      "yahoo_ticker": "MAS",
+      "name": "Masco",
+      "sector": "Industrials",
+      "cik": "0000062996"
+    },
+    {
+      "symbol": "MCD",
+      "yahoo_ticker": "MCD",
+      "name": "McDonald's",
+      "sector": "Consumer Discretionary",
+      "cik": "0000063908"
+    },
+    {
+      "symbol": "MCHP",
+      "yahoo_ticker": "MCHP",
+      "name": "Microchip Technology",
+      "sector": "Information Technology",
+      "cik": "0000827054"
+    },
+    {
+      "symbol": "MCK",
+      "yahoo_ticker": "MCK",
+      "name": "McKesson Corporation",
+      "sector": "Health Care",
+      "cik": "0000927653"
+    },
+    {
+      "symbol": "MCO",
+      "yahoo_ticker": "MCO",
+      "name": "Moody's Corporation",
+      "sector": "Financials",
+      "cik": "0001059556"
+    },
+    {
+      "symbol": "MDLZ",
+      "yahoo_ticker": "MDLZ",
+      "name": "Mondelez International",
+      "sector": "Consumer Staples",
+      "cik": "0001103982"
+    },
+    {
+      "symbol": "MDT",
+      "yahoo_ticker": "MDT",
+      "name": "Medtronic",
+      "sector": "Health Care",
+      "cik": "0001613103"
+    },
+    {
+      "symbol": "MET",
+      "yahoo_ticker": "MET",
+      "name": "MetLife",
+      "sector": "Financials",
+      "cik": "0001099219"
+    },
+    {
+      "symbol": "META",
+      "yahoo_ticker": "META",
+      "name": "Meta Platforms",
+      "sector": "Communication Services",
+      "cik": "0001326801"
+    },
+    {
+      "symbol": "MGM",
+      "yahoo_ticker": "MGM",
+      "name": "MGM Resorts",
+      "sector": "Consumer Discretionary",
+      "cik": "0000789570"
+    },
+    {
+      "symbol": "MKC",
+      "yahoo_ticker": "MKC",
+      "name": "McCormick & Company",
+      "sector": "Consumer Staples",
+      "cik": "0000063754"
+    },
+    {
+      "symbol": "MLM",
+      "yahoo_ticker": "MLM",
+      "name": "Martin Marietta Materials",
+      "sector": "Materials",
+      "cik": "0000916076"
+    },
+    {
+      "symbol": "MMM",
+      "yahoo_ticker": "MMM",
+      "name": "3M",
+      "sector": "Industrials",
+      "cik": "0000066740"
+    },
+    {
+      "symbol": "MNST",
+      "yahoo_ticker": "MNST",
+      "name": "Monster Beverage",
+      "sector": "Consumer Staples",
+      "cik": "0000865752"
+    },
+    {
+      "symbol": "MO",
+      "yahoo_ticker": "MO",
+      "name": "Altria",
+      "sector": "Consumer Staples",
+      "cik": "0000764180"
+    },
+    {
+      "symbol": "MOS",
+      "yahoo_ticker": "MOS",
+      "name": "Mosaic Company (The)",
+      "sector": "Materials",
+      "cik": "0001285785"
+    },
+    {
+      "symbol": "MPC",
+      "yahoo_ticker": "MPC",
+      "name": "Marathon Petroleum",
+      "sector": "Energy",
+      "cik": "0001510295"
+    },
+    {
+      "symbol": "MPWR",
+      "yahoo_ticker": "MPWR",
+      "name": "Monolithic Power Systems",
+      "sector": "Information Technology",
+      "cik": "0001280452"
+    },
+    {
+      "symbol": "MRK",
+      "yahoo_ticker": "MRK",
+      "name": "Merck & Co.",
+      "sector": "Health Care",
+      "cik": "0000310158"
+    },
+    {
+      "symbol": "MRNA",
+      "yahoo_ticker": "MRNA",
+      "name": "Moderna",
+      "sector": "Health Care",
+      "cik": "0001682852"
+    },
+    {
+      "symbol": "MRSH",
+      "yahoo_ticker": "MRSH",
+      "name": "Marsh McLennan",
+      "sector": "Financials",
+      "cik": "0000062709"
+    },
+    {
+      "symbol": "MRVL",
+      "yahoo_ticker": "MRVL",
+      "name": "Marvell Technology",
+      "sector": "Information Technology",
+      "cik": "0001835632"
+    },
+    {
+      "symbol": "MS",
+      "yahoo_ticker": "MS",
+      "name": "Morgan Stanley",
+      "sector": "Financials",
+      "cik": "0000895421"
+    },
+    {
+      "symbol": "MSCI",
+      "yahoo_ticker": "MSCI",
+      "name": "MSCI Inc.",
+      "sector": "Financials",
+      "cik": "0001408198"
+    },
+    {
+      "symbol": "MSFT",
+      "yahoo_ticker": "MSFT",
+      "name": "Microsoft",
+      "sector": "Information Technology",
+      "cik": "0000789019"
+    },
+    {
+      "symbol": "MSI",
+      "yahoo_ticker": "MSI",
+      "name": "Motorola Solutions",
+      "sector": "Information Technology",
+      "cik": "0000068505"
+    },
+    {
+      "symbol": "MTB",
+      "yahoo_ticker": "MTB",
+      "name": "M&T Bank",
+      "sector": "Financials",
+      "cik": "0000036270"
+    },
+    {
+      "symbol": "MTD",
+      "yahoo_ticker": "MTD",
+      "name": "Mettler Toledo",
+      "sector": "Health Care",
+      "cik": "0001037646"
+    },
+    {
+      "symbol": "MU",
+      "yahoo_ticker": "MU",
+      "name": "Micron Technology",
+      "sector": "Information Technology",
+      "cik": "0000723125"
+    },
+    {
+      "symbol": "NCLH",
+      "yahoo_ticker": "NCLH",
+      "name": "Norwegian Cruise Line Holdings",
+      "sector": "Consumer Discretionary",
+      "cik": "0001513761"
+    },
+    {
+      "symbol": "NDAQ",
+      "yahoo_ticker": "NDAQ",
+      "name": "Nasdaq, Inc.",
+      "sector": "Financials",
+      "cik": "0001120193"
+    },
+    {
+      "symbol": "NDSN",
+      "yahoo_ticker": "NDSN",
+      "name": "Nordson Corporation",
+      "sector": "Industrials",
+      "cik": "0000072331"
+    },
+    {
+      "symbol": "NEE",
+      "yahoo_ticker": "NEE",
+      "name": "NextEra Energy",
+      "sector": "Utilities",
+      "cik": "0000753308"
+    },
+    {
+      "symbol": "NEM",
+      "yahoo_ticker": "NEM",
+      "name": "Newmont",
+      "sector": "Materials",
+      "cik": "0001164727"
+    },
+    {
+      "symbol": "NFLX",
+      "yahoo_ticker": "NFLX",
+      "name": "Netflix",
+      "sector": "Communication Services",
+      "cik": "0001065280"
+    },
+    {
+      "symbol": "NI",
+      "yahoo_ticker": "NI",
+      "name": "NiSource",
+      "sector": "Utilities",
+      "cik": "0001111711"
+    },
+    {
+      "symbol": "NKE",
+      "yahoo_ticker": "NKE",
+      "name": "Nike, Inc.",
+      "sector": "Consumer Discretionary",
+      "cik": "0000320187"
+    },
+    {
+      "symbol": "NOC",
+      "yahoo_ticker": "NOC",
+      "name": "Northrop Grumman",
+      "sector": "Industrials",
+      "cik": "0001133421"
+    },
+    {
+      "symbol": "NOW",
+      "yahoo_ticker": "NOW",
+      "name": "ServiceNow",
+      "sector": "Information Technology",
+      "cik": "0001373715"
+    },
+    {
+      "symbol": "NRG",
+      "yahoo_ticker": "NRG",
+      "name": "NRG Energy",
+      "sector": "Utilities",
+      "cik": "0001013871"
+    },
+    {
+      "symbol": "NSC",
+      "yahoo_ticker": "NSC",
+      "name": "Norfolk Southern",
+      "sector": "Industrials",
+      "cik": "0000702165"
+    },
+    {
+      "symbol": "NTAP",
+      "yahoo_ticker": "NTAP",
+      "name": "NetApp",
+      "sector": "Information Technology",
+      "cik": "0001002047"
+    },
+    {
+      "symbol": "NTRS",
+      "yahoo_ticker": "NTRS",
+      "name": "Northern Trust",
+      "sector": "Financials",
+      "cik": "0000073124"
+    },
+    {
+      "symbol": "NUE",
+      "yahoo_ticker": "NUE",
+      "name": "Nucor",
+      "sector": "Materials",
+      "cik": "0000073309"
+    },
+    {
+      "symbol": "NVDA",
+      "yahoo_ticker": "NVDA",
+      "name": "Nvidia",
+      "sector": "Information Technology",
+      "cik": "0001045810"
+    },
+    {
+      "symbol": "NVR",
+      "yahoo_ticker": "NVR",
+      "name": "NVR, Inc.",
+      "sector": "Consumer Discretionary",
+      "cik": "0000906163"
+    },
+    {
+      "symbol": "NWS",
+      "yahoo_ticker": "NWS",
+      "name": "News Corp (Class B)",
+      "sector": "Communication Services",
+      "cik": "0001564708"
+    },
+    {
+      "symbol": "NWSA",
+      "yahoo_ticker": "NWSA",
+      "name": "News Corp (Class A)",
+      "sector": "Communication Services",
+      "cik": "0001564708"
+    },
+    {
+      "symbol": "NXPI",
+      "yahoo_ticker": "NXPI",
+      "name": "NXP Semiconductors",
+      "sector": "Information Technology",
+      "cik": "0001413447"
+    },
+    {
+      "symbol": "O",
+      "yahoo_ticker": "O",
+      "name": "Realty Income",
+      "sector": "Real Estate",
+      "cik": "0000726728"
+    },
+    {
+      "symbol": "ODFL",
+      "yahoo_ticker": "ODFL",
+      "name": "Old Dominion",
+      "sector": "Industrials",
+      "cik": "0000878927"
+    },
+    {
+      "symbol": "OKE",
+      "yahoo_ticker": "OKE",
+      "name": "Oneok",
+      "sector": "Energy",
+      "cik": "0001039684"
+    },
+    {
+      "symbol": "OMC",
+      "yahoo_ticker": "OMC",
+      "name": "Omnicom Group",
+      "sector": "Communication Services",
+      "cik": "0000029989"
+    },
+    {
+      "symbol": "ON",
+      "yahoo_ticker": "ON",
+      "name": "ON Semiconductor",
+      "sector": "Information Technology",
+      "cik": "0001097864"
+    },
+    {
+      "symbol": "ORCL",
+      "yahoo_ticker": "ORCL",
+      "name": "Oracle Corporation",
+      "sector": "Information Technology",
+      "cik": "0001341439"
+    },
+    {
+      "symbol": "ORLY",
+      "yahoo_ticker": "ORLY",
+      "name": "O’Reilly Automotive",
+      "sector": "Consumer Discretionary",
+      "cik": "0000898173"
+    },
+    {
+      "symbol": "OTIS",
+      "yahoo_ticker": "OTIS",
+      "name": "Otis Worldwide",
+      "sector": "Industrials",
+      "cik": "0001781335"
+    },
+    {
+      "symbol": "OXY",
+      "yahoo_ticker": "OXY",
+      "name": "Occidental Petroleum",
+      "sector": "Energy",
+      "cik": "0000797468"
+    },
+    {
+      "symbol": "PANW",
+      "yahoo_ticker": "PANW",
+      "name": "Palo Alto Networks",
+      "sector": "Information Technology",
+      "cik": "0001327567"
+    },
+    {
+      "symbol": "PAYX",
+      "yahoo_ticker": "PAYX",
+      "name": "Paychex",
+      "sector": "Industrials",
+      "cik": "0000723531"
+    },
+    {
+      "symbol": "PCAR",
+      "yahoo_ticker": "PCAR",
+      "name": "Paccar",
+      "sector": "Industrials",
+      "cik": "0000075362"
+    },
+    {
+      "symbol": "PCG",
+      "yahoo_ticker": "PCG",
+      "name": "PG&E Corporation",
+      "sector": "Utilities",
+      "cik": "0001004980"
+    },
+    {
+      "symbol": "PEG",
+      "yahoo_ticker": "PEG",
+      "name": "Public Service Enterprise Group",
+      "sector": "Utilities",
+      "cik": "0000788784"
+    },
+    {
+      "symbol": "PEP",
+      "yahoo_ticker": "PEP",
+      "name": "PepsiCo",
+      "sector": "Consumer Staples",
+      "cik": "0000077476"
+    },
+    {
+      "symbol": "PFE",
+      "yahoo_ticker": "PFE",
+      "name": "Pfizer",
+      "sector": "Health Care",
+      "cik": "0000078003"
+    },
+    {
+      "symbol": "PFG",
+      "yahoo_ticker": "PFG",
+      "name": "Principal Financial Group",
+      "sector": "Financials",
+      "cik": "0001126328"
+    },
+    {
+      "symbol": "PG",
+      "yahoo_ticker": "PG",
+      "name": "Procter & Gamble",
+      "sector": "Consumer Staples",
+      "cik": "0000080424"
+    },
+    {
+      "symbol": "PGR",
+      "yahoo_ticker": "PGR",
+      "name": "Progressive Corporation",
+      "sector": "Financials",
+      "cik": "0000080661"
+    },
+    {
+      "symbol": "PH",
+      "yahoo_ticker": "PH",
+      "name": "Parker Hannifin",
+      "sector": "Industrials",
+      "cik": "0000076334"
+    },
+    {
+      "symbol": "PHM",
+      "yahoo_ticker": "PHM",
+      "name": "PulteGroup",
+      "sector": "Consumer Discretionary",
+      "cik": "0000822416"
+    },
+    {
+      "symbol": "PKG",
+      "yahoo_ticker": "PKG",
+      "name": "Packaging Corporation of America",
+      "sector": "Materials",
+      "cik": "0000075677"
+    },
+    {
+      "symbol": "PLD",
+      "yahoo_ticker": "PLD",
+      "name": "Prologis",
+      "sector": "Real Estate",
+      "cik": "0001045609"
+    },
+    {
+      "symbol": "PLTR",
+      "yahoo_ticker": "PLTR",
+      "name": "Palantir Technologies",
+      "sector": "Information Technology",
+      "cik": "0001321655"
+    },
+    {
+      "symbol": "PM",
+      "yahoo_ticker": "PM",
+      "name": "Philip Morris International",
+      "sector": "Consumer Staples",
+      "cik": "0001413329"
+    },
+    {
+      "symbol": "PNC",
+      "yahoo_ticker": "PNC",
+      "name": "PNC Financial Services",
+      "sector": "Financials",
+      "cik": "0000713676"
+    },
+    {
+      "symbol": "PNR",
+      "yahoo_ticker": "PNR",
+      "name": "Pentair",
+      "sector": "Industrials",
+      "cik": "0000077360"
+    },
+    {
+      "symbol": "PNW",
+      "yahoo_ticker": "PNW",
+      "name": "Pinnacle West Capital",
+      "sector": "Utilities",
+      "cik": "0000764622"
+    },
+    {
+      "symbol": "PODD",
+      "yahoo_ticker": "PODD",
+      "name": "Insulet Corporation",
+      "sector": "Health Care",
+      "cik": "0001145197"
+    },
+    {
+      "symbol": "PPG",
+      "yahoo_ticker": "PPG",
+      "name": "PPG Industries",
+      "sector": "Materials",
+      "cik": "0000079879"
+    },
+    {
+      "symbol": "PPL",
+      "yahoo_ticker": "PPL",
+      "name": "PPL Corporation",
+      "sector": "Utilities",
+      "cik": "0000922224"
+    },
+    {
+      "symbol": "PRU",
+      "yahoo_ticker": "PRU",
+      "name": "Prudential Financial",
+      "sector": "Financials",
+      "cik": "0001137774"
+    },
+    {
+      "symbol": "PSA",
+      "yahoo_ticker": "PSA",
+      "name": "Public Storage",
+      "sector": "Real Estate",
+      "cik": "0001393311"
+    },
+    {
+      "symbol": "PSKY",
+      "yahoo_ticker": "PSKY",
+      "name": "Paramount Skydance Corporation",
+      "sector": "Communication Services",
+      "cik": "0002041610"
+    },
+    {
+      "symbol": "PSX",
+      "yahoo_ticker": "PSX",
+      "name": "Phillips 66",
+      "sector": "Energy",
+      "cik": "0001534701"
+    },
+    {
+      "symbol": "PTC",
+      "yahoo_ticker": "PTC",
+      "name": "PTC Inc.",
+      "sector": "Information Technology",
+      "cik": "0000857005"
+    },
+    {
+      "symbol": "PWR",
+      "yahoo_ticker": "PWR",
+      "name": "Quanta Services",
+      "sector": "Industrials",
+      "cik": "0001050915"
+    },
+    {
+      "symbol": "PYPL",
+      "yahoo_ticker": "PYPL",
+      "name": "PayPal",
+      "sector": "Financials",
+      "cik": "0001633917"
+    },
+    {
+      "symbol": "Q",
+      "yahoo_ticker": "Q",
+      "name": "Qnity Electronics",
+      "sector": "Information Technology",
+      "cik": "0002058873"
+    },
+    {
+      "symbol": "QCOM",
+      "yahoo_ticker": "QCOM",
+      "name": "Qualcomm",
+      "sector": "Information Technology",
+      "cik": "0000804328"
+    },
+    {
+      "symbol": "RCL",
+      "yahoo_ticker": "RCL",
+      "name": "Royal Caribbean Group",
+      "sector": "Consumer Discretionary",
+      "cik": "0000884887"
+    },
+    {
+      "symbol": "REG",
+      "yahoo_ticker": "REG",
+      "name": "Regency Centers",
+      "sector": "Real Estate",
+      "cik": "0000910606"
+    },
+    {
+      "symbol": "REGN",
+      "yahoo_ticker": "REGN",
+      "name": "Regeneron Pharmaceuticals",
+      "sector": "Health Care",
+      "cik": "0000872589"
+    },
+    {
+      "symbol": "RF",
+      "yahoo_ticker": "RF",
+      "name": "Regions Financial Corporation",
+      "sector": "Financials",
+      "cik": "0001281761"
+    },
+    {
+      "symbol": "RJF",
+      "yahoo_ticker": "RJF",
+      "name": "Raymond James Financial",
+      "sector": "Financials",
+      "cik": "0000720005"
+    },
+    {
+      "symbol": "RL",
+      "yahoo_ticker": "RL",
+      "name": "Ralph Lauren Corporation",
+      "sector": "Consumer Discretionary",
+      "cik": "0001037038"
+    },
+    {
+      "symbol": "RMD",
+      "yahoo_ticker": "RMD",
+      "name": "ResMed",
+      "sector": "Health Care",
+      "cik": "0000943819"
+    },
+    {
+      "symbol": "ROK",
+      "yahoo_ticker": "ROK",
+      "name": "Rockwell Automation",
+      "sector": "Industrials",
+      "cik": "0001024478"
+    },
+    {
+      "symbol": "ROL",
+      "yahoo_ticker": "ROL",
+      "name": "Rollins, Inc.",
+      "sector": "Industrials",
+      "cik": "0000084839"
+    },
+    {
+      "symbol": "ROP",
+      "yahoo_ticker": "ROP",
+      "name": "Roper Technologies",
+      "sector": "Information Technology",
+      "cik": "0000882835"
+    },
+    {
+      "symbol": "ROST",
+      "yahoo_ticker": "ROST",
+      "name": "Ross Stores",
+      "sector": "Consumer Discretionary",
+      "cik": "0000745732"
+    },
+    {
+      "symbol": "RSG",
+      "yahoo_ticker": "RSG",
+      "name": "Republic Services",
+      "sector": "Industrials",
+      "cik": "0001060391"
+    },
+    {
+      "symbol": "RTX",
+      "yahoo_ticker": "RTX",
+      "name": "RTX Corporation",
+      "sector": "Industrials",
+      "cik": "0000101829"
+    },
+    {
+      "symbol": "RVTY",
+      "yahoo_ticker": "RVTY",
+      "name": "Revvity",
+      "sector": "Health Care",
+      "cik": "0000031791"
+    },
+    {
+      "symbol": "SBAC",
+      "yahoo_ticker": "SBAC",
+      "name": "SBA Communications",
+      "sector": "Real Estate",
+      "cik": "0001034054"
+    },
+    {
+      "symbol": "SBUX",
+      "yahoo_ticker": "SBUX",
+      "name": "Starbucks",
+      "sector": "Consumer Discretionary",
+      "cik": "0000829224"
+    },
+    {
+      "symbol": "SCHW",
+      "yahoo_ticker": "SCHW",
+      "name": "Charles Schwab Corporation",
+      "sector": "Financials",
+      "cik": "0000316709"
+    },
+    {
+      "symbol": "SHW",
+      "yahoo_ticker": "SHW",
+      "name": "Sherwin-Williams",
+      "sector": "Materials",
+      "cik": "0000089800"
+    },
+    {
+      "symbol": "SJM",
+      "yahoo_ticker": "SJM",
+      "name": "J.M. Smucker Company (The)",
+      "sector": "Consumer Staples",
+      "cik": "0000091419"
+    },
+    {
+      "symbol": "SLB",
+      "yahoo_ticker": "SLB",
+      "name": "Schlumberger",
+      "sector": "Energy",
+      "cik": "0000087347"
+    },
+    {
+      "symbol": "SMCI",
+      "yahoo_ticker": "SMCI",
+      "name": "Supermicro",
+      "sector": "Information Technology",
+      "cik": "0001375365"
+    },
+    {
+      "symbol": "SNA",
+      "yahoo_ticker": "SNA",
+      "name": "Snap-on",
+      "sector": "Industrials",
+      "cik": "0000091440"
+    },
+    {
+      "symbol": "SNDK",
+      "yahoo_ticker": "SNDK",
+      "name": "Sandisk",
+      "sector": "Information Technology",
+      "cik": "0002023554"
+    },
+    {
+      "symbol": "SNPS",
+      "yahoo_ticker": "SNPS",
+      "name": "Synopsys",
+      "sector": "Information Technology",
+      "cik": "0000883241"
+    },
+    {
+      "symbol": "SO",
+      "yahoo_ticker": "SO",
+      "name": "Southern Company",
+      "sector": "Utilities",
+      "cik": "0000092122"
+    },
+    {
+      "symbol": "SOLV",
+      "yahoo_ticker": "SOLV",
+      "name": "Solventum",
+      "sector": "Health Care",
+      "cik": "0001964738"
+    },
+    {
+      "symbol": "SPG",
+      "yahoo_ticker": "SPG",
+      "name": "Simon Property Group",
+      "sector": "Real Estate",
+      "cik": "0001063761"
+    },
+    {
+      "symbol": "SPGI",
+      "yahoo_ticker": "SPGI",
+      "name": "S&P Global",
+      "sector": "Financials",
+      "cik": "0000064040"
+    },
+    {
+      "symbol": "SRE",
+      "yahoo_ticker": "SRE",
+      "name": "Sempra",
+      "sector": "Utilities",
+      "cik": "0001032208"
+    },
+    {
+      "symbol": "STE",
+      "yahoo_ticker": "STE",
+      "name": "Steris",
+      "sector": "Health Care",
+      "cik": "0001757898"
+    },
+    {
+      "symbol": "STLD",
+      "yahoo_ticker": "STLD",
+      "name": "Steel Dynamics",
+      "sector": "Materials",
+      "cik": "0001022671"
+    },
+    {
+      "symbol": "STT",
+      "yahoo_ticker": "STT",
+      "name": "State Street Corporation",
+      "sector": "Financials",
+      "cik": "0000093751"
+    },
+    {
+      "symbol": "STX",
+      "yahoo_ticker": "STX",
+      "name": "Seagate Technology",
+      "sector": "Information Technology",
+      "cik": "0001137789"
+    },
+    {
+      "symbol": "STZ",
+      "yahoo_ticker": "STZ",
+      "name": "Constellation Brands",
+      "sector": "Consumer Staples",
+      "cik": "0000016918"
+    },
+    {
+      "symbol": "SW",
+      "yahoo_ticker": "SW",
+      "name": "Smurfit Westrock",
+      "sector": "Materials",
+      "cik": "0002005951"
+    },
+    {
+      "symbol": "SWK",
+      "yahoo_ticker": "SWK",
+      "name": "Stanley Black & Decker",
+      "sector": "Industrials",
+      "cik": "0000093556"
+    },
+    {
+      "symbol": "SWKS",
+      "yahoo_ticker": "SWKS",
+      "name": "Skyworks Solutions",
+      "sector": "Information Technology",
+      "cik": "0000004127"
+    },
+    {
+      "symbol": "SYF",
+      "yahoo_ticker": "SYF",
+      "name": "Synchrony Financial",
+      "sector": "Financials",
+      "cik": "0001601712"
+    },
+    {
+      "symbol": "SYK",
+      "yahoo_ticker": "SYK",
+      "name": "Stryker Corporation",
+      "sector": "Health Care",
+      "cik": "0000310764"
+    },
+    {
+      "symbol": "SYY",
+      "yahoo_ticker": "SYY",
+      "name": "Sysco",
+      "sector": "Consumer Staples",
+      "cik": "0000096021"
+    },
+    {
+      "symbol": "T",
+      "yahoo_ticker": "T",
+      "name": "AT&T",
+      "sector": "Communication Services",
+      "cik": "0000732717"
+    },
+    {
+      "symbol": "TAP",
+      "yahoo_ticker": "TAP",
+      "name": "Molson Coors Beverage Company",
+      "sector": "Consumer Staples",
+      "cik": "0000024545"
+    },
+    {
+      "symbol": "TDG",
+      "yahoo_ticker": "TDG",
+      "name": "TransDigm Group",
+      "sector": "Industrials",
+      "cik": "0001260221"
+    },
+    {
+      "symbol": "TDY",
+      "yahoo_ticker": "TDY",
+      "name": "Teledyne Technologies",
+      "sector": "Information Technology",
+      "cik": "0001094285"
+    },
+    {
+      "symbol": "TECH",
+      "yahoo_ticker": "TECH",
+      "name": "Bio-Techne",
+      "sector": "Health Care",
+      "cik": "0000842023"
+    },
+    {
+      "symbol": "TEL",
+      "yahoo_ticker": "TEL",
+      "name": "TE Connectivity",
+      "sector": "Information Technology",
+      "cik": "0001385157"
+    },
+    {
+      "symbol": "TER",
+      "yahoo_ticker": "TER",
+      "name": "Teradyne",
+      "sector": "Information Technology",
+      "cik": "0000097210"
+    },
+    {
+      "symbol": "TFC",
+      "yahoo_ticker": "TFC",
+      "name": "Truist Financial",
+      "sector": "Financials",
+      "cik": "0000092230"
+    },
+    {
+      "symbol": "TGT",
+      "yahoo_ticker": "TGT",
+      "name": "Target Corporation",
+      "sector": "Consumer Staples",
+      "cik": "0000027419"
+    },
+    {
+      "symbol": "TJX",
+      "yahoo_ticker": "TJX",
+      "name": "TJX Companies",
+      "sector": "Consumer Discretionary",
+      "cik": "0000109198"
+    },
+    {
+      "symbol": "TKO",
+      "yahoo_ticker": "TKO",
+      "name": "TKO Group Holdings",
+      "sector": "Communication Services",
+      "cik": "0001973266"
+    },
+    {
+      "symbol": "TMO",
+      "yahoo_ticker": "TMO",
+      "name": "Thermo Fisher Scientific",
+      "sector": "Health Care",
+      "cik": "0000097745"
+    },
+    {
+      "symbol": "TMUS",
+      "yahoo_ticker": "TMUS",
+      "name": "T-Mobile US",
+      "sector": "Communication Services",
+      "cik": "0001283699"
+    },
+    {
+      "symbol": "TPL",
+      "yahoo_ticker": "TPL",
+      "name": "Texas Pacific Land Corporation",
+      "sector": "Energy",
+      "cik": "0001811074"
+    },
+    {
+      "symbol": "TPR",
+      "yahoo_ticker": "TPR",
+      "name": "Tapestry, Inc.",
+      "sector": "Consumer Discretionary",
+      "cik": "0001116132"
+    },
+    {
+      "symbol": "TRGP",
+      "yahoo_ticker": "TRGP",
+      "name": "Targa Resources",
+      "sector": "Energy",
+      "cik": "0001389170"
+    },
+    {
+      "symbol": "TRMB",
+      "yahoo_ticker": "TRMB",
+      "name": "Trimble Inc.",
+      "sector": "Information Technology",
+      "cik": "0000864749"
+    },
+    {
+      "symbol": "TROW",
+      "yahoo_ticker": "TROW",
+      "name": "T. Rowe Price",
+      "sector": "Financials",
+      "cik": "0001113169"
+    },
+    {
+      "symbol": "TRV",
+      "yahoo_ticker": "TRV",
+      "name": "Travelers Companies (The)",
+      "sector": "Financials",
+      "cik": "0000086312"
+    },
+    {
+      "symbol": "TSCO",
+      "yahoo_ticker": "TSCO",
+      "name": "Tractor Supply",
+      "sector": "Consumer Discretionary",
+      "cik": "0000916365"
+    },
+    {
+      "symbol": "TSLA",
+      "yahoo_ticker": "TSLA",
+      "name": "Tesla, Inc.",
+      "sector": "Consumer Discretionary",
+      "cik": "0001318605"
+    },
+    {
+      "symbol": "TSN",
+      "yahoo_ticker": "TSN",
+      "name": "Tyson Foods",
+      "sector": "Consumer Staples",
+      "cik": "0000100493"
+    },
+    {
+      "symbol": "TT",
+      "yahoo_ticker": "TT",
+      "name": "Trane Technologies",
+      "sector": "Industrials",
+      "cik": "0001466258"
+    },
+    {
+      "symbol": "TTD",
+      "yahoo_ticker": "TTD",
+      "name": "Trade Desk (The)",
+      "sector": "Communication Services",
+      "cik": "0001671933"
+    },
+    {
+      "symbol": "TTWO",
+      "yahoo_ticker": "TTWO",
+      "name": "Take-Two Interactive",
+      "sector": "Communication Services",
+      "cik": "0000946581"
+    },
+    {
+      "symbol": "TXN",
+      "yahoo_ticker": "TXN",
+      "name": "Texas Instruments",
+      "sector": "Information Technology",
+      "cik": "0000097476"
+    },
+    {
+      "symbol": "TXT",
+      "yahoo_ticker": "TXT",
+      "name": "Textron",
+      "sector": "Industrials",
+      "cik": "0000217346"
+    },
+    {
+      "symbol": "TYL",
+      "yahoo_ticker": "TYL",
+      "name": "Tyler Technologies",
+      "sector": "Information Technology",
+      "cik": "0000860731"
+    },
+    {
+      "symbol": "UAL",
+      "yahoo_ticker": "UAL",
+      "name": "United Airlines Holdings",
+      "sector": "Industrials",
+      "cik": "0000100517"
+    },
+    {
+      "symbol": "UBER",
+      "yahoo_ticker": "UBER",
+      "name": "Uber",
+      "sector": "Industrials",
+      "cik": "0001543151"
+    },
+    {
+      "symbol": "UDR",
+      "yahoo_ticker": "UDR",
+      "name": "UDR, Inc.",
+      "sector": "Real Estate",
+      "cik": "0000074208"
+    },
+    {
+      "symbol": "UHS",
+      "yahoo_ticker": "UHS",
+      "name": "Universal Health Services",
+      "sector": "Health Care",
+      "cik": "0000352915"
+    },
+    {
+      "symbol": "ULTA",
+      "yahoo_ticker": "ULTA",
+      "name": "Ulta Beauty",
+      "sector": "Consumer Discretionary",
+      "cik": "0001403568"
+    },
+    {
+      "symbol": "UNH",
+      "yahoo_ticker": "UNH",
+      "name": "UnitedHealth Group",
+      "sector": "Health Care",
+      "cik": "0000731766"
+    },
+    {
+      "symbol": "UNP",
+      "yahoo_ticker": "UNP",
+      "name": "Union Pacific Corporation",
+      "sector": "Industrials",
+      "cik": "0000100885"
+    },
+    {
+      "symbol": "UPS",
+      "yahoo_ticker": "UPS",
+      "name": "United Parcel Service",
+      "sector": "Industrials",
+      "cik": "0001090727"
+    },
+    {
+      "symbol": "URI",
+      "yahoo_ticker": "URI",
+      "name": "United Rentals",
+      "sector": "Industrials",
+      "cik": "0001067701"
+    },
+    {
+      "symbol": "USB",
+      "yahoo_ticker": "USB",
+      "name": "U.S. Bancorp",
+      "sector": "Financials",
+      "cik": "0000036104"
+    },
+    {
+      "symbol": "V",
+      "yahoo_ticker": "V",
+      "name": "Visa Inc.",
+      "sector": "Financials",
+      "cik": "0001403161"
+    },
+    {
+      "symbol": "VEEV",
+      "yahoo_ticker": "VEEV",
+      "name": "Veeva Systems",
+      "sector": "Health Care",
+      "cik": "0001393052"
+    },
+    {
+      "symbol": "VICI",
+      "yahoo_ticker": "VICI",
+      "name": "Vici Properties",
+      "sector": "Real Estate",
+      "cik": "0001705696"
+    },
+    {
+      "symbol": "VLO",
+      "yahoo_ticker": "VLO",
+      "name": "Valero Energy",
+      "sector": "Energy",
+      "cik": "0001035002"
+    },
+    {
+      "symbol": "VLTO",
+      "yahoo_ticker": "VLTO",
+      "name": "Veralto",
+      "sector": "Industrials",
+      "cik": "0001967680"
+    },
+    {
+      "symbol": "VMC",
+      "yahoo_ticker": "VMC",
+      "name": "Vulcan Materials Company",
+      "sector": "Materials",
+      "cik": "0001396009"
+    },
+    {
+      "symbol": "VRSK",
+      "yahoo_ticker": "VRSK",
+      "name": "Verisk Analytics",
+      "sector": "Industrials",
+      "cik": "0001442145"
+    },
+    {
+      "symbol": "VRSN",
+      "yahoo_ticker": "VRSN",
+      "name": "Verisign",
+      "sector": "Information Technology",
+      "cik": "0001014473"
+    },
+    {
+      "symbol": "VRT",
+      "yahoo_ticker": "VRT",
+      "name": "Vertiv",
+      "sector": "Industrials",
+      "cik": "0001674101"
+    },
+    {
+      "symbol": "VRTX",
+      "yahoo_ticker": "VRTX",
+      "name": "Vertex Pharmaceuticals",
+      "sector": "Health Care",
+      "cik": "0000875320"
+    },
+    {
+      "symbol": "VST",
+      "yahoo_ticker": "VST",
+      "name": "Vistra Corp.",
+      "sector": "Utilities",
+      "cik": "0001692819"
+    },
+    {
+      "symbol": "VTR",
+      "yahoo_ticker": "VTR",
+      "name": "Ventas",
+      "sector": "Real Estate",
+      "cik": "0000740260"
+    },
+    {
+      "symbol": "VTRS",
+      "yahoo_ticker": "VTRS",
+      "name": "Viatris",
+      "sector": "Health Care",
+      "cik": "0001792044"
+    },
+    {
+      "symbol": "VZ",
+      "yahoo_ticker": "VZ",
+      "name": "Verizon",
+      "sector": "Communication Services",
+      "cik": "0000732712"
+    },
+    {
+      "symbol": "WAB",
+      "yahoo_ticker": "WAB",
+      "name": "Wabtec",
+      "sector": "Industrials",
+      "cik": "0000943452"
+    },
+    {
+      "symbol": "WAT",
+      "yahoo_ticker": "WAT",
+      "name": "Waters Corporation",
+      "sector": "Health Care",
+      "cik": "0001000697"
+    },
+    {
+      "symbol": "WBD",
+      "yahoo_ticker": "WBD",
+      "name": "Warner Bros. Discovery",
+      "sector": "Communication Services",
+      "cik": "0001437107"
+    },
+    {
+      "symbol": "WDAY",
+      "yahoo_ticker": "WDAY",
+      "name": "Workday, Inc.",
+      "sector": "Information Technology",
+      "cik": "0001327811"
+    },
+    {
+      "symbol": "WDC",
+      "yahoo_ticker": "WDC",
+      "name": "Western Digital",
+      "sector": "Information Technology",
+      "cik": "0000106040"
+    },
+    {
+      "symbol": "WEC",
+      "yahoo_ticker": "WEC",
+      "name": "WEC Energy Group",
+      "sector": "Utilities",
+      "cik": "0000783325"
+    },
+    {
+      "symbol": "WELL",
+      "yahoo_ticker": "WELL",
+      "name": "Welltower",
+      "sector": "Real Estate",
+      "cik": "0000766704"
+    },
+    {
+      "symbol": "WFC",
+      "yahoo_ticker": "WFC",
+      "name": "Wells Fargo",
+      "sector": "Financials",
+      "cik": "0000072971"
+    },
+    {
+      "symbol": "WM",
+      "yahoo_ticker": "WM",
+      "name": "Waste Management",
+      "sector": "Industrials",
+      "cik": "0000823768"
+    },
+    {
+      "symbol": "WMB",
+      "yahoo_ticker": "WMB",
+      "name": "Williams Companies",
+      "sector": "Energy",
+      "cik": "0000107263"
+    },
+    {
+      "symbol": "WMT",
+      "yahoo_ticker": "WMT",
+      "name": "Walmart",
+      "sector": "Consumer Staples",
+      "cik": "0000104169"
+    },
+    {
+      "symbol": "WRB",
+      "yahoo_ticker": "WRB",
+      "name": "W. R. Berkley Corporation",
+      "sector": "Financials",
+      "cik": "0000011544"
+    },
+    {
+      "symbol": "WSM",
+      "yahoo_ticker": "WSM",
+      "name": "Williams-Sonoma, Inc.",
+      "sector": "Consumer Discretionary",
+      "cik": "0000719955"
+    },
+    {
+      "symbol": "WST",
+      "yahoo_ticker": "WST",
+      "name": "West Pharmaceutical Services",
+      "sector": "Health Care",
+      "cik": "0000105770"
+    },
+    {
+      "symbol": "WTW",
+      "yahoo_ticker": "WTW",
+      "name": "Willis Towers Watson",
+      "sector": "Financials",
+      "cik": "0001140536"
+    },
+    {
+      "symbol": "WY",
+      "yahoo_ticker": "WY",
+      "name": "Weyerhaeuser",
+      "sector": "Real Estate",
+      "cik": "0000106535"
+    },
+    {
+      "symbol": "WYNN",
+      "yahoo_ticker": "WYNN",
+      "name": "Wynn Resorts",
+      "sector": "Consumer Discretionary",
+      "cik": "0001174922"
+    },
+    {
+      "symbol": "XEL",
+      "yahoo_ticker": "XEL",
+      "name": "Xcel Energy",
+      "sector": "Utilities",
+      "cik": "0000072903"
+    },
+    {
+      "symbol": "XOM",
+      "yahoo_ticker": "XOM",
+      "name": "ExxonMobil",
+      "sector": "Energy",
+      "cik": "0000034088"
+    },
+    {
+      "symbol": "XYL",
+      "yahoo_ticker": "XYL",
+      "name": "Xylem Inc.",
+      "sector": "Industrials",
+      "cik": "0001524472"
+    },
+    {
+      "symbol": "XYZ",
+      "yahoo_ticker": "XYZ",
+      "name": "Block, Inc.",
+      "sector": "Financials",
+      "cik": "0001512673"
+    },
+    {
+      "symbol": "YUM",
+      "yahoo_ticker": "YUM",
+      "name": "Yum! Brands",
+      "sector": "Consumer Discretionary",
+      "cik": "0001041061"
+    },
+    {
+      "symbol": "ZBH",
+      "yahoo_ticker": "ZBH",
+      "name": "Zimmer Biomet",
+      "sector": "Health Care",
+      "cik": "0001136869"
+    },
+    {
+      "symbol": "ZBRA",
+      "yahoo_ticker": "ZBRA",
+      "name": "Zebra Technologies",
+      "sector": "Information Technology",
+      "cik": "0000877212"
+    },
+    {
+      "symbol": "ZTS",
+      "yahoo_ticker": "ZTS",
+      "name": "Zoetis",
+      "sector": "Health Care",
+      "cik": "0001555280"
+    }
+  ],
+  "disclaimer": "검증된 성과 우위 없음 · 조사 후보 목록"
+}

@@ -1,0 +1,9 @@
+﻿sector,population,resolved,coverage,minimum,passes,ratio_available,nonpositive_equity_auto_fail
+Communication Services,20,19,0.95,0.8,True,19,0
+Consumer Discretionary,47,36,0.7659574468085106,0.8,False,30,6
+Consumer Staples,34,28,0.8235294117647058,0.8,True,26,2
+Energy,21,20,0.9523809523809523,0.8,True,20,0
+Health Care,59,51,0.864406779661017,0.8,True,46,5
+Industrials,81,64,0.7901234567901234,0.8,False,62,2
+Information Technology,74,65,0.8783783783783784,0.8,True,62,3
+Materials,26,21,0.8076923076923077,0.8,True,21,0

@@ -1,0 +1,23 @@
+name: Quality oversold Telegram test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  send-test-message:
+    runs-on: ubuntu-latest
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - name: Check out requested revision
+        uses: actions/checkout@v4
+
+      - name: Send committed daily result
+        working-directory: analysis/quality-oversold-sec-feasibility
+        run: >-
+          python telegram_notify.py
+          --daily-result results/daily/2026-07-29.json

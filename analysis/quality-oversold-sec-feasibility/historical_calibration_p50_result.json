@@ -1,0 +1,20 @@
+{
+  "preregistration": "PREREGISTRATION.v0.7.md",
+  "data_scope": "coverage_only_no_prices_no_returns",
+  "prices_accessed": false,
+  "returns_calculated": false,
+  "calibration_start_month": "2010-10",
+  "calibration_end_month": "2015-09",
+  "first_signal_month": "2015-10",
+  "quantile_method": "linear_interpolation",
+  "quantile_probability": 0.5,
+  "ratio_observations": 20904,
+  "months_with_ratio_observations": 60,
+  "minimum_monthly_ratio_observations": 341,
+  "maximum_monthly_ratio_observations": 355,
+  "max_total_liabilities_to_equity": 1.268891979601298,
+  "rows_input": "analysis\\quality-oversold-sec-feasibility\\historical_fsds_monthly_rows_2009_2016.csv",
+  "rows_input_sha256": "ee229bae68f91d33a55c22f7b439fbeccc753d582f51a7216171ffd9e76ef7c1",
+  "window_input": "analysis\\quality-oversold-sec-feasibility\\historical_coverage_window_result.json",
+  "window_input_sha256": "62039595055b679543bf2d06eabc44f58e1bd58a02014e4cdeec5ba004c3a52e"
+}

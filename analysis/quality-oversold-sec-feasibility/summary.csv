@@ -1,0 +1,11 @@
+﻿symbol,financial_cik,revenue_q,net_income_q,ocf_q,equity_q,total_debt_q,gross_profit_q,filed_pct,accession_pct,amendment_count,all_six_fields_have_8_quarters
+AAPL,0000320193,8,8,8,8,8,8,100.0,100.0,0,True
+MSFT,0000789019,8,8,8,8,5,8,100.0,100.0,0,False
+GOOGL,0001652044,8,8,8,8,6,8,100.0,100.0,0,False
+HD,0000354950,8,8,8,8,8,8,100.0,100.0,0,True
+JNJ,0000200406,8,8,8,8,8,8,100.0,100.0,0,True
+PG,0000080424,8,8,8,8,8,8,100.0,100.0,0,True
+COST,0000909832,8,8,8,8,8,8,100.0,100.0,1,True
+CAT,0000018230,8,8,8,8,2,0,100.0,100.0,0,False
+XOM,0000034088,8,8,8,8,8,0,100.0,100.0,0,False
+LIN,0001707925,8,8,8,8,8,0,100.0,100.0,0,False
