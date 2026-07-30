@@ -8,6 +8,7 @@ import time
 from pathlib import Path
 
 import requests
+from requests import HTTPError
 
 
 BASE_URL = (
@@ -67,7 +68,14 @@ def download(quarter: str, output_dir: Path) -> dict[str, object]:
             stream=True,
             timeout=120,
         ) as response:
-            response.raise_for_status()
+            try:
+                response.raise_for_status()
+            except HTTPError as exception:
+                raise RuntimeError(
+                    "SEC FSDS archive unavailable; no stale-quarter "
+                    f"fallback applied: {quarter} "
+                    f"(HTTP {response.status_code})"
+                ) from exception
             with temporary.open("wb") as handle:
                 for chunk in response.iter_content(1024 * 1024):
                     if chunk:
