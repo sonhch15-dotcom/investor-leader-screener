@@ -1,0 +1,9 @@
+{
+  "disclaimer": "검증된 성과 우위 없음 · 조사 후보 목록",
+  "schema_version": 1,
+  "strategy_status": "FORWARD_TEST_ONLY_UNVALIDATED",
+  "snapshot_schedule": "FIRST_US_TRADING_DAY_OF_EACH_MONTH",
+  "snapshot_overwrite_allowed": false,
+  "next_trading_day_open_storage": "SEPARATE_ENTRY_FILE",
+  "performance_claim": "NONE"
+}
