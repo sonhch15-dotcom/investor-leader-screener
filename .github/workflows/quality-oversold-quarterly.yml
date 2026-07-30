@@ -27,6 +27,8 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    env:
+      SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
     steps:
       - name: Check out main
         uses: actions/checkout@v6
