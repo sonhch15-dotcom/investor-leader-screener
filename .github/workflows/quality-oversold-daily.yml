@@ -2,8 +2,8 @@ name: Quality oversold daily scan
 
 on:
   schedule:
-    # 22:00 UTC is after the US regular close in both DST regimes.
-    - cron: "0 22 * * 1-5"
+    # 22:17 UTC avoids the top-of-hour Actions load and is after the US regular close.
+    - cron: "17 22 * * 1-5"
   workflow_dispatch:
     inputs:
       as_of:
