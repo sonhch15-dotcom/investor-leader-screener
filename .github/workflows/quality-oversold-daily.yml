@@ -1,0 +1,92 @@
+name: Quality oversold daily scan
+
+on:
+  schedule:
+    # 22:00 UTC is after the US regular close in both DST regimes.
+    - cron: "0 22 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      as_of:
+        description: Optional YYYY-MM-DD market date
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: quality-oversold-automation
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: >-
+            analysis/quality-oversold-sec-feasibility/requirements-forward.txt
+
+      - name: Install dependencies
+        working-directory: analysis/quality-oversold-sec-feasibility
+        run: pip install -r requirements-forward.txt
+
+      - name: Resolve scan date
+        id: scan-date
+        shell: bash
+        run: |
+          value="${{ inputs.as_of }}"
+          if [[ -z "$value" ]]; then
+            value="$(date -u +%F)"
+          fi
+          echo "value=$value" >> "$GITHUB_OUTPUT"
+
+      - name: Run daily scan or log market closure
+        id: scan
+        working-directory: analysis/quality-oversold-sec-feasibility
+        shell: bash
+        run: |
+          result="results/daily/${{ steps.scan-date.outputs.value }}.json"
+          echo "result=$result" >> "$GITHUB_OUTPUT"
+          if [[ -f "$result" ]]; then
+            echo "[기록존재] $result"
+            echo "outcome=existing" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          python daily_scan.py --as-of "${{ steps.scan-date.outputs.value }}"
+          if [[ -f "$result" ]]; then
+            echo "outcome=created" >> "$GITHUB_OUTPUT"
+          else
+            echo "outcome=closed" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Send daily Telegram message
+        if: steps.scan.outputs.outcome == 'created'
+        working-directory: analysis/quality-oversold-sec-feasibility
+        run: >-
+          python telegram_notify.py
+          --daily-result "${{ steps.scan.outputs.result }}"
+
+      - name: Commit append-only daily result
+        if: steps.scan.outputs.outcome == 'created'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "analysis/quality-oversold-sec-feasibility/${{ steps.scan.outputs.result }}"
+          git diff --cached --quiet && exit 0
+          git commit -m "Record quality oversold scan ${{ steps.scan-date.outputs.value }}"
+          git pull --rebase origin main
+          git push origin HEAD:main

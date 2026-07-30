@@ -1,0 +1,98 @@
+name: Quality oversold monthly snapshot
+
+on:
+  workflow_run:
+    workflows:
+      - Quality oversold daily scan
+    types:
+      - completed
+  workflow_dispatch:
+    inputs:
+      as_of:
+        description: Optional YYYY-MM-DD market date
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: quality-oversold-automation
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Resolve snapshot date
+        id: snapshot-date
+        shell: bash
+        run: |
+          value="${{ inputs.as_of }}"
+          if [[ -z "$value" ]]; then
+            value="$(date -u +%F)"
+          fi
+          echo "value=$value" >> "$GITHUB_OUTPUT"
+
+      - name: Create snapshot when due
+        id: snapshot
+        working-directory: analysis/quality-oversold-sec-feasibility
+        shell: bash
+        run: |
+          daily="results/daily/${{ steps.snapshot-date.outputs.value }}.json"
+          output="ledger/signals/${{ steps.snapshot-date.outputs.value }}.json"
+          echo "daily=$daily" >> "$GITHUB_OUTPUT"
+          echo "output=$output" >> "$GITHUB_OUTPUT"
+          if [[ ! -f "$daily" ]]; then
+            echo "[스냅샷 미실행] 당일 일일 결과 없음"
+            echo "outcome=not_due" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [[ -f "$output" ]]; then
+            echo "[기록존재] $output"
+            echo "outcome=existing" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          python snapshot_ledger.py --daily-result "$daily"
+          if [[ -f "$output" ]]; then
+            echo "outcome=created" >> "$GITHUB_OUTPUT"
+          else
+            echo "outcome=not_due" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Send monthly Telegram message
+        if: steps.snapshot.outputs.outcome == 'created'
+        working-directory: analysis/quality-oversold-sec-feasibility
+        run: >-
+          python telegram_notify.py
+          --daily-result "${{ steps.snapshot.outputs.daily }}"
+          --monthly-snapshot
+
+      - name: Commit immutable monthly snapshot
+        if: steps.snapshot.outputs.outcome == 'created'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "analysis/quality-oversold-sec-feasibility/${{ steps.snapshot.outputs.output }}"
+          git diff --cached --quiet && exit 0
+          git commit -m "Record quality oversold snapshot ${{ steps.snapshot-date.outputs.value }}"
+          git pull --rebase origin main
+          git push origin HEAD:main
