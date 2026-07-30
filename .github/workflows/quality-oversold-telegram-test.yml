@@ -2,6 +2,15 @@ name: Quality oversold Telegram test
 
 on:
   workflow_dispatch:
+    inputs:
+      message_case:
+        description: Message shape to send
+        required: true
+        default: current_signals
+        type: choice
+        options:
+          - current_signals
+          - zero_signals
 
 permissions:
   contents: read
@@ -17,7 +26,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Send committed daily result
+        if: inputs.message_case == 'current_signals'
         working-directory: analysis/quality-oversold-sec-feasibility
         run: >-
           python telegram_notify.py
           --daily-result results/daily/2026-07-29.json
+
+      - name: Send zero-signal test
+        if: inputs.message_case == 'zero_signals'
+        working-directory: analysis/quality-oversold-sec-feasibility
+        run: >-
+          python telegram_notify.py
+          --daily-result results/daily/2026-07-29.json
+          --test-zero-signals
