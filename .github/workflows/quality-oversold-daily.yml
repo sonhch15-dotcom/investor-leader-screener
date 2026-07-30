@@ -90,3 +90,35 @@ jobs:
           git commit -m "Record quality oversold scan ${{ steps.scan-date.outputs.value }}"
           git pull --rebase origin main
           git push origin HEAD:main
+
+      - name: Update forward entry and performance ledgers
+        if: >-
+          steps.scan.outputs.outcome == 'created' ||
+          steps.scan.outputs.outcome == 'existing'
+        working-directory: analysis/quality-oversold-sec-feasibility
+        run: >-
+          python update_performance.py
+          --as-of "${{ steps.scan-date.outputs.value }}"
+
+      - name: Commit forward entry and performance ledgers
+        if: >-
+          steps.scan.outputs.outcome == 'created' ||
+          steps.scan.outputs.outcome == 'existing'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- \
+            analysis/quality-oversold-sec-feasibility/ledger/performance.md
+          if [[ -d analysis/quality-oversold-sec-feasibility/ledger/entries ]]; then
+            git add -- \
+              analysis/quality-oversold-sec-feasibility/ledger/entries
+          fi
+          if [[ -d analysis/quality-oversold-sec-feasibility/ledger/outcomes ]]; then
+            git add -- \
+              analysis/quality-oversold-sec-feasibility/ledger/outcomes
+          fi
+          git diff --cached --quiet && exit 0
+          git commit -m "Update quality oversold performance ${{ steps.scan-date.outputs.value }}"
+          git pull --rebase origin main
+          git push origin HEAD:main

@@ -5,5 +5,14 @@
   "snapshot_schedule": "FIRST_US_TRADING_DAY_OF_EACH_MONTH",
   "snapshot_overwrite_allowed": false,
   "next_trading_day_open_storage": "SEPARATE_ENTRY_FILE",
+  "holding_periods_trading_days": [
+    63,
+    126,
+    252
+  ],
+  "outcome_storage": "IMMUTABLE_FILE_PER_COHORT_AND_HORIZON",
+  "minimum_cohorts_before_interpretation": 20,
+  "incomplete_status": "RIGHT_CENSORED",
+  "missing_price_status": "DATA_INCIDENT_REVIEW_REQUIRED",
   "performance_claim": "NONE"
 }
