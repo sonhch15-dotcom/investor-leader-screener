@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+import tempfile
 import unittest
+from pathlib import Path
 
 from telegram_notify import (
     DISCLAIMER,
     TELEGRAM_MESSAGE_LIMIT,
     build_message,
+    load_local_env,
     send_telegram,
 )
 
@@ -65,6 +68,27 @@ class FakeResponse:
 
 
 class TelegramMessageTest(unittest.TestCase):
+    def test_local_env_loads_without_overriding_injected_values(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            env_file = Path(directory) / ".env"
+            env_file.write_text(
+                "TELEGRAM_BOT_TOKEN=local-token\n"
+                "TELEGRAM_CHAT_ID=-12345\n",
+                encoding="utf-8",
+            )
+            environ = {"TELEGRAM_BOT_TOKEN": "actions-secret"}
+
+            load_local_env(env_file, environ)
+
+            self.assertEqual(
+                environ["TELEGRAM_BOT_TOKEN"],
+                "actions-secret",
+            )
+            self.assertEqual(
+                environ["TELEGRAM_CHAT_ID"],
+                "-12345",
+            )
+
     def test_disclaimer_is_always_second_line(self) -> None:
         message = build_message(
             daily_payload([]),

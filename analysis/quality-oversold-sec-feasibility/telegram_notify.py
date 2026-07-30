@@ -6,7 +6,7 @@ import os
 import urllib.parse
 import urllib.request
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any, Callable, MutableMapping
 
 
 ROOT = Path(__file__).resolve().parent
@@ -15,6 +15,10 @@ WATCHLIST_PATH = ROOT / "data" / "watchlist.json"
 DISCLAIMER = "검증된 성과 우위 없음 · 조사 후보 목록"
 TELEGRAM_MESSAGE_LIMIT = 4096
 DISPLAY_SIGNAL_LIMIT = 10
+TELEGRAM_ENV_KEYS = {
+    "TELEGRAM_BOT_TOKEN",
+    "TELEGRAM_CHAT_ID",
+}
 
 
 def latest_daily_result() -> Path:
@@ -26,6 +30,38 @@ def latest_daily_result() -> Path:
 
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_local_env(
+    path: Path,
+    environ: MutableMapping[str, str] = os.environ,
+) -> None:
+    if not path.exists():
+        return
+    for line_number, raw_line in enumerate(
+        path.read_text(encoding="utf-8").splitlines(),
+        start=1,
+    ):
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if "=" not in line:
+            raise ValueError(
+                f"Invalid .env line {line_number}: missing '='"
+            )
+        key, value = line.split("=", 1)
+        key = key.strip()
+        if key not in TELEGRAM_ENV_KEYS:
+            continue
+        value = value.strip()
+        if (
+            len(value) >= 2
+            and value[0] == value[-1]
+            and value[0] in {"'", '"'}
+        ):
+            value = value[1:-1]
+        if value:
+            environ.setdefault(key, value)
 
 
 def format_signal(row: dict[str, Any]) -> str:
@@ -186,6 +222,7 @@ def main() -> int:
         print(message)
         return 0
 
+    load_local_env(ROOT / ".env")
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
     if not bot_token or not chat_id:

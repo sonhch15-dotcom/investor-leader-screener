@@ -1,3 +1,5 @@
 __pycache__/
 raw/
 report-failure.png
+.env
+!.env.example
