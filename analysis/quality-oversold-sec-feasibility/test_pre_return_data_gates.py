@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import ast
+import json
+import sqlite3
 import unittest
 from datetime import date
 from pathlib import Path
@@ -91,6 +93,93 @@ class PreReturnDataGateTest(unittest.TestCase):
         self.assertFalse(
             attributes
             & {"pct_change", "cumprod", "shift", "rolling_return"}
+        )
+
+    def test_report_queries_match_gate_results(self) -> None:
+        artifact = json.loads(
+            (ROOT / "artifact.json").read_text(encoding="utf-8")
+        )
+        financial = json.loads(
+            (
+                ROOT
+                / "evaluation_financial_coverage_2015_2026q1.json"
+            ).read_text(encoding="utf-8")
+        )
+        price = json.loads(
+            (
+                ROOT / "legacy_price_coverage_2015_2026q2.json"
+            ).read_text(encoding="utf-8")
+        )
+        connection = sqlite3.connect(":memory:")
+        connection.row_factory = sqlite3.Row
+        connection.execute(
+            """
+            CREATE TABLE evaluation_financial_coverage_2015_2026q1_annual (
+              year INTEGER, period_start TEXT, period_end TEXT,
+              months_evaluated INTEGER, year_scope TEXT,
+              minimum_overall_coverage REAL,
+              minimum_sector_coverage REAL,
+              minimum_provenance_rate REAL,
+              passing_months INTEGER, year_passes INTEGER
+            )
+            """
+        )
+        connection.executemany(
+            """
+            INSERT INTO evaluation_financial_coverage_2015_2026q1_annual
+            VALUES (
+              :year, :period_start, :period_end, :months_evaluated,
+              :year_scope, :minimum_overall_coverage,
+              :minimum_sector_coverage, :minimum_provenance_rate,
+              :passing_months, :year_passes
+            )
+            """,
+            financial["annual"],
+        )
+        financial_rows = [
+            dict(row)
+            for row in connection.execute(
+                (ROOT / "report_evaluation_financial_coverage.sql")
+                .read_text(encoding="utf-8")
+            )
+        ]
+        self.assertEqual(
+            financial_rows,
+            artifact["snapshot"]["datasets"][
+                "evaluation_financial_coverage"
+            ],
+        )
+
+        connection.execute(
+            """
+            CREATE TABLE legacy_price_coverage_2015_2026q2_annual (
+              segment TEXT, year INTEGER, legacy_episodes INTEGER,
+              passing_episodes INTEGER, episode_pass_rate REAL,
+              session_coverage REAL, year_passes INTEGER
+            )
+            """
+        )
+        connection.executemany(
+            """
+            INSERT INTO legacy_price_coverage_2015_2026q2_annual
+            VALUES (
+              :segment, :year, :legacy_episodes, :passing_episodes,
+              :episode_pass_rate, :session_coverage, :year_passes
+            )
+            """,
+            price["annual"],
+        )
+        price_rows = [
+            dict(row)
+            for row in connection.execute(
+                (ROOT / "report_legacy_price_coverage.sql").read_text(
+                    encoding="utf-8"
+                )
+            )
+        ]
+        self.assertEqual(
+            price_rows,
+            artifact["snapshot"]["datasets"]["legacy_price_coverage"],
         )
 
 
