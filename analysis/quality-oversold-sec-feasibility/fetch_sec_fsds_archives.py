@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import time
 from pathlib import Path
 
@@ -13,7 +14,13 @@ BASE_URL = (
     "https://www.sec.gov/files/dera/data/"
     "financial-statement-data-sets/{quarter}.zip"
 )
-USER_AGENT = "quality-oversold-research contact@example.com"
+USER_AGENT = os.environ.get(
+    "SEC_USER_AGENT",
+    (
+        "quality-oversold-screener/1.0 "
+        "sonhch15-dotcom@users.noreply.github.com"
+    ),
+)
 
 
 def parse_quarter(value: str) -> tuple[int, int]:

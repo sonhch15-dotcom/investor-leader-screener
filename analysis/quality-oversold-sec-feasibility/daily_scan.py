@@ -276,6 +276,18 @@ def latest_market_date(
     return max(dates)
 
 
+def market_session_status(
+    index_frame: pd.DataFrame | None,
+    as_of: date,
+) -> dict[str, Any]:
+    latest = latest_market_date(index_frame, as_of)
+    return {
+        "requested_date": as_of.isoformat(),
+        "latest_available_market_date": latest.isoformat(),
+        "is_requested_date_available": latest == as_of,
+    }
+
+
 def build_scan(
     *,
     as_of: date,
@@ -649,14 +661,42 @@ def main() -> int:
         raise RuntimeError("Constituent disclaimer missing")
     if watchlist.get("disclaimer") != DISCLAIMER:
         raise RuntimeError("Watchlist disclaimer missing")
+    index_histories, index_missing = download_histories(
+        [INDEX_TICKER],
+        args.as_of,
+    )
+    if index_missing:
+        raise RuntimeError("S&P 500 index price history unavailable")
+    session = market_session_status(
+        index_histories.get(INDEX_TICKER),
+        args.as_of,
+    )
+    if not session["is_requested_date_available"]:
+        print(
+            json.dumps(
+                {
+                    "disclaimer": DISCLAIMER,
+                    "status": "MARKET_CLOSED",
+                    "log": "[휴장]",
+                    **session,
+                    "files_written": False,
+                    "telegram_sent": False,
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+        return 0
+
     tickers = sorted(
         {
             row["yahoo_ticker"]
             for row in constituents["constituents"]
         }
-        | {INDEX_TICKER, BENCHMARK_TICKER}
+        | {BENCHMARK_TICKER}
     )
     histories, missing = download_histories(tickers, args.as_of)
+    histories.update(index_histories)
     payload = build_scan(
         as_of=args.as_of,
         constituents_payload=constituents,

@@ -11,6 +11,7 @@ from daily_scan import (
     build_scan,
     evaluate_price,
     extract_histories,
+    market_session_status,
     write_new_json,
     wilder_rsi,
 )
@@ -89,6 +90,22 @@ class DownloadShapeTest(unittest.TestCase):
 
         self.assertEqual(set(result), {"AAA", "BBB"})
         self.assertIn("Adj Close", result["AAA"].columns)
+
+    def test_market_session_status_distinguishes_closed_day(self) -> None:
+        index = history([100.0] * 252)
+
+        open_status = market_session_status(index, MARKET_DATE)
+        closed_status = market_session_status(
+            index,
+            MARKET_DATE + timedelta(days=1),
+        )
+
+        self.assertTrue(open_status["is_requested_date_available"])
+        self.assertFalse(closed_status["is_requested_date_available"])
+        self.assertEqual(
+            closed_status["latest_available_market_date"],
+            MARKET_DATE.isoformat(),
+        )
 
 
 class ScanTest(unittest.TestCase):
