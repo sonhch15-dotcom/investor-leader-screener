@@ -6,6 +6,7 @@ import json
 import os
 import urllib.parse
 import urllib.request
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Callable, MutableMapping
 
@@ -16,6 +17,7 @@ WATCHLIST_PATH = ROOT / "data" / "watchlist.json"
 DISCLAIMER = "검증된 성과 우위 없음 · 조사 후보 목록"
 TELEGRAM_MESSAGE_LIMIT = 4096
 DISPLAY_SIGNAL_LIMIT = 10
+WATCHLIST_STALE_AFTER_DAYS = 100
 TELEGRAM_ENV_KEYS = {
     "TELEGRAM_BOT_TOKEN",
     "TELEGRAM_CHAT_ID",
@@ -97,6 +99,12 @@ def format_signal(row: dict[str, Any]) -> str:
     )
 
 
+def watchlist_refresh_date(watchlist: dict[str, Any]) -> date:
+    return datetime.fromisoformat(
+        watchlist["generated_at_utc"].replace("Z", "+00:00")
+    ).date()
+
+
 def build_message(
     daily: dict[str, Any],
     watchlist: dict[str, Any],
@@ -115,9 +123,22 @@ def build_message(
     lines = [
         f"{title} {daily['market_data_date']}",
         DISCLAIMER,
-        "",
-        f"신호 {len(daily['signals'])}종목",
     ]
+    refresh_date = watchlist_refresh_date(watchlist)
+    watchlist_age_days = (
+        date.fromisoformat(daily["market_data_date"]) - refresh_date
+    ).days
+    if watchlist_age_days >= WATCHLIST_STALE_AFTER_DAYS:
+        lines.extend(
+            [
+                "",
+                (
+                    "⚠ 감시목록 갱신 필요 "
+                    f"(마지막 갱신: {refresh_date.isoformat()})"
+                ),
+            ]
+        )
+    lines.extend(["", f"신호 {len(daily['signals'])}종목"])
 
     shown = sorted(
         daily["signals"],

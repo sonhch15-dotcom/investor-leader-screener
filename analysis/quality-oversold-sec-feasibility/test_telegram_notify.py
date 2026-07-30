@@ -18,6 +18,7 @@ from telegram_notify import (
 def watchlist_payload() -> dict:
     return {
         "disclaimer": DISCLAIMER,
+        "generated_at_utc": "2026-07-29T04:05:26+00:00",
         "funnel": {
             "unique_issuers": 500,
             "sector_included_issuers": 362,
@@ -128,6 +129,25 @@ class TelegramMessageTest(unittest.TestCase):
         self.assertIn("신호 0종목", message)
         self.assertIn(
             "오늘 조건을 모두 충족한 종목이 없습니다.",
+            message,
+        )
+        self.assertNotIn("감시목록 갱신 필요", message)
+
+    def test_stale_watchlist_warning_starts_at_100_days(self) -> None:
+        watchlist = watchlist_payload()
+        watchlist["generated_at_utc"] = (
+            "2026-04-20T00:00:00+00:00"
+        )
+
+        message = build_message(
+            daily_payload([]),
+            watchlist,
+            result_filename="results/daily/2026-07-29.json",
+        )
+
+        self.assertEqual(message.splitlines()[1], DISCLAIMER)
+        self.assertIn(
+            "⚠ 감시목록 갱신 필요 (마지막 갱신: 2026-04-20)",
             message,
         )
 
