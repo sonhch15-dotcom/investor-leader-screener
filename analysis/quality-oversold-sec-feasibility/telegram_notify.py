@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import os
 import urllib.parse
@@ -30,6 +31,24 @@ def latest_daily_result() -> Path:
 
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def display_result_path(path: Path) -> str:
+    resolved = path.resolve()
+    try:
+        return resolved.relative_to(ROOT).as_posix()
+    except ValueError:
+        return str(resolved)
+
+
+def zero_signal_test_payload(
+    daily: dict[str, Any],
+) -> dict[str, Any]:
+    payload = copy.deepcopy(daily)
+    payload["signals"] = []
+    payload["funnel"]["final_signals"] = 0
+    payload["funnel"]["rsi_condition_pass_after_drawdown"] = 0
+    return payload
 
 
 def load_local_env(
@@ -205,6 +224,11 @@ def parse_args() -> argparse.Namespace:
         "--monthly-snapshot",
         action="store_true",
     )
+    parser.add_argument(
+        "--test-zero-signals",
+        action="store_true",
+        help="Send a zero-signal test message without changing source data",
+    )
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -212,10 +236,13 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     daily_path = args.daily_result or latest_daily_result()
+    daily = load_json(daily_path)
+    if args.test_zero_signals:
+        daily = zero_signal_test_payload(daily)
     message = build_message(
-        load_json(daily_path),
+        daily,
         load_json(args.watchlist),
-        result_filename=daily_path.relative_to(ROOT).as_posix(),
+        result_filename=display_result_path(daily_path),
         monthly_snapshot=args.monthly_snapshot,
     )
     if args.dry_run:

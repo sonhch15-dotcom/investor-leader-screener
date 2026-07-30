@@ -8,8 +8,10 @@ from telegram_notify import (
     DISCLAIMER,
     TELEGRAM_MESSAGE_LIMIT,
     build_message,
+    display_result_path,
     load_local_env,
     send_telegram,
+    zero_signal_test_payload,
 )
 
 
@@ -68,6 +70,32 @@ class FakeResponse:
 
 
 class TelegramMessageTest(unittest.TestCase):
+    def test_zero_signal_payload_does_not_mutate_source(self) -> None:
+        source = daily_payload([signal("AAA")])
+
+        transformed = zero_signal_test_payload(source)
+
+        self.assertEqual(len(source["signals"]), 1)
+        self.assertEqual(source["funnel"]["final_signals"], 1)
+        self.assertEqual(transformed["signals"], [])
+        self.assertEqual(transformed["funnel"]["final_signals"], 0)
+        self.assertEqual(
+            transformed["funnel"][
+                "rsi_condition_pass_after_drawdown"
+            ],
+            0,
+        )
+
+    def test_relative_result_path_is_resolved_from_working_directory(
+        self,
+    ) -> None:
+        path = Path("results/daily/2026-07-29.json")
+
+        self.assertEqual(
+            display_result_path(path),
+            "results/daily/2026-07-29.json",
+        )
+
     def test_local_env_loads_without_overriding_injected_values(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             env_file = Path(directory) / ".env"
