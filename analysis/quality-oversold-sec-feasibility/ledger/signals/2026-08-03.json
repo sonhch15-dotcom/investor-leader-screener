@@ -1,0 +1,218 @@
+{
+  "disclaimer": "검증된 성과 우위 없음 · 조사 후보 목록",
+  "schema_version": 1,
+  "snapshot_kind": "MONTHLY_FORWARD_SIGNAL_SNAPSHOT",
+  "snapshot_status": "IMMUTABLE_SIGNAL_DATA_ENTRY_OPEN_PENDING",
+  "signal_date": "2026-08-03",
+  "generated_at_utc": "2026-08-03T23:20:53.557907+00:00",
+  "cohort_eligible": true,
+  "performance_claim": "NONE_UNVALIDATED",
+  "immutability_policy": "This file is never overwritten. Corrections and next-day entry prices are appended as separate files.",
+  "source_files": {
+    "daily_scan": {
+      "path": "results/daily/2026-08-03.json",
+      "sha256": "9e7ea5c9f25c7b024e267d222298a0fe0131b8a3dcc0e833a7da771100d3c87d",
+      "generated_at_utc": "2026-08-03T23:20:34.687302+00:00"
+    },
+    "quality_watchlist": {
+      "path": "data/watchlist.json",
+      "sha256": "8b4a9aac7d76244cabb44f2a5d16ad93703eb21dad5aa2dd14a04910f79ea895",
+      "generated_at_utc": "2026-07-30T04:05:26.702016+00:00",
+      "as_of_date": "2026-07-30"
+    }
+  },
+  "financial_data_freshness": {
+    "sec_fsds_latest_filing_quarter": "2026 Q1",
+    "all_evaluated_issuers": {
+      "income_statement_latest": {
+        "issuer_count": 354,
+        "min": "2017-12-31",
+        "max": "2026-07-04"
+      },
+      "balance_sheet_current": {
+        "issuer_count": 359,
+        "min": "2025-11-30",
+        "max": "2026-02-28"
+      }
+    },
+    "data_complete_issuers": {
+      "income_statement_latest": {
+        "issuer_count": 242,
+        "min": "2026-02-28",
+        "max": "2026-07-04"
+      },
+      "balance_sheet_current": {
+        "issuer_count": 242,
+        "min": "2025-11-30",
+        "max": "2026-02-28"
+      }
+    },
+    "watchlist_issuers": {
+      "income_statement_latest": {
+        "issuer_count": 31,
+        "min": "2026-03-29",
+        "max": "2026-07-04"
+      },
+      "balance_sheet_current": {
+        "issuer_count": 31,
+        "min": "2025-12-31",
+        "max": "2026-02-28"
+      }
+    }
+  },
+  "funnels": {
+    "quality_watchlist": {
+      "constituent_securities": 503,
+      "unique_issuers": 500,
+      "sector_excluded_issuers": 138,
+      "sector_included_issuers": 362,
+      "data_complete_issuers": 242,
+      "quality_gate_pass_issuers": 37,
+      "red_flag_pass_issuers": 31,
+      "watchlist_issuers": 31,
+      "watchlist_securities": 31
+    },
+    "daily_price_trigger": {
+      "sp500_constituent_securities": 503,
+      "sp500_price_complete_securities": 500,
+      "watchlist_securities": 31,
+      "watchlist_price_complete": 31,
+      "drawdown_condition_pass": 14,
+      "rsi_condition_pass_after_drawdown": 0,
+      "final_signals": 0,
+      "data_insufficient": 0
+    }
+  },
+  "watchlist_drawdown_breadth": {
+    "drawdown_condition_pass": 14,
+    "watchlist_securities": 31,
+    "share": 0.45161290322580644
+  },
+  "signal_tag_distribution": {
+    "trend": {},
+    "decline_cause": {}
+  },
+  "market_context": {
+    "sp500_index": {
+      "ticker": "^GSPC",
+      "drawdown_pct": 0.26768364110747456,
+      "adjusted_close": 7600.5,
+      "high_52_week_adjusted": 7620.89990234375
+    },
+    "spy": {
+      "ticker": "SPY",
+      "adjusted_close": 757.6699829101562,
+      "drawdown_pct": 0.11996548276853591
+    },
+    "sp500_constituent_drawdown_median_pct": 11.21826767355088,
+    "sp500_constituent_drawdown_distribution_pct": {
+      "sample_count": 500,
+      "q1_pct": 6.111787507852032,
+      "median_pct": 11.21826767355088,
+      "q3_pct": 23.537603646064888
+    }
+  },
+  "sector_drawdown_medians_pct": {
+    "Communication Services": 17.948141066809843,
+    "Consumer Discretionary": 15.609037592876152,
+    "Consumer Staples": 11.588197727041415,
+    "Energy": 11.505887590535336,
+    "Financials": 6.351556950142689,
+    "Health Care": 9.953866842739467,
+    "Industrials": 11.140812676908373,
+    "Information Technology": 28.6790819150636,
+    "Materials": 12.519708114594703,
+    "Real Estate": 7.290684931850889,
+    "Utilities": 8.90390270136776
+  },
+  "sector_drawdown_distributions_pct": {
+    "Communication Services": {
+      "sample_count": 23,
+      "q1_pct": 8.923969723323072,
+      "median_pct": 17.948141066809843,
+      "q3_pct": 28.324223855685943
+    },
+    "Consumer Discretionary": {
+      "sample_count": 47,
+      "q1_pct": 8.479687454449024,
+      "median_pct": 15.609037592876152,
+      "q3_pct": 27.07109092260815
+    },
+    "Consumer Staples": {
+      "sample_count": 34,
+      "q1_pct": 8.070930208096378,
+      "median_pct": 11.588197727041415,
+      "q3_pct": 20.985854218859167
+    },
+    "Energy": {
+      "sample_count": 21,
+      "q1_pct": 8.150308999612221,
+      "median_pct": 11.505887590535336,
+      "q3_pct": 17.38144314834633
+    },
+    "Financials": {
+      "sample_count": 76,
+      "q1_pct": 2.3299565324088056,
+      "median_pct": 6.351556950142689,
+      "q3_pct": 12.77826282528372
+    },
+    "Health Care": {
+      "sample_count": 59,
+      "q1_pct": 5.485314594762348,
+      "median_pct": 9.953866842739467,
+      "q3_pct": 17.23889310920123
+    },
+    "Industrials": {
+      "sample_count": 79,
+      "q1_pct": 4.913619938337383,
+      "median_pct": 11.140812676908373,
+      "q3_pct": 22.27952919053114
+    },
+    "Information Technology": {
+      "sample_count": 73,
+      "q1_pct": 13.165026383077604,
+      "median_pct": 28.6790819150636,
+      "q3_pct": 38.41284046028568
+    },
+    "Materials": {
+      "sample_count": 26,
+      "q1_pct": 7.5134507447030785,
+      "median_pct": 12.519708114594703,
+      "q3_pct": 21.7469962339193
+    },
+    "Real Estate": {
+      "sample_count": 31,
+      "q1_pct": 5.01252486101314,
+      "median_pct": 7.290684931850889,
+      "q3_pct": 9.620289972270912
+    },
+    "Utilities": {
+      "sample_count": 31,
+      "q1_pct": 7.08635042630632,
+      "median_pct": 8.90390270136776,
+      "q3_pct": 11.624281872567705
+    }
+  },
+  "sector_median_sample_counts": {
+    "Communication Services": 23,
+    "Consumer Discretionary": 47,
+    "Consumer Staples": 34,
+    "Energy": 21,
+    "Financials": 76,
+    "Health Care": 59,
+    "Industrials": 79,
+    "Information Technology": 73,
+    "Materials": 26,
+    "Real Estate": 31,
+    "Utilities": 31
+  },
+  "signal_count": 0,
+  "signals": [],
+  "spy_entry_price_assumption": {
+    "signal_date_adjusted_close": 757.6699829101562,
+    "next_trading_day": null,
+    "next_trading_day_raw_open": null,
+    "next_trading_day_adjusted_open": null,
+    "status": "PENDING_NEXT_TRADING_DAY_OPEN"
+  }
+}
