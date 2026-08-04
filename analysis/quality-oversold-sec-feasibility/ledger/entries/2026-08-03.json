@@ -1,0 +1,27 @@
+{
+  "disclaimer": "검증된 성과 우위 없음 · 조사 후보 목록",
+  "schema_version": 1,
+  "entry_kind": "NEXT_TRADING_DAY_OPEN",
+  "status": "COMPLETE_NO_SIGNALS",
+  "signal_date": "2026-08-03",
+  "entry_date": "2026-08-04",
+  "generated_at_utc": "2026-08-04T23:19:38.645267+00:00",
+  "price_source": "Yahoo Finance via yfinance",
+  "price_basis": "Raw Open is immutable execution-price evidence; adjusted Open is Open multiplied by same-session Adj Close / Close",
+  "source_snapshot": {
+    "path": "ledger/signals/2026-08-03.json",
+    "sha256": "447fe80f6a2ea86e7af5e02f8f727b988c50b3a9498e47cf10b08c57eafac652"
+  },
+  "spy": {
+    "ticker": "SPY",
+    "status": "COMPLETE",
+    "next_trading_day": "2026-08-04",
+    "next_trading_day_raw_open": 760.6300048828125,
+    "next_trading_day_raw_close": 771.3300170898438,
+    "next_trading_day_adjusted_close": 771.3300170898438,
+    "adjustment_factor_at_entry_recording": 1.0,
+    "next_trading_day_adjusted_open": 760.6300048828125
+  },
+  "signals": [],
+  "incidents": []
+}
