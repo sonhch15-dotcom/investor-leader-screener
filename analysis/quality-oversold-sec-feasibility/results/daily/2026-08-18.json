@@ -1,0 +1,1341 @@
+{
+  "disclaimer": "검증된 성과 우위 없음 · 조사 후보 목록",
+  "strategy_status": "FORWARD_TEST_ONLY_UNVALIDATED",
+  "artifact_role": "DAILY_BACKGROUND_MARKET_CONTEXT_NOT_PERFORMANCE_COHORT",
+  "generated_at_utc": "2026-08-18T22:42:52.163064+00:00",
+  "requested_as_of_date": "2026-08-18",
+  "market_data_date": "2026-08-18",
+  "price_source": "Yahoo Finance via yfinance",
+  "quality_watchlist_source": {
+    "path": "data/watchlist.json",
+    "as_of_date": "2026-07-30",
+    "generated_at_utc": "2026-07-30T04:05:26.702016+00:00",
+    "financial_data_freshness": {
+      "sec_fsds_latest_filing_quarter": "2026 Q1",
+      "all_evaluated_issuers": {
+        "income_statement_latest": {
+          "issuer_count": 354,
+          "min": "2017-12-31",
+          "max": "2026-07-04"
+        },
+        "balance_sheet_current": {
+          "issuer_count": 359,
+          "min": "2025-11-30",
+          "max": "2026-02-28"
+        }
+      },
+      "data_complete_issuers": {
+        "income_statement_latest": {
+          "issuer_count": 242,
+          "min": "2026-02-28",
+          "max": "2026-07-04"
+        },
+        "balance_sheet_current": {
+          "issuer_count": 242,
+          "min": "2025-11-30",
+          "max": "2026-02-28"
+        }
+      },
+      "watchlist_issuers": {
+        "income_statement_latest": {
+          "issuer_count": 31,
+          "min": "2026-03-29",
+          "max": "2026-07-04"
+        },
+        "balance_sheet_current": {
+          "issuer_count": 31,
+          "min": "2025-12-31",
+          "max": "2026-02-28"
+        }
+      }
+    }
+  },
+  "price_basis": "Adjusted Close for current price, RSI, and 200-day moving average; adjusted intraday High for 52-week high",
+  "thresholds": {
+    "drawdown_min_pct": 15.0,
+    "drawdown_max_pct": 40.0,
+    "rsi_period": 14,
+    "rsi_threshold": 35.0,
+    "sector_drawdown_multiplier": 1.3,
+    "moving_average_days": 200,
+    "high_window_trading_days": 252,
+    "threshold_policy": "preregistered; not adjusted for signal count"
+  },
+  "market_context": {
+    "sp500_index": {
+      "ticker": "^GSPC",
+      "drawdown_pct": 1.5983781719353107,
+      "adjusted_close": 7691.759765625,
+      "high_52_week_adjusted": 7816.7001953125
+    },
+    "spy": {
+      "ticker": "SPY",
+      "adjusted_close": 767.4500122070312,
+      "drawdown_pct": 1.52943826229337
+    },
+    "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+    "sp500_constituent_drawdown_distribution_pct": {
+      "sample_count": 497,
+      "q1_pct": 6.298052299137391,
+      "median_pct": 11.64115500178241,
+      "q3_pct": 22.27850126283375
+    }
+  },
+  "market_calendar": {
+    "market_date": "2026-08-18",
+    "is_first_trading_day_of_month": false
+  },
+  "funnel": {
+    "sp500_constituent_securities": 503,
+    "sp500_price_complete_securities": 497,
+    "watchlist_securities": 31,
+    "watchlist_price_complete": 31,
+    "drawdown_condition_pass": 16,
+    "rsi_condition_pass_after_drawdown": 2,
+    "final_signals": 2,
+    "data_insufficient": 0
+  },
+  "watchlist_drawdown_breadth": {
+    "drawdown_condition_pass": 16,
+    "watchlist_securities": 31,
+    "share": 0.5161290322580645
+  },
+  "signal_tag_distribution": {
+    "trend": {
+      "추세이탈": 2
+    },
+    "decline_cause": {
+      "개별하락": 1,
+      "시장동반": 1
+    }
+  },
+  "reason_counts": {
+    "data_insufficient": {},
+    "sp500_universe_price_data_insufficient": {
+      "ADJUSTED_PRICE_252D_MISSING": 3,
+      "MARKET_DATE_PRICE_MISSING": 3
+    },
+    "download_missing": []
+  },
+  "sector_drawdown_medians_pct": {
+    "Communication Services": 14.03355927529355,
+    "Consumer Discretionary": 18.577071623805065,
+    "Consumer Staples": 12.835396314540853,
+    "Energy": 4.901627478674786,
+    "Financials": 7.469677846494916,
+    "Health Care": 8.70392491992843,
+    "Industrials": 12.266860606290585,
+    "Information Technology": 25.008357582300043,
+    "Materials": 12.98172479447889,
+    "Real Estate": 9.118200149939792,
+    "Utilities": 9.701656028508399
+  },
+  "sector_drawdown_distributions_pct": {
+    "Communication Services": {
+      "sample_count": 22,
+      "q1_pct": 7.188827614743278,
+      "median_pct": 14.03355927529355,
+      "q3_pct": 30.472516388597807
+    },
+    "Consumer Discretionary": {
+      "sample_count": 47,
+      "q1_pct": 9.862606960036336,
+      "median_pct": 18.577071623805065,
+      "q3_pct": 27.612140301700443
+    },
+    "Consumer Staples": {
+      "sample_count": 34,
+      "q1_pct": 8.652828353887454,
+      "median_pct": 12.835396314540853,
+      "q3_pct": 20.12986777822799
+    },
+    "Energy": {
+      "sample_count": 21,
+      "q1_pct": 1.0124978391426454,
+      "median_pct": 4.901627478674786,
+      "q3_pct": 9.063274619903783
+    },
+    "Financials": {
+      "sample_count": 76,
+      "q1_pct": 3.8603217534836087,
+      "median_pct": 7.469677846494916,
+      "q3_pct": 12.543161093158156
+    },
+    "Health Care": {
+      "sample_count": 59,
+      "q1_pct": 3.2317501581613453,
+      "median_pct": 8.70392491992843,
+      "q3_pct": 15.961282131695953
+    },
+    "Industrials": {
+      "sample_count": 79,
+      "q1_pct": 6.133942749571347,
+      "median_pct": 12.266860606290585,
+      "q3_pct": 22.095112114910414
+    },
+    "Information Technology": {
+      "sample_count": 73,
+      "q1_pct": 13.06936761512164,
+      "median_pct": 25.008357582300043,
+      "q3_pct": 32.69619732662705
+    },
+    "Materials": {
+      "sample_count": 26,
+      "q1_pct": 8.547097764274739,
+      "median_pct": 12.98172479447889,
+      "q3_pct": 17.453727078089287
+    },
+    "Real Estate": {
+      "sample_count": 29,
+      "q1_pct": 7.3946696555496905,
+      "median_pct": 9.118200149939792,
+      "q3_pct": 13.445939084780068
+    },
+    "Utilities": {
+      "sample_count": 31,
+      "q1_pct": 6.466659857099149,
+      "median_pct": 9.701656028508399,
+      "q3_pct": 11.48806282104491
+    }
+  },
+  "sector_median_sample_counts": {
+    "Communication Services": 22,
+    "Consumer Discretionary": 47,
+    "Consumer Staples": 34,
+    "Energy": 21,
+    "Financials": 76,
+    "Health Care": 59,
+    "Industrials": 79,
+    "Information Technology": 73,
+    "Materials": 26,
+    "Real Estate": 29,
+    "Utilities": 31
+  },
+  "sp500_universe_price_data_insufficient": [
+    {
+      "symbol": "AVB",
+      "yahoo_ticker": "AVB",
+      "sector": "Real Estate",
+      "reason": "MARKET_DATE_PRICE_MISSING",
+      "available_trading_days": null
+    },
+    {
+      "symbol": "EA",
+      "yahoo_ticker": "EA",
+      "sector": "Communication Services",
+      "reason": "MARKET_DATE_PRICE_MISSING",
+      "available_trading_days": null
+    },
+    {
+      "symbol": "EQR",
+      "yahoo_ticker": "EQR",
+      "sector": "Real Estate",
+      "reason": "MARKET_DATE_PRICE_MISSING",
+      "available_trading_days": null
+    },
+    {
+      "symbol": "FDXF",
+      "yahoo_ticker": "FDXF",
+      "sector": "Industrials",
+      "reason": "ADJUSTED_PRICE_252D_MISSING",
+      "available_trading_days": 57
+    },
+    {
+      "symbol": "HONA",
+      "yahoo_ticker": "HONA",
+      "sector": "Industrials",
+      "reason": "ADJUSTED_PRICE_252D_MISSING",
+      "available_trading_days": 45
+    },
+    {
+      "symbol": "Q",
+      "yahoo_ticker": "Q",
+      "sector": "Information Technology",
+      "reason": "ADJUSTED_PRICE_252D_MISSING",
+      "available_trading_days": 202
+    }
+  ],
+  "signals": [
+    {
+      "symbol": "CDNS",
+      "name": "Cadence Design Systems",
+      "sector": "Information Technology",
+      "status": "SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 316.5199890136719,
+      "high_52_week_adjusted": 416.69000244140625,
+      "drawdown_pct": 24.039456872215215,
+      "rsi_14_wilder": 32.86830221714685,
+      "moving_average_200_adjusted_close": 327.3880001831055,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 25.008357582300043,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 0.9612569235346116,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": true,
+      "roe": 0.20656163673119463,
+      "total_liabilities_to_equity": 0.8547337035439639,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER",
+        "GROSS_MARGIN_NOT_EVALUABLE"
+      ]
+    },
+    {
+      "symbol": "DECK",
+      "name": "Deckers Brands",
+      "sector": "Consumer Discretionary",
+      "status": "SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 89.51000213623047,
+      "high_52_week_adjusted": 125.44999694824219,
+      "drawdown_pct": 28.648860650701923,
+      "rsi_14_wilder": 32.63373312150239,
+      "moving_average_200_adjusted_close": 102.14044990539551,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 18.577071623805065,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 1.5421623618003737,
+      "decline_cause": "개별하락",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": true,
+      "roe": 0.4085945740088428,
+      "total_liabilities_to_equity": 0.5720338430951456,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER"
+      ]
+    }
+  ],
+  "watchlist_scan": [
+    {
+      "symbol": "ACN",
+      "name": "Accenture",
+      "sector": "Information Technology",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 172.92999267578125,
+      "high_52_week_adjusted": 285.21273559125314,
+      "drawdown_pct": 39.36806772765843,
+      "rsi_14_wilder": 59.3263967946096,
+      "moving_average_200_adjusted_close": 203.4567957687378,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 25.008357582300043,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 1.5741964500508276,
+      "decline_cause": "개별하락",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": false,
+      "roe": 0.2413056831171702,
+      "total_liabilities_to_equity": 1.0763434577558473,
+      "financial_periods": {
+        "income_statement_latest": "2026-05-31",
+        "income_statement_oldest": "2024-08-31",
+        "balance_sheet_current": "2026-02-28",
+        "balance_sheet_prior": "2025-02-28"
+      },
+      "quality_tags": [
+        "GROSS_MARGIN_NOT_EVALUABLE"
+      ]
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "sector": "Consumer Discretionary",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 259.45001220703125,
+      "high_52_week_adjusted": 287.20001220703125,
+      "drawdown_pct": 9.662255856728908,
+      "rsi_14_wilder": 50.92508254990525,
+      "moving_average_200_adjusted_close": 238.00850006103516,
+      "trend": "추세유지",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 18.577071623805065,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 0.5201172742612179,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": false,
+      "rsi_condition_pass": false,
+      "roe": 0.24284650185014062,
+      "total_liabilities_to_equity": 0.9900551007748166,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER",
+        "GROSS_MARGIN_NOT_EVALUABLE"
+      ]
+    },
+    {
+      "symbol": "AOS",
+      "name": "A. O. Smith",
+      "sector": "Industrials",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 60.86000061035156,
+      "high_52_week_adjusted": 80.9171809914832,
+      "drawdown_pct": 24.78729502853384,
+      "rsi_14_wilder": 47.575547376111395,
+      "moving_average_200_adjusted_close": 64.76979663848877,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 12.266860606290585,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 2.0206714516526447,
+      "decline_cause": "개별하락",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": false,
+      "roe": 0.2826680953656576,
+      "total_liabilities_to_equity": 0.6914962325080732,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": []
+    },
+    {
+      "symbol": "CDNS",
+      "name": "Cadence Design Systems",
+      "sector": "Information Technology",
+      "status": "SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 316.5199890136719,
+      "high_52_week_adjusted": 416.69000244140625,
+      "drawdown_pct": 24.039456872215215,
+      "rsi_14_wilder": 32.86830221714685,
+      "moving_average_200_adjusted_close": 327.3880001831055,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 25.008357582300043,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 0.9612569235346116,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": true,
+      "roe": 0.20656163673119463,
+      "total_liabilities_to_equity": 0.8547337035439639,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER",
+        "GROSS_MARGIN_NOT_EVALUABLE"
+      ]
+    },
+    {
+      "symbol": "CIEN",
+      "name": "Ciena",
+      "sector": "Information Technology",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 405.5400085449219,
+      "high_52_week_adjusted": 637.510009765625,
+      "drawdown_pct": 36.38687983989222,
+      "rsi_14_wilder": 48.11979510367304,
+      "moving_average_200_adjusted_close": 365.59369972229,
+      "trend": "추세유지",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 25.008357582300043,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 1.454988786054685,
+      "decline_cause": "개별하락",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": false,
+      "roe": 0.15464124853314856,
+      "total_liabilities_to_equity": 1.110173194124822,
+      "financial_periods": {
+        "income_statement_latest": "2026-05-02",
+        "income_statement_oldest": "2024-07-27",
+        "balance_sheet_current": "2026-01-31",
+        "balance_sheet_prior": "2025-01-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER"
+      ]
+    },
+    {
+      "symbol": "CRM",
+      "name": "Salesforce",
+      "sector": "Information Technology",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 196.13999938964844,
+      "high_52_week_adjusted": 267.74756558580185,
+      "drawdown_pct": 26.74443221901347,
+      "rsi_14_wilder": 59.15803163876741,
+      "moving_average_200_adjusted_close": 200.82638542175292,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 25.008357582300043,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 1.069419778208152,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": false,
+      "roe": 0.16908146384126616,
+      "total_liabilities_to_equity": 0.8989043319468398,
+      "financial_periods": {
+        "income_statement_latest": "2026-04-30",
+        "income_statement_oldest": "2024-07-31",
+        "balance_sheet_current": "2026-01-31",
+        "balance_sheet_prior": "2025-01-31"
+      },
+      "quality_tags": []
+    },
+    {
+      "symbol": "DECK",
+      "name": "Deckers Brands",
+      "sector": "Consumer Discretionary",
+      "status": "SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 89.51000213623047,
+      "high_52_week_adjusted": 125.44999694824219,
+      "drawdown_pct": 28.648860650701923,
+      "rsi_14_wilder": 32.63373312150239,
+      "moving_average_200_adjusted_close": 102.14044990539551,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 18.577071623805065,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 1.5421623618003737,
+      "decline_cause": "개별하락",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": true,
+      "roe": 0.4085945740088428,
+      "total_liabilities_to_equity": 0.5720338430951456,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER"
+      ]
+    },
+    {
+      "symbol": "ETN",
+      "name": "Eaton Corporation",
+      "sector": "Industrials",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 431.3299865722656,
+      "high_52_week_adjusted": 478.0,
+      "drawdown_pct": 9.763601135509282,
+      "rsi_14_wilder": 51.09025031695771,
+      "moving_average_200_adjusted_close": 376.6318032836914,
+      "trend": "추세유지",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 12.266860606290585,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 0.7959331608041911,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": false,
+      "rsi_condition_pass": false,
+      "roe": 0.20823762789726458,
+      "total_liabilities_to_equity": 1.1188042529148903,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "GROSS_MARGIN_NOT_EVALUABLE"
+      ]
+    },
+    {
+      "symbol": "FAST",
+      "name": "Fastenal",
+      "sector": "Industrials",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 51.27000045776367,
+      "high_52_week_adjusted": 52.91999816894531,
+      "drawdown_pct": 3.1179096150269703,
+      "rsi_14_wilder": 64.31441129722565,
+      "moving_average_200_adjusted_close": 44.33901277542114,
+      "trend": "추세유지",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 12.266860606290585,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 0.25417339571202685,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": false,
+      "rsi_condition_pass": false,
+      "roe": 0.3433381579949722,
+      "total_liabilities_to_equity": 0.2812912060046658,
+      "financial_periods": {
+        "income_statement_latest": "2026-06-30",
+        "income_statement_oldest": "2024-09-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": []
+    },
+    {
+      "symbol": "FCX",
+      "name": "Freeport-McMoRan",
+      "sector": "Materials",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 66.31999969482422,
+      "high_52_week_adjusted": 72.10498882183789,
+      "drawdown_pct": 8.023008146229149,
+      "rsi_14_wilder": 51.994887545339985,
+      "moving_average_200_adjusted_close": 58.46549903869629,
+      "trend": "추세유지",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 12.98172479447889,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 0.6180232806692469,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": false,
+      "rsi_condition_pass": false,
+      "roe": 0.15631123919308357,
+      "total_liabilities_to_equity": 0.8906260157316518,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "GROSS_MARGIN_NOT_EVALUABLE"
+      ]
+    },
+    {
+      "symbol": "FFIV",
+      "name": "F5, Inc.",
+      "sector": "Information Technology",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 393.6199951171875,
+      "high_52_week_adjusted": 435.0,
+      "drawdown_pct": 9.512644800646552,
+      "rsi_14_wilder": 43.89785227110822,
+      "moving_average_200_adjusted_close": 317.5720004272461,
+      "trend": "추세유지",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 25.008357582300043,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 0.3803786301975799,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": false,
+      "rsi_condition_pass": false,
+      "roe": 0.20340397666730808,
+      "total_liabilities_to_equity": 0.7781833124944888,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER"
+      ]
+    },
+    {
+      "symbol": "FSLR",
+      "name": "First Solar",
+      "sector": "Information Technology",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 220.00999450683594,
+      "high_52_week_adjusted": 320.95001220703125,
+      "drawdown_pct": 31.45038599814204,
+      "rsi_14_wilder": 45.813570084669585,
+      "moving_average_200_adjusted_close": 234.1526013183594,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 25.008357582300043,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 1.257595021769899,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": false,
+      "roe": 0.18435979559725277,
+      "total_liabilities_to_equity": 0.3966575567836965,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER"
+      ]
+    },
+    {
+      "symbol": "IDXX",
+      "name": "Idexx Laboratories",
+      "sector": "Health Care",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 553.3200073242188,
+      "high_52_week_adjusted": 769.97998046875,
+      "drawdown_pct": 28.138390430960627,
+      "rsi_14_wilder": 44.75683598600064,
+      "moving_average_200_adjusted_close": 616.6828985595703,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 8.70392491992843,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 3.2328392868526725,
+      "decline_cause": "개별하락",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": false,
+      "roe": 0.729154932765579,
+      "total_liabilities_to_equity": 1.087202243950509,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER"
+      ]
+    },
+    {
+      "symbol": "INCY",
+      "name": "Incyte",
+      "sector": "Health Care",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 123.47000122070312,
+      "high_52_week_adjusted": 132.60000610351562,
+      "drawdown_pct": 6.885372897860254,
+      "rsi_14_wilder": 60.33326288323994,
+      "moving_average_200_adjusted_close": 103.17190002441406,
+      "trend": "추세유지",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 8.70392491992843,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 0.7910652907972087,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": false,
+      "rsi_condition_pass": false,
+      "roe": 0.30822687050410047,
+      "total_liabilities_to_equity": 0.3464930087752672,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER",
+        "GROSS_MARGIN_NOT_EVALUABLE"
+      ]
+    },
+    {
+      "symbol": "INTU",
+      "name": "Intuit",
+      "sector": "Information Technology",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 350.4100036621094,
+      "high_52_week_adjusted": 713.5241627771568,
+      "drawdown_pct": 50.890240030799475,
+      "rsi_14_wilder": 63.45091500750834,
+      "moving_average_200_adjusted_close": 444.03595146179197,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 25.008357582300043,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 2.034929317662094,
+      "decline_cause": "개별하락",
+      "drawdown_condition_pass": false,
+      "rsi_condition_pass": false,
+      "roe": 0.2249595131766207,
+      "total_liabilities_to_equity": 0.7991078457097874,
+      "financial_periods": {
+        "income_statement_latest": "2026-04-30",
+        "income_statement_oldest": "2024-07-31",
+        "balance_sheet_current": "2026-01-31",
+        "balance_sheet_prior": "2025-01-31"
+      },
+      "quality_tags": [
+        "GROSS_MARGIN_NOT_EVALUABLE"
+      ]
+    },
+    {
+      "symbol": "ISRG",
+      "name": "Intuitive Surgical",
+      "sector": "Health Care",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 391.17999267578125,
+      "high_52_week_adjusted": 603.8800048828125,
+      "drawdown_pct": 35.22223131867188,
+      "rsi_14_wilder": 54.027710994144186,
+      "moving_average_200_adjusted_close": 475.43360015869143,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 8.70392491992843,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 4.046706703320403,
+      "decline_cause": "개별하락",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": false,
+      "roe": 0.1731713507012259,
+      "total_liabilities_to_equity": 0.14028770963732534,
+      "financial_periods": {
+        "income_statement_latest": "2026-06-30",
+        "income_statement_oldest": "2024-09-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER"
+      ]
+    },
+    {
+      "symbol": "KEYS",
+      "name": "Keysight Technologies",
+      "sector": "Information Technology",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 341.0,
+      "high_52_week_adjusted": 374.9630126953125,
+      "drawdown_pct": 9.057696771524014,
+      "rsi_14_wilder": 52.79233214578151,
+      "moving_average_200_adjusted_close": 278.61939903259275,
+      "trend": "추세유지",
+      "available_trading_days": 308,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 25.008357582300043,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 0.36218679062453524,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": false,
+      "rsi_condition_pass": false,
+      "roe": 0.17852303523035232,
+      "total_liabilities_to_equity": 0.8502820306204674,
+      "financial_periods": {
+        "income_statement_latest": "2026-04-30",
+        "income_statement_oldest": "2024-07-31",
+        "balance_sheet_current": "2026-01-31",
+        "balance_sheet_prior": "2025-01-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER",
+        "GROSS_MARGIN_NOT_EVALUABLE"
+      ]
+    },
+    {
+      "symbol": "LIN",
+      "name": "Linde plc",
+      "sector": "Materials",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 478.7049865722656,
+      "high_52_week_adjusted": 548.2000122070312,
+      "drawdown_pct": 12.67694711552111,
+      "rsi_14_wilder": 37.7215286968515,
+      "moving_average_200_adjusted_close": 474.3749761962891,
+      "trend": "추세유지",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 12.98172479447889,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 0.9765225589216464,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": false,
+      "rsi_condition_pass": false,
+      "roe": 0.17809855524399903,
+      "total_liabilities_to_equity": 1.1849577124446233,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "GROSS_MARGIN_NOT_EVALUABLE"
+      ]
+    },
+    {
+      "symbol": "LRCX",
+      "name": "Lam Research",
+      "sector": "Information Technology",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 327.9200134277344,
+      "high_52_week_adjusted": 438.5,
+      "drawdown_pct": 25.21778485114381,
+      "rsi_14_wilder": 52.31326909831299,
+      "moving_average_200_adjusted_close": 251.08271362304689,
+      "trend": "추세유지",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 25.008357582300043,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 1.0083742912006342,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": false,
+      "roe": 0.6676194985998127,
+      "total_liabilities_to_equity": 1.108454686870714,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-29",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": []
+    },
+    {
+      "symbol": "LULU",
+      "name": "Lululemon Athletica",
+      "sector": "Consumer Discretionary",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 119.01000213623047,
+      "high_52_week_adjusted": 225.97999572753906,
+      "drawdown_pct": 47.3360454968239,
+      "rsi_14_wilder": 47.96406996273615,
+      "moving_average_200_adjusted_close": 156.00679958343505,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 18.577071623805065,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 2.5480897342381166,
+      "decline_cause": "개별하락",
+      "drawdown_condition_pass": false,
+      "rsi_condition_pass": false,
+      "roe": 0.32027023958190143,
+      "total_liabilities_to_equity": 0.7043562468761588,
+      "financial_periods": {
+        "income_statement_latest": "2026-05-03",
+        "income_statement_oldest": "2024-07-28",
+        "balance_sheet_current": "2026-01-31",
+        "balance_sheet_prior": "2025-01-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER"
+      ]
+    },
+    {
+      "symbol": "MNST",
+      "name": "Monster Beverage",
+      "sector": "Consumer Staples",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 47.380001068115234,
+      "high_52_week_adjusted": 100.33999633789062,
+      "drawdown_pct": 52.780543355248774,
+      "rsi_14_wilder": 15.427651449526422,
+      "moving_average_200_adjusted_close": 80.49290014266968,
+      "trend": "추세이탈",
+      "available_trading_days": 308,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 12.835396314540853,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 4.1121085833131,
+      "decline_cause": "개별하락",
+      "drawdown_condition_pass": false,
+      "rsi_condition_pass": false,
+      "roe": 0.2665434644101974,
+      "total_liabilities_to_equity": 0.21017861651434655,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER"
+      ]
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "sector": "Information Technology",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 481.6300048828125,
+      "high_52_week_adjusted": 550.2352153811121,
+      "drawdown_pct": 12.468342370777052,
+      "rsi_14_wilder": 62.61862651480272,
+      "moving_average_200_adjusted_close": 430.74239166259764,
+      "trend": "추세유지",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 25.008357582300043,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 0.49856702223426563,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": false,
+      "rsi_condition_pass": false,
+      "roe": 0.3403862745048138,
+      "total_liabilities_to_equity": 0.7020837863767189,
+      "financial_periods": {
+        "income_statement_latest": "2026-06-30",
+        "income_statement_oldest": "2024-09-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": []
+    },
+    {
+      "symbol": "MU",
+      "name": "Micron Technology",
+      "sector": "Information Technology",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 940.760009765625,
+      "high_52_week_adjusted": 1254.8069810301963,
+      "drawdown_pct": 25.02751227975627,
+      "rsi_14_wilder": 52.16792769067826,
+      "moving_average_200_adjusted_close": 559.9656915283203,
+      "trend": "추세유지",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 25.008357582300043,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 1.000765931844712,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": false,
+      "roe": 0.6663805851906623,
+      "total_liabilities_to_equity": 0.4009163802978236,
+      "financial_periods": {
+        "income_statement_latest": "2026-05-28",
+        "income_statement_oldest": "2024-08-29",
+        "balance_sheet_current": "2026-02-28",
+        "balance_sheet_prior": "2025-02-28"
+      },
+      "quality_tags": []
+    },
+    {
+      "symbol": "PH",
+      "name": "Parker Hannifin",
+      "sector": "Industrials",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 1041.8499755859375,
+      "high_52_week_adjusted": 1099.93994140625,
+      "drawdown_pct": 5.2811943301236735,
+      "rsi_14_wilder": 60.01236380365153,
+      "moving_average_200_adjusted_close": 922.5437915039063,
+      "trend": "추세유지",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 12.266860606290585,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 0.4305253397446627,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": false,
+      "rsi_condition_pass": false,
+      "roe": 0.24842060177749223,
+      "total_liabilities_to_equity": 1.1306564245810056,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "GROSS_MARGIN_NOT_EVALUABLE"
+      ]
+    },
+    {
+      "symbol": "PLTR",
+      "name": "Palantir Technologies",
+      "sector": "Information Technology",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 171.5399932861328,
+      "high_52_week_adjusted": 207.52000427246094,
+      "drawdown_pct": 17.3380928322884,
+      "rsi_14_wilder": 65.74163067951005,
+      "moving_average_200_adjusted_close": 151.8714497756958,
+      "trend": "추세유지",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 25.008357582300043,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 0.6932919435125015,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": false,
+      "roe": 0.3241900998731533,
+      "total_liabilities_to_equity": 0.18861898039412603,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER"
+      ]
+    },
+    {
+      "symbol": "PODD",
+      "name": "Insulet Corporation",
+      "sector": "Health Care",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 148.02999877929688,
+      "high_52_week_adjusted": 354.8800048828125,
+      "drawdown_pct": 58.28730930383668,
+      "rsi_14_wilder": 46.287429834625655,
+      "moving_average_200_adjusted_close": 221.64310081481935,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 8.70392491992843,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 6.696669587576816,
+      "decline_cause": "개별하락",
+      "drawdown_condition_pass": false,
+      "rsi_condition_pass": false,
+      "roe": 0.22998632842169223,
+      "total_liabilities_to_equity": 1.105596620908131,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER"
+      ]
+    },
+    {
+      "symbol": "RMD",
+      "name": "ResMed",
+      "sector": "Health Care",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 219.97999572753906,
+      "high_52_week_adjusted": 291.56838999089126,
+      "drawdown_pct": 24.552865372542154,
+      "rsi_14_wilder": 56.16310849141376,
+      "moving_average_200_adjusted_close": 228.70437271118163,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 8.70392491992843,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 2.820895814062703,
+      "decline_cause": "개별하락",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": false,
+      "roe": 0.25246061569470923,
+      "total_liabilities_to_equity": 0.3452828317074255,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": []
+    },
+    {
+      "symbol": "SNA",
+      "name": "Snap-on",
+      "sector": "Industrials",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 395.7099914550781,
+      "high_52_week_adjusted": 423.0199890136719,
+      "drawdown_pct": 6.455959119631838,
+      "rsi_14_wilder": 39.747727910183116,
+      "moving_average_200_adjusted_close": 370.4269146728516,
+      "trend": "추세유지",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 12.266860606290585,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 0.5262926943443988,
+      "decline_cause": "시장동반",
+      "drawdown_condition_pass": false,
+      "rsi_condition_pass": false,
+      "roe": 0.17511731521794371,
+      "total_liabilities_to_equity": 0.41221796937953264,
+      "financial_periods": {
+        "income_statement_latest": "2026-07-04",
+        "income_statement_oldest": "2024-09-28",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "GROSS_MARGIN_NOT_EVALUABLE"
+      ]
+    },
+    {
+      "symbol": "SYK",
+      "name": "Stryker Corporation",
+      "sector": "Health Care",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 331.3699951171875,
+      "high_52_week_adjusted": 392.86009949629477,
+      "drawdown_pct": 15.651908773109502,
+      "rsi_14_wilder": 48.3529438345976,
+      "moving_average_200_adjusted_close": 339.4766047668457,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 8.70392491992843,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 1.7982587070889169,
+      "decline_cause": "개별하락",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": false,
+      "roe": 0.15199617390512196,
+      "total_liabilities_to_equity": 1.1339875111507582,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": []
+    },
+    {
+      "symbol": "UBER",
+      "name": "Uber",
+      "sector": "Industrials",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 74.66000366210938,
+      "high_52_week_adjusted": 101.98999786376953,
+      "drawdown_pct": 26.79673965496644,
+      "rsi_14_wilder": 53.551313026314325,
+      "moving_average_200_adjusted_close": 77.3851501083374,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 12.266860606290585,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 2.184482282388109,
+      "decline_cause": "개별하락",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": false,
+      "roe": 0.3525065527418323,
+      "total_liabilities_to_equity": 1.2077870907658141,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "DIVIDEND_CUT_NOT_APPLICABLE_NON_PAYER",
+        "GROSS_MARGIN_NOT_EVALUABLE"
+      ]
+    },
+    {
+      "symbol": "UHS",
+      "name": "Universal Health Services",
+      "sector": "Health Care",
+      "status": "NO_SIGNAL",
+      "market_date": "2026-08-18",
+      "adjusted_close": 173.08999633789062,
+      "high_52_week_adjusted": 245.55016981504457,
+      "drawdown_pct": 29.50931515613816,
+      "rsi_14_wilder": 62.58492731771603,
+      "moving_average_200_adjusted_close": 189.08466201782227,
+      "trend": "추세이탈",
+      "available_trading_days": 309,
+      "indicator_window_trading_days": 252,
+      "sector_drawdown_median_pct": 8.70392491992843,
+      "sp500_constituent_drawdown_median_pct": 11.64115500178241,
+      "sector_comparison_multiplier": 1.3,
+      "drawdown_to_sector_median_ratio": 3.3903457839547646,
+      "decline_cause": "개별하락",
+      "drawdown_condition_pass": true,
+      "rsi_condition_pass": false,
+      "roe": 0.21117048630302518,
+      "total_liabilities_to_equity": 1.115825256159464,
+      "financial_periods": {
+        "income_statement_latest": "2026-03-31",
+        "income_statement_oldest": "2024-06-30",
+        "balance_sheet_current": "2025-12-31",
+        "balance_sheet_prior": "2024-12-31"
+      },
+      "quality_tags": [
+        "GROSS_MARGIN_NOT_EVALUABLE"
+      ]
+    }
+  ]
+}
